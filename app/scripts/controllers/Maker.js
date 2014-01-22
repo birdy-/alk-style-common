@@ -32,7 +32,7 @@ angular
             });
 
             var loadBrandProducts = function() {
-                $$sdkCrud.ProductList($scope.brand.id, null, null, 0, 20, function(response){
+                $$sdkCrud.ProductList({}, {brand_id: $scope.brand.id}, {}, 0, 20, function(response){
                     $scope.products = response.data;
                 });
             }
@@ -183,7 +183,16 @@ angular
                 if (!brand || !brand.id) {
                     return;
                 }
-                $$sdkCrud.ProductList(brand.id, $scope.product.name, $scope.productReference.value, $scope.offset, $scope.limit, function(response){
+                $$sdkCrud.ProductList({
+                            product_name: $scope.product.name,
+                        }, {
+                            brand_id: brand.id,
+                            productreference_value: $scope.productReference.value
+                        },
+                        {},
+                        $scope.offset,
+                        $scope.limit,
+                        function(response){
                     if(response.data.length == 0) {
                         return;
                     }
