@@ -1,0 +1,101 @@
+<div class="row">
+    <div class="col-lg-10">
+        <h1>
+            Mes produits :
+        </h1>
+    </div>
+    <div class="col-lg-2">
+        <img class="pull-right" ng-src="{{ brand.picture.logo }}" height="100px"/>
+    </div>
+</div>
+
+
+<div class="row">
+
+    <form role="form">
+        <div class="col-lg-3">
+            <div class="input-group">
+                <span class="input-group-addon color-product"><i class="icon-filter"></i></span>
+                <input type="text" class="form-control" placeholder="Filtrer par nom" ng-model="product.name"/>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="input-group">
+                <span class="input-group-addon color-product"><i class="icon-filter"></i></span>
+                <input type="text" class="form-control" placeholder="Filtrer par EAN" ng-model="productReference.value"/>
+            </div>
+        </form>
+    </div>
+    <div class="col-lg-4"></div>
+    <div class="col-lg-2">
+        <div class="pull-right">
+            <button ng-disabled="offset <= 0" ng-click="prev()" class="btn color-product">
+                <i class="icon-chevron-sign-left"></i>
+            </button>
+            {{ offset }} - {{ offset + limit }}
+            <button ng-click="next()" class="btn color-product">
+                <i class="icon-chevron-sign-right"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<br/>
+<div class="row">
+    <style>
+        .table thead > tr > th {
+            border-bottom: 1px solid #dddddd;
+            border-top: 1px solid #dddddd;
+        }
+        .table tbody > tr > td{
+            line-height: 32px;
+            vertical-align: middle;
+        }
+    </style>
+    <div class="col-lg-12">
+        <table class="table table-condensed table-bordered">
+            <thead class="color-product">
+                <tr>
+                    <th colspan="4"></th>
+                    <th colspan="{{ shopsN }}" class="text-center">Disponibilité</th>
+                    <th colspan="1"></th>
+                </tr>
+                <tr>
+                    <th>Image</th>
+                    <th>Nom</th>
+                    <th>Packaging</th>
+                    <th>EAN</th>
+                    <th ng-repeat="shop in shops" class="text-center" style="background-color: white;">
+                        <img ng-src="{{'http://assets.chefjerome.com/api/1/shop/' + shop.id + '/picture/logo/rotated/original.png'}}" style="max-width: 20px; max-height: 125px;"/>
+                    </th>
+                    <th>Mis à jour le...</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="product in products">
+                    <td>
+                        <img height="32px" width="32px" ng-src="{{ product.picture.main }}"/>
+                    </td>
+                    <td>
+                        <a href="/#/flux/maker/{{ brand.id }}/product/{{ product.id }}">
+                            {{ product.name }}
+                        </a>
+                    </td>
+                    <td class="text-center">
+                        {{ product.packaging }}
+                    </td>
+                    <td>
+                        <span ng-repeat="reference in product.hasReferences">
+                            <span class="label label-default" >{{ reference.value }}</span>
+                        </span>
+                    </td>
+                    <td ng-repeat="shop in shops" class="text-center" ng-class="{'color-product': soldIn(product, shop)}">
+                        <span ng-if="soldIn(product, shop)"><i class="icon-ok-sign"></i></span>
+                    </td>
+                    <td>
+                        {{ product.updatedAt }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

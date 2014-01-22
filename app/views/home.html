@@ -1,0 +1,58 @@
+<div ng-init="restrictedAction()"></div>
+
+<h2>Mes actions en cours</h2>
+
+<div class="row">
+    <div class="tile" ng-click="goto('/flux/retailer/show')">
+        <div class="description">
+            <div class="square">
+                <div class="tile-icon">
+                    <i class="icon-barcode"></i>
+                </div>
+                <div class="tile-name">
+                    Product DB
+                </div>
+                <div class="tile-subname">
+                    AuchanDrive
+                </div>
+            </div>
+        </div>
+        <div class="square color-product">
+        </div>
+    </div>
+    <div class="tile" ng-repeat="brand in brands" ng-click="goto('/flux/maker/'+brand.id+'/show')">
+        <div class="description">
+            <div class="square">
+                <div class="tile-icon">
+                    <i class="icon-barcode"></i>
+                </div>
+                <div class="tile-name">
+                    Product DB
+                </div>
+                <div class="tile-subname">
+                    {{ brand.id }}
+                </div>
+            </div>
+        </div>
+        <div class="square color-product">
+        </div>
+    </div>
+    <div class="tile">
+        <div class="description">
+            <div class="square">
+                <div class="tile-icon">
+                    <i class="icon-barcode"></i>
+                </div>
+                <div class="tile-name">
+                    Product DB
+                </div>
+                <div class="tile-subname">
+                    No gluten certification
+                </div>
+            </div>
+        </div>
+        <div class="square color-product">
+        </div>
+    </div>
+</div>
+

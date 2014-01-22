@@ -1,0 +1,1533 @@
+<div class="row">
+    <div class="col-lg-10">
+        <h1>
+            {{ product.name }}
+            <small>
+                {{ product.isProducedBy.name }}
+            </small>
+        </h1>
+    </div>
+    <div class="col-lg-2">
+        <img class="pull-right" ng-src="{{ product.isProducedBy.picture.logo }}" height="100px"/>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-10">
+        Dans les web services Chef Jérôme, ce produit est disponible à <a ng-href="{{ product._href }}">cette URL</a>.
+    </div>
+</div>
+
+
+<form class="form-horizontal" role="form">
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <h2>Général</h2>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="name" class="col-sm-3 control-label">Nom du produit</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" ng-model="product.name" placeholder="ex : Cola sans caféine">
+                    <span class="help-block">Le nom du produit, sans marque ni packaging.</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="packaging" class="col-sm-3 control-label">Packaging</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" ng-model="product.packaging" placeholder="ex : 6 canettes de 330 mL">
+                    <span class="help-block">La description du packaging du produit.</span>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" ng-model="product.isFresh"> frais
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" ng-model="product.isFrozen"> surgelé
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" ng-model="product.isCanned"> en conserve
+                    </label>
+                    <!--
+                    factorFUPA
+                    factorSIFU
+                    quantityNormalized
+                    unitFridge
+                    -->
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <img class="col-sm-12" ng-src="{{ product.picture.main }}"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="description" class="col-sm-2 control-label">Description</label>
+        <div class="col-sm-10">
+            <textarea class="form-control" rows="3" ng-model="product.description"></textarea>
+            <span class="help-block">La description du produit.</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="advices" class="col-sm-2 control-label">Conseils</label>
+        <div class="col-sm-10">
+            <textarea class="form-control" rows="3" ng-model="product.advices"></textarea>
+            <span class="help-block">Conseils d'utilisation du produit.</span>
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <div class="col-sm-10">
+            <h2>Disponibilités</h2>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-10 text-center">
+            <table class="table table-condensed table-bordered">
+                <thead>
+                    <tr class="color-product    ">
+                        <th class="text-center">Magasin</th>
+                        <th></th>
+                        <th class="text-left">Nom du produit dans le magasin</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="productInShop in product.isInstantiatedBy">
+                        <td><img height="20px" ng-src="{{ 'http://assets.chefjerome.com/api/1/shop/' + productInShop.isSoldBy.id + '/picture/logo/original.png' }}"/></td>
+                        <td><img height="62px" ng-src="{{ productInShop.urlPicture }}"/></td>
+                        <td class="text-left">{{ productInShop.name }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-sm-10">
+            <h2>Images</h2>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="advices" class="col-sm-2 control-label">Pack shot</label>
+        <div class="col-sm-10 text-center">
+            <div class="well">
+                <i class="icon-picture"></i> Déposer ici vos images
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="advices" class="col-sm-2 control-label">Faces</label>
+        <div class="col-sm-10 text-center">
+            <div class="well">
+                <i class="icon-picture"></i> Déposer ici vos images
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="advices" class="col-sm-2 control-label">Vue 3D</label>
+        <div class="col-sm-10 text-center">
+            <div class="well">
+                <i class="icon-picture"></i> Déposer ici votre fichier
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-sm-12">
+            <h2>Composition</h2>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="allergens" class="col-sm-2 control-label">Allergènes</label>
+        <div class="col-sm-10">
+            <div ng-model="product.allergens" data-placeholder="ex : " ui-select2="select2productCompositionOptions" style="width: 100%;"></div>
+            <!--<textarea class="form-control" rows="3" ng-model="product.allergens"></textarea>-->
+            <span class="help-block">Allergènes notables du produit.</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="composition" class="col-sm-2 control-label">Composition</label>
+        <div class="col-sm-10">
+            <div ng-model="product.composition" data-placeholder="ex : " ui-select2="select2productCompositionOptions" style="width: 100%;"></div>
+            <!--<textarea class="form-control" rows="3" ng-model="product.composition"></textarea>-->
+            <span class="help-block">Composition du produit.</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <div class="row">
+                <div class="col-sm-4">
+                    <h3>Divers</h3>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.hasCafeine">
+                            Contient de la caféine
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.hasDextrine">
+                            Contient de la dextrine
+                        </label>
+                    </div>
+
+                    <br/>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.hasAlcohol">
+                            Contient de l'alcool
+                        </label>
+                    </div>
+                    <label for="ratioAlcohol">Degré d'alcool</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" ng-model="product.ratioAlcohol" placeholder="ex : 18">
+                        <span class="input-group-addon">°</span>
+                    </div>
+
+                    <br/>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.isWholeCereals">
+                            Contient des céréales entières
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.hasExtraFibers">
+                            Contient des fibres ajoutées
+                        </label>
+                    </div>
+                    <label for="ratioAlcohol">Quantité de fibres</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" ng-model="product.amountFibers">
+                        <span class="input-group-addon">g</span>
+                    </div>
+
+                    <br/>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.hasGMO">
+                            Contient des OGMs
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <h3>Graisses</h3>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.hasOilPalm">
+                            Contient de l'huile de palme
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.hasRiskOilPalm">
+                            Peut contenir de l'huile de palme
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.hasOilCoprah">
+                            Contient de l'huile de coprah
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.hasOilCoconut">
+                            Contient de l'huile de coco
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.hasOilSunflower">
+                            Contient de l'huile de tournesol
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.hasOilOlive">
+                            Contient de l'huile d'olive
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.hasOilGrapeSeed">
+                            Contient de l'huile de pépin de raisin
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.hasOilCanola">
+                            Contient de l'huile de colza
+                        </label>
+                    </div>
+
+                    <h3>Composés lactés</h3>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.hasSaindoux">
+                            Contient du saindoux
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.hasButter">
+                            Contient du beurre
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.hasCream">
+                            Contient de la crème
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <h3>Sucres</h3>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.hasAddedSugar">
+                            Contient des sucres ajoutés
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.hasDextrose">
+                            Contient du dextrose
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.hasGlucose">
+                            Contient du glucose
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.hasFructose">
+                            Contient du fructose
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.hasLactose">
+                            Contient du lactose
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.hasSugarSyrup">
+                            Contient du sirop de sucre
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.hasHoney">
+                            Contient du miel
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.hasGluten">
+                            Contient du gluten
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.hasStarch">
+                            Contient de l'amidon
+                        </label>
+                    </div>
+                    <label for="ratioAlcohol">Quantité d'amidon</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" ng-model="product.amountStarch">
+                        <span class="input-group-addon">g</span>
+                    </div>
+
+
+                    <h3>Viande et œufs</h3>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.hasMeat">
+                            Contient de la viande
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.hasEggs">
+                            Contient des œufs
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-sm-10">
+            <h2>Nutrition</h2>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="nutrition" class="col-sm-2 control-label">Informations nutritionnelles</label>
+        <div class="col-sm-10">
+            <textarea class="form-control" rows="3" ng-model="product.nutrition"></textarea>
+            <span class="help-block">Informations nutritionnelles générales.</span>
+
+            <label class="checkbox-inline">
+                <input type="checkbox" ng-model="product.isReducedSalt"/> teneur en sel réduite
+            </label>
+            <label class="checkbox-inline">
+                <input type="checkbox" ng-model="product.isReducedSugar"/> teneur en réduite réduite
+            </label>
+            <label class="checkbox-inline">
+                <input type="checkbox" ng-model="product.isReducedFat"/>  teneur en graisses réduite
+            </label>
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <label for="qtyEnergy" class="col-sm-2 control-label">Energie</label>
+        <div class="col-sm-4">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.qtyEnergy" placeholder="ex : 100">
+                <span class="input-group-addon">kCal / 100g</span>
+            </div>
+        </div>
+        <label for="qtyLypidSaturated" class="col-sm-2 control-label">Lipides saturatés</label>
+        <div class="col-sm-4">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.qtyLypidSaturated" placeholder="ex : 100">
+                <span class="input-group-addon">g / 100g</span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="qtyGlucid" class="col-sm-2 control-label">Glucides</label>
+        <div class="col-sm-4">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.qtyGlucid" placeholder="ex : 100">
+                <span class="input-group-addon">g / 100g</span>
+            </div>
+        </div>
+        <label for="qtyLypidTrans" class="col-sm-2 control-label">Lipides Trans</label>
+        <div class="col-sm-4">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.qtyLypidTrans" placeholder="ex : 18">
+                <span class="input-group-addon">g / 100g</span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="qtySugar" class="col-sm-2 control-label">Sucres</label>
+        <div class="col-sm-4">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.qtySugar" placeholder="ex : 100">
+                <span class="input-group-addon">g / 100g</span>
+            </div>
+        </div>
+        <label for="qtyLypid1UnSaturated" class="col-sm-2 control-label">Lipides Mono-insaturés</label>
+        <div class="col-sm-4">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.qtyLypid1UnSaturated" placeholder="ex : 18">
+                <span class="input-group-addon">g / 100g</span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="qtyProtid" class="col-sm-2 control-label">Protides</label>
+        <div class="col-sm-4">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.qtyProtid" placeholder="ex : 100">
+                <span class="input-group-addon">g / 100g</span>
+            </div>
+        </div>
+        <label for="qtyLypidXUnSaturated" class="col-sm-2 control-label">Lipides Poly-insaturés</label>
+        <div class="col-sm-4">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.qtyLypidXUnSaturated" placeholder="ex : 18">
+                <span class="input-group-addon">g / 100g</span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="qtyLypid" class="col-sm-2 control-label">Lipides</label>
+        <div class="col-sm-4">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.qtyLypid" placeholder="ex : 100">
+                <span class="input-group-addon">g / 100g</span>
+            </div>
+        </div>
+        <label for="qtyLypidCholesterol" class="col-sm-2 control-label">Cholestérol</label>
+        <div class="col-sm-4">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.qtyLypidCholesterol" placeholder="ex : 18">
+                <span class="input-group-addon">g / 100g</span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="qtyWater" class="col-sm-2 control-label">Eau</label>
+        <div class="col-sm-4">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.qtyWater" placeholder="ex : 100">
+                <span class="input-group-addon">g / 100g</span>
+            </div>
+        </div>
+        <label for="qtyLypidOmega3" class="col-sm-2 control-label">Oméga 3</label>
+        <div class="col-sm-4">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.qtyLypidOmega3" placeholder="ex : 18">
+                <span class="input-group-addon">g / 100g</span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="ratioFat" class="col-sm-2 control-label">Rapport gras</label>
+        <div class="col-sm-4">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.ratioFat" placeholder="ex : 100">
+                <span class="input-group-addon">%</span>
+            </div>
+        </div>
+        <label for="qtyLypidOmega6" class="col-sm-2 control-label">Oméga 6</label>
+        <div class="col-sm-4">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.qtyLypidOmega6" placeholder="ex : 18">
+                <span class="input-group-addon">g / 100g</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-10">
+            <h3>Vitamines</h3>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="amountVitA" class="col-sm-2 control-label">Vitamine A</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.amountVitA" placeholder="ex : 100">
+                <span class="input-group-addon">mg / 100g</span>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="product.hasExtraVitA"/>
+                    Ajouté
+                </label>
+            </div>
+        </div>
+        <label for="amountVitARetinol" class="col-sm-2 control-label">Vitamine A Rétinol</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.amountVitARetinol" placeholder="ex : 100">
+                <span class="input-group-addon">mg / 100g</span>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="product.hasExtraVitARetinol"/>
+                    Ajouté
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="amountVitB1" class="col-sm-2 control-label">Vitamine B1</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.amountVitB1" placeholder="ex : 100">
+                <span class="input-group-addon">mg / 100g</span>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="product.hasExtraVitB1"/>
+                    Ajouté
+                </label>
+            </div>
+        </div>
+        <label for="amountVitB2" class="col-sm-2 control-label">Vitamine B2</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.amountVitB2" placeholder="ex : 100">
+                <span class="input-group-addon">mg / 100g</span>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="product.hasExtraVitB2"/>
+                    Ajouté
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="amountVitB3" class="col-sm-2 control-label">Vitamine B3</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.amountVitB3" placeholder="ex : 100">
+                <span class="input-group-addon">mg / 100g</span>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="product.hasExtraVitB3"/>
+                    Ajouté
+                </label>
+            </div>
+        </div>
+        <label for="amountVitB5" class="col-sm-2 control-label">Vitamine B5</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.amountVitB5" placeholder="ex : 100">
+                <span class="input-group-addon">mg / 100g</span>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="product.hasExtraVitB5"/>
+                    Ajouté
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="amountVitB6" class="col-sm-2 control-label">Vitamine B6</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.amountVitB6" placeholder="ex : 100">
+                <span class="input-group-addon">mg / 100g</span>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="product.hasExtraVitB6"/>
+                    Ajouté
+                </label>
+            </div>
+        </div>
+        <label for="amountVitB8" class="col-sm-2 control-label">Vitamine B8</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.amountVitB8" placeholder="ex : 100">
+                <span class="input-group-addon">mg / 100g</span>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="product.hasExtraVitB8"/>
+                    Ajouté
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="amountVitB9" class="col-sm-2 control-label">Vitamine B9</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.amountVitB9" placeholder="ex : 100">
+                <span class="input-group-addon">mg / 100g</span>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="product.hasExtraVitB9"/>
+                    Ajouté
+                </label>
+            </div>
+        </div>
+        <label for="amountVitB12" class="col-sm-2 control-label">Vitamine B12</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.amountVitB12" placeholder="ex : 100">
+                <span class="input-group-addon">mg / 100g</span>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="product.hasExtraVitB12"/>
+                    Ajouté
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="amountVitC" class="col-sm-2 control-label">Vitamine C</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.amountVitC" placeholder="ex : 100">
+                <span class="input-group-addon">mg / 100g</span>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="product.hasExtraVitC"/>
+                    Ajouté
+                </label>
+            </div>
+        </div>
+        <label for="amountVitD" class="col-sm-2 control-label">Vitamine D</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.amountVitD" placeholder="ex : 100">
+                <span class="input-group-addon">mg / 100g</span>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="product.hasExtraVitD"/>
+                    Ajouté
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="amountVitE" class="col-sm-2 control-label">Vitamine E</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.amountVitE" placeholder="ex : 100">
+                <span class="input-group-addon">mg / 100g</span>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="product.hasExtraVitE"/>
+                    Ajouté
+                </label>
+            </div>
+        </div>
+        <label for="amountVitK" class="col-sm-2 control-label">Vitamine K</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.amountVitK" placeholder="ex : 100">
+                <span class="input-group-addon">mg / 100g</span>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="product.hasExtraVitK"/>
+                    Ajouté
+                </label>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-10">
+            <h3>Minéraux et métaux</h3>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="amountCa" class="col-sm-2 control-label">Calcium</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.amountCa" placeholder="ex : 100">
+                <span class="input-group-addon">mg / 100g</span>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="product.hasExtraCa"/>
+                    Ajouté
+                </label>
+            </div>
+        </div>
+        <label for="amountFe" class="col-sm-2 control-label">Fer</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.amountFe" placeholder="ex : 100">
+                <span class="input-group-addon">mg / 100g</span>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="product.hasExtraFe"/>
+                    Ajouté
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="amountMg" class="col-sm-2 control-label">Magnésium</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.amountMg" placeholder="ex : 100">
+                <span class="input-group-addon">mg / 100g</span>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="product.hasExtraMg"/>
+                    Ajouté
+                </label>
+            </div>
+        </div>
+        <label for="amountNa" class="col-sm-2 control-label">Sodium</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.amountNa" placeholder="ex : 100">
+                <span class="input-group-addon">mg / 100g</span>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="product.hasExtraNa"/>
+                    Ajouté
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="amountP" class="col-sm-2 control-label">Phosphore</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.amountP" placeholder="ex : 100">
+                <span class="input-group-addon">mg / 100g</span>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="product.hasExtraP"/>
+                    Ajouté
+                </label>
+            </div>
+        </div>
+        <label for="amountK" class="col-sm-2 control-label">Potassium</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.amountK" placeholder="ex : 100">
+                <span class="input-group-addon">mg / 100g</span>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="product.hasExtraK"/>
+                    Ajouté
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="amountS" class="col-sm-2 control-label">Souffre</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.amountS" placeholder="ex : 100">
+                <span class="input-group-addon">mg / 100g</span>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="product.hasExtraS"/>
+                    Ajouté
+                </label>
+            </div>
+        </div>
+        <label for="amountAl" class="col-sm-2 control-label">Aluminium</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.amountAl" placeholder="ex : 100">
+                <span class="input-group-addon">mg / 100g</span>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="product.hasExtraAl"/>
+                    Ajouté
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="amountAs" class="col-sm-2 control-label">Arsenic</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.amountAs" placeholder="ex : 100">
+                <span class="input-group-addon">mg / 100g</span>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="product.hasExtraAs"/>
+                    Ajouté
+                </label>
+            </div>
+        </div>
+        <label for="amountB" class="col-sm-2 control-label">Bore</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.amountB" placeholder="ex : 100">
+                <span class="input-group-addon">mg / 100g</span>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="product.hasExtraB"/>
+                    Ajouté
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="amountCl" class="col-sm-2 control-label">Chlore</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.amountCl" placeholder="ex : 100">
+                <span class="input-group-addon">mg / 100g</span>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="product.hasExtraCl"/>
+                    Ajouté
+                </label>
+            </div>
+        </div>
+        <label for="amountCr" class="col-sm-2 control-label">Chrome</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.amountCr" placeholder="ex : 100">
+                <span class="input-group-addon">mg / 100g</span>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="product.hasExtraCr"/>
+                    Ajouté
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="amountCo" class="col-sm-2 control-label">Cobalt</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.amountCo" placeholder="ex : 100">
+                <span class="input-group-addon">mg / 100g</span>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="product.hasExtraCo"/>
+                    Ajouté
+                </label>
+            </div>
+        </div>
+        <label for="amountCu" class="col-sm-2 control-label">Cuivre</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.amountCu" placeholder="ex : 100">
+                <span class="input-group-addon">mg / 100g</span>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="product.hasExtraCu"/>
+                    Ajouté
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="amountF" class="col-sm-2 control-label">Fluor</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.amountF" placeholder="ex : 100">
+                <span class="input-group-addon">mg / 100g</span>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="product.hasExtraF"/>
+                    Ajouté
+                </label>
+            </div>
+        </div>
+        <label for="amountI" class="col-sm-2 control-label">Iode</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.amountI" placeholder="ex : 100">
+                <span class="input-group-addon">mg / 100g</span>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="product.hasExtraI"/>
+                    Ajouté
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="amountMn" class="col-sm-2 control-label">Magnésium</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.amountMn" placeholder="ex : 100">
+                <span class="input-group-addon">mg / 100g</span>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="product.hasExtraMn"/>
+                    Ajouté
+                </label>
+            </div>
+        </div>
+        <label for="amountMo" class="col-sm-2 control-label">Molybdène</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.amountMo" placeholder="ex : 100">
+                <span class="input-group-addon">mg / 100g</span>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="product.hasExtraMo"/>
+                    Ajouté
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="amountNi" class="col-sm-2 control-label">Nickel</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.amountNi" placeholder="ex : 100">
+                <span class="input-group-addon">mg / 100g</span>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="product.hasExtraNi"/>
+                    Ajouté
+                </label>
+            </div>
+        </div>
+        <label for="amountPb" class="col-sm-2 control-label">Plomb</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.amountPb" placeholder="ex : 100">
+                <span class="input-group-addon">mg / 100g</span>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="product.hasExtraPb"/>
+                    Ajouté
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="amountSi" class="col-sm-2 control-label">Silicium</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.amountSi" placeholder="ex : 100">
+                <span class="input-group-addon">mg / 100g</span>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="product.hasExtraSi"/>
+                    Ajouté
+                </label>
+            </div>
+        </div>
+        <label for="amountSe" class="col-sm-2 control-label">Sélénium</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.amountSe" placeholder="ex : 100">
+                <span class="input-group-addon">mg / 100g</span>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="product.hasExtraSe"/>
+                    Ajouté
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="amountVa" class="col-sm-2 control-label">Vanadium</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.amountVa" placeholder="ex : 100">
+                <span class="input-group-addon">mg / 100g</span>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="product.hasExtraVa"/>
+                    Ajouté
+                </label>
+            </div>
+        </div>
+        <label for="amountZn" class="col-sm-2 control-label">Zinc</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.amountZn" placeholder="ex : 100">
+                <span class="input-group-addon">mg / 100g</span>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="product.hasExtraZn"/>
+                    Ajouté
+                </label>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-10">
+            <h3>Additifs</h3>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="origin" class="col-sm-2 control-label">Additifs et conservateurs</label>
+        <div class="col-sm-10">
+            <!--<textarea class="form-control" rows="3" ng-model="product.additives"></textarea>-->
+            <div ng-model="product.additives" data-placeholder="ex : " ui-select2="select2productCompositionOptions" style="width: 100%;"rows="3"></div>
+            <span class="help-block">Liste des additifs et conservateurs.</span>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-sm-10">
+            <h2>Labels et distinctions</h2>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="origin" class="col-sm-2 control-label">Origine</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" ng-model="product.origin" placeholder="ex : Bourgogne, France">
+            <span class="help-block">L'origine de production.</span>
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label"></label>
+        <div class="col-sm-10">
+            <div class="row">
+                <div class="col-sm-4">
+                    <h3>Agriculture biologique</h3>
+                    <div class="checkbox media">
+                        <label>
+                            <input type="checkbox" ng-model="product.isOrganic"/>
+                            <img height="32px" src="http://assets.chefjerome.com/api/1/tag/abe.png">
+                            Biologique
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.isLabelledABFr"/>
+                            <img height="32px" src="http://assets.chefjerome.com/api/1/tag/abf.png">
+                            Agriculture Biologique Française
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.isLabelledABEu"/>
+                            <img height="32px" src="http://assets.chefjerome.com/api/1/tag/abe.png">
+                            Agriculture Biologique Européenne
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.isLabelledBioEquitable"/>
+                            <img height="32px" src="http://assets.chefjerome.com/api/1/tag/be.png">
+                            Bio-Equitable
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.isLabelledBioGarantie"/>
+                            <img height="32px" src="http://assets.chefjerome.com/api/1/tag/bg.png">
+                            Bio-Garantie
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.isLabelledBioCoherence"/>
+                            <img height="32px" src="http://assets.chefjerome.com/api/1/tag/bc.png">
+                            Bio-Cohérence
+                        </label>
+                    </div>
+                </div>
+
+
+                <div class="col-sm-4">
+                    <h3>Développement durable</h3>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.isLabelledFT">
+                            <img height="32px" src="http://assets.chefjerome.com/api/1/tag/ft.png">
+                            Fair Trade
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.isLabelledEko"/>
+                            <img height="32px" src="http://assets.chefjerome.com/api/1/tag/eko.png">
+                            Eko
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.isLabelledDemeter"/>
+                            <img height="32px" src="http://assets.chefjerome.com/api/1/tag/d.png">
+                            Demeter
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.isLabelledNatureEtProgres"/>
+                            <img height="32px" src="http://assets.chefjerome.com/api/1/tag/np.png">
+                            Nature Et Progrès
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.isLabelledBBC"/>
+                            <img height="32px" src="http://assets.chefjerome.com/api/1/tag/bbc.png">
+                            Bleu Blanc Cœur
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.isLabelledCPN"/>
+                            <img height="32px" src="http://assets.chefjerome.com/api/1/tag/cpn.png">
+                            Charte de Progrès Nutritionnel
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.isLabelledMH"/>
+                            <img height="32px" src="http://assets.chefjerome.com/api/1/tag/mh.png">
+                            Max Havelaar
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.isLabelledMSC"/>
+                            <img height="32px" src="http://assets.chefjerome.com/api/1/tag/msc.png">
+                            Marine Stewardship Council
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.isLabelledCP"/>
+                            <img height="32px" src="http://assets.chefjerome.com/api/1/tag/cp.png">
+                            Produit Certifié
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.isLabelledAC"/>
+                            <img height="32px" src="http://assets.chefjerome.com/api/1/tag/ac.png">
+                            Aquaculture Stewardship Council
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.isLabelledRF"/>
+                            <img height="32px" src="http://assets.chefjerome.com/api/1/tag/rf.png">
+                            Rainforest Alliance
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <h3>Provenance</h3>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.isLabelledMontagnes"/>
+                            <img height="32px" src="http://assets.chefjerome.com/api/1/tag/mf.png">
+                            Montagnes Françaises
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.isLabelledAOP"/>
+                            <img height="32px" src="http://assets.chefjerome.com/api/1/tag/aop.png">
+                            AOP
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.isLabelledAOC"/>
+                            <img height="32px" src="http://assets.chefjerome.com/api/1/tag/aoc.png">
+                            AOC
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.isLabelledOFG"/>
+                            <img height="32px" src="http://assets.chefjerome.com/api/1/tag/ofg.png">
+                            Origine Française Garantie
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.isLabelledV2BF"/>
+                            <img height="32px" src="http://assets.chefjerome.com/api/1/tag/v2bf.png">
+                            Viande de Bœuf Française
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <img height="32px" src="http://assets.chefjerome.com/api/1/tag/v2pf.png">
+                            <input type="checkbox" ng-model="product.isLabelledV2PF"/>
+                            Viande de Porc Française
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.isLabelledIGP"/>
+                            <img height="32px" src="http://assets.chefjerome.com/api/1/tag/igp.png">
+                            IGP
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.isLabelledSTG"/>
+                            <img height="32px" src="http://assets.chefjerome.com/api/1/tag/stg.png">
+                            Spécialité Traditionnelle Garantie
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.isLabelledLR"/>
+                            <img height="32px" src="http://assets.chefjerome.com/api/1/tag/lr.png">
+                            Label Rouge
+                        </label>
+                    </div>
+                    <!--
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.isLabelledAT"/>
+                            <img height="32px" src="http://assets.chefjerome.com/api/1/tag/at.png">
+                            AT
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.isLabelledHPD"/>
+                            <img height="32px" src="http://assets.chefjerome.com/api/1/tag/hpd.png">
+                            HPD
+                        </label>
+                    </div>
+                    -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="form-group">
+        <div class="col-sm-10">
+            <h2>Certifications</h2>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label"></label>
+        <div class="col-sm-10">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.isOrganic"/>
+                            Biologique
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.isKasher"/>
+                            Kasher
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.isHalal"/>
+                            Halal
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.isVegetarian"/>
+                            Végétarien
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="product.isVegetalian"/>
+                            Végétalien
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-sm-10">
+            <h2>Conservation</h2>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="origin" class="col-sm-2 control-label">Conseils de conservation</label>
+        <div class="col-sm-10">
+            <textarea class="form-control" rows="3" ng-model="product.conservation"></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="origin" class="col-sm-2 control-label">Notes sur la péremption</label>
+        <div class="col-sm-10">
+            <textarea class="form-control" rows="3" ng-model="product.peremption"></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-5">
+            <h3>Avant ouverture</h3>
+        </div>
+        <div class="col-sm-5">
+            <h3>Après ouverture</h3>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Température de conservation</label>
+        <div class="col-sm-4">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.tempConservationBefore" placeholder="ex : 20">
+                <span class="input-group-addon">° C</span>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="product.keepRefregiratedBefore"/>
+                    Réfrigéré
+                </label>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.tempConservationAfter" placeholder="ex : 6">
+                <span class="input-group-addon">° C</span>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="product.keepRefregiratedAfter"/>
+                    Réfrigéré
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Durée de conservation</label>
+        <div class="col-sm-5">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.durationConservationBefore" placeholder="ex : 30">
+                <span class="input-group-addon">j</span>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="product.durationConservationAfter" placeholder="ex : 6">
+                <span class="input-group-addon">j</span>
+            </div>
+        </div>
+    </div>
+
+    <!--
+    concept_id
+    concept
+    unit_si_id
+    unit_si
+    concept_unit_id
+    concept_unit
+    brand_id
+    brand
+    -->
+
+    <br/>
+    <br/>
+    <br/>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button ng-click="submit()" type="submit" class="pull-right btn color-product"><i class="icon-save"></i> Enregistrer</button>
+        </div>
+    </div>
+</form>

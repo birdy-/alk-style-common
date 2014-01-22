@@ -1,0 +1,135 @@
+<h1>{{ brand.name }}</h1>
+
+<section>
+    <div class="row">
+        <div class="col-lg-12">
+            <h2>
+                Description :
+            </h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-10">
+            <form class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label for="name" class="col-sm-2 control-label">Nom</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="name" ng-model="brand.name" placeholder="Nom de la marque">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="moto" class="col-sm-2 control-label">Slogan</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="moto" ng-model="brand.moto" placeholder="Site de la marque">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="url" class="col-sm-2 control-label">Site internet</label>
+                    <div class="col-sm-10">
+                        <input type="url" class="form-control" id="url" ng-model="brand.owns[0].url" placeholder="Site de la marque">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="description" class="col-sm-2 control-label">Description</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" id="description" ng-model="brand.description" placeholder="Description de la marque" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="history" class="col-sm-2 control-label">Histoire</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" id="history" ng-model="brand.history" placeholder="Histoire de la marque" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" ng-click="submit()" class="pull-right btn color-product"><i class="icon-save"></i> Enregister</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-2">
+            <label for="logo" class="control-label">Logo</label>
+            <div>
+                <img ng-src="{{ brand.picture.logo }}" style="width: 100%; padding-bottom: 20px;"/>
+            </div>
+            <div class="well">
+                <i class="icon-picture" id="logo"></i> Déposer ici vos images
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="row">
+        <div class="col-lg-12">
+            <h2>
+                Produits :
+            </h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-10">
+            <div class="row">
+                <div class="col-lg-10 col-lg-offset-2">
+                    <div class="well">
+                        <img ng-src="{{ product.picture.main }}" width="32px" height="32px" ng-repeat="product in products"/>
+                    </div>
+                    <a href="/#/flux/maker/{{ brand.id }}/product">Plus de détails</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section ng-if="brand.subBrands.length">
+    <div class="row">
+        <div class="col-lg-12">
+            <h2>
+                Sous-marques :
+            </h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-10">
+            <div class="row">
+                <div class="col-lg-2"></div>
+                <div class="col-lg-10">
+                    <a ng-href="/#/flux/maker/{{ subBrand.id}}/show" ng-repeat="subBrand in brand.subBrands">
+                        <img ng-src="{{ subBrand.picture.logo }}" width="64px" style="margin-right: 10px;"/>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--
+<br/>
+<br/>
+<br/>
+<br/>
+
+<form class="form-horizontal" role="form">
+    <div class="form-group">
+        <label for="qtyEnergy" class="col-sm-2 control-label">Valeur énergétique</label>
+        <div class="col-sm-3">
+            <div class="input-group has-success">
+                <input type="text" class="form-control" ng-model="product.qtyEnergy" placeholder="ex : 12.7">
+                <span class="input-group-addon">kCal / 100g</span>
+            </div>
+            <span class="help-block">La valeur énergétique du produit ramenée à 100 g de produit, exprimée en kilo-calories.</span>
+        </div>
+        <div class="col-sm-6">
+            <div class="popover fade right in" style="top: -48px; left: -12px; display: block; max-width: none;">
+                <div class="arrow"></div>
+                <h3 class="popover-title">Valeur énergétique</h3>
+                <div class="popover-content">
+                    La <strong>valeur énergétique</strong> d'un aliment est la quantité d'énergie pouvant en être retirée via la digestion. La <strong>valeur énergétique</strong> est exprimée en kilojoules (kJ) ou en kilocalories (kc). Pour obtenir celle-ci, on multiplie la quantité totale d'énergie contenue dans un aliment par 85 % (les pertes durant la digestion humaine représentent 15 % de la valeur totale).
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+-->

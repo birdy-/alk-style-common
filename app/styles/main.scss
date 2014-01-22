@@ -1,0 +1,409 @@
+$iconSpritePath: "../images/glyphicons-halflings.png";
+$iconWhiteSpritePath: "../images/glyphicons-halflings-white.png";
+
+@import "_variables.scss";
+@import "sass-bootstrap/lib/bootstrap";
+@import "sdk-dashboard/src/autocomplete.scss";
+
+/* Put your CSS here */
+
+// Bootstrap-UI-Angular
+.nav, .pagination, .carousel a { cursor: pointer; }
+
+// ================================================================================
+//                                      COLORS
+// ================================================================================
+
+$brand-brillant: rgb(255, 255, 0);
+$brand-deprecated: rgb(165, 154, 103);
+$brand-stream: rgb(147, 122, 178);
+
+.color-brand {
+    background-color: $brand-info;
+    color:white;
+}
+.color-product {
+    background-color: $brand-info;
+    color:white;
+}
+.color-action {
+    background-color: $brand-success;
+    color:white;
+}
+.color-member {
+    background-color: $brand-danger;
+    color:white;
+}
+.color-semantic {
+    background-color: $brand-brillant;
+    color:black;
+}
+.color-page {
+    background-color: $brand-warning;
+    color:white;
+}
+.color-website {
+    background-color: $brand-warning;
+    color:white;
+}
+.color-calendar {
+    background-color: $brand-deprecated;
+    color:white;
+}
+.color-disabled {
+    background-color: $gray-lighter;
+    color:white;
+}
+.color-shop,
+.color-store,
+.color-stream {
+    background-color: $brand-stream;
+    color:white;
+}
+
+.color-brand-inversed {
+    color: $brand-info;
+}
+.color-product-inversed {
+    color: $brand-info;
+}
+.color-action-inversed {
+    color: $brand-success;
+    background-color:white;
+}
+.color-member-inversed {
+    color: $brand-danger;
+}
+.color-semantic-inversed {
+    color: $brand-warning;
+}
+.color-page-inversed {
+    color: $brand-warning;
+}
+.color-website-inversed {
+    color: $brand-warning;
+}
+.color-calendar-inversed {
+    color: $brand-deprecated;
+}
+.color-disabled-inversed {
+    color: $gray-lighter;
+}
+.color-shop-inversed,
+.color-store-inversed,
+.color-stream-inversed {
+    color: $brand-stream;
+}
+
+// ================================================================================
+//                                      HEADERS
+// ================================================================================
+
+body {
+    font-weight: 300;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+code {
+    font-size: 80%;
+}
+
+// ================================================================================
+//                                      SIDEBAR
+// ================================================================================
+
+$sidebar-width: 200px;
+
+.not-sidebar {
+    margin-left: $sidebar-width;
+    .bounding-box{
+        margin: 30px;
+    }
+}
+
+.sidebar {
+    position: fixed;
+    height: 100%;
+    top: 0px;
+    bottom: 0px;
+    width: $sidebar-width;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 100;
+
+    padding-top: 200px;
+    ul.nav {
+        li {
+            padding: 5px 0px;
+            a {
+                color: inherit;
+                background-color: inherit;
+            }
+
+            // background-color:
+            &:hover {
+                background-color: $body-bg;
+                color:black;
+            }
+            &:active {
+                background-color: $body-bg;
+                color:black;
+            }
+            &.active {
+                background-color: $body-bg;
+                color:black;
+            }
+            ul li {
+                padding: 0px 0px;
+                a {
+                    padding: 0px 0px;
+                    font-size: 16px;
+                }
+            }
+        }
+    }
+}
+
+
+// ================================================================================
+//                                      ACTIONS
+// ================================================================================
+
+.action-new {
+    .description {
+        .square {
+            color: black;
+            border: none;
+        }
+    }
+    .square {
+        border: 1px solid black;
+        &:hover {
+            background-color: lightgray;
+        }
+    }
+}
+.tile {
+    @extend .col-md-2;
+    margin-bottom: $grid-gutter-width;
+    text-align: center;
+    color: white;
+    cursor:pointer;
+    .description {
+        height: 0px;
+        width: 100%;
+        .square {
+            vertical-align: middle;
+            padding: 30% 20px 0px 20px;
+            .tile-icon {
+                i {
+                    font-size: 35px;
+                }
+            }
+            .tile-name {
+                margin-top: 10px;
+            }
+            .tile-subname {
+                font-size: 80%;
+            }
+            .tile-new {
+                font-size: 1000%;
+                color: gray;
+            }
+        }
+    }
+    .square {
+        width: 100%;
+        padding-bottom: 100%;
+
+        &.color-product:hover{
+            background-color: lighten($brand-info, 20%);
+        }
+        &.color-action:hover{
+            background-color: lighten($brand-success, 20%);
+        }
+        &.color-member:hover{
+            background-color: lighten($brand-danger, 20%);
+        }
+        &.color-semantic:hover{
+            background-color: lighten($brand-brillant, 20%);
+        }
+        &.color-page:hover{
+            background-color: lighten($brand-warning, 20%);
+        }
+        &.color-calendar:hover{
+            background-color: lighten($brand-deprecated, 20%);
+        }
+        &.color-stream:hover{
+            background-color: lighten($brand-stream, 20%);
+        }
+        &.disabled{
+            @extend .color-disabled;
+        }
+    }
+}
+
+
+.page-preview-picture{
+    max-width:60px;
+    height:60px;
+    overflow: hidden;
+    margin: 5px;
+}
+.product-preview-picture{
+    max-width:60px;
+    height:60px;
+    overflow: hidden;
+}
+
+
+// ================================================================================
+//                                      DOCUMENTATION
+// ================================================================================
+
+.field-type{
+    font-style: italic;
+}
+.field-requirement{
+    font-weight: 400;
+}
+pre.prettyprint{
+    font-size:80%;
+}
+
+
+// ================================================================================
+//                                      LOGIN
+// ================================================================================
+
+// div.full-screen {
+//     display: none;
+// }
+
+.center {
+    width: 400px;
+    height: 200px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -100px 0 0 -200px;
+}
+
+.bottom{
+    position:fixed;
+    bottom: 0px;
+    width: 100%;
+    left: 0;
+    right: 0;
+}
+
+.copyright{
+    margin-bottom: 40px;
+}
+
+.full-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    height: 100%;
+    width: 100%;
+}
+
+
+// Status
+#status_message{
+    padding: 8px 15px;
+    border-radius: 3px;
+    margin: 0 0 0px;
+    border: 1px solid #ccc;
+    position: relative;
+}
+// minor{color:#f29d50; background:#fdf5ed;border-color:#f8cea7;}
+
+#status_message.good {
+    background: #eaf4ef;
+    border-color: #99ccb2;
+    color: #396;
+}
+
+#status_message.major {
+    background: #f9eae5;
+    border-color: #e5997f;
+    color:#c30;
+}
+
+#history_products.table {
+    td {
+        text-align: center;
+    }
+    tbody td {
+        line-height: 60px;
+    }
+}
+
+
+/*
+ * Callouts
+ *
+ * Not quite alerts, but custom and helpful notes for folks reading the docs.
+ * Requires a base and modifier class.
+ */
+
+/* Common styles for all types */
+.bs-callout {
+  margin: 20px 0;
+  padding: 20px;
+  border-left: 3px solid #eee;
+}
+.bs-callout h4 {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+.bs-action {
+    color:black;
+    font-size: 20px;
+    cursor: pointer;
+    a {
+        color: black;
+    }
+}
+.bs-callout p:last-child {
+  margin-bottom: 0;
+}
+
+/* Variations */
+.bs-callout-danger {
+  background-color: #fdf7f7;
+  border-color: #eed3d7;
+}
+.bs-callout-danger h4 {
+  color: #b94a48;
+}
+.bs-callout-warning {
+  background-color: #faf8f0;
+  border-color: #faebcc;
+}
+.bs-callout-warning h4 {
+  color: #c09853;
+}
+.bs-callout-info {
+  background-color: #f4f8fa;
+  border-color: #bce8f1;
+}
+.bs-callout-info h4 {
+  color: #3a87ad;
+}
+.bs-callout-success {
+    background-color: rgb(239, 244, 229);
+    border-color: #d6e9c6;
+}
+.bs-callout-success h4 {
+    color: #468847;
+}
+
