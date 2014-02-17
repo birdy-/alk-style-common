@@ -1,0 +1,18 @@
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+        <h3>Composition</h3>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="hasReferences" class="col-sm-2 control-label">Codes EAN</label>
+    <div class="col-sm-10 col-sm-offset-2">
+        <table class="table table-condensed table-bordered">
+            <tr ng-repeat="reference in product.hasReferences">
+                <td> <span class="label label-success">{{ reference.value }}</span> </td>
+                <td> <span class="btn btn-danger"><i class="fa fa-trash-o"></i> Supprimer</span> </td>
+                <td> <span class="btn btn-success"><i class="fa fa-check"></i> Confirmer</span> </td>
+            </tr>
+        </table>
+    </div>
+</div>

@@ -48,13 +48,13 @@ angular
             };
 
             var headers = [
-                new Header(1, "/segment/household", "Segment d'utilisateurs", "Segment", "icon-group", "color-member"),
-                new Header(2, "/segment/page", "Segment de pages", "Segment", "icon-file", "color-page"),
-                new Header(5, "/segment/product", "Segment de produits", "Segment", "icon-barcode", "color-product"),
-                new Header(4, "/action", "Actions", "Action", "icon-bolt", "color-action", "new"),
-                new Header(3, "/stream", "Flux", "Stream", "icon-puzzle-piece", "color-stream"),
-                new Header(6, "/calendar", "Calendriers",  "Calendar", "icon-calendar", "color-calendar"),
-                new Header(7, "/dashboard", "Dashboard",  "Dashboard", "icon-dashboard", "color-dashboard", "show"),
+                new Header(1, '/segment/household', 'Segment d\'utilisateurs', 'Segment', 'icon-group', 'color-member'),
+                new Header(2, '/segment/page', 'Segment de pages', 'Segment', 'icon-file', 'color-page'),
+                new Header(5, '/segment/product', 'Segment de produits', 'Segment', 'icon-barcode', 'color-product'),
+                new Header(4, '/action', 'Actions', 'Action', 'icon-bolt', 'color-action', 'new'),
+                new Header(3, '/stream', 'Flux', 'Stream', 'icon-puzzle-piece', 'color-stream'),
+                new Header(6, '/calendar', 'Calendriers',  'Calendar', 'icon-calendar', 'color-calendar'),
+                new Header(7, '/dashboard', 'Dashboard',  'Dashboard', 'icon-dashboard', 'color-dashboard', 'show'),
             ];
 
             return {
@@ -70,7 +70,7 @@ angular
                             return action;
                         }
                     }
-                    throw "Header not found : "+id;
+                    throw 'Header not found : '+id;
                 }
             }
       });

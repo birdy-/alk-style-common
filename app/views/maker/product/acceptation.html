@@ -1,0 +1,24 @@
+<div class="modal-header">
+    <div class="pull-right">
+        <img height="60" width="60" ng-src="{{ product.isInstantiatedBy[0].picture.main }}"/>
+    </div>
+    <h3>
+        Acceptation
+        <small>{{ product.name }}</small>
+    </h3>
+</div>
+<div class="modal-body">
+    <div class="well">
+        En signant électroniquement ce document, j'atteste que je suis le responsable de la certification de ce produit.
+    </div>
+</div>
+<div class="modal-footer">
+    <form class="form-inline" role="form">
+        <div class="form-group">
+            <label>Initiales :</label>
+            <input ng-model="user.initials" class="form-control" type="text" ng-minlenght="2" ng-maxlenght="2" style="width: 50px;" required/>
+            <button class="btn btn-success" ng-click="ok()"><i class="fa fa-certificate"></i> Accepter</button>
+            <button class="btn btn-warning" ng-click="cancel()"><i class="fa fa-ban"></i> Annuler</button>
+        </div>
+    </form>
+</div>

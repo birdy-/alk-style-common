@@ -1,0 +1,21 @@
+<div class="form-group">
+    <div class="col-sm-12">
+        <table class="table table-condensed table-bordered">
+            <thead>
+                <tr class="color-product">
+                    <th class="text-center">Magasin</th>
+                    <th class="text-left" colspan="2">Lien vers le produit</th>
+                    <th class="text-center">Conformité</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="productInShop in product.isInstantiatedBy">
+                    <td class="text-center"><img height="20px" ng-src="{{ 'http://assets.chefjerome.com/api/1/shop/' + productInShop.isSoldBy.id + '/picture/logo/original.png' }}"/></td>
+                    <td class="text-center"><img height="62px" ng-src="{{ productInShop.urlPicture }}"/></td>
+                    <td class="text-left">{{ productInShop.name }}</td>
+                    <td class="text-center"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

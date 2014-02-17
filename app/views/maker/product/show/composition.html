@@ -1,0 +1,317 @@
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+        <h3>Composition</h3>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="composition" class="col-sm-2 control-label">Ingrédients</label>
+    <div class="col-sm-10">
+        <div ng-model="product.composition" ui-select2="select2productCompositionOptions" style="width: 100%;" rows="3" placeholder="Composition du produit."></div>
+        <!--<textarea class="form-control" rows="3" ng-model="product.composition"></textarea>-->
+    </div>
+    <div class="col-sm-4" ng-show="productForm.composition.$focus">
+        <strong id="art18">Liste des ingrédients</strong>
+        Elle comprend tous les ingrédients de la denrée alimentaire, dans l’ordre décroissant de leur importance pondé­rale au moment de leur mise en œuvre dans la fabrication de la denrée.
+        <br/>
+        Les ingrédients sont désignés par leur nom spécifique.
+        <br/>
+        Tous les ingrédients qui se présentent sous forme de nanomatériaux manufacturés sont indiqués clairement dans la liste des ingrédients. Le nom des ingrédients est suivi du mot «nano» entre crochets.
+        <br/>
+
+        <strong id="art19">Omission de la liste des ingrédients</strong>
+        Une liste des ingrédients n’est pas requise pour les denrées alimentaires suivantes:
+        <ul>
+            <li>les fruits et légumes frais, y compris les pommes de terre, qui n’ont pas fait l’objet d’un épluchage, d’un découpage ou d’autres traitements similaires;  </li>
+            <li>les eaux gazéifiées, dont la dénomination fait apparaître cette caractéristique;  </li>
+            <li>les vinaigres de fermentation s’ils proviennent exclusivement d’un seul produit de base et pour autant qu’aucun autre ingrédient n’ait été ajouté;  </li>
+            <li>les fromages, le beurre, les laits et crèmes fermentés pour autant que n’aient pas été ajoutés d’autres ingrédients que des produits lactés, des enzymes alimentaires et des cultures de micro-organismes nécessaires à la fabrication ou, dans le cas des fromages autres que frais ou fondus, que le sel nécessaire à leur fabrication; </li>
+            <li>les produits ne comportant qu’un seul ingrédient, à condition que la dénomination de la denrée alimentaire:
+                <ul>
+                    <li>soit identique au nom de l’ingrédient; ou </li>
+                    <li>permette de déterminer la nature de l’ingrédient sans risque de confusion. </li>
+                </ul>
+            </li>
+        </ul>
+        <br/>
+
+        <strong id="art20">Omission de constituants d’une denrée alimentaire de la liste des ingrédients</strong>
+        L’indication des constituants suivants d’une denrée alimentaire n’est pas requise dans la liste des ingrédients:
+        <ul>
+            <li>ceux qui, au cours du processus de fabrication, ont été temporairement soustraits pour être réincorporés ensuite en quantité ne dépassant pas la teneur initiale; </li>
+            <li>les additifs alimentaires et enzymes alimentaires:
+                <ul>
+                    <li>dont la présence dans une denrée alimentaire est unique­ment due au fait qu’ils étaient contenus dans un ou plusieurs ingrédients de cette denrée, conformément au principe de transfert visé à l’article 18, paragraphe 1, points a) et b), du règlement (CE) no 1333/2008, et sous réserve qu’ils ne remplissent pas de fonction tech­nologique dans le produit fini; ou</li>
+                    <li>qui sont utilisés en tant qu’auxiliaires technologiques;</li>
+                </ul>
+            </li>
+            <li>les supports, ainsi que les substances qui ne sont pas des additifs alimentaires mais qui sont utilisées de la même manière et dans le même but que les supports, qui sont utilisés aux doses strictement nécessaires;</li>
+            <li>les substances qui ne sont pas des additifs alimentaires mais qui sont utilisées de la même manière et dans le même but que les auxiliaires technologiques et qui sont toujours présentes dans le produit fini, même sous une forme modi­fiée;</li>
+            <li>l’eau:
+                <ul>
+                    <li>lorsque l’eau est utilisée, lors du processus de fabrication, uniquement pour permettre la reconstitution dans son état d’origine d’un ingrédient utilisé sous forme concen­trée ou déshydratée, ou </li>
+                    <li>dans le cas du liquide de couverture, qui n’est normale­ment pas consommé.</li>
+                </ul>
+            </li>
+        </ul>
+        <br/>
+
+        <strong id="art22">Indication quantitative des ingrédients :</strong>
+        L’indication de la quantité d’un ingrédient ou d’une caté­gorie d’ingrédients utilisé dans la fabrication ou la préparation d’une denrée alimentaire est requise lorsque cet ingrédient ou cette catégorie d’ingrédients:
+        <ul>
+            <li>figure dans la dénomination de la denrée alimentaire ou est généralement associé à cette dénomination par les consom­mateurs;</li>
+            <li>est mis en évidence dans l’étiquetage par des mots, des images ou une représentation graphique; ou</li>
+            <li>est essentiel pour caractériser une denrée alimentaire et la distinguer des produits avec lesquels elle pourrait être confondue en raison de sa dénomination ou de son aspect.</li>
+        </ul>
+    </div>
+</div>
+<div class="form-group">
+    <label for="allergens" class="col-sm-2 control-label">Allergènes</label>
+    <div class="col-sm-10">
+        <div ng-model="product.allergens" ui-select2="select2productCompositionOptions" style="width: 100%;" placeholder="Allergènes notables du produit."></div>
+        <!--<textarea class="form-control" rows="3" ng-model="product.allergens"></textarea>-->
+    </div>
+</div>
+<div class="form-group">
+    <label for="origin" class="col-sm-2 control-label">Additifs et conservateurs</label>
+    <div class="col-sm-10">
+        <!--<textarea class="form-control" rows="3" ng-model="product.additives"></textarea>-->
+        <div ng-model="product.additives" ui-select2="select2productCompositionOptions" style="width: 100%;" rows="3" placeholder="Liste des additifs et conservateurs."></div>
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+        <h3>Substances particulières</h3>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="alcohol" class="col-sm-2 control-label">Alcool</label>
+    <div class="col-sm-3">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="product.hasAlcohol">
+                Contient de l'alcool
+            </label>
+        </div>
+    </div>
+    <label for="ratioAlcohol" class="col-sm-2 control-label">Degré :</label>
+    <div class="col-sm-5">
+        <div class="input-group">
+            <input type="text" class="form-control" ng-model="product.ratioAlcohol" placeholder="ex : 18">
+            <span class="input-group-addon">°</span>
+        </div>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2 control-label"></label>
+    <div class="col-sm-10">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="product.hasCafeine">
+                Contient de la caféine
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="product.hasTheine">
+                Contient de la théine
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="product.hasTaurine">
+                Contient de la taurine
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="product.hasGMO">
+                Contient des OGMs
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="product.hasExtraFibers">
+                Contient des fibres ajoutées
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="product.isWholeCereals">
+                Contient des céréales entières
+            </label>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+        <h3>Graisses</h3>
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="product.hasOilPalm">
+                Contient de l'huile de palme
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="product.hasRiskOilPalm">
+                Peut contenir de l'huile de palme
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="product.hasOilCoprah">
+                Contient de l'huile de coprah
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="product.hasOilCoconut">
+                Contient de l'huile de coco
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="product.hasOilSunflower">
+                Contient de l'huile de tournesol
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="product.hasOilOlive">
+                Contient de l'huile d'olive
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="product.hasOilGrapeSeed">
+                Contient de l'huile de pépin de raisin
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="product.hasOilCanola">
+                Contient de l'huile de colza
+            </label>
+        </div>
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+        <h3>Composés lactés</h3>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="product.hasSaindoux">
+                Contient du saindoux
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="product.hasButter">
+                Contient du beurre
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="product.hasCream">
+                Contient de la crème
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="product.hasLactose">
+                Contient du lactose
+            </label>
+        </div>
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+        <h3>Sucres</h3>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="product.hasAddedSugar">
+                Contient des sucres ajoutés
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="product.hasDextrose">
+                Contient du dextrose
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="product.hasDextrine">
+                Contient de la dextrine
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="product.hasGlucose">
+                Contient du glucose
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="product.hasFructose">
+                Contient du fructose
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="product.hasSugarSyrup">
+                Contient du sirop de sucre
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="product.hasHoney">
+                Contient du miel
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="product.hasGluten">
+                Contient du gluten
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="product.hasStarch">
+                Contient de l'amidon
+            </label>
+        </div>
+    </div>
+</div>
+
+
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+        <h3>Viande et œufs</h3>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="product.hasMeat">
+                Contient de la viande
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="product.hasEggs">
+                Contient des œufs
+            </label>
+        </div>
+    </div>
+</div>

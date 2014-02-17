@@ -1,0 +1,40 @@
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller="HeaderCtrl">
+    <div ng-hide="logged" class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/#/">
+                <img src="/images/logo/logo-256px.png" height="20"/>
+                <span>Water</span>
+            </a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/#/flux/maker/home">Login</a></li>
+            </ul>
+        </div>
+    </div>
+    <div ng-show="logged" class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/#/flux/maker/home">
+                <img ng-src="{{ brand.picture.logo }}" height="20"/>
+                {{ brand.name }}
+            </a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/#/flux/maker/notifications">Mes notifications</a></li>
+                <li><a href="/#/flux/maker/brand">Ma marque</a></li>
+                <li><a href="/#/flux/maker/product">Mes produits</a></li>
+                <li>
+                    <a href="/#/profile">
+                        <img gravatar-src="user.username" gravatar-size="20" height="20" width="20"/>
+                    </a>
+                </li>
+                <li>
+                    <a ng-click="logout()" href="/#/logout">
+                        <i class="fa fa-power-off"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

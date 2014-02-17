@@ -1,58 +1,190 @@
-<div ng-init="restrictedAction()"></div>
+<div class="jumbotron row">
+    <div class="container">
+        <div class="row motto">
+            <h2 class="text-center">The unified product data exchange</h2>
+            <p class="text-center">
+                Vos fiches produits, synchronisées en toute simplicité.
+            </p>
+        </div>
+        <div class="row">
+            <div class="col-md-5 subscribe">
+                <div class="row">
+                    <div class="col-lg-offset-3 col-lg-9">
+                        <h3>S'inscrire</h3>
+                    </div>
+                </div>
+                <form class="form-horizontal" ng-submit="submit()" ng-hide="isReset">
+                    <div class="form-group">
+                        <label for="inputEmail1" class="col-lg-3 control-label">Email</label>
+                        <div class="col-lg-9">
+                            <input type="email" class="login-inp form-control" ng-model="login" placeholder="sophie@acme.com"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword1" class="col-lg-3 control-label">Password</label>
+                        <div class="col-lg-9">
+                            <input type="password" class="login-inp form-control" ng-model="password" placeholder="*******"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-offset-3 col-lg-9">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" ng-model="agree">J'ai lu et j'adhère aux <a href="/#/conditions">Termes &amp; Conditions</a> et à la <a href="/#/privacy">Politique de Confidentialité</a>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-offset-3 col-lg-9">
+                            <button class="btn pull-right color-brand-inversed">S'inscrire</button>
+                        </div>
+                        <div>
+                            <span>{{ message }}</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-6 pricing">
+                <h3>À partir de </h3>
+                <div class="price pull-left">9€</div>
+                <div class="per">
+                    / produit <br/>
+                    / distributeur <br/>
+                    / an *
+                </div>
+            </div>
+        </div>
 
-<h2>Mes actions en cours</h2>
+        <!--
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Comment ça marche ?</h2>
+            </div>
+        </div>
+        <div class="row workflow">
+            <div class="col-md-12 text-center">
+                <img src="/images/schema/workflow.png"/>
+            </div>
+        </div>
+        -->
+        <br/>
+        <br/>
+        <br/>
 
-<div class="row">
-    <div class="tile" ng-click="goto('/flux/retailer/show')">
-        <div class="description">
-            <div class="square">
-                <div class="tile-icon">
-                    <i class="icon-barcode"></i>
-                </div>
-                <div class="tile-name">
-                    Product DB
-                </div>
-                <div class="tile-subname">
-                    AuchanDrive
-                </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Fonctionnalités</h2>
             </div>
         </div>
-        <div class="square color-product">
-        </div>
-    </div>
-    <div class="tile" ng-repeat="brand in brands" ng-click="goto('/flux/maker/'+brand.id+'/show')">
-        <div class="description">
-            <div class="square">
-                <div class="tile-icon">
-                    <i class="icon-barcode"></i>
-                </div>
-                <div class="tile-name">
-                    Product DB
-                </div>
-                <div class="tile-subname">
-                    {{ brand.id }}
-                </div>
+        <div class="row text-center">
+            <div class="col-md-4 feature">
+                <i class="fa fa-4x fa-certificate"></i>
+                <!--
+                <h3>Compatible GS1</h3>
+                <p>Fiches produit compatibles avec la norme GS1 FicheProd.xml.</p>
+                -->
+            </div>
+            <div class="col-md-4 feature">
+                <i class="fa fa-4x fa-cloud"></i>
+                <h3>Plate-forme SAAS</h3>
+                <p>Pas de setup, processus d'inscription et de certification 100% électroniques.</p>
+            </div>
+            <div class="col-md-4 feature">
+                <i class="fa fa-4x fa-gavel"></i>
+                <h3>Conforme 1169/2011</h3>
+                <p>Conforme aux standard de la Directive Européenne 1169, avec vérification automatique des champs.</p>
             </div>
         </div>
-        <div class="square color-product">
-        </div>
-    </div>
-    <div class="tile">
-        <div class="description">
-            <div class="square">
-                <div class="tile-icon">
-                    <i class="icon-barcode"></i>
-                </div>
-                <div class="tile-name">
-                    Product DB
-                </div>
-                <div class="tile-subname">
-                    No gluten certification
-                </div>
+        <div class="row text-center">
+            <div class="col-md-4 feature">
+                <i class="fa fa-4x fa-camera"></i>
+                <h3>Partage de médias</h3>
+                <p>Jusqu'à 10Mo d'espace par produit pour héberger photos HD, vidéos HD ou vues 3D.</p>
+            </div>
+            <div class="col-md-4 feature">
+                <i class="fa fa-4x fa-lightbulb-o"></i>
+                <h3>Validation intelligente</h3>
+                <p>Multiples outils d'aide au remplissage : correction orthographique, détection d'erreurs, autocompletion...</p>
+            </div>
+            <div class="col-md-4 feature">
+                <i class="fa fa-4x fa-tasks"></i>
+                <h3>Données pré-remplies</h3>
+                <p>Vos fiches produit pré-alimentées par les distributeurs. Module d'import XLS.</p>
             </div>
         </div>
-        <div class="square color-product">
+        <div class="row text-center">
+            <div class="col-md-4 feature">
+                <i class="fa fa-4x fa-check-circle-o"></i>
+                <h3>Workflow de certification</h3>
+                <p>Suivi du remplissage de vos fiches, et de leur synchronisation chez les distributeurs.</p>
+            </div>
+            <div class="col-md-4 feature">
+                <i class="fa fa-4x fa-comments-o"></i>
+                <h3>Notifications instantanées</h3>
+                <p>Chat room temps réel avec vos distributeurs pour des corrections rapides et efficace.</p>
+            </div>
+            <div class="col-md-4 feature">
+                <i class="fa fa-4x fa-cogs"></i>
+                <h3>Developer-friendly</h3>
+                <p>API Rest et SDKs disponibles dans plusieurs languages. Exports personnalisables.</p>
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-md-4 feature">
+                <i class="fa fa-4x fa-globe"></i>
+                <h3>Support multilingue</h3>
+            </div>
+            <div class="col-md-4 feature">
+                <i class="fa fa-4x fa-clock-o"></i>
+                <h3>Historique des modifications</h3>
+            </div>
+            <div class="col-md-4 feature">
+                <i class="fa fa-4x fa-search"></i>
+                <h3>Moteur de recherche</h3>
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-md-4 feature">
+                <i class="fa fa-4x fa-copy"></i>
+                <h3>Duplication de produits</h3>
+            </div>
+            <div class="col-md-4 feature">
+                <i class="fa fa-4x fa-barcode"></i>
+                <h3>Déduplication d'EAN</h3>
+            </div>
+            <div class="col-md-4 feature">
+                <i class="fa fa-4x fa-group"></i>
+                <h3>Multi-compte</h3>
+            </div>
         </div>
     </div>
 </div>
 
+<footer class="row">
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="/#/privacy">
+                        Politique de confidentialité
+                    </a>
+                </li>
+                <li>
+                    <a href="/#/conditions">
+                        Termes &amp; Conditions
+                    </a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/#/about">
+                        © Alkemics 2014
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</footer>

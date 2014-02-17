@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="col-lg-10">
+        <h1>
+            Ventes :
+        </h1>
+    </div>
+</div>
+
+<br/>
+<br/>
+
+<div class="row">
+    <div class="col-lg-12">
+        <table class="table table-condensed table-bordered">
+            <thead class="color-action">
+                <tr>
+                    <th class="text-center">Image</th>
+                    <th>Nom</th>
+                    <th class="text-center">Packaging</th>
+                    <th class="text-center">Marque</th>
+                    <th class="text-center">Gamme</th>
+                    <th class="text-center">Ventes (€)</th>
+                    <th class="text-center">Ventes (#)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="productinshop in productinshops">
+                    <td>
+                        <img height="32px" width="32px" ng-src="{{ productinshop.picture.main }}"/>
+                    </td>
+                    <td>{{ productinshop.name }}</td>
+                    <td class="text-center">{{ productinshop.instantiates.factorSIFU }} mL</td>
+                    <td class="text-center">{{ productinshop.isProducedBy.name }}</td>
+                    <td class="text-center">{{ productinshop.instantiates.isConceptualizedBy.name }}</td>
+                    <td class="text-center">{{ 0 | number:2 }} €</td>
+                    <td class="text-center">{{ 0 | number:0 }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
