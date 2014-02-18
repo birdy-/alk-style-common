@@ -240,7 +240,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%= yeoman.app %>',
-          src: ['*.html', 'views/*.html'],
+          src: ['*.html', 'views/**/*.html'],
           dest: '<%= yeoman.dist %>'
         }]
       }
@@ -369,7 +369,13 @@ module.exports = function (grunt) {
               ]
 
         },
+    },
+    shell: {
+        compress: {
+            command: 'tar -czf app.tar.gz <%= yeoman.dist %>/*'
+        }
     }
+
   });
 
 
@@ -412,7 +418,8 @@ module.exports = function (grunt) {
     'cssmin',
     'uglify',
     'rev',
-    'usemin'
+    'usemin',
+    'custom'
   ]);
 
   grunt.registerTask('default', [
@@ -420,4 +427,8 @@ module.exports = function (grunt) {
     'test',
     'build'
   ]);
+
+  grunt.registerTask('custom', [
+    'shell:compress'
+  ]);  
 };

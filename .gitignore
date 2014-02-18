@@ -7,3 +7,4 @@ app/bower_components
 grunt-aws.json
 
 *.DS_Store
+app.tar.gz
