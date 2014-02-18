@@ -5,6 +5,9 @@ angular.module('jDashboardFluxApp').directive('alkValidationCase', function() {
         require: 'ngModel',
         link: function(scope, elm, attrs, ctrl) {
             var validator = function(viewValue) {
+                if (angular.isEmpty(viewValue)) {
+                    return viewValue;
+                }
                 if (/^[a-z]/.test(viewValue) || /^[0-9]/.test(viewValue)) {
                     ctrl.$setValidity('caseStart', false);
                 } else {

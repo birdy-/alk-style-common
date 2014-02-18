@@ -6,6 +6,10 @@ angular.module('jDashboardFluxApp').directive('alkFloat', function() {
         require: 'ngModel',
         link: function(scope, elm, attrs, ctrl) {
             var validator = function(viewValue) {
+                if (typeof viewValue !== 'string') {
+                    ctrl.$setValidity('float', true);
+                    return viewValue;
+                }
                 if (FLOAT_REGEXP.test(viewValue)) {
                     ctrl.$setValidity('float', true);
                     return parseFloat(viewValue.replace(',', '.'));
