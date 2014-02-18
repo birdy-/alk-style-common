@@ -14,8 +14,8 @@ angular.module('jDashboardFluxApp').directive('alkFloat', function() {
                     return undefined;
                 }
             };
-            ctrl.$parsers.unshift(validator):
-            ctrl.$formatters.unshift(validator):
+            ctrl.$parsers.unshift(validator);
+            ctrl.$formatters.unshift(validator);
         }
     };
 });
