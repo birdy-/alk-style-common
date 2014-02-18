@@ -305,6 +305,12 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
         });
     };
 
+    $scope.deleteReference = function(reference) {
+        alert('Vous n\'êtes pas autorisé à effectuer cette opération');
+    };
+    $scope.newProductFromReference = function(reference) {
+        alert('Vous n\'êtes pas autorisé à effectuer cette opération');
+    };
 }]);
 
 
