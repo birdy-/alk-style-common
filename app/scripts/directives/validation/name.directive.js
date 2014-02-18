@@ -12,8 +12,8 @@ angular.module('jDashboardFluxApp').directive('alkValidationName', function() {
                 }
                 return viewValue;
             };
-            ctrl.$parsers.unshift(validator):
-            ctrl.$formatters.unshift(validator):
+            ctrl.$parsers.unshift(validator);
+            ctrl.$formatters.unshift(validator);
         }
     };
 });
