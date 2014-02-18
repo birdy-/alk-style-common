@@ -11,53 +11,76 @@ angular.module('jDashboardFluxApp', [
   'uiSlider',
   'ngSanitize',
   'angular-md5',
-  'sdk-dashboard'
-])
-  // .constant('API_URL', 'http://api.chefjerome.com')
-  .constant('API_URL', 'http://localhost.chefjerome.com:6543')
-  .config(function ($routeProvider) {
+  'sdk-dashboard',
+  'ui.gravatar',
+  'infinite-scroll'
+]);
+//angular.module('jDashboardFluxApp').constant('API_URL', 'http://api.chefjerome.com');
+angular.module('jDashboardFluxApp').constant('API_URL', 'http://localhost.chefjerome.com:6543');
+
+angular.module('jDashboardFluxApp').config(function ($routeProvider) {
+
     $routeProvider
+        .when('/flux/maker/product/:id', {
+            templateUrl: 'views/maker/product/show.html',
+            controller: 'DashboardMakerProductShowCtrl',
+            parameter: {id: 'integer'}
+        })
+        .when('/flux/maker/product', {
+            templateUrl: 'views/maker/product/list.html',
+            controller: 'DashboardMakerProductListCtrl',
+        })
+        .when('/flux/maker/brand', {
+            templateUrl: 'views/maker/show.html',
+            controller: 'DashboardMakerShowCtrl'
+        })
+        .when('/flux/maker/assortment', {
+            templateUrl: 'views/maker/assortment.html',
+            controller: 'DashboardMakerAssortmentCtrl'
+        })
+        .when('/flux/maker/sales', {
+            templateUrl: 'views/maker/sales.html',
+            controller: 'DashboardMakerSalesCtrl'
+        })
+        .when('/flux/maker/notifications', {
+            templateUrl: 'views/maker/notifications.html',
+            controller: 'DashboardMakerNotificationsCtrl'
+        })
+        .when('/flux/maker/home', {
+            templateUrl: 'views/maker/notifications.html',
+            controller: 'DashboardMakerNotificationsCtrl',
+        })
 
-      .when('/flux/maker/:brand_id/product/:id', {
-          templateUrl: 'views/maker/product/show.html',
-          controller: 'DashboardMakerProductShowCtrl',
-          parameter: {id: 'integer', brand_id: 'integer'}
-      })
-      .when('/flux/maker/:brand_id/product', {
-          templateUrl: 'views/maker/product/list.html',
-          controller: 'DashboardMakerProductListCtrl',
-          parameter: {brand_id: 'integer'}
-      })
-      .when('/flux/maker/:brand_id/show', {
-          templateUrl: 'views/maker/show.html',
-          controller: 'DashboardMakerShowCtrl'
-      })
-      .when('/flux/maker/notifications', {
-          templateUrl: 'views/maker/notifications.html',
-          controller: 'DashboardMakerNotificationsCtrl'
-      })
-      .when('/flux/retailer/product/:id/show', {
-          templateUrl: 'views/retailer/product/show.html',
-          controller: 'DashboardRetailerProductShowCtrl'
-      })
-      .when('/flux/retailer/product/list', {
-          templateUrl: 'views/retailer/product/list.html',
-          controller: 'DashboardRetailerProductListCtrl'
-      })
-      .when('/flux/retailer/show', {
-          templateUrl: 'views/retailer/show.html',
-          controller: 'DashboardRetailerShowCtrl'
-      })
-      .when('/flux/retailer/notifications', {
-          templateUrl: 'views/retailer/notifications.html',
-          controller: 'DashboardRetailerNotificationsCtrl'
-      })
 
-      .when('/', {
-        templateUrl: 'views/home.html',
-        controller: 'HomeCtrl'
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
-  });
+        .when('/flux/retailer/product/:id/show', {
+            templateUrl: 'views/retailer/product/show.html',
+            controller: 'DashboardRetailerProductShowCtrl'
+        })
+        .when('/flux/retailer/product/list', {
+            templateUrl: 'views/retailer/product/list.html',
+            controller: 'DashboardRetailerProductListCtrl'
+        })
+        .when('/flux/retailer/show', {
+            templateUrl: 'views/retailer/show.html',
+            controller: 'DashboardRetailerShowCtrl'
+        })
+        .when('/flux/retailer/notifications', {
+            templateUrl: 'views/retailer/notifications.html',
+            controller: 'DashboardRetailerNotificationsCtrl'
+        })
+
+        .when('/login', {
+          templateUrl: 'views/login.html',
+          controller: 'LoginController',
+          isPublic: true
+        })
+
+        .when('/', {
+          templateUrl: 'views/home.html',
+          controller: 'HomeCtrl',
+          isPublic: true
+        })
+        .otherwise({
+          redirectTo: '/'
+        });
+});

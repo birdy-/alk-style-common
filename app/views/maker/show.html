@@ -1,94 +1,161 @@
-<h1>{{ brand.name }}</h1>
+<h2>Ma marque</h2>
 
 <section>
-    <div class="row">
-        <div class="col-lg-12">
-            <h2>
-                Description :
-            </h2>
+    <form class="form-horizontal" role="form">
+        <div class="row">
+            <div class="col-lg-12">
+                <h3>
+                    Eléments marketing :
+                </h3>
+            </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-lg-10">
-            <form class="form-horizontal" role="form">
+        <div class="row">
+            <div class="col-lg-10">
                 <div class="form-group">
                     <label for="name" class="col-sm-2 control-label">Nom</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="name" ng-model="brand.name" placeholder="Nom de la marque">
+                        <input type="text" class="form-control" name="name" ng-model="brand.name" placeholder="Dénomination marketing de votre marque">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="moto" class="col-sm-2 control-label">Slogan</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="moto" ng-model="brand.moto" placeholder="Site de la marque">
+                        <input type="text" class="form-control" name="moto" ng-model="brand.moto" placeholder="Votre slogan">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="url" class="col-sm-2 control-label">Site internet</label>
+                    <label for="url" class="col-sm-2 control-label">Sites internet</label>
                     <div class="col-sm-10">
-                        <input type="url" class="form-control" id="url" ng-model="brand.owns[0].url" placeholder="Site de la marque">
+                        <div ng-repeat="website in brand.publishes">
+                            <input type="url" class="form-control" ng-model="website.url" placeholder="Adresse du site">
+                        </div>
+                        <input type="url" class="form-control" placeholder="Adresse du site">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="description" class="col-sm-2 control-label">Description</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" id="description" ng-model="brand.description" placeholder="Description de la marque" rows="3"></textarea>
+                        <textarea class="form-control" name="description" ng-model="brand.description" placeholder="Description de votre marque" rows="3"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="history" class="col-sm-2 control-label">Histoire</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" id="history" ng-model="brand.history" placeholder="Histoire de la marque" rows="3"></textarea>
+                        <textarea class="form-control" name="history" ng-model="brand.history" placeholder="Histoire de votre marque" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="isHardDiscount" class="col-sm-2 control-label">Caractéristiques</label>
+                    <div class="col-sm-10">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="isHardDiscount" ng-model="product.isHardDiscount"> <i class="fa fa-dollar"/><i class="fa fa-dollar"/> Marque hard discount
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="isDiscount" ng-model="product.isDiscount"> <i class="fa fa-dollar"/> Marque discount
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="isRetailerOwned" ng-model="product.isRetailerOwned"> Marque de distributeur
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="isNational" ng-model="product.isNational"> Marque nationale
+                        </label>
+                        <br/>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="isOrganic" ng-model="product.isOrganic"> Marque bio
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="isEquitable" ng-model="product.isEquitable"> <i class="fa fa-globe"/> Marque éco-responsable
+                        </label>
+                        <br/>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="isGourmet" ng-model="product.isGourmet">  <i class="fa fa-cutlery"/> Marque gourmet
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="isBaby" ng-model="product.isBaby"> Marque light
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="isBaby" ng-model="product.isBaby"> Marque bébé
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="isPet" ng-model="product.isPet"> Marque petfood
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="isWorldFood" ng-model="product.isWorldFood"> Marque plats du monde
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <label for="logo" class="control-label">Logo</label>
+                <br/>
+                <br/>
+                <div>
+                    <img ng-src="{{ brand.picture.logo }}" style="width: 100%; padding-bottom: 20px;"/>
+                </div>
+                <div class="well">
+                    <i class="fa fa-picture-o" name="logo"></i> Déposer ici votre logo
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <h3>
+                    Eléments commerciaux :
+                </h3>
+            </div>
+            <div class="col-lg-10">
+                <div class="form-group">
+                    <label for="name" class="col-sm-2 control-label">Raison sociale</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="name" ng-model="brand.legalName" placeholder="Raison sociale de votre marque">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="moto" class="col-sm-2 control-label">RCS</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" name="moto" ng-model="brand.legalNumber" placeholder="Votre numéro RCS">
+                    </div>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" name="moto" ng-model="brand.legalCity" placeholder="Ville d'inscription au RCS">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="url" class="col-sm-2 control-label">Adresse</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" ng-model="brand.street" placeholder="N° et rue"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2">
+                    </div>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" ng-model="brand.postCode" placeholder="Code postal">
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="brand.city" placeholder="Ville">
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="brand.city" placeholder="Pays">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" ng-click="submit()" class="pull-right btn color-product"><i class="icon-save"></i> Enregister</button>
+                        <button type="submit" ng-click="submit()" class="pull-right btn color-product"><i class="fa fa-save"></i> Enregister</button>
                     </div>
                 </div>
-            </form>
-        </div>
-        <div class="col-lg-2">
-            <label for="logo" class="control-label">Logo</label>
-            <div>
-                <img ng-src="{{ brand.picture.logo }}" style="width: 100%; padding-bottom: 20px;"/>
-            </div>
-            <div class="well">
-                <i class="icon-picture" id="logo"></i> Déposer ici vos images
             </div>
         </div>
-    </div>
-</section>
-
-<section>
-    <div class="row">
-        <div class="col-lg-12">
-            <h2>
-                Produits :
-            </h2>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-10">
-            <div class="row">
-                <div class="col-lg-10 col-lg-offset-2">
-                    <div class="well">
-                        <img ng-src="{{ product.picture.main }}" width="32px" height="32px" ng-repeat="product in products"/>
-                    </div>
-                    <a href="/#/flux/maker/{{ brand.id }}/product">Plus de détails</a>
-                </div>
-            </div>
-        </div>
-    </div>
+    </form>
 </section>
 
 <section ng-if="brand.subBrands.length">
     <div class="row">
         <div class="col-lg-12">
-            <h2>
+            <h3>
                 Sous-marques :
-            </h2>
+            </h3>
         </div>
     </div>
     <div class="row">

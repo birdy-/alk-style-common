@@ -1,0 +1,22 @@
+<h3>Conformité des fiches</h3>
+
+<div class="row">
+    <div class="col-sm-3 product" ng-repeat="productInShop in product.isInstantiatedBy">
+        <div class="text-center picture">
+            <div class="ratio" ng-style="{'background-image': 'url(' + productInShop.picture.main + ')'}">
+                <div style="position: absolute; bottom: 0px; right: 0px; font-size: 20px; background-color: white; padding: 4px 6px;">
+                    <i class="fa fa-warning"></i> Non conforme
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <img height="20px" style="margin: 10px 0px" ng-src="{{ 'http://assets.chefjerome.com/api/1/shop/' + productInShop.isSoldBy.id + '/picture/logo/original.png' }}"/>
+        </div>
+        <div class="name">
+            {{ productInShop.name }}
+        </div>
+        <div class="btn btn-danger" style="margin-bottom: 10px" ng-click="sendNotification(productInShop)">
+            <i class="fa fa-envelope"></i> Envoyer une notification
+        </div>
+    </div>
+</div>

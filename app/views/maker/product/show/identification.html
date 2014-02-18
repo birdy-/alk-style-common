@@ -1,0 +1,83 @@
+<div class="form-group">
+    <div class="col-sm-10">
+        <h3>Codes EAN</h3>
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-sm-12">
+        <div class="row" ng-repeat="reference in product.hasReferences">
+            <div class="col-sm-1 text-center">
+                <span class="label label-default">{{ reference.type }}</span>
+            </div>
+            <div class="col-sm-2 text-center">
+                <span class="label" ng-class="{'label-success': reference.active === true, 'label-warning': reference.active === false, 'label-danger': reference.active === null}">{{ reference.value }}</span>
+            </div>
+            <div class="col-sm-2">
+                <div class="radio">
+                    <label>
+                        <input type="radio" ng-model="reference.active" ng-value="true">
+                        Actif
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" ng-model="reference.active" ng-value="false">
+                        Inactif
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" ng-model="reference.active" ng-value="null">
+                        Erreur
+                    </label>
+                </div>
+            </div>
+            <div class="col-sm-7">
+                <div ng-show="reference.active === true" class="well">
+                    Cet {{ reference.type }} est <strong>actif</strong> et correspond à ce produit. Il peut être utilisé de manière fiable pour identifier ce produit et sa recette.
+                </div>
+                <div ng-show="reference.active === false" class="well">
+                    Cet {{ reference.type }} n'est <strong>plus actif</strong>. Il a correspondu à ce produit du <input type="date"/> au <input type="date"/>, mais a depuis été réattribué. Il ne doit pas être utilisé pour identifier ce produit et sa recette.
+                </div>
+                <div ng-show="reference.active === null" class="well">
+                    Cet {{ reference.type }} a été attribué par <strong>erreur</strong>. Il s'agit :
+                    <div class="radio">
+                        <label>
+                            <input type="radio" ng-model="reference.error" name="reference_error" ng-value="1">
+                            de l'EAN d'un lot et pas de ses items, ou vice-versa
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" ng-model="reference.error" name="reference_error" ng-value="2">
+                            de l'EAN du même produit mais avec un packaging différent
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" ng-model="reference.error" name="reference_error" ng-value="3">
+                            de l'EAN du même produit mais avec une recette différente
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" ng-model="reference.error" name="reference_error" ng-value="4">
+                            d'une erreur pure et simple
+                        </label>
+                    </div>
+                    <br/>
+                    <strong>Que faire ?</strong>
+                    <div>
+                        <span class="btn btn-danger" ng-click="deleteReference(reference)">
+                            <i class="fa fa-trash-o"></i> Supprimer cet EAN
+                        </span>
+                        <span class="btn btn-warning" ng-click="newProductFromReference(reference)">
+                            <i class="fa fa-plus"></i> Créer un produit à partir de cet EAN
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
