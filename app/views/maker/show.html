@@ -25,9 +25,12 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="url" class="col-sm-2 control-label">Site internet</label>
+                    <label for="url" class="col-sm-2 control-label">Sites internet</label>
                     <div class="col-sm-10">
-                        <input type="url" class="form-control" ng-model="brand.owns[0].url" placeholder="Site client de la marque">
+                        <div ng-repeat="website in brand.publishes">
+                            <input type="url" class="form-control" ng-model="website.url" placeholder="Adresse du site">
+                        </div>
+                        <input type="url" class="form-control" placeholder="Adresse du site">
                     </div>
                 </div>
                 <div class="form-group">
@@ -46,36 +49,39 @@
                     <label for="isHardDiscount" class="col-sm-2 control-label">Caractéristiques</label>
                     <div class="col-sm-10">
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="isHardDiscount" value="isHardDiscount"> <i class="fa fa-dollar"/><i class="fa fa-dollar"/> Marque hard discount
+                            <input type="checkbox" name="isHardDiscount" ng-model="product.isHardDiscount"> <i class="fa fa-dollar"/><i class="fa fa-dollar"/> Marque hard discount
                         </label>
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="isDiscount" value="isDiscount"> <i class="fa fa-dollar"/> Marque discount
+                            <input type="checkbox" name="isDiscount" ng-model="product.isDiscount"> <i class="fa fa-dollar"/> Marque discount
                         </label>
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="isRetailerOwned" value="isRetailerOwned"> Marque de distributeur
+                            <input type="checkbox" name="isRetailerOwned" ng-model="product.isRetailerOwned"> Marque de distributeur
                         </label>
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="isNational" value="isNational"> Marque nationale
-                        </label>
-                        <br/>
-                        <label class="checkbox-inline">
-                            <input type="checkbox" name="isOrganic" value="isOrganic"> Marque bio
-                        </label>
-                        <label class="checkbox-inline">
-                            <input type="checkbox" name="isEquitable" value="isEquitable"> <i class="fa fa-globe"/> Marque éco-responsable
+                            <input type="checkbox" name="isNational" ng-model="product.isNational"> Marque nationale
                         </label>
                         <br/>
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="isGourmet" value="isGourmet">  <i class="fa fa-cutlery"/> Marque gourmet
+                            <input type="checkbox" name="isOrganic" ng-model="product.isOrganic"> Marque bio
                         </label>
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="isBaby" value="isBaby"> Marque bébé
+                            <input type="checkbox" name="isEquitable" ng-model="product.isEquitable"> <i class="fa fa-globe"/> Marque éco-responsable
+                        </label>
+                        <br/>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="isGourmet" ng-model="product.isGourmet">  <i class="fa fa-cutlery"/> Marque gourmet
                         </label>
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="isPet" value="isPet"> Marque petfood
+                            <input type="checkbox" name="isBaby" ng-model="product.isBaby"> Marque light
                         </label>
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="isWorldCooking" value="isWorldCooking"> Marque plats du monde
+                            <input type="checkbox" name="isBaby" ng-model="product.isBaby"> Marque bébé
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="isPet" ng-model="product.isPet"> Marque petfood
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="isWorldFood" ng-model="product.isWorldFood"> Marque plats du monde
                         </label>
                     </div>
                 </div>
