@@ -55,4 +55,8 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerNotificationsCtrl'
             $scope.notifications = notifications;
         });
     });
+
+    $scope.read = function(notification){
+        notification.read = true;
+    };
 }]);
