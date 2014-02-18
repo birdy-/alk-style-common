@@ -128,8 +128,8 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
         product.isMeasuredBy.text = product.isMeasuredBy.name;
         product.packaging = readablePackaging(product);
         product.madeOf = [];
-        //product.accepted = true;
-        product.accepted = false;
+        product.accepted = true;
+        //product.accepted = false;
         product.certified = false;
 
         $scope.product = product;
@@ -179,84 +179,9 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
         };
     });
     $scope.$watch('product', function() {
-        var total = 0, ok = 0;
-        for (var key in $scope.productForm) {
-            if (!$scope.productForm.hasOwnProperty(key)
-            || angular.isUndefined($scope.productForm[key].$error)
-            || angular.isUndefined($scope.productForm[key].$error.required)) {
-                continue;
-            }
-            total += 1;
-            if ($scope.productForm[key].$error['required'] == false) {
-                ok += 1;
-            }
-        }
-        if ($scope.product.composition) {
-            var ADDITIVE_REGEX = new RegExp('E[0-9]+');
-            for (var i = 0; i < $scope.product.composition.length; i++) {
-                var text = $scope.product.composition[i].text;
-                if (text.indexOf('lait') !== -1) {
-                    $scope.product.hasLactose = true;
-                }
-                if (text.indexOf('saindoux') !== -1){
-                    $scope.product.hasSaindoux = true;
-                }
-                if (text.indexOf('huile de palme' ) !== -1){
-                    $scope.product.hasOilPalm = true;
-                    $scope.product.hasRiskOilPalm = true;
-                }
-                if (text.indexOf('huile de colza' ) !== -1){
-                    $scope.product.hasOilCoprah = true;
-                }
-                if (text.indexOf('huile de coco' ) !== -1){
-                    $scope.product.hasOilCoconut = true;
-                }
-                if (text.indexOf('beurre' ) !== -1){
-                    $scope.product.hasButter = true;
-                }
-                if (text.indexOf('huile de tournesol' ) !== -1){
-                    $scope.product.hasOilSunflower = true;
-                }
-                if (text.indexOf('huile d\'olive' ) !== -1){
-                    $scope.product.hasOilOlive = true;
-                }
-                if (text.indexOf('crème') !== -1 || text.indexOf('creme') !== -1 || text.indexOf('crême') !== -1){
-                    $scope.product.hasCream = true;
-                }
-                if (text.indexOf('huile de pépins de raisin' ) !== -1){
-                    $scope.product.hasOilGrapeSeed = true;
-                }
-                if (text.indexOf('huile de pépins de raisin' ) !== -1){
-                    $scope.product.hasOilCanola = true;
-                }
-                if (ADDITIVE_REGEX.test($scope.product.composition[i].text)) {
-                    $scope.product.additives.push($scope.product.composition[i]);
-                }
-            }
-        }
-        $scope.completeness = ok * 100 / total;
-        if ($scope.product.isPack === false) {
-            $scope.product.factorPA = 1;
-        }
-        $scope.product.packaging = readablePackaging($scope.product);
+        $scope.completeness = computeScore($scope.product, $scope.productForm);
+        inferProduct($scope.product, $scope.productForm);
     }, true);
-
-    var readablePackaging = function(product) {
-        var packaging = '';
-        if (product.factorPA && product.packagingName) {
-            packaging += product.factorPA + ' ' + product.packagingName + '(s) ';
-            packaging += ' de '
-        }
-        if (product.isSplitable && product.factorFUPA && product.unitFridge) {
-            packaging += product.factorFUPA + ' ' + product.unitFridge + '(s) ';
-        }
-        if (!product.isMeasuredBy || !product.isMeasuredBy.name) {
-            return '';
-        }
-        packaging += ' de '
-        packaging += product.factorSIFU + ' ' + product.isMeasuredBy.name;
-        return packaging;
-    }
 
     $scope.submit = function() {
         alert('Vous n\'êtes pas autorisé à effectuer cette opération');
@@ -315,6 +240,115 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
         alert('Vous n\'êtes pas autorisé à effectuer cette opération');
     };
 }]);
+
+
+
+var computeScore = function(product, productForm) {
+    var total = 0, ok = 0;
+    for (var key in productForm) {
+        if (!productForm.hasOwnProperty(key)
+        || angular.isUndefined(productForm[key].$error)
+        || angular.isUndefined(productForm[key].$error.required)) {
+            continue;
+        }
+        total += 1;
+        if (productForm[key].$error['required'] == false) {
+            ok += 1;
+        }
+    }
+    return ok * 100 / total;
+};
+
+var readablePackaging = function(product) {
+    var packaging = '';
+    if (product.factorPA && product.packagingName) {
+        packaging += product.factorPA + ' ' + product.packagingName + '(s) ';
+        packaging += ' de '
+    }
+    if (product.isSplitable && product.factorFUPA && product.unitFridge) {
+        packaging += product.factorFUPA + ' ' + product.unitFridge + '(s) ';
+    }
+    if (!product.isMeasuredBy || !product.isMeasuredBy.name) {
+        return '';
+    }
+    packaging += ' de '
+    packaging += product.factorSIFU + ' ' + product.isMeasuredBy.name;
+    return packaging;
+};
+
+var inferProduct = function(product, productForm) {
+    var ADDITIVE_REGEX = new RegExp('E[0-9]+');
+    var additives = [];
+    var composition = [];
+    var item;
+    if (product.composition) {
+        for (var i = 0; i < product.composition.length; i++) {
+            item = product.composition[i];
+            if (ADDITIVE_REGEX.test(item.text)) {
+                additives.push(item);
+            } else {
+                composition.push(item);
+            }
+        }
+    }
+    if (product.additives) {
+        for (var i = 0; i < product.additives.length; i++) {
+            item = product.additives[i];
+            if (ADDITIVE_REGEX.test(item.text)) {
+                additives.push(item);
+            } else {
+                additives.push(item);
+            }
+        }
+        product.composition = composition;
+        product.additives = additives;
+    }
+    if (product.composition) {
+        for (var i = 0; i < product.composition.length; i++) {
+            var text = product.composition[i].text;
+            if (text.indexOf('lait') !== -1) {
+                product.hasLactose = true;
+            }
+            if (text.indexOf('saindoux') !== -1){
+                product.hasSaindoux = true;
+            }
+            if (text.indexOf('huile de palme' ) !== -1){
+                product.hasOilPalm = true;
+                product.hasRiskOilPalm = true;
+            }
+            if (text.indexOf('huile de colza' ) !== -1){
+                product.hasOilCoprah = true;
+            }
+            if (text.indexOf('huile de coco' ) !== -1){
+                product.hasOilCoconut = true;
+            }
+            if (text.indexOf('beurre' ) !== -1){
+                product.hasButter = true;
+            }
+            if (text.indexOf('huile de tournesol' ) !== -1){
+                product.hasOilSunflower = true;
+            }
+            if (text.indexOf('huile d\'olive' ) !== -1){
+                product.hasOilOlive = true;
+            }
+            if (text.indexOf('crème') !== -1 || text.indexOf('creme') !== -1 || text.indexOf('crême') !== -1){
+                product.hasCream = true;
+            }
+            if (text.indexOf('huile de pépins de raisin' ) !== -1){
+                product.hasOilGrapeSeed = true;
+            }
+            if (text.indexOf('huile de pépins de raisin' ) !== -1){
+                product.hasOilCanola = true;
+            }
+        }
+    }
+    if (product.isPack === false) {
+        product.factorPA = 1;
+    }
+    product.packaging = readablePackaging(product);
+    return product;
+}
+
 
 
 /**
