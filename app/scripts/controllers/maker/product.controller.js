@@ -259,7 +259,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
     }
 
     $scope.submit = function() {
-        alert('You do not have the necessary privileges to update this product.');
+        alert('Vous n\'êtes pas autorisé à effectuer cette opération');
         return;
         $$sdkCrud.ProductUpdate($scope.product, function(response) {});
     };
@@ -309,6 +309,9 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
         alert('Vous n\'êtes pas autorisé à effectuer cette opération');
     };
     $scope.newProductFromReference = function(reference) {
+        alert('Vous n\'êtes pas autorisé à effectuer cette opération');
+    };
+    $scope.sendNotification = function(productInShop) {
         alert('Vous n\'êtes pas autorisé à effectuer cette opération');
     };
 }]);
@@ -411,4 +414,5 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', 
 
     $scope.$watch('request.productReference.value', refresh);
     $scope.$watch('request.product.name', refresh);
+
 }]);
