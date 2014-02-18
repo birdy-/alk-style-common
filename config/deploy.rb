@@ -26,15 +26,20 @@ depend :remote, :command, ["git"]
 
 task :upload_dashboard do
     directory_name = File.expand_path(File.dirname(__FILE__))
-    run "mkdir -p #{deploy_to}/backup;"
+    run "mkdir -p #{deploy_to}/backup"
     run "rm -Rf #{deploy_to}/backup/*"
-    run "mv #{deploy_to}/* #{deploy_to}/backup"
+
+    run "mkdir -p #{deploy_to}/current"
+    run "mv #{deploy_to}/current #{deploy_to}/backup/"
+
+    run "mkdir -p #{deploy_to}/current"
 
     top.upload("#{directory_name}/../app.tar.gz", "#{deploy_to}", :via=> :scp, :recursive => true)
-    run "tar -C #{deploy_to} -zxvf #{deploy_to}/app.tar.gz"
-    run "mv -f #{deploy_to}/dist/* #{deploy_to}/current/"
-    run "rm -Rf #{deploy_to}/dist"
+    run "tar -C #{deploy_to}/current -zxvf #{deploy_to}/app.tar.gz"
+    run "mv -f #{deploy_to}/current/dist/* #{deploy_to}/current/"
+    run "rm -Rf #{deploy_to}/current/dist"
 end
+
 
 task :restart do
     run "sudo /etc/init.d/nginx reload"
@@ -45,6 +50,15 @@ role :app, "alk-cdn-1.cloudapp.net", "alk-cdn-1.cloudapp.net:61868"
 namespace :alk do
     task :deploy, :roles => :app do
         upload_dashboard
+        restart
+    end
+
+    task :rollback, :roles => :app do
+        run "mkdir -p #{deploy_to}/backup"
+        run "mkdir -p #{deploy_to}/current"
+        
+        run "rm -Rf #{deploy_to}/current"
+        run "cp -R #{deploy_to}/backup/current #{deploy_to}/"
         restart
     end
 end
