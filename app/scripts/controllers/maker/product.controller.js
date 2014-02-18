@@ -7,8 +7,7 @@ var ProductCertificationModalController = function ($scope, $modalInstance, prod
     $scope.product = product;
     $scope.user = user;
     $scope.ok = function () {
-        if (!$scope.user.initials
-        || $scope.user.initials.length != 2) {
+        if (!$scope.user.email) {
             return;
         }
         $scope.product.certified = true;
@@ -26,8 +25,7 @@ var ProductAcceptationModalController = function ($scope, $modalInstance, produc
     $scope.product = product;
     $scope.user = user;
     $scope.ok = function () {
-        if (!$scope.user.initials
-        || $scope.user.initials.length != 2) {
+        if (!$scope.user.email) {
             return;
         }
         $scope.product.accepted = true;
