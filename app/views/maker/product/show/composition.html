@@ -82,71 +82,93 @@
 
 <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-        <h3>Substances particulières</h3>
+        <h3>Excitants</h3>
     </div>
 </div>
 
 <div class="form-group">
-    <label for="alcohol" class="col-sm-2 control-label">Alcool</label>
-    <div class="col-sm-3">
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" ng-model="product.hasAlcohol">
-                Contient de l'alcool
-            </label>
-        </div>
+    <label class="col-sm-4 control-label">
+        Contient de l'alcool
+    </label>
+    <div class="col-sm-4">
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasAlcohol" name="hasAlcohol" ng-value="true"/>
+            Oui
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasAlcohol" name="hasAlcohol" ng-value="false"/>
+            Non
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasAlcohol" name="hasAlcohol" ng-value="null"/>
+            Non renseigné
+        </label>
     </div>
-    <label for="ratioAlcohol" class="col-sm-2 control-label">Degré :</label>
-    <div class="col-sm-5">
+    <label for="ratioAlcohol" class="col-sm-2 control-label" ng-show="product.hasAlcohol">Degré :</label>
+    <div class="col-sm-2" ng-show="product.hasAlcohol">
         <div class="input-group">
             <input type="text" class="form-control" ng-model="product.ratioAlcohol" placeholder="ex : 18">
             <span class="input-group-addon">°</span>
         </div>
-        </div>
     </div>
 </div>
 <div class="form-group">
-    <label class="col-sm-2 control-label"></label>
-    <div class="col-sm-10">
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" ng-model="product.hasCafeine">
-                Contient de la caféine
-            </label>
-        </div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" ng-model="product.hasTheine">
-                Contient de la théine
-            </label>
-        </div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" ng-model="product.hasTaurine">
-                Contient de la taurine
-            </label>
-        </div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" ng-model="product.hasGMO">
-                Contient des OGMs
-            </label>
-        </div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" ng-model="product.hasExtraFibers">
-                Contient des fibres ajoutées
-            </label>
-        </div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" ng-model="product.isWholeCereals">
-                Contient des céréales entières
-            </label>
-        </div>
+    <label class="col-sm-4 control-label">
+        Contient de la caféine
+    </label>
+    <div class="col-sm-8">
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasCafeine" name="hasCafeine" ng-value="true"/>
+            Oui
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasCafeine" name="hasCafeine" ng-value="false"/>
+            Non
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasCafeine" name="hasCafeine" ng-value="null"/>
+            Non renseigné
+        </label>
     </div>
 </div>
-
+<div class="form-group">
+    <label class="col-sm-4 control-label">
+        Contient de la théine
+    </label>
+    <div class="col-sm-8">
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasTheine" ng-value="true">
+            Oui
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasTheine" ng-value="false">
+            Non
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasTheine" ng-value="null">
+            Non renseigné
+        </label>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-4 control-label">
+        Contient de la taurine
+    </label>
+    <div class="col-sm-8">
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasTaurine" ng-value="true">
+            Oui
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasTaurine" ng-value="false">
+            Non
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasTaurine" ng-value="null">
+            Non renseigné
+        </label>
+    </div>
+</div>
 
 
 <div class="form-group">
@@ -155,145 +177,413 @@
     </div>
 </div>
 <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" ng-model="product.hasOilPalm">
-                Contient de l'huile de palme
-            </label>
-        </div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" ng-model="product.hasRiskOilPalm">
-                Peut contenir de l'huile de palme
-            </label>
-        </div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" ng-model="product.hasOilCoprah">
-                Contient de l'huile de coprah
-            </label>
-        </div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" ng-model="product.hasOilCoconut">
-                Contient de l'huile de coco
-            </label>
-        </div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" ng-model="product.hasOilSunflower">
-                Contient de l'huile de tournesol
-            </label>
-        </div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" ng-model="product.hasOilOlive">
-                Contient de l'huile d'olive
-            </label>
-        </div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" ng-model="product.hasOilGrapeSeed">
-                Contient de l'huile de pépin de raisin
-            </label>
-        </div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" ng-model="product.hasOilCanola">
-                Contient de l'huile de colza
-            </label>
-        </div>
+    <label class="col-sm-4 control-label">
+        Contient de l'huile de palme
+    </label>
+    <div class="col-sm-8">
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasOilPalm" ng-value="true">
+            Oui
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasOilPalm" ng-value="false">
+            Non
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasOilPalm" ng-value="null">
+            Non renseigné
+        </label>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-4 control-label">
+        Peut contenir de l'huile de palme
+    </label>
+    <div class="col-sm-8">
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasRiskOilPalm" ng-value="true">
+            Oui
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasRiskOilPalm" ng-value="false">
+            Non
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasRiskOilPalm" ng-value="null">
+            Non renseigné
+        </label>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-4 control-label">
+        Contient de l'huile de coprah
+    </label>
+    <div class="col-sm-8">
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasOilCoprah" ng-value="true">
+            Oui
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasOilCoprah" ng-value="false">
+            Non
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasOilCoprah" ng-value="null">
+            Non renseigné
+        </label>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-4 control-label">
+        Contient de l'huile de coco
+    </label>
+    <div class="col-sm-8">
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasOilCoconut" ng-value="true">
+            Oui
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasOilCoconut" ng-value="false">
+            Non
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasOilCoconut" ng-value="null">
+            Non renseigné
+        </label>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-4 control-label">
+        Contient de l'huile de tournesol
+    </label>
+    <div class="col-sm-8">
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasOilSunflower" ng-value="true">
+            Oui
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasOilSunflower" ng-value="false">
+            Non
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasOilSunflower" ng-value="null">
+            Non renseigné
+        </label>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-4 control-label">
+        Contient de l'huile d'olive
+    </label>
+    <div class="col-sm-8">
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasOilOlive" ng-value="true">
+            Oui
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasOilOlive" ng-value="false">
+            Non
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasOilOlive" ng-value="null">
+            Non renseigné
+        </label>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-4 control-label">
+        Contient de l'huile de pépin de raisin
+    </label>
+    <div class="col-sm-8">
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasOilGrapeSeed" ng-value="true">
+            Oui
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasOilGrapeSeed" ng-value="false">
+            Non
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasOilGrapeSeed" ng-value="null">
+            Non renseigné
+        </label>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-4 control-label">
+        Contient de l'huile de colza
+    </label>
+    <div class="col-sm-8">
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasOilCanola" ng-value="true">
+            Oui
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasOilCanola" ng-value="false">
+            Non
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasOilCanola" ng-value="null">
+            Non renseigné
+        </label>
     </div>
 </div>
 
 <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
         <h3>Composés lactés</h3>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" ng-model="product.hasSaindoux">
-                Contient du saindoux
-            </label>
-        </div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" ng-model="product.hasButter">
-                Contient du beurre
-            </label>
-        </div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" ng-model="product.hasCream">
-                Contient de la crème
-            </label>
-        </div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" ng-model="product.hasLactose">
-                Contient du lactose
-            </label>
-        </div>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-4 control-label">
+        Contient du saindoux
+    </label>
+    <div class="col-sm-8">
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasSaindoux" ng-value="true">
+            Oui
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasSaindoux" ng-value="false">
+            Non
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasSaindoux" ng-value="null">
+            Non renseigné
+        </label>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-4 control-label">
+        Contient du beurre
+    </label>
+    <div class="col-sm-8">
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasButter" ng-value="true">
+            Oui
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasButter" ng-value="false">
+            Non
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasButter" ng-value="null">
+            Non renseigné
+        </label>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-4 control-label">
+        Contient de la crème
+    </label>
+    <div class="col-sm-8">
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasCream" ng-value="true">
+            Oui
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasCream" ng-value="false">
+            Non
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasCream" ng-value="null">
+            Non renseigné
+        </label>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-4 control-label">
+        Contient du lactose
+    </label>
+    <div class="col-sm-8">
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasLactose" ng-value="true">
+            Oui
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasLactose" ng-value="false">
+            Non
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasLactose" ng-value="null">
+            Non renseigné
+        </label>
     </div>
 </div>
 
 <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
         <h3>Sucres</h3>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" ng-model="product.hasAddedSugar">
-                Contient des sucres ajoutés
-            </label>
-        </div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" ng-model="product.hasDextrose">
-                Contient du dextrose
-            </label>
-        </div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" ng-model="product.hasDextrine">
-                Contient de la dextrine
-            </label>
-        </div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" ng-model="product.hasGlucose">
-                Contient du glucose
-            </label>
-        </div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" ng-model="product.hasFructose">
-                Contient du fructose
-            </label>
-        </div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" ng-model="product.hasSugarSyrup">
-                Contient du sirop de sucre
-            </label>
-        </div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" ng-model="product.hasHoney">
-                Contient du miel
-            </label>
-        </div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" ng-model="product.hasGluten">
-                Contient du gluten
-            </label>
-        </div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" ng-model="product.hasStarch">
-                Contient de l'amidon
-            </label>
-        </div>
+    </div>
+<div class="form-group">
+    <label class="col-sm-4 control-label">
+        Contient des sucres ajoutés
+    </label>
+    <div class="col-sm-8">
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasAddedSugar" ng-value="true">
+            Oui
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasAddedSugar" ng-value="false">
+            Non
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasAddedSugar" ng-value="null">
+            Non renseigné
+        </label>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-4 control-label">
+        Contient du dextrose
+    </label>
+    <div class="col-sm-8">
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasDextrose" ng-value="true">
+            Oui
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasDextrose" ng-value="false">
+            Non
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasDextrose" ng-value="null">
+            Non renseigné
+        </label>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-4 control-label">
+        Contient de la dextrine
+    </label>
+    <div class="col-sm-8">
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasDextrine" ng-value="true">
+            Oui
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasDextrine" ng-value="false">
+            Non
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasDextrine" ng-value="null">
+            Non renseigné
+        </label>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-4 control-label">
+        Contient du glucose
+    </label>
+    <div class="col-sm-8">
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasGlucose" ng-value="true">
+            Oui
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasGlucose" ng-value="false">
+            Non
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasGlucose" ng-value="null">
+            Non renseigné
+        </label>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-4 control-label">
+        Contient du fructose
+    </label>
+    <div class="col-sm-8">
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasFructose" ng-value="true">
+            Oui
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasFructose" ng-value="false">
+            Non
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasFructose" ng-value="null">
+            Non renseigné
+        </label>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-4 control-label">
+        Contient du sirop de sucre
+    </label>
+    <div class="col-sm-8">
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasSugarSyrup" ng-value="true">
+            Oui
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasSugarSyrup" ng-value="false">
+            Non
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasSugarSyrup" ng-value="null">
+            Non renseigné
+        </label>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-4 control-label">
+        Contient du miel
+    </label>
+    <div class="col-sm-8">
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasHoney" ng-value="true">
+            Oui
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasHoney" ng-value="false">
+            Non
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasHoney" ng-value="null">
+            Non renseigné
+        </label>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-4 control-label">
+        Contient du gluten
+    </label>
+    <div class="col-sm-8">
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasGluten" ng-value="true">
+            Oui
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasGluten" ng-value="false">
+            Non
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasGluten" ng-value="null">
+            Non renseigné
+        </label>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-4 control-label">
+        Contient de l'amidon
+    </label>
+    <div class="col-sm-8">
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasStarch" ng-value="true">
+            Oui
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasStarch" ng-value="false">
+            Non
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasStarch" ng-value="null">
+            Non renseigné
+        </label>
     </div>
 </div>
 
@@ -301,17 +591,107 @@
 <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
         <h3>Viande et œufs</h3>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" ng-model="product.hasMeat">
-                Contient de la viande
-            </label>
-        </div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" ng-model="product.hasEggs">
-                Contient des œufs
-            </label>
-        </div>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-4 control-label">
+        Contient de la viande
+    </label>
+    <div class="col-sm-8">
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasMeat" ng-value="true">
+            Oui
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasMeat" ng-value="false">
+            Non
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasMeat" ng-value="null">
+            Non renseigné
+        </label>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-4 control-label">
+        Contient des œufs
+    </label>
+    <div class="col-sm-8">
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasEggs" ng-value="true">
+            Oui
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasEggs" ng-value="false">
+            Non
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasEggs" ng-value="null">
+            Non renseigné
+        </label>
+    </div>
+</div>
+
+
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+        <h3>Autres</h3>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-4 control-label">
+        Contient des OGMs
+    </label>
+    <div class="col-sm-8">
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasGMO" ng-value="true">
+            Oui
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasGMO" ng-value="false">
+            Non
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasGMO" ng-value="null">
+            Non renseigné
+        </label>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-4 control-label">
+        Contient des fibres ajoutées
+    </label>
+    <div class="col-sm-8">
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasExtraFibers" ng-value="true">
+            Oui
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasExtraFibers" ng-value="false">
+            Non
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasExtraFibers" ng-value="null">
+            Non renseigné
+        </label>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-4 control-label">
+        Contient des céréales entières
+    </label>
+    <div class="col-sm-8">
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.isWholeCereals" ng-value="true">
+            Oui
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.isWholeCereals" ng-value="false">
+            Non
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.isWholeCereals" ng-value="null">
+            Non renseigné
+        </label>
     </div>
 </div>

@@ -5,8 +5,11 @@
 <div class="form-group has-feedback" ng-class="check('name')">
     <label for="name" class="col-sm-2 control-label">Dénomination</label>
     <div class="col-sm-6">
-        <input ng-model="product.name" name="name" type="text" class="form-control" placeholder="Le nom du produit, sans mention de la marque ni packaging" name="name" required ng-minlength="3" alk-validation-name="name" alk-focus/>
+        <input ng-model="product.name" name="name" type="text" class="form-control" placeholder="Le nom du produit, sans mention de la marque ni packaging" name="name" required ng-minlength="3" alk-validation-name="{{ product.isProducedBy.name }}" alk-validation-case="sentence" alk-focus/>
+        <span ng-show="productForm.name.$error.required" class="help-block">Cet élément est obligatoire.</span>
         <span ng-show="productForm.name.$error.minlength" class="help-block">Le nom du produit est trop court.</span>
+        <span ng-show="productForm.name.$error.caseTooManyUpper" class="help-block">La dénomination ne doit pas comporter trop de majuscules.</span>
+        <span ng-show="productForm.name.$error.caseStart" class="help-block">La dénomination doit commencer par une lettre majuscule.</span>
         <span ng-show="productForm.name.$error.containsBrand" class="help-block">Le nom du produit ne doit pas contenir de marque.</span>
     </div>
     <div class="col-sm-4" ng-show="productForm.name.$focus">
@@ -168,9 +171,6 @@
         </ul>
     </div>
 </div>
-
-
-
 
 
 <!--
