@@ -69,8 +69,23 @@ angular.module('jDashboardFluxApp').service('permission', [
                 }
                 user.actionsAuthorized = actions;
 
+                // Load actions active
+                var action;
+                var actions = [];
+                var id;
+                for (var i = 0; i < user.actionsActive.length; i++) {
+                    id = user.actionsActive[i].id;
+                    action = actionRepository.findById(id);
+                    if (action === null) {
+                        continue;
+                    }
+                    action.active = true;
+                    actions.push(action);
+                }
+                user.actionsActive = actions;
+
                 // Attach methods
-                user.isAllowed = isAllowed
+                user.isAllowed = isAllowed;
                 return user;
             }); //.then(function(user){ console.log(user); });
         }
