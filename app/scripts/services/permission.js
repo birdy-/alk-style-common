@@ -1,19 +1,27 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').service('permission', [
-    "API_URL", "$http", "headerRepository", "actionRepository", "$q",
-    function Segments(API_URL, $http, headerRepository, actionRepository, $q) {
+    "API_URL", "$http", "headerRepository", "actionRepository",
+    function permission(API_URL, $http, headerRepository, actionRepository) {
 
-    var isAllowed = function(entity, id) {
+    /**
+     * Returns whether the access to an entity of a given type and id is
+     * allowed.
+     *
+     * @param string type The type of entity.
+     * @param integer id The id of the entity.
+     * @return Boolean Whether the access is allowed or not.
+     */
+    var isAllowed = function(type, id) {
         var considers = [];
-        if (entity == 'Shop') {
+        if (type == 'Shop') {
             considers = this.ownsShop;
-        } else if (entity == 'Brand') {
+        } else if (type == 'Brand') {
             considers = this.ownsBrand;
-        } else if (entity == 'Website') {
+        } else if (type == 'Website') {
             considers = this.ownsWebsite;
         } else {
-            throw 'Unknown type : '+entity;
+            throw 'Unknown type : '+type;
         }
         for (var i = 0; i < considers.length; i++) {
             if (consider.id === id) {
@@ -23,79 +31,68 @@ angular.module('jDashboardFluxApp').service('permission', [
         return false;
     };
 
-    var user = {
-        id: null,
-        username: null,
-        permissions: [],
-        actions: [],
-        actionsAuthorized: [],
-        ownsShop: [],
-        ownsWebsite: [],
-        ownsBrand: [],
-        ok: false
-    };
-
+    var userPromise = null;
     /**
-     * Retrieves the list of permissions of the user. It will update the
-     * menus the user is allowed to see.
+     * Returns a promise that is an image of the user.
+     * @return user The global user.
      */
-    var list = function(deferred) {
-        var url = API_URL
+    function getUser() {
+        if (userPromise == null) {
+            var url = API_URL
                 + '/api/1/user/me'
                 + '?callback=' + 'JSON_CALLBACK';
-        $http.jsonp(url).success(function(body, status, headers, config) {
+            userPromise = $http.jsonp(url).then(function(body, status, headers, config) {
+                var user = body.data.data;
 
-            var _user = body.data;
-
-            user.id = _user.id;
-            user.username = _user.username;
-            user.ownsShop = _user.ownsShop;
-            user.ownsWebsite = _user.ownsWebsite;
-            user.ownsBrand = _user.ownsBrand;
-
-            // Load permissions
-            var permission;
-            var header;
-            for (var i = 0; i < _user.permissions.length; i++) {
-                permission = _user.permissions[i];
-                header = headerRepository.findById(permission.on_id);
-                header.available = true;
-                header.permissions[permission.for] = true;
-                user.permissions.push(permission);
-            }
-            // Load actions allowed
-            var action;
-            var id;
-            for (var i = 0; i < _user.actionsAuthorized.length; i++) {
-                id = _user.actionsAuthorized[i].id;
-                action = actionRepository.findById(id);
-
-                if (action === null) {
-                    continue;
+                // Load permissions
+                var permission;
+                var header;
+                for (var i = 0; i < user.permissions.length; i++) {
+                    permission = user.permissions[i];
+                    header = headerRepository.findById(permission.on_id);
+                    header.available = true;
+                    header.permissions[permission.for] = true;
                 }
-                action.available = true;
-                user.actionsAuthorized.push(action);
-            }
-            user.ok = true; // caching next call
-            deferred.resolve(user);
-        });
-    };
 
-    // Use a promise
-    var getUser = function () {
-        var deferred = $q.defer();
-        if (user.ok) {
-            deferred.resolve(user);
-        } else {
-            // will resolve deferred with populated user
-            list(deferred);
+                // Load actions allowed
+                var action;
+                var actions = [];
+                var id;
+                for (var i = 0; i < user.actionsAuthorized.length; i++) {
+                    id = user.actionsAuthorized[i].id;
+                    action = actionRepository.findById(id);
+                    if (action === null) {
+                        continue;
+                    }
+                    action.available = true;
+                    actions.push(action);
+                }
+                user.actionsAuthorized = actions;
+
+                // Load actions active
+                var action;
+                var actions = [];
+                var id;
+                for (var i = 0; i < user.actionsActive.length; i++) {
+                    id = user.actionsActive[i].id;
+                    action = actionRepository.findById(id);
+                    if (action === null) {
+                        continue;
+                    }
+                    action.active = true;
+                    actions.push(action);
+                }
+                user.actionsActive = actions;
+
+                // Attach methods
+                user.isAllowed = isAllowed;
+                return user;
+            }); //.then(function(user){ console.log(user); });
         }
-        return deferred.promise;
-    };
-    getUser();
+        return userPromise;
+    }
 
     return {
-        getUser: getUser,
-        isAllowed: isAllowed
+        getUser: getUser
     }
 }]);
