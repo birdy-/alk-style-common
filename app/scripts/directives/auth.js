@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').directive('authdemoapplication', [
-    '$route',
-    function ($route) {
+    '$route', '$location',
+    function ($route, $location) {
 
     return {
         restrict: 'C',
@@ -28,6 +28,7 @@ angular.module('jDashboardFluxApp').directive('authdemoapplication', [
                 login.hide();
                 main.show();
                 navbar.show();
+                $location.path($location.path());
             });
         }
     }
