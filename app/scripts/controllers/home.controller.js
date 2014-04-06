@@ -8,6 +8,6 @@ angular.module('jDashboardFluxApp').controller('HomeCtrl', [
         $scope.brands = user.brandsOwned;
     });
     $scope.submit = function() {
-        $location.path('/flux/maker/'+$scope.brands[0].id+'/product');
+        $location.path('/flux/maker/' + $scope.brands[0].id + '/product');
     };
 }]);
