@@ -15,8 +15,8 @@ angular.module('jDashboardFluxApp', [
   'ui.gravatar',
   'infinite-scroll'
 ]);
-//angular.module('jDashboardFluxApp').constant('API_URL', 'http://api.chefjerome.com');
-angular.module('jDashboardFluxApp').constant('API_URL', 'http://localhost.chefjerome.com:6543');
+angular.module('jDashboardFluxApp').constant('API_URL', '//api.alkemics.com');
+//angular.module('jDashboardFluxApp').constant('API_URL', '//localhost.chefjerome.com:6543');
 
 angular.module('jDashboardFluxApp').config(function ($routeProvider) {
 
@@ -75,12 +75,38 @@ angular.module('jDashboardFluxApp').config(function ($routeProvider) {
           isPublic: true
         })
 
-        .when('/', {
-          templateUrl: 'views/home.html',
+        .when('/register', {
+          templateUrl: 'views/register.html',
           controller: 'HomeCtrl',
           isPublic: true
+        })
+
+        .when('/', {
+          templateUrl: 'views/maker/product/list.html',
+          controller: 'DashboardMakerProductListCtrl',          
         })
         .otherwise({
           redirectTo: '/'
         });
 });
+
+
+
+/**
+ * $http interceptor.
+ * Add token to every request that is issued to the apis.
+ */
+angular.module('jDashboardFluxApp').config(['$httpProvider', function($httpProvider) {
+    $httpProvider.interceptors.push(['$window', function($window) {
+        return {
+            request: function (config) {
+              console.log(config)
+                config.headers = config.headers || {};
+                if ($window.sessionStorage.token) {
+                    config.headers.Authorization = 'Bearer ' + $window.sessionStorage.token;
+                }
+                return config;
+            }
+        };
+    }]);
+}]);
