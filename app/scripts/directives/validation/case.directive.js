@@ -13,7 +13,8 @@ angular.module('jDashboardFluxApp').directive('alkValidationCase', function() {
                 } else {
                     ctrl.$setValidity('caseStart', true);
                 }
-                if (viewValue.match(/[A-Z]/g).length > 4) {
+                var capitals = viewValue.match(/[A-Z]/g);
+                if (capitals && capitals.length > 4) {
                     ctrl.$setValidity('caseTooManyUpper', false);
                 } else {
                     ctrl.$setValidity('caseTooManyUpper', true);
