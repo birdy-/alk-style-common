@@ -5,12 +5,25 @@
 <div class="form-group has-feedback" ng-class="check('name')">
     <label for="name" class="col-sm-2 control-label">Dénomination</label>
     <div class="col-sm-6">
-        <input ng-model="product.name" name="name" type="text" class="form-control" placeholder="Le nom du produit, sans mention de la marque ni packaging" name="name" required ng-minlength="3" alk-validation-name="{{ product.isProducedBy.name }}" alk-validation-case="sentence" alk-focus/>
+        <input ng-model="product.name" name="name" type="text" class="form-control" placeholder="Le nom du produit, sans mention de la marque ni packaging" name="name" required ng-minlength="3" alk-validation-name="{{ product.isProducedBy.name }}" alk-validation-case="sentence" alk-focus ng-change="predict(product)"/>
         <span ng-show="productForm.name.$error.required" class="help-block">Cet élément est obligatoire.</span>
         <span ng-show="productForm.name.$error.minlength" class="help-block">Le nom du produit est trop court.</span>
         <span ng-show="productForm.name.$error.caseTooManyUpper" class="help-block">La dénomination ne doit pas comporter trop de majuscules.</span>
         <span ng-show="productForm.name.$error.caseStart" class="help-block">La dénomination doit commencer par une lettre majuscule.</span>
         <span ng-show="productForm.name.$error.containsBrand" class="help-block">Le nom du produit ne doit pas contenir de marque.</span>
+        <!--
+        <div class="col-sm-6" ng-show="prediction.visible">
+            <label class="radio-inline">
+                S'agit-il de {{ prediction.concept.name }} ?
+            </label>
+            <label class="radio-inline">
+                <input ng-model="prediction.correct" ng-change="verify()" type="radio" ng-value="true"> oui
+            </label>
+            <label class="radio-inline">
+                <input ng-model="prediction.correct" ng-change="verify()" type="radio" ng-value="false"> non
+            </label>
+        </div>
+    -->
     </div>
     <div class="col-sm-4" ng-show="productForm.name.$focus">
         <strong id="art17">Dénomination de la denrée alimentaire :</strong>
@@ -21,6 +34,7 @@
         Une dénomination protégée dans le cadre de la propriété intellectuelle, une marque de commerce ou une dénomination de fantaisie ne peut se substituer à la dénomination de la denrée alimentaire.
     </div>
 </div>
+
 
 <div class="form-group has-feedback" ng-class="check('description')">
     <label for="description" class="col-sm-2 control-label">Description</label>
@@ -160,7 +174,7 @@
         <span ng-show="productForm.quantityNormalized.$error.min" class="help-block">Cette quantité doit être plus grande que 0.</span>
     </div>
     <div class="col-sm-2">
-        <input ng-model="product.isMeasuredBy" type="text" ui-select2="select2commonunitOptions" style="width: 100%" placeholder="ex : g"/>
+        <input type="text" ng-model="product.isMeasuredBy" type="text" select ui-select2="select2commonunitOptions" style="width: 100%" placeholder="ex : g"/>
     </div>
     <div class="col-sm-4" ng-show="productForm.quantityNormalized.$focus">
         <strong id="art23">Quantité nette :</strong>

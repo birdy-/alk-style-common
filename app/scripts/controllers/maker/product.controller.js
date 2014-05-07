@@ -51,6 +51,16 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
     '$scope', '$$sdkCrud', '$routeParams', '$$autocomplete', '$modal', '$location',
     function ($scope, $$sdkCrud, $routeParams, $$autocomplete, $modal, $location) {
 
+    $scope.tabs = {
+        wine: {visible: true /*false*/},
+    };
+    $scope.prediction = {
+        visible: false,
+        concept: null,
+        tab: "wine", // null,
+        correct: null,
+    };
+
     $scope.select2productCompositionOptions = {
         allowClear:                 true,
         multiple:                   true,
@@ -67,8 +77,13 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
         },
         data: []
     };
+    $scope.select2countryOptions = $$autocomplete.getOptionAutocompletes('country', {maximumSelectionSize: 1, multiple: false});
+    $scope.select2regionOptions = $$autocomplete.getOptionAutocompletes('region', {maximumSelectionSize: 1, multiple: false});
+    $scope.select2appellationOptions = $$autocomplete.getOptionAutocompletes('appellation', {maximumSelectionSize: 1, multiple: false});
+    $scope.select2varietalOptions = $$autocomplete.getOptionAutocompletes('varietal', {multiple: true});
+    $scope.select2glassOptions = $$autocomplete.getOptionAutocompletes('glass', {maximumSelectionSize: 1, multiple: false});
     $scope.select2productOptions = $$autocomplete.getOptionAutocompletes('product', {maximumSelectionSize: 1});
-    $scope.select2commonunitOptions = $$autocomplete.getOptionAutocompletes('commonunit', {maximumSelectionSize: 1});
+    $scope.select2commonunitOptions = $$autocomplete.getOptionAutocompletes('commonunit', {maximumSelectionSize: 1, multiple: false});
     $scope.user = {};
     $scope.product = {
         id: $routeParams.id
@@ -128,6 +143,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
         product.isMeasuredBy.text = product.isMeasuredBy.name;
         product.packaging = readablePackaging(product);
         product.madeOf = [];
+        product.hasVarietal = [];
         product.accepted = true;
         //product.accepted = false;
         product.certified = false;
@@ -228,6 +244,19 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
         }, function () {
             $location.path('/flux/maker/product');
         });
+    };
+
+    $scope.predict = function(product) {
+        $scope.prediction.visible = true;
+        $scope.prediction.concept = {
+            name: 'vin rouge',
+        };
+        $scope.prediction.tab = 'wine';
+    };
+    $scope.verify = function() {
+        if ($scope.prediction.correct) {
+            $scope.tabs[$scope.prediction.tab].visible = true;
+        }
     };
 
     $scope.deleteReference = function(reference) {
@@ -373,7 +402,8 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', 
         }
     };
     $scope.products = [];
-    $scope.brand = {};
+    $scope.brand = {
+    };
     $scope.user = {};
     $scope.scroll = {
         offset: 0,
@@ -389,6 +419,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', 
             $scope.brand = response.data;
             list();
         });
+        return user;
     });
 
     var list = function() {

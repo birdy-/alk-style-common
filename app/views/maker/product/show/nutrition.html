@@ -30,7 +30,7 @@
         <br/>
         La valeur énergétique est exprimée en kilojoules (kJ), mais peut aussi être <a tabindex="-1" href="http://www.fao.org/docrep/meeting/009/ae906e/ae906e17.htm" target="_blank">convertie</a> en kilocalories (kCal) :
         <span ng-show="productForm.qtyEnergy.$valid">
-            100 grammes de ce produit contiennent donc <strong>{{ product.qtyEnergy | number:2 }} kJ</strong> soit <strong>{{ product.qtyEnergy * 4.19  | number:2 }} kCal</strong>.
+            100 grammes de ce produit contiennent donc <strong>{{ product.qtyEnergy | number:2 }} kJ</strong> soit <strong>{{ product.qtyEnergy / 4.19  | number:2 }} kCal</strong>.
         </span>
     </div>
 </div>
