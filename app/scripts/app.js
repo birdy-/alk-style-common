@@ -15,79 +15,83 @@ angular.module('jDashboardFluxApp', [
   'ui.gravatar',
   'infinite-scroll'
 ]);
-angular.module('jDashboardFluxApp').constant('API_URL', '//api.alkemics.com');
-//angular.module('jDashboardFluxApp').constant('API_URL', '//localhost.chefjerome.com:6543');
+
+var env = (window.location.hostname.indexOf('localhost') === 0) ? 'dev' : 'prod';
+if (env == "prod") {
+    angular.module('jDashboardFluxApp').constant('API_URL', '//api.alkemics.com');
+    angular.module('jDashboardFluxApp').constant('API_URL_AUTH', '//auth.alkemics.com');
+} else if (env == "dev") {
+    angular.module('jDashboardFluxApp').constant('API_URL', '//localhost.alkemics.com:6543');
+    angular.module('jDashboardFluxApp').constant('API_URL_AUTH', 'http://localhost.alkemics.com:6545');
+}
 
 angular.module('jDashboardFluxApp').config(function ($routeProvider) {
 
-    $routeProvider
-        .when('/flux/maker/product/:id', {
-            templateUrl: 'views/maker/product/show.html',
-            controller: 'DashboardMakerProductShowCtrl',
-            parameter: {id: 'integer'}
-        })
-        .when('/flux/maker/product', {
-            templateUrl: 'views/maker/product/list.html',
-            controller: 'DashboardMakerProductListCtrl',
-        })
-        .when('/flux/maker/brand', {
-            templateUrl: 'views/maker/show.html',
-            controller: 'DashboardMakerShowCtrl'
-        })
-        .when('/flux/maker/assortment', {
-            templateUrl: 'views/maker/assortment.html',
-            controller: 'DashboardMakerAssortmentCtrl'
-        })
-        .when('/flux/maker/sales', {
-            templateUrl: 'views/maker/sales.html',
-            controller: 'DashboardMakerSalesCtrl'
-        })
-        .when('/flux/maker/notifications', {
-            templateUrl: 'views/maker/notifications.html',
-            controller: 'DashboardMakerNotificationsCtrl'
-        })
-        .when('/flux/maker/home', {
-            templateUrl: 'views/maker/notifications.html',
-            controller: 'DashboardMakerNotificationsCtrl',
-        })
+    // ------------------------------------------------------------------------------------------
+    // Product views
+    // ------------------------------------------------------------------------------------------
+    $routeProvider.when('/maker/product', {
+        templateUrl: 'views/maker/product/list/index.html',
+        controller: 'DashboardMakerProductListCtrl',
+    });
+    $routeProvider.when('/maker/product/:id', {
+        templateUrl: 'views/maker/product/show/index.html',
+        controller: 'DashboardMakerProductShowCtrl',
+        parameter: {id: 'integer'}
+    });
 
+    // ------------------------------------------------------------------------------------------
+    // Brand views
+    // ------------------------------------------------------------------------------------------
+    $routeProvider.when('/maker/brand/:id', {
+        templateUrl: 'views/maker/brand/show.html',
+        controller: 'DashboardMakerBrandShowCtrl'
+    });
+    $routeProvider.when('/maker/brand', {
+        templateUrl: 'views/maker/brand/list.html',
+        controller: 'DashboardMakerBrandListCtrl'
+    });
 
-        .when('/flux/retailer/product/:id/show', {
-            templateUrl: 'views/retailer/product/show.html',
-            controller: 'DashboardRetailerProductShowCtrl'
-        })
-        .when('/flux/retailer/product/list', {
-            templateUrl: 'views/retailer/product/list.html',
-            controller: 'DashboardRetailerProductListCtrl'
-        })
-        .when('/flux/retailer/show', {
-            templateUrl: 'views/retailer/show.html',
-            controller: 'DashboardRetailerShowCtrl'
-        })
-        .when('/flux/retailer/notifications', {
-            templateUrl: 'views/retailer/notifications.html',
-            controller: 'DashboardRetailerNotificationsCtrl'
-        })
+    // ------------------------------------------------------------------------------------------
+    // Notification views
+    // ------------------------------------------------------------------------------------------
+    $routeProvider.when('/maker/notifications', {
+        templateUrl: 'views/maker/notifications.html',
+        controller: 'DashboardMakerNotificationsCtrl'
+    });
+    $routeProvider.when('/maker/home', {
+        templateUrl: 'views/maker/notifications.html',
+        controller: 'DashboardMakerNotificationsCtrl',
+    });
 
-        .when('/login', {
-          templateUrl: 'views/login.html',
-          controller: 'LoginController',
-          isPublic: true
-        })
+    // ------------------------------------------------------------------------------------------
+    // Security views
+    // ------------------------------------------------------------------------------------------
+    $routeProvider.when('/login', {
+        templateUrl: 'views/login.html',
+        controller: 'LoginController',
+        isPublic: true
+    });
+    $routeProvider.when('/register', {
+        templateUrl: 'views/register.html',
+        controller: 'RegisterCtrl'
+    });
+    $routeProvider.when('/getstarted', {
+        templateUrl: 'views/maker/getstarted/index.html',
+        controller: 'DashboardMakerGetStartedCtrl'
+    });
 
-        .when('/register', {
-          templateUrl: 'views/register.html',
-          controller: 'HomeCtrl',
-          isPublic: true
-        })
-
-        .when('/', {
-          templateUrl: 'views/maker/product/list.html',
-          controller: 'DashboardMakerProductListCtrl',          
-        })
-        .otherwise({
-          redirectTo: '/'
-        });
+    // ------------------------------------------------------------------------------------------
+    // Home views
+    // ------------------------------------------------------------------------------------------
+    $routeProvider.when('/', {
+        templateUrl: 'views/home.html',
+        controller: 'HomeCtrl',
+        isPublic: true
+    });
+    $routeProvider.otherwise({
+        redirectTo: '/'
+    });
 });
 
 
@@ -100,7 +104,6 @@ angular.module('jDashboardFluxApp').config(['$httpProvider', function($httpProvi
     $httpProvider.interceptors.push(['$window', function($window) {
         return {
             request: function (config) {
-              console.log(config)
                 config.headers = config.headers || {};
                 if ($window.sessionStorage.token) {
                     config.headers.Authorization = 'Bearer ' + $window.sessionStorage.token;

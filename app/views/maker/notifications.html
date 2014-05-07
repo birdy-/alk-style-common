@@ -1,39 +1,41 @@
+<div ng-include="'/views/maker/home/header.html'"></div>
 
-<div class="row">
-    <div class="col-lg-12">
-        <div class="pull-right">
-            <h4>{{ notifications.length }} non lues</h4>
-        </div>
-        <h2>
-            Notifications :
-        </h2>
-        <div class="bs-callout bs-callout-{{ notification.levelName }}" ng-repeat="notification in notifications | filter:{read: false} ">
-            <div class="pull-right text-right">
-                <span class="bs-action">
-                    <i class="fa fa-check" ng-click="read(notification)"></i>
-                </span>
-                <br/>
-                Reçu le {{ notification.createdAt | date }}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="pull-right">
+                <h4>{{ notifications.length }} non lues</h4>
             </div>
-            <h4>
-                <i class="fa fa-{{ notification.iconName }}"></i>
-                {{ notification.subjectName }}
-            </h4>
-
-            <div ng-if="notification.subject == 0">
-                Le produit <a ng-href="{{ '/#/flux/maker/product/' + notification.about.id }}">{{ notification.about.name }}</a> a été ajouté à la gamme. Les magasins partenaires ont été informés.
-            </div>
-            <div ng-if="notification.subject == 1">
-                <a>{{ notification.from.name }}</a> a corrigé le champ {{ notification.field }} du produit <a ng-href="{{ '/#/flux/maker/product/' + notification.about.id }}">{{ notification.about.name }}</a>.
-            </div>
-            <div ng-if="notification.subject == 2">
-                Il est désormais possible d'ajouter les mentions {{ notification.field }}.
-            </div>
-            <div ng-if="notification.subject == 3">
-                <a>{{ notification.from.name }}</a> vient de modifier le champ {{ notification.field }} du produit <a ng-href="{{ '/#/flux/maker/product/' + notification.about.id }}">{{ notification.about.name }}</a>.
-            </div>
-            <div ng-if="notification.subject == 5">
-                <a>{{ notification.from.name }}</a> vient d'ajouter un produit non référencé : <a ng-href="{{ '/#/flux/maker/product/' + notification.about.id }}">{{ notification.about.name }}</a>.
+            <h2>
+                Notifications :
+            </h2>
+            <div class="bs-callout bs-callout-{{ notification.levelName }}" ng-repeat="notification in notifications | filter:{read: false} ">
+                <div class="pull-right text-right">
+                    <span class="bs-action">
+                        <i class="fa fa-check" ng-click="notification.read()"></i>
+                    </span>
+                    <br/>
+                    Reçu le {{ notification.createdAt | date }}
+                </div>
+                <h4>
+                    <i class="fa fa-{{ notification.iconName() }}"></i>
+                    {{ notification.subjectName }}
+                </h4>
+                <div ng-if="notification.subject == 0">
+                    Le produit <a ng-href="{{ '/#/maker/product/' + notification.about.id }}">{{ notification.about.name }}</a> a été ajouté à la gamme. Les magasins partenaires ont été informés.
+                </div>
+                <div ng-if="notification.subject == 1">
+                    <a>{{ notification.from.name }}</a> a corrigé le champ {{ notification.field }} du produit <a ng-href="{{ '/#/maker/product/' + notification.about.id }}">{{ notification.about.name }}</a>.
+                </div>
+                <div ng-if="notification.subject == 2">
+                    Il est désormais possible d'ajouter les mentions {{ notification.field }}.
+                </div>
+                <div ng-if="notification.subject == 3">
+                    <a>{{ notification.from.name }}</a> vient de modifier le champ {{ notification.field }} du produit <a ng-href="{{ '/#/maker/product/' + notification.about.id }}">{{ notification.about.name }}</a>.
+                </div>
+                <div ng-if="notification.subject == 5">
+                    <a>{{ notification.from.name }}</a> vient d'ajouter un produit non référencé : <a ng-href="{{ '/#/maker/product/' + notification.about.id }}">{{ notification.about.name }}</a>.
+                </div>
             </div>
         </div>
     </div>

@@ -1,0 +1,23 @@
+<div ng-include="'/views/maker/home/header.html'"></div>
+
+<div class="container">
+    <h2>Mes marques</h2>
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <td>Logo</td>
+                        <td>Nom</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="brand in brands">
+                        <td><img ng-src="{{ brand.picture.logo }}"/></td>
+                        <td><a href="/#/maker/brand/{{ brand.id }}">{{ brand.name }}</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
