@@ -1,0 +1,171 @@
+<h1>Préférences</h1>
+
+<h2>Mes informations de connection</h2>
+<div class="row">
+	<div class="col-lg-9">
+		<form class="form-horizontal" role="form">
+			<div class="form-group">
+				<label for="email" class="col-sm-2 control-label">Email</label>
+				<div class="col-sm-10">
+					<input type="email" class="form-control" id="email" placeholder="Email" ng-model="user.username" disabled>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="password_old" class="col-sm-2 control-label">Ancien password</label>
+				<div class="col-sm-10">
+					<input type="password" class="form-control" id="password_old" placeholder="Ancien password" ng-model="user.password.old">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="password_new" class="col-sm-2 control-label">Nouveau password</label>
+				<div class="col-sm-10">
+					<input type="password" class="form-control" id="password_new" placeholder="Nouveau password" ng-model="user.password.new">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button ng-click="changePassword()" type="submit" class="btn btn-danger">Changer mon password</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="col-lg-3">
+		<img gravatar-src="user.username" gravatar-size="512" class="img-thumbnail img-responsive">
+	</div>
+</div>
+
+<br/>
+<br/>
+<br/>
+
+<section ng-show="user.belongsTo.length" class="col-lg-6">
+	<h2>Mes organisations</h2>
+	<table class="table table-condensed table-bordered">
+		<thead>
+			<tr class="color-organization">
+				<th></th>
+				<th>Nom</th>
+				<th>Permissions</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="organization in user.belongsTo">
+				<td>{{ organization.id }}</td>
+				<td>{{ organization.name }}</td>
+				<td>
+					<span ng-repeat-start="permission in organization.permissions | filter:value" class="label label-default">{{ permission }}</span>&emsp;
+					<span ng-repeat-end></span>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</section>
+
+<section ng-show="user.managesWebsite.length" class="col-lg-6">
+	<h2>Mes sites web</h2>
+	<table class="table table-condensed table-bordered">
+		<thead>
+			<tr class="color-website">
+				<th></th>
+				<th>Nom</th>
+				<th>Permissions</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="website in user.managesWebsite">
+				<td>{{ website.id }}</td>
+				<td>{{ website.name }}</td>
+				<td>
+					<span ng-repeat-start="permission in website.permissions | filter:value" class="label label-default">{{ permission }}</span>&emsp;
+					<span ng-repeat-end></span>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</section>
+
+<section ng-show="user.managesShop.length" class="col-lg-6">
+	<h2>Mes magasins</h2>
+	<table class="table table-condensed table-bordered">
+		<thead>
+			<tr class="color-shop">
+				<th></th>
+				<th>Nom</th>
+				<th>Permissions</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="shop in user.managesShop">
+				<td>{{ shop.id }}</td>
+				<td>{{ shop.name }}</td>
+				<td>
+					<span ng-repeat-start="permission in shop.permissions" class="label label-default">{{ permission }}</span>&emsp;
+					<span ng-repeat-end></span>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</section>
+
+<section ng-show="user.managesBrand.length" class="col-lg-6">
+	<h2>Mes marques</h2>
+	<table class="table table-condensed table-bordered">
+		<thead>
+			<tr class="color-brand">
+				<th></th>
+				<th>Nom</th>
+				<th>Permissions</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="brand in user.managesBrand">
+				<td>{{ brand.id }}</td>
+				<td>{{ brand.name }}</td>
+				<td>
+					<span ng-repeat-start="permission in brand.permissions" class="label label-default">{{ permission }}</span>&emsp;
+					<span ng-repeat-end></span>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</section>
+
+<section ng-show="user.configures.length" class="col-lg-6">
+	<h2>Mes plugins</h2>
+	<table class="table table-condensed table-bordered">
+		<thead>
+			<tr class="color-plugin">
+				<th></th>
+				<th>Nom</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="plugin in user.configures">
+				<td>{{ plugin.id }}</td>
+				<td>{{ plugin.name }}</td>
+			</tr>
+		</tbody>
+	</table>
+</section>
+
+<section ng-show="user.managesPlacement.length" class="col-lg-6">
+	<h2>Mes emplacements</h2>
+	<table class="table table-condensed table-bordered">
+		<thead>
+			<tr class="color-placement">
+				<th></th>
+				<th>Nom</th>
+				<th>Site</th>
+				<th>Organisation</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="placement in user.managesPlacement">
+				<td>{{ placement.id }}</td>
+				<td>{{ placement.name }}</td>
+				<td>{{ placement.appearsOn.id }}</td>
+				<td>{{ placement.ownedBy.id }}</td>
+			</tr>
+		</tbody>
+	</table>
+</section>

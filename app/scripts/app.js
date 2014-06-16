@@ -93,6 +93,7 @@ angular.module('jDashboardFluxApp').config(function ($routeProvider) {
         redirectTo: '/'
     });
 });
+<<<<<<< HEAD
 
 
 
@@ -113,3 +114,5 @@ angular.module('jDashboardFluxApp').config(['$httpProvider', function($httpProvi
         };
     }]);
 }]);
+=======
+>>>>>>> d47c3480152197fe2462277da0428c2e0ec01bd9
