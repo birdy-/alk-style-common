@@ -85,7 +85,7 @@ angular.module('jDashboardFluxApp').config(function ($routeProvider) {
     // Home views
     // ------------------------------------------------------------------------------------------
     $routeProvider.when('/', {
-        templateUrl: 'src/home.html',
+        templateUrl: 'src/home/home.html',
         controller: 'HomeCtrl',
         isPublic: true
     });
