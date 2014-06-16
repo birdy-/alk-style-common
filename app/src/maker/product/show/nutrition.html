@@ -1,177 +1,275 @@
+<style>
+    .table > tbody > tr > td{
+        border-top: 0px;
+    }
+    .table > tbody > tr {
+        border-top: 0px;
+        border-bottom: 0px;
+        border-spacing: 0px;
+    }
+    .pnq-name {
+        text-align: right;
+    }
+    .separator {
+         margin-right: 30px;
+    }
+</style>
 
-<div class="form-group">
-    <div class="col-sm-10 col-sm-offset-2">
-        <p>
-            Les valeurs ci-dessous doivent être remplies en valeur moyenne, c'est à dire avec la valeur qui représente le mieux la quantité d’un nutriment contenu dans une denrée alimentaire donnée et qui tient compte des tolérances dues aux variations saisonnières, aux habitudes de consommation et aux autres facteurs pouvant influencer la valeur effective.
-        </p>
-        <h3>
-            Déclaration nutritionnelle
-            <small>Pour 100g de produit</small>
-        </h3>
-    </div>
-</div>
+<p>
+    Les valeurs ci-dessous doivent être remplies en valeur moyenne, c'est à dire avec la valeur qui représente le mieux la quantité d’un nutriment contenu dans une denrée alimentaire donnée et qui tient compte des tolérances dues aux variations saisonnières, aux habitudes de consommation et aux autres facteurs pouvant influencer la valeur effective.
+</p>
+<h3>
+    Déclaration nutritionnelle
+    <small>Pour 100g de produit</small>
+</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th class="col-lg-2 text-right">Taille de référence</th>
+            <th ng-repeat="productStandardQuantity in product.isPartitionedBy">{{ productStandardQuantity.name }}</th>
+            <th class="col-lg-1 text-center"><span class="btn btn-success"><i class="fa fa-plus"></i>Créer</span></th>
+        </tr>
+    </thead>
 
 <!-- ================================================================================================================================== -->
 <!--                                                         Energie                                                                    -->
 <!-- ================================================================================================================================== -->
 
-<div class="form-group has-feedback" ng-class="check('qtyEnergy')">
-    <label for="qtyEnergy" class="col-sm-2 control-label">Energie</label>
-    <div class="col-sm-6">
-        <div class="input-group">
-            <input name="qtyEnergy" type="text" class="form-control" ng-model="product.qtyEnergy" placeholder="ex : 100" alk-float="2" alk-focus ng-min="0" required/>
-            <span class="input-group-addon">kJ / 100g</span>
-        </div>
-        <span ng-show="productForm.qtyEnergy.$error.float" class="help-block">La valeur entrée doit être un nombre décimal.</span>
-        <span ng-show="productForm.qtyEnergy.$error.min" class="help-block">La valeur entrée ne doit pas être inférieure à 0.</span>
-    </div>
-    <div class="col-sm-4" ng-show="productForm.qtyEnergy.$focus">
-        La valeur énergétique d'un aliment est la quantité d'énergie pouvant en être retirée via la digestion. Pour obtenir celle-ci, on multiplie la quantité totale d'énergie contenue dans un aliment par 85 % (les pertes durant la digestion humaine représentent 15 % de la valeur totale).
-        <br/>
-        La valeur énergétique est exprimée en kilojoules (kJ), mais peut aussi être <a tabindex="-1" href="http://www.fao.org/docrep/meeting/009/ae906e/ae906e17.htm" target="_blank">convertie</a> en kilocalories (kCal) :
-        <span ng-show="productForm.qtyEnergy.$valid">
-            100 grammes de ce produit contiennent donc <strong>{{ product.qtyEnergy | number:2 }} kJ</strong> soit <strong>{{ product.qtyEnergy / 4.19  | number:2 }} kCal</strong>.
-        </span>
-    </div>
-</div>
+    <tbody>
+        <tr>
+            <td class="pnq-name">
+                <label for="qtyEnergyKcal" class="control-label">Energie (kJ)</label>
+            </td>
+            <td ng-repeat="productStandardQuantity in product.isPartitionedBy" class="psq">
+                <div class="input-group">
+                    <input name="qtyEnergyKcal" type="text" class="form-control" ng-model="product.qtyEnergyKcal" placeholder="ex : 100" alk-float="2" alk-focus ng-min="0" required/>
+                    <span class="input-group-addon">kJ / 100g</span>
+                </div>
+                <span ng-show="productForm.qtyEnergyKcal.$error.float" class="help-block">La valeur entrée doit être un nombre décimal.</span>
+                <span ng-show="productForm.qtyEnergyKcal.$error.min" class="help-block">La valeur entrée ne doit pas être inférieure à 0.</span>
+            </td>
+            <td class="pnq-legend">
+            </td>
+        </tr>
+        <tr>
+            <td class="text-right">
+            </td>
+            <td ng-repeat="productStandardQuantity in product.isPartitionedBy" class="psq">
+                <label class="control-label pull-left" style="margin-right: 10px;">soit</label>
+                <div class="input-group">
+                    <input name="qtyEnergyKcalAJR" type="text" class="form-control" ng-model="product.qtyEnergyKcalAJR" placeholder="ex : 100" alk-float="2" alk-focus ng-min="0" required/>
+                    <span class="input-group-addon">% AJR</span>
+                </div>
+                <span ng-show="productForm.qtyEnergyKcalAJR.$error.float" class="help-block">La valeur entrée doit être un nombre décimal.</span>
+                <span ng-show="productForm.qtyEnergyKcalAJR.$error.min" class="help-block">La valeur entrée ne doit pas être inférieure à 0.</span>
+            </td>
+            <td class="pnq-legend">
+            </td>
+        </tr>
+        <tr>
+            <td class="text-right">
+                <label for="qtyEnergykJ" class="control-label">Energie (kCal)</label>
+            </td>
+            <td ng-repeat="productStandardQuantity in product.isPartitionedBy" class="psq">
+                <div class="input-group">
+                    <input name="qtyEnergykJ" type="text" class="form-control" ng-model="product.qtyEnergykJ" placeholder="ex : 100" alk-float="2" alk-focus ng-min="0" required/>
+                    <span class="input-group-addon">kCal / 100g</span>
+                </div>
+                <span ng-show="productForm.qtyEnergykJ.$error.float" class="help-block">La valeur entrée doit être un nombre décimal.</span>
+                <span ng-show="productForm.qtyEnergykJ.$error.min" class="help-block">La valeur entrée ne doit pas être inférieure à 0.</span>
+            </td>
+            <td class="pnq-legend">
+                <div ng-show="productForm.qtyEnergy.$focus">
+                    La valeur énergétique d'un aliment est la quantité d'énergie pouvant en être retirée via la digestion. Pour obtenir celle-ci, on multiplie la quantité totale d'énergie contenue dans un aliment par 85 % (les pertes durant la digestion humaine représentent 15 % de la valeur totale).
+                    <br/>
+                    La valeur énergétique est exprimée en kilojoules (kJ), mais peut aussi être <a tabindex="-1" href="http://www.fao.org/docrep/meeting/009/ae906e/ae906e17.htm" target="_blank">convertie</a> en kilocalories (kCal) :
+                    <span ng-show="productForm.qtyEnergy.$valid">
+                        100 grammes de ce produit contiennent donc <strong>{{ product.qtyEnergy | number:2 }} kJ</strong> soit <strong>{{ product.qtyEnergy / 4.19  | number:2 }} kCal</strong>.
+                    </span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-right"></td>
+            <td ng-repeat="productStandardQuantity in product.isPartitionedBy" class="psq">
+                <label class="control-label pull-left" style="margin-right: 10px;">soit</label>
+                <div class="input-group">
+                    <input name="qtyEnergyKcalAJR" type="text" class="form-control" ng-model="product.qtyEnergyKcalAJR" placeholder="ex : 100" alk-float="2" alk-focus ng-min="0" required/>
+                    <span class="input-group-addon">% AJR</span>
+                </div>
+                <span ng-show="productForm.qtyEnergyKcalAJR.$error.float" class="help-block">La valeur entrée doit être un nombre décimal.</span>
+                <span ng-show="productForm.qtyEnergyKcalAJR.$error.min" class="help-block">La valeur entrée ne doit pas être inférieure à 0.</span>
+            </td>
+            <td class="pnq-legend">
+            </td>
+        </tr>
+    </tbody>
 
 
 <!-- ================================================================================================================================== -->
 <!--                                                        Graisses                                                                    -->
 <!-- ================================================================================================================================== -->
 
-<div class="form-group has-feedback" ng-class="check('qtyLypid')">
-    <label for="qtyLypid" class="col-sm-2 control-label">Graisses</label>
-    <div class="col-sm-6">
-        <div class="input-group">
-            <input name="qtyLypid" type="text" class="form-control" ng-model="product.qtyLypid" placeholder="ex : 28.5" alk-float="2" alk-focus ng-max="100" ng-min="0" required>
-            <span class="input-group-addon">g / 100g</span>
-        </div>
-        <span ng-show="productForm.qtyLypid.$error.float" class="help-block">La valeur entrée doit être un nombre décimal.</span>
-        <span ng-show="productForm.qtyLypid.$error.max" class="help-block">La valeur entrée ne doit pas être supérieure à 100.</span>
-        <span ng-show="productForm.qtyLypid.$error.min" class="help-block">La valeur entrée ne doit pas être inférieure à 0.</span>
-    </div>
-    <div class="col-sm-4" ng-show="productForm.qtyLypid.$focus">
-        La quantité totale de lipides (y compris phospholipides), rapportée 100 grammes de produit.
-    </div>
-</div>
-<div class="form-group has-feedback" ng-class="check('qtyLypidSaturated')">
-    <div class="col-sm-2"></div>
-    <label for="qtyLypidSaturated" class="col-sm-2 control-label">Lipides saturatés</label>
-    <div class="col-sm-4">
-        <div class="input-group">
-            <input name="qtyLypidSaturated" type="text" class="form-control" ng-model="product.qtyLypidSaturated" placeholder="ex : 100" alk-focus alk-float="2" ng-max="100" ng-min="0" required>
-            <span class="input-group-addon">g / 100g</span>
-        </div>
-        <span ng-show="productForm.qtyLypidSaturated.$error.float" class="help-block">La valeur entrée doit être un nombre décimal.</span>
-        <span ng-show="productForm.qtyLypidSaturated.$error.max" class="help-block">La valeur entrée ne doit pas être supérieure à 100.</span>
-        <span ng-show="productForm.qtyLypidSaturated.$error.min" class="help-block">La valeur entrée ne doit pas être inférieure à 0.</span>
-    </div>
-    <div class="col-sm-4" ng-show="productForm.qtyLypidSaturated.$focus">
-        La quantité totale d'acides gras sans double liaison, rapportée à 100 grammes de produit.
-    </div>
-</div>
-<div class="form-group has-feedback" ng-class="check('qtyLypid1UnSaturated')">
-    <div class="col-sm-2"></div>
-    <label for="qtyLypid1UnSaturated" class="col-sm-2 control-label">Lipides Mono-insaturés</label>
-    <div class="col-sm-4">
-        <div class="input-group">
-            <input name="qtyLypid1UnSaturated" type="text" class="form-control" ng-model="product.qtyLypid1UnSaturated" placeholder="ex : 18" alk-focus alk-float="2" ng-max="100" ng-min="0" required>
-            <span class="input-group-addon">g / 100g</span>
-        </div>
-        <span ng-show="productForm.qtyLypid1UnSaturated.$error.float" class="help-block">La valeur entrée doit être un nombre décimal.</span>
-        <span ng-show="productForm.qtyLypid1UnSaturated.$error.max" class="help-block">La valeur entrée ne doit pas être supérieure à 100.</span>
-        <span ng-show="productForm.qtyLypid1UnSaturated.$error.min" class="help-block">La valeur entrée ne doit pas être inférieure à 0.</span>
-    </div>
-    <div class="col-sm-4" ng-show="productForm.qtyLypid1UnSaturated.$focus">
-        La quantité totale d'acides gras avec une double liaison cis, rapportée à 100 grammes de produit.
-    </div>
-</div>
-<div class="form-group has-feedback" ng-class="check('qtyLypidXUnSaturated')">
-    <div class="col-sm-2"></div>
-    <label for="qtyLypidXUnSaturated" class="col-sm-2 control-label">Lipides Poly-insaturés</label>
-    <div class="col-sm-4">
-        <div class="input-group">
-            <input name="qtyLypidXUnSaturated" type="text" class="form-control" ng-model="product.qtyLypidXUnSaturated" placeholder="ex : 18" alk-focus alk-float="2" ng-max="100" ng-min="0" required>
-            <span class="input-group-addon">g / 100g</span>
-        </div>
-        <span ng-show="productForm.qtyLypidXUnSaturated.$error.float" class="help-block">La valeur entrée doit être un nombre décimal.</span>
-        <span ng-show="productForm.qtyLypidXUnSaturated.$error.max" class="help-block">La valeur entrée ne doit pas être supérieure à 100.</span>
-        <span ng-show="productForm.qtyLypidXUnSaturated.$error.min" class="help-block">La valeur entrée ne doit pas être inférieure à 0.</span>
-    </div>
-    <div class="col-sm-4" ng-show="productForm.qtyLypidXUnSaturated.$focus">
-        La quantité totale d'acides gras avec deux (ou plus) doubles liaisons interrompues cis ou cis-méthylène, rapportée à 100 grammes de produit.
-    </div>
-</div>
-<div class="form-group has-feedback" ng-class="check('qtyLypidTrans')">
-    <div class="col-sm-2"></div>
-    <label for="qtyLypidTrans" class="col-sm-2 control-label">Lipides Trans</label>
-    <div class="col-sm-4">
-        <div class="input-group">
-            <input name="qtyLypidTrans" type="text" class="form-control" ng-model="product.qtyLypidTrans" placeholder="ex : 18" alk-focus alk-float="2" required>
-            <span class="input-group-addon">g / 100g</span>
-        </div>
-        <span ng-show="productForm.qtyLypidTrans.$error.float" class="help-block">La valeur entrée doit être un nombre décimal.</span>
-        <span ng-show="productForm.qtyLypidTrans.$error.max" class="help-block">La valeur entrée ne doit pas être supérieure à 100.</span>
-        <span ng-show="productForm.qtyLypidTrans.$error.min" class="help-block">La valeur entrée ne doit pas être inférieure à 0.</span>
-    </div>
-    <div class="col-sm-4" ng-show="productForm.qtyLypidTrans.$focus">
-        La quantité totale d'acides gras qui présentent au moins une liaison double non conjuguée (c’est-à-dire inter­rompue par au moins un groupement méthylène) entre atomes de carbone en configuration trans, rapportée à 100 grammes de produit.
-    </div>
-</div>
-<div class="form-group has-feedback" ng-class="check('qtyLypidCholesterol')">
-    <div class="col-sm-2"></div>
-    <label for="qtyLypidCholesterol" class="col-sm-2 control-label">Cholestérol</label>
-    <div class="col-sm-4">
-        <div class="input-group">
-            <input name="qtyLypidCholesterol" type="text" class="form-control" ng-model="product.qtyLypidCholesterol" placeholder="ex : 18" alk-focus alk-float="2"/>
-            <span class="input-group-addon">g / 100g</span>
-        </div>
-        <span ng-show="productForm.qtyLypidCholesterol.$error.float" class="help-block">La valeur entrée doit être un nombre décimal.</span>
-        <span ng-show="productForm.qtyLypidCholesterol.$error.max" class="help-block">La valeur entrée ne doit pas être supérieure à 100.</span>
-        <span ng-show="productForm.qtyLypidCholesterol.$error.min" class="help-block">La valeur entrée ne doit pas être inférieure à 0.</span>
-    </div>
-</div>
-<div class="form-group has-feedback" ng-class="check('qtyLypidOmega3')">
-    <div class="col-sm-2"></div>
-    <label for="qtyLypidOmega3" class="col-sm-2 control-label">Oméga 3</label>
-    <div class="col-sm-4">
-        <div class="input-group">
-            <input name="qtyLypidOmega3" type="text" class="form-control" ng-model="product.qtyLypidOmega3" placeholder="ex : 18" alk-focus alk-float="2"/>
-            <span class="input-group-addon">g / 100g</span>
-        </div>
-        <span ng-show="productForm.qtyLypidOmega3.$error.float" class="help-block">La valeur entrée doit être un nombre décimal.</span>
-        <span ng-show="productForm.qtyLypidOmega3.$error.max" class="help-block">La valeur entrée ne doit pas être supérieure à 100.</span>
-        <span ng-show="productForm.qtyLypidOmega3.$error.min" class="help-block">La valeur entrée ne doit pas être inférieure à 0.</span>
-    </div>
-</div>
-<div class="form-group has-feedback" ng-class="check('qtyLypidOmega6')">
-    <div class="col-sm-2"></div>
-    <label for="qtyLypidOmega6" class="col-sm-2 control-label">Oméga 6</label>
-    <div class="col-sm-4">
-        <div class="input-group">
-            <input name="qtyLypidOmega6" type="text" class="form-control" ng-model="product.qtyLypidOmega6" placeholder="ex : 18" alk-focus alk-float="2"/>
-            <span class="input-group-addon">g / 100g</span>
-        </div>
-        <span ng-show="productForm.qtyLypidOmega6.$error.float" class="help-block">La valeur entrée doit être un nombre décimal.</span>
-        <span ng-show="productForm.qtyLypidOmega6.$error.max" class="help-block">La valeur entrée ne doit pas être supérieure à 100.</span>
-        <span ng-show="productForm.qtyLypidOmega6.$error.min" class="help-block">La valeur entrée ne doit pas être inférieure à 0.</span>
-    </div>
-</div>
-<div class="form-group has-feedback" ng-class="check('ratioFat')">
-    <div class="col-sm-2"></div>
-    <label for="ratioFat" class="col-sm-2 control-label">Rapport gras</label>
-    <div class="col-sm-4">
-        <div class="input-group">
-            <input name="ratioFat" type="text" class="form-control" ng-model="product.ratioFat" placeholder="ex : 100" alk-focus alk-float="2"/>
-            <span class="input-group-addon">%</span>
-        </div>
-        <span ng-show="productForm.ratioFat.$error.float" class="help-block">La valeur entrée doit être un nombre décimal.</span>
-        <span ng-show="productForm.ratioFat.$error.max" class="help-block">La valeur entrée ne doit pas être supérieure à 100.</span>
-        <span ng-show="productForm.ratioFat.$error.min" class="help-block">La valeur entrée ne doit pas être inférieure à 0.</span>
-    </div>
-</div>
-
+    <tbody>
+        <tr ng-class="check('qtyLypid')">
+            <td class="pnq-name">
+                <label for="qtyLypid" class="control-label">Graisses</label>
+            </td>
+            <td ng-repeat="productStandardQuantity in product.isPartitionedBy" class="psq">
+                <div class="input-group">
+                    <input name="qtyLypid" type="text" class="form-control" ng-model="product.qtyLypid" placeholder="ex : 28.5" alk-float="2" alk-focus ng-max="100" ng-min="0" required>
+                    <span class="input-group-addon">g / 100g</span>
+                </div>
+                <span ng-show="productForm.qtyLypid.$error.float" class="help-block">La valeur entrée doit être un nombre décimal.</span>
+                <span ng-show="productForm.qtyLypid.$error.max" class="help-block">La valeur entrée ne doit pas être supérieure à 100.</span>
+                <span ng-show="productForm.qtyLypid.$error.min" class="help-block">La valeur entrée ne doit pas être inférieure à 0.</span>
+            </td>
+            <td class="pnq-legend" ng-show="productForm.qtyLypid.$focus">
+                La quantité totale de lipides (y compris phospholipides), rapportée 100 grammes de produit.
+            </td>
+        </tr>
+        <tr ng-class="check('qtyLypidSaturated')">
+            <td class="pnq-name">
+                <label for="qtyLypidSaturated" class="control-label">Lipides saturatés</label>
+            </td>
+            <td ng-repeat="productStandardQuantity in product.isPartitionedBy" class="psq">
+                <label class="control-label pull-left separator"></label>
+                <div class="input-group">
+                    <input name="qtyLypidSaturated" type="text" class="form-control" ng-model="product.qtyLypidSaturated" placeholder="ex : 100" alk-focus alk-float="2" ng-max="100" ng-min="0" required>
+                    <span class="input-group-addon">g / 100g</span>
+                </div>
+                <span ng-show="productForm.qtyLypidSaturated.$error.float" class="help-block">La valeur entrée doit être un nombre décimal.</span>
+                <span ng-show="productForm.qtyLypidSaturated.$error.max" class="help-block">La valeur entrée ne doit pas être supérieure à 100.</span>
+                <span ng-show="productForm.qtyLypidSaturated.$error.min" class="help-block">La valeur entrée ne doit pas être inférieure à 0.</span>
+            </td>
+            <td class="pnq-legend" ng-show="productForm.qtyLypidSaturated.$focus">
+                La quantité totale d'acides gras sans double liaison, rapportée à 100 grammes de produit.
+            </td>
+        </tr>
+        <tr ng-class="check('qtyLypid1UnSaturated')">
+            <td class="pnq-name">
+                <label for="qtyLypid1UnSaturated" class="control-label">Lipides Mono-insaturés</label>
+            </td>
+            <td ng-repeat="productStandardQuantity in product.isPartitionedBy" class="psq">
+                <label class="control-label pull-left separator"></label>
+                <div class="input-group">
+                    <input name="qtyLypid1UnSaturated" type="text" class="form-control" ng-model="product.qtyLypid1UnSaturated" placeholder="ex : 18" alk-focus alk-float="2" ng-max="100" ng-min="0" required>
+                    <span class="input-group-addon">g / 100g</span>
+                </div>
+                <span ng-show="productForm.qtyLypid1UnSaturated.$error.float" class="help-block">La valeur entrée doit être un nombre décimal.</span>
+                <span ng-show="productForm.qtyLypid1UnSaturated.$error.max" class="help-block">La valeur entrée ne doit pas être supérieure à 100.</span>
+                <span ng-show="productForm.qtyLypid1UnSaturated.$error.min" class="help-block">La valeur entrée ne doit pas être inférieure à 0.</span>
+            </td>
+            <td class="pnq-legend" ng-show="productForm.qtyLypid1UnSaturated.$focus">
+                La quantité totale d'acides gras avec une double liaison cis, rapportée à 100 grammes de produit.
+            </td>
+        </tr>
+        <tr ng-class="check('qtyLypidXUnSaturated')">
+            <td class="pnq-name">
+                <label for="qtyLypidXUnSaturated" class="control-label">Lipides Poly-insaturés</label>
+            </td>
+            <td ng-repeat="productStandardQuantity in product.isPartitionedBy" class="psq">
+                <label class="control-label pull-left separator"></label>
+                <div class="input-group">
+                    <input name="qtyLypidXUnSaturated" type="text" class="form-control" ng-model="product.qtyLypidXUnSaturated" placeholder="ex : 18" alk-focus alk-float="2" ng-max="100" ng-min="0" required>
+                    <span class="input-group-addon">g / 100g</span>
+                </div>
+                <span ng-show="productForm.qtyLypidXUnSaturated.$error.float" class="help-block">La valeur entrée doit être un nombre décimal.</span>
+                <span ng-show="productForm.qtyLypidXUnSaturated.$error.max" class="help-block">La valeur entrée ne doit pas être supérieure à 100.</span>
+                <span ng-show="productForm.qtyLypidXUnSaturated.$error.min" class="help-block">La valeur entrée ne doit pas être inférieure à 0.</span>
+            </td>
+            <td class="pnq-legend" ng-show="productForm.qtyLypidXUnSaturated.$focus">
+                La quantité totale d'acides gras avec deux (ou plus) doubles liaisons interrompues cis ou cis-méthylène, rapportée à 100 grammes de produit.
+            </td>
+        </tr>
+        <tr ng-class="check('qtyLypidTrans')">
+            <td class="pnq-name">
+                <label for="qtyLypidTrans" class="control-label">Lipides Trans</label>
+            </td>
+            <td ng-repeat="productStandardQuantity in product.isPartitionedBy" class="psq">
+                <label class="control-label pull-left separator"></label>
+                <div class="input-group">
+                    <input name="qtyLypidTrans" type="text" class="form-control" ng-model="product.qtyLypidTrans" placeholder="ex : 18" alk-focus alk-float="2">
+                    <span class="input-group-addon">g / 100g</span>
+                </div>
+                <span ng-show="productForm.qtyLypidTrans.$error.float" class="help-block">La valeur entrée doit être un nombre décimal.</span>
+                <span ng-show="productForm.qtyLypidTrans.$error.max" class="help-block">La valeur entrée ne doit pas être supérieure à 100.</span>
+                <span ng-show="productForm.qtyLypidTrans.$error.min" class="help-block">La valeur entrée ne doit pas être inférieure à 0.</span>
+            </td>
+            <td td="legend" ng-show="productForm.qtyLypidTrans.$focus">
+                La quantité totale d'acides gras qui présentent au moins une liaison double non conjuguée (c’est-à-dire inter­rompue par au moins un groupement méthylène) entre atomes de carbone en configuration trans, rapportée à 100 grammes de produit.
+            </td>
+        </tr>
+        <tr ng-class="check('qtyLypidCholesterol')">
+            <td class="pnq-name">
+                <label for="qtyLypidCholesterol" class="control-label">Cholestérol</label>
+            </td>
+            <td ng-repeat="productStandardQuantity in product.isPartitionedBy" class="psq">
+                <label class="control-label pull-left separator"></label>
+                <div class="input-group">
+                    <input name="qtyLypidCholesterol" type="text" class="form-control" ng-model="product.qtyLypidCholesterol" placeholder="ex : 18" alk-focus alk-float="2"/>
+                    <span class="input-group-addon">g / 100g</span>
+                </div>
+                <span ng-show="productForm.qtyLypidCholesterol.$error.float" class="help-block">La valeur entrée doit être un nombre décimal.</span>
+                <span ng-show="productForm.qtyLypidCholesterol.$error.max" class="help-block">La valeur entrée ne doit pas être supérieure à 100.</span>
+                <span ng-show="productForm.qtyLypidCholesterol.$error.min" class="help-block">La valeur entrée ne doit pas être inférieure à 0.</span>
+            </td>
+            <td td="legend">
+            </td>
+        </tr>
+        <tr ng-class="check('qtyLypidOmega3')">
+            <td class="pnq-name">
+                <label for="qtyLypidOmega3" class="control-label">Oméga 3</label>
+            </td>
+            <td ng-repeat="productStandardQuantity in product.isPartitionedBy" class="psq">
+                <label class="control-label pull-left separator"></label>
+                <div class="input-group">
+                    <input name="qtyLypidOmega3" type="text" class="form-control" ng-model="product.qtyLypidOmega3" placeholder="ex : 18" alk-focus alk-float="2"/>
+                    <span class="input-group-addon">g / 100g</span>
+                </div>
+                <span ng-show="productForm.qtyLypidOmega3.$error.float" class="help-block">La valeur entrée doit être un nombre décimal.</span>
+                <span ng-show="productForm.qtyLypidOmega3.$error.max" class="help-block">La valeur entrée ne doit pas être supérieure à 100.</span>
+                <span ng-show="productForm.qtyLypidOmega3.$error.min" class="help-block">La valeur entrée ne doit pas être inférieure à 0.</span>
+            </div>
+            <td td="legend">
+            </td>
+        </tr>
+        <tr ng-class="check('qtyLypidOmega6')">
+            <td class="pnq-name">
+                <label for="qtyLypidOmega6" class="control-label">Oméga 6</label>
+            </td>
+            <td ng-repeat="productStandardQuantity in product.isPartitionedBy" class="psq">
+                <label class="control-label pull-left separator"></label>
+                <div class="input-group">
+                    <input name="qtyLypidOmega6" type="text" class="form-control" ng-model="product.qtyLypidOmega6" placeholder="ex : 18" alk-focus alk-float="2"/>
+                    <span class="input-group-addon">g / 100g</span>
+                </div>
+                <span ng-show="productForm.qtyLypidOmega6.$error.float" class="help-block">La valeur entrée doit être un nombre décimal.</span>
+                <span ng-show="productForm.qtyLypidOmega6.$error.max" class="help-block">La valeur entrée ne doit pas être supérieure à 100.</span>
+                <span ng-show="productForm.qtyLypidOmega6.$error.min" class="help-block">La valeur entrée ne doit pas être inférieure à 0.</span>
+            </td>
+            <td td="legend">
+            </td>
+        </tr>
+        <tr ng-class="check('ratioFat')">
+            <td class="pnq-name">
+                <label for="ratioFat" class="control-label">Rapport gras</label>
+            </td>
+            <td ng-repeat="productStandardQuantity in product.isPartitionedBy" class="psq">
+                <label class="control-label pull-left separator"></label>
+                <div class="input-group">
+                    <input name="ratioFat" type="text" class="form-control" ng-model="product.ratioFat" placeholder="ex : 100" alk-focus alk-float="2"/>
+                    <span class="input-group-addon">%</span>
+                </div>
+                <span ng-show="productForm.ratioFat.$error.float" class="help-block">La valeur entrée doit être un nombre décimal.</span>
+                <span ng-show="productForm.ratioFat.$error.max" class="help-block">La valeur entrée ne doit pas être supérieure à 100.</span>
+                <span ng-show="productForm.ratioFat.$error.min" class="help-block">La valeur entrée ne doit pas être inférieure à 0.</span>
+            </td>
+            <td td="legend">
+            </td>
+        </tr>
+    </tbody>
 
 
 
@@ -181,150 +279,173 @@
 <!--                                                          Sucres                                                                    -->
 <!-- ================================================================================================================================== -->
 
-<div class="form-group has-feedback" ng-class="check('qtyGlucid')">
-    <label for="qtyGlucid" class="col-sm-2 control-label">Glucides</label>
-    <div class="col-sm-6">
-        <div class="input-group">
-            <input name="qtyGlucid" type="text" class="form-control" ng-model="product.qtyGlucid" placeholder="ex : 100" alk-focus alk-float="2" ng-max="100" ng-min="0" required>
-            <span class="input-group-addon">g / 100g</span>
-        </div>
-        <span ng-show="productForm.qtyGlucid.$error.float" class="help-block">La valeur entrée doit être un nombre décimal.</span>
-        <span ng-show="productForm.qtyGlucid.$error.max" class="help-block">La valeur entrée ne doit pas être supérieure à 100.</span>
-        <span ng-show="productForm.qtyGlucid.$error.min" class="help-block">La valeur entrée ne doit pas être inférieure à 0.</span>
-    </div>
-    <div class="col-sm-4" ng-show="productForm.qtyGlucid.$focus">
-        La quantité totale de tous les glucides métabolisés par l’homme, y compris les polyols, rapportée à 100 grammes de produit.
-    </div>
-</div>
-<div class="form-group has-feedback" ng-class="check('qtySugar')">
-    <div class="col-sm-2 text-right">dont</div>
-    <label for="qtySugar" class="col-sm-2 control-label">Sucres</label>
-    <div class="col-sm-4">
-        <div class="input-group">
-            <input name="qtySugar" type="text" class="form-control" ng-model="product.qtySugar" placeholder="ex : 100" alk-focus alk-float="2" ng-max="100" ng-min="0" required>
-            <span class="input-group-addon">g / 100g</span>
-        </div>
-        <span ng-show="productForm.qtySugar.$error.float" class="help-block">La valeur entrée doit être un nombre décimal.</span>
-        <span ng-show="productForm.qtySugar.$error.max" class="help-block">La valeur entrée ne doit pas être supérieure à 100.</span>
-        <span ng-show="productForm.qtySugar.$error.min" class="help-block">La valeur entrée ne doit pas être inférieure à 0.</span>
-    </div>
-    <div class="col-sm-4" ng-show="productForm.qtySugar.$focus">
-        La quantité totale de tous les monosaccharides et disaccharides présents dans une denrée alimentaire, à l’exclusion des polyols, rapportée à 100 grammes de produit.
-    </div>
-</div>
-<div class="form-group has-feedback" ng-class="check('qtyPolyols')">
-    <div class="col-sm-2 text-right">dont</div>
-    <label for="qtyPolyols" class="col-sm-2 control-label">Polyols</label>
-    <div class="col-sm-4">
-        <div class="input-group">
-            <input name="qtyPolyols" type="text" class="form-control" ng-model="product.qtyPolyols" placeholder="ex : 100" alk-focus alk-float="2" ng-max="100" ng-min="0" required>
-            <span class="input-group-addon">g / 100g</span>
-        </div>
-        <span ng-show="productForm.qtyPolyols.$error.float" class="help-block">La valeur entrée doit être un nombre décimal.</span>
-        <span ng-show="productForm.qtyPolyols.$error.max" class="help-block">La valeur entrée ne doit pas être supérieure à 100.</span>
-        <span ng-show="productForm.qtyPolyols.$error.min" class="help-block">La valeur entrée ne doit pas être inférieure à 0.</span>
-    </div>
-    <div class="col-sm-4" ng-show="productForm.qtyPolyols.$focus">
-        La quantité totale de tous les alcools comprenant plus de deux groupes hydroxyles, rapportée à 100 grammes de produit.
-    </div>
-</div>
-<div class="form-group has-feedback" ng-class="check('amountStarch')">
-    <div class="col-sm-2 text-right">dont</div>
-    <label for="amountStarch" class="col-sm-2 control-label">Amidon</label>
-    <div class="col-sm-4">
-        <div class="input-group">
-            <input name="amountStarch" type="text" class="form-control" ng-model="product.amountStarch" placeholder="ex : 100" alk-focus alk-float="2" ng-max="100" ng-min="0" required/>
-            <span class="input-group-addon">g / 100g</span>
-        </div>
-        <span ng-show="productForm.amountStarch.$error.float" class="help-block">La valeur entrée doit être un nombre décimal.</span>
-        <span ng-show="productForm.amountStarch.$error.max" class="help-block">La valeur entrée ne doit pas être supérieure à 100.</span>
-        <span ng-show="productForm.amountStarch.$error.min" class="help-block">La valeur entrée ne doit pas être inférieure à 0.</span>
-    </div>
-</div>
+    <tbody>
+        <tr ng-class="check('qtyGlucid')">
+            <td class="pnq-name">
+                <label for="qtyGlucid" class="control-label">Glucides</label>
+            </td>
+            <td ng-repeat="productStandardQuantity in product.isPartitionedBy" class="psq">
+                <div class="input-group">
+                    <input name="qtyGlucid" type="text" class="form-control" ng-model="product.qtyGlucid" placeholder="ex : 100" alk-focus alk-float="2" ng-max="100" ng-min="0" required>
+                    <span class="input-group-addon">g / 100g</span>
+                </div>
+                <span ng-show="productForm.qtyGlucid.$error.float" class="help-block">La valeur entrée doit être un nombre décimal.</span>
+                <span ng-show="productForm.qtyGlucid.$error.max" class="help-block">La valeur entrée ne doit pas être supérieure à 100.</span>
+                <span ng-show="productForm.qtyGlucid.$error.min" class="help-block">La valeur entrée ne doit pas être inférieure à 0.</span>
+            </td>
+            <td class="pnq-legend" ng-show="productForm.qtyGlucid.$focus">
+                La quantité totale de tous les glucides métabolisés par l’homme, y compris les polyols, rapportée à 100 grammes de produit.
+            </div>
+        </tr>
+        <tr ng-class="check('qtySugar')">
+            <td class="pnq-name">
+                <label for="qtySugar" class="control-label">Sucres</label>
+            </td>
+            <td ng-repeat="productStandardQuantity in product.isPartitionedBy" class="psq">
+                <label class="control-label pull-left separator"></label>
+                <div class="input-group">
+                    <input name="qtySugar" type="text" class="form-control" ng-model="product.qtySugar" placeholder="ex : 100" alk-focus alk-float="2" ng-max="100" ng-min="0" required>
+                    <span class="input-group-addon">g / 100g</span>
+                </div>
+                <span ng-show="productForm.qtySugar.$error.float" class="help-block">La valeur entrée doit être un nombre décimal.</span>
+                <span ng-show="productForm.qtySugar.$error.max" class="help-block">La valeur entrée ne doit pas être supérieure à 100.</span>
+                <span ng-show="productForm.qtySugar.$error.min" class="help-block">La valeur entrée ne doit pas être inférieure à 0.</span>
+            </td>
+            <td class="pnq-legend" ng-show="productForm.qtySugar.$focus">
+                La quantité totale de tous les monosaccharides et disaccharides présents dans une denrée alimentaire, à l’exclusion des polyols, rapportée à 100 grammes de produit.
+            </div>
+        </tr>
+        <tr ng-class="check('qtyPolyols')">
+            <td class="pnq-name">
+                <label for="qtyPolyols" class="control-label">Polyols</label>
+            </td>
+            <td ng-repeat="productStandardQuantity in product.isPartitionedBy" class="psq">
+                <label class="control-label pull-left separator"></label>
+                <div class="input-group">
+                    <input name="qtyPolyols" type="text" class="form-control" ng-model="product.qtyPolyols" placeholder="ex : 100" alk-focus alk-float="2" ng-max="100" ng-min="0" required>
+                    <span class="input-group-addon">g / 100g</span>
+                </div>
+                <span ng-show="productForm.qtyPolyols.$error.float" class="help-block">La valeur entrée doit être un nombre décimal.</span>
+                <span ng-show="productForm.qtyPolyols.$error.max" class="help-block">La valeur entrée ne doit pas être supérieure à 100.</span>
+                <span ng-show="productForm.qtyPolyols.$error.min" class="help-block">La valeur entrée ne doit pas être inférieure à 0.</span>
+            </td>
+            <td class="pnq-legend" ng-show="productForm.qtyPolyols.$focus">
+                La quantité totale de tous les alcools comprenant plus de deux groupes hydroxyles, rapportée à 100 grammes de produit.
+            </div>
+        </tr>
+        <tr ng-class="check('amountStarch')">
+            <td class="pnq-name">
+                <label for="amountStarch" class="control-label">Amidon</label>
+            </td>
+            <td ng-repeat="productStandardQuantity in product.isPartitionedBy" class="psq">
+                <label class="control-label pull-left separator"></label>
+                <div class="input-group">
+                    <input name="amountStarch" type="text" class="form-control" ng-model="product.amountStarch" placeholder="ex : 100" alk-focus alk-float="2" ng-max="100" ng-min="0" required/>
+                    <span class="input-group-addon">g / 100g</span>
+                </div>
+                <span ng-show="productForm.amountStarch.$error.float" class="help-block">La valeur entrée doit être un nombre décimal.</span>
+                <span ng-show="productForm.amountStarch.$error.max" class="help-block">La valeur entrée ne doit pas être supérieure à 100.</span>
+                <span ng-show="productForm.amountStarch.$error.min" class="help-block">La valeur entrée ne doit pas être inférieure à 0.</span>
+            </div>
+        </tr>
+    </tbody>
+
+<!-- ================================================================================================================================== -->
+<!--                                                          Fibres                                                                    -->
+<!-- ================================================================================================================================== -->
+    <tbody>
+        <tr ng-class="check('amountFibers')">
+            <td class="pnq-name">
+                <label for="amountStarch" class="control-label">Fibres alimentaires</label>
+            </td>
+            <td ng-repeat="productStandardQuantity in product.isPartitionedBy" class="psq">
+                <div class="input-group">
+                    <input name="amountFibers" type="text" class="form-control" ng-model="product.amountFibers" placeholder="ex : 100" alk-focus alk-float="2" ng-max="100" ng-min="0" required/>
+                    <span class="input-group-addon">g / 100g</span>
+                </div>
+                <span ng-show="productForm.amountFibers.$error.float" class="help-block">La valeur entrée doit être un nombre décimal.</span>
+                <span ng-show="productForm.amountFibers.$error.max" class="help-block">La valeur entrée ne doit pas être supérieure à 100.</span>
+                <span ng-show="productForm.amountFibers.$error.min" class="help-block">La valeur entrée ne doit pas être inférieure à 0.</span>
+            </td>
+            <td class="pnq-legend" ng-show="productForm.amountFibers.$focus">
+                La quantité totale de fibres alimentaires, rapportée à 100 grammes de produit. Il s'agit des polymères glucidiques composés de trois unités monomériques ou plus, qui ne sont ni digérés ni absorbés dans l’intestin grêle humain et appartiennent à l’une des catégories suivantes:
+                <ul>
+                    <li>polymères glucidiques comestibles, présents naturellement dans la denrée alimentaire telle qu’elle est consommée, </li>
+                    <li>polymères glucidiques comestibles qui ont été obtenus à partir de matières premières alimentaires brutes par des moyens physiques, enzymatiques ou chimiques et ont un effet physiologique bénéfique démontré par des données scientifiques généralement admises, </li>
+                    <li>polymères glucidiques comestibles synthétiques qui ont un effet physiologique bénéfique démontré par des données scientifiques généralement admises. </li>
+                </ul>
+            </div>
+        </tr>
+    </tbody>
+
 
 
 <!-- ================================================================================================================================== -->
 <!--                                                          Fibres                                                                    -->
 <!-- ================================================================================================================================== -->
-
-<div class="form-group has-feedback" ng-class="check('amountFibers')">
-    <label for="amountStarch" class="col-sm-2 control-label">Fibres alimentaires</label>
-    <div class="col-sm-6">
-        <div class="input-group">
-            <input name="amountFibers" type="text" class="form-control" ng-model="product.amountFibers" placeholder="ex : 100" alk-focus alk-float="2" ng-max="100" ng-min="0" required/>
-            <span class="input-group-addon">g / 100g</span>
-        </div>
-        <span ng-show="productForm.amountFibers.$error.float" class="help-block">La valeur entrée doit être un nombre décimal.</span>
-        <span ng-show="productForm.amountFibers.$error.max" class="help-block">La valeur entrée ne doit pas être supérieure à 100.</span>
-        <span ng-show="productForm.amountFibers.$error.min" class="help-block">La valeur entrée ne doit pas être inférieure à 0.</span>
-    </div>
-    <div class="col-sm-4" ng-show="productForm.amountFibers.$focus">
-        La quantité totale de fibres alimentaires, rapportée à 100 grammes de produit. Il s'agit des polymères glucidiques composés de trois unités monomériques ou plus, qui ne sont ni digérés ni absorbés dans l’intestin grêle humain et appartiennent à l’une des catégories suivantes:
-        <ul>
-            <li>polymères glucidiques comestibles, présents naturellement dans la denrée alimentaire telle qu’elle est consommée, </li>
-            <li>polymères glucidiques comestibles qui ont été obtenus à partir de matières premières alimentaires brutes par des moyens physiques, enzymatiques ou chimiques et ont un effet physiologique bénéfique démontré par des données scientifiques généralement admises, </li>
-            <li>polymères glucidiques comestibles synthétiques qui ont un effet physiologique bénéfique démontré par des données scientifiques généralement admises. </li>
-        </ul>
-    </div>
-</div>
-
-
-
-
-<!-- ================================================================================================================================== -->
-<!--                                                          Fibres                                                                    -->
-<!-- ================================================================================================================================== -->
-
-<div class="form-group has-feedback" ng-class="check('qtyProtid')">
-    <label for="qtyProtid" class="col-sm-2 control-label">Protéines</label>
-    <div class="col-sm-6">
-        <div class="input-group">
-            <input name="qtyProtid" type="text" class="form-control" ng-model="product.qtyProtid" placeholder="ex : 100" alk-focus alk-float="2" ng-max="100" ng-min="0" required/>
-            <span class="input-group-addon">g / 100g</span>
-        </div>
-        <span ng-show="productForm.qtyProtid.$error.float" class="help-block">La valeur entrée doit être un nombre décimal.</span>
-        <span ng-show="productForm.qtyProtid.$error.max" class="help-block">La valeur entrée ne doit pas être supérieure à 100.</span>
-        <span ng-show="productForm.qtyProtid.$error.min" class="help-block">La valeur entrée ne doit pas être inférieure à 0.</span>
-    </div>
-    <div class="col-sm-4" ng-show="productForm.qtyProtid.$focus">
-        La teneur en protéines, rapportée à 100 grammes de produit. Elle peut être calculée à l’aide de la formule: <code>protéines = azote total (Kjeldahl) &times; 6,25</code>
-    </div>
-</div>
-
+    <tbody>
+        <tr ng-class="check('qtyProtid')">
+            <td class="pnq-name">
+                <label for="qtyProtid" class="control-label">Protéines</label>
+            </td>
+            <td ng-repeat="productStandardQuantity in product.isPartitionedBy" class="psq">
+                <div class="input-group">
+                    <input name="qtyProtid" type="text" class="form-control" ng-model="product.qtyProtid" placeholder="ex : 100" alk-focus alk-float="2" ng-max="100" ng-min="0" required/>
+                    <span class="input-group-addon">g / 100g</span>
+                </div>
+                <span ng-show="productForm.qtyProtid.$error.float" class="help-block">La valeur entrée doit être un nombre décimal.</span>
+                <span ng-show="productForm.qtyProtid.$error.max" class="help-block">La valeur entrée ne doit pas être supérieure à 100.</span>
+                <span ng-show="productForm.qtyProtid.$error.min" class="help-block">La valeur entrée ne doit pas être inférieure à 0.</span>
+            </td>
+            <td class="pnq-legend" ng-show="productForm.qtyProtid.$focus">
+                La teneur en protéines, rapportée à 100 grammes de produit. Elle peut être calculée à l’aide de la formule: <code>protéines = azote total (Kjeldahl) &times; 6,25</code>
+            </div>
+        </tr>
+    </tbody>
 
 <!-- ================================================================================================================================== -->
 <!--                                                            Sel                                                                     -->
 <!-- ================================================================================================================================== -->
 
-<div class="form-group has-feedback" ng-class="check('qtySalt')">
-    <label for="qtySalt" class="col-sm-2 control-label">Sel</label>
-    <div class="col-sm-6">
-        <div class="input-group">
-            <input name="qtySalt" type="text" class="form-control" ng-model="product.qtySalt" placeholder="ex : 100" alk-focus alk-float="2" ng-max="100" ng-min="0" required/>
-            <span class="input-group-addon">g / 100g</span>
+    <tbody>
+        <tr ng-class="check('qtySalt')">
+            <td class="pnq-name">
+                <label for="qtySalt" class="control-label">Sel</label>
+            </td>
+            <td ng-repeat="productStandardQuantity in product.isPartitionedBy" class="psq">
+                <div class="input-group">
+                    <input name="qtySalt" type="text" class="form-control" ng-model="product.qtySalt" placeholder="ex : 100" alk-focus alk-float="2" ng-max="100" ng-min="0" required/>
+                    <span class="input-group-addon">g / 100g</span>
+                </div>
+                <span ng-show="productForm.qtySalt.$error.float" class="help-block">La valeur entrée doit être un nombre décimal.</span>
+                <span ng-show="productForm.qtySalt.$error.max" class="help-block">La valeur entrée ne doit pas être supérieure à 100.</span>
+                <span ng-show="productForm.qtySalt.$error.min" class="help-block">La valeur entrée ne doit pas être inférieure à 0.</span>
+            </td>
+            <td class="pnq-legend" ng-show="productForm.qtySalt.$focus">
+                La teneur en équivalent en sel, rapportée à 100 grammes de produit. Elle peut être calculée à l’aide de la formule: <code>sel = sodium &times; 2,5</code>.
+            </div>
+        </tr>
+    </tbody>
+
+
+<!-- ================================================================================================================================== -->
+<!--                                                            Eau                                                                     -->
+<!-- ================================================================================================================================== -->
+
+    <tbody>
+        <div class="form-group">
+            <td class="pnq-name">
+                <label for="qtyWater" class="control-label">Eau</label>
+            </td>
+            <td ng-repeat="productStandardQuantity in product.isPartitionedBy" class="psq">
+                <div class="input-group">
+                    <input name="qtyWater" type="text" class="form-control" ng-model="product.qtyWater" placeholder="ex : 100" alk-focus alk-float="2" ng-max="100" ng-min="0" required/>
+                    <span class="input-group-addon">g / 100g</span>
+                </div>
+            </div>
         </div>
-        <span ng-show="productForm.qtySalt.$error.float" class="help-block">La valeur entrée doit être un nombre décimal.</span>
-        <span ng-show="productForm.qtySalt.$error.max" class="help-block">La valeur entrée ne doit pas être supérieure à 100.</span>
-        <span ng-show="productForm.qtySalt.$error.min" class="help-block">La valeur entrée ne doit pas être inférieure à 0.</span>
-    </div>
-    <div class="col-sm-4" ng-show="productForm.qtySalt.$focus">
-        La teneur en équivalent en sel, rapportée à 100 grammes de produit. Elle peut être calculée à l’aide de la formule: <code>sel = sodium &times; 2,5</code>.
-    </div>
-</div>
-
-
-
-
-<div class="form-group">
-    <label for="qtyWater" class="col-sm-2 control-label">Eau</label>
-    <div class="col-sm-4">
-        <div class="input-group">
-            <input name="qtyWater" type="text" class="form-control" ng-model="product.qtyWater" placeholder="ex : 100" alk-focus alk-float="2" ng-max="100" ng-min="0" required/>
-            <span class="input-group-addon">g / 100g</span>
-        </div>
-    </div>
-</div>
-
+    </tbody>
+</table>
 
 
 <!-- ================================================================================================================================== -->

@@ -148,6 +148,10 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
         //product.accepted = false;
         product.certified = false;
 
+        $$sdkCrud.ProductStandardQuantityList({}, {'partitions_id': product.id}).success(function(response){
+            product.isPartitionedBy = response.data;
+        });
+
         $scope.product = product;
 
         $scope.select2productOptions = $$autocomplete.getOptionAutocompletes('product', {
