@@ -45,6 +45,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerGetStartedCtrl', [
     };
 
     permission.getUser().then(function (user) {
-        $scope.brands = user.ownsBrand;
+        $scope.brands = user.managesBrand;
     });
 }]);

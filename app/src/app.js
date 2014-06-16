@@ -19,10 +19,10 @@ angular.module('jDashboardFluxApp', [
 var env = (window.location.hostname.indexOf('localhost') === 0) ? 'dev' : 'prod';
 if (env == "prod") {
     angular.module('jDashboardFluxApp').constant('API_URL', '//api.alkemics.com');
-    angular.module('jDashboardFluxApp').constant('API_URL_AUTH', '//auth.alkemics.com');
+    angular.module('jDashboardFluxApp').constant('URL_SERVICE_AUTH', '//auth.alkemics.com');
 } else if (env == "dev") {
     angular.module('jDashboardFluxApp').constant('API_URL', '//localhost.alkemics.com:6543');
-    angular.module('jDashboardFluxApp').constant('API_URL_AUTH', 'http://localhost.alkemics.com:6545');
+    angular.module('jDashboardFluxApp').constant('URL_SERVICE_AUTH', 'http://localhost.alkemics.com:6545');
 }
 
 angular.module('jDashboardFluxApp').config(function ($routeProvider) {
@@ -93,26 +93,3 @@ angular.module('jDashboardFluxApp').config(function ($routeProvider) {
         redirectTo: '/'
     });
 });
-<<<<<<< HEAD
-
-
-
-/**
- * $http interceptor.
- * Add token to every request that is issued to the apis.
- */
-angular.module('jDashboardFluxApp').config(['$httpProvider', function($httpProvider) {
-    $httpProvider.interceptors.push(['$window', function($window) {
-        return {
-            request: function (config) {
-                config.headers = config.headers || {};
-                if ($window.sessionStorage.token) {
-                    config.headers.Authorization = 'Bearer ' + $window.sessionStorage.token;
-                }
-                return config;
-            }
-        };
-    }]);
-}]);
-=======
->>>>>>> d47c3480152197fe2462277da0428c2e0ec01bd9

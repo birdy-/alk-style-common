@@ -9,16 +9,17 @@
  * @param  {[type]} permission)  [description]
  * @return {[type]}              [description]
  */
-angular.module('jDashboardFluxApp').controller('DashboardMakerShowCtrl', [
+angular.module('jDashboardFluxApp').controller('DashboardMakerBrandListCtrl', [
     '$scope', '$$sdkCrud', '$routeParams', 'permission',
     function ($scope, $$sdkCrud, $routeParams, permission) {
 
-    $scope.brand = null;
-
+    $scope.brands = [];
     permission.getUser().then(function (user) {
-        $scope.brand = user.ownsBrand[0];
-        $$sdkCrud.BrandShow($scope.brand.id, function(response){
-            $scope.brand = response.data;
+        $scope.brands = user.managesBrand;
+        $scope.brands.forEach(function(brand){
+            $$sdkCrud.BrandShow(brand.id, function(response){
+                angular.copy(response.data, brand);
+            });
         });
     });
 
@@ -26,3 +27,4 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerShowCtrl', [
         alert('You do not have the necessary privileges to update this brand.');
     };
 }]);
+

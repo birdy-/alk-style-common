@@ -9,8 +9,8 @@
  * the rest of the application.
  */
 angular.module('jDashboardFluxApp').service('permission', [
-    "URL_SERVICE_AUTH", "$http", "actionRepository", "$rootScope", "authService", "$window",
-    function init(URL_SERVICE_AUTH, $http, actionRepository, $rootScope, authService, $window) {
+    "URL_SERVICE_AUTH", "$http", "$rootScope", "authService", "$window",
+    function init(URL_SERVICE_AUTH, $http, $rootScope, authService, $window) {
 
     /**
      * Returns whether the access to an entity of a given type and id is
@@ -51,25 +51,8 @@ angular.module('jDashboardFluxApp').service('permission', [
             var url = URL_SERVICE_AUTH + '/auth/v1/user/me';
             userPromise = $http.get(url).then(function(response, status, headers, config) {
                 user = response.data.data;
-
-                // Load actions active
-                var action;
-                var actions = [];
-                var id;
-                for (var i = 0; i < user.configures.length; i++) {
-                    id = user.configures[i].id;
-                    action = actionRepository.findById(id);
-                    if (action === null) {
-                        continue;
-                    }
-                    action.active = true;
-                    actions.push(action);
-                }
-                user.configures = actions;
-
                 // Attach methods
                 user.isAllowed = isAllowed;
-
                 $rootScope.$broadcast('event:auth-loginConfirmed');
                 return user;
             });

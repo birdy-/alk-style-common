@@ -12,7 +12,7 @@ angular.module('jDashboardFluxApp').controller('HeaderCtrl', [
         permission.getUser().then(function (user) {
             $scope.logged = true;
             $scope.user = user;
-            $scope.brand = user.ownsBrand[0];
+            $scope.brand = user.managesBrand[0];
             $scope.brand.picture = {
                 logo: 'http://assets.chefjerome.com/api/1/brand/' + $scope.brand.id + '/picture/logo/original.png',
             };

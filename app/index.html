@@ -69,10 +69,38 @@
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
 </head>
-<body ng-app="jDashboardFluxApp" id="stream">
+<body ng-app="jDashboardFluxApp" id="stream" class="requiresauth">
     <!--[if lt IE 7]>
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
+
+    <div ng-controller="LoginController" class="full-screen color-stream-inverse" id="login-holder" style="display: none;">
+        <img src="/images/band.png" style="padding-left: 200px; position: relative; top: -300px;"/>
+        <div class="center">
+            <form class="form-horizontal" ng-submit="submit()" ng-hide="isReset">
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Email</label>
+                    <div class="col-lg-10">
+                        <input type="email" class="login-inp form-control" ng-model="login" placeholder="Email"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Password</label>
+                    <div class="col-lg-10">
+                        <input type="password" class="login-inp form-control" ng-model="password" placeholder="Password"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <button class="btn pull-right color-stream">Login</button>
+                    </div>
+                    <div ng-show="message">
+                        <span>{{ message }}</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <div ng-view=""></div>
 
@@ -125,37 +153,37 @@
         <script src="bower_components/sdk-dashboard/src/sdk-crud.js"></script>
         <script src="bower_components/sdk-dashboard/src/sdk-admin.js"></script>
 
-        <script src="scripts/app.js"></script>
+        <script src="src/app.js"></script>
 
-        <script src="scripts/controllers/home.controller.js"></script>
-        <script src="scripts/controllers/header.controller.js"></script>
-        <script src="scripts/controllers/login.controller.js"></script>
-        <script src="scripts/controllers/retailer.controller.js"></script>
-        <script src="scripts/controllers/maker/brand.controller.js"></script>
-        <script src="scripts/controllers/maker/product.controller.js"></script>
-        <script src="scripts/controllers/maker/notification.controller.js"></script>
-        <script src="scripts/controllers/maker/getstarted.controller.js"></script>
+        <script src="src/home/home.controller.js"></script>
+        <script src="src/home/header.controller.js"></script>
 
-        <script src="scripts/directives/validation/case.directive.js"></script>
-        <script src="scripts/directives/validation/float.directive.js"></script>
-        <script src="scripts/directives/validation/integer.directive.js"></script>
-        <script src="scripts/directives/validation/isEmpty.directive.js"></script>
-        <script src="scripts/directives/validation/max.directive.js"></script>
-        <script src="scripts/directives/validation/min.directive.js"></script>
-        <script src="scripts/directives/validation/name.directive.js"></script>
-        <script src="scripts/directives/focus.directive.js"></script>
-        <script src="scripts/directives/auth.js"></script>
+        <script src="src/user/token.config.js"></script>
+        <script src="src/user/authentication.service.js"></script>
+        <script src="src/user/login/login.controller.js"></script>
+        <script src="src/user/login/authenticate.directive.js"></script>
+        <script src="src/user/preference/show.controller.js"></script>
 
-        <script src="scripts/services/permission.js"></script>
-        <script src="scripts/services/actions.js"></script>
-        <script src="scripts/services/headers.js"></script>
+        <script src="src/retailer/retailer.controller.js"></script>
+
+        <script src="src/maker/brand/show/show.controller.js"></script>
+        <script src="src/maker/brand/list/list.controller.js"></script>
+        <script src="src/maker/product/show/show.controller.js"></script>
+        <script src="src/maker/product/list/list.controller.js"></script>
+        <script src="src/maker/notification/list/list.controller.js"></script>
+        <script src="src/maker/notification/notification.model.js"></script>
+        <script src="src/maker/getstarted.controller.js"></script>
+
+        <script src="src/common/directives/validation/case.directive.js"></script>
+        <script src="src/common/directives/validation/float.directive.js"></script>
+        <script src="src/common/directives/validation/integer.directive.js"></script>
+        <script src="src/common/directives/validation/isEmpty.directive.js"></script>
+        <script src="src/common/directives/validation/max.directive.js"></script>
+        <script src="src/common/directives/validation/min.directive.js"></script>
+        <script src="src/common/directives/validation/name.directive.js"></script>
+        <script src="src/common/directives/focus.directive.js"></script>
 
         <!-- Authentication -->
-        <script src="user/token.config.js"></script>
-        <script src="user/authentication.service.js"></script>
-        <script src="user/login/login.controller.js"></script>
-        <script src="user/login/authenticate.directive.js"></script>
-        <script src="user/preference/show.controller.js"></script>
     <!-- endbuild -->
 
     </body>
