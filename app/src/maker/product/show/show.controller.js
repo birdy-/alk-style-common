@@ -92,45 +92,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
 
     $$sdkCrud.ProductShow($scope.product.id, true, function(response){
         var product = response.data;
-        if (product.composition !== null) {
-            var composition = product.composition.split(', ');
-            product.composition = [];
-            for (var i = 0; i < composition.length; i++) {
-                product.composition.push({
-                    text: composition[i],
-                    id: i,
-                    _type: 'Concept'
-                });
-            }
-        } else {
-            product.composition = [];
-        }
-        if (product.additives !== null) {
-            var additives = product.additives.split(', ');
-            product.additives = [];
-            for (var i = 0; i < additives.length; i++) {
-                product.additives.push({
-                    text: additives[i],
-                    id: i,
-                    _type: 'Concept'
-                });
-            }
-        } else {
-            product.additives = [];
-        }
-        if (product.allergens !== null) {
-            var allergens = product.allergens.split(',');
-            product.allergens = [];
-            for (var i = 0; i < allergens.length; i++) {
-                product.allergens.push({
-                    text: allergens[i],
-                    id: i,
-                    _type: 'Concept'
-                });
-            }
-        } else {
-            product.allergens = [];
-        }
+
         if (product.amountStarch !== null) {
             product.hasStarch = true;
         }
@@ -170,6 +132,9 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
     }
     $scope.check = function(field) {
         var classes = {};
+        if(!$scope.productForm[field]) {
+            return [];
+        }
         if ($scope.productForm[field].$invalid) {
             if (isEmpty($scope.productForm[field].$viewValue)) {
                 classes['has-warning'] = true;
@@ -393,69 +358,41 @@ var readablePackaging = function(product) {
 };
 
 var inferProduct = function(product, productForm) {
-    var ADDITIVE_REGEX = new RegExp('E[0-9]+');
-    var additives = [];
-    var composition = [];
-    var item;
     if (product.composition) {
-        for (var i = 0; i < product.composition.length; i++) {
-            item = product.composition[i];
-            if (ADDITIVE_REGEX.test(item.text)) {
-                additives.push(item);
-            } else {
-                composition.push(item);
-            }
+        var text = product.composition;
+        if (text.indexOf('lait') !== -1) {
+            product.hasLactose = true;
         }
-    }
-    if (product.additives) {
-        for (var i = 0; i < product.additives.length; i++) {
-            item = product.additives[i];
-            if (ADDITIVE_REGEX.test(item.text)) {
-                additives.push(item);
-            } else {
-                additives.push(item);
-            }
+        if (text.indexOf('saindoux') !== -1){
+            product.hasSaindoux = true;
         }
-        product.composition = composition;
-        product.additives = additives;
-    }
-    if (product.composition) {
-        for (var i = 0; i < product.composition.length; i++) {
-            var text = product.composition[i].text;
-            if (text.indexOf('lait') !== -1) {
-                product.hasLactose = true;
-            }
-            if (text.indexOf('saindoux') !== -1){
-                product.hasSaindoux = true;
-            }
-            if (text.indexOf('huile de palme' ) !== -1){
-                product.hasOilPalm = true;
-                product.hasRiskOilPalm = true;
-            }
-            if (text.indexOf('huile de colza' ) !== -1){
-                product.hasOilCoprah = true;
-            }
-            if (text.indexOf('huile de coco' ) !== -1){
-                product.hasOilCoconut = true;
-            }
-            if (text.indexOf('beurre' ) !== -1){
-                product.hasButter = true;
-            }
-            if (text.indexOf('huile de tournesol' ) !== -1){
-                product.hasOilSunflower = true;
-            }
-            if (text.indexOf('huile d\'olive' ) !== -1){
-                product.hasOilOlive = true;
-            }
-            if (text.indexOf('crème') !== -1 || text.indexOf('creme') !== -1 || text.indexOf('crême') !== -1){
-                product.hasCream = true;
-            }
-            if (text.indexOf('huile de pépins de raisin' ) !== -1){
-                product.hasOilGrapeSeed = true;
-            }
-            if (text.indexOf('huile de pépins de raisin' ) !== -1){
-                product.hasOilCanola = true;
-            }
+        if (text.indexOf('huile de palme' ) !== -1){
+            product.hasOilPalm = true;
+            product.hasRiskOilPalm = true;
+        }
+        if (text.indexOf('huile de colza' ) !== -1){
+            product.hasOilCoprah = true;
+        }
+        if (text.indexOf('huile de coco' ) !== -1){
+            product.hasOilCoconut = true;
+        }
+        if (text.indexOf('beurre' ) !== -1){
+            product.hasButter = true;
+        }
+        if (text.indexOf('huile de tournesol' ) !== -1){
+            product.hasOilSunflower = true;
+        }
+        if (text.indexOf('huile d\'olive' ) !== -1){
+            product.hasOilOlive = true;
+        }
+        if (text.indexOf('crème') !== -1 || text.indexOf('creme') !== -1 || text.indexOf('crême') !== -1){
+            product.hasCream = true;
+        }
+        if (text.indexOf('huile de pépins de raisin' ) !== -1){
+            product.hasOilGrapeSeed = true;
+        }
+        if (text.indexOf('huile de pépins de raisin' ) !== -1){
+            product.hasOilCanola = true;
         }
     }
     if (product.isPack === false) {
