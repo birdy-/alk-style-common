@@ -28,39 +28,43 @@ if (env == "prod") {
 angular.module('jDashboardFluxApp').config(function ($routeProvider) {
 
     // ------------------------------------------------------------------------------------------
-    // Product views
+    // Maker views
     // ------------------------------------------------------------------------------------------
+
+    // Product views
     $routeProvider.when('/maker/product', {
-        templateUrl: 'views/maker/product/list/index.html',
+        templateUrl: 'src/maker/product/list/index.html',
         controller: 'DashboardMakerProductListCtrl',
     });
     $routeProvider.when('/maker/product/:id', {
-        templateUrl: 'views/maker/product/show/index.html',
+        templateUrl: 'src/maker/product/show/index.html',
         controller: 'DashboardMakerProductShowCtrl',
         parameter: {id: 'integer'}
     });
 
-    // ------------------------------------------------------------------------------------------
     // Brand views
-    // ------------------------------------------------------------------------------------------
     $routeProvider.when('/maker/brand/:id', {
-        templateUrl: 'views/maker/brand/show.html',
+        templateUrl: 'src/maker/brand/show/show.html',
         controller: 'DashboardMakerBrandShowCtrl'
     });
     $routeProvider.when('/maker/brand', {
-        templateUrl: 'views/maker/brand/list.html',
+        templateUrl: 'src/maker/brand/list/list.html',
         controller: 'DashboardMakerBrandListCtrl'
     });
 
-    // ------------------------------------------------------------------------------------------
+    $routeProvider.when('/getstarted', {
+        templateUrl: 'src/home/maker/getstarted/index.html',
+        controller: 'DashboardMakerGetStartedCtrl'
+    });
+
     // Notification views
-    // ------------------------------------------------------------------------------------------
     $routeProvider.when('/maker/notifications', {
-        templateUrl: 'views/maker/notifications.html',
+        templateUrl: 'src/maker/notification/list/list.html',
         controller: 'DashboardMakerNotificationsCtrl'
     });
+    // Home views
     $routeProvider.when('/maker/home', {
-        templateUrl: 'views/maker/notifications.html',
+        templateUrl: 'src/maker/notification/list/list.html',
         controller: 'DashboardMakerNotificationsCtrl',
     });
 
@@ -68,24 +72,20 @@ angular.module('jDashboardFluxApp').config(function ($routeProvider) {
     // Security views
     // ------------------------------------------------------------------------------------------
     $routeProvider.when('/login', {
-        templateUrl: 'views/login.html',
+        templateUrl: 'src/home/login.html',
         controller: 'LoginController',
         isPublic: true
     });
     $routeProvider.when('/register', {
-        templateUrl: 'views/register.html',
+        templateUrl: 'src/home/register.html',
         controller: 'RegisterCtrl'
-    });
-    $routeProvider.when('/getstarted', {
-        templateUrl: 'views/maker/getstarted/index.html',
-        controller: 'DashboardMakerGetStartedCtrl'
     });
 
     // ------------------------------------------------------------------------------------------
     // Home views
     // ------------------------------------------------------------------------------------------
     $routeProvider.when('/', {
-        templateUrl: 'views/home.html',
+        templateUrl: 'src/home.html',
         controller: 'HomeCtrl',
         isPublic: true
     });

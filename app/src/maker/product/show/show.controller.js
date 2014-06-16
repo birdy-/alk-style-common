@@ -207,7 +207,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
 
     $scope.certify = function () {
         var modalInstance = $modal.open({
-            templateUrl: '/views/maker/product/certification.html',
+            templateUrl: '/src/maker/product/certification.html',
             controller: ProductCertificationModalController,
             resolve: {
                 product: function () {
@@ -227,7 +227,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
     };
     $scope.accept = function () {
         var modalInstance = $modal.open({
-            templateUrl: '/views/maker/product/acceptation.html',
+            templateUrl: '/src/maker/product/acceptation.html',
             controller: ProductAcceptationModalController,
             resolve: {
                 product: function () {
