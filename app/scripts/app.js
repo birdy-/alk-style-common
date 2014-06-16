@@ -15,6 +15,7 @@ angular.module('jDashboardFluxApp', [
   'ui.gravatar',
   'infinite-scroll'
 ]);
+
 angular.module('jDashboardFluxApp').constant('API_URL', '//api.alkemics.com');
 //angular.module('jDashboardFluxApp').constant('API_URL', '//localhost.chefjerome.com:6543');
 
