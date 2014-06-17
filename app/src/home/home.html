@@ -1,0 +1,252 @@
+<div ng-include="'/src/home/header.html'"></div>
+<div class="container text-center brand">
+    <div class="logo">
+        <img src="/images/logo.png" width="400px"/>
+    </div>
+    <br/>
+    <br/>
+    <div class="motto">
+        <h2 class="text-center">Product stream</h2>
+        <p class="text-center">
+            Vos fiches produits, synchronisées en toute simplicité.
+        </p>
+    </div>
+</div>
+<style>
+    .feature h3{
+        color:white;
+    }
+    .features {
+        padding: 30px;
+    }
+    .feature {
+        color:white;
+        margin: 20px 0px;
+    }
+    .presentation {
+        padding: 40px 0px;
+    }
+    .presentation p {
+        margin-top: 30px;
+        color:white;
+        font-size: 15px;
+    }
+    .pricing {
+        color:white;
+    }
+    .pricing .price {
+        font-size: 220px;
+        line-height: 180px;
+        margin-top: 0px;
+        margin-right: 10px;
+    }
+    .pricing .per {
+        font-size: 30px;
+        line-height: 34px;
+        margin-top: 15px;
+    }
+</style>
+
+
+<div class="jumbotron stream">
+    <div class="container">
+        <div class="row presentation">
+            <div class="col-md-1"></div>
+            <div class="col-md-4 text-center">
+                <div>
+                    <img src="/images/home/services/productstream.png" width="100%">
+                </div>
+                <p>
+                    Une interface simple et ergonomique pour diffuser vos données produit chez les distributeurs.
+                </p>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-6 pricing">
+                <h3>À partir de </h3>
+                <div class="price pull-left">X€</div>
+                <div class="per">
+                    / produit <br/>
+                    / distributeur <br/>
+                    / an *
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container service-title">
+    <h2 class="color-stream">Comment ça marche ?</h2>
+</div>
+<br/>
+<br/>
+<div>
+    <div class="text-center">
+        <img src="/images/schema/steps.png" height="400px"/>
+        <!--
+        <img src="/images/schema/workflow.png" height="250px" style="margin-left: 40px;" />
+    -->
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="container">
+        <div class="row motto">
+        </div>
+        <!--
+        <div class="row">
+            <div class="col-md-5 subscribe">
+                <div class="row">
+                    <div class="col-lg-offset-3 col-lg-9">
+                        <h3>S'inscrire</h3>
+                    </div>
+                </div>
+                <form class="form-horizontal" ng-submit="submit()" ng-hide="isReset">
+                    <div class="form-group">
+                        <label for="inputEmail1" class="col-lg-3 control-label">Email</label>
+                        <div class="col-lg-9">
+                            <input type="email" class="login-inp form-control" ng-model="login" placeholder="sophie@acme.com"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword1" class="col-lg-3 control-label">Password</label>
+                        <div class="col-lg-9">
+                            <input type="password" class="login-inp form-control" ng-model="password" placeholder="*******"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-offset-3 col-lg-9">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" ng-model="agree">J'ai lu et j'adhère aux <a href="/#/conditions">Termes &amp; Conditions</a> et à la <a href="/#/privacy">Politique de Confidentialité</a>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-offset-3 col-lg-9">
+                            <button class="btn pull-right color-brand-inversed">S'inscrire</button>
+                        </div>
+                        <div>
+                            <span>{{ message }}</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-6 pricing">
+
+            </div>
+            -->
+        </div>
+    </div>
+</div>
+
+<div class="container service-title">
+<!--
+    <h2 class="color-stream">Fonctionnalités</h2>
+-->
+</div>
+<div class="jumbotron stream features">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-4 feature">
+                <i class="fa fa-4x fa-tasks"></i>
+                <h3>Données pré-remplies</h3>
+                <p>Vos fiches produit pré-alimentées par les données des distributeurs. </p>
+            </div>
+            <div class="col-md-4 feature">
+                <i class="fa fa-4x fa-lightbulb-o"></i>
+                <h3>Aide au remplissage</h3>
+                <p>Correction orthographique, détection d'erreurs, autocompletion...</p>
+            </div>
+            <div class="col-md-4 feature">
+                <i class="fa fa-4x fa-camera"></i>
+                <h3>Partage de médias</h3>
+                <p>Jusqu'à 10Mo d'espace par produit pour héberger photos HD, vidéos HD ou vues 3D.</p>
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-md-4 feature">
+                <i class="fa fa-4x fa-cloud"></i>
+                <h3>Plate-forme SAAS</h3>
+                <p>Pas de setup, processus d'inscription et de certification 100% électroniques.</p>
+            </div>
+            <div class="col-md-4 feature">
+                <i class="fa fa-4x fa-check-circle-o"></i>
+                <h3>Certification 100% électronique</h3>
+                <p>Suivi du remplissage de vos fiches, et de leur synchronisation chez les distributeurs.</p>
+            </div>
+            <div class="col-md-4 feature">
+                <i class="fa fa-4x fa-comments-o"></i>
+                <h3>Notifications instantanées</h3>
+                <p>Chat room temps réel avec vos distributeurs pour des corrections rapides et efficace.</p>
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-md-4 feature">
+                <i class="fa fa-4x fa-cogs"></i>
+                <h3>Maîtrise de la donnée</h3>
+                <p>Vous êtes propriétaire de la donnée que vous contribuez.</p>
+            </div>
+            <div class="col-md-4 feature">
+                <i class="fa fa-4x fa-download"></i>
+                <h3>Import GDSN</h3>
+                <p>Importez vos fiches produit depuis la GDSN.</p>
+            </div>
+            <div class="col-md-4 feature">
+                <i class="fa fa-4x fa-gavel"></i>
+                <h3>Conforme 1169/2011</h3>
+                <p>Conforme aux standard de la Directive Européenne 1169, avec vérification automatique des champs.</p>
+            </div>
+        </div>
+        <!--
+        <div class="row text-center">
+            <div class="col-md-4 feature">
+                <i class="fa fa-4x fa-globe"></i>
+                <h3>Support multilingue</h3>
+            </div>
+            <div class="col-md-4 feature">
+                <i class="fa fa-4x fa-clock-o"></i>
+                <h3>Historique des modifications</h3>
+            </div>
+            <div class="col-md-4 feature">
+                <i class="fa fa-4x fa-search"></i>
+                <h3>Moteur de recherche</h3>
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-md-4 feature">
+                <i class="fa fa-4x fa-copy"></i>
+                <h3>Duplication de produits</h3>
+            </div>
+            <div class="col-md-4 feature">
+                <i class="fa fa-4x fa-barcode"></i>
+                <h3>Déduplication d'EAN</h3>
+            </div>
+            <div class="col-md-4 feature">
+                <i class="fa fa-4x fa-group"></i>
+                <h3>Multi-compte</h3>
+            </div>
+        </div>
+        -->
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="text-center">
+            <a href="/#/register" class="btn btn-success btn-lg">Je m'inscris !</a>
+        </div>
+        <!--
+        <div class="col-lg-6">
+            Offre spéciale :
+            <br/>
+            gratuit en 2014
+        </div>
+    -->
+    </div>
+</div>
+<div ng-include="'/src/home/footer.html'"></div>

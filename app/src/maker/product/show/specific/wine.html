@@ -1,0 +1,233 @@
+
+<div class="form-group">
+    <label for="name" class="col-sm-2 control-label">Type de vin</label>
+    <div class="col-sm-2">
+        Couleur
+    </div>
+    <div class="col-sm-2">
+        Effervescence
+    </div>
+    <div class="col-sm-2">
+        Sucre : doux, sec...
+    </div>
+</div>
+
+
+<h3>Production</h3>
+<div class="form-group">
+    <label for="name" class="col-sm-2 control-label">Provenance</label>
+    <div class="col-sm-2">
+        <input type="text" ng-model="product.origin.from.country" name="from_coutry" select ui-select2="select2countryOptions" style="width: 100%;" placeholder="Pays"/>
+        <span ng-show="productForm.from_coutry.$error.caseTooManyUpper" class="help-block">Le pays de provenance ne doit pas comporter trop de majuscules.</span>
+        <span ng-show="productForm.from_coutry.$error.caseStart" class="help-block">Le pays de provenance doit commencer par une lettre majuscule.</span>
+        <!--
+        L'appellation identifie les vins selon l'origine géographique de leur production. Elle permet ainsi de classer les vins d'après plusieurs critères propres à un vignoble, à la fois naturels (climat, environnement) et humains (techniques de viticulture).
+        -->
+    </div>
+    <div class="col-sm-2">
+        <input type="text" ng-model="product.origin.from.region" name="from_coutry" select ui-select2="select2regionOptions" style="width: 100%;" placeholder="Région"/>
+        <span ng-show="productForm.from_region.$error.caseTooManyUpper" class="help-block">La région ne doit pas comporter trop de majuscules.</span>
+        <span ng-show="productForm.from_region.$error.caseStart" class="help-block">La région doit commencer par une lettre majuscule.</span>
+    </div>
+    <div class="col-sm-2">
+        <input type="text" ng-model="product.hasAppellation" name="hasAppellation" select ui-select2="select2appellationOptions" style="width: 100%;" placeholder="Appellation"/>
+        <span ng-show="productForm.hasAppellation.$error.caseTooManyUpper" class="help-block">L'appelation ne doit pas comporter trop de majuscules.</span>
+        <span ng-show="productForm.hasAppellation.$error.caseStart" class="help-block">L'appelation doit commencer par une lettre majuscule.</span>
+    </div>
+    <div class="col-sm-4">
+        <input ng-model="product.origin.wine.domain" type="text" class="form-control" placeholder="Domaine / Château / Maison" name="from_wine_domain" alk-validation-case="sentence" alk-focus/>
+        <span ng-show="productForm.from_wine_domain.$error.caseTooManyUpper" class="help-block">La maison ne doit pas comporter trop de majuscules.</span>
+        <span ng-show="productForm.from_wine_domain.$error.caseStart" class="help-block">La maison doit commencer par une lettre majuscule.</span>
+    </div>
+</div>
+<br/>
+
+
+<div class="form-group">
+    <label for="name" class="col-sm-2 control-label">Cépages</label>
+    <div class="col-sm-10">
+        <div ng-model="product.hasVarietal" ui-select2="select2varietalOptions" placeholder="ex : pinot" style="width:100%"></div>
+        <!--
+            Le cépage désigne le type de vigne depuis laquelle est réalisé un vin. On parle de plant de vigne pour qualifier les plantes qui produisent le raisin. C'est ce dernier que les professionnels utilisent pour identifier les variétés de cépage. Les fruits sont alors différenciés par leurs arômes et leurs couleurs, permettant de classer les cépages. Ces éléments déterminent en amont plusieurs caractéristiques du vin qui sera produit à partir du cépage.
+
+            type de raisin
+            type récolte
+            vinification
+        -->
+    </div>
+</div>
+<br/>
+
+
+<div class="form-group">
+    <label for="labels" class="col-sm-2 control-label">Millésime</label>
+    <div class="col-sm-4">
+        <input ng-model="product.hasVintage" type="text" class="form-control" placeholder="ex : 2006"/>
+    </div>
+    <div class="col-sm-4">
+        <div class="checkbox-inline">
+            <label>
+                <input type="checkbox" ng-model="product.agedIn" ng-value="1"/>
+                Vielli en fût de chêne
+            </label>
+        </div>
+        <div class="checkbox-inline">
+            <label>
+                <input type="checkbox" ng-model="product.agedIn" ng-value="2"/>
+                Vielli en cuve
+            </label>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2 control-label">Température de garde</label>
+    <div class="col-sm-2">
+        <div class="input-group">
+            <input type="text" class="form-control" ng-model="product.tempConservationBefore" placeholder="ex : 16 ° C">
+            <span class="input-group-addon">° C</span>
+        </div>
+    </div>
+    <label class="col-sm-1 control-label">Durée</label>
+    <div class="col-sm-2">
+        <div class="input-group">
+            <input type="text" class="form-control" ng-model="product.durationConservationBefore" placeholder="ex : 10 ans">
+            <span class="input-group-addon">ans</span>
+        </div>
+    </div>
+    <label class="col-sm-1 control-label">Apogée</label>
+    <div class="col-sm-2">
+        <div class="input-group">
+            <input type="text" class="form-control" ng-model="product.consumeWhen" placeholder="ex : 2020">
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="product.ageable"/>
+                Vin de garde
+            </label>
+        </div>
+    </div>
+</div>
+<br/><br/>
+
+
+<h3>Dégustation</h3>
+<div class="form-group">
+    <label class="col-sm-2 control-label">Commentaires</label>
+    <div class="col-sm-10">
+        <textarea type="text" class="form-control" ng-model="product.advices" placeholder="Commentaires de dégustation"></textarea>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2 control-label">Robe</label>
+    <div class="col-sm-10">
+        <textarea type="text" class="form-control" ng-model="product.appearanceVisual" placeholder="ex : Robe rubis, larmes élégantes."></textarea>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2 control-label">Bouche</label>
+    <div class="col-sm-10">
+        <textarea type="text" class="form-control" ng-model="product.appearanceTaste" placeholder="ex : Bouche soyeuse et agréable."></textarea>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2 control-label">Accord mets/vins</label>
+    <div class="col-sm-10">
+        <textarea type="text" class="form-control" ng-model="product.pairings" placeholder="ex : Gibiers et viandes rouges."></textarea>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2 control-label">Délai d'ouverture avant service</label>
+    <div class="col-sm-2">
+        <div class="input-group">
+            <input type="text" class="form-control" ng-model="product.openBeforeConsuming" placeholder="ex : 2 h">
+            <span class="input-group-addon">h</span>
+        </div>
+    </div>
+    <label class="col-sm-2 control-label">Température de service</label>
+    <div class="col-sm-2">
+        <div class="input-group">
+            <input type="text" class="form-control" ng-model="product.tempConsomation" placeholder="ex : 2 h">
+            <span class="input-group-addon">h</span>
+        </div>
+    </div>
+    <label class="col-sm-2 control-label">Type de verre</label>
+    <div class="col-sm-2">
+        <input type="text" ng-model="product.consumeIn" name="consumeIn" select ui-select2="select2glassOptions" style="width: 100%;" placeholder="ex : verre à vin blanc"/>
+    </div>
+</div>
+<br/>
+<div class="form-group">
+    <label for="labels" class="col-sm-2 control-label">Récompenses</label>
+    <div class="col-sm-10">
+        <div class="row" ng-repeat="label in product.labels">
+            <div class="col-sm-3">
+                <input ng-model="label.name" type="text" class="form-control" placeholder="Nom de la médaille / concours"/>
+            </div>
+            <div class="col-sm-3">
+                <input ng-model="label.name" type="text" class="form-control" placeholder="Année de la médaille"/>
+            </div>
+            <div class="col-sm-3">
+                <input ng-model="label.name" type="text" class="form-control" placeholder="Couleur de la médaille"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <input ng-model="label.name" type="text" class="form-control" placeholder="Nom de la médaille / concours"/>
+            </div>
+            <div class="col-sm-3">
+                <input ng-model="label.name" type="text" class="form-control" placeholder="Année de la médaille"/>
+            </div>
+            <div class="col-sm-3">
+                <input ng-model="label.name" type="text" class="form-control" placeholder="Couleur de la médaille"/>
+            </div>
+        </div>
+    </div>
+</div>
+<br/><br/>
+
+
+<h3>Propriétés</h3>
+<div class="form-group">
+    <label class="col-sm-2 control-label">
+        Sulfites
+    </label>
+    <div class="col-sm-4">
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasSulfite" ng-value="true">
+            Contient des sulfites
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasSulfite" ng-value="false">
+            Sans sulfites
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasSulfite" ng-value="null">
+            Non renseigné
+        </label>
+    </div>
+    <!--
+    Anhydride sulfureux et sulfites en concentrations de plus de 10 mg/kg ou 10 mg/litre en termes de SO2 total pour les produits proposés prêts à consommer ou reconstitués conformément aux instructions du fabricant.
+    -->
+    <label class="col-sm-1 control-label">
+        Lysozyme
+    </label>
+    <div class="col-sm-5">
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasLysozyme" ng-value="true">
+            Contient du lysozyme
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasLysozyme" ng-value="false">
+            Sans lysozyme
+        </label>
+        <label class="radio-inline">
+            <input type="radio" ng-model="product.hasLysozyme" ng-value="null">
+            Non renseigné
+        </label>
+    <!--
+        Sans/Contient du/Traces éventuelles de Lysozyme (produit à partir d'œufs) utilisé dans le vin
+    -->
+    </div>
+</div>

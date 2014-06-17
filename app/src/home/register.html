@@ -1,0 +1,85 @@
+<br/>
+<br/>
+<div class="container" ng-show="ok">
+    <div class="alert alert-success">
+        <p>
+            Votre inscription a bien été prise en compte. Vous recevrez sous peu un email de confirmation.
+            <br/>
+            <br/>
+            D'ici-là, nous vous invitons à nous suivre sur les réseaux sociaux :
+        </p>
+        <p>
+            <a target="_blank" href="https://twitter.com/alkemicscom"><i class="fa fa-twitter"></i></a>
+            <a target="_blank" href="https://www.linkedin.com/company/j-r-me"><i class="fa fa-linkedin"></i></a>
+            <a target="_blank" href="https://www.facebook.com/Alkemics"><i class="fa fa-facebook"></i></a>
+        </p>
+    </div>
+</div>
+<div class="container" ng-show="!ok">
+    <h1>Je m'inscris</h1>
+    <br/>
+    <br/>
+    <div class="row">
+        <div class="col-lg-6">
+            <form class="form-horizontal" ng-submit="submit()" ng-hide="isReset" name="registerForm">
+                <div class="form-group">
+                    <label class="col-lg-4 control-label">Mon email</label>
+                    <div class="col-lg-8">
+                        <input type="email" name="email" class="login-inp form-control" ng-model="member.login" placeholder="Email" alk-focus required/>
+                        <div ng-show="registerForm.email.$focus">
+                            Votre email professionnel.
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-4 control-label">Mon mot de passe</label>
+                    <div class="col-lg-8">
+                        <input type="password" name="password" class="login-inp form-control" ng-model="member.password" placeholder="Password" required/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-4 control-label">Mon numéro de RCS</label>
+                    <div class="col-lg-8">
+                        <input type="text" name="rcs" class="login-inp form-control" ng-model="member.rcs" placeholder="535 078 190" required/>
+                        <div ng-show="registerForm.rcs.$focus">
+                            Le numéro RCS de votre entreprise.
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-offset-4 col-lg-8">
+                        <button class="btn pull-right color-green">Sign in</button>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-model="member.accept" required> J'accepte les <a href="/#/cgu">CGU</a>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-6">
+            <div class="well">
+                Dès que vous aurez crée un compte, nous vérifierons que vous êtes bien autorisés à accéder à vos produits.
+                <br/>
+                Vous recevrez ensuite un email vous permettant d'accéder à vos produits sur la plate-forme.
+                <br/>
+                Rien ne vous sera facturé tant que vous ne publierez pas vos fiches produit.
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container" ng-show="message">
+    <div class="alert alert-warning">
+        {{ message }}
+    </div>
+</div>
+<br/>
+<br/>
+<br/>
+<br/>
+<div class="container">
+    <div class="text-center">
+    <img src="/images/schema/steps.png" height="300px"/>
+    </div>
+</div>
