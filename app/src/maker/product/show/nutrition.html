@@ -41,7 +41,6 @@
 <div class="pull-right">
     <span class="btn btn-success"><i class="fa fa-plus"></i> Créer une quantité de référence</span>
 </div>
-<h3>Déclaration nutritionnelle</h3>
 
 <table class="table">
     <thead>
@@ -51,6 +50,11 @@
             <th class="col-lg-1"></th>
         </tr>
     </thead>
+    <tbody>
+        <tr>
+            <td colspan="{{ 2 + product.isPartitionedBy.length }}" class="psq-line"><h3>Déclaration nutritionnelle</h3></td>
+        </tr>
+    </tbody>
     <tbody product-field psqs="product.isPartitionedBy" pnq="pnqs[19056]"></tbody>
     <tbody product-field psqs="product.isPartitionedBy" pnq="pnqs[19057]"></tbody>
     <tbody product-field psqs="product.isPartitionedBy" pnq="pnqs[19058]"></tbody>
@@ -124,16 +128,27 @@
 
 <h3>Traitements spécifiques</h3>
 <div class="form-group">
-    <div class="col-sm-2"></div>
-    <div class="col-sm-10">
-        <label class="checkbox-inline">
-            <input type="checkbox" ng-model="product.isReducedSalt"/> teneur en sel réduite
-        </label>
-        <label class="checkbox-inline">
-            <input type="checkbox" ng-model="product.isReducedSugar"/> teneur en sucres réduite réduite
-        </label>
-        <label class="checkbox-inline">
-            <input type="checkbox" ng-model="product.isReducedFat"/>  teneur en graisses réduite
-        </label>
+    <label class="col-sm-2 control-label">Teneur en sel réduite de</label>
+    <div class="col-sm-4">
+        <div class="input-group">
+            <input type="text" class="form-control" name="isReducedSalt" ng-model="product.isReducedSalt" placeholder="ex : 25">
+            <span class="input-group-addon">%</span>
+        </div>
+    </div>
+    <label class="col-sm-2 control-label">Teneur en sucre réduite de</label>
+    <div class="col-sm-4">
+        <div class="input-group">
+            <input type="text" class="form-control" name="isReducedSugar" ng-model="product.isReducedSugar" placeholder="ex : 25">
+            <span class="input-group-addon">%</span>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2 control-label">Teneur en graisses réduite de</label>
+    <div class="col-sm-4">
+        <div class="input-group">
+            <input type="text" class="form-control" name="isReducedFat" ng-model="product.isReducedFat" placeholder="ex : 25">
+            <span class="input-group-addon">%</span>
+        </div>
     </div>
 </div>

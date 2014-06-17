@@ -29,7 +29,7 @@
             The prescribed, regulated or generic product name or denomination that describes the true nature of the food and is sufficiently precise to distinguish it from other foods according to the country specific regulation.
             <br/>
             La dénomination de vente échangée dans la fiche produit GS1 doit correspondre exactement à la dénomination de vente présente sur l'emballage du produit. Elle doit suivre les instructions données dans l'Annexe VI du Règlement.
-            La dénomination de vente peut inclure certaines mentions obligatoires additionnelles comme celles décrites dans l’Annexe VI du Règlement. Ex : le pourcentage de matière grasse, "avec sucre(s) et édulcorant(s)",...
+            La dénomination de vente peut inclure certaines mentions obligatoires additionnelles comme celles décrites dans l'Annexe VI du Règlement. Ex : le pourcentage de matière grasse, "avec sucre(s) et édulcorant(s)",...
         </div>
         <div input-block-help field="productForm.name">
             <strong id="art17">Dénomination de la denrée alimentaire :</strong>
@@ -44,7 +44,7 @@
             <br/>
             Lait stérilisé U.H.T entier enrichi en Vitamine D.
             <br/>
-            10 ŒUFS FRAIS DE POULES ELEVEES EN PLEIN AIR* ISSUS DE L’AGRICULTURE BIOLOGIQUE (CODE COMMENCANT PAR 0 SUR L’ŒUF) * CONFORMEMENT AU MODE DE PRODUCTION BIOLOGIQUE.
+            10 ŒUFS FRAIS DE POULES ELEVEES EN PLEIN AIR* ISSUS DE L'AGRICULTURE BIOLOGIQUE (CODE COMMENCANT PAR 0 SUR L'ŒUF) * CONFORMEMENT AU MODE DE PRODUCTION BIOLOGIQUE.
         </div>
         <div input-block-gdsn ng-show="productForm.name">
             Correspond dans la GDSN a la balise <code>regulatedProductName</code>.
@@ -103,11 +103,54 @@
 <div class="form-group has-feedback" ng-class="check('advices')">
     <label for="advices" class="col-sm-3 control-label">Mode d'emploi</label>
     <div class="col-sm-9">
-        <textarea ng-model="product.advices" name="advices" class="form-control" rows="3" placeholder="Conseils d'utilisation du produit."  alk-focus required></textarea>
+        <textarea type="text" ng-model="product.advices" name="advices" class="form-control" rows="3" placeholder="Conseils d'utilisation du produit." alk-focus required></textarea>
         <span ng-show="productForm.advices.$error.required" class="help-block">Un mode d'emploi du produit est obligatoire.</span>
         <div input-block-help field="productForm.advices">
             <strong id="art27">Mode d'emploi :</strong>
             Le mode d'emploi d'une denrée alimentaire doit être indiqué de façon à permettre un usage approprié de cette denrée.
+        </div>
+        <div input-block-help field="productForm.advices">
+            Textual instruction on how to prepare the product before serving.
+            <br/>
+            Doit correspondre au mode d'emploi présent sur l'emballage. Pour les produits  commercialisés sur le marché français, la liste des ingrédients est fournie en français.
+        </div>
+        <div input-block-example field="productForm.advices">
+            ex : Réchauffer à feu doux pendant 10 minutes.
+        </div>
+        <div input-block-gdsn field="productForm.advices">
+            Correspond dans la GDSN a la balise <code>unspecifiedPreparationTypePreparationInstructions</code>.
+        </div>
+    </div>
+</div>
+<div class="form-group has-feedback" ng-class="check('servesText')">
+    <label for="servesText" class="col-sm-3 control-label">Mode d'emploi</label>
+    <div class="col-sm-2">
+        <input type="text" ng-model="product.serves" name="serves" class="form-control" rows="3" placeholder="" alk-focus/>
+        <div input-block-help field="productForm.serves">
+            The total number of servings contained in the package.
+            <br/>
+            Obligatoire si la déclaration nutritionnelle est fournie par portion et/ou unité de consommation.
+        </div>
+        <div input-block-example field="productForm.serves">
+            ex : 2 pour "50cL contient 2 bols de 250mL"
+        </div>
+        <div input-block-gdsn field="productForm.serves">
+            Correspond dans la GDSN a la balise <code>numberOfServingsPerPackage</code>.
+        </div>
+    </div>
+    <label for="servesText" class="col-sm-3 control-label">Mode d'emploi</label>
+    <div class="col-sm-2">
+        <input type="text" ng-model="product.servesText" name="servesText" class="form-control" rows="3" placeholder="" alk-focus/>
+        <div input-block-help field="productForm.servesText">
+            Range description for number of serving.
+            <br/>
+            Pour fournir une valeur approximative de portions, suit la structure "approximativement X portions/parts/..." où X est le nombre de portions. Pour indiquer qu'un produit contient entre N-1 et N portions, suit la structure "N-1 - N portions/parts/personnes/..." où N-1 est la borne inférieure et N est la borne supérieure.
+        </div>
+        <div input-block-example field="productForm.servesText">
+            ex : "environ 25 bonbons"
+        </div>
+        <div input-block-gdsn field="productForm.servesText">
+            Correspond dans la GDSN a la balise <code>numberOfServingsRangeDescription</code>.
         </div>
     </div>
 </div>
@@ -138,6 +181,37 @@
         <textarea ng-model="product.appearanceVisual" name="appearanceVisual" class="form-control" rows="2" placeholder="ex : robe jaune très clair, à reflets verts." alk-focus></textarea>
         <div input-block-help field="productForm.appearanceVisual">
             Détails de dégustation visuels (couleur, robe...).
+        </div>
+    </div>
+</div>
+<div class="form-group has-feedback" ng-class="check('pairings')">
+    <label for="pairings" class="col-sm-3 control-label">Accords suggérés</label>
+    <div class="col-sm-9">
+        <textarea ng-model="product.pairings" name="pairings" class="form-control" rows="2" placeholder="ex : parfait avec un camembert." alk-focus></textarea>
+        <div input-block-help field="productForm.pairings">
+            Accords suggérés (vins, fromages...).
+        </div>
+    </div>
+</div>
+<div class="form-group has-feedback">
+    <label for="tempConsomation" class="col-sm-3 control-label">Température de consommation</label>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <input type="text" name="tempConsomation" class="form-control" ng-model="product.tempConsomation" placeholder="ex : 18" alk-focus/>
+            <span class="input-group-addon">°C</span>
+        </div>
+        <div input-block-help field="productForm.tempConsomation">
+            Température de consommation.
+        </div>
+    </div>
+    <label for="openBeforeConsuming" class="col-sm-3 control-label">Ouvrir </label>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <input type="text" name="openBeforeConsuming" class="form-control" ng-model="product.openBeforeConsuming" placeholder="ex : 60" alk-focus/>
+            <span class="input-group-addon">mn</span>
+        </div>
+        <div input-block-help field="productForm.openBeforeConsuming">
+            Temps d'ouverture souhaitable avant consommation.
         </div>
     </div>
 </div>
@@ -188,7 +262,7 @@
 <div class="form-group has-feedback" ng-class="check('advertisedInformations')">
     <label for="advertisedInformations" class="col-sm-3 control-label">Informations mises en avant</label>
     <div class="col-sm-9">
-        <textarea ng-model="product.advertisedInformations" name="advertisedInformations" class="form-control" rows="2" placeholder="Informations mises en avant par le packaging."  alk-focus></textarea>
+        <textarea ng-model="product.advertisedInformations" name="advertisedInformations" class="form-control" rows="2" placeholder="Informations mises en avant par le packaging." alk-focus></textarea>
         <div input-block-help field="productForm.advertisedInformations">
             Informations mises en avant par le packaging.
         </div>
@@ -208,7 +282,7 @@
     </div>
 </div>
 <div class="form-group has-feedback" ng-class="check('fabrication')">
-    <label for="fabrication" class="col-sm-3 control-label">Mentions légales obligatoires</label>
+    <label for="fabrication" class="col-sm-3 control-label">Fabrication du produit</label>
     <div class="col-sm-9">
         <textarea ng-model="product.fabrication" name="fabrication" class="form-control" rows="2" placeholder="Le procédé de fabrication de ce produit." alk-focus></textarea>
         <div input-block-help field="productForm.fabrication">
@@ -234,7 +308,19 @@
     <div class="col-sm-9">
         <textarea ng-model="product.compulsoryStatements" name="compulsoryStatements" class="form-control" rows="2" placeholder="Les mentions légales obligatoires." alk-focus></textarea>
         <div input-block-help field="productForm.compulsoryStatements">
-            Les mentions légales obligatoires.
+            A description of any compulsory label information on the product for the serving counter, for example the German additives regulation (ZzulV), for products such as meats and sausages, meat products, bread and bread products.
+            <br/>
+            L'ensemble des mentions obligatoires complémentaires sont échangées dans cette donnée non répétable. L'utilisation du séparateur "#" est recommandée pour séparer chaque mention obligatoire complémentaire.
+            <br/>
+            Pour les produits commercialisés sur le marché français, les mentions obligatoires complémentaires sont fournies en français.
+        </div>
+        <div input-block-example field="productForm.compulsoryStatements">
+            ex : Contient plus de 1,5 mg/L de fluor par litre : ne convient pas à l'alimentation des￼nourrissons et des enfants de moins de 7 ans pour une consommation régulière.
+            <br/>
+            ex : Signification du code du producteur indiqué sur l'œuf : 0 = Poules élevées selon le￼mode de production biologique. FR = Pays de production (France). 3 lettres = Identification de l'exploitation. 2￼chiffres = N° du bâtiment de l'exploitation. # Conditionné par FR 26 323 051 ou FR 79 123 001.
+        </div>
+        <div input-block-gdsn field="productForm.fabrication">
+            Correspond dans la GDSN a la balise <code>compulsoryAdditivesLabelInformation</code>.
         </div>
     </div>
 </div>

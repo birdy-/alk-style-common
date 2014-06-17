@@ -15,7 +15,7 @@
             <br/>
             Les ingrédients sont désignés par leur nom spécifique.
             <br/>
-            Tous les ingrédients qui se présentent sous forme de nanomatériaux manufacturés sont indiqués clairement dans la liste des ingrédients. Le nom des ingrédients est suivi du mot «nano» entre crochets.
+            Tous les ingrédients qui se présentent sous forme de nanomatériaux manufacturés sont indiqués clairement dans la liste des ingrédients. Le nom des ingrédients est suivi du mot "ano» entre crochets.
             <br/>
 
             <strong id="art19">Omission de la liste des ingrédients</strong>
@@ -105,7 +105,7 @@
     </div>
 </div>
 <div class="form-group">
-    <label for="origin" class="col-sm-2 control-label">Additifs et conservateurs</label>
+    <label for="additives" class="col-sm-2 control-label">Additifs et conservateurs</label>
     <div class="col-sm-10">
         <textarea class="form-control" rows="3" ng-model="product.additives" name="additives" placeholder="Liste des additifs et conservateurs."></textarea>
         <!--<div ng-model="product.additives" ui-select2="select2productCompositionOptions" style="width: 100%;" rows="3" placeholder="Liste des additifs et conservateurs."></div>-->
@@ -121,16 +121,38 @@
     <label for="ratioAlcohol" class="col-sm-2 control-label">Degré d'alcool</label>
     <div class="col-sm-4">
         <div class="input-group">
-            <input type="text" class="form-control" ng-model="product.ratioAlcohol" placeholder="ex : 18">
+            <input type="text" class="form-control" name="ratioAlcohol" ng-model="product.ratioAlcohol" placeholder="ex : 18" alk-focus/>
             <span class="input-group-addon">°</span>
+        </div>
+        <div input-block-gdsn ng-show="productForm.ratioAlcohol">
+            Percentage of alcohol contained in the base unit trade item.
+            <br/>
+            Conformément à l’annexe XII du Règlement, le titre alcoométrique volumique acquis est un chiffre comportant au maximum une décimale. Le titre alcoométrique est déterminé à 20°C. Les tolérances accordées sont indiquées dans l’annexe XII du Règlement.
+            Pour mise à disposition du consommateur, le titre alcoométrique est suivi du symbole  "% vol" et peut être précédé du terme alcool ou de l’abréviation "alc.".
+        </div>
+        <div input-block-gdsn ng-show="productForm.ratioAlcohol">
+            Correspond dans la GDSN a la balise <code>percentageOfAlcoholByVolume</code>.
         </div>
     </div>
     <label for="ratioCacao" class="col-sm-2 control-label">Teneur en cacao</label>
     <div class="col-sm-4">
         <div class="input-group">
-            <input type="text" class="form-control" ng-model="product.ratioCacao" placeholder="ex : 72">
+            <input type="text" class="form-control" ng-model="product.ratioCacao" placeholder="ex : 72" alk-focus/>
             <span class="input-group-addon">%</span>
         </div>
+    </div>
+</div>
+<div class="form-group">
+    <label for="ratioFat" class="col-sm-2 control-label">Rapport gras</label>
+    <div class="col-sm-4">
+        <div class="input-group">
+            <input type="text" class="form-control" name="ratioFat" ng-model="product.ratioFat" placeholder="ex : 18" alk-focus/>
+            <span class="input-group-addon">%</span>
+        </div>
+    </div>
+    <label for="levelPh" class="col-sm-2 control-label">pH</label>
+    <div class="col-sm-4">
+        <input type="text" class="form-control" name="levelPh" ng-model="product.levelPh" placeholder="ex : 18" alk-focus/>
     </div>
 </div>
 
