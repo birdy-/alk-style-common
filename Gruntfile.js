@@ -290,6 +290,10 @@ module.exports = function (grunt) {
           ]
         }]
       },
+      prod: {
+        expand: true, cwd: '<%= yeoman.app %>', dest: '<%= yeoman.dist %>', src: ['**/*.png', '**/*.html', '!**/bower_components/**', '!index.html'],
+        
+      },
       styles: {
         expand: true,
         cwd: '<%= yeoman.app %>/styles',
@@ -410,7 +414,7 @@ module.exports = function (grunt) {
     'clean:dist',
     'useminPrepare',
     'concurrent:dist',
-    'autoprefixer',
+    // 'autoprefixer',
     'concat',
     'ngmin',
     'copy:dist',
@@ -419,6 +423,7 @@ module.exports = function (grunt) {
     'uglify',
     'rev',
     'usemin',
+    'copy:prod',
     'custom'
   ]);
 
