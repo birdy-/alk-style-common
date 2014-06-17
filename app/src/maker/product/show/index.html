@@ -13,8 +13,14 @@
             </div>
             <form class="form-horizontal" role="form" name="productForm" novalidate>
                 <tabset>
-                    <tab heading="Général">
-                        <div ng-include="'/src/maker/product/show/general.html'"></div>
+                    <tab heading="Marketing">
+                        <div ng-include="'/src/maker/product/show/marketing.html'"></div>
+                    </tab>
+                    <tab heading="Packaging">
+                        <div ng-include="'/src/maker/product/show/packaging.html'"></div>
+                    </tab>
+                    <tab heading="Fabricant">
+                        <div ng-include="'/src/maker/product/show/manufacturer.html'"></div>
                     </tab>
                     <!--
                     <tab class="semantic" ng-show="tabs.wine.visible">
@@ -27,7 +33,8 @@
                     <tab heading="Identification">
                         <div ng-include="'/src/maker/product/show/identification.html'"></div>
                     </tab>
-                    <tab heading="Médias">
+                    <tab disabled="true">
+                        <tab-heading>Médias <i class="fa fa-lock"></i></tab-heading>
                         <div ng-include="'/src/maker/product/show/media.html'"></div>
                     </tab>
                     <tab heading="Composition">
@@ -42,14 +49,14 @@
                     <tab heading="Conservation">
                         <div ng-include="'/src/maker/product/show/conservation.html'"></div>
                     </tab>
-                    <tab heading="Conformité des fiches">
+                    <tab disabled="true">
+                        <tab-heading>Conformité <i class="fa fa-lock"></i></tab-heading>
                         <div ng-include="'/src/maker/product/show/productinshop.html'"></div>
                     </tab>
-                    <!--
-                    <tab heading="Historique">
-                        <div ng-include="'/src/maker/product/show/history.html'"></div>
+                    <tab disabled="true">
+                        <tab-heading>Versions <i class="fa fa-lock"></i></tab-heading>
+                        <!--<div ng-include="'/src/maker/product/show/version.html'"></div>-->
                     </tab>
-                    -->
                 </tabset>
             </form>
         </div>

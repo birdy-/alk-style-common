@@ -1,0 +1,88 @@
+<div class="pull-right">
+	<span class="btn btn-default" ng-click="fillManufacturerFromOrganization"><i class="fa fa-download"></i> Remplir avec la marque</span>
+</div>
+<h3>Exploitant</h3>
+<br/>
+
+<div class="form-group">
+    <label for="origin" class="col-sm-3 control-label">Nom de l'exploitant</label>
+    <div class="col-sm-9">
+        <input type="text" class="form-control" ng-model="product.manufacturerName" placeholder="ex : Nestlé SA">
+        <div input-block-help field="productForm.manufacturerName">
+            Le nom de l'exploitant du secteur alimentaire tel qu'indiqué sur l'emballage. L'industriel peut décider de rajouter certaines informations sur la nature de l'exploitant du secteur alimentaire.
+        </div>
+        <div input-block-example field="productForm.manufacturerName">
+            ex : Commercialisé par￼Orangina Schweppes France. Fabriqué avec l’autorisation du propriétaire de la￼marque.
+            <br/>
+            ex : Casino
+        </div>
+        <div input-block-gdsn field="productForm.manufacturerName">
+            Correspond dans la GDNS a la balise <code>contactName</code>.
+        </div>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="origin" class="col-sm-3 control-label">Adresse de l'exploitant</label>
+    <div class="col-sm-9">
+        <textarea class="form-control" ng-model="product.manufacturerText" placeholder="ex : 82 rue du Faubourg Saint Martin, 75010 PARIS" rows="2"></textarea>
+        <div input-block-help field="productForm.manufacturerText">
+            L'adresse de l'exploitant du secteur alimentaire telle qu'indiquée sur l'emballage.
+        </div>
+        <div input-block-example field="productForm.manufacturerText">
+            ex : Orangina Schweppes France, CS 80491, 13593 Aix-en-Provence Cedex 3,￼France
+            <br/>
+            ex : Casino 42008￼Saint-Etienne Cedex 2.
+        </div>
+        <div input-block-gdsn field="productForm.manufacturerText">
+            Correspond dans la GDNS a la balise <code>communicationAddress</code>.
+        </div>
+    </div>
+</div>
+
+
+<br/>
+<br/>
+<br/>
+<div class="pull-right">
+	<span class="btn btn-default" ng-click="fillConsumerSupportFromOrganization"><i class="fa fa-download"></i> Remplir avec la marque</span>
+</div>
+<h3>Service consommateur</h3>
+<br/>
+
+<div class="form-group">
+    <label for="consumerSupportName" class="col-sm-3 control-label">Nom</label>
+    <div class="col-sm-9">
+        <input type="text" class="form-control" ng-model="product.consumerSupportName" placeholder="Nom du service consommateur"/>
+    </div>
+</div>
+<div class="form-group">
+    <label for="consumerSupportName" class="col-sm-3 control-label">Adresse</label>
+    <div class="col-sm-9">
+        <textarea class="form-control" ng-model="product.consumerSupportAdress" placeholder="N° et rue"></textarea>
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-2">
+        <input type="text" class="form-control" ng-model="product.consumerSupportPostcode" placeholder="Code postal">
+    </div>
+    <div class="col-sm-3">
+        <input type="text" class="form-control" ng-model="product.consumerSupportCity" placeholder="Ville">
+    </div>
+    <div class="col-sm-4">
+        <input type="text" class="form-control" ng-model="product.consumerSupportCountry" placeholder="Pays">
+    </div>
+</div>
+<div class="form-group">
+    <label for="consumerSupportName" class="col-sm-3 control-label">Contact</label>
+    <div class="col-sm-2">
+        <input type="text" class="form-control" ng-model="product.consumerSupportEmail" placeholder="Email">
+    </div>
+    <div class="col-sm-3">
+        <input type="text" class="form-control" ng-model="product.consumerSupportPhonenumber" placeholder="Téléphone">
+    </div>
+    <div class="col-sm-4">
+        <input type="text" class="form-control" ng-model="product.consumerSupportWebsite" placeholder="Site web">
+    </div>
+</div>

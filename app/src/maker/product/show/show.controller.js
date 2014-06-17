@@ -48,8 +48,8 @@ var ProductAcceptationModalController = function ($scope, $modalInstance, produc
  * @return {[type]}              [description]
  */
 angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', [
-    '$scope', '$$sdkCrud', '$routeParams', '$$autocomplete', '$modal', '$location',
-    function ($scope, $$sdkCrud, $routeParams, $$autocomplete, $modal, $location) {
+    '$scope', '$$sdkCrud', '$routeParams', '$$autocomplete', '$modal', '$location', 'permission',
+    function ($scope, $$sdkCrud, $routeParams, $$autocomplete, $modal, $location, permission) {
 
     $scope.tabs = {
         wine: {visible: true /*false*/},
@@ -60,23 +60,16 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
         tab: "wine", // null,
         correct: null,
     };
-
-    $scope.select2productCompositionOptions = {
-        allowClear:                 true,
-        multiple:                   true,
-        formatResult:               $$autocomplete.formatResult,
-        formatResultCssClass:       $$autocomplete.formatResultCssClass,
-        formatSelection:            $$autocomplete.formatSelection,
-        formatSelectionCssClass:    $$autocomplete.formatSelectionCssClass,
-        createSearchChoice: function(term, data) {
-            if ($(data).filter(function() {
-                return this.text.localeCompare(term)===0;
-            }).length===0) {
-                return {id:term, text:term, _type: 'Concept'};
-            }
-        },
-        data: []
-    };
+    permission.getUser().then(function(user){
+        $scope.user = user;
+        user.managesBrand.forEach(function(brand){
+            $$sdkCrud.BrandShow(brand.id).success(function(response){
+                brand.name = response.data.name;
+                brand.text = response.data.name;
+            });
+        });
+        angular.extend($scope.select2brandOptions.data, user.managesBrand);
+    });
     $scope.select2countryOptions = $$autocomplete.getOptionAutocompletes('country', {maximumSelectionSize: 1, multiple: false});
     $scope.select2regionOptions = $$autocomplete.getOptionAutocompletes('region', {maximumSelectionSize: 1, multiple: false});
     $scope.select2appellationOptions = $$autocomplete.getOptionAutocompletes('appellation', {maximumSelectionSize: 1, multiple: false});
@@ -84,6 +77,12 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
     $scope.select2glassOptions = $$autocomplete.getOptionAutocompletes('glass', {maximumSelectionSize: 1, multiple: false});
     $scope.select2productOptions = $$autocomplete.getOptionAutocompletes('product', {maximumSelectionSize: 1});
     $scope.select2commonunitOptions = $$autocomplete.getOptionAutocompletes('commonunit', {maximumSelectionSize: 1, multiple: false});
+    $scope.select2brandOptions = $$autocomplete.getOptionAutocompletes(null, {data:[], multiple: false, maximumSelectionSize: 1});
+    $scope.select2synonymsOptions = {
+        multiple: true,
+        simple_tags: true,
+        tags: []
+    }
     $scope.user = {};
     $scope.product = {
         id: $routeParams.id
@@ -106,6 +105,8 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
         product.packaging = readablePackaging(product);
         product.madeOf = [];
         product.hasVarietal = [];
+        product.hasAlcohol = 1;
+        product.hasCafeine = 1;
         product.accepted = true;
         //product.accepted = false;
         product.certified = false;
@@ -253,7 +254,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
         { name: 'Oméga 3',      id: 19064, compulsory: false, legend: "" },
         { name: 'Oméga 6',      id: 19065, compulsory: false },
         { name: 'Rapport gras', id: 19066, compulsory: false },
-        { name: 'Glucides',     id: 19067, compulsory: true, legend: "La quantité totale de tous les glucides métabolisés par l’homme, y compris les polyols, rapportée à 100 grammes de produit." },
+        { name: 'Glucides',     id: 19067, compulsory: true,  egend: "La quantité totale de tous les glucides métabolisés par l’homme, y compris les polyols, rapportée à 100 grammes de produit." },
         { name: 'Sucres',       id: 19068, compulsory: false, legend: "La quantité totale de tous les monosaccharides et disaccharides présents dans une denrée alimentaire, à l’exclusion des polyols, rapportée à 100 grammes de produit." },
         { name: 'Polyols',      id: 19069, compulsory: false, legend: "La quantité totale de tous les alcools comprenant plus de deux groupes hydroxyles, rapportée à 100 grammes de produit." },
         { name: 'Amidon',       id: 19070, compulsory: false, legend: "" },
