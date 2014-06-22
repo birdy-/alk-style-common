@@ -5,7 +5,7 @@ angular.module('jDashboardFluxApp').directive('ternary', function($compile) {
         restrict: 'AEC',
         transclude: true,
         scope: {
-            field: '=ngModel'
+            field: '='
         },
         templateUrl: '/src/maker/product/show/input-ternary.html',
         link: function(scope, element, attrs, ctrl) {
@@ -19,7 +19,7 @@ angular.module('jDashboardFluxApp').directive('boolean', function($compile) {
         restrict: 'AEC',
         transclude: true,
         scope: {
-            field: '=ngModel'
+            field: '='
         },
         templateUrl: '/src/maker/product/show/input-boolean.html',
         link: function(scope, element, attrs, ctrl) {
