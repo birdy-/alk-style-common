@@ -7,7 +7,7 @@
 <div class="form-group">
     <label for="manufacturerName" class="col-sm-3 control-label">Nom de l'exploitant</label>
     <div class="col-sm-9">
-        <input type="text" class="form-control" ng-model="product.manufacturerName" placeholder="ex : Nestlé SA">
+        <input type="text" class="form-control" ng-model="product.manufacturerName" placeholder="ex : Nestlé SA" required>
         <div input-block-help field="productForm.manufacturerName">
             Le nom de l'exploitant du secteur alimentaire tel qu'indiqué sur l'emballage. L'industriel peut décider de rajouter certaines informations sur la nature de l'exploitant du secteur alimentaire.
         </div>
@@ -25,7 +25,7 @@
 <div class="form-group">
     <label for="manufacturerText" class="col-sm-3 control-label">Adresse de l'exploitant</label>
     <div class="col-sm-9">
-        <textarea class="form-control" ng-model="product.manufacturerText" placeholder="ex : 82 rue du Faubourg Saint Martin, 75010 PARIS" rows="2"></textarea>
+        <textarea class="form-control" ng-model="product.manufacturerText" placeholder="ex : 82 rue du Faubourg Saint Martin, 75010 PARIS" rows="2" required></textarea>
         <div input-block-help field="productForm.manufacturerText">
             L'adresse de l'exploitant du secteur alimentaire telle qu'indiquée sur l'emballage.
         </div>

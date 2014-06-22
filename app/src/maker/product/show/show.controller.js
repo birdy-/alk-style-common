@@ -1,5 +1,7 @@
 'use strict';
 
+
+
 /**
  * Modal that allows the user to certify a given product.
  */
@@ -10,7 +12,7 @@ var ProductCertificationModalController = function ($scope, $modalInstance, prod
         if (!$scope.user.email) {
             return;
         }
-        $scope.product.certified = true;
+        $scope.product.certified = 3;
         $modalInstance.close($scope.product);
     };
     $scope.cancel = function () {
@@ -90,8 +92,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
     $scope.completeness = 0;
 
     $$sdkCrud.ProductShow($scope.product.id, true, function(response){
-        var product = response.data;
-
+        var product = new Product().fromJson(response.data);
         if (product.amountStarch !== null) {
             product.hasStarch = true;
         }
@@ -105,11 +106,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
         product.packaging = readablePackaging(product);
         product.madeOf = [];
         product.hasVarietal = [];
-        product.hasAlcohol = 1;
-        product.hasCafeine = 1;
-        product.accepted = true;
-        //product.accepted = false;
-        product.certified = false;
 
         $$sdkCrud.ProductStandardQuantityList({}, {'partitions_id': product.id}).success(function(response){
             product.isPartitionedBy = response.data;
@@ -120,12 +116,12 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
         $scope.select2productOptions = $$autocomplete.getOptionAutocompletes('product', {
             maximumSelectionSize: 1,
         }, {
-            filter_brand_id: $scope.product.isProducedBy.id
+            filter_isbrandedby_id: $scope.product.isBrandedBy.id
         });
 
-        if ($scope.product.accepted === false) {
+        if (!$scope.product.isAccepted()) {
             $scope.accept();
-        }
+        };
     });
 
     var isEmpty = function (value) {
@@ -170,14 +166,18 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
     }, true);
 
     $scope.submit = function() {
-        alert('Vous n\'êtes pas autorisé à effectuer cette opération');
-        return;
-        $$sdkCrud.ProductUpdate($scope.product, function(response) {});
+        $$sdkCrud.ProductUpdate(
+            $scope.product
+        ).success(function(response) {
+            $scope.product = response.data;
+        }).error(function(response) {
+            alert('Erreur pendant la mise à jour du produit.');
+        });
     };
 
     $scope.certify = function () {
         var modalInstance = $modal.open({
-            templateUrl: '/src/maker/product/certification.html',
+            templateUrl: '/src/maker/product/certify/certification.html',
             controller: ProductCertificationModalController,
             resolve: {
                 product: function () {
@@ -197,7 +197,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
     };
     $scope.accept = function () {
         var modalInstance = $modal.open({
-            templateUrl: '/src/maker/product/acceptation.html',
+            templateUrl: '/src/maker/product/certify/acceptation.html',
             controller: ProductAcceptationModalController,
             resolve: {
                 product: function () {
@@ -212,7 +212,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
         modalInstance.result.then(function (selectedItem) {
             $scope.selected = selectedItem;
         }, function () {
-            $location.path('/flux/maker/product');
+            $location.path('/maker/product');
         });
     };
 

@@ -6,7 +6,7 @@
 <div class="form-group has-feedback" ng-class="check('nameLegal')">
     <label for="nameLegal" class="col-sm-3 control-label">Dénomination légale</label>
     <div class="col-sm-9">
-        <input ng-model="product.nameLegal" name="nameLegal" type="text" class="form-control" placeholder="Le nom du produit, sans mention de la marque ni packaging" required ng-minlength="3" alk-validation-nameLegal="{{ product.isProducedBy.nameLegal }}" alk-validation-case="sentence" alk-focus ng-change="predict(product)"/>
+        <input ng-model="product.nameLegal" name="nameLegal" type="text" class="form-control" placeholder="Le nom du produit, sans mention de la marque ni packaging" required ng-minlength="3" alk-validation-name="{{ product.isBrandedBy.name }}" alk-validation-case="sentence" alk-focus ng-change="predict(product)"/>
         <span ng-show="productForm.nameLegal.$error.required" class="help-block">Cet élément est obligatoire.</span>
         <span ng-show="productForm.nameLegal.$error.minlength" class="help-block">Le nom du produit est trop court.</span>
         <span ng-show="productForm.nameLegal.$error.caseTooManyUpper" class="help-block">La dénomination ne doit pas comporter trop de majuscules.</span>
@@ -25,13 +25,13 @@
             </label>
         </div>
     -->
-        <div input-block-help field="productForm.name">
+        <div input-block-help field="productForm.nameLegal">
             The prescribed, regulated or generic product name or denomination that describes the true nature of the food and is sufficiently precise to distinguish it from other foods according to the country specific regulation.
             <br/>
             La dénomination de vente échangée dans la fiche produit GS1 doit correspondre exactement à la dénomination de vente présente sur l'emballage du produit. Elle doit suivre les instructions données dans l'Annexe VI du Règlement.
             La dénomination de vente peut inclure certaines mentions obligatoires additionnelles comme celles décrites dans l'Annexe VI du Règlement. Ex : le pourcentage de matière grasse, "avec sucre(s) et édulcorant(s)",...
         </div>
-        <div input-block-help field="productForm.name">
+        <div input-block-help field="productForm.nameLegal">
             <strong id="art17">Dénomination de la denrée alimentaire :</strong>
             La dénomination de la denrée alimentaire est sa dénomi­nation légale. En l'absence d'une telle dénomination, la dénomi­nation de la denrée est son nom usuel. À défaut d'un tel nom ou si celui-ci n'est pas utilisé, un nom descriptif est à indiquer.
             <br/>
@@ -39,14 +39,14 @@
             <br/>
             Une dénomination protégée dans le cadre de la propriété intellectuelle, une marque de commerce ou une dénomination de fantaisie ne peut se substituer à la dénomination de la denrée alimentaire.
         </div>
-        <div input-block-example ng-show="productForm.name">
+        <div input-block-example ng-show="productForm.nameLegal">
             Boisson rafraîchissante aux fruits et à l'eau de source.
             <br/>
             Lait stérilisé U.H.T entier enrichi en Vitamine D.
             <br/>
             10 ŒUFS FRAIS DE POULES ELEVEES EN PLEIN AIR* ISSUS DE L'AGRICULTURE BIOLOGIQUE (CODE COMMENCANT PAR 0 SUR L'ŒUF) * CONFORMEMENT AU MODE DE PRODUCTION BIOLOGIQUE.
         </div>
-        <div input-block-gdsn ng-show="productForm.name">
+        <div input-block-gdsn ng-show="productForm.nameLegal">
             Correspond dans la GDSN a la balise <code>regulatedProductName</code>.
         </div>
     </div>
@@ -65,21 +65,21 @@
 <div class="form-group has-feedback" ng-class="check('namePublicShort')">
     <label for="namePublicShort" class="col-sm-3 control-label">Libellé commercial court</label>
     <div class="col-sm-3">
-        <input ng-model="product.namePublicShort" name="namePublicShort" type="text" class="form-control" placeholder="Une proposition de libellé marketing court." alk-validation-case="sentence" alk-maxlength="40" alk-focus ng-change="predict(product)"/>
+        <input ng-model="product.namePublicShort" name="namePublicShort" type="text" class="form-control" placeholder="Une proposition de libellé marketing court." ng-maxlength="40"/>
         <span ng-show="productForm.namePublicShort.$error.caseTooManyUpper" class="help-block">La dénomination ne doit pas comporter trop de majuscules.</span>
         <span ng-show="productForm.namePublicShort.$error.caseStart" class="help-block">La dénomination doit commencer par une lettre majuscule.</span>
-        <span ng-show="productForm.name.$error.maxlength" class="help-block">Le nom du produit est trop court.</span>
+        <span ng-show="productForm.namePublicShort.$error.maxlength" class="help-block">Le nom du produit est trop long.</span>
         <div input-block-help field="productForm.namePublicShort">
             Une proposition de libellé commercial court.
         </div>
     </div>
-    <label for="isBrandedAs" class="col-sm-3 control-label">Marque commerciale</label>
+    <label for="isBrandedBy" class="col-sm-3 control-label">Marque commerciale</label>
     <div class="col-sm-3">
         <input type="text" ng-model="product.isBranded" type="text" select ui-select2="select2brandOptions" style="width: 100%"/>
     </div>
 </div>
 <div class="form-group" ng-class="check('synonyms')">
-    <label for="isBrandedAs" class="col-sm-3 control-label">Synonymes</label>
+    <label for="isBrandedBy" class="col-sm-3 control-label">Synonymes</label>
     <div class="col-sm-9">
         <input type="hidden" ui-select2="select2synonymsOptions" ng-model="product.synonyms" name="synonyms" style="width: 100%;" alk-focus placeholder="Une liste de synonymes pouvant être utile à un moteur de recherche."/>
         <div input-block-help field="productForm.synonyms">
@@ -123,8 +123,8 @@
     </div>
 </div>
 <div class="form-group has-feedback" ng-class="check('servesText')">
-    <label for="servesText" class="col-sm-3 control-label">Mode d'emploi</label>
-    <div class="col-sm-2">
+    <label for="servesText" class="col-sm-3 control-label">Nombre de parts</label>
+    <div class="col-sm-3">
         <input type="text" ng-model="product.serves" name="serves" class="form-control" rows="3" placeholder="" alk-focus/>
         <div input-block-help field="productForm.serves">
             The total number of servings contained in the package.
@@ -138,8 +138,8 @@
             Correspond dans la GDSN a la balise <code>numberOfServingsPerPackage</code>.
         </div>
     </div>
-    <label for="servesText" class="col-sm-3 control-label">Mode d'emploi</label>
-    <div class="col-sm-2">
+    <label for="servesText" class="col-sm-3 control-label">Nombre de parts approximatif</label>
+    <div class="col-sm-3">
         <input type="text" ng-model="product.servesText" name="servesText" class="form-control" rows="3" placeholder="" alk-focus/>
         <div input-block-help field="productForm.servesText">
             Range description for number of serving.
@@ -204,7 +204,7 @@
             Température de consommation.
         </div>
     </div>
-    <label for="openBeforeConsuming" class="col-sm-3 control-label">Ouvrir </label>
+    <label for="openBeforeConsuming" class="col-sm-3 control-label">Ouvrir avant consommation </label>
     <div class="col-sm-3">
         <div class="input-group">
             <input type="text" name="openBeforeConsuming" class="form-control" ng-model="product.openBeforeConsuming" placeholder="ex : 60" alk-focus/>
