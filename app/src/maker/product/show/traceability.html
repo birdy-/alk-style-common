@@ -1,0 +1,73 @@
+<div class="form-group">
+    <label for="origin" class="col-sm-2 control-label">Origine</label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" name="origin" ng-model="product.origin" placeholder="ex : Bourgogne, France" alk-focus required/>
+        <div input-block-help field="productForm.origin">
+        	Free text description of the geographic area the product originates from. Each Description structure SHALL have a different language code, and SHALL represent presentations of the same value in different languages.
+ 			<br/>
+ 			La donnée doit correspondre exactement à l’allégation d’origine présente sur le produit.
+			Donnée utilisée notamment pour les spécialités traditionnelles garanties, les indications géographiques et les appellations d’origine des produits agricoles et des denrées alimentaires.
+    	</div>
+ 		<div input-block-example field="productForm.origin">
+ 			ex : ORIGINE FRANCE
+ 			<br/>
+ 			ex : ELEVE AU￼ROYAUME UNI (ECOSSE)
+        </div>
+        <div input-block-gdsn field="productForm.origin">
+ 			Correspond dans la GDSN a la balise <code>countryOfOriginStatement</code>.
+        </div>
+    </div>
+</div>
+
+<!--
+<div class="form-group">
+    <label for="traceabilityBirth" class="col-sm-2 control-label">Lieu de naissance</label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" name="traceabilityBirth" ng-model="product.traceability.birth" placeholder="ex : Bourgogne, France" alk-focus/>
+        <div input-block-help field="productForm.traceabilityBirth">
+        	Is the place the animal was born/hatched. The place may be a country, region (land or  sea), city, etc. Since a company may have multiple facilities in multiple countries, the attribute needs to be repeating to reflect the potential places. The actual birth place of a particular animal would be transactional. Note: the term animal includes but is not limited to mammals, birds, fish and crustaceans.
+    	</div>
+ 		<div input-block-example field="productForm.traceabilityBirth">
+ 			ex : IRLANDE
+        </div>
+        <div input-block-gdsn field="productForm.traceabilityBirth">
+ 			Correspond dans la GDSN a la balise <code>placeOfBirth</code>.
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <label for="traceabilityBreed" class="col-sm-2 control-label">Lieu d'élevage</label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" name="traceabilityBreed" ng-model="product.traceability.breed" placeholder="ex : Bourgogne, France" alk-focus/>
+        <div input-block-help field="productForm.traceabilityBreed">
+        	Is the place the animal was raised after birth to the end of the animal’s life. The place may  be a country, region (land or sea), city, etc. Since a company may have multiple facilities in  multiple countries, the attribute needs to be repeating to reflect the potential places. The  actual rearing place(s) of a particular animal would be transactional.
+        	<br/>
+			Guidance:
+        	<br/>
+			If the animal was a particular animal that was raised in multiple locations, one instance of the attribute should be populated. E.g. Reared in Spain and Portugal.
+			If the animal may have been raised in a single location but for a particular animal it is transactional, it is suggested to populate the attribute for each possibility of location an animal may have come from. E.g. Instance 1) Reared in Spain, Instance 2) Reared in Portugal. Note: the term animal includes but is not limited to mammals, birds, fish and crustaceans.
+    	</div>
+ 		<div input-block-example field="productForm.traceabilityBreed">
+ 			ex : IRLANDE
+        </div>
+        <div input-block-gdsn field="productForm.traceabilityBreed">
+ 			Correspond dans la GDSN a la balise <code>placeOfRearing</code>.
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <label for="traceabilitySlaughter" class="col-sm-2 control-label">Lieu d'abattage</label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" name="traceabilitySlaughter" ng-model="product.traceability.slaughter" placeholder="ex : Bourgogne, France" alk-focus/>
+        <div input-block-help field="productForm.traceabilitySlaughter">
+        	Is the place the animal was killed to be processed for food, or other purposes. The place may be a country, region (land or sea), city, etc. Since a company may have multiple facilities in multiple countries, the attribute needs to be repeating to reflect the potential places. The actual slaughter place of a particular animal would be transactional. Note: the term animal includes but is not limited to mammals, birds, fish and crustaceans.
+ 		</div>
+ 		<div input-block-example field="productForm.traceabilitySlaughter">
+ 			ex : IRLANDE
+        </div>
+        <div input-block-gdsn field="productForm.traceabilitySlaughter">
+ 			Correspond dans la GDSN a la balise <code>placeOfSlaughter</code>.
+        </div>
+    </div>
+</div>
+-->

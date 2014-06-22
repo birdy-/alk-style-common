@@ -10,22 +10,42 @@
         <input type="checkbox" ng-model="product.isCanned"> Produit en conserve
     </label>
 </div>
+<div class="form-group">
+    <div boolean field="product.isPasteurized" name="isPasteurized" label="Produit pasteurisé"></div>
+    <div boolean field="product.isDehydrated" name="isDehydrated" label="Produit déshydraté"></div>
+</div>
+<div class="form-group">
+    <!--<div boolean field="product.isSterilized" name="isSterilized" label="Produit stérilisé"></div>-->
+</div>
 
 <div class="form-group has-feedback" ng-class="check('conservation')">
     <label for="conservation" class="col-sm-2 control-label">Conseils de conservation</label>
     <div class="col-sm-10">
-        <textarea name="conservation" ng-model="product.conservation" class="form-control" rows="3" required></textarea>
+        <textarea name="conservation" ng-model="product.conservation" class="form-control" rows="3" alk-focus required></textarea>
         <span ng-show="productForm.conservation.$error.required" class="help-block">Cet élément est obligatoire.</span>
+        <div input-block-help field="productForm.conservation">
+            Expresses in text the consumer storage and usage instructions of a product which are normally held on the label or accompanying the product. This information may or may not be labelled on the pack. Instructions may refer to a suggested storage temperature, a specific storage requirement or a reference to environment or duration. Examples include: "Refrigerate After Opening", "Consume within 4 days" "Keep Out Of Direct Sunlight" ,"Store at an Ambient Temperature", "Store in a Clean, Cool, Dry Place", "Store Away From Sunlight, Strong Odours and Chemicals", "Keep in a Clean, Cool, Dry and Odourless Place Away From Direct Sunlight and Freezing Temperatures", "Keep in a Clean, Cool, Dry and Odourless Place Away From Direct Sunlight", "Before opening store at +5°C +30°C", "After Opening Keep Refrigerated (+5°C) and Consume Within 48 hours", "Drink Chilled", "Store in a Cool Dry Place", "Refrigerate After Opening. Can Be Kept in the Fridge For 3 Months".
+        </div>
+        <div input-block-example field="productForm.conservation">
+            ex : Après ouverture, à conserver au froid et à consommer rapidement.
+            <br/>
+            ex : Avant ouverture : à conserver dans un endroit frais et sec. Après ouverture : à￼conserver dans un récipient fermé au frais et à consommer dans les 48 heures
+        </div>
+        <div input-block-gdsn field="productForm.conservation">
+            Correspond dans la GDSN a la balise <code>consumerUsageStorageInstructions</code>.
+        </div>
     </div>
+
 </div>
 <div class="form-group has-feedback" ng-class="check('peremption')">
     <label for="peremption" class="col-sm-2 control-label">Notes sur la péremption</label>
     <div class="col-sm-10">
-        <textarea name="peremption" ng-model="product.peremption" class="form-control" rows="3" required></textarea>
+        <textarea name="peremption" ng-model="product.peremption" class="form-control" rows="3" alk-focus></textarea>
         <span ng-show="productForm.peremption.$error.required" class="help-block">Cet élément est obligatoire.</span>
     </div>
 </div>
 
+<!--
 <div class="form-group">
     <div class="col-sm-2"></div>
     <div class="col-sm-10">
@@ -118,3 +138,4 @@
         </label>
     </div>
 </div>
+-->

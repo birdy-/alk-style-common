@@ -1,10 +1,10 @@
 <div class="modal-header">
     <div class="pull-right">
-        <img height="60" width="60" ng-src="{{ product.isInstantiatedBy[0].picture.main }}"/>
+        <img height="60" width="60" ng-src="{{ product.picture.main.replace('original', '256x256') }}"/>
     </div>
     <h3>
         Acceptation
-        <small>{{ product.name }}</small>
+        <small>{{ product.nameLegal }}</small>
     </h3>
 </div>
 <div class="modal-body">

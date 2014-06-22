@@ -1,11 +1,18 @@
 <div ng-include="'/src/maker/home/header.html'"></div>
 
+<style>
+.brand-logo {
+    max-height: 40px;
+    max-width: 40px;
+}
+</style>
+
 <div class="container">
     <h2>Mes marques</h2>
     <div class="row">
         <div class="col-lg-12">
             <table class="table table-bordered">
-                <thead>
+                <thead class="color-stream-inverse">
                     <tr>
                         <td>Logo</td>
                         <td>Nom</td>
@@ -13,7 +20,7 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="brand in brands">
-                        <td><img ng-src="{{ brand.picture.logo }}"/></td>
+                        <td><img class="brand-logo" ng-src="{{ brand.picture.logo }}"/></td>
                         <td><a href="/#/maker/brand/{{ brand.id }}">{{ brand.name }}</a></td>
                     </tr>
                 </tbody>
