@@ -106,6 +106,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', 
         list();
     };
 
+    $scope.$watch('request.product.isBrandedBy', refresh);
     $scope.$watch('request.product.isIdentifiedBy.reference', refresh);
     $scope.$watch('request.product.nameLegal', refresh);
     $scope.$watch('request.product.certifieds', refresh, true);
