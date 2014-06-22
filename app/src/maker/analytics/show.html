@@ -38,13 +38,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="productinshop in productinshops" ng-class="{ 'available': productinshop.isProducedBy.id == request.brand.id }">
+                <tr ng-repeat="productinshop in productinshops" ng-class="{ 'available': productinshop.isBrandedBy.id == request.brand.id }">
                     <td>
                         <img height="32px" width="32px" ng-src="{{ productinshop.picture.main }}"/>
                     </td>
                     <td>{{ productinshop.name }}</td>
                     <td class="text-center">{{ productinshop.instantiates.factorSIFU }} mL</td>
-                    <td class="text-center">{{ productinshop.isProducedBy.name }}</td>
+                    <td class="text-center">{{ productinshop.isBrandedBy.name }}</td>
                     <td class="text-center">{{ productinshop.price.min | number:2 }} €</td>
                     <td class="text-center">{{ productinshop.price.average | number:2 }} €</td>
                     <td class="text-center">{{ productinshop.price.max | number:2 }} €</td>

@@ -5,25 +5,26 @@
         <br/>
     </div>
     <div class="thumbnail">
-        <img height="100" class="ratio" style="background-color: white" ng-style="{'background-image': 'url(' + product.isInstantiatedBy[0].picture.main + ')'}"/>
+        <div class="ratio" ng-style="{'background-image': 'url(\'' + product.picture.main.replace('original', '256x256') + '\')'}"  style="height: 100px;">
+        </div>
     </div>
     <div class="text-center">
         <h4>{{ product.name }}</h4>
         <strong>{{ product.packaging }}</strong>
         <br/>
         <br/>
-        <span class="label label-success" ng-show="product.accepted === true" tooltip-placement="top" tooltip="Vous avez reconnu être en charge de ce produit." tooltip-trigger="mouseenter">
+        <span class="label label-success" ng-show="product.isAccepted() === true" tooltip-placement="top" tooltip="Vous avez reconnu être en charge de ce produit." tooltip-trigger="mouseenter">
             <i class="fa fa-check"></i> Accepté
         </span>
-        <span class="label label-warning" ng-show="product.accepted === false" tooltip-placement="top" tooltip="Vous n'avez pas reconnu être en charge de ce produit." tooltip-trigger="mouseenter">
+        <span class="label label-warning" ng-show="product.isAccepted() === false" tooltip-placement="top" tooltip="Vous n'avez pas reconnu être en charge de ce produit." tooltip-trigger="mouseenter">
             <i class="fa fa-warning"></i> Non accepté
         </span>
         <br/>
         <br/>
-        <span class="label label-success" ng-show="product.certified === true" tooltip-placement="top" tooltip="Vous avez certifié la conformité des informations sur ce produit." tooltip-trigger="mouseenter">
+        <span class="label label-success" ng-show="product.isCertified() === true" tooltip-placement="top" tooltip="Vous avez certifié la conformité des informations sur ce produit." tooltip-trigger="mouseenter">
             <i class="fa fa-certificate"></i> Certifié
         </span>
-        <span class="label label-warning" ng-show="product.certified === false" tooltip-placement="top" tooltip="Vous n'avez pas encore certifié la conformité des informations sur ce produit." tooltip-trigger="mouseenter">
+        <span class="label label-warning" ng-show="product.isCertified() === false" tooltip-placement="top" tooltip="Vous n'avez pas encore certifié la conformité des informations sur ce produit." tooltip-trigger="mouseenter">
             <i class="fa fa-warning"></i> Non certifié
         </span>
     </div>

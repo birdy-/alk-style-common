@@ -1,25 +1,39 @@
+<style>
+    .missing-picture {
+        background-position:center center;
+        background-image: url('/images/missing.png');
+        background-repeat: no-repeat;
+        background-size: 80% 80%;
+    }
+    .product-icons {
+        height: 15px;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+</style>
+
 <div class="sheet container-fluid">
     <div class="row" infinite-scroll="more()">
         <div ng-repeat="product in products" class="col-sm-2 product">
-            <div class="picture">
-                <div class="ratio" ng-style="{'background-image': 'url(\'' + product.isInstantiatedBy[0].picture.main + '\')'}">
+            <div class="picture missing-picture">
+                <div class="ratio" ng-style="{'background-image': 'url(\'' + product.picture.main.replace('original', '256x256') + '\')'}" style="height">
                 </div>
             </div>
             <div class="name">
                 <a href="/#/maker/product/{{ product.id }}">
-                    {{ product.name }}
+                    {{ product.nameLegal }}
                 </a>
             </div>
             <div class="packaging">
                 {{ product.packaging }}
             </div>
-            <div class="progress">
-                <div class="progress-bar" ng-class="{'progress-bar-warning': !product.status, 'progress-bar-success': product.status }" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{ product.completeness }}%;">
-                    <span ng-show="!product.status" >{{ product.completeness }} %</span>
-                    <i ng-show="product.status" class="fa fa-check"></i>
-                </div>
+            <div class="product-icons">
+                <span class="label label-success" ng-show="product.isCertified()">
+                    <i class="fa fa-check"></i> Certifié
+                </span>
             </div>
         </div>
+        <!--
         <div class="col-sm-2 product new">
             <div class="picture">
                 <div class="ratio">+</div>
@@ -31,9 +45,10 @@
             </div>
             <div class="packaging">
             </div>
-            <div class="progress">
+            <div class="product-icons">
             </div>
         </div>
+        -->
     </div>
 </div>
 

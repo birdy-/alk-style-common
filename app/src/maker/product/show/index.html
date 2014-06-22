@@ -7,14 +7,20 @@
         <div class="container-fluid">
             <div class="clearfix">
                 <h1>
-                    {{ product.name }}
-                    <small>{{ product.isProducedBy.name }}</small>
+                    {{ product.nameLegal }}
+                    <small>{{ product.isBrandedBy.name }}</small>
                 </h1>
             </div>
             <form class="form-horizontal" role="form" name="productForm" novalidate>
                 <tabset>
-                    <tab heading="Général">
-                        <div ng-include="'/src/maker/product/show/general.html'"></div>
+                    <tab heading="Marketing">
+                        <div ng-include="'/src/maker/product/show/marketing.html'"></div>
+                    </tab>
+                    <tab heading="Packaging">
+                        <div ng-include="'/src/maker/product/show/packaging.html'"></div>
+                    </tab>
+                    <tab heading="Fabricant">
+                        <div ng-include="'/src/maker/product/show/manufacturer.html'"></div>
                     </tab>
                     <!--
                     <tab class="semantic" ng-show="tabs.wine.visible">
@@ -23,13 +29,14 @@
                         </tab-heading>
                         <div ng-include="'/src/maker/product/show/specific/wine.html'"></div>
                     </tab>
-                    -->
                     <tab heading="Identification">
                         <div ng-include="'/src/maker/product/show/identification.html'"></div>
                     </tab>
-                    <tab heading="Médias">
+                    <tab disabled="true">
+                        <tab-heading>Médias <i class="fa fa-lock"></i></tab-heading>
                         <div ng-include="'/src/maker/product/show/media.html'"></div>
                     </tab>
+                    -->
                     <tab heading="Composition">
                         <div ng-include="'/src/maker/product/show/composition.html'"></div>
                     </tab>
@@ -42,12 +49,17 @@
                     <tab heading="Conservation">
                         <div ng-include="'/src/maker/product/show/conservation.html'"></div>
                     </tab>
-                    <tab heading="Conformité des fiches">
-                        <div ng-include="'/src/maker/product/show/productinshop.html'"></div>
+                    <tab heading="Traçabilité">
+                        <div ng-include="'/src/maker/product/show/traceability.html'"></div>
                     </tab>
                     <!--
-                    <tab heading="Historique">
-                        <div ng-include="'/src/maker/product/show/history.html'"></div>
+                    <tab disabled="true">
+                        <tab-heading>Conformité <i class="fa fa-lock"></i></tab-heading>
+                        <div ng-include="'/src/maker/product/show/productinshop.html'"></div>
+                    </tab>
+                    <tab disabled="true">
+                        <tab-heading>Versions <i class="fa fa-lock"></i></tab-heading>
+                        <div ng-include="'/src/maker/product/show/version.html'"></div>
                     </tab>
                     -->
                 </tabset>

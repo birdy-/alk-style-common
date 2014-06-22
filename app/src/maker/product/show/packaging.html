@@ -1,74 +1,23 @@
 <!-- ================================================================================================================================== -->
-<!--                                                          Dénomination                                                              -->
+<!--                                                Packaging                                                              -->
 <!-- ================================================================================================================================== -->
 
-<div class="form-group has-feedback" ng-class="check('name')">
-    <label for="name" class="col-sm-2 control-label">Dénomination</label>
-    <div class="col-sm-6">
-        <input ng-model="product.name" name="name" type="text" class="form-control" placeholder="Le nom du produit, sans mention de la marque ni packaging" name="name" required ng-minlength="3" alk-validation-name="{{ product.isProducedBy.name }}" alk-validation-case="sentence" alk-focus ng-change="predict(product)"/>
-        <span ng-show="productForm.name.$error.required" class="help-block">Cet élément est obligatoire.</span>
-        <span ng-show="productForm.name.$error.minlength" class="help-block">Le nom du produit est trop court.</span>
-        <span ng-show="productForm.name.$error.caseTooManyUpper" class="help-block">La dénomination ne doit pas comporter trop de majuscules.</span>
-        <span ng-show="productForm.name.$error.caseStart" class="help-block">La dénomination doit commencer par une lettre majuscule.</span>
-        <span ng-show="productForm.name.$error.containsBrand" class="help-block">Le nom du produit ne doit pas contenir de marque.</span>
-        <!--
-        <div class="col-sm-6" ng-show="prediction.visible">
-            <label class="radio-inline">
-                S'agit-il de {{ prediction.concept.name }} ?
-            </label>
-            <label class="radio-inline">
-                <input ng-model="prediction.correct" ng-change="verify()" type="radio" ng-value="true"> oui
-            </label>
-            <label class="radio-inline">
-                <input ng-model="prediction.correct" ng-change="verify()" type="radio" ng-value="false"> non
-            </label>
-        </div>
-    -->
-    </div>
-    <div class="col-sm-4" ng-show="productForm.name.$focus">
-        <strong id="art17">Dénomination de la denrée alimentaire :</strong>
-        La dénomination de la denrée alimentaire est sa dénomi­nation légale. En l’absence d’une telle dénomination, la dénomi­nation de la denrée est son nom usuel. À défaut d’un tel nom ou si celui-ci n’est pas utilisé, un nom descriptif est à indiquer.
-        <br/>
-        Si la dénomination n’est pas de nature à permettre aux consommateurs de connaître la nature réelle de la denrée et de la distinguer des denrées avec lesquelles ils pourraient la confondre, la dénomination de la denrée en question est accompagnée d’autres informations descriptives à faire figurer à proximité de celle-ci.
-        <br/>
-        Une dénomination protégée dans le cadre de la propriété intellectuelle, une marque de commerce ou une dénomination de fantaisie ne peut se substituer à la dénomination de la denrée alimentaire.
-    </div>
-</div>
-
-
-<div class="form-group has-feedback" ng-class="check('description')">
-    <label for="description" class="col-sm-2 control-label">Description</label>
-    <div class="col-sm-6">
-        <textarea ng-model="product.description" name="description" class="form-control" rows="3" placeholder="La description du produit." alk-focus required></textarea>
-        <span ng-show="productForm.description.$error.required" class="help-block">Une description du produit est obligatoire.</span>
-    </div>
-    <div class="col-sm-4" ng-show="productForm.description.$focus">
-        La description d'une denrée alimentaire permet d'y adjoindre des données marketing.
-    </div>
-</div>
-<div class="form-group has-feedback" ng-class="check('advices')">
-    <label for="advices" class="col-sm-2 control-label">Mode d'emploi</label>
-    <div class="col-sm-6">
-        <textarea ng-model="product.advices" name="advices" class="form-control" rows="3" placeholder="Conseils d'utilisation du produit."  alk-focus required></textarea>
-        <span ng-show="productForm.advices.$error.required" class="help-block">Un mode d'emploi du produit est obligatoire.</span>
-    </div>
-    <div class="col-sm-4" ng-show="productForm.advices.$focus">
-        <strong id="art27">Mode d’emploi :</strong>
-        Le mode d’emploi d’une denrée alimentaire doit être indiqué de façon à permettre un usage approprié de cette denrée.
-    </div>
-</div>
-
-
-
-
-<!-- ================================================================================================================================== -->
-<!--                                                        Packaging                                                              -->
-<!-- ================================================================================================================================== -->
-
+<h3>Emballage</h3>
 <div class="form-group has-feedback" ng-class="check('packaging')">
     <label for="packaging" class="col-sm-2 control-label">Packaging</label>
     <div class="col-sm-10">
-        <input ng-model="product.packaging" name="packaging" class="form-control" type="text" placeholder="La description du packaging du produit." required>
+        <input ng-model="product.packaging" name="packaging" class="form-control" type="text" placeholder="La description du packaging du produit." required alk-focus>
+        <div input-block-help field="productForm.packaging">
+            An alphanumeric size factor the brand owner wishes to communicate to the consumer.
+            <br/>
+            Contient le contenu net tel que exprimé sur l'emballage : "24 x 33 cl". La quantité totale de produit (792 cl) continue d'être échangée dans la donnée netContent.
+        </div>
+        <div input-block-example field="productForm.packaging">
+            ex : 4x100g
+        </div>
+        <div input-block-gdsn field="productForm.packaging">
+            Correspond dans la GDSN a la balise <code>descriptiveSize</code>.
+        </div>
     </div>
 </div>
 
@@ -165,6 +114,7 @@
 <!--                                                        Quantité nette                                                              -->
 <!-- ================================================================================================================================== -->
 
+<h3>Quantités</h3>
 <div class="form-group has-feedback" ng-class="check('quantityNormalized')">
     <label for="quantityNormalized" class="col-sm-2 control-label">Quantité nette</label>
     <div class="col-sm-4">
@@ -176,15 +126,46 @@
     <div class="col-sm-2">
         <input type="text" ng-model="product.isMeasuredBy" type="text" select ui-select2="select2commonunitOptions" style="width: 100%" placeholder="ex : g"/>
     </div>
-    <div class="col-sm-4" ng-show="productForm.quantityNormalized.$focus">
+    <div input-block-help field="productForm.quantityNormalized" class="col-sm-offset-2 col-sm-10">
         <strong id="art23">Quantité nette :</strong>
-        La quantité nette d’une denrée alimentaire est exprimée, en utilisant, selon le cas, le litre, le centilitre, le millilitre ou bien le kilogramme ou le gramme:
+        La quantité nette d'une denrée alimentaire est exprimée, en utilisant, selon le cas, le litre, le centilitre, le millilitre ou bien le kilogramme ou le gramme:
         <ul>
             <li>en unités de volume pour les produits liquides; </li>
             <li>en unités de masse pour les autres produits. </li>
         </ul>
     </div>
+    <div input-block-help field="productForm.quantityNormalized" class="col-sm-offset-2 col-sm-10">
+        The amount of the trade item contained by a package, usually as claimed on the label. For  example, Water 750ml net content = "750 ML" ; 20 count pack of diapers, net content = "20 PC.". In case of multi-pack, indicates the net content of the total trade item. For fixed
+        alue trade items use the value claimed on the package, to avoid variable fill rate issue that  arises with some trade item which are sold by volume or weight, and whose actual content  may  vary  slightly  from  batch  to  batch.  In  case  of  variable  quantity trade items, indicates the average quantity.
+        <br/>
+        Doit  correspondre à la quantité nette telle que déclarée sur l'emballage de la denrée alimentaire. La quantité nette doit être échangée dans une des unités de mesure suivante :le litre, le centilitre, le millilitre, le kilogramme, le gramme. Le contenu net de certaines denrées alimentaires (ex : œufs) peut également être exprimé en pièce, code GS1 : PC.
+    </div>
+    <div input-block-help field="productForm.quantityNormalized">
+        Correspond dans la GDSN a la balise <code>netContent</code>.
+    </div>
 </div>
+<div class="form-group has-feedback" ng-class="check('drainedWeight')">
+    <label for="drainedWeight" class="col-sm-2 control-label">Poids net égoutté</label>
+    <div class="col-sm-4">
+        <input ng-model="product.drainedWeight" name="drainedWeight" type="text" class="form-control" placeholder="ex : 200" ng-min="0" alk-float alk-focus/>
+        <span ng-show="productForm.drainedWeight.$error.float" class="help-block">La quantité nette du produit doit être un nombre décimal.</span>
+        <span ng-show="productForm.drainedWeight.$error.min" class="help-block">Cette quantité doit être plus grande que 0.</span>
+    </div>
+    <div class="col-sm-2">
+    <!--
+        <input type="text" ng-model="product.isMeasuredBy" type="text" select ui-select2="select2commonunitOptions" style="width: 100%" placeholder="ex : g"/>
+        -->
+    </div>
+    <div input-block-help field="productForm.drainedWeight" class="col-sm-offset-2 col-sm-10">
+        The weight of the trade item when drained of its liquid. For example 225 "GR", Jar of pickles in vinegar. Applies to defined bricks of GCI Global trade item Classification Mainly food trade item. Has to be associated with a valid UoM.
+        <br/>
+        La quantité nette doit être échangée dans une des unités de mesure suivante : le kilogramme, le gramme. La quantité nette décrite dans la fiche produit doit correspondre exactement à celle présente sur l'emballage du produit.
+    </div>
+    <div input-block-help field="productForm.drainedWeight">
+        Correspond dans la GDSN a la balise <code>drainedWeight</code>.
+    </div>
+</div>
+
 
 
 <!--

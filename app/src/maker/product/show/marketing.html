@@ -1,0 +1,330 @@
+<!-- ================================================================================================================================== -->
+<!--                                                          Dénomination                                                              -->
+<!-- ================================================================================================================================== -->
+
+<h3>Dénomination</h3>
+<div class="form-group has-feedback" ng-class="check('nameLegal')">
+    <label for="nameLegal" class="col-sm-3 control-label">Dénomination légale</label>
+    <div class="col-sm-9">
+        <input ng-model="product.nameLegal" name="nameLegal" type="text" class="form-control" placeholder="Le nom du produit, sans mention de la marque ni packaging" required ng-minlength="3" alk-validation-name="{{ product.isBrandedBy.name }}" alk-validation-case="sentence" alk-focus ng-change="predict(product)"/>
+        <span ng-show="productForm.nameLegal.$error.required" class="help-block">Cet élément est obligatoire.</span>
+        <span ng-show="productForm.nameLegal.$error.minlength" class="help-block">Le nom du produit est trop court.</span>
+        <span ng-show="productForm.nameLegal.$error.caseTooManyUpper" class="help-block">La dénomination ne doit pas comporter trop de majuscules.</span>
+        <span ng-show="productForm.nameLegal.$error.caseStart" class="help-block">La dénomination doit commencer par une lettre majuscule.</span>
+        <span ng-show="productForm.nameLegal.$error.containsBrand" class="help-block">Le nom du produit ne doit pas contenir de marque.</span>
+        <!--
+        <div class="col-sm-6" ng-show="prediction.visible">
+            <label class="radio-inline">
+                S'agit-il de {{ prediction.concept.name }} ?
+            </label>
+            <label class="radio-inline">
+                <input ng-model="prediction.correct" ng-change="verify()" type="radio" ng-value="true"> oui
+            </label>
+            <label class="radio-inline">
+                <input ng-model="prediction.correct" ng-change="verify()" type="radio" ng-value="false"> non
+            </label>
+        </div>
+        -->
+        <div input-block-help field="productForm.nameLegal">
+            The prescribed, regulated or generic product name or denomination that describes the true nature of the food and is sufficiently precise to distinguish it from other foods according to the country specific regulation.
+            <br/>
+            La dénomination de vente échangée dans la fiche produit GS1 doit correspondre exactement à la dénomination de vente présente sur l'emballage du produit. Elle doit suivre les instructions données dans l'Annexe VI du Règlement.
+            La dénomination de vente peut inclure certaines mentions obligatoires additionnelles comme celles décrites dans l'Annexe VI du Règlement. Ex : le pourcentage de matière grasse, "avec sucre(s) et édulcorant(s)",...
+        </div>
+        <div input-block-help field="productForm.nameLegal">
+            <strong id="art17">Dénomination de la denrée alimentaire :</strong>
+            La dénomination de la denrée alimentaire est sa dénomi­nation légale. En l'absence d'une telle dénomination, la dénomi­nation de la denrée est son nom usuel. À défaut d'un tel nom ou si celui-ci n'est pas utilisé, un nom descriptif est à indiquer.
+            <br/>
+            Si la dénomination n'est pas de nature à permettre aux consommateurs de connaître la nature réelle de la denrée et de la distinguer des denrées avec lesquelles ils pourraient la confondre, la dénomination de la denrée en question est accompagnée d'autres informations descriptives à faire figurer à proximité de celle-ci.
+            <br/>
+            Une dénomination protégée dans le cadre de la propriété intellectuelle, une marque de commerce ou une dénomination de fantaisie ne peut se substituer à la dénomination de la denrée alimentaire.
+        </div>
+        <div input-block-example ng-show="productForm.nameLegal">
+            Boisson rafraîchissante aux fruits et à l'eau de source.
+            <br/>
+            Lait stérilisé U.H.T entier enrichi en Vitamine D.
+            <br/>
+            10 ŒUFS FRAIS DE POULES ELEVEES EN PLEIN AIR* ISSUS DE L'AGRICULTURE BIOLOGIQUE (CODE COMMENCANT PAR 0 SUR L'ŒUF) * CONFORMEMENT AU MODE DE PRODUCTION BIOLOGIQUE.
+        </div>
+        <div input-block-gdsn ng-show="productForm.nameLegal">
+            Correspond dans la GDSN a la balise <code>regulatedProductName</code>.
+        </div>
+    </div>
+</div>
+<div class="form-group has-feedback" ng-class="check('namePublicLong')">
+    <label for="namePublicLong" class="col-sm-3 control-label">Libellé commercial long</label>
+    <div class="col-sm-9">
+        <input ng-model="product.namePublicLong" name="namePublicLong" type="text" class="form-control" placeholder="Une proposition de libellé marketing." alk-validation-case="sentence" alk-focus ng-change="predict(product)"/>
+        <span ng-show="productForm.namePublicLong.$error.caseTooManyUpper" class="help-block">La dénomination ne doit pas comporter trop de majuscules.</span>
+        <span ng-show="productForm.namePublicLong.$error.caseStart" class="help-block">La dénomination doit commencer par une lettre majuscule.</span>
+        <div input-block-help field="productForm.namePublicLong">
+            Une proposition de libellé commercial long.
+        </div>
+    </div>
+</div>
+<div class="form-group has-feedback" ng-class="check('namePublicShort')">
+    <label for="namePublicShort" class="col-sm-3 control-label">Libellé commercial court</label>
+    <div class="col-sm-3">
+        <input ng-model="product.namePublicShort" name="namePublicShort" type="text" class="form-control" placeholder="Une proposition de libellé marketing court." ng-maxlength="40"/>
+        <span ng-show="productForm.namePublicShort.$error.caseTooManyUpper" class="help-block">La dénomination ne doit pas comporter trop de majuscules.</span>
+        <span ng-show="productForm.namePublicShort.$error.caseStart" class="help-block">La dénomination doit commencer par une lettre majuscule.</span>
+        <span ng-show="productForm.namePublicShort.$error.maxlength" class="help-block">Le nom du produit est trop long.</span>
+        <div input-block-help field="productForm.namePublicShort">
+            Une proposition de libellé commercial court.
+        </div>
+    </div>
+    <label for="isBrandedBy" class="col-sm-3 control-label">Marque commerciale</label>
+    <div class="col-sm-3">
+        <input type="text" ng-model="product.isBrandedBy" type="text" select ui-select2="select2brandOptions" style="width: 100%"/>
+    </div>
+</div>
+<div class="form-group" ng-class="check('synonyms')">
+    <label for="isBrandedBy" class="col-sm-3 control-label">Synonymes</label>
+    <div class="col-sm-9">
+        <input type="hidden" ui-select2="select2synonymsOptions" ng-model="product.synonyms" name="synonyms" style="width: 100%;" alk-focus placeholder="Une liste de synonymes pouvant être utile à un moteur de recherche."/>
+        <div input-block-help field="productForm.synonyms">
+            Une liste de synonymes pouvant être utile à un moteur de recherche.
+        </div>
+    </div>
+</div>
+
+
+<h3>Consommation</h3>
+<div class="form-group has-feedback" ng-class="check('description')">
+    <label for="description" class="col-sm-3 control-label">Description</label>
+    <div class="col-sm-9">
+        <textarea ng-model="product.description" name="description" class="form-control" rows="3" placeholder="La description du produit." alk-focus required></textarea>
+        <span ng-show="productForm.description.$error.required" class="help-block">Une description du produit est obligatoire.</span>
+        <div input-block-help field="productForm.description">
+            La description d'une denrée alimentaire permet d'y adjoindre des données marketing.
+        </div>
+    </div>
+</div>
+<div class="form-group has-feedback" ng-class="check('advices')">
+    <label for="advices" class="col-sm-3 control-label">Mode d'emploi</label>
+    <div class="col-sm-9">
+        <textarea type="text" ng-model="product.advices" name="advices" class="form-control" rows="3" placeholder="Conseils d'utilisation du produit." alk-focus required></textarea>
+        <span ng-show="productForm.advices.$error.required" class="help-block">Un mode d'emploi du produit est obligatoire.</span>
+        <div input-block-help field="productForm.advices">
+            <strong id="art27">Mode d'emploi :</strong>
+            Le mode d'emploi d'une denrée alimentaire doit être indiqué de façon à permettre un usage approprié de cette denrée.
+        </div>
+        <div input-block-help field="productForm.advices">
+            Textual instruction on how to prepare the product before serving.
+            <br/>
+            Doit correspondre au mode d'emploi présent sur l'emballage. Pour les produits  commercialisés sur le marché français, la liste des ingrédients est fournie en français.
+        </div>
+        <div input-block-example field="productForm.advices">
+            ex : Réchauffer à feu doux pendant 10 minutes.
+        </div>
+        <div input-block-gdsn field="productForm.advices">
+            Correspond dans la GDSN a la balise <code>unspecifiedPreparationTypePreparationInstructions</code>.
+        </div>
+    </div>
+</div>
+<div class="form-group has-feedback" ng-class="check('servesText')">
+    <label for="servesText" class="col-sm-3 control-label">Nombre de parts</label>
+    <div class="col-sm-3">
+        <input type="text" ng-model="product.serves" name="serves" class="form-control" rows="3" placeholder="" alk-focus/>
+        <div input-block-help field="productForm.serves">
+            The total number of servings contained in the package.
+            <br/>
+            Obligatoire si la déclaration nutritionnelle est fournie par portion et/ou unité de consommation.
+        </div>
+        <div input-block-example field="productForm.serves">
+            ex : 2 pour "50cL contient 2 bols de 250mL"
+        </div>
+        <div input-block-gdsn field="productForm.serves">
+            Correspond dans la GDSN a la balise <code>numberOfServingsPerPackage</code>.
+        </div>
+    </div>
+    <label for="servesText" class="col-sm-3 control-label">Nombre de parts approximatif</label>
+    <div class="col-sm-3">
+        <input type="text" ng-model="product.servesText" name="servesText" class="form-control" rows="3" placeholder="" alk-focus/>
+        <div input-block-help field="productForm.servesText">
+            Range description for number of serving.
+            <br/>
+            Pour fournir une valeur approximative de portions, suit la structure "approximativement X portions/parts/..." où X est le nombre de portions. Pour indiquer qu'un produit contient entre N-1 et N portions, suit la structure "N-1 - N portions/parts/personnes/..." où N-1 est la borne inférieure et N est la borne supérieure.
+        </div>
+        <div input-block-example field="productForm.servesText">
+            ex : "environ 25 bonbons"
+        </div>
+        <div input-block-gdsn field="productForm.servesText">
+            Correspond dans la GDSN a la balise <code>numberOfServingsRangeDescription</code>.
+        </div>
+    </div>
+</div>
+
+
+<h3>Dégustation</h3>
+<div class="form-group has-feedback" ng-class="check('appearanceOlfactory')">
+    <label for="appearanceOlfactory" class="col-sm-3 control-label">Description de l'odeur</label>
+    <div class="col-sm-9">
+        <textarea ng-model="product.appearanceOlfactory" name="appearanceOlfactory" class="form-control" rows="2" placeholder="ex : Une purée aux bonnes odeurs de romarin." alk-focus></textarea>
+        <div input-block-help field="productForm.appearanceOlfactory">
+            Détails de dégustation olfactifs (arômes, odeurs...).
+        </div>
+    </div>
+</div>
+<div class="form-group has-feedback" ng-class="check('appearanceTaste')">
+    <label for="appearanceTaste" class="col-sm-3 control-label">Description du goût</label>
+    <div class="col-sm-9">
+        <textarea ng-model="product.appearanceTaste" name="appearanceTaste" class="form-control" rows="2" placeholder="ex : Onctueuse et légère, c'est un délice en bouche." alk-focus></textarea>
+        <div input-block-help field="productForm.appearanceTaste">
+            Détails de dégustation gustatifs (sensation en bouche, texture...).
+        </div>
+    </div>
+</div>
+<div class="form-group has-feedback" ng-class="check('appearanceVisual')">
+    <label for="appearanceVisual" class="col-sm-3 control-label">Description visuelle</label>
+    <div class="col-sm-9">
+        <textarea ng-model="product.appearanceVisual" name="appearanceVisual" class="form-control" rows="2" placeholder="ex : robe jaune très clair, à reflets verts." alk-focus></textarea>
+        <div input-block-help field="productForm.appearanceVisual">
+            Détails de dégustation visuels (couleur, robe...).
+        </div>
+    </div>
+</div>
+<div class="form-group has-feedback" ng-class="check('pairings')">
+    <label for="pairings" class="col-sm-3 control-label">Accords suggérés</label>
+    <div class="col-sm-9">
+        <textarea ng-model="product.pairings" name="pairings" class="form-control" rows="2" placeholder="ex : parfait avec un camembert." alk-focus></textarea>
+        <div input-block-help field="productForm.pairings">
+            Accords suggérés (vins, fromages...).
+        </div>
+    </div>
+</div>
+<div class="form-group has-feedback">
+    <label for="tempConsomation" class="col-sm-3 control-label">Température de consommation</label>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <input type="text" name="tempConsomation" class="form-control" ng-model="product.tempConsomation" placeholder="ex : 18" alk-focus/>
+            <span class="input-group-addon">°C</span>
+        </div>
+        <div input-block-help field="productForm.tempConsomation">
+            Température de consommation.
+        </div>
+    </div>
+    <!--
+    <label for="openBeforeConsuming" class="col-sm-3 control-label">Ouvrir avant consommation </label>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <input type="text" name="openBeforeConsuming" class="form-control" ng-model="product.openBeforeConsuming" placeholder="ex : 60" alk-focus/>
+            <span class="input-group-addon">mn</span>
+        </div>
+        <div input-block-help field="productForm.openBeforeConsuming">
+            Temps d'ouverture souhaitable avant consommation.
+        </div>
+    </div>
+    -->
+</div>
+
+
+<h3>Avantages</h3>
+<div class="form-group has-feedback" ng-class="check('consumerBenefits')">
+    <label for="consumerBenefits" class="col-sm-3 control-label">Avantages consommateur</label>
+    <div class="col-sm-9">
+        <textarea ng-model="product.consumerBenefits" name="consumerBenefits" class="form-control" rows="2" placeholder="Les bénéfices pour le consommateur quant à la consommation de ce produit." alk-focus></textarea>
+        <div input-block-help field="productForm.consumerBenefits">
+            Les bénéfices pour le consommateur quant à la consommation de ce produit.
+        </div>
+    </div>
+</div>
+<div class="form-group has-feedback" ng-class="check('productBenefits')">
+    <label for="productBenefits" class="col-sm-3 control-label">Avantages produit</label>
+    <div class="col-sm-9">
+        <textarea ng-model="product.productBenefits" name="productBenefits" class="form-control" rows="2" placeholder="Les avantages du produit quant à ses concurrents." alk-focus></textarea>
+        <div input-block-help field="productForm.productBenefits">
+            Les avantages du produit quant à ses concurrents.
+        </div>
+    </div>
+</div>
+<div class="form-group has-feedback" ng-class="check('allegations')">
+    <label for="allegations" class="col-sm-3 control-label">Allégations</label>
+    <div class="col-sm-9">
+        <textarea ng-model="product.allegations" name="allegations" class="form-control" rows="2" placeholder="Allégations marketing." alk-focus></textarea>
+        <div input-block-help field="productForm.allegations">
+            Allégations marketing :
+            <ul>
+            <li>Règlement 1924/2006 concernant les allégations nutritionnelles et de santé portant sur les denrées alimentaires</li>
+            <li>Règlement 353/2008 de la Commission fixant les dispositions d'exécution relatives aux demandes d'autorisation d'allégations de santé</li>
+            <li>Règlement 1169/2009 de la Commission rectifiant le règlement (CE) 353/2008 fixant les dispositions d'exécution relatives aux demandes d'autorisation d'allégations de santé</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="form-group has-feedback" ng-class="check('packagingMentions')">
+    <label for="packagingMentions" class="col-sm-3 control-label">Marquages du packaging</label>
+    <div class="col-sm-9">
+        <textarea ng-model="product.packagingMentions" name="packagingMentions" class="form-control" rows="2" placeholder="Marquages sur le conditionnement." alk-focus></textarea>
+        <div input-block-help field="productForm.packagingMentions">
+            Marquages sur le conditionnement.
+        </div>
+    </div>
+</div>
+<div class="form-group has-feedback" ng-class="check('advertisedInformations')">
+    <label for="advertisedInformations" class="col-sm-3 control-label">Informations mises en avant</label>
+    <div class="col-sm-9">
+        <textarea ng-model="product.advertisedInformations" name="advertisedInformations" class="form-control" rows="2" placeholder="Informations mises en avant par le packaging." alk-focus></textarea>
+        <div input-block-help field="productForm.advertisedInformations">
+            Informations mises en avant par le packaging.
+        </div>
+    </div>
+</div>
+
+
+
+<h3>Marketing</h3>
+<div class="form-group has-feedback" ng-class="check('history')">
+    <label for="history" class="col-sm-3 control-label">Histoire du produit</label>
+    <div class="col-sm-9">
+        <textarea ng-model="product.history" name="history" class="form-control" rows="2" placeholder="L'histoire de ce produit." alk-focus></textarea>
+        <div input-block-help field="productForm.history">
+            L'histoire de ce produit.
+        </div>
+    </div>
+</div>
+<div class="form-group has-feedback" ng-class="check('fabrication')">
+    <label for="fabrication" class="col-sm-3 control-label">Fabrication du produit</label>
+    <div class="col-sm-9">
+        <textarea ng-model="product.fabrication" name="fabrication" class="form-control" rows="2" placeholder="Le procédé de fabrication de ce produit." alk-focus></textarea>
+        <div input-block-help field="productForm.fabrication">
+            Le procédé de fabrication de ce produit.
+        </div>
+    </div>
+</div>
+
+
+
+<h3>Mises en garde</h3>
+<div class="form-group has-feedback" ng-class="check('warnings')">
+    <label for="warnings" class="col-sm-3 control-label">Avertissements</label>
+    <div class="col-sm-9">
+        <textarea ng-model="product.warnings" name="warnings" class="form-control" rows="2" placeholder="Les avertissements relatifs à l'usage de ce produit." alk-focus></textarea>
+        <div input-block-help field="productForm.warnings">
+            Les avertissements relatifs à l'usage de ce produit.
+        </div>
+    </div>
+</div>
+<div class="form-group has-feedback" ng-class="check('compulsoryStatements')">
+    <label for="compulsoryStatements" class="col-sm-3 control-label">Mentions légales obligatoires</label>
+    <div class="col-sm-9">
+        <textarea ng-model="product.compulsoryStatements" name="compulsoryStatements" class="form-control" rows="2" placeholder="Les mentions légales obligatoires." alk-focus></textarea>
+        <div input-block-help field="productForm.compulsoryStatements">
+            A description of any compulsory label information on the product for the serving counter, for example the German additives regulation (ZzulV), for products such as meats and sausages, meat products, bread and bread products.
+            <br/>
+            L'ensemble des mentions obligatoires complémentaires sont échangées dans cette donnée non répétable. L'utilisation du séparateur "#" est recommandée pour séparer chaque mention obligatoire complémentaire.
+            <br/>
+            Pour les produits commercialisés sur le marché français, les mentions obligatoires complémentaires sont fournies en français.
+        </div>
+        <div input-block-example field="productForm.compulsoryStatements">
+            ex : Contient plus de 1,5 mg/L de fluor par litre : ne convient pas à l'alimentation des￼nourrissons et des enfants de moins de 7 ans pour une consommation régulière.
+            <br/>
+            ex : Signification du code du producteur indiqué sur l'œuf : 0 = Poules élevées selon le￼mode de production biologique. FR = Pays de production (France). 3 lettres = Identification de l'exploitation. 2￼chiffres = N° du bâtiment de l'exploitation. # Conditionné par FR 26 323 051 ou FR 79 123 001.
+        </div>
+        <div input-block-gdsn field="productForm.fabrication">
+            Correspond dans la GDSN a la balise <code>compulsoryAdditivesLabelInformation</code>.
+        </div>
+    </div>
+</div>
+
+
