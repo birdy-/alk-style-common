@@ -20,10 +20,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', 
             name: '',
             isBrandedBy: null,
             certified: [],
-            certifieds: {
-                0: true,
-                2: true
-            },
+            certifieds: {},
             isIdentifiedBy: {
                 reference: null
             },
@@ -36,6 +33,9 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', 
         stop: false,
         busy: false,
     };
+    $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_DEFAULT.id] = true;
+    $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_ACCEPTED.id] = true;
+    $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_CERTIFIED.id] = true;
 
     // Setup autocompletes
     $scope.select2brandOptions = $$autocomplete.getOptionAutocompletes(null, {data:[], multiple: false, maximumSelectionSize: 1});
@@ -86,7 +86,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', 
             }
             var product, productInShop;
             for (var i = 0; i < response.data.length; i ++) {
-                product = response.data[i];
+                product = new Product().fromJson(response.data[i]);
                 $scope.products.push(product);
             }
             $scope.scroll.busy = false;

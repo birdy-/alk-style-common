@@ -10,13 +10,28 @@ angular.module('jDashboardFluxApp').directive('productField', function() {
         },
         templateUrl: '/src/maker/product/show/field.html',
         link: function(scope, element, attrs) {
-            scope.$watch('pnq.quantity', function(new_, old_) {
-                if (new_ > 0) {
-                    if (scope.pnq.percentageOfDailyValueIntake === null) {
-                        scope.pnq.percentageOfDailyValueIntake = 2 * scope.pnq.quantity;
+            var concept_id = scope.pnq.isConceptualizedBy.id;
+            scope.legend = scope.pnq;
+            scope.pnqs = [];
+            scope.$watch('psqs', function(new_, old_) {
+                console.log('Current PSQs in directive');
+                console.log(scope.psqs);
+                scope.pnqs = [];
+                angular.forEach(scope.psqs, function(psq){
+                    var pnq = psq.getContainsById(concept_id);
+                    scope.pnqs.push(pnq);
+                });
+            }, true);
+
+            scope.show = function() {
+                for (var i = 0; i < scope.pnqs.length; i++) {
+                    if (scope.pnqs[i].quantity > 0
+                    || scope.pnqs[i].percentageOfDailyValueIntake > 0) {
+                        return true;
                     }
                 }
-            });
+                return false;
+            };
         }
     };
 });

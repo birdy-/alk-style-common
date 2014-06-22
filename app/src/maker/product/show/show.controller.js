@@ -1,246 +1,15 @@
 'use strict';
 
-
-
-/**
- * Modal that allows the user to certify a given product.
- */
-var ProductCertificationModalController = function ($scope, $modalInstance, product, user) {
-    $scope.product = product;
-    $scope.user = user;
-    $scope.ok = function () {
-        if (!$scope.user.email) {
-            return;
-        }
-        $scope.product.certified = 3;
-        $modalInstance.close($scope.product);
-    };
-    $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
-    };
-};
-
-/**
- * Modal that allows the user to accept the responsability for a given product.
- */
-var ProductAcceptationModalController = function ($scope, $modalInstance, product, user) {
-    $scope.product = product;
-    $scope.user = user;
-    $scope.ok = function () {
-        if (!$scope.user.email) {
-            return;
-        }
-        $scope.product.accepted = true;
-        $modalInstance.close($scope.product);
-    };
-    $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
-    };
-};
-
-
-
-/**
- * Page that displays all the elements that describe a given Brand.
- *
- * @param  {[type]} $scope       [description]
- * @param  {[type]} $$sdkCrud    [description]
- * @param  {[type]} $routeParams [description]
- * @param  {[type]} permission)  [description]
- * @return {[type]}              [description]
- */
-angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', [
+angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowNutritionCtrl', [
     '$scope', '$$sdkCrud', '$routeParams', '$$autocomplete', '$modal', '$location', 'permission',
     function ($scope, $$sdkCrud, $routeParams, $$autocomplete, $modal, $location, permission) {
 
-    $scope.tabs = {
-        wine: {visible: true /*false*/},
-    };
-    $scope.prediction = {
-        visible: false,
-        concept: null,
-        tab: "wine", // null,
-        correct: null,
-    };
-    permission.getUser().then(function(user){
-        $scope.user = user;
-        user.managesBrand.forEach(function(brand){
-            $$sdkCrud.BrandShow(brand.id).success(function(response){
-                brand.name = response.data.name;
-                brand.text = response.data.name;
-            });
-        });
-        angular.extend($scope.select2brandOptions.data, user.managesBrand);
-    });
-    $scope.select2countryOptions = $$autocomplete.getOptionAutocompletes('country', {maximumSelectionSize: 1, multiple: false});
-    $scope.select2regionOptions = $$autocomplete.getOptionAutocompletes('region', {maximumSelectionSize: 1, multiple: false});
-    $scope.select2appellationOptions = $$autocomplete.getOptionAutocompletes('appellation', {maximumSelectionSize: 1, multiple: false});
-    $scope.select2varietalOptions = $$autocomplete.getOptionAutocompletes('varietal', {multiple: true});
-    $scope.select2glassOptions = $$autocomplete.getOptionAutocompletes('glass', {maximumSelectionSize: 1, multiple: false});
-    $scope.select2productOptions = $$autocomplete.getOptionAutocompletes('product', {maximumSelectionSize: 1});
-    $scope.select2commonunitOptions = $$autocomplete.getOptionAutocompletes('commonunit', {maximumSelectionSize: 1, multiple: false});
-    $scope.select2brandOptions = $$autocomplete.getOptionAutocompletes(null, {data:[], multiple: false, maximumSelectionSize: 1});
-    $scope.select2synonymsOptions = {
-        multiple: true,
-        simple_tags: true,
-        tags: []
-    }
-    $scope.user = {};
-    $scope.product = {
-        id: $routeParams.id
-    };
-    $scope.completeness = 0;
+    // ------------------------------------------------------------------------
+    // Variables
+    // ------------------------------------------------------------------------
+    $scope.psqs = [];
 
-    $$sdkCrud.ProductShow($scope.product.id, true, function(response){
-        var product = new Product().fromJson(response.data);
-        if (product.amountStarch !== null) {
-            product.hasStarch = true;
-        }
-        if (product.factorPA > 1) {
-            product.isSplitable = true;
-        }
-        if (product.factorFUPA > 1) {
-            product.isSplitable = true;
-        }
-        product.isMeasuredBy.text = product.isMeasuredBy.name;
-        product.packaging = readablePackaging(product);
-        product.madeOf = [];
-        product.hasVarietal = [];
 
-        $$sdkCrud.ProductStandardQuantityList({}, {'partitions_id': product.id}).success(function(response){
-            product.isPartitionedBy = response.data;
-        });
-
-        $scope.product = product;
-
-        $scope.select2productOptions = $$autocomplete.getOptionAutocompletes('product', {
-            maximumSelectionSize: 1,
-        }, {
-            filter_isbrandedby_id: $scope.product.isBrandedBy.id
-        });
-
-        if (!$scope.product.isAccepted()) {
-            $scope.accept();
-        };
-    });
-
-    var isEmpty = function (value) {
-        return typeof(value) === 'undefined' || value === '' || value === null || value !== value;
-    }
-    $scope.check = function(field) {
-        var classes = {};
-        if(!$scope.productForm[field]) {
-            return [];
-        }
-        if ($scope.productForm[field].$invalid) {
-            if (isEmpty($scope.productForm[field].$viewValue)) {
-                classes['has-warning'] = true;
-            } else {
-                classes['has-error'] = true;
-            }
-        }
-        if ($scope.productForm[field].$valid) {
-            if (isEmpty($scope.productForm[field].$viewValue)) {
-                // Empty fields that are not required should not be displayed green
-            } else {
-                classes['has-success'] = true;
-            }
-        }
-        return classes;
-    }
-
-    // Computation of the salt-equivalence
-    $scope.$watch('product.qtySalt', function() {
-        if (isEmpty($scope.product.amoutNa)) {
-            $scope.product.amoutNa = $scope.product.qtySalt / 2.5;
-        };
-    });
-    $scope.$watch('product.amountNa', function() {
-        if (isEmpty($scope.product.qtySalt)) {
-            $scope.product.qtySalt = $scope.product.amountNa * 2.5;
-        };
-    });
-    $scope.$watch('product', function() {
-        $scope.completeness = computeScore($scope.product, $scope.productForm);
-        inferProduct($scope.product, $scope.productForm);
-    }, true);
-
-    $scope.submit = function() {
-        $$sdkCrud.ProductUpdate(
-            $scope.product
-        ).success(function(response) {
-            $scope.product = response.data;
-        }).error(function(response) {
-            alert('Erreur pendant la mise à jour du produit.');
-        });
-    };
-
-    $scope.certify = function () {
-        var modalInstance = $modal.open({
-            templateUrl: '/src/maker/product/certify/certification.html',
-            controller: ProductCertificationModalController,
-            resolve: {
-                product: function () {
-                    return $scope.product;
-                },
-                user: function () {
-                    return $scope.user;
-                }
-            }
-        });
-
-        modalInstance.result.then(function (selectedItem) {
-            $scope.selected = selectedItem;
-        }, function () {
-            console.info('Modal dismissed at: ' + new Date());
-        });
-    };
-    $scope.accept = function () {
-        var modalInstance = $modal.open({
-            templateUrl: '/src/maker/product/certify/acceptation.html',
-            controller: ProductAcceptationModalController,
-            resolve: {
-                product: function () {
-                    return $scope.product;
-                },
-                user: function () {
-                    return $scope.user;
-                }
-            }
-        });
-
-        modalInstance.result.then(function (selectedItem) {
-            $scope.selected = selectedItem;
-        }, function () {
-            $location.path('/maker/product');
-        });
-    };
-
-    $scope.predict = function(product) {
-        $scope.prediction.visible = true;
-        $scope.prediction.concept = {
-            name: 'vin rouge',
-        };
-        $scope.prediction.tab = 'wine';
-    };
-    $scope.verify = function() {
-        if ($scope.prediction.correct) {
-            $scope.tabs[$scope.prediction.tab].visible = true;
-        }
-    };
-    $scope.partners = function(productInShop) {
-        return [1, 2, 7, 66, 67, 10].indexOf(productInShop.isSoldBy.id) !== -1;
-    }
-
-    $scope.deleteReference = function(reference) {
-        alert('Vous n\'êtes pas autorisé à effectuer cette opération');
-    };
-    $scope.newProductFromReference = function(reference) {
-        alert('Vous n\'êtes pas autorisé à effectuer cette opération');
-    };
-    $scope.sendNotification = function(productInShop) {
-        alert('Vous n\'êtes pas autorisé à effectuer cette opération');
-    };
 
     var pnqs = [
         { name: 'Valeur énergétique (kJ)',  id: 19056, compulsory: true,  legend: "" },
@@ -321,6 +90,222 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
             percentageOfDailyValueIntake: null,
         };
     });
+
+    // ------------------------------------------------------------------------
+    // Event handling
+    // ------------------------------------------------------------------------
+    $scope.addPSQ = function() {
+        var psq = new ProductStandardQuantity();
+        $scope.psqs.push(psq);
+        return;
+        var modalInstance = $modal.open({
+            templateUrl: '/src/maker/product/nutrition/psq.html',
+            controller: ProductStandardQuantityModalController,
+            resolve: {
+                $$sdkCrud: function () {return $$sdkCrud; }
+            }
+        });
+
+        modalInstance.result.then(function (psq) {
+            $scope.psqs.append(psq);
+        }, function () {
+            console.info('Modal dismissed at: ' + new Date());
+        });
+    };
+
+    // ------------------------------------------------------------------------
+    // Init
+    // ------------------------------------------------------------------------
+    $$sdkCrud.ProductStandardQuantityList({}, {'partitions_id': $scope.product.id}).success(function(response){
+        var psq;
+        for (var i = 0; i <response.data.length; i++) {
+            psq = new ProductStandardQuantity().fromJson(response.data[i]);
+            $scope.psqs.push(psq);
+        }
+        console.log("Current PSQs : ");
+        console.log($scope.psqs);
+    });
+    $scope.$watch('psqs', function(){
+        console.log('Modified');
+    }, true)
+}]);
+
+
+angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowWineCtrl', [
+    '$scope', '$$sdkCrud', '$routeParams', '$$autocomplete', '$modal', '$location', 'permission',
+    function ($scope, $$sdkCrud, $routeParams, $$autocomplete, $modal, $location, permission) {
+    //$scope.select2countryOptions = $$autocomplete.getOptionAutocompletes('country', {maximumSelectionSize: 1, multiple: false});
+    //$scope.select2regionOptions = $$autocomplete.getOptionAutocompletes('region', {maximumSelectionSize: 1, multiple: false});
+    //$scope.select2appellationOptions = $$autocomplete.getOptionAutocompletes('appellation', {maximumSelectionSize: 1, multiple: false});
+    //$scope.select2varietalOptions = $$autocomplete.getOptionAutocompletes('varietal', {multiple: true});
+    //$scope.select2glassOptions = $$autocomplete.getOptionAutocompletes('glass', {maximumSelectionSize: 1, multiple: false});
+}]);
+
+/**
+ * Page that displays all the elements that describe a given Brand.
+ *
+ * @param  {[type]} $scope       [description]
+ * @param  {[type]} $$sdkCrud    [description]
+ * @param  {[type]} $routeParams [description]
+ * @param  {[type]} permission)  [description]
+ * @return {[type]}              [description]
+ */
+angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', [
+    '$scope', '$$sdkCrud', '$routeParams', '$$autocomplete', '$modal', '$location', 'permission',
+    function ($scope, $$sdkCrud, $routeParams, $$autocomplete, $modal, $location, permission) {
+
+    // ------------------------------------------------------------------------
+    // Variables
+    // ------------------------------------------------------------------------
+    $scope.select2productOptions = $$autocomplete.getOptionAutocompletes('product', {maximumSelectionSize: 1});
+    $scope.select2commonunitOptions = $$autocomplete.getOptionAutocompletes('commonunit', {maximumSelectionSize: 1, multiple: false});
+    $scope.select2brandOptions = $$autocomplete.getOptionAutocompletes(null, {data:[], multiple: false, maximumSelectionSize: 1});
+    $scope.select2synonymsOptions = {
+        multiple: true,
+        simple_tags: true,
+        tags: []
+    }
+
+    $scope.user = {};
+    $scope.product = {
+        id: $routeParams.id,
+        isPartitionedBy: []
+    };
+    $scope.completeness = 0;
+
+
+    // ------------------------------------------------------------------------
+    // Event handling
+    // ------------------------------------------------------------------------
+    var isEmpty = function (value) {
+        return typeof(value) === 'undefined' || value === '' || value === null || value !== value;
+    }
+    $scope.check = function(field) {
+        var classes = {};
+        if(!$scope.productForm[field]) {
+            return [];
+        }
+        if ($scope.productForm[field].$invalid) {
+            if (isEmpty($scope.productForm[field].$viewValue)) {
+                classes['has-warning'] = true;
+            } else {
+                classes['has-error'] = true;
+            }
+        }
+        if ($scope.productForm[field].$valid) {
+            if (isEmpty($scope.productForm[field].$viewValue)) {
+                // Empty fields that are not required should not be displayed green
+            } else {
+                classes['has-success'] = true;
+            }
+        }
+        return classes;
+    }
+
+    $scope.$watch('product', function() {
+        $scope.completeness = computeScore($scope.product, $scope.productForm);
+        inferProduct($scope.product, $scope.productForm);
+    }, true);
+
+    $scope.submit = function() {
+        $$sdkCrud.ProductUpdate(
+            $scope.product, null
+        ).success(function(response) {
+            load($scope.product.id);
+        }).error(function(response) {
+            alert('Erreur pendant la mise à jour du produit.');
+        });
+    };
+
+    $scope.certify = function () {
+        var modalInstance = $modal.open({
+            templateUrl: '/src/maker/product/certify/certification.html',
+            controller: ProductCertificationModalController,
+            resolve: {
+                $$sdkCrud: function () {return $$sdkCrud; },
+                product: function () {return $scope.product; },
+                user: function () {return $scope.user; }
+            }
+        });
+
+        modalInstance.result.then(function (selectedItem) {
+            $scope.selected = selectedItem;
+        }, function () {
+            console.info('Modal dismissed at: ' + new Date());
+        });
+    };
+    $scope.accept = function () {
+        var modalInstance = $modal.open({
+            templateUrl: '/src/maker/product/certify/acceptation.html',
+            controller: ProductAcceptationModalController,
+            resolve: {
+                $$sdkCrud: function () {return $$sdkCrud; },
+                product: function () {return $scope.product; },
+                user: function () {return $scope.user; }
+            }
+        });
+
+        modalInstance.result.then(function (selectedItem) {
+            $scope.selected = selectedItem;
+        }, function () {
+            $location.path('/maker/product');
+        });
+    };
+
+    $scope.predict = function(product) {
+        $scope.prediction.visible = true;
+        $scope.prediction.concept = {
+            name: 'vin rouge',
+        };
+        $scope.prediction.tab = 'wine';
+    };
+    $scope.verify = function() {
+        if ($scope.prediction.correct) {
+            $scope.tabs[$scope.prediction.tab].visible = true;
+        }
+    };
+    $scope.partners = function(productInShop) {
+        return [1, 2, 7, 66, 67, 10].indexOf(productInShop.isSoldBy.id) !== -1;
+    }
+
+    // ------------------------------------------------------------------------
+    // Init
+    // ------------------------------------------------------------------------
+
+    var load = function(id) {
+        $$sdkCrud.ProductShow(id, true, function(response){
+            var product = new Product().fromJson(response.data);
+            product.isMeasuredBy.text = product.isMeasuredBy.name;
+            product.isBrandedBy.text = product.isBrandedBy.name;
+            product.madeOf = [];
+            product.hasVarietal = [];
+            product.isPartitionedBy = [];
+
+            $scope.product = product;
+
+            $scope.select2productOptions = $$autocomplete.getOptionAutocompletes('product', {
+                maximumSelectionSize: 1,
+            }, {
+                filter_isbrandedby_id: $scope.product.isBrandedBy.id
+            });
+
+            if (!$scope.product.isAccepted()) {
+                $scope.accept();
+            };
+        });
+    };
+    permission.getUser().then(function(user){
+        $scope.user = user;
+        user.managesBrand.forEach(function(brand){
+            $$sdkCrud.BrandShow(brand.id).success(function(response){
+                brand.name = response.data.name;
+                brand.text = response.data.name;
+            });
+        });
+        angular.extend($scope.select2brandOptions.data, user.managesBrand);
+    });
+
+    load($scope.product.id);
 }]);
 
 
@@ -396,10 +381,22 @@ var inferProduct = function(product, productForm) {
             product.hasOilCanola = true;
         }
     }
-    if (product.isPack === false) {
+    if (product.isPack === false && isEmpty(product.factorPA)) {
         product.factorPA = 1;
     }
-    product.packaging = readablePackaging(product);
+    if (product.factorPA > 1) {
+        product.isSplitable = true;
+    }
+    if (product.factorFUPA > 1) {
+        product.isSplitable = true;
+    }
+    if (isEmpty(product.packaging)) {
+        product.packaging = readablePackaging(product);
+    }
+    if (product.amountStarch !== null) {
+        product.hasStarch = true;
+    }
+
     return product;
 }
 

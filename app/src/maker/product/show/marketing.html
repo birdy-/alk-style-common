@@ -24,7 +24,7 @@
                 <input ng-model="prediction.correct" ng-change="verify()" type="radio" ng-value="false"> non
             </label>
         </div>
-    -->
+        -->
         <div input-block-help field="productForm.nameLegal">
             The prescribed, regulated or generic product name or denomination that describes the true nature of the food and is sufficiently precise to distinguish it from other foods according to the country specific regulation.
             <br/>
@@ -75,7 +75,7 @@
     </div>
     <label for="isBrandedBy" class="col-sm-3 control-label">Marque commerciale</label>
     <div class="col-sm-3">
-        <input type="text" ng-model="product.isBranded" type="text" select ui-select2="select2brandOptions" style="width: 100%"/>
+        <input type="text" ng-model="product.isBrandedBy" type="text" select ui-select2="select2brandOptions" style="width: 100%"/>
     </div>
 </div>
 <div class="form-group" ng-class="check('synonyms')">
@@ -204,6 +204,7 @@
             Température de consommation.
         </div>
     </div>
+    <!--
     <label for="openBeforeConsuming" class="col-sm-3 control-label">Ouvrir avant consommation </label>
     <div class="col-sm-3">
         <div class="input-group">
@@ -214,6 +215,7 @@
             Temps d'ouverture souhaitable avant consommation.
         </div>
     </div>
+    -->
 </div>
 
 
