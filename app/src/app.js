@@ -17,9 +17,10 @@ angular.module('jDashboardFluxApp', [
 ]);
 
 var env = (window.location.hostname.indexOf('localhost') === 0) ? 'dev' : 'prod';
+env = 'prod';
 if (env == "prod") {
-    angular.module('jDashboardFluxApp').constant('API_URL', '//api.alkemics.com');
-    angular.module('jDashboardFluxApp').constant('URL_SERVICE_AUTH', '//auth.alkemics.com');
+    angular.module('jDashboardFluxApp').constant('API_URL', 'https://api.alkemics.com');
+    angular.module('jDashboardFluxApp').constant('URL_SERVICE_AUTH', 'https://auth.alkemics.com');
 } else if (env == "dev") {
     angular.module('jDashboardFluxApp').constant('API_URL', '//localhost.alkemics.com:6543');
     angular.module('jDashboardFluxApp').constant('URL_SERVICE_AUTH', 'http://localhost.alkemics.com:6545');
@@ -72,14 +73,34 @@ angular.module('jDashboardFluxApp').config(function ($routeProvider) {
     // Security views
     // ------------------------------------------------------------------------------------------
     $routeProvider.when('/login', {
-        templateUrl: 'src/home/login.html',
+        templateUrl: 'src/user/login/index.html',
         controller: 'LoginController',
         isPublic: true
     });
+
     $routeProvider.when('/register', {
         templateUrl: 'src/home/register.html',
         controller: 'RegisterCtrl'
     });
+
+    $routeProvider.when('/account/send_password_reset', {
+        templateUrl: 'src/user/account/send_password_reset.html',
+        controller: 'PasswordResetController',
+        isPublic: true
+    });
+
+    $routeProvider.when('/account/reset_email_sent', {
+        templateUrl: 'src/user/account/reset_email_sent.html',
+        controller: 'PasswordResetController',
+        isPublic: true
+    });
+
+    $routeProvider.when('/account/password_reset', {
+        templateUrl: 'src/user/account/password_reset.html',
+        controller: 'PasswordResetController',
+        isPublic: true
+    });
+
 
     // ------------------------------------------------------------------------------------------
     // Home views

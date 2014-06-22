@@ -6,16 +6,26 @@
  * authenticate directive for that matter.
  */
 angular.module('jDashboardFluxApp').controller('LoginController', [
-    '$scope', 'permission',
-     function ($scope, permission) {
+    '$scope', 'permission', '$location',
+     function ($scope, permission, $location) {
 
     $scope.login = null;
     $scope.password = null;
     $scope.message = null;
 
-    $scope.submit = function() {
-        permission.login($scope.login, $scope.password).error(function(response, status, headers, config){
+    /**
+     * Function called when user validates credentials
+     *
+     */
+    $scope.submit = function() {        
+
+        permission.login($scope.login, $scope.password)
+        .error(function(response, status, headers, config){
             $scope.message = response.message || response.error_description;
+        })
+        .success(function(response){
+            $location.path('/maker/product');
         });
     };
+
 }]);

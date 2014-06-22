@@ -1,4 +1,4 @@
-<div ng-controller="LoginController" class="full-screen color-action" style="display:none;" id="login-holder">
+<div class="full-screen color-green-inverse" id="login-holder">
     <div class="center">
         <form class="form-horizontal" ng-submit="submit()" ng-hide="isReset">
             <div class="form-group">
@@ -8,21 +8,21 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="inputPassword1" class="col-lg-2 control-label">Password</label>
+                <label for="inputPassword1" class="col-lg-2 control-label">Mot de Passe</label>
                 <div class="col-lg-10">
-                    <input type="password" class="login-inp form-control" ng-model="password" placeholder="Password"/>
+                    <input type="password" class="login-inp form-control" ng-model="password" placeholder="Mot de Passe"/>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-lg-offset-2 col-lg-10">
-                    <button class="btn pull-right color-action-inversed">Sign in</button>
+                    <button class="btn pull-right color-action-inversed">Me connecter</button>
                     <div class="checkbox">
-                        <label>
+                        <!-- <label>
                             <input type="checkbox" ng-model="rememberme"> Remember me
-                        </label>
+                        </label> -->
                         <a style="margin-left: 10px; cursor: pointer;font-weight: normal;
-color: white;" ng-click="toggleReset()">
-                            Reset my password ?
+color: white;" href="/#/account/send_password_reset">
+                            Mot de passe oubli&eacute; ?
                         </a>
                     </div>
                 </div>
@@ -48,7 +48,7 @@ color: white;" ng-click="toggleReset()">
             </div>
         </form>
     </div>
-    <div class="text-center color-action bottom copyright">
-        Proudly powered by Jérôme SAS &copy; 2011-2013
+    <div class="text-center bottom copyright">
+        Proudly powered by Alkemics SAS &copy; 2011-2013
     </div>
 </div>
