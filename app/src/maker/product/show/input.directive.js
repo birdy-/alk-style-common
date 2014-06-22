@@ -85,3 +85,36 @@ angular.module('jDashboardFluxApp').directive('productLabel', function($compile)
         }
     };
 });
+angular.module('jDashboardFluxApp').directive('productNutrition', function() {
+    return {
+        restrict: 'AEC',
+        transclude: true,
+        scope: {
+            pnq: '=',
+            psqs: '='
+        },
+        templateUrl: '/src/maker/product/show/input-nutrition.html',
+        link: function(scope, element, attrs) {
+            var concept_id = scope.pnq.isConceptualizedBy.id;
+            scope.legend = scope.pnq;
+            scope.pnqs = [];
+            scope.$watch('psqs', function(new_, old_) {
+                scope.pnqs = [];
+                angular.forEach(scope.psqs, function(psq){
+                    var pnq = psq.getContainsById(concept_id);
+                    scope.pnqs.push(pnq);
+                });
+            }, true);
+
+            scope.show = function() {
+                for (var i = 0; i < scope.pnqs.length; i++) {
+                    if (scope.pnqs[i].quantity > 0
+                    || scope.pnqs[i].percentageOfDailyValueIntake > 0) {
+                        return true;
+                    }
+                }
+                return false;
+            };
+        }
+    };
+});
