@@ -1,0 +1,19 @@
+
+<div ng-click="innerClick()" ng-class="status()">
+	<div class="btn btn-default" ng-if="form.$loading">
+    	<i class="fa fa-spinner fa-spin"></i>
+    	Chargement...
+	</div>
+	<div class="btn btn-default" ng-if="form.$saving">
+    	<i class="fa fa-cog fa-spin"></i>
+    	Enregistrement...
+	</div>
+	<div class="btn btn-success" ng-if="!form.$loading && !form.$saving && form.$pristine">
+    	<i class="fa fa-check"></i>
+    	Enregistré
+	</div>
+	<div class="btn btn-warning" ng-if="!form.$loading && !form.$saving && form.$dirty">
+    	<i class="fa fa-save"></i>
+    	Enregistrer
+	</div>
+</div>

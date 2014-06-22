@@ -1,22 +1,32 @@
 <div ng-include="'/src/maker/home/header.html'"></div>
 
-<section class="container">
-    <h2>Ma marque</h2>
-    <form class="form-horizontal" role="form">
-        <div class="row">
-            <div class="col-lg-12">
-                <h3>
-                    Eléments marketing :
-                </h3>
-            </div>
-        </div>
+<style>
+    input.ng-dirty.ng-valid ,
+    textarea.ng-dirty.ng-valid ,
+    select.ng-dirty.ng-valid {
+        border:1px solid green;
+    }
+    input.ng-dirty.ng-invalid ,
+    textarea.ng-dirty.ng-invalid ,
+    select.ng-dirty.ng-invalid {
+        border:1px solid gold;
+    }
+</style>
 
-        <div class="row">
+<section class="container">
+    <h2>
+        {{ brand.name }}
+        <small>Marque commerciale</small>
+    </h2>
+    <br/>
+    <br/>
+    <form class="form-horizontal" role="form" name="brandForm">
+        <div class="row" ng-init="formInit(brandForm)">
             <div class="col-lg-10">
                 <div class="form-group">
                     <label for="name" class="col-sm-2 control-label">Nom</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="name" ng-model="brand.name" placeholder="Dénomination marketing de votre marque"/>
+                        <input type="text" class="form-control" name="name" ng-model="brand.name" placeholder="Dénomination marketing de votre marque" required/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -25,15 +35,15 @@
                         <input type="text" class="form-control" name="moto" ng-model="brand.moto" placeholder="Votre slogan"/>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="publishes" class="col-sm-2 control-label">Sites internet</label>
+                <!--<div class="form-group">
+                    <label for="publishes" class="col-sm-2 control-label">Site internet</label>
                     <div class="col-sm-10">
                         <div ng-repeat="website in brand.publishes">
                             <input type="url" class="form-control" ng-model="website.url" placeholder="Adresse du site"/>
                         </div>
-                        <input type="url" class="form-control" placeholder="Adresse du site">
+                        <input type="url" class="form-control" ng-model="" placeholder="Adresse du site">
                     </div>
-                </div>
+                </div>-->
                 <div class="form-group">
                     <label for="description" class="col-sm-2 control-label">Description</label>
                     <div class="col-sm-10">
@@ -49,43 +59,55 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Caractéristiques</label>
                     <div class="col-sm-10">
-                        <label class="checkbox-inline" for="isHardDiscount">
-                            <input type="checkbox" name="isHardDiscount" ng-model="product.isHardDiscount"/>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="isDiscountHard" ng-model="brand.isDiscountHard"/>
                             <i class="fa fa-dollar"></i>
                             <i class="fa fa-dollar"></i> Marque hard discount
                         </label>
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="isDiscount" ng-model="product.isDiscount"/> <i class="fa fa-dollar"></i> Marque discount
+                            <input type="checkbox" name="isDiscount" ng-model="brand.isDiscount"/> <i class="fa fa-dollar"></i> Marque discount
                         </label>
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="isRetailerOwned" ng-model="product.isRetailerOwned"/> Marque de distributeur
+                            <input type="checkbox" name="isShopBrand" ng-model="brand.isShopBrand"/> Marque de distributeur
                         </label>
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="isNational" ng-model="product.isNational"/> Marque nationale
+                            <input type="checkbox" name="isIndependant" ng-model="brand.isIndependant"/> Marque nationale
                         </label>
                         <br/>
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="isOrganic" ng-model="product.isOrganic"/> Marque bio
+                            <input type="checkbox" name="isOrganic" ng-model="brand.isOrganic"/> Marque bio
                         </label>
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="isEquitable" ng-model="product.isEquitable"/> <i class="fa fa-globe"></i> Marque éco-responsable
+                            <input type="checkbox" name="isGreen" ng-model="brand.isGreen"/> <i class="fa fa-globe"></i> Marque éco-responsable
                         </label>
                         <br/>
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="isGourmet" ng-model="product.isGourmet"/> <i class="fa fa-cutlery"></i> Marque gourmet
+                            <input type="checkbox" name="isGourmet" ng-model="brand.isGourmet"/> <i class="fa fa-cutlery"></i> Marque gourmet
                         </label>
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="isBaby" ng-model="product.isBaby"/> Marque light
+                            <input type="checkbox" name="isLight" ng-model="brand.isLight"/> Marque light
                         </label>
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="isBaby" ng-model="product.isBaby"/> Marque bébé
+                            <input type="checkbox" name="isWorldFood" ng-model="brand.isWorldFood"/> Marque plats du monde
+                        </label>
+                        <br/>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="isBaby" ng-model="brand.isBaby"/> Marque bébé
                         </label>
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="isPet" ng-model="product.isPet"/> Marque petfood
+                            <input type="checkbox" name="isKid" ng-model="brand.isKid"/> Marque enfant
                         </label>
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="isWorldFood" ng-model="product.isWorldFood"/> Marque plats du monde
+                            <input type="checkbox" name="isPet" ng-model="brand.isPet"/> Marque petfood
                         </label>
+                    </div>
+                </div>
+                <div class="form-group" ng-if="brand.subBrands.length">
+                    <label class="col-sm-2 control-label">Sous-marques</label>
+                    <div class="col-lg-10">
+                        <a ng-href="/#/maker/{{ subBrand.id}}/show" ng-repeat="subBrand in brand.subBrands">
+                            <img ng-src="{{ subBrand.picture.logo }}" width="64px" style="margin-right: 10px;"/>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -101,76 +123,13 @@
                 </div>
             </div>
         </div>
-
+        <br/>
+        <br/>
         <div class="row">
-            <div class="col-lg-12">
-                <h3>
-                    Eléments commerciaux :
-                </h3>
-            </div>
             <div class="col-lg-10">
-                <div class="form-group">
-                    <label for="name" class="col-sm-2 control-label">Raison sociale</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" name="name" ng-model="brand.legalName" placeholder="Raison sociale de votre marque">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="moto" class="col-sm-2 control-label">RCS</label>
-                    <div class="col-sm-5">
-                        <input type="text" class="form-control" name="moto" ng-model="brand.legalNumber" placeholder="Votre numéro RCS">
-                    </div>
-                    <div class="col-sm-5">
-                        <input type="text" class="form-control" name="moto" ng-model="brand.legalCity" placeholder="Ville d'inscription au RCS">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="url" class="col-sm-2 control-label">Adresse</label>
-                    <div class="col-sm-10">
-                        <textarea class="form-control" ng-model="brand.street" placeholder="N° et rue"></textarea>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-2">
-                    </div>
-                    <div class="col-sm-2">
-                        <input type="text" class="form-control" ng-model="brand.postCode" placeholder="Code postal">
-                    </div>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" ng-model="brand.city" placeholder="Ville">
-                    </div>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" ng-model="brand.country" placeholder="Pays">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" ng-click="submit()" class="pull-right btn color-product"><i class="fa fa-save"></i> Enregister</button>
-                    </div>
-                </div>
+                <div button-save class="pull-right" ng-click="save()" form="brandForm"></div>
             </div>
         </div>
     </form>
 </section>
 
-<section ng-if="brand.subBrands.length">
-    <div class="row">
-        <div class="col-lg-12">
-            <h3>
-                Sous-marques :
-            </h3>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-10">
-            <div class="row">
-                <div class="col-lg-2"></div>
-                <div class="col-lg-10">
-                    <a ng-href="/#/maker/{{ subBrand.id}}/show" ng-repeat="subBrand in brand.subBrands">
-                        <img ng-src="{{ subBrand.picture.logo }}" width="64px" style="margin-right: 10px;"/>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
