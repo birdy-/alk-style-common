@@ -177,9 +177,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
     // ------------------------------------------------------------------------
     // Event handling
     // ------------------------------------------------------------------------
-    var isEmpty = function (value) {
-        return typeof(value) === 'undefined' || value === '' || value === null || value !== value;
-    }
     $scope.check = function(field) {
         var classes = {};
         if(!$scope.productForm[field]) {
@@ -380,6 +377,9 @@ var inferProduct = function(product, productForm) {
         if (text.indexOf('huile de pépins de raisin' ) !== -1){
             product.hasOilCanola = true;
         }
+        if (text.indexOf('glucose' ) !== -1){
+            product.hasGlucose = true;
+        }
     }
     if (product.isPack === false && isEmpty(product.factorPA)) {
         product.factorPA = 1;
@@ -400,3 +400,6 @@ var inferProduct = function(product, productForm) {
     return product;
 }
 
+var isEmpty = function (value) {
+    return typeof(value) === 'undefined' || value === '' || value === null || value !== value;
+}

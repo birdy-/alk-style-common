@@ -33,7 +33,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', 
         stop: false,
         busy: false,
     };
-    $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_DEFAULT.id] = true;
+    // $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_DEFAULT.id] = true;
     $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_ACCEPTED.id] = true;
     $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_CERTIFIED.id] = true;
 
