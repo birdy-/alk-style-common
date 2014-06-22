@@ -14,8 +14,6 @@ angular.module('jDashboardFluxApp').directive('productField', function() {
             scope.legend = scope.pnq;
             scope.pnqs = [];
             scope.$watch('psqs', function(new_, old_) {
-                console.log('Current PSQs in directive');
-                console.log(scope.psqs);
                 scope.pnqs = [];
                 angular.forEach(scope.psqs, function(psq){
                     var pnq = psq.getContainsById(concept_id);
