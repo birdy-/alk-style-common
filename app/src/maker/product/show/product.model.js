@@ -47,6 +47,18 @@ var ProductNutritionalQuantity = function() {
 };
 
 
+var ProductHasLabel = function() {
+    this.isConceptualizedBy = {
+    };
+    this.fromJson = function(json) {
+        for (var key in json) {
+            this[key] = json[key];
+        }
+        return this;
+    };
+};
+
+
 var ProductStandardQuantity = function(){
     this.contains = [];
     this.fromJson = function(json) {

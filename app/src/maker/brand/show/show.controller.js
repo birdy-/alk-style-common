@@ -57,7 +57,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerBrandShowCtrl', [
     };
     var init = function() {
         permission.getUser().then(function(user){
-            console.log(user);
             if (!user.isAllowed('Brand', parseInt($routeParams.id))) {
                 alert("Vous n'êtes pas autorisé à consulter cette page.");
                 $location.path('/maker/brand');

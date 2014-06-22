@@ -4,212 +4,44 @@
         <div class="row">
             <div class="col-sm-4">
                 <h3>Agriculture biologique</h3>
-                <div class="checkbox media">
-                    <label>
-                        <input type="checkbox" ng-model="product.isOrganic"/>
-                        <img height="32px" src="http://assets.chefjerome.com/api/1/tag/abe.png">
-                        Biologique
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" ng-model="product.isLabelledABFr"/>
-                        <img height="32px" src="http://assets.chefjerome.com/api/1/tag/abf.png">
-                        Agriculture Biologique Française
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" ng-model="product.isLabelledABEu"/>
-                        <img height="32px" src="http://assets.chefjerome.com/api/1/tag/abe.png">
-                        Agriculture Biologique Européenne
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" ng-model="product.isLabelledBioEquitable"/>
-                        <img height="32px" src="http://assets.chefjerome.com/api/1/tag/be.png">
-                        Bio-Equitable
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" ng-model="product.isLabelledBioGarantie"/>
-                        <img height="32px" src="http://assets.chefjerome.com/api/1/tag/bg.png">
-                        Bio-Garantie
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" ng-model="product.isLabelledBioCoherence"/>
-                        <img height="32px" src="http://assets.chefjerome.com/api/1/tag/bc.png">
-                        Bio-Cohérence
-                    </label>
-                </div>
+                <div product-label product="product" legend="labels[19096]"></div> <!-- isLabelledABFr -->
+                <div product-label product="product" legend="labels[19095]"></div> <!-- isLabelledABEu -->
+                <div product-label product="product" legend="labels[19098]"></div> <!-- isLabelledBioEquitable -->
+                <div product-label product="product" legend="labels[19099]"></div> <!-- isLabelledBioGarantie -->
+                <div product-label product="product" legend="labels[19103]"></div> <!-- isLabelledBioCoherence -->
             </div>
 
 
             <div class="col-sm-4">
                 <h3>Développement durable</h3>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" ng-model="product.isLabelledFT">
-                        <img height="32px" src="http://assets.chefjerome.com/api/1/tag/ft.png">
-                        Fair Trade
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" ng-model="product.isLabelledEko"/>
-                        <img height="32px" src="http://assets.chefjerome.com/api/1/tag/eko.png">
-                        Eko
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" ng-model="product.isLabelledDemeter"/>
-                        <img height="32px" src="http://assets.chefjerome.com/api/1/tag/d.png">
-                        Demeter
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" ng-model="product.isLabelledNatureEtProgres"/>
-                        <img height="32px" src="http://assets.chefjerome.com/api/1/tag/np.png">
-                        Nature Et Progrès
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" ng-model="product.isLabelledBBC"/>
-                        <img height="32px" src="http://assets.chefjerome.com/api/1/tag/bbc.png">
-                        Bleu Blanc Cœur
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" ng-model="product.isLabelledCPN"/>
-                        <img height="32px" src="http://assets.chefjerome.com/api/1/tag/cpn.png">
-                        Charte de Progrès Nutritionnel
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" ng-model="product.isLabelledMH"/>
-                        <img height="32px" src="http://assets.chefjerome.com/api/1/tag/mh.png">
-                        Max Havelaar
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" ng-model="product.isLabelledMSC"/>
-                        <img height="32px" src="http://assets.chefjerome.com/api/1/tag/msc.png">
-                        Marine Stewardship Council
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" ng-model="product.isLabelledCP"/>
-                        <img height="32px" src="http://assets.chefjerome.com/api/1/tag/cp.png">
-                        Produit Certifié
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" ng-model="product.isLabelledAC"/>
-                        <img height="32px" src="http://assets.chefjerome.com/api/1/tag/ac.png">
-                        Aquaculture Stewardship Council
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" ng-model="product.isLabelledRF"/>
-                        <img height="32px" src="http://assets.chefjerome.com/api/1/tag/rf.png">
-                        Rainforest Alliance
-                    </label>
-                </div>
+                <div product-label product="product" legend="labels[19094]"></div> <!-- isLabelledFT -->
+                <div product-label product="product" legend="labels[19097]"></div> <!-- isLabelledEko -->
+                <div product-label product="product" legend="labels[19101]"></div> <!-- isLabelledDemeter -->
+                <div product-label product="product" legend="labels[19102]"></div> <!-- isLabelledNatureEtProgres -->
+                <div product-label product="product" legend="labels[19107]"></div> <!-- isLabelledBBC -->
+                <div product-label product="product" legend="labels[19108]"></div> <!-- isLabelledCPN -->
+                <div product-label product="product" legend="labels[19121]"></div> <!-- isLabelledMH -->
+                <div product-label product="product" legend="labels[19110]"></div> <!-- isLabelledMSC -->
+                <div product-label product="product" legend="labels[19122]"></div> <!-- isLabelledCP -->
+                <div product-label product="product" legend="labels[19111]"></div> <!-- isLabelledAC -->
+                <div product-label product="product" legend="labels[19112]"></div> <!-- isLabelledRF -->
             </div>
 
             <div class="col-sm-4">
                 <h3>Provenance</h3>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" ng-model="product.isLabelledMontagnes"/>
-                        <img height="32px" src="http://assets.chefjerome.com/api/1/tag/mf.png">
-                        Montagnes Françaises
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" ng-model="product.isLabelledAOP"/>
-                        <img height="32px" src="http://assets.chefjerome.com/api/1/tag/aop.png">
-                        AOP
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" ng-model="product.isLabelledAOC"/>
-                        <img height="32px" src="http://assets.chefjerome.com/api/1/tag/aoc.png">
-                        AOC
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" ng-model="product.isLabelledOFG"/>
-                        <img height="32px" src="http://assets.chefjerome.com/api/1/tag/ofg.png">
-                        Origine Française Garantie
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" ng-model="product.isLabelledV2BF"/>
-                        <img height="32px" src="http://assets.chefjerome.com/api/1/tag/v2bf.png">
-                        Viande de Bœuf Française
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <img height="32px" src="http://assets.chefjerome.com/api/1/tag/v2pf.png">
-                        <input type="checkbox" ng-model="product.isLabelledV2PF"/>
-                        Viande de Porc Française
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" ng-model="product.isLabelledIGP"/>
-                        <img height="32px" src="http://assets.chefjerome.com/api/1/tag/igp.png">
-                        IGP
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" ng-model="product.isLabelledSTG"/>
-                        <img height="32px" src="http://assets.chefjerome.com/api/1/tag/stg.png">
-                        Spécialité Traditionnelle Garantie
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" ng-model="product.isLabelledLR"/>
-                        <img height="32px" src="http://assets.chefjerome.com/api/1/tag/lr.png">
-                        Label Rouge
-                    </label>
-                </div>
+                <div product-label product="product" legend="labels[19100]"></div> <!-- isLabelledMontagnes -->
+                <div product-label product="product" legend="labels[18266]"></div> <!-- isLabelledAOP -->
+                <div product-label product="product" legend="labels[18264]"></div> <!-- isLabelledAOC -->
+
+                <div product-label product="product" legend="labels[19104]"></div> <!-- isLabelledOFG -->
+                <div product-label product="product" legend="labels[19106]"></div> <!-- isLabelledV2BF -->
+                <div product-label product="product" legend="labels[19105]"></div> <!-- isLabelledV2PF -->
+                <div product-label product="product" legend="labels[18265]"></div> <!-- isLabelledIGP -->
+                <div product-label product="product" legend="labels[19109]"></div> <!-- isLabelledSTG -->
+                <div product-label product="product" legend="labels[18942]"></div> <!-- isLabelledLR -->
                 <!--
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" ng-model="product.isLabelledAT"/>
-                        <img height="32px" src="http://assets.chefjerome.com/api/1/tag/at.png">
-                        AT
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" ng-model="product.isLabelledHPD"/>
-                        <img height="32px" src="http://assets.chefjerome.com/api/1/tag/hpd.png">
-                        HPD
-                    </label>
-                </div>
+                <div product-label product="product" legend="labels[]"></div>
+                <div product-label product="product" legend="labels[]"></div>
                 -->
             </div>
         </div>
