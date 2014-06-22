@@ -32,7 +32,7 @@ angular.module('jDashboardFluxApp').service('permission', [
             throw 'Unknown type : '+type;
         }
         for (var i = 0; i < considers.length; i++) {
-            if (consider.id === id) {
+            if (considers[i].id === id) {
                 return true;
             }
         }
