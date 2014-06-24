@@ -1,3 +1,6 @@
+<div template-product>
+<div ng-controller="DashboardMakerProductShowMarketingCtrl">
+
 <!-- ================================================================================================================================== -->
 <!--                                                          Dénomination                                                              -->
 <!-- ================================================================================================================================== -->
@@ -54,7 +57,14 @@
 <div class="form-group has-feedback" ng-class="check('namePublicLong')">
     <label for="namePublicLong" class="col-sm-3 control-label">Libellé commercial long</label>
     <div class="col-sm-9">
-        <input ng-model="product.namePublicLong" name="namePublicLong" type="text" class="form-control" placeholder="Une proposition de libellé marketing." alk-validation-case="sentence" alk-focus ng-change="predict(product)"/>
+        <div class="input-group">
+            <input ng-model="product.namePublicLong" name="namePublicLong" type="text" class="form-control" placeholder="Une proposition de libellé marketing." alk-validation-case="sentence" alk-focus ng-change="predict(product)"/>
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button" ng-click="suggestName()">
+                    <i class="fa fa-lightbulb-o"></i> Suggérer
+                </button>
+            </span>
+        </div>
         <span ng-show="productForm.namePublicLong.$error.caseTooManyUpper" class="help-block">La dénomination ne doit pas comporter trop de majuscules.</span>
         <span ng-show="productForm.namePublicLong.$error.caseStart" class="help-block">La dénomination doit commencer par une lettre majuscule.</span>
         <div input-block-help field="productForm.namePublicLong">
@@ -93,10 +103,9 @@
 <div class="form-group has-feedback" ng-class="check('description')">
     <label for="description" class="col-sm-3 control-label">Description</label>
     <div class="col-sm-9">
-        <textarea ng-model="product.description" name="description" class="form-control" rows="3" placeholder="La description du produit." alk-focus required></textarea>
-        <span ng-show="productForm.description.$error.required" class="help-block">Une description du produit est obligatoire.</span>
+        <textarea ng-model="product.description" name="description" class="form-control" rows="3" placeholder="ex : Ce produit contient un sachet ainsi qu'une capsule de sauce..." alk-focus></textarea>
         <div input-block-help field="productForm.description">
-            La description d'une denrée alimentaire permet d'y adjoindre des données marketing.
+            Une description générale du produit, de son contenu.
         </div>
     </div>
 </div>
@@ -106,8 +115,7 @@
         <textarea type="text" ng-model="product.advices" name="advices" class="form-control" rows="3" placeholder="Conseils d'utilisation du produit." alk-focus required></textarea>
         <span ng-show="productForm.advices.$error.required" class="help-block">Un mode d'emploi du produit est obligatoire.</span>
         <div input-block-help field="productForm.advices">
-            <strong id="art27">Mode d'emploi :</strong>
-            Le mode d'emploi d'une denrée alimentaire doit être indiqué de façon à permettre un usage approprié de cette denrée.
+
         </div>
         <div input-block-help field="productForm.advices">
             Textual instruction on how to prepare the product before serving.
@@ -125,17 +133,8 @@
 <div class="form-group has-feedback" ng-class="check('servesText')">
     <label for="servesText" class="col-sm-3 control-label">Nombre de parts</label>
     <div class="col-sm-3">
-        <input type="text" ng-model="product.serves" name="serves" class="form-control" rows="3" placeholder="" alk-focus/>
-        <div input-block-help field="productForm.serves">
-            The total number of servings contained in the package.
-            <br/>
-            Obligatoire si la déclaration nutritionnelle est fournie par portion et/ou unité de consommation.
-        </div>
-        <div input-block-example field="productForm.serves">
-            ex : 2 pour "50cL contient 2 bols de 250mL"
-        </div>
-        <div input-block-gdsn field="productForm.serves">
-            Correspond dans la GDSN a la balise <code>numberOfServingsPerPackage</code>.
+        <div input-rich input-rich-field="fields.serves" input-rich-form="productForm.serves">
+            <input type="text" ng-model="product.serves" name="serves" class="form-control" rows="3" placeholder="" alk-focus/>
         </div>
     </div>
     <label for="servesText" class="col-sm-3 control-label">Nombre de parts approximatif</label>
@@ -277,7 +276,7 @@
 <div class="form-group has-feedback" ng-class="check('history')">
     <label for="history" class="col-sm-3 control-label">Histoire du produit</label>
     <div class="col-sm-9">
-        <textarea ng-model="product.history" name="history" class="form-control" rows="2" placeholder="L'histoire de ce produit." alk-focus></textarea>
+        <textarea ng-model="product.history" name="history" class="form-control" rows="2" placeholder="ex : Ce café a été découvert par..." alk-focus></textarea>
         <div input-block-help field="productForm.history">
             L'histoire de ce produit.
         </div>
@@ -286,7 +285,7 @@
 <div class="form-group has-feedback" ng-class="check('fabrication')">
     <label for="fabrication" class="col-sm-3 control-label">Fabrication du produit</label>
     <div class="col-sm-9">
-        <textarea ng-model="product.fabrication" name="fabrication" class="form-control" rows="2" placeholder="Le procédé de fabrication de ce produit." alk-focus></textarea>
+        <textarea ng-model="product.fabrication" name="fabrication" class="form-control" rows="2" placeholder="ex : La production de cette purée commence par..." alk-focus></textarea>
         <div input-block-help field="productForm.fabrication">
             Le procédé de fabrication de ce produit.
         </div>
@@ -326,5 +325,5 @@
         </div>
     </div>
 </div>
-
-
+</div>
+</div>

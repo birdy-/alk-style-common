@@ -124,3 +124,16 @@ angular.module('jDashboardFluxApp').directive('productNutritionCell', function()
         }
     };
 });
+angular.module('jDashboardFluxApp').directive('inputRich', function() {
+    return {
+        restrict: 'AEC',
+        transclude: true,
+        templateUrl: '/src/maker/product/show/input-rich.html',
+        scope: {
+            form: '=inputRichForm',
+            field: '=inputRichField'
+        },
+        link: function(scope, element, attrs) {
+        }
+    };
+});
