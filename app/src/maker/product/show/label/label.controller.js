@@ -63,7 +63,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowLabelCt
         { id:19133, name: "Logo femme enceinte"},
         { id:19134, name: "Label RADURA"},
         { id:19135, name: "Emballage en aluminium recyclable"},
-        { id:19136, name: "Emballage à base de fibre cellulosique de récupération"},
         { id:19137, name: "Emballage en carton ondulé recyclable"},
         { id:19138, name: "Emballage en carton ondulé recyclé"},
         { id:19139, name: "Label RESY"},
