@@ -37,19 +37,9 @@ Product.STATUS_TO_MERGE                     = new Constant(3, "TO_MERGE",      "
 Product.STATUS_TO_REVIEW                    = new Constant(4, "TO_REVIEW",     "A Product that needs to be reviewed.");
 
 
-var ProductNutritionalQuantity = function() {
-    this.fromJson = function(json) {
-        for (var key in json) {
-            this[key] = json[key];
-        }
-        return this;
-    };
-};
-
-
 var ProductHasLabel = function() {
-    this.isConceptualizedBy = {
-    };
+    this.id = null;
+    this.isConceptualizedBy = {};
     this.fromJson = function(json) {
         for (var key in json) {
             this[key] = json[key];
@@ -57,9 +47,34 @@ var ProductHasLabel = function() {
         return this;
     };
 };
+
+
+var ProductNutritionalQuantity = function() {
+    this.id = null;
+    this.name = null;
+    this.quantity = null;
+    this.measurementPrecision = null;
+    this.percentageOfDailyValueIntake = null;
+    this.isConceptualizedBy = {};
+    this.isMeasuredBy = {};
+    this.fromJson = function(json) {
+        for (var key in json) {
+            this[key] = json[key];
+        }
+        return this;
+    };
+};
+ProductNutritionalQuantity.MEASUREMENTPRECISION_EXACT         = new Constant(0, "=", "If this nutriment measurement precision is exact");
+ProductNutritionalQuantity.MEASUREMENTPRECISION_APPROXIMATELY = new Constant(1, "~", "If nutriment declaration as no precision");
+ProductNutritionalQuantity.MEASUREMENTPRECISION_LESS_THAN     = new Constant(2, "<", "If this nutriment declaration contains '<'");
+
 
 
 var ProductStandardQuantity = function(){
+    this.id = null;
+    this.name = null;
+    this.quantity = null;
+    this.preparationState = null;
     this.contains = [];
     this.fromJson = function(json) {
         var pnq;
@@ -77,10 +92,14 @@ var ProductStandardQuantity = function(){
     };
     this.getContainsById = function(id) {
         for (var i = 0; i < this.contains.length; i++) {
-            if (this.contains[i].isConceptualizedBy.id === id) {
+            if (this.contains[i].isConceptualizedBy.id == id) {
                 return this.contains[i];
             }
         }
-        return new ProductNutritionalQuantity();
+        return null;
     };
 };
+ProductStandardQuantity.PREPARATIONSTATE_UNPREPARED = new Constant(0, "avant préparation", "If the nutrients supplied correspond to the nutrition values of the food in the state in which it is sold");
+ProductStandardQuantity.PREPARATIONSTATE_PREPARED = new Constant(1, "après préparation", "If the nutrients supplied correspond to the nutrition values of the food in the state after preparation");
+
+

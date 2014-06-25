@@ -1,0 +1,26 @@
+<div ng-transclude></div>
+<div class="help-block">
+	<div class="pull-left" ng-if="reglementations['1169']">
+		1169
+	</div>
+</div>
+<div ng-show="form.$focus" class="help-block">
+	<div ng-repeat="specification in field.specifications">
+		<i class="fa fa-lightbulb-o"></i> Conseil
+		<br/>
+        {{ specification }}
+	</div>
+	<div ng-repeat="example in field.examples">
+		<i class="fa fa-thumbs-o-up"></i> Exemple
+		<br/>
+        {{ example }}
+	</div>
+	<div ng-if="field.gdsn">
+	    <i class="fa fa-info"></i> Astuce
+	    Correspond dans la GDSN a la balise <code>{{ field.gdsn }}</code>.
+	</div>
+	<div ng-repeat="(article, text) in field.laws">
+	    <i class="fa fa-gavel"></i> {{ article }} :
+	    {{ text }}
+	</div>
+</div>
