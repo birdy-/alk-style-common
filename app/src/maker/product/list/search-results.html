@@ -16,7 +16,7 @@
     <div class="row" infinite-scroll="more()">
         <div ng-repeat="product in products" class="col-sm-2 product">
             <div class="picture missing-picture">
-                <div class="ratio" ng-style="{'background-image': 'url(\'' + product.picture.main.replace('original', '256x256') + '\')'}" style="height">
+                <div class="ratio" ng-style="{'background-image': 'url(\'https://smedia.alkemics.com/api/1/product/' + product.id + '/picture/packshot/256x256.png\')'}" style="height">
                 </div>
             </div>
             <div class="name">
