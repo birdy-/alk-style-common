@@ -38,7 +38,67 @@ angular.module('jDashboardFluxApp').config(function ($routeProvider) {
         controller: 'DashboardMakerProductListCtrl',
     });
     $routeProvider.when('/maker/product/:id', {
-        templateUrl: 'src/maker/product/show/index.html',
+        templateUrl: 'src/maker/product/show/marketing/marketing.html',
+        controller: 'DashboardMakerProductShowCtrl',
+        parameter: {id: 'integer'}
+    });
+    $routeProvider.when('/maker/product/:id/marketing', {
+        templateUrl: 'src/maker/product/show/marketing/marketing.html',
+        controller: 'DashboardMakerProductShowCtrl',
+        parameter: {id: 'integer'}
+    });
+    $routeProvider.when('/maker/product/:id/packaging', {
+        templateUrl: 'src/maker/product/show/packaging/packaging.html',
+        controller: 'DashboardMakerProductShowCtrl',
+        parameter: {id: 'integer'}
+    });
+    $routeProvider.when('/maker/product/:id/manufacturer', {
+        templateUrl: 'src/maker/product/show/manufacturer/manufacturer.html',
+        controller: 'DashboardMakerProductShowCtrl',
+        parameter: {id: 'integer'}
+    });
+    $routeProvider.when('/maker/product/:id/identification', {
+        templateUrl: 'src/maker/product/show/identification/identification.html',
+        controller: 'DashboardMakerProductShowCtrl',
+        parameter: {id: 'integer'}
+    });
+    $routeProvider.when('/maker/product/:id/media', {
+        templateUrl: 'src/maker/product/show/media/media.html',
+        controller: 'DashboardMakerProductShowCtrl',
+        parameter: {id: 'integer'}
+    });
+    $routeProvider.when('/maker/product/:id/composition', {
+        templateUrl: 'src/maker/product/show/composition/composition.html',
+        controller: 'DashboardMakerProductShowCtrl',
+        parameter: {id: 'integer'}
+    });
+    $routeProvider.when('/maker/product/:id/nutrition', {
+        templateUrl: 'src/maker/product/show/nutrition/nutrition.html',
+        controller: 'DashboardMakerProductShowCtrl',
+        parameter: {id: 'integer'}
+    });
+    $routeProvider.when('/maker/product/:id/label', {
+        templateUrl: 'src/maker/product/show/label/label.html',
+        controller: 'DashboardMakerProductShowCtrl',
+        parameter: {id: 'integer'}
+    });
+    $routeProvider.when('/maker/product/:id/conservation', {
+        templateUrl: 'src/maker/product/show/conservation/conservation.html',
+        controller: 'DashboardMakerProductShowCtrl',
+        parameter: {id: 'integer'}
+    });
+    $routeProvider.when('/maker/product/:id/traceability', {
+        templateUrl: 'src/maker/product/show/traceability/traceability.html',
+        controller: 'DashboardMakerProductShowCtrl',
+        parameter: {id: 'integer'}
+    });
+    $routeProvider.when('/maker/product/:id/productinshop', {
+        templateUrl: 'src/maker/product/show/productinshop/productinshop.html',
+        controller: 'DashboardMakerProductShowCtrl',
+        parameter: {id: 'integer'}
+    });
+    $routeProvider.when('/maker/product/:id/version', {
+        templateUrl: 'src/maker/product/show/version/version.html',
         controller: 'DashboardMakerProductShowCtrl',
         parameter: {id: 'integer'}
     });

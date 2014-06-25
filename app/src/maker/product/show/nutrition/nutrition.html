@@ -1,0 +1,189 @@
+<div template-product>
+<div ng-controller="DashboardMakerProductShowNutritionCtrl">
+
+<h3>Nutrition</h3>
+
+<style>
+    .input-group .input-group-btn select.form-control {
+        border-bottom-left-radius: 0px;
+        -webkit-border-bottom-left-radius: 0px;
+        -moz-border-bottom-left-radius: 0px;
+        border-right-left-radius: 0px;
+        -webkit-border-right-left-radius: 0px;
+        -moz-border-right-left-radius: 0px;
+    }
+
+    .productnutritionalquantity-precision {
+        width: 50px;
+    }
+
+    .table {
+        border-collapse: separate;
+    }
+    .table .separator {
+        border-collapse: collapse;
+        border-top-width: 1px;
+    }
+    .table > tbody {
+        margin-bottom: 20px;
+    }
+    .table > tbody > tr > td{
+        border-top: 0px;
+    }
+    .table > tbody > tr {
+        border-top: 0px;
+        border-bottom: 0px;
+        border-spacing: 0px;
+    }
+    .pnq-name {
+        text-align: right;
+    }
+    .separator {
+         margin-right: 30px;
+    }
+    .table tbody tr td.psq-line {
+        background-color: #eeeeee;
+        border-top: 1px solid #dddddd;
+        border-bottom: 1px solid #dddddd;
+    }
+    .table thead tr th.psq-col,
+    .table tbody tr td.psq-col {
+        border-left: 1px solid #dddddd;
+    }
+</style>
+
+<p>
+    Les valeurs ci-dessous doivent être remplies en valeur moyenne, c'est à dire avec la valeur qui représente le mieux la quantité d’un nutriment contenu dans une denrée alimentaire donnée et qui tient compte des tolérances dues aux variations saisonnières, aux habitudes de consommation et aux autres facteurs pouvant influencer la valeur effective.
+</p>
+
+<div class="pull-right">
+    <span class="btn btn-success" ng-click="addPSQ()"><i class="fa fa-plus"></i> Créer une quantité de référence</span>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th class="col-lg-2 text-right">Taille de référence</th>
+            <th ng-repeat="(psqId, psq) in psqs" class="text-center psq-col">{{ psq.name }}</th>
+        </tr>
+    </thead>
+    <thead>
+        <tr>
+            <th class="col-lg-2 text-right"></th>
+            <th ng-repeat="(psqId, psq) in psqs" class="text-center psq-col">
+                <span class="btn btn-success" ng-click="savePSQ(psq)">
+                    <i class="fa fa-save"></i>
+                    Enregistrer
+                </span>
+                <span class="btn btn-danger" ng-click="deletePSQ(psq)">
+                    <i class="fa fa-trash-o"></i>
+                    Supprimer
+                </span>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="{{ 1 + len() }}" class="psq-line"><h3>Déclaration nutritionnelle</h3></td>
+        </tr>
+    </tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[19056]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[19057]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[19058]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[19059]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[19060]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[19061]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[19062]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[19063]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[19064]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[19065]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[19066]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[19067]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[19068]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[19069]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[19070]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[19071]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[19072]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[19073]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[19074]"></tbody>
+
+    <tbody>
+        <tr>
+            <td colspan="{{ 1 + len()  }}" class="psq-line"><h3>Vitamines</h3></td>
+        </tr>
+    </tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[18978]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[18739]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[18740]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[18741]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[18744]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[18983]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[18743]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[18742]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[18984]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[18985]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[18982]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[18979]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[18980]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[18981]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[18986]"></tbody>
+
+    <tbody>
+        <tr>
+            <td colspan="{{ 1 + len()  }}" class="psq-line"><h3>Minéraux et métaux</h3></td>
+        </tr>
+    </tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[19075]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[19076]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[19077]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[18989]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[18988]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[18998]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[19078]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[18994]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[18992]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[18996]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[19000]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[18991]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[18999]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[19079]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[18990]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[19080]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[18987]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[19081]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[19082]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[19083]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[18997]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[19084]"></tbody>
+    <tbody product-nutrition psqs="psqs" legend="pnqs[18993]"></tbody>
+</table>
+
+<h3>Traitements spécifiques</h3>
+<div class="form-group">
+    <label class="col-sm-2 control-label">Teneur en sel réduite de</label>
+    <div class="col-sm-4">
+        <div class="input-group">
+            <input type="text" class="form-control" name="isReducedSalt" ng-model="product.isReducedSalt" placeholder="ex : 25">
+            <span class="input-group-addon">%</span>
+        </div>
+    </div>
+    <label class="col-sm-2 control-label">Teneur en sucre réduite de</label>
+    <div class="col-sm-4">
+        <div class="input-group">
+            <input type="text" class="form-control" name="isReducedSugar" ng-model="product.isReducedSugar" placeholder="ex : 25">
+            <span class="input-group-addon">%</span>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2 control-label">Teneur en graisses réduite de</label>
+    <div class="col-sm-4">
+        <div class="input-group">
+            <input type="text" class="form-control" name="isReducedFat" ng-model="product.isReducedFat" placeholder="ex : 25">
+            <span class="input-group-addon">%</span>
+        </div>
+    </div>
+</div>
+
+</div>
+</div>

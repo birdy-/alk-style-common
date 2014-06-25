@@ -2,29 +2,8 @@
     <td class="pnq-name">
         <label for="{{ legend.id }}" class="control-label">{{ legend.isConceptualizedBy.name }}</label>
     </td>
-    <td ng-repeat="pnq in pnqs" class="psq-col">
-        <label ng-if="!legend.isConceptualizedBy.compulsory" class="control-label pull-left separator"></label>
-        <div class="input-group">
-            <input type="text" class="form-control" ng-model="pnq.quantity" placeholder="ex : 100" alk-float="2" alk-focus ng-min="0" required/>
-            <span class="input-group-addon">{{ psqs[$index].isMeasuredBy.name }}  / {{ psqs[$index].name }}</span>
-        </div>
-        <span ng-show="false" class="help-block">La valeur entrée doit être un nombre décimal.</span>
-        <span ng-show="false" class="help-block">La valeur entrée ne doit pas être inférieure à 0.</span>
-    </td>
-    <td class="pnq-legend">
-    </td>
-</tr>
-<tr ng-show="show()">
-    <td class="text-right">
-    </td>
-    <td ng-repeat="pnq in pnqs" class="psq-col">
-        <label class="control-label pull-left separator">soit</label>
-        <div class="input-group">
-            <input type="text" class="form-control" ng-model="pnq.percentageOfDailyValueIntake" placeholder="ex : 23.7" alk-float="2" alk-focus ng-min="0" required/>
-            <span class="input-group-addon">% des AJR</span>
-        </div>
-        <span ng-show="false" class="help-block">La valeur entrée doit être un nombre décimal.</span>
-        <span ng-show="false" class="help-block">La valeur entrée ne doit pas être inférieure à 0.</span>
+    <td ng-repeat="(psqId, pnq) in legend.pnqs" class="psq-col">
+        <div product-nutrition-cell legend="legend" psq="psqs[psqId]" pnq="pnq"></div>
     </td>
     <td class="pnq-legend">
         {{ legend.isConceptualizedBy.legend }}

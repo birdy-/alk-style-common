@@ -1,0 +1,35 @@
+<div ng-include="'/src/maker/home/header.html'"></div>
+<div class="container-fluid">
+    <div class="col-md-2 color-stream-inverse sidebar" ng-controller="DashboardMakerProductShowPreviewCtrl">
+        <div ng-include="'/src/maker/product/show/detail-form.html'"></div>
+    </div>
+    <div class="col-md-10 col-md-offset-2">
+        <div class="container-fluid">
+            <div class="clearfix">
+                <h1>
+                    {{ product.nameLegal }}
+                    <small>{{ product.isBrandedBy.name }}</small>
+                </h1>
+            </div>
+            <ul class="nav nav-tabs">
+                <div nav-product link="marketing" legend="Marketing" product="product.id"></div>
+                <div nav-product link="packaging" legend="Packaging" product="product.id"></div>
+                <div nav-product link="manufacturer" legend="Fabricant" product="product.id"></div>
+                <!--<div nav-product link="identification" legend="Identification" product="product.id"></div>-->
+                <!--<div nav-product link="media" legend="Médias" product="product.id"></div>-->
+                <div nav-product link="composition" legend="Composition" product="product.id"></div>
+                <div nav-product link="nutrition" legend="Nutrition" product="product.id"></div>
+                <div nav-product link="label" legend="Labels" product="product.id"></div>
+                <div nav-product link="conservation" legend="Conservation" product="product.id"></div>
+                <div nav-product link="traceability" legend="Traçabilité" product="product.id"></div>
+                <!--<div nav-product link="productinshop" legend="Conformité"></div>-->
+                <!--<div nav-product link="version" legend="Versions"></div>-->
+            </ul>
+            <form class="form-horizontal" role="form" name="productForm" novalidate>
+                <div ng-transclude="">
+                    <!-- The view content will appear here -->
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
