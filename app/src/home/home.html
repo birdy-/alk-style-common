@@ -3,14 +3,6 @@
     <div class="logo">
         <img src="/images/logo.png" width="400px"/>
     </div>
-    <br/>
-    <br/>
-    <div class="motto">
-        <h2 class="text-center">Product stream</h2>
-        <p class="text-center">
-            Vos fiches produits, synchronisées en toute simplicité.
-        </p>
-    </div>
 </div>
 <style>
     .feature h3{
@@ -25,6 +17,10 @@
     }
     .presentation {
         padding: 40px 0px;
+    }
+    .presentation h2 {
+        text-align: center;
+        color:white;
     }
     .presentation p {
         margin-top: 30px;
@@ -45,31 +41,23 @@
         line-height: 34px;
         margin-top: 15px;
     }
+    .btn-xlg {
+        padding: 10px 16px;
+        margin: 0px 20px;
+        font-size: 22px;
+        line-height: 1.33;
+        border-radius: 6px;
+    }
 </style>
 
 
 <div class="jumbotron stream">
     <div class="container">
-        <div class="row presentation">
-            <div class="col-md-1"></div>
-            <div class="col-md-4 text-center">
-                <div>
-                    <img src="/images/home/services/productstream.png" width="100%">
-                </div>
-                <p>
-                    Une interface simple et ergonomique pour diffuser vos données produit chez les distributeurs.
-                </p>
-            </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-6 pricing">
-                <h3>À partir de </h3>
-                <div class="price pull-left">X€</div>
-                <div class="per">
-                    / produit <br/>
-                    / distributeur <br/>
-                    / an *
-                </div>
-            </div>
+        <div class="motto presentation">
+            <h2 class="text-center">Product stream</h2>
+            <p class="text-center">
+                Vos fiches produits, synchronisées en toute simplicité.
+            </p>
         </div>
     </div>
 </div>
@@ -158,31 +146,31 @@
                 <p>Vos fiches produit pré-alimentées par les données des distributeurs. </p>
             </div>
             <div class="col-md-4 feature">
+                <i class="fa fa-4x fa-star"></i>
+                <h3>Données marketing</h3>
+                <p>Améliorez votre positionement dans les moteurs de recherche: facettes, labels, synonymes...</p>
+            </div>
+            <div class="col-md-4 feature">
                 <i class="fa fa-4x fa-lightbulb-o"></i>
                 <h3>Aide au remplissage</h3>
-                <p>Correction orthographique, détection d'erreurs, autocompletion...</p>
+                <p>Correction orthographique, détection d'erreurs, auto-complétion...</p>
             </div>
+        </div>
+        <div class="row text-center">
             <div class="col-md-4 feature">
                 <i class="fa fa-4x fa-camera"></i>
                 <h3>Partage de médias</h3>
                 <p>Jusqu'à 10Mo d'espace par produit pour héberger photos HD, vidéos HD ou vues 3D.</p>
             </div>
-        </div>
-        <div class="row text-center">
             <div class="col-md-4 feature">
                 <i class="fa fa-4x fa-cloud"></i>
                 <h3>Plate-forme SAAS</h3>
                 <p>Pas de setup, processus d'inscription et de certification 100% électroniques.</p>
             </div>
             <div class="col-md-4 feature">
-                <i class="fa fa-4x fa-check-circle-o"></i>
-                <h3>Certification 100% électronique</h3>
-                <p>Suivi du remplissage de vos fiches, et de leur synchronisation chez les distributeurs.</p>
-            </div>
-            <div class="col-md-4 feature">
                 <i class="fa fa-4x fa-comments-o"></i>
                 <h3>Notifications instantanées</h3>
-                <p>Chat room temps réel avec vos distributeurs pour des corrections rapides et efficace.</p>
+                <p>Mise à jour automatique des fiches chez les distributeurs, pour des corrections rapides et efficace.</p>
             </div>
         </div>
         <div class="row text-center">
@@ -204,6 +192,11 @@
         </div>
         <!--
         <div class="row text-center">
+        <div class="col-md-4 feature">
+                <i class="fa fa-4x fa-check-circle-o"></i>
+                <h3>Certification 100% électronique</h3>
+                <p>Suivi du remplissage de vos fiches, et de leur synchronisation chez les distributeurs.</p>
+            </div>
             <div class="col-md-4 feature">
                 <i class="fa fa-4x fa-globe"></i>
                 <h3>Support multilingue</h3>
@@ -237,8 +230,17 @@
 
 <div class="container">
     <div class="row">
+        <br/>
         <div class="text-center">
-            <a href="/#/register" class="btn btn-success btn-lg">Je m'inscris !</a>
+            <a ng-click="subscribe()" class="btn btn-success btn-xlg">
+                <i class="fa fa-chevron-right"></i>
+                Je me pré-inscris !
+            </a>
+
+            <a ng-click="subscribe()" class="btn btn-warning btn-xlg">
+                <i class="fa fa-chevron-right"></i>
+                Je veux une démonstration !
+            </a>
         </div>
         <!--
         <div class="col-lg-6">
@@ -249,4 +251,30 @@
     -->
     </div>
 </div>
+<!--
+<div class="jumbotron stream">
+    <div class="container">
+        <div class="row presentation">
+            <div class="col-md-1"></div>
+            <div class="col-md-4 text-center">
+                <div>
+                    <img src="/images/home/services/productstream.png" width="100%">
+                </div>
+                <p>
+                    Une interface simple et ergonomique pour diffuser vos données produit chez les distributeurs.
+                </p>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-6 pricing">
+                <br/>
+                <div class="price pull-left">5€</div>
+                <div class="per">
+                    / produit <br/>
+                    / distributeur <br/>
+                    / an
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->
 <div ng-include="'/src/home/footer.html'"></div>

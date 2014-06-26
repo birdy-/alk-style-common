@@ -7,7 +7,7 @@
 var SupportModalController = function ($scope, $modalInstance, $http, $location, user) {
 
     $scope.supportRequest = {
-        message: null, 
+        message: null,
         type: null,
         subject: null,
         origin: 1, // Dashboard Flux
@@ -15,7 +15,7 @@ var SupportModalController = function ($scope, $modalInstance, $http, $location,
         email: user.username,
         userId: user.id,
         url: $location.protocol() + $location.host() + $location.path()
-    };    
+    };
 
     /*
      * Register a user to the mailing list
@@ -26,11 +26,11 @@ var SupportModalController = function ($scope, $modalInstance, $http, $location,
 
         (new Image()).src = 'https://auth.alkemics.com/auth/v1/mailinglist/register?email=' + $scope.supportRequest.username + '&message=' + $scope.supportRequest.message;
         var request = angular.copy($scope.supportRequest);
-        request.message = $scope.supportRequest.type + "<br/>" 
-            + $scope.supportRequest.subject + "<br/>"  
-            + $scope.supportRequest.message + "<br/>" 
+        request.message = $scope.supportRequest.type + "<br/>"
+            + $scope.supportRequest.subject + "<br/>"
+            + $scope.supportRequest.message + "<br/>"
             + $scope.supportRequest.url;
-            
+
         $http.post(
             'https://auth.alkemics.com/auth/v1/mailinglist/register',
             request
@@ -40,8 +40,8 @@ var SupportModalController = function ($scope, $modalInstance, $http, $location,
             $http.get(
                 'https://auth.alkemics.com/auth/v1/mailinglist/register',
                 {
-                    params: request     
-                }                
+                    params: request
+                }
             );
             $modalInstance.close();
         });
@@ -108,13 +108,8 @@ angular.module('jDashboardFluxApp').controller('HeaderCtrl', [
         });
 
         modalInstance.result.then(function () {
-            
         }, function () {
-            
         });
     };
     $scope.subscribe = subscribe;
-
-
-
 }]);
