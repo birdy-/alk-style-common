@@ -68,6 +68,9 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', 
                 certifieds.push(key);
             }
         }
+        if (certifieds.length == 0) {
+            certifieds = [2];
+        }
         $scope.request.product.certified = certifieds.join(',');
 
         $$sdkCrud.ProductList({
