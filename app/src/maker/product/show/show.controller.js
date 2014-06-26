@@ -61,10 +61,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
             }, {
                 filter_isbrandedby_id: $scope.product.isBrandedBy.id
             });
-
-            if (!$scope.product.isAccepted()) {
-                $scope.accept();
-            };
         });
     };
     permission.getUser().then(function(user){
