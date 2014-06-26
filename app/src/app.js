@@ -32,7 +32,7 @@ function($window) {
 
 
 var env = (window.location.hostname.indexOf('localhost') === 0) ? 'dev' : 'prod';
-env = 'prod';
+// env = 'prod';
 if (env == "prod") {
     angular.module('jDashboardFluxApp').constant('API_URL', 'https://api.alkemics.com');
     angular.module('jDashboardFluxApp').constant('URL_SERVICE_AUTH', 'https://auth.alkemics.com');
