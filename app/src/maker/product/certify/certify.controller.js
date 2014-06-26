@@ -1,9 +1,15 @@
+'use_strict';
+
 /**
  * Modal that allows the user to certify a given product.
  */
-var ProductCertificationModalController = function ($scope, $modalInstance, $$sdkCrud, product, user) {
+angular.module('jDashboardFluxApp').controller('ProductCertificationModalController', [
+    '$scope', '$modalInstance', '$$sdkCrud', 'product', 'user',
+    function ($scope, $modalInstance, $$sdkCrud, product, user) {
+    
     $scope.product = product;
     $scope.user = user;
+    
     $scope.ok = function () {
         if (!$scope.user.email) {
             return;
@@ -24,4 +30,4 @@ var ProductCertificationModalController = function ($scope, $modalInstance, $$sd
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
     };
-};
+}]);

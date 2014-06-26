@@ -1,7 +1,12 @@
+'use_strict';
+
 /**
  * Modal that allows the user to accept the responsability for a given product.
  */
-var ProductAcceptationModalController = function ($scope, $modalInstance, $$sdkCrud, product, user) {
+angular.module('jDashboardFluxApp').controller('ProductAcceptationModalController', [
+    '$scope', '$modalInstance', '$$sdkCrud', 'product', 'user',
+    function ($scope, $modalInstance, $$sdkCrud, product, user) {
+
     $scope.product = product;
     $scope.user = user;
     $scope.ok = function () {
@@ -23,4 +28,4 @@ var ProductAcceptationModalController = function ($scope, $modalInstance, $$sdkC
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
     };
-};
+}]);

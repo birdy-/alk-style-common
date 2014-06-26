@@ -1,5 +1,6 @@
 'use_strict';
 
+
 angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreviewCtrl', [
     '$scope', '$$sdkCrud', '$routeParams', '$$autocomplete', '$modal', '$location', 'permission',
     function ($scope, $$sdkCrud, $routeParams, $$autocomplete, $modal, $location, permission) {
@@ -18,11 +19,12 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreview
             alert('Erreur pendant la mise à jour du produit.');
         });
     };
+    
 
     $scope.certify = function () {
         var modalInstance = $modal.open({
             templateUrl: '/src/maker/product/certify/certification.html',
-            controller: ProductCertificationModalController,
+            controller: 'ProductCertificationModalController',
             resolve: {
                 $$sdkCrud: function () {return $$sdkCrud; },
                 product: function () {return $scope.product; },
@@ -39,7 +41,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreview
     $scope.accept = function () {
         var modalInstance = $modal.open({
             templateUrl: '/src/maker/product/certify/acceptation.html',
-            controller: ProductAcceptationModalController,
+            controller: 'ProductAcceptationModalController',
             resolve: {
                 $$sdkCrud: function () {return $$sdkCrud; },
                 product: function () {return $scope.product; },
