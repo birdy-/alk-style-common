@@ -3,7 +3,8 @@
 /**
  * Modal that allows the user to register on the mailing list
  */
-var MailingListModalController = function ($scope, $modalInstance, $http) {
+var MailingListModalController = ['$scope', '$modalInstance', '$http',
+                                 function ($scope, $modalInstance, $http) {
 
     $scope.mailingListRecord = {
         origin: 0,   // Website Corporate Alkemics
@@ -34,4 +35,4 @@ var MailingListModalController = function ($scope, $modalInstance, $http) {
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
     };
-};
+}];
