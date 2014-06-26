@@ -8,6 +8,10 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreview
     $scope.completeness = 0;
     $scope.$watch('product', function() {
         $scope.completeness = computeScore($scope.product, $scope.productForm);
+
+        if (!$scope.product.isAccepted()) {
+            $scope.accept();
+        };
     }, true);
 
     $scope.submit = function() {
@@ -19,7 +23,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreview
             alert('Erreur pendant la mise à jour du produit.');
         });
     };
-    
+
 
     $scope.certify = function () {
         var modalInstance = $modal.open({

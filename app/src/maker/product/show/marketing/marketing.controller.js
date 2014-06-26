@@ -36,6 +36,18 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMarketi
     // Event handling
     // ------------------------------------------------------------------------
     $scope.suggestName = function() {
+        var modalInstance = $modal.open({
+            templateUrl: '/src/maker/product/show/marketing/suggestname.html',
+            controller: 'ProductMarketingNameSuggestModalController',
+            resolve: {
+                $$sdkCrud: function () {return $$sdkCrud; },
+                product: function () {return $scope.product; }
+            }
+        });
+
+        modalInstance.result.then(function (selectedItem) {
+        }, function () {
+        });
     };
 }]);
 
