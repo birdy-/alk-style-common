@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('jDashboardFluxApp', [
+var app = angular.module('jDashboardFluxApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
@@ -16,8 +16,23 @@ angular.module('jDashboardFluxApp', [
   'infinite-scroll'
 ]);
 
+app.factory('jquery', [
+'$window',
+function($window) {
+  return $window.jQuery;
+}
+]);
+
+app.factory('plupload', [
+'$window',
+function($window) {
+  return $window.plupload;
+}
+]);
+
+
 var env = (window.location.hostname.indexOf('localhost') === 0) ? 'dev' : 'prod';
-//env = 'prod';
+env = 'prod';
 if (env == "prod") {
     angular.module('jDashboardFluxApp').constant('API_URL', 'https://api.alkemics.com');
     angular.module('jDashboardFluxApp').constant('URL_SERVICE_AUTH', 'https://auth.alkemics.com');
@@ -161,6 +176,11 @@ angular.module('jDashboardFluxApp').config(function ($routeProvider) {
         isPublic: true
     });
 
+    $routeProvider.when('/media', {
+        templateUrl: 'src/common/upload/media2.html',
+        controller: 'mediaController',
+        isPublic: true
+    });
 
     // ------------------------------------------------------------------------------------------
     // Home views

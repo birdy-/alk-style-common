@@ -4,7 +4,8 @@
 /**
  * Modal that allows the user to register on the mailing list
  */
-var SupportModalController = function ($scope, $modalInstance, $http, $location, user) {
+var SupportModalController = ['$scope', '$modalInstance', '$http', '$location', 'user',
+                            function ($scope, $modalInstance, $http, $location, user) {
 
     $scope.supportRequest = {
         message: null,
@@ -49,7 +50,7 @@ var SupportModalController = function ($scope, $modalInstance, $http, $location,
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
     };
-};
+}];
 
 
 

@@ -55,15 +55,15 @@ namespace :alk do
     desc 'Upload Application'
     task :upload_app do
         on roles(:all), in: :parallel do
-            
+            info "Uploading tar archive"
+            upload!("../app.tar.gz", "#{deploy_to}/app.tar.gz")            
+
             execute "mkdir -p #{deploy_to}/backup"
             execute "rm -Rf #{deploy_to}/backup/*"
             execute "mkdir -p #{deploy_to}/current"
             execute "mv #{deploy_to}/current #{deploy_to}/backup/"
             execute "mkdir -p #{deploy_to}/current"
-
-            info "Uploading tar archive"
-            upload!("../app.tar.gz", "#{deploy_to}/app.tar.gz")            
+            
         end
     end
 
