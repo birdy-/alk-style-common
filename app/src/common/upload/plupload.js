@@ -3,8 +3,8 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').directive('alkPlUpload', [
-    '$log', "jquery", "plupload", 'permission',
-    function ($log, $, plupload, permission) {
+    '$log', "jquery", "plupload", 'permission', 'URL_SERVICE_MEDIA',
+    function ($log, $, plupload, permission, URL_SERVICE_MEDIA) {
         return {
             scope: {
                 uploadedFiles: '=',
@@ -24,7 +24,7 @@ angular.module('jDashboardFluxApp').directive('alkPlUpload', [
                 $('#' + iAttrs.id + ' .browse-button').attr("id", iAttrs.id + "-browse-button");
                 $('#' + iAttrs.id + ' .drop-target').attr("id", iAttrs.id + "-drop-target");
 
-                var uploadUrl = 'http://localhost.alkemics.com:6551/media/v1/product/' + productId + '/picture/' + pictureType + '/upload';
+                var uploadUrl = URL_SERVICE_MEDIA + '/media/v1/product/' + productId + '/picture/' + pictureType + '/upload';
 
                 var specifiedMultiSelection = typeof scope.multiSelection !== "undefined";
                 var options = {
@@ -96,6 +96,7 @@ angular.module('jDashboardFluxApp').directive('alkPlUpload', [
 
                 uploader.init();
 
+                // DIRTY
                 var showImagePreview = function(file) {
  
                     var item = $( "<li></li>" );
