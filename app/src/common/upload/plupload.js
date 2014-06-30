@@ -10,21 +10,25 @@ angular.module('jDashboardFluxApp').directive('alkPlUpload', [
                 uploadedFiles: '=',
                 message: '=',
                 total: '=',
-                productId: '@',
+                entity: '@',                
+                entityId: '@',
+                mediaType: '@',
                 multiSelection: '='
             },
             link: function (scope, iElement, iAttrs) {
 
-                var productId = iAttrs.productId;
-                var pictureType = iAttrs.pictureType;
-                $log.debug('Uploader configured for productId/pictureType:' + productId + '/' + pictureType);                
+                var entity = scope.entity;
+                var entityId = scope.entityId;
+                var mediaType = scope.mediaType;
                 
+                $log.debug('Uploader configured for entity / id / type: ' + entity + ' / ' + entityId + ' / ' + mediaType);                
+                                
                 scope.uploadError = null;                
 
                 $('#' + iAttrs.id + ' .browse-button').attr("id", iAttrs.id + "-browse-button");
                 $('#' + iAttrs.id + ' .drop-target').attr("id", iAttrs.id + "-drop-target");
 
-                var uploadUrl = URL_SERVICE_MEDIA + '/media/v1/product/' + productId + '/picture/' + pictureType + '/upload';
+                var uploadUrl = URL_SERVICE_MEDIA + '/media/v1/' + entity + '/' + entityId + '/picture/' + mediaType + '/upload';
 
                 var specifiedMultiSelection = typeof scope.multiSelection !== "undefined";
                 var options = {

@@ -53,8 +53,9 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaCt
     function($scope, $modal, $log) {
         
         // upload new pictures        
-        $scope.uploadNewPictures = function(pictureType) {
-            $scope.pictureType = pictureType;
+        $scope.uploadNewPictures = function(mediaType, multiSelection) {
+            $scope.mediaType = mediaType;
+            $scope.multiSelection = multiSelection;
             // display pop-up
             var uploadModal = $modal.open({
                 templateUrl: 'src/maker/product/show/media/upload-picture.html',
