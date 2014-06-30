@@ -16,6 +16,9 @@ var app = angular.module('jDashboardFluxApp', [
   'infinite-scroll'
 ]);
 
+// Update on each deploy
+app.constant('version', '0.2');
+
 app.factory('jquery', [
 '$window',
 function($window) {
