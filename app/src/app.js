@@ -37,17 +37,25 @@ function($window) {
 var env = (window.location.hostname.indexOf('localhost') === 0) ? 'dev' : 'prod';
 // env = 'prod';
 if (env == "prod") {
-    angular.module('jDashboardFluxApp').constant('API_URL', 'https://api.alkemics.com');
-    angular.module('jDashboardFluxApp').constant('URL_SERVICE_AUTH', 'https://auth.alkemics.com');
+    app.constant('API_URL', 'https://api.alkemics.com');
+    app.constant('URL_SERVICE_AUTH', 'https://auth.alkemics.com');
     angular.module('jDashboardFluxApp').constant('URL_SERVICE_MEDIA', 'https://service-media.alkemics.com');
+    // app.constant('URL_SERVICE_MEDIA', 'http://localhost.alkemics.com:6551');
+
+    // app.config(function($logProvider){
+    //     $logProvider.debugEnabled(true);
+    // });
     
 } else if (env == "dev") {
-    angular.module('jDashboardFluxApp').constant('API_URL', '//localhost.alkemics.com:6543');
-    angular.module('jDashboardFluxApp').constant('URL_SERVICE_AUTH', 'http://localhost.alkemics.com:6545');
-    angular.module('jDashboardFluxApp').constant('URL_SERVICE_MEDIA', 'http://localhost.alkemics.com:6551');
+    app.constant('API_URL', '//localhost.alkemics.com:6543');
+    app.constant('URL_SERVICE_AUTH', 'http://localhost.alkemics.com:6545');
+    app.constant('URL_SERVICE_MEDIA', 'http://localhost.alkemics.com:6551');
+    app.config(function($logProvider){
+        $logProvider.debugEnabled(true);
+    });
 }
 
-angular.module('jDashboardFluxApp').config(function ($routeProvider) {
+app.config(function ($routeProvider) {
 
     // ------------------------------------------------------------------------------------------
     // Maker views
