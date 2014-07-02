@@ -13,10 +13,10 @@ angular.module('jDashboardFluxApp').directive('entityImage', [
             scope.class = attrs.class;
             scope.$watch('entity', function(){
                 if (scope.entity._type == 'Shop') {
-                    scope.url = 'https://smedia.alkemics.com/api/1/shop/'+scope.entity.id+'/picture/logo/original.png';
+                    scope.url = 'https://smedia.alkemics.com/shop/'+scope.entity.id+'/picture/logo/original.png';
                 }
                 if (scope.entity._type == 'Brand') {
-                    scope.url = 'https://smedia.alkemics.com/api/1/brand/'+scope.entity.id+'/picture/logo/original.png';
+                    scope.url = 'https://smedia.alkemics.com/brand/'+scope.entity.id+'/picture/logo/original.png';
                 }
             }, true);
         }

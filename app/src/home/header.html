@@ -2,15 +2,27 @@
     <div class="container">
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/#/">Accueil</a></li>
+                <li class="active"><a href="/#/maker/product">Accueil</a></li>
                 <!--<li><a href="/#/company/customers">Clients</a></li>-->
                 <li><a href="mailto:contact@alkemics.com">Contact</a></li>
                 <li><a target="_blank" href="https://twitter.com/alkemicscom"><i class="fa fa-twitter"></i></a></li>
                 <li><a target="_blank" href="https://www.linkedin.com/company/j-r-me"><i class="fa fa-linkedin"></i></a></li>
                 <!--<li><a target="_blank" href="https://www.facebook.com/Alkemics"><i class="fa fa-facebook"></i></a></li>-->
             </ul>
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right" ng-show="!user">
                 <li><a href="/#/login">Me connecter</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" ng-show="user">
+                <li>
+                    <a href="/#/profile">
+                        <img gravatar-src="user.username" gravatar-size="20" height="20" width="20"/>
+                    </a>
+                </li>
+                <li>
+                    <a ng-click="logout()" href="/#/logout">
+                        <i class="fa fa-power-off"></i>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>

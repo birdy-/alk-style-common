@@ -6,7 +6,7 @@
 
 role :srv1, %w{deploy_sdk@alk-cdn-1.cloudapp.net}
 role :srv2, %w{deploy_sdk@alk-cdn-1.cloudapp.net:61868}
-
+set :deploy_to, '/var/www/pprd.stream.alkemics.com'
 
 # Extended Server Syntax
 # ======================

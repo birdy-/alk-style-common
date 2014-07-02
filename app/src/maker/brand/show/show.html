@@ -116,9 +116,9 @@
                 <br/>
                 <br/>
                 <div>
-                    <img ng-src="{{ brand.picture.logo }}" style="width: 100%; padding-bottom: 20px;"/>
+                    <img ng-src="https://smedia.alkemics.com/brand/{{ brand.id }}/picture/logo/original.png" style="width: 100%; padding-bottom: 20px;"/>
                 </div>
-                <div class="well">
+                <div class="well" ng-click="uploadNewPictures('logo', false)" style="cursor:pointer;">
                     <i class="fa fa-picture-o" name="logo"></i> Déposer ici votre logo
                 </div>
             </div>
