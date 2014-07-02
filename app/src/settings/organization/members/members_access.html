@@ -1,0 +1,82 @@
+<div ng-include="'/src/maker/home/header.html'"></div>
+<div class="container-fluid">
+    <div class="col-md-2 color-settings sidebar">
+        <div ng-include="'/src/settings/side-bar.html'"></div>
+    </div>
+    <div class="col-md-10 col-md-offset-2">
+        <div class="row">
+            <section class="col-lg-12">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1>
+                            {{ organization.name }}                            
+                        </h1>
+                    </div>
+                    </br>
+                </div>
+                
+            </section>
+            <section class="col-lg-12">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h2>
+                            Mes Utilisateurs
+                            <!-- <small>La liste des utilisateurs de mon organisation</small> -->
+                        </h2>
+                    </div>
+                    </br>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4">                    
+                        <label>Filtrer par Nom d'utilisateur</label>
+                        <input ng-model="userNameFilter" data-placeholder="Un nom d'utilisateur" style="width: 100%;"></input>
+                    </div>                                        
+                    <div class="col-lg-4">
+                        <label>Filtrer par Marque Commerciale</label>
+                        <input ng-model="brandNameFilter" data-placeholder="Ma marque commerciale..."  style="width: 100%;"></input>
+                    </div>                                            
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <table class="table table-condensed table-bordered">
+                            <thead class="color-action">
+                                <tr>
+                                    <th>Nom utilisateur</th>
+                                    <th>Marques</th>                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="member in members | filter:userNameFilter">
+                                    <td>
+                                        <a>
+                                            {{ member.firstname }}
+                                            {{ member.lastname }}
+                                        </a>                                        
+                                    </td>
+                                    <td style="line-height: 20px;">
+                                        <span ng-repeat="brand in member.managesBrand | filter:brandNameFilter" style="margin: 2px; float:left;">                                            
+                                            <span class="label color-stream-inverse" style="cursor: pointer;">
+                                                {{ brand.name }}&nbsp;
+                                                <i ng-click="deleteBrandFromManagedBrands(member, brand)" class="fa fa-times"></i>
+                                            </span>
+                                        </span>
+                                        <span ng-click="member.edit = true" style="cursor: pointer; float:left;">
+                                            <i class="fa fa-plus"></i>
+                                            <span ng-show="!member.edit">Ajouter une marque</span>
+                                        </span>
+                                        <span ng-show="member.edit">
+                                            <div style="width: 150px;" ng-model="member.newBrand" data-placeholder="Ajouter une marque" ui-select2="brandsOptions" ng-change="addBrandToManagedBrands(member)"></div>
+                                        </span>                                        
+                                    </td>                                    
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>            
+        </div>        
+    </div>
+</div>
