@@ -176,12 +176,29 @@ angular.module('jDashboardFluxApp').config(function ($routeProvider) {
         isPublic: true
     });
 
-    $routeProvider.when('/media', {
-        templateUrl: 'src/common/upload/media2.html',
-        controller: 'mediaController',
-        isPublic: true
+    // ------------------------------------------------------------------------------------------
+    // Settings views
+    // ------------------------------------------------------------------------------------------
+    
+    $routeProvider.when('/settings', {
+        redirectTo: '/settings/profile'
     });
-
+    $routeProvider.when('/settings/profile', {
+        templateUrl: 'src/settings/index.html',
+        controller: 'SettingsCtrl'
+    });
+    $routeProvider.when('/settings/organization/:id/access', {
+        templateUrl: 'src/settings/organization/members/members_access.html',
+        controller: 'SettingsOrganizationMembersAccessCtrl'
+    });
+    $routeProvider.when('/settings/organization/:id/members', {
+        templateUrl: 'src/settings/organization/members/members.html',
+        controller: 'SettingsOrganizationMembersCtrl'
+    });
+    $routeProvider.when('/settings/organization/:id/members/new', {
+        templateUrl: 'src/settings/organization/members/new.html',
+        controller: 'SettingsOrganizationMembersNewCtrl'
+    });
     // ------------------------------------------------------------------------------------------
     // Home views
     // ------------------------------------------------------------------------------------------
