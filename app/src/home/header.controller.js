@@ -62,18 +62,18 @@ angular.module('jDashboardFluxApp').controller('HeaderCtrl', [
     // Variables
     // ------------------------------------------------------------------------
     $scope.logged = false;
-    $scope.user = {};
+    $scope.user = null;
     $scope.brand = {};
 
     // ------------------------------------------------------------------------
     // Event handling
     // ------------------------------------------------------------------------
     $scope.logout = function() {
-        $window.sessionStorage.token = null;
-        $location.path('/');
+        permission.logout();            
         $scope.logged = false;
-        $scope.user = {};
+        $scope.user = null;
         $scope.brand = {};
+        $location.path('/');
     };
 
     // ------------------------------------------------------------------------

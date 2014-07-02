@@ -1,0 +1,44 @@
+<form ng-submit="done()">
+    <div ng-show="!newPictures.length" class="modal-header">
+        <h3>Ajouter des photos</h3>
+    </div>
+
+    <div ng-show="newPictures.length" class="modal-header">
+        <h3>Photos ajoutées ({{ newPictures.length }} / {{ total }})</h3>
+        <h4 ng-show="newPictures.length < total">Transfert en cours...</h4>
+    </div>
+
+    <div class="modal-body">
+        <div ng-show="newPictures.length">
+            <ul id="uploaded-pictures" >
+            </ul>
+        </div>
+
+        <div alk-pl-upload id="ad-upload" uploaded-files="uploadedFiles" ng-show="!newPictures.length" media-type="{{ mediaType }}" entity-id="{{ productId }}" entity="product" multi-selection="multiSelection" message="message" total="total">
+
+            <button  class="browse-button" >
+                Choisir les fichiers
+            </button>
+
+            <div class="drop-target" style="position: relative; z-index: 0;">
+                {{ message }}
+            </div>
+
+            <div class="upload-debug">
+                Le Glisser/Déposer n'est pas supporté par votre navigateur
+            </div>
+
+            <div class="alert alert-danger" ng-if="uploadError">
+                {{ uploadError }}
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="mics-btn mics-btn-finish" ng-show="newPictures.length">
+                Ok
+            </button>
+            <a ng-click="cancel()" ng-show="!newPictures.length">
+                Retour
+            </a>
+        </div>
+    </div>  
+</form>

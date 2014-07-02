@@ -9,8 +9,8 @@
  * the rest of the application.
  */
 angular.module('jDashboardFluxApp').service('permission', [
-    "URL_SERVICE_AUTH", "$http", "$rootScope", "authService", "$window",
-    function init(URL_SERVICE_AUTH, $http, $rootScope, authService, $window) {
+    "URL_SERVICE_AUTH", "$http", "$rootScope", "authService", "$window", "$log",
+    function init(URL_SERVICE_AUTH, $http, $rootScope, authService, $window, $log) {
 
     /**
      * Returns whether the access to an entity of a given type and id is
@@ -60,6 +60,11 @@ angular.module('jDashboardFluxApp').service('permission', [
         return userPromise;
     };
 
+
+    /**
+     * Requests Authentication Token from authentication server
+     * Post user-provided credentials
+     */
     var login = function(login, password) {
         return $http.post(URL_SERVICE_AUTH + '/auth/v1/token', {
             username: login,
@@ -72,13 +77,27 @@ angular.module('jDashboardFluxApp').service('permission', [
             delete $window.sessionStorage.token;
         });
     };
+
+    /**
+     * Logs out the user from authenticated session
+     *
+     */
     var logout = function() {
+        $log.debug('User clicked Logout');
         user = null;
         userPromise = null;
         delete $window.sessionStorage.token;
-        $rootScope.$broadcast('event:auth-loginRequired');
+        $log.debug('Logged out, authentication token erased');
+        
+        // do not want to display login form when user 
+        // manually logs out.
+        //$rootScope.$broadcast('event:auth-loginRequired');        
     };
     var isLoggedIn = function() { };
+
+    var getAccessToken = function () {
+        return $window.sessionStorage.token;
+    };
 
 
     return {
@@ -87,5 +106,6 @@ angular.module('jDashboardFluxApp').service('permission', [
         login: login,
         logout: logout,
         isLoggedIn: isLoggedIn,
+        getAccessToken: getAccessToken
     };
 }]);
