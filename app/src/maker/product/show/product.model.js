@@ -8,6 +8,8 @@ var Constant = function(id, name, description){
 
 
 var Product = function(){
+    this.isPartitionedBy = [];
+    this.isInstantiatedBy = [];
     this.fromJson = function(json) {
         for (var key in json) {
             this[key] = json[key];

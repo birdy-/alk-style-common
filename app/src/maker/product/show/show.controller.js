@@ -8,10 +8,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
     // Variables
     // ------------------------------------------------------------------------
     $scope.user = {};
-    $scope.product = {
-        id: $routeParams.id,
-        isPartitionedBy: []
-    };
+    $scope.product = null;
     $scope.select2brandOptions = $$autocomplete.getOptionAutocompletes(null, {
         data:[], multiple:false, maximumSelectionSize:1, minimumInputLength:0
     });
@@ -74,5 +71,5 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
         angular.extend($scope.select2brandOptions.data, user.managesBrand);
     });
 
-    load($scope.product.id);
+    load($routeParams.id);
 }]);
