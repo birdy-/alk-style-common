@@ -24,7 +24,7 @@ angular.module('jDashboardFluxApp').controller('LoginController', [
             $scope.message = response.message || response.error_description;
         })
         .success(function(response){
-            $location.path('/maker/product');
+            $location.path('/maker/brand/all/product');
         });
     };
 
