@@ -15,30 +15,20 @@
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <a href="/#/settings/profile">
+                        <span style="margin-right: 5px;"> {{ user.username }} </span>
                         <img gravatar-src="user.username" gravatar-size="20" height="20" width="20"/>
-
-                        <span style="margin: 5px;"> {{ user.username }} </span>                        
-                    </a>                    
+                    </a>
                 </li>
-                <li class="dropdown" style="height: 50px;" on-toggle="toggled(open)">
-                    <a class="dropdown-toggle" href>
-                        <i class="fa fa-2x fa-cog "></i>
-                    </a>                                            
-                    <ul class="dropdown-menu" role="menu">
-                        <li>
-                            <a href="/#/settings">
-                                <i class="fa fa-wrench"></i>
-                                Param&egrave;tres
-                            </a>
-                        </li>
-                        <li>
-                            <a ng-click="logout()" href="/#/logout">
-                                <i class="fa fa-power-off"></i>
-                                D&eacute;connexion
-                            </a>
-                        </li>
-                    </ul>
-                </li>                
+                <li>
+                    <a href="/#/settings">
+                        <i class="fa fa-cogs"></i>
+                    </a>
+                </li>
+                <li>
+                    <a ng-click="logout()" href="/#/logout">
+                        <i class="fa fa-power-off"></i>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>

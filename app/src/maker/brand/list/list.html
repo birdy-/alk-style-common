@@ -16,12 +16,21 @@
                     <tr>
                         <td>Logo</td>
                         <td>Nom</td>
+                        <td></td>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="brand in brands">
                         <td><img class="brand-logo" ng-src="{{ brand.picture.logo }}"/></td>
                         <td><a href="/#/maker/brand/{{ brand.id }}">{{ brand.name }}</a></td>
+                        <td>
+                            <a class="btn btn-warning" href="/#/maker/brand/{{ brand.id }}">
+                                <i class="fa fa-edit"></i> Éditer
+                            </a>
+                            <a class="btn btn-success" href="/#/maker/brand/{{ brand.id }}/product">
+                                <i class="fa fa-barcode"></i> Produits
+                            </a>
+                        </td>
                     </tr>
                 </tbody>
             </table>
