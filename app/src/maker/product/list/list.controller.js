@@ -9,8 +9,8 @@
  * @return {[type]}               [description]
  */
 angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', [
-    '$scope', '$$sdkCrud', 'permission', '$$autocomplete',
-    function ($scope, $$sdkCrud, permission, $$autocomplete) {
+    '$scope', '$$sdkCrud', 'permission', '$$autocomplete', '$routeParams', '$brandRepository', '$log',
+    function ($scope, $$sdkCrud, permission, $$autocomplete, $routeParams, $brandRepository, $log) {
 
     // ------------------------------------------------------------------------
     // Variables
@@ -33,6 +33,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', 
         stop: false,
         busy: false,
     };
+    $scope.brandHierarchy = [];
     // $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_DEFAULT.id] = true;
     $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_ACCEPTED.id] = true;
     $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_CERTIFIED.id] = true;
@@ -40,25 +41,26 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', 
     // Setup autocompletes
     $scope.select2brandOptions = $$autocomplete.getOptionAutocompletes(null, {data:[], multiple: false, maximumSelectionSize: 1, minimumInputLength: 0});
 
+
     // ------------------------------------------------------------------------
     // Event handling
     // ------------------------------------------------------------------------
 
     var list = function() {
         if ($scope.scroll.stop) {
-            console.warn("List Products : end reached.");
+            $log.warn("List Products : end reached.");
             return;
         }
         if ($scope.scroll.busy) {
-            console.warn("List Products : busy.");
+            $log.warn("List Products : busy.");
             return;
         }
         var brand = $scope.request.product.isBrandedBy;
         if (!brand || !brand.id) {
-            console.warn("List Products : no Brand set.");
+            $log.warn("List Products : no Brand set.");
             return;
         }
-        console.log("List Products : chunk [" + $scope.scroll.offset + "-" + ($scope.scroll.offset + $scope.scroll.limit) + "]" );
+        $log.log("List Products : chunk [" + $scope.scroll.offset + "-" + ($scope.scroll.offset + $scope.scroll.limit) + "]" );
         $scope.scroll.busy = true;
 
         // Remap parameters
@@ -73,14 +75,19 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', 
         }
         $scope.request.product.certified = certifieds.join(',');
 
-        $$sdkCrud.ProductList({
-                namelegal: $scope.request.product.nameLegal,
-            }, {
-                isbrandedas_id: brand.id,
-                isidentifiedby_reference: $scope.request.product.isIdentifiedBy.reference,
-                certified: $scope.request.product.certified
-            },
-            {},
+        var filters = {};
+        var queries = {};
+        if ($scope.request.product.isIdentifiedBy.reference) {
+            filters.isidentifiedby_reference = $scope.request.product.isIdentifiedBy.reference;
+        } else if ($scope.request.product.nameLegal) {
+            queries.namelegal = $scope.request.product.nameLegal;
+            filters.certified = $scope.request.product.certified;
+        } else {
+            filters.isbrandedas_id = brand.id;
+            filters.certified = $scope.request.product.certified;
+        }
+
+        $$sdkCrud.ProductList(queries, filters, {},
             $scope.scroll.offset,
             $scope.scroll.limit
         ).success(function(response){
@@ -103,13 +110,14 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', 
         list();
     }
     var refresh = function() {
+        $log.log('Refresh Products');
         $scope.scroll.offset = 0;
         $scope.scroll.stop = false;
         $scope.products = [];
         list();
     };
 
-    $scope.$watch('request.product.isBrandedBy', refresh);
+    // $scope.$watch('request.product.isBrandedBy', refresh);
     $scope.$watch('request.product.isIdentifiedBy.reference', refresh);
     $scope.$watch('request.product.nameLegal', refresh);
     $scope.$watch('request.product.certifieds', refresh, true);
@@ -118,23 +126,42 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', 
     // Init
     // ------------------------------------------------------------------------
     permission.getUser().then(function(user){
-        // Load brand details
-        $scope.request.product.isBrandedBy = user.managesBrand[0];
-        $$sdkCrud.BrandShow($scope.request.product.isBrandedBy.id, function(response){
-            $scope.request.product.isBrandedBy = response.data;
-            $scope.request.product.isBrandedBy.text = response.data.name;
-        });
-
         // Load all available brands
         user.managesBrand.forEach(function(brand){
-            $$sdkCrud.BrandShow(brand.id).success(function(response){
-                brand.name = response.data.name;
-                brand.text = response.data.name;
+            $brandRepository.get(brand.id, function(brandCache){
+                brandCache.text = brandCache.name;
             });
         });
         angular.extend($scope.select2brandOptions.data, user.managesBrand);
 
+        // Load brand
+        var brandId = $routeParams.id ? parseInt($routeParams.id) : null;
+        if (brandId) {
+            if (permission.isAllowed('Brand', brandId)) {
+                $scope.request.product.isBrandedBy = $brandRepository.lazy(brandId);
+            } else {
+                alert('You are not allowed to view Brand');
+                return;
+            }
+        }
+        if (!$scope.request.product.isBrandedBy) {
+            $scope.request.product.isBrandedBy = user.managesBrand[0];
+        }
+
         // Load products
         list();
     });
+
+    $scope.$watch('request.product.isBrandedBy', function() {
+        $log.log('[Request watcher] Brand modified');
+        refresh();
+        var brand = $scope.request.product.isBrandedBy;
+        var brandHierarchy = [];
+        while (brand && permission.isAllowed('Brand', brand.id)) {
+            brandHierarchy.push(brand);
+            brand = brand.isSubBrandOf;
+        }
+        brandHierarchy.reverse();
+        $scope.brandHierarchy = brandHierarchy;
+    }, true);
 }]);
