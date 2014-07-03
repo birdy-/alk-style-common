@@ -33,7 +33,10 @@ angular.module('jDashboardFluxApp').service('$brandRepository', [
             id = parseInt(id);
             // Return if cached
             if (typeof(_cache[id]) !== 'undefined') {
-                return callback(_cache[id]);
+                if (callback) {
+                    return callback(_cache[id]);
+                }
+                return _cache[id];
             }
             return $$sdkCrud.BrandShow(id).success(function (response) {
                 // Check if not lazilly instantiated somewhere.
@@ -53,6 +56,7 @@ angular.module('jDashboardFluxApp').service('$brandRepository', [
                 if (callback) {
                     callback(brand);
                 }
+                return brand;
             });
         };
 
