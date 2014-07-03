@@ -17,7 +17,7 @@ angular.module('jDashboardFluxApp').controller('LoginController', [
      * Function called when user validates credentials
      *
      */
-    $scope.submit = function() {        
+    $scope.submit = function() {
 
         permission.login($scope.login, $scope.password)
         .error(function(response, status, headers, config){
