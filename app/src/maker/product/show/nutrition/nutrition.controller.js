@@ -172,14 +172,20 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowNutriti
             legend.pnqs[psq.id] = pnq;
         }
     };
-    $$sdkCrud.ProductStandardQuantityList({}, {'partitions_id': $scope.product.id}).success(function(response){
-        var psq;
-        for (var i = 0; i < response.data.length; i++) {
-            psq = new ProductStandardQuantity().fromJson(response.data[i]);
-            attachProductNutritionalQuantityToProductStandardQuantity(psq);
-            $scope.psqs[psq.id] = psq;
+    $scope.$watch('product', function(){
+        if (!$scope.product
+        || !$scope.product.id) {
+            return;
         }
-    });
+        $$sdkCrud.ProductStandardQuantityList({}, {'partitions_id': $scope.product.id}).success(function(response){
+            var psq;
+            for (var i = 0; i < response.data.length; i++) {
+                psq = new ProductStandardQuantity().fromJson(response.data[i]);
+                attachProductNutritionalQuantityToProductStandardQuantity(psq);
+                $scope.psqs[psq.id] = psq;
+            }
+        });
+    }, true);
 }]);
 
 

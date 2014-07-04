@@ -7,7 +7,8 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreview
 
     $scope.completeness = 0;
     $scope.$watch('product', function() {
-        if (!$scope.product) {
+        if (!$scope.product
+        || !$scope.product.id) {
             return;
         }
         $scope.completeness = computeScore($scope.product, $scope.productForm);

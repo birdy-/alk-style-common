@@ -1,14 +1,14 @@
 'use_strict';
 
 angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', [
-    '$scope', '$$sdkCrud', '$routeParams', '$$autocomplete', 'permission',
-    function ($scope, $$sdkCrud, $routeParams, $$autocomplete, permission) {
+    '$scope', '$$sdkCrud', '$routeParams', '$$autocomplete', 'permission', '$brandRepository',
+    function ($scope, $$sdkCrud, $routeParams, $$autocomplete, permission, $brandRepository) {
 
     // ------------------------------------------------------------------------
     // Variables
     // ------------------------------------------------------------------------
     $scope.user = {};
-    $scope.product = null;
+    $scope.product = {};
     $scope.select2brandOptions = $$autocomplete.getOptionAutocompletes(null, {
         data:[], multiple:false, maximumSelectionSize:1, minimumInputLength:0
     });
@@ -63,10 +63,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
     permission.getUser().then(function(user){
         $scope.user = user;
         user.managesBrand.forEach(function(brand){
-            $$sdkCrud.BrandShow(brand.id).success(function(response){
-                brand.name = response.data.name;
-                brand.text = response.data.name;
-            });
+            $brandRepository.get(brand.id);
         });
         angular.extend($scope.select2brandOptions.data, user.managesBrand);
     });

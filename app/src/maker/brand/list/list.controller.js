@@ -14,10 +14,10 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerBrandListCtrl', [
 
     $scope.brands = [];
     permission.getUser().then(function (user) {
-    	user.managesBrand.forEach(function(brand){
-    		$brandRepository.get(brand.id, function(brand){
-    			$scope.brands.push(brand);
-    		});
+        user.managesBrand.forEach(function(brand){
+            $brandRepository.get(brand.id, function(brand){
+                $scope.brands.push(brand);
+            });
         });
     });
 
