@@ -12,6 +12,11 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
     $scope.select2brandOptions = $$autocomplete.getOptionAutocompletes(null, {
         data:[], multiple:false, maximumSelectionSize:1, minimumInputLength:0
     });
+    $scope.productForm = {};
+    $scope.formInit = function(form) {
+        form.$loading = true;
+        form.$saving = false;
+    };
 
     // ------------------------------------------------------------------------
     // Event binding
@@ -43,7 +48,9 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
     // Init
     // ------------------------------------------------------------------------
     var load = function(id) {
+        $scope.productForm.$loading = true;
         $$sdkCrud.ProductShow(id, true, function(response){
+            $scope.productForm.$loading = false;
             var product = new Product().fromJson(response.data);
             product.isMeasuredBy.text = product.isMeasuredBy.name;
             product.isBrandedBy.text = product.isBrandedBy.name;
@@ -60,6 +67,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
             });
         });
     };
+    $scope.load = load;
     permission.getUser().then(function(user){
         $scope.user = user;
         user.managesBrand.forEach(function(brand){
@@ -68,5 +76,5 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
         angular.extend($scope.select2brandOptions.data, user.managesBrand);
     });
 
-    load($routeParams.id);
+    $scope.load($routeParams.id);
 }]);

@@ -26,8 +26,10 @@
                 <!--<div nav-product link="version" legend="Versions"></div>-->
             </ul>
             <form class="form-horizontal" role="form" name="productForm" novalidate>
-                <div ng-transclude="">
-                    <!-- The view content will appear here -->
+                <div ng-init="formInit(productForm)">
+                    <div ng-transclude="">
+                        <!-- The view content will appear here -->
+                    </div>
                 </div>
             </form>
         </div>

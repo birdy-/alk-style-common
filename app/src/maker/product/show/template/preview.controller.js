@@ -19,10 +19,13 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreview
     }, true);
 
     $scope.submit = function() {
+        $scope.productForm.$saving = true;
         $$sdkCrud.ProductUpdate(
             $scope.product, null
         ).success(function(response) {
-            load($scope.product.id);
+            $scope.productForm.$saving = false;
+            $scope.load($scope.product.id);
+            $scope.productForm.$setPristine();
         }).error(function(response) {
             alert('Erreur pendant la mise à jour du produit.');
         });
