@@ -83,7 +83,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', 
             queries.namelegal = $scope.request.product.nameLegal;
             filters.certified = $scope.request.product.certified;
         } else {
-            filters.isbrandedas_id = brand.id;
+            filters.isbrandedby_id = brand.id;
             filters.certified = $scope.request.product.certified;
         }
 
