@@ -17,6 +17,10 @@ angular.module('jDashboardFluxApp').controller('ProductMarketingNameSuggestModal
         alert("Erreur pendant la récupération du produit : "+response.data.data.message);
     });
 
+    $scope.active = function(productInShop) {
+        return [1, 2, 7, 10, 65, 66, 67].indexOf(productInShop.isSoldBy.id) !== -1;
+    };
+
     $scope.ok = function () {
         $modalInstance.close($scope.product);
     };

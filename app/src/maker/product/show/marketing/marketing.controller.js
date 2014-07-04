@@ -49,6 +49,20 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMarketi
         }, function () {
         });
     };
+    $scope.suggestSynonym = function() {
+        var modalInstance = $modal.open({
+            templateUrl: '/src/maker/product/show/marketing/suggestsynonym.html',
+            controller: 'ProductMarketingSynonymSuggestModalController',
+            resolve: {
+                $$sdkCrud: function () {return $$sdkCrud; },
+                product: function () {return $scope.product; }
+            }
+        });
+
+        modalInstance.result.then(function (selectedItem) {
+        }, function () {
+        });
+    };
 }]);
 
 
