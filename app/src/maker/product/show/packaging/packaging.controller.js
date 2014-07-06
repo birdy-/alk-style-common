@@ -116,19 +116,26 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPackagi
             });
         }
         // Load the isDerivedFrom relation
-        if ($scope.product.isDerivedFrom) {
-            $$sdkCrud.ProductShow(product.id).success(function(response){
-                angular.extend($scope.product.isDerivedFrom, response.data);
-                $scope.product.isDerivedFrom.text = response.data.nameLegal;
+        if ($scope.product.isDerivedFrom
+        && $scope.product.isDerivedFrom.id) {
+            $scope.product.isDerivable = true;
+            $$sdkCrud.ProductShow($scope.product.isDerivedFrom.target.id).success(function(response){
+                angular.extend($scope.product.isDerivedFrom.target, response.data);
+                $scope.product.isDerivedFrom.target.text = response.data.nameLegal;
             });
         }
-        // Update autocompletes
 
+        // Update autocompletes
         if ($scope.product.isBrandedBy) {
             $scope.select2productOptions = $$autocomplete.getOptionAutocompletes('product', {maximumSelectionSize: 1, multiple: false}, {
                 filter_isbrandedby_id: $scope.product.isBrandedBy.id,
                 filter_certified: '1,2,3',
             });
+        }
+
+        if($scope.product.factorFUPA > 1
+        || $scope.product.unitFridge) {
+            $scope.product.isSplitable = true;
         }
     }, true);
 }]);

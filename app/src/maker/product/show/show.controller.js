@@ -52,9 +52,12 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
         withs = {};
         if ($location.path().indexOf('label') !== -1) {
             withs.label = true;
-        }
-        if ($location.path().indexOf('packaging') !== -1) {
+        } else if ($location.path().indexOf('packaging') !== -1) {
             withs.isMadeOf = true;
+            withs.isDerivedFrom = true;
+        } else if ($location.path().indexOf('merchandising') !== -1) {
+            withs.isSubstitutableWith = true;
+            withs.isComplementaryWith = true;
         }
         $$sdkCrud.ProductShow(id, withs, function(response){
             $scope.productForm.$loading = false;
