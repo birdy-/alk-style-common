@@ -39,8 +39,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', 
     $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_CERTIFIED.id] = true;
 
     // Setup autocompletes
-    $scope.select2brandOptions = $$autocomplete.getOptionAutocompletes(null, {data:[], multiple: false, maximumSelectionSize: 1, minimumInputLength: 0});
-
+    $scope.select2brandOptions = $$autocomplete.getOptionAutocompletes(null, {data:[], multiple: false, maximumSelectionSize: 1, minimumInputLength: 0, allowClear: true});
 
     // ------------------------------------------------------------------------
     // Event handling
