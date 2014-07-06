@@ -94,7 +94,7 @@ var ProductHasLabel = function() {
 
 var ProductIsMadeOfProduct = function() {
     this.id = null;
-    this.item = {};
+    this.item = null;
     this.fromJson = function(json) {
         for (var key in json) {
             this[key] = json[key];

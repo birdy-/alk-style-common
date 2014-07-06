@@ -103,10 +103,9 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPackagi
         if ($scope.product.isMadeOf) {
             $scope.product.isMadeOf.forEach(function(isMadeOf){
                 var product = isMadeOf.item;
-                if (product.text) {
-                    return;
-                }
-                if (!product.id) {
+                if (!product
+                || !product.id
+                || product.text) {
                     return;
                 }
                 $$sdkCrud.ProductShow(product.id).success(function(response){
@@ -127,7 +126,10 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPackagi
 
         // Update autocompletes
         if ($scope.product.isBrandedBy) {
-            $scope.select2productOptions = $$autocomplete.getOptionAutocompletes('product', {maximumSelectionSize: 1, multiple: false}, {
+            $scope.select2productOptions = $$autocomplete.getOptionAutocompletes('product', {
+                maximumSelectionSize: 1, multiple: false,
+                initSelection: function(el, fn) {}
+            }, {
                 filter_isbrandedby_id: $scope.product.isBrandedBy.id,
                 filter_certified: '1,2,3',
             });
