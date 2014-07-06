@@ -47,6 +47,7 @@ angular.module('jDashboardFluxApp').service('$brandRepository', [
                     brand = new Brand();
                 }
                 brand.fromJson(response.data);
+                brand.text = brand.name;
                 if (brand.isSubBrandOf) {
                     brand.isSubBrandOf = lazy(brand.isSubBrandOf.id);
                 }
