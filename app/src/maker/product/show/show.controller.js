@@ -1,8 +1,8 @@
 'use_strict';
 
 angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', [
-    '$scope', '$$sdkCrud', '$routeParams', '$$autocomplete', 'permission', '$brandRepository',
-    function ($scope, $$sdkCrud, $routeParams, $$autocomplete, permission, $brandRepository) {
+    '$scope', '$$sdkCrud', '$routeParams', '$$autocomplete', 'permission', '$brandRepository', '$location',
+    function ($scope, $$sdkCrud, $routeParams, $$autocomplete, permission, $brandRepository, $location) {
 
     // ------------------------------------------------------------------------
     // Variables
@@ -49,7 +49,14 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
     // ------------------------------------------------------------------------
     var load = function(id) {
         $scope.productForm.$loading = true;
-        $$sdkCrud.ProductShow(id, true, function(response){
+        withs = {};
+        if ($location.path().indexOf('label') !== -1) {
+            withs.label = true;
+        }
+        if ($location.path().indexOf('packaging') !== -1) {
+            withs.isMadeOf = true;
+        }
+        $$sdkCrud.ProductShow(id, withs, function(response){
             $scope.productForm.$loading = false;
             var product = new Product().fromJson(response.data);
             product.isMeasuredBy.text = product.isMeasuredBy.name;
