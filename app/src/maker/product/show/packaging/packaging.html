@@ -149,7 +149,7 @@
     <div class="col-sm-4">
         <input ng-model="product.isMeasuredBy" name="isMeasuredBy" type="text" ui-select2="select2commonunitOptions" style="width: 100%" data-placeholder="ex : g"/>
     </div>
-    <div input-block-help field="productForm.quantityNormalized" class="col-sm-offset-4 col-sm-10">
+    <div input-block-help field="productForm.quantityNormalized" class="col-sm-offset-4 col-sm-8">
         <strong id="art23">Quantité nette :</strong>
         La quantité nette d'une denrée alimentaire est exprimée, en utilisant, selon le cas, le litre, le centilitre, le millilitre ou bien le kilogramme ou le gramme:
         <ul>
@@ -157,13 +157,13 @@
             <li>en unités de masse pour les autres produits. </li>
         </ul>
     </div>
-    <div input-block-help field="productForm.quantityNormalized" class="col-sm-offset-4 col-sm-10">
+    <div input-block-help field="productForm.quantityNormalized" class="col-sm-offset-4 col-sm-8">
         The amount of the trade item contained by a package, usually as claimed on the label. For  example, Water 750ml net content = "750 ML" ; 20 count pack of diapers, net content = "20 PC.". In case of multi-pack, indicates the net content of the total trade item. For fixed
         alue trade items use the value claimed on the package, to avoid variable fill rate issue that  arises with some trade item which are sold by volume or weight, and whose actual content  may  vary  slightly  from  batch  to  batch.  In  case  of  variable  quantity trade items, indicates the average quantity.
         <br/>
         Doit  correspondre à la quantité nette telle que déclarée sur l'emballage de la denrée alimentaire. La quantité nette doit être échangée dans une des unités de mesure suivante :le litre, le centilitre, le millilitre, le kilogramme, le gramme. Le contenu net de certaines denrées alimentaires (ex : œufs) peut également être exprimé en pièce, code GS1 : PC.
     </div>
-    <div input-block-help field="productForm.quantityNormalized" class="col-sm-offset-4 col-sm-10">
+    <div input-block-help field="productForm.quantityNormalized" class="col-sm-offset-4 col-sm-8">
         Correspond dans la GDSN a la balise <code>netContent</code>.
     </div>
 </div>
@@ -191,7 +191,7 @@
         <span ng-show="productForm.drainedWeight.$error.float" class="help-block">Cette quantité  doit être un nombre décimal.</span>
         <span ng-show="productForm.drainedWeight.$error.min" class="help-block">Cette quantité doit être plus grande que 0.</span>
     </div>
-    <label class="col-sm-4 control-label">
+    <label class="col-sm-4 control-label text-left">
         g
         <!--
         <input type="text" ng-model="product.isMeasuredBy" type="text" select ui-select2="select2commonunitOptions" style="width: 100%" placeholder="ex : g"/>
@@ -238,13 +238,16 @@
         </div>
     </div>
     <div class="form-group has-feedback" ng-class="check('isDerivedFrom')" ng-show="product.isDerivable">
-        <label for="typePromotional" class="col-sm-4 control-label">lequel :</label>
+        <label for="isDerivedFrom" class="col-sm-4 control-label">lequel :</label>
         <div class="col-sm-8">
             <input ng-model="product.isDerivedFrom" type="text" ui-select2="select2productOptions" style="width: 100%;"/>
         </div>
     </div>
 </fieldset>
 
+<br/>
+<br/>
+<br/>
 
 </div>
 </div>
