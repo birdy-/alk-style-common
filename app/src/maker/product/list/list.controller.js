@@ -120,37 +120,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', 
     $scope.$watch('request.product.isIdentifiedBy.reference', refresh);
     $scope.$watch('request.product.nameLegal', refresh);
     $scope.$watch('request.product.certifieds', refresh, true);
-
-    // ------------------------------------------------------------------------
-    // Init
-    // ------------------------------------------------------------------------
-    permission.getUser().then(function(user){
-        // Load all available brands
-        user.managesBrand.forEach(function(brand){
-            $brandRepository.get(brand.id, function(brandCache){
-                brandCache.text = brandCache.name;
-            });
-        });
-        angular.extend($scope.select2brandOptions.data, user.managesBrand);
-
-        // Load brand
-        var brandId = $routeParams.id ? parseInt($routeParams.id) : null;
-        if (brandId) {
-            if (permission.isAllowed('Brand', brandId)) {
-                $scope.request.product.isBrandedBy = $brandRepository.lazy(brandId);
-            } else {
-                alert('You are not allowed to view Brand');
-                return;
-            }
-        }
-        if (!$scope.request.product.isBrandedBy) {
-            $scope.request.product.isBrandedBy = user.managesBrand[0];
-        }
-
-        // Load products
-        list();
-    });
-
     $scope.$watch('request.product.isBrandedBy', function() {
         $log.log('[Request watcher] Brand modified');
         refresh();
@@ -163,4 +132,49 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', 
         brandHierarchy.reverse();
         $scope.brandHierarchy = brandHierarchy;
     }, true);
+
+    // ------------------------------------------------------------------------
+    // Init
+    // ------------------------------------------------------------------------
+    var init = function() {
+        $scope.scroll.busy = true;
+        permission.getUser().then(function(user){
+            // Load all available brands
+            user.managesBrand.forEach(function(brand){
+                $brandRepository.get(brand.id, function(brandCache){
+                    brandCache.text = brandCache.name;
+                });
+            });
+            angular.extend($scope.select2brandOptions.data, user.managesBrand);
+            $scope.scroll.busy = false;
+
+            // Load by reference
+            var reference = $routeParams.reference;
+            if (reference) {
+                $log.log('[Init] Initializing screen with isIdentifiedBy = ' + reference);
+                $scope.request.product.isIdentifiedBy.reference = reference;
+                list();
+                return;
+            }
+
+            // Load brand
+            var brandId = $routeParams.id ? parseInt($routeParams.id) : null;
+            if (brandId) {
+                $log.log('[Init] Initializing screen with isBrandedBy = ' + brandId);
+                if (permission.isAllowed('Brand', brandId)) {
+                    $scope.request.product.isBrandedBy = $brandRepository.lazy(brandId);
+                } else {
+                    alert('You are not allowed to view Brand');
+                    return;
+                }
+            }
+            if (!$scope.request.product.isBrandedBy) {
+                $scope.request.product.isBrandedBy = user.managesBrand[0];
+            }
+            list();
+            return;
+        });
+    };
+
+    init();
 }]);
