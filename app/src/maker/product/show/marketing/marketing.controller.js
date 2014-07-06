@@ -107,15 +107,6 @@ var inferProduct = function(product, productForm) {
             product.hasGlucose = true;
         }
     }
-    if (product.isPack === false && isEmpty(product.factorPA)) {
-        product.factorPA = 1;
-    }
-    if (product.factorPA > 1) {
-        product.isSplitable = true;
-    }
-    if (product.factorFUPA > 1) {
-        product.isSplitable = true;
-    }
     if (product.amountStarch !== null) {
         product.hasStarch = true;
     }
