@@ -1,20 +1,22 @@
 'use_strict';
 
 angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', [
-    '$scope', '$$sdkCrud', '$routeParams', '$$autocomplete', 'permission',
-    function ($scope, $$sdkCrud, $routeParams, $$autocomplete, permission) {
+    '$scope', '$$sdkCrud', '$routeParams', '$$autocomplete', 'permission', '$brandRepository', '$location',
+    function ($scope, $$sdkCrud, $routeParams, $$autocomplete, permission, $brandRepository, $location) {
 
     // ------------------------------------------------------------------------
     // Variables
     // ------------------------------------------------------------------------
     $scope.user = {};
-    $scope.product = {
-        id: $routeParams.id,
-        isPartitionedBy: []
-    };
+    $scope.product = {};
     $scope.select2brandOptions = $$autocomplete.getOptionAutocompletes(null, {
         data:[], multiple:false, maximumSelectionSize:1, minimumInputLength:0
     });
+    $scope.productForm = {};
+    $scope.formInit = function(form) {
+        form.$loading = true;
+        form.$saving = false;
+    };
 
     // ------------------------------------------------------------------------
     // Event binding
@@ -46,7 +48,19 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
     // Init
     // ------------------------------------------------------------------------
     var load = function(id) {
-        $$sdkCrud.ProductShow(id, true, function(response){
+        $scope.productForm.$loading = true;
+        withs = {};
+        if ($location.path().indexOf('label') !== -1) {
+            withs.label = true;
+        } else if ($location.path().indexOf('packaging') !== -1) {
+            withs.isMadeOf = true;
+            withs.isDerivedFrom = true;
+        } else if ($location.path().indexOf('merchandising') !== -1) {
+            withs.isSubstitutableWith = true;
+            withs.isComplementaryWith = true;
+        }
+        $$sdkCrud.ProductShow(id, withs, function(response){
+            $scope.productForm.$loading = false;
             var product = new Product().fromJson(response.data);
             product.isMeasuredBy.text = product.isMeasuredBy.name;
             product.isBrandedBy.text = product.isBrandedBy.name;
@@ -63,16 +77,14 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
             });
         });
     };
+    $scope.load = load;
     permission.getUser().then(function(user){
         $scope.user = user;
         user.managesBrand.forEach(function(brand){
-            $$sdkCrud.BrandShow(brand.id).success(function(response){
-                brand.name = response.data.name;
-                brand.text = response.data.name;
-            });
+            $brandRepository.get(brand.id);
         });
         angular.extend($scope.select2brandOptions.data, user.managesBrand);
     });
 
-    load($scope.product.id);
+    $scope.load($routeParams.id);
 }]);

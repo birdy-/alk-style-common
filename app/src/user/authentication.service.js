@@ -9,8 +9,8 @@
  * the rest of the application.
  */
 angular.module('jDashboardFluxApp').service('permission', [
-    "URL_SERVICE_AUTH", "$http", "$rootScope", "authService", "$window", "$log",
-    function init(URL_SERVICE_AUTH, $http, $rootScope, authService, $window, $log) {
+    "URL_SERVICE_AUTH", "$http", "$rootScope", "authService", "$window", "$log", "$brandRepository",
+    function init(URL_SERVICE_AUTH, $http, $rootScope, authService, $window, $log, $brandRepository) {
 
     /**
      * Returns whether the access to an entity of a given type and id is
@@ -23,16 +23,16 @@ angular.module('jDashboardFluxApp').service('permission', [
     var isAllowed = function(type, id) {
         var considers = [];
         if (type == 'Shop') {
-            considers = this.managesShop;
+            considers = user.managesShop;
         } else if (type == 'Brand') {
-            considers = this.managesBrand;
+            considers = user.managesBrand;
         } else if (type == 'Website') {
-            considers = this.managesWebsite;
+            considers = user.managesWebsite;
         } else {
             throw 'Unknown type : '+type;
         }
         for (var i = 0; i < considers.length; i++) {
-            if (considers[i].id === id) {
+            if (considers[i].id == id) {
                 return true;
             }
         }
@@ -54,6 +54,13 @@ angular.module('jDashboardFluxApp').service('permission', [
                 // Attach methods
                 user.isAllowed = isAllowed;
                 $rootScope.$broadcast('event:auth-loginConfirmed');
+
+
+                var managesBrand = [];
+                user.managesBrand.forEach(function(brand){
+                    managesBrand.push($brandRepository.lazy(brand.id));
+                });
+                user.managesBrand = managesBrand;
                 return user;
             });
         }
@@ -88,24 +95,22 @@ angular.module('jDashboardFluxApp').service('permission', [
         userPromise = null;
         delete $window.sessionStorage.token;
         $log.debug('Logged out, authentication token erased');
-        
-        // do not want to display login form when user 
+
+        // do not want to display login form when user
         // manually logs out.
-        //$rootScope.$broadcast('event:auth-loginRequired');        
+        //$rootScope.$broadcast('event:auth-loginRequired');
     };
-    var isLoggedIn = function() { };
 
     var getAccessToken = function () {
         return $window.sessionStorage.token;
     };
-
 
     return {
         user: user,
         getUser: getUser,
         login: login,
         logout: logout,
-        isLoggedIn: isLoggedIn,
+        isAllowed: isAllowed,
         getAccessToken: getAccessToken
     };
 }]);

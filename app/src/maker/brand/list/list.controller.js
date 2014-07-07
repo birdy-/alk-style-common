@@ -5,20 +5,18 @@
  *
  * @param  {[type]} $scope       [description]
  * @param  {[type]} $$sdkCrud    [description]
- * @param  {[type]} $routeParams [description]
  * @param  {[type]} permission)  [description]
  * @return {[type]}              [description]
  */
 angular.module('jDashboardFluxApp').controller('DashboardMakerBrandListCtrl', [
-    '$scope', '$$sdkCrud', '$routeParams', 'permission',
-    function ($scope, $$sdkCrud, $routeParams, permission) {
+    '$scope', '$brandRepository', 'permission',
+    function ($scope, $brandRepository, permission) {
 
     $scope.brands = [];
     permission.getUser().then(function (user) {
-        $scope.brands = user.managesBrand;
-        $scope.brands.forEach(function(brand){
-            $$sdkCrud.BrandShow(brand.id, function(response){
-                angular.copy(response.data, brand);
+        user.managesBrand.forEach(function(brand){
+            $brandRepository.get(brand.id, function(brand){
+                $scope.brands.push(brand);
             });
         });
     });

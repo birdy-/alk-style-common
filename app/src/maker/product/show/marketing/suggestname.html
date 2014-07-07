@@ -9,7 +9,10 @@
     </h3>
 </div>
 <div class="modal-body">
-    <table class="table">
+    <div class="text-center" ng-if="productInShops.length == 0">
+        <i class="fa fa-warning"></i> Aucun produit trouvé chez les distributeurs
+    </div>
+    <table class="table" ng-if="productInShops.length > 0">
         <thead>
             <tr>
                 <td>Distributeur</td>
@@ -17,7 +20,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="productInShop in productInShops">
+            <tr ng-repeat="productInShop in productInShops | filter:active">
                 <td class="text-center"><img entity-image entity="productInShop.isSoldBy" class="brand-logo"/></td>
                 <td>{{ productInShop.name }}</td>
             </tr>

@@ -1,27 +1,27 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').controller('SettingsOrganizationMembersNewCtrl', [
-    '$scope', '$location', '$brandCache', '$$sdkAuth', '$routeParams', 'permission', '$log', '$$autocomplete',
-    function ($scope, $location, $brandCache, $$sdkAuth, $routeParams, permission, $log, $$autocomplete) {
+    '$scope', '$location', '$brandRepository', '$$sdkAuth', '$routeParams', 'permission', '$log', '$$autocomplete',
+    function ($scope, $location, $brandRepository, $$sdkAuth, $routeParams, permission, $log, $$autocomplete) {
 
     $log.debug('Controller - SettingsCtrl');
-    
+
     $scope.user = {};
     $scope.member = {};
     $scope.memberForm;
 
-    var organizationId = $routeParams.id;    
+    var organizationId = $routeParams.id;
 
     // Load the organization
     // @authorization - need admin rights
     $$sdkAuth.OrganizationShow(organizationId).success(function (data) {
         $log.debug('OrganizationShow Ok - : ' + organizationId);
         $scope.organization = data.data;
-    });    
+    });
 
     // Load the current user
     permission.getUser().then(function (user) {
-        $scope.user = user;            
+        $scope.user = user;
         $log.info('User Loaded');
     });
 

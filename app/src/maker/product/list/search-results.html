@@ -10,9 +10,20 @@
         text-align: center;
         margin-bottom: 10px;
     }
+    .breadcrumb {
+        margin-bottom: 0px;
+    }
 </style>
 
 <div class="sheet container-fluid">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a class="active">Mes marques</a></li>
+            <li ng-repeat="brand in brandHierarchy">
+                <a ng-href="/#/maker/brand/{{ brand.id }}/product">{{ brand.name }}</a>
+            </li>
+        </ol>
+    </div>
     <div class="row" infinite-scroll="more()">
         <div ng-repeat="product in products" class="col-sm-2 product">
             <div class="picture missing-picture">
@@ -20,7 +31,7 @@
                 </div>
             </div>
             <div class="name">
-                <a href="/#/maker/product/{{ product.id }}">
+                <a ng-href="/#/maker/product/{{ product.id }}/marketing">
                     {{ product.nameLegal }}
                 </a>
             </div>
@@ -49,6 +60,23 @@
             </div>
         </div>
         -->
+    </div>
+    <div class="row" ng-if="scroll.busy">
+        <div class="col-sm-12 text-center">
+            <br/>
+            <br/>
+            <br/>
+            <i class="fa fa-spinner fa-spin fa-4x"></i>
+        </div>
+    </div>
+    <div class="row" ng-if="!scroll.busy && products.length == 0">
+        <div class="col-sm-12 text-center">
+            <br/>
+            <br/>
+            <br/>
+            <h3>Aucun produit trouvé.</h3>
+            <small>Vos filtres sont peut-être trop spécifiques, ou vous n'êtes pas autorisé à accéder au produit demandé.</small>
+        </div>
     </div>
 </div>
 

@@ -7,6 +7,10 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreview
 
     $scope.completeness = 0;
     $scope.$watch('product', function() {
+        if (!$scope.product
+        || !$scope.product.id) {
+            return;
+        }
         $scope.completeness = computeScore($scope.product, $scope.productForm);
 
         if (!$scope.product.isAccepted()) {
@@ -15,10 +19,13 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreview
     }, true);
 
     $scope.submit = function() {
+        $scope.productForm.$saving = true;
         $$sdkCrud.ProductUpdate(
             $scope.product, null
         ).success(function(response) {
-            load($scope.product.id);
+            $scope.productForm.$saving = false;
+            $scope.load($scope.product.id);
+            $scope.productForm.$setPristine();
         }).error(function(response) {
             alert('Erreur pendant la mise à jour du produit.');
         });
@@ -56,7 +63,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreview
         modalInstance.result.then(function (selectedItem) {
             $scope.selected = selectedItem;
         }, function () {
-            $location.path('/maker/product');
+            $location.path('/maker/brand/'+$scope.product.isBrandedBy.id+'/product');
         });
     };
 }]);

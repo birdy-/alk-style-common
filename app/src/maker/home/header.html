@@ -1,7 +1,7 @@
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller="HeaderCtrl" >
     <div class="container-fluid">
         <div class="navbar-header col-md-2 text-center">
-            <a class="text-center" href="/#/maker/product">
+            <a class="text-center" href="/#/maker/brand/all/product">
                 <img class="logo" src="/images/logo-inverse.png"/>
             </a>
         </div>
@@ -9,36 +9,26 @@
             <ul class="nav navbar-nav">
                 <!--<li><a href="/#/maker/notifications">Mes notifications</a></li>-->
                 <li><a href="/#/maker/brand">Mes marques</a></li>
-                <li><a href="/#/maker/product">Mes produits</a></li>
+                <li><a href="/#/maker/brand/all/product">Mes produits</a></li>
                 <li><a ng-click="subscribe()" >Contacter le Support</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <a href="/#/settings/profile">
+                        <span style="margin-right: 5px;"> {{ user.username }} </span>
                         <img gravatar-src="user.username" gravatar-size="20" height="20" width="20"/>
-
-                        <span style="margin: 5px;"> {{ user.username }} </span>                        
-                    </a>                    
+                    </a>
                 </li>
-                <li class="dropdown" style="height: 50px;" on-toggle="toggled(open)">
-                    <a class="dropdown-toggle" href>
-                        <i class="fa fa-2x fa-cog "></i>
-                    </a>                                            
-                    <ul class="dropdown-menu" role="menu">
-                        <li>
-                            <a href="/#/settings">
-                                <i class="fa fa-wrench"></i>
-                                Param&egrave;tres
-                            </a>
-                        </li>
-                        <li>
-                            <a ng-click="logout()" href="/#/logout">
-                                <i class="fa fa-power-off"></i>
-                                D&eacute;connexion
-                            </a>
-                        </li>
-                    </ul>
-                </li>                
+                <li>
+                    <a href="/#/settings">
+                        <i class="fa fa-cogs"></i>
+                    </a>
+                </li>
+                <li>
+                    <a ng-click="logout()" href="/#/logout">
+                        <i class="fa fa-power-off"></i>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>

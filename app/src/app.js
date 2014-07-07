@@ -45,7 +45,7 @@ if (env == "prod") {
     // app.config(function($logProvider){
     //     $logProvider.debugEnabled(true);
     // });
-    
+
 } else if (env == "dev") {
     app.constant('API_URL', '//localhost.alkemics.com:6543');
     app.constant('URL_SERVICE_AUTH', 'http://localhost.alkemics.com:6545');
@@ -62,9 +62,14 @@ app.config(function ($routeProvider) {
     // ------------------------------------------------------------------------------------------
 
     // Product views
-    $routeProvider.when('/maker/product', {
+    $routeProvider.when('/maker/brand/all/product', {
         templateUrl: 'src/maker/product/list/index.html',
         controller: 'DashboardMakerProductListCtrl',
+    });
+    $routeProvider.when('/maker/brand/:id/product', {
+        templateUrl: 'src/maker/product/list/index.html',
+        controller: 'DashboardMakerProductListCtrl',
+        parameter: {id: 'integer'}
     });
     $routeProvider.when('/maker/product/:id', {
         templateUrl: 'src/maker/product/show/marketing/marketing.html',
@@ -193,7 +198,7 @@ app.config(function ($routeProvider) {
     // ------------------------------------------------------------------------------------------
     // Settings views
     // ------------------------------------------------------------------------------------------
-    
+
     $routeProvider.when('/settings', {
         redirectTo: '/settings/profile'
     });
