@@ -141,6 +141,7 @@
         <div input-rich input-rich-field="fields.serves" input-rich-form="productForm.serves">
             <input type="number" ng-model="product.serves" name="serves" class="form-control" rows="3" placeholder="" alk-focus/>
         </div>
+        <span ng-show="productForm.serves.$error.number" class="help-block">Cet élément doit être un chiffre.</span>
     </div>
     <label for="servesText" class="col-sm-4 control-label">ou Descriptif du nombre de parts</label>
     <div class="col-sm-3">
