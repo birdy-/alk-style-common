@@ -4,8 +4,8 @@
 /**
  * Modal that allows the user to register on the mailing list
  */
-var SupportModalController = ['$scope', '$modalInstance', '$http', '$location', 'user',
-                            function ($scope, $modalInstance, $http, $location, user) {
+var SupportModalController = ['$scope', '$modalInstance', '$$sdkAuth', '$location', 'user',
+                            function ($scope, $modalInstance, $$sdkAuth, $location, user) {
 
     $scope.supportRequest = {
         message: null,
@@ -13,9 +13,7 @@ var SupportModalController = ['$scope', '$modalInstance', '$http', '$location', 
         subject: null,
         origin: 1, // Dashboard Flux
         username: user.username,
-        email: user.username,
-        userId: user.id,
-        url: $location.protocol() + $location.host() + $location.path()
+        page_url: $location.protocol() + '://' + $location.host() + $location.path()
     };
 
     /*
@@ -23,29 +21,20 @@ var SupportModalController = ['$scope', '$modalInstance', '$http', '$location', 
      * Default is a POST to the endpoint
      * Fallback with a GET to have the email in the logs
      */
-    $scope.submit = function () {
+    $scope.submit = function (supportRequest) {
 
-        (new Image()).src = 'https://auth.alkemics.com/auth/v1/mailinglist/register?email=' + $scope.supportRequest.username + '&message=' + $scope.supportRequest.message;
-        var request = angular.copy($scope.supportRequest);
-        request.message = $scope.supportRequest.type + "<br/>"
-            + $scope.supportRequest.subject + "<br/>"
-            + $scope.supportRequest.message + "<br/>"
-            + $scope.supportRequest.url;
-
-        $http.post(
-            'https://auth.alkemics.com/auth/v1/mailinglist/register',
-            request
-        ).success(function (response) {
+        // Make a footprint in our logs #DIRTY
+        $$sdkAuth.SupportRequest(supportRequest).success(function (response) {
             $modalInstance.close();
         }).error(function (response) {
             $http.get(
-                'https://auth.alkemics.com/auth/v1/mailinglist/register',
+                'https://auth.alkemics.com/support/v1/requests',
                 {
                     params: request
                 }
             );
             $modalInstance.close();
-        });
+        });        
     };
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
