@@ -28,7 +28,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreview
             $scope.productForm.$setPristine();
         }).error(function(response) {
             var message = '.';
-            console.log(response);
             if (response && response.message) {
                 message = ' : ' + response.message;
             }
