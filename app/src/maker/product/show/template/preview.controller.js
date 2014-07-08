@@ -27,7 +27,11 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreview
             $scope.load($scope.product.id);
             $scope.productForm.$setPristine();
         }).error(function(response) {
-            alert('Erreur pendant la mise à jour du produit.');
+            var message = '.';
+            if (response && response.message) {
+                message = ' : ' + response.message;
+            }
+            alert('Erreur pendant la mise à jour du produit'+message);
         });
     };
 

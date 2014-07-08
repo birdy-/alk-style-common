@@ -30,7 +30,11 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerBrandShowCtrl', [
             $scope.brandForm.$saving = false;
             $scope.brandForm.$setPristine();
         }).error(function(response){
-            alert(response);
+            var message = '.';
+            if (response && response.message) {
+                message = ' : ' + response.message;
+            }
+            alert('Erreur pendant la mise à jour de la marque'+message);
         });
     };
 
@@ -67,7 +71,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerBrandShowCtrl', [
     };
     init();
 
-    // upload new pictures        
+    // upload new pictures
     $scope.uploadNewPictures = function(mediaType, multiSelection) {
 
         $scope.mediaType = mediaType;
@@ -103,18 +107,18 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerBrandShowMediaUplo
         $scope.total = null;
 
         // for the page
-        $scope.newPictures = [];        
+        $scope.newPictures = [];
 
         $scope.$watchCollection("uploadedFiles", function (newFiles) {
             while(newFiles.length) {
-                var file = newFiles.pop();                
+                var file = newFiles.pop();
                 $log.info("got new uploaded file, pushing as asset", file);
-                $scope.newPictures.push({});                                                
+                $scope.newPictures.push({});
                 // Make the picture visible
-                // Don't know how to do that cleanly without additional network 
+                // Don't know how to do that cleanly without additional network
                 file.file.appendTo($('#uploaded-pictures'));
             }
-        });        
+        });
 
         $scope.done = function() {
             // Add logic to select the packshot one

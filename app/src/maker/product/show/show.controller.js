@@ -44,6 +44,32 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
         return classes;
     };
 
+
+    $scope.$watch('product', function(){
+        // Prevents errors when clearing values
+        var nulls = [
+            'tempConsomation',
+            'ratioCacao',
+            'ratioAlcohol',
+            'ratioFat',
+            'levelPH',
+            'serves',
+            'factorSIFU',
+            'factorFUPA',
+            'quantityFree',
+            'quantityBase',
+            'quantityNormalized',
+            'drainedWeight',
+        ];
+        var value;
+        for (var i = 0; i < nulls.length; i++) {
+            value = nulls[i];
+            if ($scope.product[value] === "") {
+                $scope.product[value] = null;
+            }
+        }
+    }, true);
+
     // ------------------------------------------------------------------------
     // Init
     // ------------------------------------------------------------------------
@@ -51,7 +77,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
         $scope.productForm.$loading = true;
         withs = {};
         if ($location.path().indexOf('label') !== -1) {
-            withs.label = true;
+            withs.isLabeledBy = true;
         } else if ($location.path().indexOf('packaging') !== -1) {
             withs.isMadeOf = true;
             withs.isDerivedFrom = true;
