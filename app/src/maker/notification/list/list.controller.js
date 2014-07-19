@@ -27,7 +27,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerNotificationsCtrl'
     };
     var load = function (user) {
         $scope.brand = user.managesBrand[0];
-        $$sdkCrud.BrandShow($scope.brand.id, function(response){
+        $$sdkCrud.BrandShow($scope.brand.id).success(function(response){
             $scope.brand = response.data;
         });
         loadNotifications();
