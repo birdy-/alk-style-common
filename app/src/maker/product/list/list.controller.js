@@ -34,9 +34,10 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', 
         busy: false,
     };
     $scope.brandHierarchy = [];
-    // $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_DEFAULT.id] = true;
+    $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_ATTRIBUTED.id] = false;
     $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_ACCEPTED.id] = true;
     $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_CERTIFIED.id] = true;
+    $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_PUBLISHED.id] = true;
 
     // Setup autocompletes
     $scope.select2brandOptions = $$autocomplete.getOptionAutocompletes(null, {data:[], multiple: false, maximumSelectionSize: 1, minimumInputLength: 0, allowClear: true});
