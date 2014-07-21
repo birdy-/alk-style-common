@@ -12,8 +12,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreview
             return;
         }
         $scope.completeness = computeScore($scope.product, $scope.productForm);
-
-        if (!$scope.product.isAccepted()) {
+        if ($scope.product.certified == Product.CERTIFICATION_STATUS_ATTRIBUTED.id) {
             $scope.accept();
         };
     }, true);
