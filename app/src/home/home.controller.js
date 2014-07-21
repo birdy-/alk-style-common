@@ -5,6 +5,7 @@ angular.module('jDashboardFluxApp').controller('HomeCtrl', [
     function ($scope, permission, $location, $modal, $http, $window) {
         $scope.brands = [];
         $scope.user = null;
+        $scope.isHomePage = true;
 
         permission.getUser().then(function(user) {
             $scope.user = user;
@@ -22,7 +23,7 @@ angular.module('jDashboardFluxApp').controller('HomeCtrl', [
         var subscribe = function(){
             var modalInstance = $modal.open({
                 templateUrl: '/src/home/mailinglist.html',
-                controller: MailingListModalController,
+                controller: RegistrationContactModalController,
                 resolve: {
                     $http: function () {
                         return $http;
@@ -34,6 +35,6 @@ angular.module('jDashboardFluxApp').controller('HomeCtrl', [
             }, function () {
             });
         };
-        $scope.subscribe = subscribe;        
+        $scope.subscribe = subscribe;                
     }
 ]);

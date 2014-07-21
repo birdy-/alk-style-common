@@ -12,6 +12,9 @@
             <ul class="nav navbar-nav navbar-right" ng-show="!user">
                 <li><a href="/#/login">Me connecter</a></li>
             </ul>
+            <ul class="nav navbar-nav navbar-right" ng-show="isHomePage">
+                <li><a ng-click="subscribe()">M'inscrire</a></li>
+            </ul>
             <ul class="nav navbar-nav navbar-right" ng-show="user">
                 <li>
                     <a href="/#/profile">
