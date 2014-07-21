@@ -34,7 +34,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', 
         busy: false,
     };
     $scope.brandHierarchy = [];
-    $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_ATTRIBUTED.id] = false;
+    $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_ATTRIBUTED.id] = true;
     $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_ACCEPTED.id] = true;
     $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_CERTIFIED.id] = true;
     $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_PUBLISHED.id] = true;
