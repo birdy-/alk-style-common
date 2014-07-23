@@ -9,8 +9,8 @@
  * the rest of the application.
  */
 angular.module('jDashboardFluxApp').service('permission', [
-    "URL_SERVICE_AUTH", "$http", "$rootScope", "authService", "$window", "$log", "$brandRepository",
-    function init(URL_SERVICE_AUTH, $http, $rootScope, authService, $window, $log, $brandRepository) {
+    "URL_SERVICE_AUTH", "$http", "$rootScope", "authService", "$window", "$log", "$$BrandRepository",
+    function init(URL_SERVICE_AUTH, $http, $rootScope, authService, $window, $log, $$BrandRepository) {
 
     /**
      * Returns whether the access to an entity of a given type and id is
@@ -58,7 +58,9 @@ angular.module('jDashboardFluxApp').service('permission', [
 
                 var managesBrand = [];
                 user.managesBrand.forEach(function(brand){
-                    managesBrand.push($brandRepository.lazy(brand.id));
+                    var obj = $$BrandRepository.lazy(brand.id);
+                    obj.allowed = true;
+                    managesBrand.push(obj);
                 });
                 user.managesBrand = managesBrand;
                 return user;

@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').controller('SettingsOrganizationMembersAccessCtrl', [
-    '$scope', '$$sdkCrud', '$brandRepository', '$$sdkAuth', '$routeParams', 'permission', '$log', '$$autocomplete',
-    function ($scope, $$sdkCrud, $brandRepository, $$sdkAuth, $routeParams, permission, $log, $$autocomplete) {
+    '$scope', '$$sdkCrud', '$$BrandRepository', '$$sdkAuth', '$routeParams', 'permission', '$log', '$$autocomplete',
+    function ($scope, $$sdkCrud, $$BrandRepository, $$sdkAuth, $routeParams, permission, $log, $$autocomplete) {
 
     $log.debug('Controller - SettingsCtrl');
 
@@ -34,7 +34,7 @@ angular.module('jDashboardFluxApp').controller('SettingsOrganizationMembersAcces
 
             $scope.members.forEach(function (member) {
                 member.managesBrand.forEach(function (brand) {
-                    $brandRepository.get(brand.id, function (data) {
+                    $$BrandRepository.get(brand.id).then(function (data) {
                         angular.copy(data, brand);
                     });
                 });
@@ -54,7 +54,7 @@ angular.module('jDashboardFluxApp').controller('SettingsOrganizationMembersAcces
             $log.debug('Retrieved OrganizationBrands for Organization: ' + organizationId);
             var brands = data.data;
             brands.forEach(function (brand) {
-                $brandRepository.get(brand.id, function (data) {
+                $$BrandRepository.get(brand.id).then(function (data) {
                     angular.copy(data, brand);
                     brand.text = brand.name;
                     $scope.brands.push(brand);

@@ -1,12 +1,5 @@
 'use strict';
 
-var Constant = function(id, name, description){
-    this.id = id;
-    this.name = name;
-    this.description = description;
-};
-
-
 var Product = function(){
     // NB : it is very important not to set the vaues below to [] otherwise
     // it will overwrite the related entities by a []...

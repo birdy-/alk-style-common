@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').controller('SettingsOrganizationMembersCtrl', [
-    '$scope', '$$sdkCrud', '$brandRepository', '$$sdkAuth', '$routeParams', 'permission', '$log', '$$autocomplete',
-    function ($scope, $$sdkCrud, $brandRepository, $$sdkAuth, $routeParams, permission, $log, $$autocomplete) {
+    '$scope', '$$sdkCrud', '$$BrandRepository', '$$sdkAuth', '$routeParams', 'permission', '$log', '$$autocomplete',
+    function ($scope, $$sdkCrud, $$BrandRepository, $$sdkAuth, $routeParams, permission, $log, $$autocomplete) {
 
     $log.debug('Controller - SettingsCtrl');
 
