@@ -13,7 +13,8 @@ var app = angular.module('jDashboardFluxApp', [
   'angular-md5',
   'sdk-dashboard',
   'ui.gravatar',
-  'infinite-scroll'
+  'infinite-scroll',
+  'ui.tree'
 ]);
 
 // Update on each deploy

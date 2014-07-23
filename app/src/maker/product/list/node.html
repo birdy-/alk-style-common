@@ -1,0 +1,14 @@
+<div>
+    <span data-nodrag ng-click="toggle(this)">
+        <i class="fa" ng-class="{'fa-file-o': !brand._subBrands.length}"></i>
+        <i class="fa" ng-class="{'fa-folder': collapsed, 'fa-folder-open': !collapsed}" ng-if="brand._subBrands.length"></i>
+    </span>
+    <label class="checkbox-inline">
+        <input type="checkbox" ng-model="brand.active" ng-change="refreshBrand(brand)"/>
+        {{ brand.name }}
+    </label>
+</div>
+<ol ui-tree-nodes="options" ng-model="brand._subBrands" ng-class="{hidden: collapsed}">
+    <li ng-repeat="brand in brand._subBrands" ui-tree-node ng-include="'/src/maker/product/list/node.html'">
+    </li>
+</ol>

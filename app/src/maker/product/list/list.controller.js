@@ -33,14 +33,15 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', 
         stop: false,
         busy: false,
     };
-    $scope.brandHierarchy = [];
+    $scope.allBrands = [];
+    $scope.brands = [];
     $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_ATTRIBUTED.id] = true;
     $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_ACCEPTED.id] = true;
     $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_CERTIFIED.id] = true;
     $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_PUBLISHED.id] = true;
-
-    // Setup autocompletes
-    $scope.select2brandOptions = $$autocomplete.getOptionAutocompletes(null, {data:[], multiple: false, maximumSelectionSize: 1, minimumInputLength: 0, allowClear: true});
+    $scope.options = {
+        'data-drag-enabled': false,
+    };
 
     // ------------------------------------------------------------------------
     // Event handling
@@ -105,14 +106,22 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', 
     };
 
     var findByBrand = function() {
-        var brand = $scope.request.product.isBrandedBy;
-        if (!brand || !brand.id) {
-            $log.warn("[findByBrand] no Brand set.");
-            return;
+        var brands = [];
+        for (var i = 0; i < $scope.allBrands.length; i++) {
+            if ($scope.allBrands[i].active === true) {
+                brands.push($scope.allBrands[i].id);
+            }
         }
-        $log.log("[findByBrand] "+brand.id);
+        $log.warn($scope.allBrands);
+        if (brands.length == 0) {
+            $log.warn("[findByBrand] no Brand set.");
+            return
+        }
+        brands = brands.join(',');
+
+        $log.log("[findByBrand] "+brands);
         var filters = {
-            isbrandedby_id: brand.id,
+            isbrandedby_id: brands,
             certified: $scope.request.product.certified
         };
         return find({}, filters);
@@ -167,23 +176,24 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', 
         $scope.products = [];
         list();
     };
+    var propagate = function(brand, value) {
+        if (!brand._subBrands) {
+            return;
+        }
+        for (var i = 0; i < brand._subBrands.length; i++) {
+            brand._subBrands[i].active = value;
+            propagate(brand._subBrands[i], value);
+        }
+    };
+
+    $scope.refreshBrand = function(brand){
+        propagate(brand, brand.active);
+        refresh();
+    };
 
     $scope.$watch('request.product.isIdentifiedBy.reference', refresh);
     $scope.$watch('request.product.nameLegal', refresh);
     $scope.$watch('request.product.certifieds', refresh, true);
-    $scope.$watch('request.product.isBrandedBy', function() {
-        $log.log('[Request watcher] Brand modified');
-        $scope.request.product.isIdentifiedBy.reference = null;
-        refresh();
-        var brand = $scope.request.product.isBrandedBy;
-        var brandHierarchy = [];
-        while (brand && permission.isAllowed('Brand', brand.id)) {
-            brandHierarchy.push(brand);
-            brand = brand.isSubBrandOf;
-        }
-        brandHierarchy.reverse();
-        $scope.brandHierarchy = brandHierarchy;
-    }, true);
 
     // ------------------------------------------------------------------------
     // Init
@@ -193,11 +203,23 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', 
         permission.getUser().then(function(user){
             // Load all available brands
             user.managesBrand.forEach(function(brand){
-                    brandCache.text = brandCache.name;
                 $$BrandRepository.get(brand.id).then(function(brand) {
+                    brand.root = true;
+                    if (typeof(brand.isSubBrandOf._subBrands) === 'undefined') {
+                        brand.isSubBrandOf._subBrands = [];
+                    }
+                    if (brand.isSubBrandOf._subBrands.indexOf(brand) !== -1) {
+                        return;
+                    }
+                    brand.isSubBrandOf._subBrands.push(brand);
+                    if (brand.isSubBrandOf.allowed) {
+                        brand.root = false;
+                    } else {
+                        $scope.brands.push(brand);
+                    }
                 });
             });
-            angular.extend($scope.select2brandOptions.data, user.managesBrand);
+            $scope.allBrands = user.managesBrand;
             $scope.scroll.busy = false;
 
             // Load by reference
@@ -211,17 +233,18 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', 
 
             // Load brand
             var brandId = $routeParams.id ? parseInt($routeParams.id) : null;
+            var active = false;
             if (brandId) {
                 $log.log('[Init] Initializing screen with isBrandedBy = ' + brandId);
                 if (permission.isAllowed('Brand', brandId)) {
-                    $scope.request.product.isBrandedBy = $brandRepository.lazy(brandId);
+                    $$BrandRepository.lazy(brandId).active = true;
                 } else {
                     alert('You are not allowed to view Brand');
                     return;
                 }
             }
-            if (!$scope.request.product.isBrandedBy) {
-                $scope.request.product.isBrandedBy = user.managesBrand[0];
+            if (!active) {
+                user.managesBrand[0].active = true;
             }
             list();
             return;
