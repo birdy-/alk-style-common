@@ -30,6 +30,11 @@
             <div class="packaging">
                 {{ product.packaging }}
             </div>
+            <div class="reference text-center">
+                <span class="badge" ng-repeat="reference in product.isIdentifiedBy | limitTo:1" >
+                    {{ reference.reference }}
+                </span>
+            </div>
             <div class="product-icons">
                 <span class="label label-success" ng-show="product.isCertified()">
                     <i class="fa fa-check"></i> Certifié

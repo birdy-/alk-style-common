@@ -147,6 +147,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', 
     var find = function(queries, filters) {
         $log.log("[Find] chunk [" + $scope.scroll.offset + "-" + ($scope.scroll.offset + $scope.scroll.limit) + "]" );
         $scope.scroll.busy = true;
+        filters.with_isidentifiedby = 1;
         $$sdkCrud.ProductList(queries, filters, {},
             $scope.scroll.offset,
             $scope.scroll.limit

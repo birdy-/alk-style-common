@@ -54,7 +54,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerBrandShowCtrl', [
     // Init
     // ------------------------------------------------------------------------
     var load = function() {
-        $$sdkCrud.BrandShow($routeParams.id, {with_children: 1}).success(function(response){
+        $$sdkCrud.BrandShow($routeParams.id, {with_subbrands: 1}).success(function(response){
             $scope.brand = response.data;
             $scope.brandForm.$loading = false;
         });
