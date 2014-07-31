@@ -47,7 +47,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreview
         });
 
         modalInstance.result.then(function (selectedItem) {
-            $scope.selected = selectedItem;
         }, function () {
             console.info('Modal dismissed at: ' + new Date());
         });
@@ -64,7 +63,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreview
         });
 
         modalInstance.result.then(function (selectedItem) {
-            $scope.selected = selectedItem;
         }, function () {
             $location.path('/maker/brand/'+$scope.product.isBrandedBy.id+'/product');
         });

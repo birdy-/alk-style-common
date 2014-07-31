@@ -10,7 +10,7 @@ angular.module('jDashboardFluxApp').controller('ProductAcceptationModalControlle
     $scope.product = product;
     $scope.user = user;
     $scope.ok = function () {
-        $scope.product.accepted = true;
+        $scope.product.certified = Product.CERTIFICATION_STATUS_ACCEPTED.id;
         $$sdkCrud.ProductCertify(
             $scope.product,
             Product.CERTIFICATION_STATUS_ACCEPTED.id,
@@ -22,9 +22,7 @@ angular.module('jDashboardFluxApp').controller('ProductAcceptationModalControlle
             alert("Erreur pendant l'acceptation du produit : "+response.message);
         });
     };
-    console.log('Display');
     $scope.cancel = function () {
-        console.log('Cancel');
         $$sdkCrud.ProductCertify(
             $scope.product,
             Product.CERTIFICATION_STATUS_REVIEWING.id,
