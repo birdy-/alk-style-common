@@ -89,7 +89,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowNutriti
     $scope.addPSQ = function() {
         var modalInstance = $modal.open({
             templateUrl: '/src/maker/product/show/nutrition/productstandardquantity.html',
-            controller: ProductStandardQuantityModalController,
+            controller: 'ProductStandardQuantityModalController',
             resolve: {
                 $$sdkCrud: function () { return $$sdkCrud; },
                 productStandardQuantity: function () { return new ProductStandardQuantity().fromJson({
