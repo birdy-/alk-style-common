@@ -10,8 +10,8 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowNutriti
     $scope.psqs = {};
 
     var pnqs = [
-        { name: 'Valeur énergétique (kJ)',  id: 19056, compulsory: true,  legend: "" },
-        { name: 'Valeur énergétique (kCal)',id: 19057, compulsory: true,  legend: "" },
+        { name: 'Valeur énergétique (kJ)',  id: 19195, compulsory: true,  legend: "" },
+        { name: 'Valeur énergétique (kCal)',id: 19196, compulsory: true,  legend: "" },
         { name: 'Matières grasses',         id: 19058, compulsory: true,  legend: "La quantité totale de lipides (y compris phospholipides), rapportée 100 grammes de produit." },
         { name: 'Acides gras saturatés',    id: 19059, compulsory: true,  legend: "La quantité totale d'acides gras sans double liaison, rapportée à 100 grammes de produit." },
         { name: 'Acides gras monoinsaturés',id: 19060, compulsory: false, legend: "La quantité totale d'acides gras avec une double liaison cis, rapportée à 100 grammes de produit." },
