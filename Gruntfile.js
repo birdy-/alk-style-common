@@ -292,7 +292,7 @@ module.exports = function (grunt) {
       },
       prod: {
         expand: true, cwd: '<%= yeoman.app %>', dest: '<%= yeoman.dist %>', src: ['**/*.png', '**/*.html', '!**/bower_components/**', '!index.html'],
-        
+
       },
       styles: {
         expand: true,
