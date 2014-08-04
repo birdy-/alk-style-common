@@ -1,58 +1,153 @@
+<div ng-include="'/src/home/header.html'"></div>
+
+<br/>
 <br/>
 <br/>
 <div class="container" ng-show="ok">
-    <div class="alert alert-success">
-        <p>
-            Votre inscription a bien été prise en compte. Vous recevrez sous peu un email de confirmation.
-            <br/>
-            <br/>
-            D'ici-là, nous vous invitons à nous suivre sur les réseaux sociaux :
-        </p>
-        <p>
-            <a target="_blank" href="https://twitter.com/alkemicscom"><i class="fa fa-twitter"></i></a>
-            <a target="_blank" href="https://www.linkedin.com/company/j-r-me"><i class="fa fa-linkedin"></i></a>
-            <a target="_blank" href="https://www.facebook.com/Alkemics"><i class="fa fa-facebook"></i></a>
-        </p>
+    <div class="alert alert-success text-center">
+        Votre inscription a bien été prise en compte. Vous recevrez sous peu un email de confirmation.
     </div>
 </div>
 <div class="container" ng-show="!ok">
     <h1>Je m'inscris</h1>
     <br/>
-    <br/>
     <div class="row">
         <div class="col-lg-6">
-            <form class="form-horizontal" ng-submit="submit()" ng-hide="isReset" name="registerForm">
-                <div class="form-group">
-                    <label class="col-lg-4 control-label">Mon email</label>
-                    <div class="col-lg-8">
-                        <input type="email" name="email" class="login-inp form-control" ng-model="member.login" placeholder="Email" alk-focus required/>
-                        <div ng-show="registerForm.email.$focus">
-                            Votre email professionnel.
+            <form class="form-horizontal" ng-hide="isReset" name="userForm">
+                <div ng-init="formInit(userForm)">
+                    <h3>Quelques détails sur moi...</h3><br/>
+                    <div class="form-group" ng-class="checkUserForm('lastname')">
+                        <label class="col-lg-4 control-label">Je m'appelle...</label>
+                        <div class="col-lg-4">
+                            <input type="text" name="firstname" class="login-inp form-control" ng-model="user.firstname" placeholder="Prénom" alk-focus ng-minlength="1" required/>
+                        </div>
+                        <div class="col-lg-4">
+                            <input type="text" name="lastname" class="login-inp form-control" ng-model="user.lastname" placeholder="Nom" alk-focus ng-minlength="1" required/>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="checkUserForm('login')">
+                        <label class="col-lg-4 control-label">Mon email</label>
+                        <div class="col-lg-8">
+                            <input type="email" name="login" class="login-inp form-control" ng-model="user.login" placeholder="Email" alk-focus ng-minlength="5" required/>
+                            <div ng-show="userForm.login.$invalid && userForm.login.$focus">
+                                Veuillez entrer un email valide.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="checkUserForm('job')">
+                        <label class="col-lg-4 control-label">Mon poste</label>
+                        <div class="col-lg-8">
+                            <input type="text" name="job" class="login-inp form-control" ng-model="user.job" placeholder="ex : Responsable qualité" alk-focus ng-minlength="1" required/>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="checkUserForm('phonenumber')">
+                        <label class="col-lg-4 control-label">Mon numéro de téléphone</label>
+                        <div class="col-lg-8">
+                            <input type="text" name="phonenumber" class="login-inp form-control" ng-model="user.phonenumber" placeholder="ex : 0 800 943 859" alk-focus ng-minlength="5" required ng-pattern="/^[0-9 \+\.\-]+$/"/>
+                            <div ng-show="userForm.phonenumber.$invalid && userForm.phonenumber.$focus">
+                                Veuillez entrer un numéro de téléphone valide.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="checkUserForm('password')">
+                        <label class="col-lg-4 control-label">Mon mot de passe</label>
+                        <div class="col-lg-8">
+                            <input type="password" name="password" class="login-inp form-control" ng-model="user.password" placeholder="Mot de passe" alk-focus ng-minlength="8" required/>
+                            <div ng-show="userForm.password.$error.minlength" class="help-block">
+                                Votre mot de passe doit contenir au moins 8 caractères.
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="col-lg-4 control-label">Mon mot de passe</label>
-                    <div class="col-lg-8">
-                        <input type="password" name="password" class="login-inp form-control" ng-model="member.password" placeholder="Password" required/>
+            </form>
+
+
+            <br/>
+            <form class="form-horizontal" ng-show="userForm.$valid" name="companyForm">
+                <div ng-init="formInit(companyForm)">
+                    <h3>Quelques détails sur mon entreprise...</h3><br/>
+                    <div class="form-group" ng-class="checkCompanyForm('companyNameLegal')">
+                        <label class="col-lg-4 control-label">Mon entreprise</label>
+                        <div class="col-lg-8">
+                            <input type="text" name="companyNameLegal" class="login-inp form-control" ng-model="company.nameLegal" placeholder="ex : Rik et Rok" ng-minlength="1" required/>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-lg-4 control-label">Mon numéro de RCS</label>
-                    <div class="col-lg-8">
-                        <input type="text" name="rcs" class="login-inp form-control" ng-model="member.rcs" placeholder="535 078 190" required/>
-                        <div ng-show="registerForm.rcs.$focus">
-                            Le numéro RCS de votre entreprise.
+                    <div class="form-group">
+                        <label class="col-lg-4 control-label">Son numéro de RCS (facultatif)</label>
+                        <div class="col-lg-3">
+                            <input type="text" name="companyIdentifierLegal" class="login-inp form-control" ng-model="company.identifierLegal" placeholder="535 078 190"/>
+                        </div>
+                        <label class="col-lg-1 control-label">de</label>
+                        <div class="col-lg-4">
+                            <input type="text" name="companyIdentifierCity" class="login-inp form-control" ng-model="company.identifierCity" placeholder="Pontoise"/>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="checkCompanyForm('companyCountry')">
+                        <div>
+                            <label class="col-lg-4 control-label">Son adresse</label>
+                            <div class="col-lg-8">
+                                <textarea name="companyAdress" class="login-inp form-control" ng-model="company.adress" placeholder="ex : 82 rue du Faubourg Saint-Martin" ng-minlength="1" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="checkCompanyForm('companyPostcode')">
+                        <div>
+                            <div class="col-lg-2 col-lg-offset-4">
+                                <input type="text" name="companyPostcode" class="login-inp form-control" ng-model="company.postcode" placeholder="ex : 75010" ng-minlength="1" required/>
+                            </div>
+                            <div class="col-lg-3">
+                                <input type="text" name="companyCity" class="login-inp form-control" ng-model="company.city" placeholder="ex : Paris" ng-minlength="1" required/>
+                            </div>
+                            <div class="col-lg-3">
+                                <input type="text" name="companyCountry" class="login-inp form-control" ng-model="company.country" placeholder="ex : France" ng-minlength="1" required/>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="col-lg-offset-4 col-lg-8">
-                        <button class="btn pull-right color-green">Sign in</button>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" ng-model="member.accept" required> J'accepte les <a href="/#/cgu">CGU</a>
-                            </label>
+            </form>
+
+
+            <br/>
+            <form class="form-horizontal" ng-show="companyForm.$valid" name="dataForm">
+                <div ng-init="formInit(dataForm)">
+                    <h3>Quelques détails sur mes produits...</h3><br/>
+                    <div class="form-group">
+                        <div>
+                            <label class="col-lg-4 control-label">Mes marques</label>
+                            <div class="col-lg-8">
+                                <textarea name="dataBrand" class="login-inp form-control" ng-model="data.brand" placeholder="ex : Rik &amp; Rok, Mmm !" alk-focus rows="3"></textarea>
+                                <div ng-show="dataForm.dataBrand.$focus">
+                                    Une liste facultative de vos marques, séparées par des virgules.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <label class="col-lg-4 control-label">Mes EANs</label>
+                            <div class="col-lg-8">
+                                <textarea name="dataProduct" class="login-inp form-control" ng-model="data.product" placeholder="ex : 3596710025565, 3596710293988, 3596710217243, 3596710194834, 3596710282456, 3596710252947, 3596710282449" alk-focus rows="3"></textarea>
+                                <div ng-show="dataForm.dataProduct.$focus">
+                                    Une liste facultative d'EANs, séparées par des virgules.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+
+            <br/>
+            <form class="form-horizontal" ng-show="companyForm.$valid" name="acceptForm">
+                <div>
+                    <div class="form-group">
+                        <div class="col-lg-8 col-lg-offset-4">
+                            <button ng-click="submit()" class="btn pull-right color-green-inverse">Créer un compte</button>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" ng-model="user.accept" required> J'accepte les <a href="/#/cgu" target="_blank">CGU</a>
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -60,9 +155,11 @@
         </div>
         <div class="col-lg-6">
             <div class="well">
+                <h3>Et maintenant ?</h3><br/>
                 Dès que vous aurez crée un compte, nous vérifierons que vous êtes bien autorisés à accéder à vos produits.
                 <br/>
                 Vous recevrez ensuite un email vous permettant d'accéder à vos produits sur la plate-forme.
+                <br/>
                 <br/>
                 Rien ne vous sera facturé tant que vous ne publierez pas vos fiches produit.
             </div>
@@ -74,12 +171,5 @@
         {{ message }}
     </div>
 </div>
-<br/>
-<br/>
-<br/>
-<br/>
-<div class="container">
-    <div class="text-center">
-    <img src="/images/schema/steps.png" height="300px"/>
-    </div>
-</div>
+
+<div ng-include="'/src/home/footer.html'"></div>
