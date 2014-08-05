@@ -175,7 +175,9 @@ app.config(function ($routeProvider) {
 
     $routeProvider.when('/register', {
         templateUrl: 'src/home/register.html',
-        controller: 'RegisterCtrl'
+        controller: 'RegisterCtrl',
+        isPublic: true
+    });
     });
 
     $routeProvider.when('/account/send_password_reset', {

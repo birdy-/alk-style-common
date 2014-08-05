@@ -25,11 +25,11 @@ angular.module('jDashboardFluxApp').controller('RegisterCtrl', [
             lastname: null,
             job: null,
             phonenumber: null,
-            login: null,
+            username: null,
             password: null,
             accept: false,
         };
-        $scope.ok = true;
+        $scope.ok = false;
         $scope.message = null;
 
         // ------------------------------------------------------------------------
@@ -66,41 +66,39 @@ angular.module('jDashboardFluxApp').controller('RegisterCtrl', [
         };
 
         $scope.submit = function() {
+            if (!$scope.userForm.$valid) {
+                alert("Le formulaire est invalide, merci de le compléter.");
+                return;
+            }
             if (!$scope.user.accept) {
                 alert("Vous n'avez pas accepté les CGU.");
                 return;
             }
+            $scope.user.company = $scope.company.name;
 
             // Create record of the registration
             var record = {
                 origin: 0,   // Website Corporate Alkemics
-                email: $scope.user.login,
+                username: $scope.user.username,
                 firstname: $scope.user.firstname,
                 lastname: $scope.user.lastname,
                 phone_number: $scope.user.phonenumber,
-                message: "Account creation : " + angular.toJson({
+                subject: 'New account created',
+                message: angular.toJson({
                     user: $scope.user,
                     company: $scope.company,
                     data: $scope.data,
                 }, true),
             };
-            $http.post(
-                'https://auth.alkemics.com/auth/v1/mailinglist/register',
-                record
-            ).success(function (response) {
-            }).error(function (response) {
-                $http.get(
-                    'https://auth.alkemics.com/auth/v1/mailinglist/register',
-                    record
-                );
-            });
+            /*$$sdkUser.MailingListPost(record).then(function (response) {
+            });*/
 
             // Create user
-            $$sdkUser.UserCreate($scope.user).success(function(response){
+            $$sdkUser.UserSignUp($scope.user).success(function(response){
                 $scope.ok = true;
             }).error(function(response){
                 $scope.ok = false;
-                $scope.message = "Une erreur a eu lieu pendant votre inscription, merci de réessayer ultérieurement.";
+                $scope.message = "Une erreur a eu lieu pendant votre inscription : "+response.message;
             });
         };
 

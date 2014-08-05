@@ -1,13 +1,25 @@
 <div ng-include="'/src/home/header.html'"></div>
 
-<br/>
+
 <br/>
 <br/>
 <div class="container" ng-show="ok">
+    <br/> <br/> <br/> <br/> <br/> <br/>
     <div class="alert alert-success text-center">
         Votre inscription a bien été prise en compte. Vous recevrez sous peu un email de confirmation.
+        <br/>
+        <br/>
+        <p>
+            En attendant, vous pouvez nous suivre sur les réseaux sociaux :
+            <br/>
+            <br/>
+            <iframe allowtransparency="true" frameborder="0" scrolling="no" src="//platform.twitter.com/widgets/follow_button.html?screen_name=alkemics&lang=fr&show_count=false" style="width:150px; height:20px;"></iframe>
+        </p>
     </div>
+    <br/> <br/> <br/> <br/> <br/> <br/>
 </div>
+
+
 <div class="container" ng-show="!ok">
     <h1>Je m'inscris</h1>
     <br/>
@@ -25,11 +37,11 @@
                             <input type="text" name="lastname" class="login-inp form-control" ng-model="user.lastname" placeholder="Nom" alk-focus ng-minlength="1" required/>
                         </div>
                     </div>
-                    <div class="form-group" ng-class="checkUserForm('login')">
+                    <div class="form-group" ng-class="checkUserForm('username')">
                         <label class="col-lg-4 control-label">Mon email</label>
                         <div class="col-lg-8">
-                            <input type="email" name="login" class="login-inp form-control" ng-model="user.login" placeholder="Email" alk-focus ng-minlength="5" required/>
-                            <div ng-show="userForm.login.$invalid && userForm.login.$focus">
+                            <input type="email" name="username" class="login-inp form-control" ng-model="user.username" placeholder="Email" alk-focus ng-minlength="5" required/>
+                            <div ng-show="userForm.username.$invalid && userForm.username.$focus">
                                 Veuillez entrer un email valide.
                             </div>
                         </div>
@@ -135,41 +147,57 @@
                     </div>
                 </div>
             </form>
+        </div>
+        <div class="col-lg-6">
+            <div class="well">
+                <h3>Comment ça marche ?</h3>
+                <br/>
+                1. Je m'inscris
+                <br/>
+                2. Je reçois sous 48 heures un message me donnant accès à mes produits.
+                <br/>
+                3. Je mets à jour mes produits
+                <br/>
+                4. Je les publie vers les sites des distributeurs
+                <br/>
+                <br/>
+                <br/>
+                Rien ne vous sera facturé tant que vous ne publiez pas vos fiches produit.
+                <br/>
+                Vous pouvez vous inscrire pour découvrir la plateforme, et ne pas décider de l'utiliser.
+                <br/>
+                Vous pouvez à tout moment supprimer votre compte.
+            </div>
+        </div>
+    </div>
+</div>
 
-
-            <br/>
-            <form class="form-horizontal" ng-show="companyForm.$valid" name="acceptForm">
+<div class="container" ng-show="!ok">
+    <div class="row">
+        <div class="col-lg-6">
+            <form class="form-horizontal" name="acceptForm">
                 <div>
                     <div class="form-group">
                         <div class="col-lg-8 col-lg-offset-4">
-                            <button ng-click="submit()" class="btn pull-right color-green-inverse">Créer un compte</button>
                             <div class="checkbox">
                                 <label>
                                     <input type="checkbox" ng-model="user.accept" required> J'accepte les <a href="/#/cgu" target="_blank">CGU</a>
                                 </label>
                             </div>
+                            <br/>
+                            <button type="button" ng-click="submit()" class="btn color-green-inverse">&gt; Je m'inscris</button>
                         </div>
                     </div>
                 </div>
             </form>
         </div>
         <div class="col-lg-6">
-            <div class="well">
-                <h3>Et maintenant ?</h3><br/>
-                Dès que vous aurez crée un compte, nous vérifierons que vous êtes bien autorisés à accéder à vos produits.
-                <br/>
-                Vous recevrez ensuite un email vous permettant d'accéder à vos produits sur la plate-forme.
-                <br/>
-                <br/>
-                Rien ne vous sera facturé tant que vous ne publierez pas vos fiches produit.
+            <div ng-show="message" class="alert alert-warning">
+                {{ message }}
             </div>
         </div>
     </div>
 </div>
-<div class="container" ng-show="message">
-    <div class="alert alert-warning">
-        {{ message }}
-    </div>
-</div>
+
 
 <div ng-include="'/src/home/footer.html'"></div>
