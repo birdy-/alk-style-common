@@ -178,6 +178,11 @@ app.config(function ($routeProvider) {
         controller: 'RegisterCtrl',
         isPublic: true
     });
+
+    $routeProvider.when('/faq', {
+        templateUrl: 'src/home/faq.html',
+        controller: 'FaqCtrl',
+        isPublic: true
     });
 
     $routeProvider.when('/account/send_password_reset', {
