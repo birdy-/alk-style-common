@@ -15,15 +15,7 @@
     }
 </style>
 
-<div class="sheet container-fluid">
-    <div class="row">
-        <ol class="breadcrumb">
-            <li><a class="active">Mes marques</a></li>
-            <li ng-repeat="brand in brandHierarchy">
-                <a ng-href="/#/maker/brand/{{ brand.id }}/product">{{ brand.name }}</a>
-            </li>
-        </ol>
-    </div>
+<div class="sheet">
     <div class="row" infinite-scroll="more()">
         <div ng-repeat="product in products" class="col-sm-2 product">
             <div class="picture missing-picture">
@@ -37,6 +29,11 @@
             </div>
             <div class="packaging">
                 {{ product.packaging }}
+            </div>
+            <div class="reference text-center">
+                <span class="badge" ng-repeat="reference in product.isIdentifiedBy | limitTo:1" >
+                    {{ reference.reference }}
+                </span>
             </div>
             <div class="product-icons">
                 <span class="label label-success" ng-show="product.isCertified()">

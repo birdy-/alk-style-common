@@ -1,7 +1,10 @@
 /**
- * Modal that allows the user to certify a given product.
+ * Modal that allows the user to create a PSQ.
  */
-var ProductStandardQuantityModalController = function ($scope, $modalInstance, $$sdkCrud, productStandardQuantity) {
+angular.module('jDashboardFluxApp').controller('ProductStandardQuantityModalController', [
+    '$scope', '$modalInstance', '$$sdkCrud', 'productStandardQuantity',
+    function ($scope, $modalInstance, $$sdkCrud, productStandardQuantity) {
+
     $scope.psq = productStandardQuantity;
     $scope.commonUnits =
     $scope.ok = function () {
@@ -17,4 +20,4 @@ var ProductStandardQuantityModalController = function ($scope, $modalInstance, $
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
     };
-};
+}]);

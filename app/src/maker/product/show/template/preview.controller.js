@@ -12,8 +12,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreview
             return;
         }
         $scope.completeness = computeScore($scope.product, $scope.productForm);
-
-        if (!$scope.product.isAccepted()) {
+        if ($scope.product.certified == Product.CERTIFICATION_STATUS_ATTRIBUTED.id) {
             $scope.accept();
         };
     }, true);
@@ -48,7 +47,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreview
         });
 
         modalInstance.result.then(function (selectedItem) {
-            $scope.selected = selectedItem;
         }, function () {
             console.info('Modal dismissed at: ' + new Date());
         });
@@ -65,7 +63,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreview
         });
 
         modalInstance.result.then(function (selectedItem) {
-            $scope.selected = selectedItem;
         }, function () {
             $location.path('/maker/brand/'+$scope.product.isBrandedBy.id+'/product');
         });

@@ -1,64 +1,22 @@
 'use strict';
 
 
-/**
- * Modal that allows the user to register on the mailing list
- */
-var SupportModalController = ['$scope', '$modalInstance', '$$sdkAuth', '$location', 'user',
-                            function ($scope, $modalInstance, $$sdkAuth, $location, user) {
-
-    $scope.supportRequest = {
-        message: null,
-        type: null,
-        subject: null,
-        origin: 1, // Dashboard Flux
-        username: user.username,
-        page_url: $location.protocol() + '://' + $location.host() + $location.path()
-    };
-
-    /*
-     * Register a user to the mailing list
-     * Default is a POST to the endpoint
-     * Fallback with a GET to have the email in the logs
-     */
-    $scope.submit = function (supportRequest) {
-
-        // Make a footprint in our logs #DIRTY
-        $$sdkAuth.SupportRequest(supportRequest).success(function (response) {
-            $modalInstance.close();
-        }).error(function (response) {
-            $http.get(
-                'https://auth.alkemics.com/support/v1/requests',
-                {
-                    params: request
-                }
-            );
-            $modalInstance.close();
-        });        
-    };
-    $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
-    };
-}];
-
-
-
 angular.module('jDashboardFluxApp').controller('HeaderCtrl', [
-    '$scope', 'permission', '$$sdkCrud', '$location', '$window', '$modal', '$http',
-    function ($scope, permission, $$sdkCrud, $location, $window, $modal, $http) {
+    '$scope', 'permission', '$$sdkCrud', '$location', '$modal',
+    function ($scope, permission, $$sdkCrud, $location, $modal) {
 
     // ------------------------------------------------------------------------
     // Variables
     // ------------------------------------------------------------------------
     $scope.logged = false;
-    $scope.user = null;
+    $scope.user = {};
     $scope.brand = {};
 
     // ------------------------------------------------------------------------
     // Event handling
     // ------------------------------------------------------------------------
     $scope.logout = function() {
-        permission.logout();            
+        permission.logout();
         $scope.logged = false;
         $scope.user = null;
         $scope.brand = {};
@@ -80,19 +38,16 @@ angular.module('jDashboardFluxApp').controller('HeaderCtrl', [
     };
     init();
 
-    var subscribe = function(){
+    var subscribe = function(message){
         var modalInstance = $modal.open({
-            templateUrl: '/src/maker/home/support.html',
-            controller: SupportModalController,
+            templateUrl: '/src/home/contact.html',
+            controller: 'ContactController',
             resolve: {
-                $http: function () {
-                    return $http;
-                },
-                $location: function () {
-                    return $location;
-                },
                 user: function () {
                     return $scope.user;
+                },
+                message: function() {
+                    return message;
                 }
             }
         });

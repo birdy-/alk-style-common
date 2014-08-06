@@ -13,7 +13,8 @@ var app = angular.module('jDashboardFluxApp', [
   'angular-md5',
   'sdk-dashboard',
   'ui.gravatar',
-  'infinite-scroll'
+  'infinite-scroll',
+  'ui.tree'
 ]);
 
 // Update on each deploy
@@ -174,7 +175,14 @@ app.config(function ($routeProvider) {
 
     $routeProvider.when('/register', {
         templateUrl: 'src/home/register.html',
-        controller: 'RegisterCtrl'
+        controller: 'RegisterCtrl',
+        isPublic: true
+    });
+
+    $routeProvider.when('/faq', {
+        templateUrl: 'src/home/faq.html',
+        controller: 'FaqCtrl',
+        isPublic: true
     });
 
     $routeProvider.when('/account/send_password_reset', {
