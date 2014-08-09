@@ -21,7 +21,7 @@ angular.module('jDashboardFluxApp').controller('LoginController', [
 
         permission.login($scope.login, $scope.password)
         .error(function(response, status, headers, config){
-            $scope.message = response.message || response.error_description;
+            $scope.message = response.message || response.error_description || "Erreur lors de l'authentification.";
         })
         .success(function(response){
             $location.path('/maker/brand/all/product');

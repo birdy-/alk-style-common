@@ -237,7 +237,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', 
             var active = false;
             if (brandId) {
                 $log.log('[Init] Initializing screen with isBrandedBy = ' + brandId);
-                if (permission.isAllowed('Brand', brandId)) {
+                if (user.isAllowed('Brand', brandId)) {
                     $$BrandRepository.lazy(brandId).active = true;
                 } else {
                     alert('You are not allowed to view Brand');

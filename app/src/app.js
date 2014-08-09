@@ -8,12 +8,11 @@ var app = angular.module('jDashboardFluxApp', [
   'http-auth-interceptor',
   'ui.select2',
   'ui.bootstrap',
-  'uiSlider',
   'ngSanitize',
   'angular-md5',
   'sdk-dashboard',
-  'ui.gravatar',
   'infinite-scroll',
+  'ui.sortable',
   'ui.tree'
 ]);
 
