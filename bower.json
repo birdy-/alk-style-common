@@ -18,7 +18,7 @@
     "angular-ui-select2": "~0.0.2",
     "angular-gravatar": ">=0.1.3",
     "angular-ui-router": "~0.2.0",
-    "angular-slider": "~0.1.6",
+    "angular-ui-sortable": "~0.12.8",
     "angular-http-auth": "*",
     "infinite-scroll": "https://github.com/BinaryMuse/ngInfiniteScroll/archive/1.0.0.tar.gz",
     "plupload": "~2.1.2"
