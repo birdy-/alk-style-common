@@ -101,6 +101,41 @@ var ProductIsMadeOfProduct = function() {
     };
 };
 
+var ProductIsComplementaryWithProduct = function() {
+    this.id = null;
+    this.target = null;
+    this.fromJson = function(json) {
+        for (var key in json) {
+            this[key] = json[key];
+        }
+        return this;
+    };
+};
+
+var ProductIsSubstitutableWithProduct = function() {
+    this.id = null;
+    this.target = null;
+    this.fromJson = function(json) {
+        for (var key in json) {
+            this[key] = json[key];
+        }
+        return this;
+    };
+};
+
+
+var ProductIsRequiredInRecipe = function() {
+    this.id = null;
+    this.target = null;
+    this.fromJson = function(json) {
+        for (var key in json) {
+            this[key] = json[key];
+        }
+        return this;
+    };
+};
+
+
 var ProductNutritionalQuantity = function() {
     this.id = null;
     this.name = null;

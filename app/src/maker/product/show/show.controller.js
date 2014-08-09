@@ -82,6 +82,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
             withs.isMadeOf = true;
             withs.isDerivedFrom = true;
         } else if ($location.path().indexOf('merchandising') !== -1) {
+            withs.isRequiredIn = true;
             withs.isSubstitutableWith = true;
             withs.isComplementaryWith = true;
         }
@@ -91,6 +92,13 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
             // Fill up for autocompletion reasons
             product.isMeasuredBy.text = product.isMeasuredBy.name;
             product.isBrandedBy.text = product.isBrandedBy.name;
+            // Sort fields that requires to be ordered
+            if (product.isSubstitutableWith) {
+                product.isSubstitutableWith.sort(function(a, b){return a.ranking > b.ranking; });
+            }
+            if (product.isComplementaryWith) {
+                product.isComplementaryWith.sort(function(a, b){return a.ranking > b.ranking; });
+            }
 
             $scope.product = product;
 
