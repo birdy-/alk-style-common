@@ -11,7 +11,6 @@ var app = angular.module('jDashboardFluxApp', [
   'ngSanitize',
   'angular-md5',
   'sdk-dashboard',
-  'ui.gravatar',
   'infinite-scroll',
   'ui.sortable',
   'ui.tree'
