@@ -88,11 +88,9 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
         $$sdkCrud.ProductShow(id, withs, function(response){
             $scope.productForm.$loading = false;
             var product = new Product().fromJson(response.data);
+            // Fill up for autocompletion reasons
             product.isMeasuredBy.text = product.isMeasuredBy.name;
             product.isBrandedBy.text = product.isBrandedBy.name;
-            product.madeOf = [];
-            product.hasVarietal = [];
-            product.isPartitionedBy = [];
 
             $scope.product = product;
 

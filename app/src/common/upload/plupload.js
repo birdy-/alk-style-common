@@ -10,7 +10,7 @@ angular.module('jDashboardFluxApp').directive('alkPlUpload', [
                 uploadedFiles: '=',
                 message: '=',
                 total: '=',
-                entity: '@',                
+                entity: '@',
                 entityId: '@',
                 mediaType: '@',
                 multiSelection: '='
@@ -20,10 +20,10 @@ angular.module('jDashboardFluxApp').directive('alkPlUpload', [
                 var entity = scope.entity;
                 var entityId = scope.entityId;
                 var mediaType = scope.mediaType;
-                
-                $log.debug('Uploader configured for entity / id / type: ' + entity + ' / ' + entityId + ' / ' + mediaType);                
-                                
-                scope.uploadError = null;                
+
+                $log.debug('Uploader configured for entity / id / type: ' + entity + ' / ' + entityId + ' / ' + mediaType);
+
+                scope.uploadError = null;
 
                 $('#' + iAttrs.id + ' .browse-button').attr("id", iAttrs.id + "-browse-button");
                 $('#' + iAttrs.id + ' .drop-target').attr("id", iAttrs.id + "-drop-target");
@@ -102,52 +102,52 @@ angular.module('jDashboardFluxApp').directive('alkPlUpload', [
 
                 // DIRTY
                 var showImagePreview = function(file) {
- 
+
                     var item = $( "<li></li>" );
                     //item.appendTo($('#ad-upload-drop-target'));
                     var image = $( new Image() ).appendTo( item ).css('width','100px').css('height', '100px');
-     
+
                     // Create an instance of the mOxie Image object. This
                     // utility object provides several means of reading in
                     // and loading image data from various sources.
                     // --
                     // Wiki: https://github.com/moxiecode/moxie/wiki/Image
                     var preloader = new mOxie.Image();
-     
+
                     // Define the onload BEFORE you execute the load()
                     // command as load() does not execute async.
                     preloader.onload = function() {
-     
+
                         // This will scale the image (in memory) before it
                         // tries to render it. This just reduces the amount
                         // of Base64 data that needs to be rendered.
                         preloader.downsize(500, 500);
-     
+
                         // Now that the image is preloaded, grab the Base64
                         // encoded data URL. This will show the image
                         // without making an Network request using the
                         // client-side file binary.
                         image.prop( "src", preloader.getAsDataURL() );
-     
+
                         // NOTE: These previews "work" in the FLASH runtime.
                         // But, they look seriously junky-to-the-monkey.
                         // Looks like they are only using like 256 colors.
-     
+
                     };
-     
+
                     // Calling the .getSource() on the file will return an
                     // instance of mOxie.File, which is a unified file
                     // wrapper that can be used across the various runtimes.
                     // --
                     // Wiki: https://github.com/moxiecode/plupload/wiki/File
-                    preloader.load(file.getSource());     
+                    preloader.load(file.getSource());
                     return item;
                 };
 
                 // post init binding
 
                 uploader.bind('FilesAdded', function(up, files) {
-                    
+
                     scope.uploadError = null;
                     scope.message = 'Transfert en cours...';
                     scope.$apply();
@@ -161,17 +161,16 @@ angular.module('jDashboardFluxApp').directive('alkPlUpload', [
 
                 uploader.bind('FileUploaded', function(up, file, response) {
 
-                    var item = showImagePreview(file); 
-                    
+                    var item = showImagePreview(file);
+
                     var responseObj = $.parseJSON(response.response);
-                    console.log(responseObj);
 
                     if (true || responseObj.status === "ok" && responseObj.data && scope.uploadedFiles) {
                         scope.$apply(function () {
                             scope.uploadedFiles.push({
                                 data: responseObj.data,
                                 file: item
-                            });                            
+                            });
                         });
                     }
                 });

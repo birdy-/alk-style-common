@@ -13,6 +13,9 @@ var Product = function(){
         return this;
     };
 
+    this.isValidated = function() {
+        return this.status === Product.STATUS_VALIDATED.id
+    };
     this.isCertified = function() {
         return this.certified === Product.CERTIFICATION_STATUS_CERTIFIED.id
             || this.certified === Product.CERTIFICATION_STATUS_PUBLISHED.id;
