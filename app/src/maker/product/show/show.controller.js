@@ -44,7 +44,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
         return classes;
     };
 
-
     $scope.$watch('product', function(){
         // Prevents errors when clearing values
         var nulls = [
@@ -70,10 +69,19 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
         }
     }, true);
 
+    $scope.$on('$locationChangeStart', function(event) {
+        if ($scope.productForm.$pristine) {
+            return;
+        }
+        if (!confirm("Des changements n'ont pas été enregistrés, quitter quand même ?")) {
+            event.preventDefault();
+        }
+    });
+
     // ------------------------------------------------------------------------
     // Init
     // ------------------------------------------------------------------------
-    var load = function(id) {
+    $scope.load = function(id) {
         $scope.productForm.$loading = true;
         withs = {};
         if ($location.path().indexOf('label') !== -1) {
@@ -109,7 +117,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
             });
         });
     };
-    $scope.load = load;
     permission.getUser().then(function(user){
         $scope.user = user;
         user.managesBrand.forEach(function(brand){

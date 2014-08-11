@@ -40,12 +40,12 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMarketi
             templateUrl: '/src/maker/product/show/marketing/suggestname.html',
             controller: 'ProductMarketingNameSuggestModalController',
             resolve: {
-                $$sdkCrud: function () {return $$sdkCrud; },
-                product: function () {return $scope.product; }
+                $$sdkCrud: function() {return $$sdkCrud; },
+                product: function() {return $scope.product; }
             }
         });
 
-        modalInstance.result.then(function (selectedItem) {
+        modalInstance.result.then(function () {
         }, function () {
         });
     };
@@ -54,13 +54,13 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMarketi
             templateUrl: '/src/maker/product/show/marketing/suggestsynonym.html',
             controller: 'ProductMarketingSynonymSuggestModalController',
             resolve: {
-                $$sdkCrud: function () {return $$sdkCrud; },
-                product: function () {return $scope.product; }
+                $$sdkCrud: function() {return $$sdkCrud; },
+                product: function() {return $scope.product; }
             }
         });
 
-        modalInstance.result.then(function (selectedItem) {
-        }, function () {
+        modalInstance.result.then(function() {
+        }, function() {
         });
     };
 
