@@ -4,7 +4,7 @@
   "dependencies": {
     "angular": "~1.2.12",
     "json3": "~3.2.4",
-    "es5-shim": "~2.1.0",
+    "es5-shim": "~2.3.0",
     "jquery": "~1.10.2",
     "bootstrap-sass-official": "~3.2.0",
     "angular-i18n": "~1.2.0",
@@ -15,7 +15,7 @@
     "angular-bootstrap": "~0.10.0",
     "angular-md5": "~0.1.7",
     "angular-ui": "~0.4.0",
-    "angular-ui-select2": "~0.0.2",
+    "angular-ui-select2": "git://github.com/angular-ui/ui-select2#f81cbc8ff2b85eafd775e56344200affb31d56d1",
     "angular-ui-router": "~0.2.0",
     "angular-ui-sortable": "~0.12.8",
     "angular-http-auth": "*",
