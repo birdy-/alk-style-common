@@ -63,6 +63,17 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMarketi
         }, function () {
         });
     };
+
+    // ------------------------------------------------------------------------
+    // Event listening
+    // ------------------------------------------------------------------------
+    $scope.$watch('product', function(){
+        if ($scope.product.serves) {
+            $scope.servesExact = 1;
+        } else if ($scope.product.servesText) {
+            $scope.servesExact = 2;
+        }
+    }, true);
 }]);
 
 
