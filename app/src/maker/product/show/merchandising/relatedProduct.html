@@ -1,6 +1,6 @@
-<div class="row">
+<div class="row" ng-form="relatedProductNew">
     <div class="col-sm-6">
-        <input ng-model="target" type="text" ui-select2="select2productOptions" style="width: 100%;" data-placeholder="Choisir un produit"/>
+        <input name="target" ng-model="target" type="text" ui-select2="select2productOptions" style="width: 100%;" data-placeholder="Choisir un produit"/>
     </div>
     <div class="col-sm-3">
         <a class="btn btn-success btn-sm" ng-click="add()">

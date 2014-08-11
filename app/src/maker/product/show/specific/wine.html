@@ -62,18 +62,18 @@
 <div class="form-group">
     <label for="labels" class="col-sm-2 control-label">Millésime</label>
     <div class="col-sm-4">
-        <input ng-model="product.hasVintage" type="text" class="form-control" placeholder="ex : 2006"/>
+        <input name="hasVintage" ng-model="product.hasVintage" type="text" class="form-control" placeholder="ex : 2006"/>
     </div>
     <div class="col-sm-4">
         <div class="checkbox-inline">
             <label>
-                <input type="checkbox" ng-model="product.agedIn" ng-value="1"/>
+                <input name="agedIn" type="checkbox" ng-model="product.agedIn" ng-value="1"/>
                 Vielli en fût de chêne
             </label>
         </div>
         <div class="checkbox-inline">
             <label>
-                <input type="checkbox" ng-model="product.agedIn" ng-value="2"/>
+                <input name="agedIn" type="checkbox" ng-model="product.agedIn" ng-value="2"/>
                 Vielli en cuve
             </label>
         </div>
@@ -83,27 +83,27 @@
     <label class="col-sm-2 control-label">Température de garde</label>
     <div class="col-sm-2">
         <div class="input-group">
-            <input type="text" class="form-control" ng-model="product.tempConservationBefore" placeholder="ex : 16 ° C">
+            <input type="text" name="tempConservationBefore" class="form-control" ng-model="product.tempConservationBefore" placeholder="ex : 16 ° C">
             <span class="input-group-addon">° C</span>
         </div>
     </div>
     <label class="col-sm-1 control-label">Durée</label>
     <div class="col-sm-2">
         <div class="input-group">
-            <input type="text" class="form-control" ng-model="product.durationConservationBefore" placeholder="ex : 10 ans">
+            <input type="text" name="durationConservationBefore" class="form-control" ng-model="product.durationConservationBefore" placeholder="ex : 10 ans">
             <span class="input-group-addon">ans</span>
         </div>
     </div>
     <label class="col-sm-1 control-label">Apogée</label>
     <div class="col-sm-2">
         <div class="input-group">
-            <input type="text" class="form-control" ng-model="product.consumeWhen" placeholder="ex : 2020">
+            <input type="text" name="consumeWhen" class="form-control" ng-model="product.consumeWhen" placeholder="ex : 2020">
         </div>
     </div>
     <div class="col-sm-2">
         <div class="checkbox">
             <label>
-                <input type="checkbox" ng-model="product.ageable"/>
+                <input type="checkbox" name="ageable" ng-model="product.ageable"/>
                 Vin de garde
             </label>
         </div>
@@ -116,71 +116,73 @@
 <div class="form-group">
     <label class="col-sm-2 control-label">Commentaires</label>
     <div class="col-sm-10">
-        <textarea type="text" class="form-control" ng-model="product.advices" placeholder="Commentaires de dégustation"></textarea>
+        <textarea type="text" class="form-control" name="advices" ng-model="product.advices" placeholder="Commentaires de dégustation"></textarea>
     </div>
 </div>
 <div class="form-group">
     <label class="col-sm-2 control-label">Robe</label>
     <div class="col-sm-10">
-        <textarea type="text" class="form-control" ng-model="product.appearanceVisual" placeholder="ex : Robe rubis, larmes élégantes."></textarea>
+        <textarea type="text" class="form-control" name="appearanceVisual" ng-model="product.appearanceVisual" placeholder="ex : Robe rubis, larmes élégantes."></textarea>
     </div>
 </div>
 <div class="form-group">
     <label class="col-sm-2 control-label">Bouche</label>
     <div class="col-sm-10">
-        <textarea type="text" class="form-control" ng-model="product.appearanceTaste" placeholder="ex : Bouche soyeuse et agréable."></textarea>
+        <textarea type="text" class="form-control" name="appearanceTaste" ng-model="product.appearanceTaste" placeholder="ex : Bouche soyeuse et agréable."></textarea>
     </div>
 </div>
 <div class="form-group">
     <label class="col-sm-2 control-label">Accord mets/vins</label>
     <div class="col-sm-10">
-        <textarea type="text" class="form-control" ng-model="product.pairings" placeholder="ex : Gibiers et viandes rouges."></textarea>
+        <textarea type="text" class="form-control" name="pairings" ng-model="product.pairings" placeholder="ex : Gibiers et viandes rouges."></textarea>
     </div>
 </div>
 <div class="form-group">
     <label class="col-sm-2 control-label">Délai d'ouverture avant service</label>
     <div class="col-sm-2">
         <div class="input-group">
-            <input type="text" class="form-control" ng-model="product.openBeforeConsuming" placeholder="ex : 2 h">
+            <input type="text" class="form-control" name="openBeforeConsuming" ng-model="product.openBeforeConsuming" placeholder="ex : 2 h">
             <span class="input-group-addon">h</span>
         </div>
     </div>
     <label class="col-sm-2 control-label">Température de service</label>
     <div class="col-sm-2">
         <div class="input-group">
-            <input type="text" class="form-control" ng-model="product.tempConsomation" placeholder="ex : 2 h">
+            <input type="text" class="form-control" name="tempConsomation" ng-model="product.tempConsomation" placeholder="ex : 2 h">
             <span class="input-group-addon">h</span>
         </div>
     </div>
     <label class="col-sm-2 control-label">Type de verre</label>
     <div class="col-sm-2">
-        <input type="text" ng-model="product.consumeIn" name="consumeIn" select ui-select2="select2glassOptions" style="width: 100%;" placeholder="ex : verre à vin blanc"/>
+        <input type="text" name="consumeIn" ng-model="product.consumeIn" name="consumeIn" select ui-select2="select2glassOptions" style="width: 100%;" placeholder="ex : verre à vin blanc"/>
     </div>
 </div>
 <br/>
 <div class="form-group">
-    <label for="labels" class="col-sm-2 control-label">Récompenses</label>
+    <label for="isLabeledBy" class="col-sm-2 control-label">Récompenses</label>
     <div class="col-sm-10">
-        <div class="row" ng-repeat="label in product.labels">
-            <div class="col-sm-3">
-                <input ng-model="label.name" type="text" class="form-control" placeholder="Nom de la médaille / concours"/>
-            </div>
-            <div class="col-sm-3">
-                <input ng-model="label.name" type="text" class="form-control" placeholder="Année de la médaille"/>
-            </div>
-            <div class="col-sm-3">
-                <input ng-model="label.name" type="text" class="form-control" placeholder="Couleur de la médaille"/>
+        <div class="row" ng-repeat="label in product.isLabeledBy">
+            <div ng-form="isLabeledBy">
+                <div class="col-sm-3">
+                    <input name="name" ng-model="label.name" type="text" class="form-control" placeholder="Nom de la médaille / concours"/>
+                </div>
+                <div class="col-sm-3">
+                    <input name="year" ng-model="label.year" type="text" class="form-control" placeholder="Année de la médaille"/>
+                </div>
+                <div class="col-sm-3">
+                    <input name="color" ng-model="label.color" type="text" class="form-control" placeholder="Couleur de la médaille"/>
+                </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row" ng-form="isLabeledByNew">
             <div class="col-sm-6">
-                <input ng-model="label.name" type="text" class="form-control" placeholder="Nom de la médaille / concours"/>
+                <input name="name" ng-model="label.name" type="text" class="form-control" placeholder="Nom de la médaille / concours"/>
             </div>
             <div class="col-sm-3">
-                <input ng-model="label.name" type="text" class="form-control" placeholder="Année de la médaille"/>
+                <input name="year" ng-model="label.year" type="text" class="form-control" placeholder="Année de la médaille"/>
             </div>
             <div class="col-sm-3">
-                <input ng-model="label.name" type="text" class="form-control" placeholder="Couleur de la médaille"/>
+                <input name="color" ng-model="label.color" type="text" class="form-control" placeholder="Couleur de la médaille"/>
             </div>
         </div>
     </div>
@@ -195,15 +197,15 @@
     </label>
     <div class="col-sm-4">
         <label class="radio-inline">
-            <input type="radio" ng-model="product.hasSulfite" ng-value="true">
+            <input type="radio" name="hasSulfite" ng-model="product.hasSulfite" ng-value="true">
             Contient des sulfites
         </label>
         <label class="radio-inline">
-            <input type="radio" ng-model="product.hasSulfite" ng-value="false">
+            <input type="radio" name="hasSulfite" ng-model="product.hasSulfite" ng-value="false">
             Sans sulfites
         </label>
         <label class="radio-inline">
-            <input type="radio" ng-model="product.hasSulfite" ng-value="null">
+            <input type="radio" name="hasSulfite" ng-model="product.hasSulfite" ng-value="null">
             Non renseigné
         </label>
     </div>
@@ -215,15 +217,15 @@
     </label>
     <div class="col-sm-5">
         <label class="radio-inline">
-            <input type="radio" ng-model="product.hasLysozyme" ng-value="true">
+            <input type="radio" name="hasLysozyme" ng-model="product.hasLysozyme" ng-value="true">
             Contient du lysozyme
         </label>
         <label class="radio-inline">
-            <input type="radio" ng-model="product.hasLysozyme" ng-value="false">
+            <input type="radio" name="hasLysozyme" ng-model="product.hasLysozyme" ng-value="false">
             Sans lysozyme
         </label>
         <label class="radio-inline">
-            <input type="radio" ng-model="product.hasLysozyme" ng-value="null">
+            <input type="radio" name="hasLysozyme" ng-model="product.hasLysozyme" ng-value="null">
             Non renseigné
         </label>
     <!--

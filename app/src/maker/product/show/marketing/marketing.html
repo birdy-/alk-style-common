@@ -15,19 +15,6 @@
         <span ng-show="productForm.nameLegal.$error.caseTooManyUpper" class="help-block">La dénomination ne doit pas comporter trop de majuscules.</span>
         <span ng-show="productForm.nameLegal.$error.caseStart" class="help-block">La dénomination doit commencer par une lettre majuscule.</span>
         <span ng-show="productForm.nameLegal.$error.containsBrand" class="help-block">Le nom du produit ne doit pas contenir de marque.</span>
-        <!--
-        <div class="col-sm-6" ng-show="prediction.visible">
-            <label class="radio-inline">
-                S'agit-il de {{ prediction.concept.name }} ?
-            </label>
-            <label class="radio-inline">
-                <input ng-model="prediction.correct" ng-change="verify()" type="radio" ng-value="true"> oui
-            </label>
-            <label class="radio-inline">
-                <input ng-model="prediction.correct" ng-change="verify()" type="radio" ng-value="false"> non
-            </label>
-        </div>
-        -->
         <div input-block-help field="productForm.nameLegal">
             The prescribed, regulated or generic product name or denomination that describes the true nature of the food and is sufficiently precise to distinguish it from other foods according to the country specific regulation.
             <br/>
@@ -85,7 +72,7 @@
     </div>
     <label for="isBrandedBy" class="col-sm-3 control-label">Marque commerciale</label>
     <div class="col-sm-3">
-        <input type="text" ng-model="product.isBrandedBy" type="text" select ui-select2="select2brandOptions" style="width: 100%"/>
+        <input type="text" name="isBrandedBy" ng-model="product.isBrandedBy" type="text" select ui-select2="select2brandOptions" style="width: 100%"/>
     </div>
 </div>
 <div class="form-group" ng-class="check('synonyms')">
@@ -141,7 +128,7 @@
         <div class="col-sm-2">
             <div class="radio">
                 <label>
-                    <input type="radio" ng-model="servesExact" ng-value="1">
+                    <input type="radio" name="servesExact" ng-model="servesExact" ng-value="1">
                     Exact
                 </label>
             </div>

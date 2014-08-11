@@ -6,16 +6,16 @@
 <div class="modal-body">
     <form class="form-horizontal" role="form">
         <div class="form-group has-feedback">
-            <input type="hidden" ng-model="psq.partitions"/>
+            <input name="partitions" type="hidden" ng-model="psq.partitions"/>
             <label for="name" class="col-sm-2 control-label">Texte</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" ng-model="psq.name" placeholder="ex : pour 5 carrés" required/>
+                <input name="name" type="text" class="form-control" ng-model="psq.name" placeholder="ex : pour 5 carrés" required/>
             </div>
         </div>
         <div class="form-group has-feedback">
             <label for="inputPassword3" class="col-sm-2 control-label">Quantité</label>
             <div class="col-sm-3">
-                <input type="text" class="form-control" ng-model="psq.quantity" placeholder="ex : 100" required alk-float/>
+                <input name="quantity" type="text" class="form-control" ng-model="psq.quantity" placeholder="ex : 100" required alk-float/>
             </div>
             <div class="col-sm-3">
                 <div select-commonunit name="isMeasuredBy" ng-model="psq.isMeasuredBy"></div>

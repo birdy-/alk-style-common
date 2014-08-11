@@ -18,19 +18,19 @@
             <div class="col-sm-2">
                 <div class="radio">
                     <label>
-                        <input type="radio" ng-model="reference.active" ng-value="true">
+                        <input type="radio" name="active" ng-model="reference.active" ng-value="true">
                         Actif
                     </label>
                 </div>
                 <div class="radio">
                     <label>
-                        <input type="radio" ng-model="reference.active" ng-value="false">
+                        <input type="radio" name="active" ng-model="reference.active" ng-value="false">
                         Inactif
                     </label>
                 </div>
                 <div class="radio">
                     <label>
-                        <input type="radio" ng-model="reference.active" ng-value="null">
+                        <input type="radio" name="active" ng-model="reference.active" ng-value="null">
                         Erreur
                     </label>
                 </div>
@@ -40,7 +40,7 @@
                     Cet {{ reference.type }} est <strong>actif</strong> et correspond à ce produit. Il peut être utilisé de manière fiable pour identifier ce produit et sa recette.
                 </div>
                 <div ng-show="reference.active === false" class="well">
-                    Cet {{ reference.type }} n'est <strong>plus actif</strong>. Il a correspondu à ce produit du <input type="date"/> au <input type="date"/>, mais a depuis été réattribué. Il ne doit pas être utilisé pour identifier ce produit et sa recette.
+                    Cet {{ reference.type }} n'est <strong>plus actif</strong>. Il a correspondu à ce produit du <input name="reference.from" type="date"/> au <input name="reference.to" type="date"/>, mais a depuis été réattribué. Il ne doit pas être utilisé pour identifier ce produit et sa recette.
                 </div>
                 <div ng-show="reference.active === null" class="well">
                     Cet {{ reference.type }} a été attribué par <strong>erreur</strong>. Il s'agit :
