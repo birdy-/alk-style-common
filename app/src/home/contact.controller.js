@@ -2,8 +2,8 @@
  * Modal that allows the user to register on the mailing list
  */
 angular.module('jDashboardFluxApp').controller('ContactController', [
-    '$scope', '$modalInstance', '$$sdkUser', '$location', 'user', 'message',
-    function ($scope, $modalInstance, $$sdkUser, $location, user, message) {
+    '$scope', '$modalInstance', '$$sdkAuth', '$location', 'user', 'message',
+    function ($scope, $modalInstance, $$sdkAuth, $location, user, message) {
 
     message = message ? message : "Merci de m'inscrire à votre mailing list.";
 
@@ -24,7 +24,7 @@ angular.module('jDashboardFluxApp').controller('ContactController', [
             alert('Merci de préciser votre email.');
             return;
         }
-        $$sdkUser.MailingListPost($scope.record).then(function (response) {
+        $$sdkAuth.MailingListPost($scope.record).then(function (response) {
             $modalInstance.close();
         }, function (response) {
             $modalInstance.close();

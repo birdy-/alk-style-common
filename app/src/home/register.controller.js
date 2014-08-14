@@ -1,7 +1,7 @@
 
 angular.module('jDashboardFluxApp').controller('RegisterCtrl', [
-    '$scope', '$$sdkUser', '$location', '$http',
-    function ($scope, $$sdkUser, $location, $http) {
+    '$scope', '$$sdkAuth', '$location', '$http',
+    function ($scope, $$sdkAuth, $location, $http) {
 
         // ------------------------------------------------------------------------
         // Variables
@@ -96,10 +96,10 @@ angular.module('jDashboardFluxApp').controller('RegisterCtrl', [
                     data: $scope.data,
                 }, true),
             };
-            $$sdkUser.MailingListPost(record);
+            $$sdkAuth.MailingListPost(record);
 
             // Create user
-            $$sdkUser.UserSignUp($scope.user).success(function(response){
+            $$sdkAuth.UserSignUp($scope.user).success(function(response){
                 $scope.ok = true;
             }).error(function(response){
                 $scope.ok = false;
