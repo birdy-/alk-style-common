@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaUploadCtrl', [
-    '$scope', '$modalInstance', '$document', '$log', '$routeParams',
-    function($scope, $modalInstance, $document, $log, $routeParams) {
+    '$scope', '$modalInstance', '$document', '$log', '$routeParams', '$route',
+    function($scope, $modalInstance, $document, $log, $routeParams, $route) {
 
         $log.debug('Init UploadAdController');
 
@@ -14,7 +14,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaUp
 
         // for the page
         $scope.newPictures = [];        
-
+        
         $scope.$watchCollection("uploadedFiles", function (newFiles) {
             while(newFiles.length) {
                 var file = newFiles.pop();                
@@ -23,7 +23,20 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaUp
                 // Make the picture visible
                 // Don't know how to do that cleanly without additional network 
                 file.file.appendTo($('#uploaded-pictures'));
-            }
+
+                // Upload has completed
+                // User can still see the previous picture for two reasons:
+                // A - the processing is asynchrone and slow
+                // B - caching from storage / browser
+                // A is handled by the setTimeout
+                // B is handled by with cachebuster
+                setTimeout(function(){
+                    $route.reload();
+                    $scope.done();
+                }, 15000)
+            }            
+
+
         });        
 
         $scope.done = function() {

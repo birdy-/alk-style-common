@@ -110,6 +110,8 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
 
             $scope.product = product;
 
+            $scope.product.urlPictureOriginal = 'https://smedia.alkemics.com/product/' + $scope.product.id + '/picture/packshot/original.png?' + Math.random() * 100000000;
+
             $scope.select2productOptions = $$autocomplete.getOptionAutocompletes('product', {
                 maximumSelectionSize: 1,
             }, {

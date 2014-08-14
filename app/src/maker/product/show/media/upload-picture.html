@@ -5,12 +5,15 @@
 
     <div ng-show="newPictures.length" class="modal-header">
         <h3>Photos ajoutées ({{ newPictures.length }} / {{ total }})</h3>
-        <h4 ng-show="newPictures.length < total">Transfert en cours...</h4>
+        <h4 ng-show="newPictures.length < total">Transfert en cours...</h4>        
+        <h4>La page va se rafraîchir automatiquement dans quelques instants afin de mettre 
+        à jour le visuel</h4>
+        <h4>Merci pour votre patience</h4>
     </div>
 
     <div class="modal-body">
         <div ng-show="newPictures.length">
-            <ul id="uploaded-pictures" >
+            <ul id="uploaded-pictures">
             </ul>
         </div>
 

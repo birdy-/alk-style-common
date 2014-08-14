@@ -12,15 +12,18 @@ angular.module('jDashboardFluxApp').directive('entityImage', [
         link: function(scope, elem, attrs) {
             scope.class = attrs.class;
             scope.$watch('entity', function(){
+
+                var cachebuster = Math.random() * 10000000000000000;
+
                 if (!scope.entity) {
                     return;
                 }
                 if (scope.entity._type == 'Shop') {
-                    scope.url = 'https://smedia.alkemics.com/shop/'+scope.entity.id+'/picture/logo/original.png';
+                    scope.url = 'https://smedia.alkemics.com/shop/' + scope.entity.id + '/picture/logo/original.png' + '?' + cachebuster;
                 } else if (scope.entity._type == 'Brand') {
-                    scope.url = 'https://smedia.alkemics.com/brand/'+scope.entity.id+'/picture/logo/original.png';
+                    scope.url = 'https://smedia.alkemics.com/brand/' + scope.entity.id + '/picture/logo/original.png' + '?' + cachebuster;
                 } else if (scope.entity._type == 'Product') {
-                    scope.url = 'https://smedia.alkemics.com/product/'+scope.entity.id+'/picture/packshot/256x256.png';
+                    scope.url = 'https://smedia.alkemics.com/product/' + scope.entity.id + '/picture/packshot/256x256.png' + '?' + cachebuster;
                 } else if (scope.entity._type == 'Recipe'
                         && scope.entity.url
                         && scope.entity.url.picture
