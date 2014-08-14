@@ -1,0 +1,44 @@
+<div template-product>
+<div ng-controller="DashboardMakerProductShowMerchandisingCtrl">
+
+
+<div class="col-sm-6">
+    <h3>Substitution</h3>
+    <p class="alert alert-success">
+        Par quoi ce produit doit-il être remplacé lorsqu'il est indisponible dans les paniers courants, les paniers historisés, les listes de favoris, etc...
+        <br/>
+        Exemple : pâtes 250 g en boite <i class="fa fa-arrow-right"></i> pâtes 250 g en sachet
+    </p>
+    <div related-product product="product" relation="ProductIsSubstitutableWithProduct" attribute="isSubstitutableWith"></div>
+</div>
+
+<div class="col-sm-6">
+    <!--<h3>Up-selling</h3>
+    <p class="alert alert-success">
+        Quels produits <strong>alternatifs</strong> proposer au consommateur de manière à accroître le volume de vente de ce produit ?
+        <br/>
+        Exemple : pâtes 250 g <i class="fa fa-arrow-right"></i> pâtes 500 g
+    </p>
+    <div related-product product="product" relation="ProductIsUpgradableByProduct" attribute="isUpgradableWith"></div>-->
+
+    <h3>Cross-selling</h3>
+    <p class="alert alert-success">
+        Quels produits <strong>complémentaires</strong> proposer au consommateur de manière à augmenter le nombre de produits dans le panier ?
+        <br/>
+        Exemple : pâtes <i class="fa fa-arrow-right"></i> sauce tomate
+    </p>
+    <div related-product product="product" relation="ProductIsComplementaryWithProduct" attribute="isComplementaryWith"></div>
+
+    <div ng-if="user && user.allowedWebsites('recipe.show').length">
+        <h3>Recettes</h3>
+        <p class="alert alert-success">
+            Quels recettes proposer au consommateur pour ce produit ?
+        </p>
+        <div related-recipe product="product" user="user" relation="ProductIsRequiredInRecipe" attribute="isRequiredIn"></div>
+    </div>
+
+</div>
+
+<br/> <br/> <br/>
+</div>
+</div>

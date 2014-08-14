@@ -9,7 +9,7 @@
 <div class="form-group">
     <label for="manufacturerName" class="col-sm-3 control-label">Nom de l'exploitant</label>
     <div class="col-sm-9">
-        <input type="text" class="form-control" ng-model="product.manufacturerName" placeholder="ex : Nestlé SA" required>
+        <input type="text" name="manufacturerName" ng-model="product.manufacturerName" placeholder="ex : Nestlé SA" required class="form-control"/>
         <div input-block-help field="productForm.manufacturerName">
             Le nom de l'exploitant du secteur alimentaire tel qu'indiqué sur l'emballage. L'industriel peut décider de rajouter certaines informations sur la nature de l'exploitant du secteur alimentaire.
         </div>
@@ -27,7 +27,7 @@
 <div class="form-group">
     <label for="manufacturerText" class="col-sm-3 control-label">Adresse de l'exploitant</label>
     <div class="col-sm-9">
-        <textarea class="form-control" ng-model="product.manufacturerText" placeholder="ex : 82 rue du Faubourg Saint Martin, 75010 PARIS" rows="2" required></textarea>
+        <textarea name="manufacturerText" ng-model="product.manufacturerText" placeholder="ex : 82 rue du Faubourg Saint Martin, 75010 PARIS" rows="2" required class="form-control"></textarea>
         <div input-block-help field="productForm.manufacturerText">
             L'adresse de l'exploitant du secteur alimentaire telle qu'indiquée sur l'emballage.
         </div>
@@ -44,13 +44,13 @@
 <div class="form-group">
     <label for="manufacturerName" class="col-sm-3 control-label">Contact</label>
     <div class="col-sm-2">
-        <input type="text" class="form-control" ng-model="product.manufacturerEmail" placeholder="Email">
+        <input type="text" name="manufacturerEmail" ng-model="product.manufacturerEmail" placeholder="Email" class="form-control"/>
     </div>
     <div class="col-sm-3">
-        <input type="text" class="form-control" ng-model="product.manufacturerPhonenumber" placeholder="Téléphone">
+        <input type="text" name="manufacturerPhonenumber" ng-model="product.manufacturerPhonenumber" placeholder="Téléphone" class="form-control"/>
     </div>
     <div class="col-sm-4">
-        <input type="text" class="form-control" ng-model="product.manufacturerWebsite" placeholder="Site web">
+        <input type="text" name="manufacturerWebsite" ng-model="product.manufacturerWebsite" placeholder="Site web" class="form-control"/>
     </div>
 </div>
 
@@ -67,37 +67,37 @@
 <div class="form-group">
     <label for="consumerSupportName" class="col-sm-3 control-label">Nom</label>
     <div class="col-sm-9">
-        <input type="text" class="form-control" ng-model="product.consumerSupportName" placeholder="Nom du service consommateur"/>
+        <input type="text" class="form-control" name="consumerSupportName" ng-model="product.consumerSupportName" placeholder="Nom du service consommateur"/>
     </div>
 </div>
 <div class="form-group">
     <label for="consumerSupportAddress" class="col-sm-3 control-label">Adresse</label>
     <div class="col-sm-9">
-        <textarea class="form-control" ng-model="product.consumerSupportAddress" placeholder="N° et rue"></textarea>
+        <textarea class="form-control" name="consumerSupportAddress" ng-model="product.consumerSupportAddress" placeholder="N° et rue"></textarea>
     </div>
 </div>
 <div class="form-group">
     <div class="col-sm-3"></div>
     <div class="col-sm-2">
-        <input type="text" class="form-control" ng-model="product.consumerSupportPostcode" placeholder="Code postal">
+        <input type="text" class="form-control" name="consumerSupportPostcode" ng-model="product.consumerSupportPostcode" placeholder="Code postal"/>
     </div>
     <div class="col-sm-3">
-        <input type="text" class="form-control" ng-model="product.consumerSupportCity" placeholder="Ville">
+        <input type="text" class="form-control" name="consumerSupportCity" ng-model="product.consumerSupportCity" placeholder="Ville"/>
     </div>
     <div class="col-sm-4">
-        <input type="text" class="form-control" ng-model="product.consumerSupportCountry" placeholder="Pays">
+        <input type="text" class="form-control" name="consumerSupportCountry" ng-model="product.consumerSupportCountry" placeholder="Pays"/>
     </div>
 </div>
 <div class="form-group">
     <label for="consumerSupportEmail" class="col-sm-3 control-label">Contact</label>
     <div class="col-sm-2">
-        <input type="text" class="form-control" ng-model="product.consumerSupportEmail" placeholder="Email">
+        <input type="text" class="form-control" name="consumerSupportEmail" ng-model="product.consumerSupportEmail" placeholder="Email"/>
     </div>
     <div class="col-sm-3">
-        <input type="text" class="form-control" ng-model="product.consumerSupportPhonenumber" placeholder="Téléphone">
+        <input type="text" class="form-control" name="consumerSupportPhonenumber" ng-model="product.consumerSupportPhonenumber" placeholder="Téléphone"/>
     </div>
     <div class="col-sm-4">
-        <input type="text" class="form-control" ng-model="product.consumerSupportWebsite" placeholder="Site web">
+        <input type="text" class="form-control" name="consumerSupportWebsite" ng-model="product.consumerSupportWebsite" placeholder="Site web"/>
     </div>
 </div>
 </div>

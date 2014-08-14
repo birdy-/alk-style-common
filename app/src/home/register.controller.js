@@ -18,7 +18,13 @@ angular.module('jDashboardFluxApp').controller('RegisterCtrl', [
         };
         $scope.company = {
             rcs: null,
-            name: null,
+            nameLegal: null,
+            identifierLegal: null,
+            identifierCity: null,
+            adress: null,
+            postcode: null,
+            city: null,
+            country: null,
         };
         $scope.user = {
             firstname: null,
@@ -82,7 +88,7 @@ angular.module('jDashboardFluxApp').controller('RegisterCtrl', [
                 username: $scope.user.username,
                 firstname: $scope.user.firstname,
                 lastname: $scope.user.lastname,
-                phone_number: $scope.user.phonenumber,
+                phonenumber: $scope.user.phonenumber,
                 subject: 'New account created',
                 message: angular.toJson({
                     user: $scope.user,
@@ -90,8 +96,7 @@ angular.module('jDashboardFluxApp').controller('RegisterCtrl', [
                     data: $scope.data,
                 }, true),
             };
-            /*$$sdkUser.MailingListPost(record).then(function (response) {
-            });*/
+            $$sdkUser.MailingListPost(record);
 
             // Create user
             $$sdkUser.UserSignUp($scope.user).success(function(response){

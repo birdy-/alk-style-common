@@ -6,13 +6,13 @@
 <div class="form-group">
     <label for="isFresh" class="col-sm-2 control-label">Mode</label>
     <label class="checkbox-inline">
-        <input type="checkbox" ng-model="product.isFresh"> Produit frais
+        <input type="checkbox" name="isFresh" ng-model="product.isFresh"> Produit frais
     </label>
     <label class="checkbox-inline">
-        <input type="checkbox" ng-model="product.isFrozen"> Produit surgelé
+        <input type="checkbox" name="isFrozen" ng-model="product.isFrozen"> Produit surgelé
     </label>
     <label class="checkbox-inline">
-        <input type="checkbox" ng-model="product.isCanned"> Produit en conserve
+        <input type="checkbox" name="isCanned" ng-model="product.isCanned"> Produit en conserve
     </label>
 </div>
 <div class="form-group">
@@ -61,37 +61,37 @@
     <label class="col-sm-2 control-label">Température</label>
     <div class="col-sm-2">
         <div class="input-group">
-            <input type="text" class="form-control" ng-model="product.tempConservationBefore" placeholder="ex : 20">
+            <input type="text" name="tempConservationBefore" ng-model="product.tempConservationBefore" placeholder="ex : 20" class="form-control"/>
             <span class="input-group-addon">° C</span>
         </div>
     </div>
     <label class="col-sm-1 control-label">Durée</label>
     <div class="col-sm-2">
         <div class="input-group">
-            <input type="text" class="form-control" ng-model="product.durationConservationBefore" placeholder="ex : 30">
+            <input type="text" name="durationConservationBefore" ng-model="product.durationConservationBefore" placeholder="ex : 30" class="form-control">
             <span class="input-group-addon">j</span>
         </div>
     </div>
     <div class="col-sm-5">
         <label class="checkox-inline">
-            <input type="checkbox" ng-model="product.keepRefregiratedBefore"/>
+            <input type="checkbox" name="keepRefregiratedBefore" ng-model="product.keepRefregiratedBefore"/>
             Lieu réfrigéré
         </label>
         <label class="checkox-inline">
-            <input type="checkbox" ng-model="product.keepFreshBefore"/>
+            <input type="checkbox" name="keepFreshBefore" ng-model="product.keepFreshBefore"/>
             Lieu frais
         </label>
         <label class="checkox-inline">
-            <input type="checkbox" ng-model="product.keepRegulatedBefore"/>
+            <input type="checkbox" name="keepRegulatedBefore" ng-model="product.keepRegulatedBefore"/>
             Lieu tempéré
         </label>
         <br/>
         <label class="checkox-inline">
-            <input type="checkbox" ng-model="product.keepDryBefore"/>
+            <input type="checkbox" name="keepDryBefore" ng-model="product.keepDryBefore"/>
             Lieu sec
         </label>
         <label class="checkox-inline">
-            <input type="checkbox" ng-model="product.keepShadeBefore"/>
+            <input type="checkbox" name="keepShadeBefore" ng-model="product.keepShadeBefore"/>
             Lieu à l'abri de la lumière
         </label>
     </div>
@@ -108,37 +108,37 @@
     <label class="col-sm-2 control-label">Température</label>
     <div class="col-sm-2">
         <div class="input-group">
-            <input type="text" class="form-control" ng-model="product.tempConservationAfter" placeholder="ex : 20">
+            <input type="text" name="tempConservationAfter" ng-model="product.tempConservationAfter" placeholder="ex : 20" class="form-control"/>
             <span class="input-group-addon">° C</span>
         </div>
     </div>
     <label class="col-sm-1 control-label">Durée</label>
     <div class="col-sm-2">
         <div class="input-group">
-            <input type="text" class="form-control" ng-model="product.durationConservationAfter" placeholder="ex : 30">
+            <input type="text" name="durationConservationAfter" ng-model="product.durationConservationAfter" placeholder="ex : 30" class="form-control"/>
             <span class="input-group-addon">j</span>
         </div>
     </div>
     <div class="col-sm-5">
         <label class="checkox-inline">
-            <input type="checkbox" ng-model="product.keepRefregiratedAfter"/>
+            <input type="checkbox" name="keepRefregiratedAfter" ng-model="product.keepRefregiratedAfter"/>
             Lieu réfrigéré
         </label>
         <label class="checkox-inline">
-            <input type="checkbox" ng-model="product.keepFreshAfter"/>
+            <input type="checkbox" name="keepFreshAfter" ng-model="product.keepFreshAfter"/>
             Lieu frais
         </label>
         <label class="checkox-inline">
-            <input type="checkbox" ng-model="product.keepRegulatedAfter"/>
+            <input type="checkbox" name="keepRegulatedAfter" ng-model="product.keepRegulatedAfter"/>
             Lieu tempéré
         </label>
         <br/>
         <label class="checkox-inline">
-            <input type="checkbox" ng-model="product.keepDryAfter"/>
+            <input type="checkbox" name="keepDryAfter" ng-model="product.keepDryAfter"/>
             Lieu sec
         </label>
         <label class="checkox-inline">
-            <input type="checkbox" ng-model="product.keepShadeAfter"/>
+            <input type="checkbox" name="keepShadeAfter" ng-model="product.keepShadeAfter"/>
             Lieu à l'abri de la lumière
         </label>
     </div>

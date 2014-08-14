@@ -136,6 +136,11 @@ app.config(function ($routeProvider) {
         controller: 'DashboardMakerProductShowCtrl',
         parameter: {id: 'integer'}
     });
+    $routeProvider.when('/maker/product/:id/merchandising', {
+        templateUrl: 'src/maker/product/show/merchandising/merchandising.html',
+        controller: 'DashboardMakerProductShowCtrl',
+        parameter: {id: 'integer'}
+    });
 
     // Brand views
     $routeProvider.when('/maker/brand/:id', {
