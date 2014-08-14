@@ -91,7 +91,6 @@
     <label for="allergens" class="col-sm-2 control-label">Allergènes</label>
     <div class="col-sm-10">
         <textarea ng-model="product.allergens" name="allergens" rows="3" class="form-control" placeholder="Allergènes notables du produit." required alk-focus></textarea>
-        <!--<textarea class="form-control" rows="3" ng-model="product.allergens" placeholder="Allergènes notables du produit."></textarea>-->
         <div input-block-help field="productForm.allergens">
             Textual description of the presence or absence of allergens as governed by local rules and regulations, specified as one string.
             <br/>
@@ -140,7 +139,7 @@
     <label for="ratioCacao" class="col-sm-2 control-label">Teneur en cacao</label>
     <div class="col-sm-4">
         <div class="input-group">
-            <input type="text" class="form-control" ng-model="product.ratioCacao" placeholder="ex : 72" alk-focus/>
+            <input type="text" name="ratioCacao" class="form-control" ng-model="product.ratioCacao" placeholder="ex : 72" alk-focus/>
             <span class="input-group-addon">%</span>
         </div>
     </div>

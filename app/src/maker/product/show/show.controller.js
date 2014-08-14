@@ -44,7 +44,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
         return classes;
     };
 
-
     $scope.$watch('product', function(){
         // Prevents errors when clearing values
         var nulls = [
@@ -70,10 +69,19 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
         }
     }, true);
 
+    $scope.$on('$locationChangeStart', function(event) {
+        if ($scope.productForm.$pristine) {
+            return;
+        }
+        if (!confirm("Des changements n'ont pas été enregistrés, quitter quand même ?")) {
+            event.preventDefault();
+        }
+    });
+
     // ------------------------------------------------------------------------
     // Init
     // ------------------------------------------------------------------------
-    var load = function(id) {
+    $scope.load = function(id) {
         $scope.productForm.$loading = true;
         withs = {};
         if ($location.path().indexOf('label') !== -1) {
@@ -82,17 +90,23 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
             withs.isMadeOf = true;
             withs.isDerivedFrom = true;
         } else if ($location.path().indexOf('merchandising') !== -1) {
+            withs.isRequiredIn = true;
             withs.isSubstitutableWith = true;
             withs.isComplementaryWith = true;
         }
         $$sdkCrud.ProductShow(id, withs, function(response){
             $scope.productForm.$loading = false;
             var product = new Product().fromJson(response.data);
+            // Fill up for autocompletion reasons
             product.isMeasuredBy.text = product.isMeasuredBy.name;
             product.isBrandedBy.text = product.isBrandedBy.name;
-            product.madeOf = [];
-            product.hasVarietal = [];
-            product.isPartitionedBy = [];
+            // Sort fields that requires to be ordered
+            if (product.isSubstitutableWith) {
+                product.isSubstitutableWith.sort(function(a, b){return a.ranking > b.ranking; });
+            }
+            if (product.isComplementaryWith) {
+                product.isComplementaryWith.sort(function(a, b){return a.ranking > b.ranking; });
+            }
 
             $scope.product = product;
 
@@ -103,7 +117,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
             });
         });
     };
-    $scope.load = load;
     permission.getUser().then(function(user){
         $scope.user = user;
         user.managesBrand.forEach(function(brand){

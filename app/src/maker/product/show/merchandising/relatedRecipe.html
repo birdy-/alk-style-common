@@ -1,0 +1,41 @@
+<div class="row" ng-form="relatedRecipeNew">
+    <div class="col-sm-6">
+        <input name="recipe" ng-model="target" type="text" ui-select2="select2recipeOptions" style="width: 100%;" data-placeholder="Choisir une recette"/>
+    </div>
+    <div class="col-sm-3">
+        <a class="btn btn-success btn-sm" ng-click="add()">
+            <i class="fa fa-plus"></i>
+            Ajouter
+        </a>
+    </div>
+    <!--<div class="col-sm-3 text-right" ng-show="product.is">
+        <a class="btn btn-warning btn-sm">
+            <i class="fa fa-lightbulb-o"></i>
+            Suggérer
+        </a>
+    </div>-->
+    <br/> <br/> <br/>
+</div>
+<div ui-sortable ng-model="product[attribute]">
+    <div class="well choice" ng-repeat="psbp in product[attribute]">
+        <div class="row">
+            <div class="col-sm-1">{{ pspb.ranking }}</div>
+            <div class="col-sm-2">
+                <img entity-image entity="psbp.recipe" height="40" width="40"/>
+            </div>
+            <div class="col-sm-7">
+                <span class="text-middle">
+                    <a ng-href="{{ psbp.recipe.isDescribedOn.url }}" target="_blank">
+                        {{ psbp.recipe.title }}
+                    </a>
+                </span>
+
+            </div>
+            <div class="col-sm-2 text-right">
+                <span class="btn btn-danger" ng-click="delete(psbp)">
+                    <i class="fa fa-trash-o"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

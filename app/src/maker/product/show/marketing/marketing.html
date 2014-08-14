@@ -15,19 +15,6 @@
         <span ng-show="productForm.nameLegal.$error.caseTooManyUpper" class="help-block">La dénomination ne doit pas comporter trop de majuscules.</span>
         <span ng-show="productForm.nameLegal.$error.caseStart" class="help-block">La dénomination doit commencer par une lettre majuscule.</span>
         <span ng-show="productForm.nameLegal.$error.containsBrand" class="help-block">Le nom du produit ne doit pas contenir de marque.</span>
-        <!--
-        <div class="col-sm-6" ng-show="prediction.visible">
-            <label class="radio-inline">
-                S'agit-il de {{ prediction.concept.name }} ?
-            </label>
-            <label class="radio-inline">
-                <input ng-model="prediction.correct" ng-change="verify()" type="radio" ng-value="true"> oui
-            </label>
-            <label class="radio-inline">
-                <input ng-model="prediction.correct" ng-change="verify()" type="radio" ng-value="false"> non
-            </label>
-        </div>
-        -->
         <div input-block-help field="productForm.nameLegal">
             The prescribed, regulated or generic product name or denomination that describes the true nature of the food and is sufficiently precise to distinguish it from other foods according to the country specific regulation.
             <br/>
@@ -85,7 +72,7 @@
     </div>
     <label for="isBrandedBy" class="col-sm-3 control-label">Marque commerciale</label>
     <div class="col-sm-3">
-        <input type="text" ng-model="product.isBrandedBy" type="text" select ui-select2="select2brandOptions" style="width: 100%"/>
+        <input type="text" name="isBrandedBy" ng-model="product.isBrandedBy" type="text" select ui-select2="select2brandOptions" style="width: 100%"/>
     </div>
 </div>
 <div class="form-group" ng-class="check('synonyms')">
@@ -135,27 +122,49 @@
         </div>
     </div>
 </div>
-<div class="form-group has-feedback" ng-class="check('serves')">
-    <label for="serves" class="col-sm-3 control-label">Nombre de parts</label>
-    <div class="col-sm-2">
-        <div input-rich input-rich-field="fields.serves" input-rich-form="productForm.serves">
-            <input type="number" ng-model="product.serves" name="serves" class="form-control" rows="3" placeholder="" alk-focus/>
+<div class="form-group">
+    <div class="row has-feedback" ng-class="check('serves')">
+        <label for="serves" class="col-sm-3 control-label">Nombre de parts</label>
+        <div class="col-sm-2">
+            <div class="radio">
+                <label>
+                    <input type="radio" name="servesExact" ng-model="servesExact" ng-value="1">
+                    Exact
+                </label>
+            </div>
         </div>
-        <span ng-show="productForm.serves.$error.number" class="help-block">Cet élément doit être un chiffre.</span>
+        <div class="col-sm-7">
+            <div input-rich input-rich-field="fields.serves" input-rich-form="productForm.serves" ng-show="servesExact === 1 || product.serves">
+                <input type="number" ng-model="product.serves" name="serves" class="form-control" ng-min="0" placeholder="" alk-focus/>
+            </div>
+            <span ng-show="productForm.serves.$error.number" class="help-block">Cet élément doit être un chiffre.</span>
+        </div>
     </div>
-    <label for="servesText" class="col-sm-4 control-label">ou Descriptif du nombre de parts</label>
-    <div class="col-sm-3">
-        <input type="text" ng-model="product.servesText" name="servesText" class="form-control" rows="3" placeholder="" alk-focus/>
-        <div input-block-help field="productForm.servesText">
-            Range description for number of serving.
-            <br/>
-            Pour fournir une valeur approximative de portions, suit la structure "approximativement X portions/parts/..." où X est le nombre de portions. Pour indiquer qu'un produit contient entre N-1 et N portions, suit la structure "N-1 - N portions/parts/personnes/..." où N-1 est la borne inférieure et N est la borne supérieure.
+    <div class="row has-feedback" ng-class="check('servesText')">
+        <label for="servesText" class="col-sm-3 control-label"></label>
+        <div class="col-sm-2">
+            <div class="radio">
+                <label>
+                    <input type="radio" ng-model="servesExact" ng-value="2">
+                    Approximatif
+                </label>
+            </div>
         </div>
-        <div input-block-example field="productForm.servesText">
-            ex : "environ 25 bonbons"
-        </div>
-        <div input-block-gdsn field="productForm.servesText">
-            Correspond dans la GDSN a la balise <code>numberOfServingsRangeDescription</code>.
+        <div class="col-sm-7">
+            <div ng-show="servesExact === 2 || product.servesText">
+                <input type="text" ng-model="product.servesText" name="servesText" class="form-control" placeholder="" alk-focus/>
+                <div input-block-help field="productForm.servesText">
+                    Range description for number of serving.
+                    <br/>
+                    Pour fournir une valeur approximative de portions, suit la structure "approximativement X portions/parts/..." où X est le nombre de portions. Pour indiquer qu'un produit contient entre N-1 et N portions, suit la structure "N-1 - N portions/parts/personnes/..." où N-1 est la borne inférieure et N est la borne supérieure.
+                </div>
+                <div input-block-example field="productForm.servesText">
+                    ex : "environ 25 bonbons"
+                </div>
+                <div input-block-gdsn field="productForm.servesText">
+                    Correspond dans la GDSN a la balise <code>numberOfServingsRangeDescription</code>.
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -183,7 +192,7 @@
 <div class="form-group has-feedback" ng-class="check('appearanceVisual')">
     <label for="appearanceVisual" class="col-sm-3 control-label">Description visuelle</label>
     <div class="col-sm-9">
-        <textarea ng-model="product.appearanceVisual" name="appearanceVisual" class="form-control" rows="2" placeholder="ex : robe jaune très clair, à reflets verts." alk-focus></textarea>
+        <textarea ng-model="product.appearanceVisual" name="appearanceVisual" class="form-control" rows="2" placeholder="ex : Robe jaune très clair, à reflets verts." alk-focus></textarea>
         <div input-block-help field="productForm.appearanceVisual">
             Détails de dégustation visuels (couleur, robe...).
         </div>
@@ -192,7 +201,7 @@
 <div class="form-group has-feedback" ng-class="check('pairings')">
     <label for="pairings" class="col-sm-3 control-label">Accords suggérés</label>
     <div class="col-sm-9">
-        <textarea ng-model="product.pairings" name="pairings" class="form-control" rows="2" placeholder="ex : parfait avec un camembert." alk-focus></textarea>
+        <textarea ng-model="product.pairings" name="pairings" class="form-control" rows="2" placeholder="ex : Parfait avec un camembert." alk-focus></textarea>
         <div input-block-help field="productForm.pairings">
             Accords suggérés (vins, fromages...).
         </div>

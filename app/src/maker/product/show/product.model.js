@@ -13,6 +13,9 @@ var Product = function(){
         return this;
     };
 
+    this.isValidated = function() {
+        return this.status === Product.STATUS_VALIDATED.id
+    };
     this.isCertified = function() {
         return this.certified === Product.CERTIFICATION_STATUS_CERTIFIED.id
             || this.certified === Product.CERTIFICATION_STATUS_PUBLISHED.id;
@@ -97,6 +100,41 @@ var ProductIsMadeOfProduct = function() {
         return this;
     };
 };
+
+var ProductIsComplementaryWithProduct = function() {
+    this.id = null;
+    this.target = null;
+    this.fromJson = function(json) {
+        for (var key in json) {
+            this[key] = json[key];
+        }
+        return this;
+    };
+};
+
+var ProductIsSubstitutableWithProduct = function() {
+    this.id = null;
+    this.target = null;
+    this.fromJson = function(json) {
+        for (var key in json) {
+            this[key] = json[key];
+        }
+        return this;
+    };
+};
+
+
+var ProductIsRequiredInRecipe = function() {
+    this.id = null;
+    this.target = null;
+    this.fromJson = function(json) {
+        for (var key in json) {
+            this[key] = json[key];
+        }
+        return this;
+    };
+};
+
 
 var ProductNutritionalQuantity = function() {
     this.id = null;

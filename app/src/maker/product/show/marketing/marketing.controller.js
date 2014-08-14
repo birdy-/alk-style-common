@@ -40,12 +40,12 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMarketi
             templateUrl: '/src/maker/product/show/marketing/suggestname.html',
             controller: 'ProductMarketingNameSuggestModalController',
             resolve: {
-                $$sdkCrud: function () {return $$sdkCrud; },
-                product: function () {return $scope.product; }
+                $$sdkCrud: function() {return $$sdkCrud; },
+                product: function() {return $scope.product; }
             }
         });
 
-        modalInstance.result.then(function (selectedItem) {
+        modalInstance.result.then(function () {
         }, function () {
         });
     };
@@ -54,15 +54,26 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMarketi
             templateUrl: '/src/maker/product/show/marketing/suggestsynonym.html',
             controller: 'ProductMarketingSynonymSuggestModalController',
             resolve: {
-                $$sdkCrud: function () {return $$sdkCrud; },
-                product: function () {return $scope.product; }
+                $$sdkCrud: function() {return $$sdkCrud; },
+                product: function() {return $scope.product; }
             }
         });
 
-        modalInstance.result.then(function (selectedItem) {
-        }, function () {
+        modalInstance.result.then(function() {
+        }, function() {
         });
     };
+
+    // ------------------------------------------------------------------------
+    // Event listening
+    // ------------------------------------------------------------------------
+    $scope.$watch('product', function(){
+        if ($scope.product.serves) {
+            $scope.servesExact = 1;
+        } else if ($scope.product.servesText) {
+            $scope.servesExact = 2;
+        }
+    }, true);
 }]);
 
 

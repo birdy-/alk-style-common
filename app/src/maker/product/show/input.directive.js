@@ -42,8 +42,7 @@ angular.module('jDashboardFluxApp').directive('productLabel', function($compile)
 
             var getProductHasLabelFromId = function(product, id) {
                 for (var i = 0; i < product.isLabeledBy.length; i++) {
-                    // if (product.isLabeledBy[i].isConceptualizedBy.id == id) {
-                    if (product.isLabeledBy[i].id == id) {
+                    if (product.isLabeledBy[i].concept.id == id) {
                         return i;
                     }
                 }
@@ -67,8 +66,7 @@ angular.module('jDashboardFluxApp').directive('productLabel', function($compile)
                     var index = getProductHasLabelFromId(scope.product, scope.legend.id);
                     if (index === -1) {
                         var phl = new ProductHasLabel();
-                        // phl.isConceptualizedBy = scope.legend;
-                        phl.id = scope.legend.id;
+                        phl.concept = scope.legend;
                         scope.product.isLabeledBy.push(phl);
                     }
                 } else {
