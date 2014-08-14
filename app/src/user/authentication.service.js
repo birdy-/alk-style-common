@@ -49,6 +49,7 @@ angular.module('jDashboardFluxApp').service('permission', [
                 // Create user object
                 user = new User();
                 user.fromJson(response.data.data);
+                console.log('Done loading in auth directive.');
 
                 // Broadcast event
                 $rootScope.$broadcast('event:auth-loginConfirmed');
@@ -56,6 +57,11 @@ angular.module('jDashboardFluxApp').service('permission', [
             });
         }
         return userPromise;
+    };
+
+    var reset = function() {
+        userPromise = null;
+        user = null;
     };
 
 
@@ -97,7 +103,7 @@ angular.module('jDashboardFluxApp').service('permission', [
     };
 
     return {
-        user: user,
+        reset: reset,
         getUser: getUser,
         login: login,
         logout: logout,

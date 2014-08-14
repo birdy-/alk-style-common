@@ -211,25 +211,20 @@ app.config(function ($routeProvider) {
     // Settings views
     // ------------------------------------------------------------------------------------------
 
-    $routeProvider.when('/settings', {
-        redirectTo: '/settings/profile'
+    $routeProvider.when('/user/me/profile', {
+        templateUrl: 'src/user/profile/me/index.html',
+        controller: 'UserProfileShowCtrl'
     });
-    $routeProvider.when('/settings/profile', {
-        templateUrl: 'src/settings/index.html',
-        controller: 'SettingsCtrl'
+    $routeProvider.when('/user/:id/profile', {
+        templateUrl: 'src/user/profile/show/index.html',
+        controller: 'UserProfileShowCtrl'
     });
-    $routeProvider.when('/settings/organization/:id/access', {
-        templateUrl: 'src/settings/organization/members/members_access.html',
-        controller: 'SettingsOrganizationMembersAccessCtrl'
+
+    $routeProvider.when('/organization/:id/profile', {
+        templateUrl: 'src/organization/profile/index.html',
+        controller: 'OrganizationProfileShowCtrl'
     });
-    $routeProvider.when('/settings/organization/:id/members', {
-        templateUrl: 'src/settings/organization/members/members.html',
-        controller: 'SettingsOrganizationMembersCtrl'
-    });
-    $routeProvider.when('/settings/organization/:id/members/new', {
-        templateUrl: 'src/settings/organization/members/new.html',
-        controller: 'SettingsOrganizationMembersNewCtrl'
-    });
+
     // ------------------------------------------------------------------------------------------
     // Home views
     // ------------------------------------------------------------------------------------------
