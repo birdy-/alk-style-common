@@ -1,12 +1,12 @@
 'use strict';
 
-angular.module('jDashboardFluxApp').service('$$BrandRepository', [
+angular.module('jDashboardFluxApp').service('$$ShopRepository', [
     '$$sdkCrud', '$$abstractRepository', '$q',
     function service($$sdkCrud, $$abstractRepository, $q) {
 
-        var Model = Brand;
+        var Model = Shop;
         var $$sdk = $$sdkCrud;
-        var modelName = 'Brand';
+        var modelName = 'Shop';
 
         var get = function (id, options) {
             id = parseInt(id);
@@ -25,17 +25,6 @@ angular.module('jDashboardFluxApp').service('$$BrandRepository', [
 
                 // Fill properties
                 entity.text = entity.name;
-                if (entity.isSubBrandOf) {
-                    entity.isSubBrandOf = $$abstractRepository.getLazy(entity.isSubBrandOf._type, entity.isSubBrandOf.id, true);
-                }
-                if (entity.subBrands) {
-                    var json;
-                    entity.subBrands = [];
-                    for(var i = 0; i < data.subBrands.length; i++) {
-                        json = data.subBrands[i];
-                        entity.subBrands.push($$abstractRepository.getLazy(json._type, json.id, true));
-                    }
-                }
 
                 // Cache entity for future reuse
                 $$abstractRepository.registerCache(entity);

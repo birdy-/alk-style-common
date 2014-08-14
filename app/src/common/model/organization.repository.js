@@ -1,12 +1,12 @@
 'use strict';
 
-angular.module('jDashboardFluxApp').service('$$BrandRepository', [
-    '$$sdkCrud', '$$abstractRepository', '$q',
-    function service($$sdkCrud, $$abstractRepository, $q) {
+angular.module('jDashboardFluxApp').service('$$OrganizationRepository', [
+    '$$sdkAuth', '$$abstractRepository', '$q',
+    function service($$sdkAuth, $$abstractRepository, $q) {
 
-        var Model = Brand;
-        var $$sdk = $$sdkCrud;
-        var modelName = 'Brand';
+        var Model = Organization;
+        var $$sdk = $$sdkAuth;
+        var modelName = 'Organization';
 
         var get = function (id, options) {
             id = parseInt(id);
@@ -22,20 +22,7 @@ angular.module('jDashboardFluxApp').service('$$BrandRepository', [
                 // Check if not lazilly instantiated somewhere.
                 var entity = $$abstractRepository.getLazy(modelName, id, true);
                 entity.fromJson(data);
-
-                // Fill properties
                 entity.text = entity.name;
-                if (entity.isSubBrandOf) {
-                    entity.isSubBrandOf = $$abstractRepository.getLazy(entity.isSubBrandOf._type, entity.isSubBrandOf.id, true);
-                }
-                if (entity.subBrands) {
-                    var json;
-                    entity.subBrands = [];
-                    for(var i = 0; i < data.subBrands.length; i++) {
-                        json = data.subBrands[i];
-                        entity.subBrands.push($$abstractRepository.getLazy(json._type, json.id, true));
-                    }
-                }
 
                 // Cache entity for future reuse
                 $$abstractRepository.registerCache(entity);

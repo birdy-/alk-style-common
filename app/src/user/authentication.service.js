@@ -9,8 +9,8 @@
  * the rest of the application.
  */
 angular.module('jDashboardFluxApp').service('permission', [
-    "URL_SERVICE_AUTH", "$http", "$rootScope", "authService", "$window", "$log", "$$BrandRepository",
-    function init(URL_SERVICE_AUTH, $http, $rootScope, authService, $window, $log, $$BrandRepository) {
+    "URL_SERVICE_AUTH", "$http", "$rootScope", "authService", "$window", "$log", "$$ORM",
+    function init(URL_SERVICE_AUTH, $http, $rootScope, authService, $window, $log, $$ORM) {
 
     var userPromise = null;
     var user = null;
@@ -24,13 +24,27 @@ angular.module('jDashboardFluxApp').service('permission', [
             var url = URL_SERVICE_AUTH + '/auth/v1/user/me';
             userPromise = $http.get(url).then(function(response, status, headers, config) {
                 // Lazy-load relateed entities
-                var managesBrand = [];
-                response.data.data.managesBrand.forEach(function(brand){
-                    var obj = $$BrandRepository.lazy(brand.id);
+                var json = response.data.data;
+                json.managesBrand = json.managesBrand.map(function(entity){
+                    var obj = $$ORM.repository('Brand').lazy(entity.id).fromJson(entity);
                     obj.allowed = true;
-                    managesBrand.push(obj);
+                    return obj;
                 });
-                response.data.data.managesBrand = managesBrand;
+                json.managesWebsite = json.managesWebsite.map(function(entity){
+                    var obj = $$ORM.repository('Website').lazy(entity.id).fromJson(entity);
+                    obj.allowed = true;
+                    return obj;
+                });
+                json.managesShop = json.managesShop.map(function(entity){
+                    var obj = $$ORM.repository('Shop').lazy(entity.id).fromJson(entity);
+                    obj.allowed = true;
+                    return obj;
+                });
+                json.belongsTo = json.belongsTo.map(function(entity){
+                    var obj = $$ORM.repository('Organization').lazy(entity.id).fromJson(entity);
+                    obj.allowed = true;
+                    return obj;
+                });
 
                 // Create user object
                 user = new User();
