@@ -9,35 +9,8 @@
  * the rest of the application.
  */
 angular.module('jDashboardFluxApp').service('permission', [
-    "URL_SERVICE_AUTH", "$http", "$rootScope", "authService", "$window", "$log", "$brandRepository",
-    function init(URL_SERVICE_AUTH, $http, $rootScope, authService, $window, $log, $brandRepository) {
-
-    /**
-     * Returns whether the access to an entity of a given type and id is
-     * allowed.
-     *
-     * @param string type The type of entity.
-     * @param integer id The id of the entity.
-     * @return Boolean Whether the access is allowed or not.
-     */
-    var isAllowed = function(type, id) {
-        var considers = [];
-        if (type == 'Shop') {
-            considers = user.managesShop;
-        } else if (type == 'Brand') {
-            considers = user.managesBrand;
-        } else if (type == 'Website') {
-            considers = user.managesWebsite;
-        } else {
-            throw 'Unknown type : '+type;
-        }
-        for (var i = 0; i < considers.length; i++) {
-            if (considers[i].id == id) {
-                return true;
-            }
-        }
-        return false;
-    };
+    "URL_SERVICE_AUTH", "$http", "$rootScope", "authService", "$window", "$log", "$$BrandRepository",
+    function init(URL_SERVICE_AUTH, $http, $rootScope, authService, $window, $log, $$BrandRepository) {
 
     var userPromise = null;
     var user = null;
@@ -50,17 +23,21 @@ angular.module('jDashboardFluxApp').service('permission', [
         if (userPromise == null) {
             var url = URL_SERVICE_AUTH + '/auth/v1/user/me';
             userPromise = $http.get(url).then(function(response, status, headers, config) {
-                user = response.data.data;
-                // Attach methods
-                user.isAllowed = isAllowed;
-                $rootScope.$broadcast('event:auth-loginConfirmed');
-
-
+                // Lazy-load relateed entities
                 var managesBrand = [];
-                user.managesBrand.forEach(function(brand){
-                    managesBrand.push($brandRepository.lazy(brand.id));
+                response.data.data.managesBrand.forEach(function(brand){
+                    var obj = $$BrandRepository.lazy(brand.id);
+                    obj.allowed = true;
+                    managesBrand.push(obj);
                 });
-                user.managesBrand = managesBrand;
+                response.data.data.managesBrand = managesBrand;
+
+                // Create user object
+                user = new User();
+                user.fromJson(response.data.data);
+
+                // Broadcast event
+                $rootScope.$broadcast('event:auth-loginConfirmed');
                 return user;
             });
         }
@@ -110,7 +87,6 @@ angular.module('jDashboardFluxApp').service('permission', [
         getUser: getUser,
         login: login,
         logout: logout,
-        isAllowed: isAllowed,
         getAccessToken: getAccessToken
     };
 }]);

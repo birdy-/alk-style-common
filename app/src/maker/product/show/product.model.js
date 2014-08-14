@@ -1,12 +1,5 @@
 'use strict';
 
-var Constant = function(id, name, description){
-    this.id = id;
-    this.name = name;
-    this.description = description;
-};
-
-
 var Product = function(){
     // NB : it is very important not to set the vaues below to [] otherwise
     // it will overwrite the related entities by a []...
@@ -51,7 +44,9 @@ var Product = function(){
             || this.typePromotional === Product.TYPEPROMOTIONAL_SPECIALPRICE.id;
     };
 };
-Product.CERTIFICATION_STATUS_DEFAULT        = new Constant(0, "DEFAULT",       "The Product needs to be accepted and certified.");
+Product.CERTIFICATION_STATUS_DEFAULT        = new Constant(0, "DEFAULT",       "The Product has not been considered for review yet");
+Product.CERTIFICATION_STATUS_REVIEWING      = new Constant(4, "REVIEWING",     "The Product is being reviewed by us before being attributed.")
+Product.CERTIFICATION_STATUS_ATTRIBUTED     = new Constant(5, "ATTRIBUTED",    "The Product was attributed to its producer.")
 Product.CERTIFICATION_STATUS_ACCEPTED       = new Constant(1, "ACCEPTED",      "The Product was accepted by its producer.");
 Product.CERTIFICATION_STATUS_CERTIFIED      = new Constant(2, "CERTIFIED",     "The Product was certified by its producer.");
 Product.CERTIFICATION_STATUS_PUBLISHED      = new Constant(3, "PUBLISHED",     "The Product was published by its producer.");

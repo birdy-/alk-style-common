@@ -9,12 +9,12 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1>
-                            {{ organization.name }}                            
+                            {{ organization.name }}
                         </h1>
                     </div>
                     </br>
                 </div>
-                
+
             </section>
             <section class="col-lg-12">
 
@@ -29,10 +29,10 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-lg-4">                    
+                    <div class="col-lg-4">
                         <label>Filtrer par Nom d'utilisateur</label>
                         <input ng-model="userNameFilter" data-placeholder="Un nom d'utilisateur" style="width: 100%;"></input>
-                    </div>                                                            
+                    </div>
                 </div>
 
                 <div class="row">
@@ -48,26 +48,26 @@
                             <tbody>
                                 <tr ng-repeat="member in members | filter:userNameFilter">
                                     <td>
-                                        <img gravatar-src="member.username" gravatar-size="20" height="20" width="20"/>
+                                        <img ng-src="https://secure.gravatar.com/avatar/{{ user.username | gravatar }}?s=20&d=mm" height="20" width="20"/>
                                         <a href="/#/settings/profile">
                                             <span style="margin: 5px;">
                                                 {{ member.firstname }}
-                                                {{ member.lastname }}                                        
-                                            </span>                        
-                                        </a>                    
+                                                {{ member.lastname }}
+                                            </span>
+                                        </a>
                                     </td>
-                                    <td>                                        
-                                        {{ member.managesBrand.length }}                                        
+                                    <td>
+                                        {{ member.managesBrand.length }}
                                     </td>
                                     <td style="line-height: 20px;">
                                         {{ member.permission | filterPermission }}
-                                    </td>                                    
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <a href="/#/settings/organization/{{ organizationId }}/members/new">
                                             <span style="cursor: pointer; float:left;">
-                                                <img gravatar-src="'toto'" gravatar-size="20" height="20" width="20"/>
+                                                <img ng-src="https://secure.gravatar.com/avatar/{{ '' | gravatar }}?s=20&d=mm" height="20" width="20"/>
                                             </span>
                                             <span style="cursor: pointer; float:left; margin-left:5px">
                                                 <i class="fa fa-plus"></i>
@@ -77,18 +77,18 @@
                                             </span>
                                         </a>
                                     </td>
-                                    <td>                                        
-                                        
+                                    <td>
+
                                     </td>
                                     <td style="line-height: 20px;">
-                                        
-                                    </td>                                    
+
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
-            </section>            
-        </div>        
+            </section>
+        </div>
     </div>
 </div>

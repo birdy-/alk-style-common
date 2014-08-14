@@ -54,12 +54,13 @@
 
     <!-- Fonts & CSS -->
     <link href='//fonts.googleapis.com/css?family=Varela:300,400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css">
 
     <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/sass-bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="bower_components/select2/select2.css">
+    <link rel="stylesheet" href="bower_components/angular-ui-tree/dist/angular-ui-tree.min.css">
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -112,6 +113,19 @@
     ga('create', 'UA-47074386-1', 'alkemics.com');
     ga('send', 'pageview');
     </script>
+    <script type="text/javascript" id="tocio_tck">
+      //<![CDATA[
+            window._taq = _taq = [];
+            _taq.push(['_setAppId', 'UA-0000-2']); // Write here your Account ID
+            _taq.push(['_trackPageview']);
+            (function(t,o,c,a,l,k){
+                l=o.createElement(c),k=o.getElementsByTagName(c)[0];
+                l.defer=1;l.async=1;l.src=(o.location.protocol==='https:'? 'https://ssl':'http://')+a;
+                k.parentNode.insertBefore(l,k);
+            })(window, document, 'script', 'cdn.alkemics.com/tck/v2/tck.js');
+        //]]>
+    </script>
+
 
     <!--[if lt IE 9]>
     <script src="bower_components/es5-shim/es5-shim.js"></script>
@@ -120,26 +134,25 @@
 
     <!-- build:js scripts/plugins.js -->
         <script src="bower_components/jquery/jquery.js"></script>
+        <script src="bower_components/jquery-ui/jquery-ui.js"></script>
         <script src="bower_components/select2/select2.js"></script>
         <script src="bower_components/angular/angular.js"></script>
-        <script src="bower_components/sass-bootstrap/dist/js/bootstrap.js"></script>
+        <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
         <script src="bower_components/angular-cookies/angular-cookies.js"></script>
         <script src="bower_components/angular-route/angular-route.js"></script>
-
         <script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
         <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 
+        <script src="bower_components/angular-ui-sortable/sortable.js"></script>
         <script src="bower_components/angular-i18n/angular-locale_fr-fr.js"></script>
         <script src="bower_components/angular-ui-select2/src/select2.js"></script>
-        <script src="bower_components/angular-slider/angular-slider.js"></script>
+        <script src="bower_components/angular-ui-tree/dist/angular-ui-tree.js"></script>
         <script src="bower_components/angular-route/angular-route.js"></script>
         <script src="bower_components/angular-resource/angular-resource.js"></script>
         <script src="bower_components/angular-cookies/angular-cookies.js"></script>
         <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
         <script src="bower_components/angular-mocks/angular-mocks.js"></script>
         <script src="bower_components/angular-md5/angular-md5.js"></script>
-        <script src="bower_components/angular-gravatar/src/md5.js"></script>
-        <script src="bower_components/angular-gravatar/build/angular-gravatar.js"></script>
         <script src="bower_components/angular-http-auth/src/http-auth-interceptor.js"></script>
         <script src="bower_components/infinite-scroll/build/ng-infinite-scroll.min.js"></script>
 
@@ -154,26 +167,31 @@
         <script src="bower_components/sdk-dashboard/src/sdk-crud.js"></script>
         <script src="bower_components/sdk-dashboard/src/sdk-admin.js"></script>
         <script src="bower_components/sdk-dashboard/src/sdk-auth.js"></script>
+        <script src="bower_components/sdk-dashboard/src/sdk-user.js"></script>
 
         <script src="src/app.js"></script>
 
+        <script src="src/common/model/common.model.js"></script>
+        <script src="src/common/model/brand.repository.js"></script>
+        <script src="src/common/model/brand.model.js"></script>
+
+        <script src="src/common/upload/plupload.js"></script>
 
         <script src="src/home/home.controller.js"></script>
+        <script src="src/home/faq.controller.js"></script>
         <script src="src/home/header.controller.js"></script>
         <script src="src/home/register.controller.js"></script>
-        <script src="src/common/upload/plupload.js"></script>
-        <script src="src/home/mailing.controller.js"></script>
-        <script src="src/home/registration.contact.controller.js"></script>
+
+        <script src="src/home/contact.controller.js"></script>
 
 
         <script src="src/user/token.config.js"></script>
         <script src="src/user/authentication.service.js"></script>
+        <script src="src/user/user.model.js"></script>
         <script src="src/user/login/login.controller.js"></script>
         <script src="src/user/login/authenticate.directive.js"></script>
         <script src="src/user/preference/show.controller.js"></script>
         <script src="src/user/account/password.controller.js"></script>
-
-        <script src="src/retailer/retailer.controller.js"></script>
 
         <script src="src/maker/brand/show/show.controller.js"></script>
         <script src="src/maker/brand/list/list.controller.js"></script>
@@ -220,16 +238,13 @@
         <script src="src/common/directives/input/commonunit.directive.js"></script>
         <script src="src/common/directives/input/preparationstate.directive.js"></script>
 
-
         <script src="src/settings/settings.controller.js"></script>
         <script src="src/settings/organization/members/members.controller.js"></script>
         <script src="src/settings/organization/members/members.access.controller.js"></script>
         <script src="src/settings/organization/members/members.new.controller.js"></script>
 
 
-        <script src="src/brand/brand.cache.js"></script>
         <!-- Authentication -->
     <!-- endbuild -->
-
     </body>
 </html>

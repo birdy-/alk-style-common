@@ -9,13 +9,13 @@
  * @return {[type]}              [description]
  */
 angular.module('jDashboardFluxApp').controller('DashboardMakerBrandListCtrl', [
-    '$scope', '$brandRepository', 'permission',
-    function ($scope, $brandRepository, permission) {
+    '$scope', '$$BrandRepository', 'permission',
+    function ($scope, $$BrandRepository, permission) {
 
     $scope.brands = [];
     permission.getUser().then(function (user) {
         user.managesBrand.forEach(function(brand){
-            $brandRepository.get(brand.id, function(brand){
+            $$BrandRepository.get(brand.id).then(function(brand){
                 $scope.brands.push(brand);
             });
         });
