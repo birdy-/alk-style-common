@@ -191,6 +191,9 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', 
         propagate(brand, brand.active);
         refresh();
     };
+    $scope.show = function(product) {
+        $location.path('/maker/product/' + product.id + '/marketing');
+    };
 
     $scope.$watch('request.product.isIdentifiedBy.reference', refresh);
     $scope.$watch('request.product.nameLegal', refresh);
