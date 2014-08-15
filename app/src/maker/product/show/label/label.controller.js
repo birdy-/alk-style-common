@@ -7,7 +7,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowLabelCt
     // ------------------------------------------------------------------------
     // Variables
     // ------------------------------------------------------------------------
-    $scope.select2brandOptions = $$autocomplete.getOptionAutocompletes(null, {data:[], multiple: false, maximumSelectionSize: 1, minimumInputLength:0});
 
     var labels = [
         { id:18070, name:"Vendanges Tardives"},
