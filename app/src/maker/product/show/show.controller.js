@@ -9,9 +9,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
     // ------------------------------------------------------------------------
     $scope.user = {};
     $scope.product = {};
-    $scope.select2brandOptions = $$autocomplete.getOptionAutocompletes(null, {
-        data:[], multiple:false, maximumSelectionSize:1, minimumInputLength:0
-    });
     $scope.productForm = {};
     $scope.formInit = function(form) {
         form.$loading = true;
@@ -94,9 +91,9 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
             withs.isSubstitutableWith = true;
             withs.isComplementaryWith = true;
         }
-        $$sdkCrud.ProductShow(id, withs, function(response){
+        $$sdkCrud.ProductShow(id, withs).then(function(response){
             $scope.productForm.$loading = false;
-            var product = new Product().fromJson(response.data);
+            var product = new Product().fromJson(response.data.data);
             // Fill up for autocompletion reasons
             product.isMeasuredBy.text = product.isMeasuredBy.name;
             product.isBrandedBy.text = product.isBrandedBy.name;
@@ -117,13 +114,5 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
             });
         });
     };
-    permission.getUser().then(function(user){
-        $scope.user = user;
-        user.managesBrand.forEach(function(brand){
-            $$BrandRepository.get(brand.id);
-        });
-        angular.extend($scope.select2brandOptions.data, user.managesBrand);
-    });
-
     $scope.load($routeParams.id);
 }]);
