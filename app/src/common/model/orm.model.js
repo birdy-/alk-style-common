@@ -1,15 +1,16 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').service('$$ORM', [
-    '$$BrandRepository', '$$WebsiteRepository','$$ShopRepository', '$$OrganizationRepository', '$$UserRepository',
-    function service($$BrandRepository, $$WebsiteRepository,$$ShopRepository, $$OrganizationRepository, $$UserRepository) {
+    '$$BrandRepository', '$$WebsiteRepository','$$ShopRepository', '$$OrganizationRepository', '$$UserRepository', '$$CommonUnitRepository',
+    function service($$BrandRepository, $$WebsiteRepository,$$ShopRepository, $$OrganizationRepository, $$UserRepository, $$CommonUnitRepository) {
 
         var repositorys = {
-            'Brand': $$BrandRepository,
-            'Website': $$WebsiteRepository,
-            'Shop': $$ShopRepository,
-            'Organization': $$OrganizationRepository,
-            'User': $$UserRepository,
+            CommonUnit: $$CommonUnitRepository,
+            Brand: $$BrandRepository,
+            Website: $$WebsiteRepository,
+            Shop: $$ShopRepository,
+            Organization: $$OrganizationRepository,
+            User: $$UserRepository,
         };
 
         var repository = function(which) {

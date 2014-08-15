@@ -4,6 +4,11 @@ angular.module('jDashboardFluxApp').service('$$abstractRepository', [
     function service() {
 
         var session = {
+            CommonUnit: {
+                model: CommonUnit,
+                lazy: {},
+                loaded: {},
+            },
             Brand: {
                 model: Brand,
                 lazy: {},

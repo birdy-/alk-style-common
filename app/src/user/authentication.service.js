@@ -23,35 +23,17 @@ angular.module('jDashboardFluxApp').service('permission', [
         if (userPromise == null) {
             var url = URL_SERVICE_AUTH + '/auth/v1/user/me';
             userPromise = $http.get(url).then(function(response, status, headers, config) {
-                // Lazy-load relateed entities
-                var json = response.data.data;
-                json.managesBrand = json.managesBrand.map(function(entity){
-                    var obj = $$ORM.repository('Brand').lazy(entity.id).fromJson(entity);
-                    obj.allowed = true;
-                    return obj;
-                });
-                json.managesWebsite = json.managesWebsite.map(function(entity){
-                    var obj = $$ORM.repository('Website').lazy(entity.id).fromJson(entity);
-                    obj.allowed = true;
-                    return obj;
-                });
-                json.managesShop = json.managesShop.map(function(entity){
-                    var obj = $$ORM.repository('Shop').lazy(entity.id).fromJson(entity);
-                    obj.allowed = true;
-                    return obj;
-                });
-                json.belongsTo = json.belongsTo.map(function(entity){
-                    var obj = $$ORM.repository('Organization').lazy(entity.id).fromJson(entity);
-                    obj.allowed = true;
-                    return obj;
-                });
+                // Load entity
+                user = $$ORM.repository('User').hydrate(response.data.data);
 
-                // Create user object
-                user = new User();
-                user.fromJson(response.data.data);
-                console.log('Done loading in auth directive.');
+                // Load relations
+                user.managesBrand.forEach(function(relation){ relation.allowed = true; });
+                user.managesWebsite.forEach(function(relation){ relation.allowed = true; });
+                user.managesShop.forEach(function(relation){ relation.allowed = true; });
+                user.belongsTo.forEach(function(relation){ relation.allowed = true; });
 
                 // Broadcast event
+                $log.log('Authentication Service : <User ' + user.id + '> loaded.');
                 $rootScope.$broadcast('event:auth-loginConfirmed');
                 return user;
             });
@@ -59,6 +41,9 @@ angular.module('jDashboardFluxApp').service('permission', [
         return userPromise;
     };
 
+    /**
+     * Resets the service to clear the user.
+     */
     var reset = function() {
         userPromise = null;
         user = null;
@@ -88,8 +73,7 @@ angular.module('jDashboardFluxApp').service('permission', [
      */
     var logout = function() {
         $log.debug('User clicked Logout');
-        user = null;
-        userPromise = null;
+        reset();
         delete $window.sessionStorage.token;
         $log.debug('Logged out, authentication token erased');
 
