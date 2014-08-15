@@ -1,7 +1,7 @@
 'use strict';
 
 
-angular.module('jDashboardFluxApp').controller('HeaderCtrl', [
+angular.module('jDashboardFluxApp').controller('HeaderController', [
     '$scope', 'permission', '$$sdkCrud', '$location', '$modal',
     function ($scope, permission, $$sdkCrud, $location, $modal) {
 

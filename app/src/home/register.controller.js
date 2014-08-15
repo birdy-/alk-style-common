@@ -1,5 +1,5 @@
 
-angular.module('jDashboardFluxApp').controller('RegisterCtrl', [
+angular.module('jDashboardFluxApp').controller('RegisterController', [
     '$scope', '$$sdkAuth', '$location', '$http',
     function ($scope, $$sdkAuth, $location, $http) {
 

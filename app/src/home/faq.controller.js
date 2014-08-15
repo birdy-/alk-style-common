@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('jDashboardFluxApp').controller('FaqCtrl', [
+angular.module('jDashboardFluxApp').controller('FaqController', [
     '$scope',
     function ($scope) {
 

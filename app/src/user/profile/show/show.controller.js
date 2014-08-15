@@ -5,7 +5,7 @@
  * Used by users that have a read / write authorization on the Substitution action on a
  * particular Shop.
  */
-angular.module('jDashboardFluxApp').controller('UserProfileShowCtrl', [
+angular.module('jDashboardFluxApp').controller('UserProfileShowController', [
     '$scope', 'permission', '$routeParams', '$$sdkAuth', '$$ORM', '$modal',
     function ($scope, permission, $routeParams, $$sdkAuth, $$ORM, $modal) {
 

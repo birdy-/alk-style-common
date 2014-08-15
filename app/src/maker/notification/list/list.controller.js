@@ -8,7 +8,7 @@
  * @param  {[type]} permission) [description]
  * @return {[type]}             [description]
  */
-angular.module('jDashboardFluxApp').controller('DashboardMakerNotificationsCtrl', [
+angular.module('jDashboardFluxApp').controller('DashboardMakerNotificationsController', [
     '$scope', '$$sdkCrud', 'permission',
     function ($scope, $$sdkCrud, permission) {
 

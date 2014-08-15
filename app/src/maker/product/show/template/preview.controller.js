@@ -1,7 +1,7 @@
 'use_strict';
 
 
-angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreviewCtrl', [
+angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreviewController', [
     '$scope', '$$sdkCrud', '$routeParams', '$$autocomplete', '$modal', '$location', 'permission',
     function ($scope, $$sdkCrud, $routeParams, $$autocomplete, $modal, $location, permission) {
 

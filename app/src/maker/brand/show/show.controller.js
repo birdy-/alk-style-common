@@ -9,7 +9,7 @@
  * @param  {[type]} permission)  [description]
  * @return {[type]}              [description]
  */
-angular.module('jDashboardFluxApp').controller('DashboardMakerBrandShowCtrl', [
+angular.module('jDashboardFluxApp').controller('DashboardMakerBrandShowController', [
     '$scope', '$$sdkCrud', '$routeParams', 'permission', '$location', '$modal',
     function ($scope, $$sdkCrud, $routeParams, permission, $location, $modal) {
 
@@ -81,7 +81,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerBrandShowCtrl', [
             templateUrl: 'src/maker/brand/show/media/upload-brand.html',
             scope : $scope,
             backdrop : 'static',
-            controller: 'DashboardMakerBrandShowMediaUploadCtrl'
+            controller: 'DashboardMakerBrandShowMediaUploadController'
         });
 
         uploadModal.result.then(function () {
@@ -94,7 +94,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerBrandShowCtrl', [
 
 
 
-angular.module('jDashboardFluxApp').controller('DashboardMakerBrandShowMediaUploadCtrl', [
+angular.module('jDashboardFluxApp').controller('DashboardMakerBrandShowMediaUploadController', [
     '$scope', '$modalInstance', '$document', '$log', '$routeParams',
     function($scope, $modalInstance, $document, $log, $routeParams) {
 

@@ -9,7 +9,7 @@
  * @param  {[type]} permission)  [description]
  * @return {[type]}              [description]
  */
-angular.module('jDashboardFluxApp').controller('DashboardMakerGetStartedCtrl', [
+angular.module('jDashboardFluxApp').controller('DashboardMakerGetStartedController', [
     '$scope', '$$sdkCrud', '$routeParams', 'permission',
     function ($scope, $$sdkCrud, $routeParams, permission) {
 

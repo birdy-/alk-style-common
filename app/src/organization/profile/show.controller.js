@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('jDashboardFluxApp').controller('OrganizationProfileShowCtrl', [
+angular.module('jDashboardFluxApp').controller('OrganizationProfileShowController', [
     '$scope', '$$sdkAuth', '$routeParams',
     '$$OrganizationRepository', '$$BrandRepository', '$$UserRepository',
     function ($scope, $$sdkAuth, $routeParams, $$OrganizationRepository, $$BrandRepository, $$UserRepository) {

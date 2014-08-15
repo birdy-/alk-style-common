@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowNutritionCtrl', [
+angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowNutritionController', [
     '$scope', '$$sdkCrud', '$modal', '$log', '$$ORM',
     function ($scope, $$sdkCrud, $modal, $log, $$ORM) {
 

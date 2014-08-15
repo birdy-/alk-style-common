@@ -8,7 +8,7 @@
  * @param  {[type]} permission    [description]
  * @return {[type]}               [description]
  */
-angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', [
+angular.module('jDashboardFluxApp').controller('DashboardMakerProductListController', [
     '$scope', '$$sdkCrud', 'permission', '$routeParams', '$$BrandRepository', '$log', '$location',
     function ($scope, $$sdkCrud, permission, $routeParams, $$BrandRepository, $log, $location) {
 

@@ -64,108 +64,108 @@ app.config(function ($routeProvider) {
     // Product views
     $routeProvider.when('/maker/brand/all/product', {
         templateUrl: 'src/maker/product/list/index.html',
-        controller: 'DashboardMakerProductListCtrl',
+        controller: 'DashboardMakerProductListController',
     });
     $routeProvider.when('/maker/brand/:id/product', {
         templateUrl: 'src/maker/product/list/index.html',
-        controller: 'DashboardMakerProductListCtrl',
+        controller: 'DashboardMakerProductListController',
         parameter: {id: 'integer'}
     });
     $routeProvider.when('/maker/product/:id', {
         templateUrl: 'src/maker/product/show/marketing/marketing.html',
-        controller: 'DashboardMakerProductShowCtrl',
+        controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
     $routeProvider.when('/maker/product/:id/marketing', {
         templateUrl: 'src/maker/product/show/marketing/marketing.html',
-        controller: 'DashboardMakerProductShowCtrl',
+        controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
     $routeProvider.when('/maker/product/:id/packaging', {
         templateUrl: 'src/maker/product/show/packaging/packaging.html',
-        controller: 'DashboardMakerProductShowCtrl',
+        controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
     $routeProvider.when('/maker/product/:id/manufacturer', {
         templateUrl: 'src/maker/product/show/manufacturer/manufacturer.html',
-        controller: 'DashboardMakerProductShowCtrl',
+        controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
     $routeProvider.when('/maker/product/:id/identification', {
         templateUrl: 'src/maker/product/show/identification/identification.html',
-        controller: 'DashboardMakerProductShowCtrl',
+        controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
     $routeProvider.when('/maker/product/:id/media', {
         templateUrl: 'src/maker/product/show/media/media.html',
-        controller: 'DashboardMakerProductShowCtrl',
+        controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
     $routeProvider.when('/maker/product/:id/composition', {
         templateUrl: 'src/maker/product/show/composition/composition.html',
-        controller: 'DashboardMakerProductShowCtrl',
+        controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
     $routeProvider.when('/maker/product/:id/nutrition', {
         templateUrl: 'src/maker/product/show/nutrition/nutrition.html',
-        controller: 'DashboardMakerProductShowCtrl',
+        controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
     $routeProvider.when('/maker/product/:id/label', {
         templateUrl: 'src/maker/product/show/label/label.html',
-        controller: 'DashboardMakerProductShowCtrl',
+        controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
     $routeProvider.when('/maker/product/:id/conservation', {
         templateUrl: 'src/maker/product/show/conservation/conservation.html',
-        controller: 'DashboardMakerProductShowCtrl',
+        controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
     $routeProvider.when('/maker/product/:id/traceability', {
         templateUrl: 'src/maker/product/show/traceability/traceability.html',
-        controller: 'DashboardMakerProductShowCtrl',
+        controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
     $routeProvider.when('/maker/product/:id/productinshop', {
         templateUrl: 'src/maker/product/show/productinshop/productinshop.html',
-        controller: 'DashboardMakerProductShowCtrl',
+        controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
     $routeProvider.when('/maker/product/:id/version', {
         templateUrl: 'src/maker/product/show/version/version.html',
-        controller: 'DashboardMakerProductShowCtrl',
+        controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
     $routeProvider.when('/maker/product/:id/merchandising', {
         templateUrl: 'src/maker/product/show/merchandising/merchandising.html',
-        controller: 'DashboardMakerProductShowCtrl',
+        controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
 
     // Brand views
     $routeProvider.when('/maker/brand/:id', {
         templateUrl: 'src/maker/brand/show/show.html',
-        controller: 'DashboardMakerBrandShowCtrl'
+        controller: 'DashboardMakerBrandShowController'
     });
     $routeProvider.when('/maker/brand', {
         templateUrl: 'src/maker/brand/list/list.html',
-        controller: 'DashboardMakerBrandListCtrl'
+        controller: 'DashboardMakerBrandListController'
     });
 
     $routeProvider.when('/getstarted', {
         templateUrl: 'src/home/maker/getstarted/index.html',
-        controller: 'DashboardMakerGetStartedCtrl'
+        controller: 'DashboardMakerGetStartedController'
     });
 
     // Notification views
     $routeProvider.when('/maker/notifications', {
         templateUrl: 'src/maker/notification/list/list.html',
-        controller: 'DashboardMakerNotificationsCtrl'
+        controller: 'DashboardMakerNotificationsController'
     });
     // Home views
     $routeProvider.when('/maker/home', {
         templateUrl: 'src/maker/notification/list/list.html',
-        controller: 'DashboardMakerNotificationsCtrl',
+        controller: 'DashboardMakerNotificationsController',
     });
 
     // ------------------------------------------------------------------------------------------
@@ -179,13 +179,13 @@ app.config(function ($routeProvider) {
 
     $routeProvider.when('/register', {
         templateUrl: 'src/home/register.html',
-        controller: 'RegisterCtrl',
+        controller: 'RegisterController',
         isPublic: true
     });
 
     $routeProvider.when('/faq', {
         templateUrl: 'src/home/faq.html',
-        controller: 'FaqCtrl',
+        controller: 'FaqController',
         isPublic: true
     });
 
@@ -213,16 +213,16 @@ app.config(function ($routeProvider) {
 
     $routeProvider.when('/user/me/profile', {
         templateUrl: 'src/user/profile/me/index.html',
-        controller: 'UserProfileShowCtrl'
+        controller: 'UserProfileShowController'
     });
     $routeProvider.when('/user/:id/profile', {
         templateUrl: 'src/user/profile/show/index.html',
-        controller: 'UserProfileShowCtrl'
+        controller: 'UserProfileShowController'
     });
 
     $routeProvider.when('/organization/:id/profile', {
         templateUrl: 'src/organization/profile/index.html',
-        controller: 'OrganizationProfileShowCtrl'
+        controller: 'OrganizationProfileShowController'
     });
 
     // ------------------------------------------------------------------------------------------
@@ -230,7 +230,7 @@ app.config(function ($routeProvider) {
     // ------------------------------------------------------------------------------------------
     $routeProvider.when('/', {
         templateUrl: 'src/home/home.html',
-        controller: 'HomeCtrl',
+        controller: 'HomeController',
         isPublic: true
     });
     $routeProvider.otherwise({
