@@ -9,7 +9,6 @@ angular.module('jDashboardFluxApp').service('$$BrandRepository', [
         var modelName = 'Brand';
 
         var get = function (id, options) {
-            console.log(id);
             id = parseInt(id);
             // Return directly if cached (it means it was fully loaded)
             var entity = $$abstractRepository.getCache(modelName, id);
@@ -49,14 +48,12 @@ angular.module('jDashboardFluxApp').service('$$BrandRepository', [
             return hydrate(response.data.data, true);
         };
 
-        var list = function(queries, filters, sorts, offset, limit) {
+        var list = function(queries, filters, sorts, offset, limit, withs) {
             return $$sdk[modelName + 'List'](
-                queries, filters, sorts, offset, limit
+                queries, filters, sorts, offset, limit, withs
             ).then(function(response){
                 return response.data.data.map(function(json){
-                    var entity = hydrate(json);
-                    $$abstractRepository.registerCache(entity);
-                    return entity;
+                    return hydrate(json);
                 });
             });
         };
