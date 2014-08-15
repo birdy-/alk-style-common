@@ -5,8 +5,8 @@
  * on the event bus.
  */
 angular.module('jDashboardFluxApp').directive('requiresauth', [
-    '$route',
-    function ($route) {
+    '$route', '$log',
+    function ($route, $log) {
     return {
         restrict: 'C',
         link: function(scope, elem, attrs) {
@@ -19,11 +19,11 @@ angular.module('jDashboardFluxApp').directive('requiresauth', [
                 if ($route.current.isPublic) {
                     return;
                 }
-                console.log('Authentication Directive : please authenticate');
+                $log.log('Authentication Directive : please authenticate.');
                 login.show();
             });
             scope.$on('event:auth-loginConfirmed', function() {
-                console.log('Authentication Directive : user authenticated');
+                $log.log('Authentication Directive : <User> authenticated.');
                 login.hide();
             });
         }
