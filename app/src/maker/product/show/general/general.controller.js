@@ -37,7 +37,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMarketi
     // ------------------------------------------------------------------------
     $scope.suggestName = function() {
         var modalInstance = $modal.open({
-            templateUrl: '/src/maker/product/show/marketing/suggestname.html',
+            templateUrl: '/src/maker/product/show/general/suggestname.html',
             controller: 'ProductMarketingNameSuggestModalController',
             resolve: {
                 $$sdkCrud: function() {return $$sdkCrud; },
@@ -51,7 +51,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMarketi
     };
     $scope.suggestSynonym = function() {
         var modalInstance = $modal.open({
-            templateUrl: '/src/maker/product/show/marketing/suggestsynonym.html',
+            templateUrl: '/src/maker/product/show/general/suggestsynonym.html',
             controller: 'ProductMarketingSynonymSuggestModalController',
             resolve: {
                 $$sdkCrud: function() {return $$sdkCrud; },

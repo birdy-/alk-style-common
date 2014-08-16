@@ -72,12 +72,12 @@ app.config(function ($routeProvider) {
         parameter: {id: 'integer'}
     });
     $routeProvider.when('/maker/product/:id', {
-        templateUrl: 'src/maker/product/show/marketing/marketing.html',
+        templateUrl: 'src/maker/product/show/general/general.html',
         controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
-    $routeProvider.when('/maker/product/:id/marketing', {
-        templateUrl: 'src/maker/product/show/marketing/marketing.html',
+    $routeProvider.when('/maker/product/:id/general', {
+        templateUrl: 'src/maker/product/show/general/general.html',
         controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
