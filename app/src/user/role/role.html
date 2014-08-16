@@ -1,0 +1,14 @@
+<div>
+    <div class="role role-success">
+        <div class="role-delete pull-right" ng-click="roleDelete(relation)"><i class="fa fa-times"></i></div>
+        <div class="role-description pull-right"> {{ role }} </div>
+        <img entity-image entity="relation" height="40" width="40"/>
+        {{ relation.name }}
+    </div>
+    <div class="role role-default" ng-click="roleAdd(relation)" ng-if="!relation">
+        <span class="role-add">
+            <i class="fa fa-plus"></i>
+        </span>
+        Ajouter
+    </div>
+</div>

@@ -1,5 +1,5 @@
 <div template-product>
-<div ng-controller="DashboardMakerProductShowNutritionCtrl">
+<div ng-controller="DashboardMakerProductShowNutritionController">
 
 <h3>Nutrition</h3>
 
@@ -35,78 +35,90 @@
     </thead>
     <tbody>
         <tr>
-            <td colspan="{{ 1 + len() }}" class="psq-line"><h3>Déclaration nutritionnelle</h3></td>
+            <td colspan="{{ 1 + len() }}" class="psq-line"><h3>
+                <i class="fa fa-fw fa-caret-right" ng-click="showNutrition = !showNutrition" ng-show="!showNutrition"></i>
+                <i class="fa fa-fw fa-caret-down" ng-click="showNutrition = !showNutrition" ng-show="showNutrition"></i>
+                Déclaration nutritionnelle
+            </h3></td>
         </tr>
     </tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[19195]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[19196]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[19058]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[19059]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[19060]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[19061]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[19062]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[19063]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[19064]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[19065]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[19066]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[19067]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[19068]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[19069]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[19070]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[19071]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[19072]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[19073]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[19074]"></tbody>
+    <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[19195]"></tbody>
+    <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[19196]"></tbody>
+    <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[19058]"></tbody>
+    <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[19059]"></tbody>
+    <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[19060]"></tbody>
+    <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[19061]"></tbody>
+    <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[19062]"></tbody>
+    <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[19063]"></tbody>
+    <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[19064]"></tbody>
+    <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[19065]"></tbody>
+    <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[19066]"></tbody>
+    <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[19067]"></tbody>
+    <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[19068]"></tbody>
+    <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[19069]"></tbody>
+    <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[19070]"></tbody>
+    <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[19071]"></tbody>
+    <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[19072]"></tbody>
+    <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[19073]"></tbody>
+    <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[19074]"></tbody>
 
     <tbody>
         <tr>
-            <td colspan="{{ 1 + len()  }}" class="psq-line"><h3>Vitamines</h3></td>
+            <td colspan="{{ 1 + len()  }}" class="psq-line"><h3>
+                <i class="fa fa-fw fa-caret-right" ng-click="showVitamins = !showVitamins" ng-show="!showVitamins"></i>
+                <i class="fa fa-fw fa-caret-down" ng-click="showVitamins = !showVitamins" ng-show="showVitamins"></i>
+                Vitamines
+            </h3></td>
         </tr>
     </tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[18978]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[18739]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[18740]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[18741]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[18744]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[18983]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[18743]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[18742]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[18984]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[18985]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[18982]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[18979]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[18980]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[18981]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[18986]"></tbody>
+    <tbody ng-show="showVitamins" product-nutrition psqs="psqs" legend="pnqs[18978]"></tbody>
+    <tbody ng-show="showVitamins" product-nutrition psqs="psqs" legend="pnqs[18739]"></tbody>
+    <tbody ng-show="showVitamins" product-nutrition psqs="psqs" legend="pnqs[18740]"></tbody>
+    <tbody ng-show="showVitamins" product-nutrition psqs="psqs" legend="pnqs[18741]"></tbody>
+    <tbody ng-show="showVitamins" product-nutrition psqs="psqs" legend="pnqs[18744]"></tbody>
+    <tbody ng-show="showVitamins" product-nutrition psqs="psqs" legend="pnqs[18983]"></tbody>
+    <tbody ng-show="showVitamins" product-nutrition psqs="psqs" legend="pnqs[18743]"></tbody>
+    <tbody ng-show="showVitamins" product-nutrition psqs="psqs" legend="pnqs[18742]"></tbody>
+    <tbody ng-show="showVitamins" product-nutrition psqs="psqs" legend="pnqs[18984]"></tbody>
+    <tbody ng-show="showVitamins" product-nutrition psqs="psqs" legend="pnqs[18985]"></tbody>
+    <tbody ng-show="showVitamins" product-nutrition psqs="psqs" legend="pnqs[18982]"></tbody>
+    <tbody ng-show="showVitamins" product-nutrition psqs="psqs" legend="pnqs[18979]"></tbody>
+    <tbody ng-show="showVitamins" product-nutrition psqs="psqs" legend="pnqs[18980]"></tbody>
+    <tbody ng-show="showVitamins" product-nutrition psqs="psqs" legend="pnqs[18981]"></tbody>
+    <tbody ng-show="showVitamins" product-nutrition psqs="psqs" legend="pnqs[18986]"></tbody>
 
     <tbody>
         <tr>
-            <td colspan="{{ 1 + len()  }}" class="psq-line"><h3>Minéraux et métaux</h3></td>
+            <td colspan="{{ 1 + len()  }}" class="psq-line"><h3>
+                <i class="fa fa-fw fa-caret-right" ng-click="showMinerals = !showMinerals" ng-show="!showMinerals"></i>
+                <i class="fa fa-fw fa-caret-down" ng-click="showMinerals = !showMinerals" ng-show="showMinerals"></i>
+                Minéraux et métaux
+            </h3></td>
         </tr>
     </tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[19075]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[19076]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[19077]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[18989]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[18988]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[18998]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[19078]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[18994]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[18992]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[18996]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[19000]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[18991]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[18999]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[19079]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[18990]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[19080]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[18987]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[19081]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[19082]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[19083]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[18997]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[19084]"></tbody>
-    <tbody product-nutrition psqs="psqs" legend="pnqs[18993]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[19075]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[19076]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[19077]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[18989]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[18988]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[18998]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[19078]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[18994]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[18992]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[18996]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[19000]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[18991]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[18999]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[19079]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[18990]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[19080]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[18987]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[19081]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[19082]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[19083]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[18997]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[19084]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[18993]"></tbody>
 </table>
 
 <!--

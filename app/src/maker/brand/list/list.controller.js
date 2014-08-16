@@ -8,7 +8,7 @@
  * @param  {[type]} permission)  [description]
  * @return {[type]}              [description]
  */
-angular.module('jDashboardFluxApp').controller('DashboardMakerBrandListCtrl', [
+angular.module('jDashboardFluxApp').controller('DashboardMakerBrandListController', [
     '$scope', '$$BrandRepository', 'permission',
     function ($scope, $$BrandRepository, permission) {
 

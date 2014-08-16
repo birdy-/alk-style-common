@@ -7,7 +7,7 @@
  * @param  {[type]} $routeParams  [description]
  * @return {[type]}               [description]
  */
-angular.module('jDashboardFluxApp').controller('DashboardRetailerNotificationsCtrl', [
+angular.module('jDashboardFluxApp').controller('DashboardRetailerNotificationsController', [
     '$scope', '$$sdkCrud',
     function ($scope, $$sdkCrud) {
 
@@ -27,7 +27,7 @@ angular.module('jDashboardFluxApp').controller('DashboardRetailerNotificationsCt
  * @param  {[type]} $routeParams  [description]
  * @return {[type]}               [description]
  */
-angular.module('jDashboardFluxApp').controller('DashboardRetailerProductShowCtrl', [
+angular.module('jDashboardFluxApp').controller('DashboardRetailerProductShowController', [
     '$scope', '$$sdkCrud', '$routeParams',
     function ($scope, $$sdkCrud, $routeParams) {
 

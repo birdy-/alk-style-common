@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').service('$$BrandRepository', [
-    '$$sdkCrud', '$$entityManager', '$q',
-    function service($$sdkCrud, $$entityManager, $q) {
+    '$$sdkCrud', '$$abstractRepository', '$q',
+    function service($$sdkCrud, $$abstractRepository, $q) {
 
         var Model = Brand;
         var $$sdk = $$sdkCrud;
@@ -11,61 +11,60 @@ angular.module('jDashboardFluxApp').service('$$BrandRepository', [
         var get = function (id, options) {
             id = parseInt(id);
             // Return directly if cached (it means it was fully loaded)
-            var entity = $$entityManager.getCache(modelName, id);
+            var entity = $$abstractRepository.getCache(modelName, id);
             if (entity) {
                 var deferred = $q.defer();
                 deferred.resolve(entity);
                 return deferred.promise;
             }
-            return $$sdk[modelName + 'Show'](id, options).then(function (response) {
-                var data = response.data.data;
-                // Check if not lazilly instantiated somewhere.
-                var entity = $$entityManager.getLazy(modelName, id, true);
-                entity.fromJson(data);
-
-                // Fill properties
-                entity.text = entity.name;
-                if (entity.isSubBrandOf) {
-                    entity.isSubBrandOf = $$entityManager.getLazy(entity.isSubBrandOf._type, entity.isSubBrandOf.id, true);
-                }
-                if (entity.subBrands) {
-                    var json;
-                    entity.subBrands = [];
-                    for(var i = 0; i < data.subBrands.length; i++) {
-                        json = data.subBrands[i];
-                        entity.subBrands.push($$entityManager.getLazy(json._type, json.id, true));
-                    }
-                }
-
-                // Cache entity for future reuse
-                $$entityManager.registerCache(entity);
-                return entity;
-            });
+            return $$sdk[modelName + 'Show'](id, options).then(hydrateResponse);
         };
 
-        var list = function(queries, filters, sorts, offset, limit) {
-            return $$sdkCrud[modelName + 'List'](
-                queries, filters, sorts, offset, limit
-            ).then(function(response){
-                var l = [];
-                response.data.data.forEach(function(json){
-                    var entity = $$entityManager.getLazy(json._type, json.id, true);
-                    entity.fromJson(json);
-                    l.push(entity);;
+        var hydrate = function(data, full) {
+            // Check if not lazilly instantiated somewhere.
+            var entity = $$abstractRepository.getLazy(modelName, data.id, true);
+            entity.fromJson(data);
+
+            // Fill properties
+            entity.text = entity.name;
+            if (data.isSubBrandOf) {
+                entity.isSubBrandOf = $$abstractRepository.getLazy(entity.isSubBrandOf._type, entity.isSubBrandOf.id, true);
+            }
+            if (data.subBrands) {
+                var json;
+                entity.subBrands = data.subBrands.map(function(json)  {
+                    return $$abstractRepository.getLazy(json._type, json.id, true);
                 });
-                return l;
+            }
+
+            // Cache entity for future reuse
+            $$abstractRepository.registerCache(entity);
+            return entity;
+        };
+
+        var hydrateResponse = function(response) {
+            return hydrate(response.data.data, true);
+        };
+
+        var list = function(queries, filters, sorts, offset, limit, withs) {
+            return $$sdk[modelName + 'List'](
+                queries, filters, sorts, offset, limit, withs
+            ).then(function(response){
+                return response.data.data.map(function(json){
+                    return hydrate(json);
+                });
             });
         };
 
         var del = function(id) {
-            $$entityManager.popCache(modelName, id);
-            return $$sdkCrud[modelName + 'Delete'](
+            $$abstractRepository.popCache(modelName, id);
+            return $$sdk[modelName + 'Delete'](
                 id
             );
         };
 
         var lazy = function(id, create) {
-            return $$entityManager.getLazy(modelName, id, true);
+            return $$abstractRepository.getLazy(modelName, id, true);
         };
 
         return {

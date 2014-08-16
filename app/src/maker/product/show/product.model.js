@@ -62,7 +62,7 @@ Product.STATUS_TO_REVIEW                    = new Constant(4, "TO_REVIEW",     "
 
 Product.TYPEPROMOTIONAL_DEFAULT             = new Constant(0, "DEFAULT",         "ne bénéficie pas d'une offre promotionnelle");
 Product.TYPEPROMOTIONAL_BONUSPACK           = new Constant(1, "BONUSPACK",       "bénéficie d'une quantité gratuite en plus : \"plus ... gratuit\"");
-Product.TYPEPROMOTIONAL_FREECOMPONENTS      = new Constant(2, "FREECOMPONENTS",  "bénéficie d'une quantité gratuite inculse : \"dont ... gratuit\"");
+Product.TYPEPROMOTIONAL_FREECOMPONENTS      = new Constant(2, "FREECOMPONENTS",  "bénéficie d'une quantité gratuite incluse : \"dont ... gratuit\"");
 Product.TYPEPROMOTIONAL_MULTIPACK           = new Constant(4, "MULTIPACK",       "est un lot promotionel homogène");
 Product.TYPEPROMOTIONAL_COMBINATIONPACK     = new Constant(5, "COMBINATIONPACK", "est un lot promotionel hétérogène");
 Product.TYPEPROMOTIONAL_SAMPLE              = new Constant(6, "SAMPLE",          "est accompagné d'un échantillon gratuit qui ne peut pas être vendu séparément au consommateur");

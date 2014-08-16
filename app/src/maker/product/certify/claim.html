@@ -1,0 +1,25 @@
+<div class="modal-header">
+    <h3>
+        Créer un produit
+    </h3>
+</div>
+<div class="modal-body">
+    <form class="form-horizontal" role="form">
+        <div class="row" ng-init="formInit(brandForm)">
+            Je souhaite créer un produit :
+            <div class="form-group">
+                <label for="name" class="col-sm-2 control-label">EAN</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="name" ng-model="productReference.reference" placeholder="le code EAN 13 du produit" required/>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <form class="form-inline" role="form">
+        <div class="form-group">
+            <button class="btn btn-success" ng-click="ok()"><i class="fa fa-certificate"></i> Créer le produit</button>
+        </div>
+    </form>
+</div>

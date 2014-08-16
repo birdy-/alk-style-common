@@ -1,6 +1,6 @@
 'use_strict';
 
-angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMerchandisingCtrl', [
+angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMerchandisingController', [
     '$scope', '$$autocomplete', 'permission',
     function ($scope, $$autocomplete, permission) {
 

@@ -1,4 +1,4 @@
-angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowWineCtrl', [
+angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowWineController', [
     '$scope', '$$sdkCrud', '$routeParams', '$$autocomplete', '$modal', '$location', 'permission',
     function ($scope, $$sdkCrud, $routeParams, $$autocomplete, $modal, $location, permission) {
     //$scope.select2countryOptions = $$autocomplete.getOptionAutocompletes('country', {maximumSelectionSize: 1, multiple: false});

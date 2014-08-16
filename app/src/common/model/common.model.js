@@ -1,12 +1,36 @@
 'use strict';
 
-angular.module('jDashboardFluxApp').service('$$entityManager', [
-    '$$sdkCrud',
-    function service($$sdkCrud) {
+angular.module('jDashboardFluxApp').service('$$abstractRepository', [
+    function service() {
 
         var session = {
+            CommonUnit: {
+                model: CommonUnit,
+                lazy: {},
+                loaded: {},
+            },
             Brand: {
                 model: Brand,
+                lazy: {},
+                loaded: {},
+            },
+            User: {
+                model: User,
+                lazy: {},
+                loaded: {},
+            },
+            Organization: {
+                model: Organization,
+                lazy: {},
+                loaded: {},
+            },
+            Shop: {
+                model: Shop,
+                lazy: {},
+                loaded: {},
+            },
+            Website: {
+                model: Website,
                 lazy: {},
                 loaded: {},
             },
@@ -50,7 +74,9 @@ angular.module('jDashboardFluxApp').service('$$entityManager', [
         };
         return {
             getLazy: getLazy,
+            popLazy: popLazy,
             getCache: getCache,
+            popCache: popCache,
             registerCache: registerCache,
             registerLazy: registerLazy,
         };

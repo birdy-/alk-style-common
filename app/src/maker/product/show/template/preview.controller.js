@@ -1,7 +1,7 @@
 'use_strict';
 
 
-angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreviewCtrl', [
+angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreviewController', [
     '$scope', '$$sdkCrud', '$routeParams', '$$autocomplete', '$modal', '$location', 'permission',
     function ($scope, $$sdkCrud, $routeParams, $$autocomplete, $modal, $location, permission) {
 
@@ -30,7 +30,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreview
             if (response && response.message) {
                 message = ' : ' + response.message;
             }
-            alert('Erreur pendant la mise à jour du produit'+message);
+            alert("Erreur pendant la mise à jour du produit"+message);
         });
     };
 
@@ -48,7 +48,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreview
 
         modalInstance.result.then(function (selectedItem) {
         }, function () {
-            console.info('Modal dismissed at: ' + new Date());
         });
     };
     $scope.accept = function () {

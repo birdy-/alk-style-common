@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('jDashboardFluxApp').controller('HomeCtrl', [
+angular.module('jDashboardFluxApp').controller('HomeController', [
     '$scope', 'permission', '$location', '$modal', '$http', '$window',
     function ($scope, permission, $location, $modal, $http, $window) {
 
