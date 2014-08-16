@@ -1,14 +1,15 @@
 'use_strict';
 
 angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowController', [
-    '$scope', '$$sdkCrud', '$routeParams', '$$autocomplete', 'permission', '$$BrandRepository', '$location',
-    function ($scope, $$sdkCrud, $routeParams, $$autocomplete, permission, $$BrandRepository, $location) {
+    '$scope', '$$sdkCrud', '$routeParams', '$$autocomplete', '$location',
+    function ($scope, $$sdkCrud, $routeParams, $$autocomplete, $location) {
 
     // ------------------------------------------------------------------------
     // Variables
     // ------------------------------------------------------------------------
     $scope.user = {};
     $scope.product = {};
+    $scope.productId = $routeParams.id;
     $scope.productForm = {};
     $scope.formInit = function(form) {
         form.$loading = true;
@@ -81,6 +82,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowControl
     $scope.load = function(id) {
         $scope.productForm.$loading = true;
         withs = {};
+        withs.isIdentifiedBy = true;
         if ($location.path().indexOf('label') !== -1) {
             withs.isLabeledBy = true;
         } else if ($location.path().indexOf('packaging') !== -1) {
@@ -114,5 +116,5 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowControl
             });
         });
     };
-    $scope.load($routeParams.id);
+    $scope.load($scope.productId);
 }]);

@@ -1,31 +1,54 @@
 <div ng-include="'/src/maker/home/header.html'"></div>
 <div class="container-fluid">
+<div class="row">
     <div class="col-md-2 color-stream-inverse sidebar" ng-controller="DashboardMakerProductShowPreviewController">
         <div ng-include="'/src/maker/product/show/detail-form.html'"></div>
     </div>
     <div class="col-md-10 col-md-offset-2">
         <div class="row">
-            <div class="clearfix">
+            <div class="col-sm-9">
                 <h1>
                     {{ product.nameLegal }}
                     <small>{{ product.isBrandedBy.name }}</small>
                 </h1>
             </div>
-            <ul class="nav nav-tabs">
-                <div nav-product link="packaging" legend="Packaging" product="product.id"></div>
-                <div nav-product link="manufacturer" legend="Fabricant" product="product.id"></div>
-                <!--<div nav-product link="identification" legend="Identification" product="product.id"></div>-->
-                <div nav-product link="media" legend="Médias" product="product.id"></div>
-                <div nav-product link="composition" legend="Composition" product="product.id"></div>
-                <div nav-product link="nutrition" legend="Nutrition" product="product.id"></div>
-                <div nav-product link="label" legend="Labels" product="product.id"></div>
-                <div nav-product link="conservation" legend="Conservation" product="product.id"></div>
-                <div nav-product link="traceability" legend="Traçabilité" product="product.id"></div>
-                <div nav-product link="merchandising" legend="Merchandising" product="product.id"></div>
-                <!--<div nav-product link="productinshop" legend="Conformité"></div>-->
-                <!--<div nav-product link="version" legend="Versions"></div>-->
-                <div nav-product link="general" legend="Données" product="product.id" locked="false" color="transparent"></div>
-            </ul>
+            <div class="col-sm-3">
+                <div class="text-right product-status">
+                    <span class="label label-success" ng-show="product.isAccepted() === true" tooltip-placement="bottom" tooltip="Vous avez reconnu être en charge de ce produit." tooltip-trigger="mouseenter">
+                        <i class="fa fa-check"></i> Accepté
+                    </span>
+                    <span class="label label-warning" ng-show="product.isAccepted() === false" tooltip-placement="bottom" tooltip="Vous n'avez pas reconnu être en charge de ce produit." tooltip-trigger="mouseenter">
+                        <i class="fa fa-warning"></i> Non accepté
+                    </span>
+                    &nbsp;
+                    <span class="label label-success" ng-show="product.isCertified() === true" tooltip-placement="bottom" tooltip="Vous avez certifié la conformité des informations sur ce produit." tooltip-trigger="mouseenter">
+                        <i class="fa fa-certificate"></i> Certifié
+                    </span>
+                    <span class="label label-warning" ng-show="product.isCertified() === false" tooltip-placement="bottom" tooltip="Vous n'avez pas encore certifié la conformité des informations sur ce produit." tooltip-trigger="mouseenter">
+                        <i class="fa fa-warning"></i> Non certifié
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <ul class="nav nav-tabs" role="tablist" ng-if="active()">
+                    <div tab-product link="general" legend="General" product="productId" locked="false" color="transparent"></div>
+                    <div tab-product link="packaging" legend="Packaging" product="productId" locked="false" color="transparent"></div>
+                    <div tab-product link="manufacturer" legend="Fabricant" product="productId" locked="false" color="transparent"></div>
+                    <!--<div tab-product link="identification" legend="Identification" product="productId" locked="false" color="transparent"></div>-->
+                    <div tab-product link="media" legend="Médias" product="productId" locked="false" color="transparent"></div>
+                    <div tab-product link="composition" legend="Composition" product="productId" locked="false" color="transparent"></div>
+                    <div tab-product link="nutrition" legend="Nutrition" product="productId" locked="false" color="transparent"></div>
+                    <div tab-product link="label" legend="Labels" product="productId" locked="false" color="transparent"></div>
+                    <div tab-product link="conservation" legend="Conservation" product="productId" locked="false" color="transparent"></div>
+                    <!--<div tab-product link="productinshop" legend="Conformité" locked="false" color="transparent"></div>-->
+                    <!--<div tab-product link="version" legend="Versions" locked="false" color="transparent"></div>-->
+                </ul>
+            </div>
+        </div>
+
+
             <form class="form-horizontal" role="form" name="productForm" novalidate>
                 <div ng-init="formInit(productForm)">
                     <div ng-transclude="">
@@ -33,6 +56,7 @@
                     </div>
                 </div>
             </form>
-        </div>
+
     </div>
+</div>
 </div>
