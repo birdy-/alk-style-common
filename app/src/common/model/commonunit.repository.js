@@ -18,7 +18,7 @@ angular.module('jDashboardFluxApp').service('$$CommonUnitRepository', [
                 deferred.resolve(entity);
                 return deferred.promise;
             }
-            return $$sdk[modelName + 'Show'](id, options).then(hydrate2);
+            return $$sdk[modelName + 'Show'](id, options).then(hydrateResponse);
         };
 
         var hydrate = function(data, full) {
@@ -34,7 +34,7 @@ angular.module('jDashboardFluxApp').service('$$CommonUnitRepository', [
             return entity;
         }
 
-        var hydrate2 = function(response) {
+        var hydrateResponse = function(response) {
             return hydrate(response.data.data, true);
         };
 

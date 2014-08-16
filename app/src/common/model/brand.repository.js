@@ -17,7 +17,7 @@ angular.module('jDashboardFluxApp').service('$$BrandRepository', [
                 deferred.resolve(entity);
                 return deferred.promise;
             }
-            return $$sdk[modelName + 'Show'](id, options).then(hydrate2);
+            return $$sdk[modelName + 'Show'](id, options).then(hydrateResponse);
         };
 
         var hydrate = function(data, full) {
@@ -27,24 +27,22 @@ angular.module('jDashboardFluxApp').service('$$BrandRepository', [
 
             // Fill properties
             entity.text = entity.name;
-            if (entity.isSubBrandOf) {
+            if (data.isSubBrandOf) {
                 entity.isSubBrandOf = $$abstractRepository.getLazy(entity.isSubBrandOf._type, entity.isSubBrandOf.id, true);
             }
-            if (entity.subBrands) {
+            if (data.subBrands) {
                 var json;
-                entity.subBrands = [];
-                for(var i = 0; i < data.subBrands.length; i++) {
-                    json = data.subBrands[i];
-                    entity.subBrands.push($$abstractRepository.getLazy(json._type, json.id, true));
-                }
+                entity.subBrands = data.subBrands.map(function(json)  {
+                    return $$abstractRepository.getLazy(json._type, json.id, true);
+                });
             }
 
             // Cache entity for future reuse
             $$abstractRepository.registerCache(entity);
             return entity;
-        }
+        };
 
-        var hydrate2 = function(response) {
+        var hydrateResponse = function(response) {
             return hydrate(response.data.data, true);
         };
 
