@@ -5,8 +5,8 @@
  * on the event bus.
  */
 angular.module('jDashboardFluxApp').directive('relatedProduct', [
-    '$route', '$$sdkCrud', '$$autocomplete',
-    function ($route, $$sdkCrud, $$autocomplete) {
+    '$route', '$$sdkCrud', '$$autocomplete', '$log',
+    function ($route, $$sdkCrud, $$autocomplete, $log) {
     return {
         restrict: 'AEC',
         scope: {
@@ -42,10 +42,10 @@ angular.module('jDashboardFluxApp').directive('relatedProduct', [
             // ------------------------------------------------------------------------
             $scope.add = function() {
                 if (!$scope.target || !$scope.target.id) {
-                    console.warn('No target selected.');
+                    $log.warn('RelatedProduct directive : no target selected.');
                     return;
                 }
-                console.log('Target is ' + $scope.target.id);
+                $log.log('RelatedProduct directive : target is ' + $scope.target.id);
                 var pspb = new relation();
                 pspb.target = $scope.target;
                 if (!$scope.product[attribute]) {
@@ -54,8 +54,8 @@ angular.module('jDashboardFluxApp').directive('relatedProduct', [
                 pspb.ranking = $scope.product[attribute].length + 1;
                 for (var i = 0; i < $scope.product[attribute].length; i++) {
                     if ($scope.product[attribute][i].target.id == pspb.target.id) {
-                        console.error('Target already selected.');
-                        alert('Ce produit est déjà défini comme équivalent.');
+                        $log.error('RelatedProduct directive : target already selected.');
+                        alert("Ce produit est déjà défini comme équivalent.");
                         return;
                     }
                 }

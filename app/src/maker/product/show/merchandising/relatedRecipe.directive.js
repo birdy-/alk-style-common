@@ -5,8 +5,8 @@
  * on the event bus.
  */
 angular.module('jDashboardFluxApp').directive('relatedRecipe', [
-    '$route', '$$sdkCrud', '$$autocomplete',
-    function ($route, $$sdkCrud, $$autocomplete) {
+    '$route', '$$sdkCrud', '$$autocomplete', '$log',
+    function ($route, $$sdkCrud, $$autocomplete, $log) {
     return {
         restrict: 'AEC',
         scope: {
@@ -37,10 +37,10 @@ angular.module('jDashboardFluxApp').directive('relatedRecipe', [
 
             $scope.add = function() {
                 if (!$scope.target || !$scope.target.id) {
-                    console.warn('No target selected.');
+                    $log.warn('RelatedRecipe directive : no target selected.');
                     return;
                 }
-                console.log('Target is ' + $scope.target.id);
+                $log.log('RelatedRecipe directive : target is ' + $scope.target.id);
                 var pspb = new relation();
                 pspb.recipe = $scope.target;
                 if (!$scope.product[attribute]) {
@@ -48,7 +48,7 @@ angular.module('jDashboardFluxApp').directive('relatedRecipe', [
                 }
                 for (var i = 0; i < $scope.product[attribute].length; i++) {
                     if ($scope.product[attribute][i].recipe.id == pspb.target.id) {
-                        console.error('Target already selected.');
+                        $log.error('RelatedRecipe directive : target already selected.');
                         alert('Cette recette a déjà été ajoutée.');
                         return;
                     }

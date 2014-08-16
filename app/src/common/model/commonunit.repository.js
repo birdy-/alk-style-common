@@ -9,7 +9,6 @@ angular.module('jDashboardFluxApp').service('$$CommonUnitRepository', [
         var modelName = 'CommonUnit';
 
         var get = function (id, options) {
-            console.log(id);
             id = parseInt(id);
             // Return directly if cached (it means it was fully loaded)
             var entity = $$abstractRepository.getCache(modelName, id);
