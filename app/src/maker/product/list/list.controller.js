@@ -146,10 +146,10 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     var find = function(queries, filters) {
         $log.log("Product List Controller : listing [" + $scope.scroll.offset + "-" + ($scope.scroll.offset + $scope.scroll.limit) + "]" );
         $scope.scroll.busy = true;
-        filters.with_isidentifiedby = 1;
         $$sdkCrud.ProductList(queries, filters, {},
             $scope.scroll.offset,
-            $scope.scroll.limit
+            $scope.scroll.limit,
+            {isIdentifiedBy: 1}
         ).success(function(response){
             if (response.data.length < $scope.scroll.limit) {
                 $scope.scroll.stop = true;
