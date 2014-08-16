@@ -71,73 +71,78 @@ app.config(function ($routeProvider) {
         controller: 'DashboardMakerProductListController',
         parameter: {id: 'integer'}
     });
-    $routeProvider.when('/maker/product/:id', {
+    $routeProvider.when('/maker/product/:id/data', {
         templateUrl: 'src/maker/product/show/general/general.html',
         controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
-    $routeProvider.when('/maker/product/:id/general', {
+    $routeProvider.when('/maker/product/:id/data/general', {
         templateUrl: 'src/maker/product/show/general/general.html',
         controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
-    $routeProvider.when('/maker/product/:id/packaging', {
+    $routeProvider.when('/maker/product/:id/data/packaging', {
         templateUrl: 'src/maker/product/show/packaging/packaging.html',
         controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
-    $routeProvider.when('/maker/product/:id/manufacturer', {
+    $routeProvider.when('/maker/product/:id/data/manufacturer', {
         templateUrl: 'src/maker/product/show/manufacturer/manufacturer.html',
         controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
-    $routeProvider.when('/maker/product/:id/identification', {
+    $routeProvider.when('/maker/product/:id/data/identification', {
         templateUrl: 'src/maker/product/show/identification/identification.html',
         controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
-    $routeProvider.when('/maker/product/:id/media', {
+    $routeProvider.when('/maker/product/:id/data/media', {
         templateUrl: 'src/maker/product/show/media/media.html',
         controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
-    $routeProvider.when('/maker/product/:id/composition', {
+    $routeProvider.when('/maker/product/:id/data/composition', {
         templateUrl: 'src/maker/product/show/composition/composition.html',
         controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
-    $routeProvider.when('/maker/product/:id/nutrition', {
+    $routeProvider.when('/maker/product/:id/data/nutrition', {
         templateUrl: 'src/maker/product/show/nutrition/nutrition.html',
         controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
-    $routeProvider.when('/maker/product/:id/label', {
+    $routeProvider.when('/maker/product/:id/data/label', {
         templateUrl: 'src/maker/product/show/label/label.html',
         controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
-    $routeProvider.when('/maker/product/:id/conservation', {
+    $routeProvider.when('/maker/product/:id/data/conservation', {
         templateUrl: 'src/maker/product/show/conservation/conservation.html',
         controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
-    $routeProvider.when('/maker/product/:id/traceability', {
-        templateUrl: 'src/maker/product/show/traceability/traceability.html',
-        controller: 'DashboardMakerProductShowController',
-        parameter: {id: 'integer'}
-    });
-    $routeProvider.when('/maker/product/:id/productinshop', {
+    $routeProvider.when('/maker/product/:id/data/productinshop', {
         templateUrl: 'src/maker/product/show/productinshop/productinshop.html',
         controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
-    $routeProvider.when('/maker/product/:id/version', {
+    $routeProvider.when('/maker/product/:id/data/version', {
         templateUrl: 'src/maker/product/show/version/version.html',
         controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
     $routeProvider.when('/maker/product/:id/merchandising', {
         templateUrl: 'src/maker/product/show/merchandising/merchandising.html',
+        controller: 'DashboardMakerProductShowController',
+        parameter: {id: 'integer'}
+    });
+    $routeProvider.when('/maker/product/:id/search', {
+        templateUrl: 'src/maker/product/show/search/search.html',
+        controller: 'DashboardMakerProductShowController',
+        parameter: {id: 'integer'}
+    });
+    $routeProvider.when('/maker/product/:id/marketing', {
+        templateUrl: 'src/maker/product/show/marketing/marketing.html',
         controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
