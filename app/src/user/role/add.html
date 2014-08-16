@@ -7,20 +7,20 @@
     <form role="form">
         <input type="text" name="origin" ng-model="record.origin" hidden/>
         <div class="form-group">
-            <label for="firstname">Role</label>
-            <input type="text" ng-model="role.plugin.name" name="" class="form-control" placeholder=""disabled/>
+            <label for="plugin">Role</label>
+            <input type="text" ng-model="role.plugin.name" name="plugin" class="form-control" placeholder=""disabled required/>
         </div>
         <div class="form-group" ng-show="select2organizationOptions.data.length > 1">
-            <label for="username">Organisation</label>
-            <input type="text" name="role.organization" ng-model="role.organization" type="text" select ui-select2="select2organizationOptions" style="width: 100%"/>
+            <label for="organisation">Organisation</label>
+            <input type="text" ng-model="role.organization" name="organization" type="text" select ui-select2="select2organizationOptions" style="width: 100%" required/>
         </div>
         <div class="form-group">
-            <label for="username">Utilisateur</label>
-            <input type="text" name="role.user" ng-model="role.user" type="text" select ui-select2="select2userOptions" style="width: 100%"/>
+            <label for="user">Utilisateur</label>
+            <input type="text" ng-model="role.user" name="user" type="text" select ui-select2="select2userOptions" style="width: 100%" required/>
         </div>
         <div class="form-group">
-            <label for="username">Marque</label>
-            <input type="text" name="role.brand" ng-model="role.brand" type="text" select ui-select2="select2brandOptions" style="width: 100%"/>
+            <label for="brand">Marque</label>
+            <input type="text" ng-model="role.brand" name="brand" type="text" select ui-select2="select2brandOptions" style="width: 100%" required/>
         </div>
     </form>
 </div>

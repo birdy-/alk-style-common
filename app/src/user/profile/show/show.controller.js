@@ -65,7 +65,7 @@ angular.module('jDashboardFluxApp').controller('UserProfileShowController', [
             if (response && response.data && response.data.message) {
                 message = ' : '+ response.data.message + '.';
             }
-            alert('Problème lors de la suppression de la marque');
+            alert('Problème lors de la suppression de la marque'+message);
         });
     };
 
