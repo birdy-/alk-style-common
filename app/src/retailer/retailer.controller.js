@@ -28,8 +28,8 @@ angular.module('jDashboardFluxApp').controller('DashboardRetailerNotificationsCo
  * @return {[type]}               [description]
  */
 angular.module('jDashboardFluxApp').controller('DashboardRetailerProductShowController', [
-    '$scope', '$$sdkCrud', '$routeParams',
-    function ($scope, $$sdkCrud, $routeParams) {
+    '$scope', '$$sdkCrud', '$routeParams', '$window',
+    function ($scope, $$sdkCrud, $routeParams, $window) {
 
     $scope.productInShop = {
     };
@@ -45,14 +45,14 @@ angular.module('jDashboardFluxApp').controller('DashboardRetailerProductShowCont
         var id, productInShop, found = false;
         for (var i = 0; i < $scope.product.isInstantiatedBy.length; i++) {
             productInShop = $scope.product.isInstantiatedBy[i];
-            if (productInShop.isSoldBy.id == $scope.shop.id) {
+            if (productInShop.isSoldBy.id === $scope.shop.id) {
                 id = productInShop.id;
                 found = true;
                 break;
             }
         }
         if (!found) {
-            alert('Product not sold in this shop.');
+            $window.alert('Product not sold in this shop.');
         }
         $$sdkCrud.ProductInShopShow(id, function(response){
             $scope.productInShop = response.data;

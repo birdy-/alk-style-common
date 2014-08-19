@@ -9,7 +9,7 @@ angular.module('jDashboardFluxApp').service('$$OrganizationRepository', [
         var modelName = 'Organization';
 
         var get = function (id, options) {
-            id = parseInt(id);
+            id = parseInt(id, 10);
             // Return directly if cached (it means it was fully loaded)
             var entity = $$abstractRepository.getCache(modelName, id);
             if (entity) {
@@ -38,7 +38,7 @@ angular.module('jDashboardFluxApp').service('$$OrganizationRepository', [
                 response.data.data.forEach(function(json){
                     var entity = $$abstractRepository.getLazy(json._type, json.id, true);
                     entity.fromJson(json);
-                    l.push(entity);;
+                    l.push(entity);
                 });
                 return l;
             });

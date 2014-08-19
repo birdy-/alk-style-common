@@ -1,7 +1,8 @@
+"use strict";
 
 angular.module('jDashboardFluxApp').controller('RegisterController', [
-    '$scope', '$$sdkAuth', '$location', '$http',
-    function ($scope, $$sdkAuth, $location, $http) {
+    '$scope', '$$sdkAuth', '$location', '$http', '$window',
+    function ($scope, $$sdkAuth, $location, $http, $window) {
 
         // ------------------------------------------------------------------------
         // Variables
@@ -10,11 +11,13 @@ angular.module('jDashboardFluxApp').controller('RegisterController', [
         $scope.companyForm = {};
         $scope.dataForm = {};
         $scope.formInit = function(form) {
+            form.$loading = true;
+            form.$saving = false;
         };
 
         $scope.data = {
             product: null,
-            brand: null,
+            brand: null
         };
         $scope.company = {
             rcs: null,
@@ -24,7 +27,7 @@ angular.module('jDashboardFluxApp').controller('RegisterController', [
             adress: null,
             postcode: null,
             city: null,
-            country: null,
+            country: null
         };
         $scope.user = {
             firstname: null,
@@ -33,7 +36,7 @@ angular.module('jDashboardFluxApp').controller('RegisterController', [
             phonenumber: null,
             username: null,
             password: null,
-            accept: false,
+            accept: false
         };
         $scope.ok = false;
         $scope.message = null;
@@ -55,14 +58,14 @@ angular.module('jDashboardFluxApp').controller('RegisterController', [
                 return [];
             }
             if (form[field].$invalid) {
-                if (isEmpty(form[field].$viewValue)) {
+                if (angular.isEmpty(form[field].$viewValue)) {
                     classes['has-warning'] = true;
                 } else {
                     classes['has-error'] = true;
                 }
             }
             if (form[field].$valid) {
-                if (isEmpty(form[field].$viewValue)) {
+                if (angular.isEmpty(form[field].$viewValue)) {
                     // Empty fields that are not required should not be displayed green
                 } else {
                     classes['has-success'] = true;
@@ -73,11 +76,11 @@ angular.module('jDashboardFluxApp').controller('RegisterController', [
 
         $scope.submit = function() {
             if (!$scope.userForm.$valid) {
-                alert("Le formulaire est invalide, merci de le compléter.");
+                $window.alert("Le formulaire est invalide, merci de le compléter.");
                 return;
             }
             if (!$scope.user.accept) {
-                alert("Vous n'avez pas accepté les CGU.");
+                $window.alert("Vous n'avez pas accepté les CGU.");
                 return;
             }
             $scope.user.company = $scope.company.name;
@@ -93,13 +96,13 @@ angular.module('jDashboardFluxApp').controller('RegisterController', [
                 message: angular.toJson({
                     user: $scope.user,
                     company: $scope.company,
-                    data: $scope.data,
-                }, true),
+                    data: $scope.data
+                }, true)
             };
             $$sdkAuth.MailingListPost(record);
 
             // Create user
-            $$sdkAuth.UserSignUp($scope.user).success(function(response){
+            $$sdkAuth.UserSignUp($scope.user).success(function(){
                 $scope.ok = true;
             }).error(function(response){
                 $scope.ok = false;

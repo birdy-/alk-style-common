@@ -7,7 +7,7 @@ angular.module('jDashboardFluxApp').directive('roleSticker', [
         scope: {
             relation: '=',
             roleDelete: '=',
-            roleAdd: '=',
+            roleAdd: '='
         },
         replace: true,
         templateUrl: '/src/user/role/role.html',
@@ -45,5 +45,5 @@ angular.module('jDashboardFluxApp').directive('roleSticker', [
             });
             */
         }
-    }
+    };
 }]);

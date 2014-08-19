@@ -10,11 +10,11 @@ angular.module('jDashboardFluxApp').service('$$ORM', [
             Website: $$WebsiteRepository,
             Shop: $$ShopRepository,
             Organization: $$OrganizationRepository,
-            User: $$UserRepository,
+            User: $$UserRepository
         };
 
         var repository = function(which) {
-        	return repositorys[which];
+            return repositorys[which];
         };
 
         return {

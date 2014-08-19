@@ -51,7 +51,7 @@ angular.module('jDashboardFluxApp').controller('HeaderController', [
             $scope.user = user;
             $scope.brand = user.managesBrand[0];
             $scope.brand.picture = {
-                logo: 'https://smedia.alkemics.com/brand/' + $scope.brand.id + '/picture/logo/original.png',
+                logo: 'https://smedia.alkemics.com/brand/' + $scope.brand.id + '/picture/logo/original.png'
             };
         });
     };

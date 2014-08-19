@@ -5,21 +5,21 @@
  * on the event bus.
  */
 angular.module('jDashboardFluxApp').directive('relatedRecipe', [
-    '$route', '$$sdkCrud', '$$autocomplete', '$log',
-    function ($route, $$sdkCrud, $$autocomplete, $log) {
+    '$route', '$$sdkCrud', '$$autocomplete', '$log', '$window',
+    function ($route, $$sdkCrud, $$autocomplete, $log, $window) {
     return {
         restrict: 'AEC',
         scope: {
             product: '=',
             user: '=',
             relation: '=',
-            attribute: '@',
+            attribute: '@'
         },
         templateUrl: '/src/maker/product/show/merchandising/relatedRecipe.html',
         controller: function($scope) {
             $scope.select2recipeOptions = $$autocomplete.getOptionAutocompletes('recipe', {
                 maximumSelectionSize: 1, multiple: false,
-                initSelection: function(el, fn) {}, // https://github.com/angular-ui/ui-select2/issues/186
+                initSelection: function(el, fn) {} // https://github.com/angular-ui/ui-select2/issues/186
             });
         },
         link: function($scope, elem, attrs) {
@@ -29,7 +29,7 @@ angular.module('jDashboardFluxApp').directive('relatedRecipe', [
             // ------------------------------------------------------------------------
             $scope.target = null;
             var attribute = $scope.attribute;
-            var relation = $scope.relation;
+            var Relation = $scope.relation;
 
             // ------------------------------------------------------------------------
             // Event binding
@@ -41,22 +41,22 @@ angular.module('jDashboardFluxApp').directive('relatedRecipe', [
                     return;
                 }
                 $log.log('RelatedRecipe directive : target is ' + $scope.target.id);
-                var pspb = new relation();
+                var pspb = new Relation();
                 pspb.recipe = $scope.target;
                 if (!$scope.product[attribute]) {
                     $scope.product[attribute] = [];
                 }
                 for (var i = 0; i < $scope.product[attribute].length; i++) {
-                    if ($scope.product[attribute][i].recipe.id == pspb.target.id) {
+                    if ($scope.product[attribute][i].recipe.id === pspb.target.id) {
                         $log.error('RelatedRecipe directive : target already selected.');
-                        alert('Cette recette a déjà été ajoutée.');
+                        $window.alert('Cette recette a déjà été ajoutée.');
                         return;
                     }
                 }
                 $scope.product[attribute].push(pspb);
                 $scope.target = null;
             };
-            $scope.delete = function(pspb) {
+            $scope['delete'] = function(pspb) {
                 var index = $scope.product[attribute].indexOf(pspb);
                 if (index > -1) {
                     $scope.product[attribute].splice(index, 1);
@@ -108,5 +108,5 @@ angular.module('jDashboardFluxApp').directive('relatedRecipe', [
             // Init
             // ------------------------------------------------------------------------
         }
-    }
+    };
 }]);

@@ -4,8 +4,8 @@
  * Modal that allows the user to certify a given product.
  */
 angular.module('jDashboardFluxApp').controller('ProductMarketingSynonymSuggestModalController', [
-	'$scope', '$modalInstance', '$$sdkCrud', 'product',
-	function ($scope, $modalInstance, $$sdkCrud, product) {
+	'$scope', '$modalInstance', '$$sdkCrud', '$window', 'product',
+	function ($scope, $modalInstance, $$sdkCrud, $window, product) {
 
     // ------------------------------------------------------------------------
     // Variables
@@ -51,7 +51,7 @@ angular.module('jDashboardFluxApp').controller('ProductMarketingSynonymSuggestMo
                 });
             });
         }).error(function(response){
-            alert("Erreur pendant la récupération des synonymes : "+response.data.data.message);
+            $window.alert("Erreur pendant la récupération des synonymes : "+response.data.data.message);
         });
     };
     init();

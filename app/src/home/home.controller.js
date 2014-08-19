@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').controller('HomeController', [
-    '$scope', 'permission', '$location', '$modal', '$http', '$window',
-    function ($scope, permission, $location, $modal, $http, $window) {
+    '$scope', 'permission', '$modal',
+    function ($scope, permission, $modal) {
 
     // ------------------------------------------------------------------------
     // Variables
@@ -21,7 +21,7 @@ angular.module('jDashboardFluxApp').controller('HomeController', [
                     return $scope.user;
                 },
                 message: function() {
-                    return message
+                    return message;
                 }
             }
         });

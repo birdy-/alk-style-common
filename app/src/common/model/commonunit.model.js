@@ -1,3 +1,5 @@
+'use strict';
+
 var CommonUnit = function(){
     this.fromJson = function(json) {
         for (var key in json) {

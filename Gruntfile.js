@@ -100,7 +100,8 @@ module.exports = function (grunt) {
       },
       all: [
         'Gruntfile.js',
-        '<%= yeoman.app %>/scripts/{,*/}*.js'
+        '<%= yeoman.app %>/src/**/*.js',
+        '<%= yeoman.app %>/bower_components/sdk-dashboard/**/*.js'
       ],
       test: {
         options: {
@@ -288,11 +289,17 @@ module.exports = function (grunt) {
           src: [
             'generated/*'
           ]
+        }, {
+          expand: true,
+          cwd: '.tmp/concat/scripts',
+          dest: '<%= yeoman.dist %>/scripts',
+          src: [
+            '*'
+          ]
         }]
       },
       prod: {
-        expand: true, cwd: '<%= yeoman.app %>', dest: '<%= yeoman.dist %>', src: ['**/*.png', '**/*.html', '!**/bower_components/**', '!index.html'],
-
+        expand: true, cwd: '<%= yeoman.app %>', dest: '<%= yeoman.dist %>', src: ['**/*.png', '**/*.html', '!**/bower_components/**', '!index.html']
       },
       styles: {
         expand: true,
@@ -372,7 +379,7 @@ module.exports = function (grunt) {
                 {expand: true, cwd: '<%= yeoman.dist %>/images', src: ['**'], dest: 'images'}
               ]
 
-        },
+        }
     },
     shell: {
         compress: {
@@ -393,6 +400,7 @@ module.exports = function (grunt) {
       'concurrent:server',
       'autoprefixer',
       'connect:livereload',
+      'jshint',
       'watch'
     ]);
   });
@@ -416,11 +424,11 @@ module.exports = function (grunt) {
     'concurrent:dist',
     // 'autoprefixer',
     'concat',
-    'ngmin',
+    //'ngmin',
     'copy:dist',
     'cdnify',
     'cssmin',
-    'uglify',
+    // 'uglify',
     'rev',
     'usemin',
     'copy:prod',

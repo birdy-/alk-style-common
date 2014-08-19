@@ -9,7 +9,7 @@ angular.module('jDashboardFluxApp').service('$$UserRepository', [
         var modelName = 'User';
 
         var get = function (id, options) {
-            id = parseInt(id);
+            id = parseInt(id, 10);
             options = options ? options : {};
             // Return directly if cached (it means it was fully loaded)
             var entity = $$abstractRepository.getCache(modelName, id);
@@ -75,7 +75,7 @@ angular.module('jDashboardFluxApp').service('$$UserRepository', [
                 response.data.data.forEach(function(json){
                     var entity = $$abstractRepository.getLazy(json._type, json.id, true);
                     entity.fromJson(json);
-                    l.push(entity);;
+                    l.push(entity);
                 });
                 return l;
             });

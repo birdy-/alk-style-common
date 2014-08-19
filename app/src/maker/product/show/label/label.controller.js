@@ -96,9 +96,9 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowLabelCo
         { id:19168, name: "Label NF Environnement"},
         { id:19169, name: "Label Atout Certifié Qualité"},
         { id:19170, name: "Label Critères Qualité Certifiés"},
-        { id:19171, name: "Label USDA Organic"},
+        { id:19171, name: "Label USDA Organic"}
     ];
-    $scope.labels = {}
+    $scope.labels = {};
     labels.map(function(label) {
         $scope.labels[label.id] = label;
     });

@@ -5,12 +5,12 @@ angular.module('jDashboardFluxApp').directive('buttonSave', function($compile) {
         restrict: 'AEC',
         transclude: false,
         scope: {
-            'form': '=',
+            'form': '='
             //'innerClick': '&ng-click',
         },
         templateUrl: '/src/common/directives/validation/button-save.html',
         link: function(scope, element, attrs, ctrl) {
-            scope.class = attrs.buttonClass;
+            scope['class'] = attrs.buttonClass;
         }
     };
 });

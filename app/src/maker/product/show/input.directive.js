@@ -34,7 +34,7 @@ angular.module('jDashboardFluxApp').directive('productLabel', function($compile)
         transclude: true,
         scope: {
             product: '=',
-            legend: '=',
+            legend: '='
         },
         templateUrl: '/src/maker/product/show/input-label.html',
         link: function(scope, element, attrs, ctrl) {
@@ -42,7 +42,7 @@ angular.module('jDashboardFluxApp').directive('productLabel', function($compile)
 
             var getProductHasLabelFromId = function(product, id) {
                 for (var i = 0; i < product.isLabeledBy.length; i++) {
-                    if (product.isLabeledBy[i].concept.id == id) {
+                    if (product.isLabeledBy[i].concept.id === id) {
                         return i;
                     }
                 }
@@ -62,15 +62,14 @@ angular.module('jDashboardFluxApp').directive('productLabel', function($compile)
             }, true);
 
             var change = function(){
+                var index = getProductHasLabelFromId(scope.product, scope.legend.id);
                 if (scope.label) {
-                    var index = getProductHasLabelFromId(scope.product, scope.legend.id);
                     if (index === -1) {
                         var phl = new ProductHasLabel();
                         phl.concept = scope.legend;
                         scope.product.isLabeledBy.push(phl);
                     }
                 } else {
-                    var index = getProductHasLabelFromId(scope.product, scope.legend.id);
                     if (index > -1) {
                         scope.product.isLabeledBy.splice(index, 1);
                     }
@@ -100,7 +99,7 @@ angular.module('jDashboardFluxApp').directive('productNutritionCell', function()
         scope: {
             legend: '=',
             psq: '=',
-            pnq: '=',
+            pnq: '='
         },
         templateUrl: '/src/maker/product/show/input-nutrition-cell.html',
         link: function(scope, element, attrs) {

@@ -1,9 +1,11 @@
+"use strict";
+
 /**
  * Modal that allows the user to register on the mailing list
  */
 angular.module('jDashboardFluxApp').controller('UserRoleAddController', [
-    '$scope', '$modalInstance', '$$sdkAuth', '$$ORM', '$$autocomplete', 'permission', 'user', 'brand', 'organization',
-    function ($scope, $modalInstance, $$sdkAuth, $$ORM, $$autocomplete, permission, user, brand, organization) {
+    '$scope', '$modalInstance', '$$sdkAuth', '$$ORM', '$$autocomplete', '$window', 'permission', 'user', 'brand', 'organization',
+    function ($scope, $modalInstance, $$sdkAuth, $$ORM, $$autocomplete, $window, permission, user, brand, organization) {
 
     // ------------------------------------------------------------------------
     // Variables
@@ -34,15 +36,15 @@ angular.module('jDashboardFluxApp').controller('UserRoleAddController', [
     // ------------------------------------------------------------------------
     $scope.submit = function () {
         if (!$scope.role.user) {
-            alert("Merci de préciser l'utilisateur.");
+            $window.alert("Merci de préciser l'utilisateur.");
             return;
         }
         if (!$scope.role.brand) {
-            alert("Merci de préciser la marque.");
+            $window.alert("Merci de préciser la marque.");
             return;
         }
         if (!$scope.role.organization) {
-            alert("Merci de préciser l'organisation.");
+            $window.alert("Merci de préciser l'organisation.");
             return;
         }
 
@@ -58,7 +60,7 @@ angular.module('jDashboardFluxApp').controller('UserRoleAddController', [
             if (response && response.data && response.data.message) {
                 message = ' : '+ response.data.message + '.';
             }
-            alert("Problème lors de l'ajout de la permission.");
+            $window.alert("Problème lors de l'ajout de la permission.");
         });
 
     };

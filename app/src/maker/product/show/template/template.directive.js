@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('jDashboardFluxApp').directive('templateProduct', [
 	'$location',
 	function($location) {

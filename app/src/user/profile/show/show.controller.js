@@ -6,24 +6,24 @@
  * particular Shop.
  */
 angular.module('jDashboardFluxApp').controller('UserProfileShowController', [
-    '$scope', 'permission', '$routeParams', '$$sdkAuth', '$$ORM', '$modal',
-    function ($scope, permission, $routeParams, $$sdkAuth, $$ORM, $modal) {
+    '$scope', 'permission', '$routeParams', '$$sdkAuth', '$$ORM', '$modal', '$window',
+    function ($scope, permission, $routeParams, $$sdkAuth, $$ORM, $modal, $window) {
 
     // --------------------------------------------------------------------------------
     // Variables
     // --------------------------------------------------------------------------------
-    $scope.user = {}
+    $scope.user = {};
 
     // --------------------------------------------------------------------------------
     // Event binding
     // --------------------------------------------------------------------------------
     var changePassword = function(){
         $$sdkAuth.UserChangePassword($scope.user).success(function(){
-            alert('Le mot de passe a été changé avec succès.');
-            $scope.user.password.old = null;
-            $scope.user.password.new = null;
+            $window.alert('Le mot de passe a été changé avec succès.');
+            $scope.user.password['old'] = null;
+            $scope.user.password['new'] = null;
         }).error(function(response){
-            alert('Erreur lors du changement du mot de passe : '+response.message);
+            $window.alert('Erreur lors du changement du mot de passe : '+response.message);
         });
     };
     $scope.changePassword = changePassword;
@@ -65,7 +65,7 @@ angular.module('jDashboardFluxApp').controller('UserProfileShowController', [
             if (response && response.data && response.data.message) {
                 message = ' : '+ response.data.message + '.';
             }
-            alert('Problème lors de la suppression de la marque'+message);
+            $window.alert('Problème lors de la suppression de la marque'+message);
         });
     };
 
