@@ -27,5 +27,5 @@ angular.module('jDashboardFluxApp').directive('requiresauth', [
                 login.hide();
             });
         }
-    }
+    };
 }]);

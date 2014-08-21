@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowNutritionController', [
-    '$scope', '$$sdkCrud', '$modal', '$log', '$$ORM',
-    function ($scope, $$sdkCrud, $modal, $log, $$ORM) {
+    '$scope', '$$sdkCrud', '$modal', '$log', '$$ORM', '$window',
+    function ($scope, $$sdkCrud, $modal, $log, $$ORM, $window) {
 
     // ------------------------------------------------------------------------
     // Variables
@@ -76,16 +76,16 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowNutriti
         { name: 'Silicium',                 id: 19083, isMeasuredBy_id:   3, type: 'Mineral',   compulsory: false, legend: "" },
         { name: 'Sélénium',                 id: 18997, isMeasuredBy_id:   3, type: 'Mineral',   compulsory: false, legend: "" },
         { name: 'Vanadium',                 id: 19084, isMeasuredBy_id:   3, type: 'Mineral',   compulsory: false, legend: "" },
-        { name: 'Zinc',                     id: 18993, isMeasuredBy_id:   3, type: 'Mineral',   compulsory: false, legend: "" },
+        { name: 'Zinc',                     id: 18993, isMeasuredBy_id:   3, type: 'Mineral',   compulsory: false, legend: "" }
     ];
 
-    $scope.pnqs = {}
+    $scope.pnqs = {};
     pnqs.map(function(pnq) {
         $scope.pnqs[pnq.id] = {
             isConceptualizedBy: {
                 id: pnq.id,
                 name: pnq.name,
-                compulsory: pnq.compulsory,
+                compulsory: pnq.compulsory
             },
             isMeasuredBy: $$CommonUnitRepository.lazy(pnq.isMeasuredBy_id),
             type: pnq.type,
@@ -108,7 +108,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowNutriti
                         },
                         preparationState: ProductStandardQuantity.PREPARATIONSTATE_UNPREPARED.id
                     });
-                },
+                }
             }
         });
 
@@ -123,7 +123,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowNutriti
             detachProductNutritionalQuantityFromProductStandardQuantity(psq);
             delete $scope.psqs[psq.id];
         }).error(function(response){
-            alert('Erreur pendant la suppression de la quantité standard');
+            $window.alert('Erreur pendant la suppression de la quantité standard');
         });
     };
     $scope.savePSQ = function(psq) {
@@ -145,7 +145,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowNutriti
         }
         $$sdkCrud.ProductStandardQuantityUpdate(psq).success(function(response){
         }).error(function(response){
-            alert('Erreur pendant la mise à jour de la quantité standard');
+            $window.alert('Erreur pendant la mise à jour de la quantité standard');
         });
     };
     $scope.len = function() {
@@ -200,7 +200,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowNutriti
             return;
         }
         $$sdkCrud.ProductStandardQuantityList({}, {'partitions_id': $scope.product.id}).success(function(response){
-            if (response.data.length == 0) {
+            if (response.data.length === 0) {
                 $scope.addPSQ();
             }
             var psq;

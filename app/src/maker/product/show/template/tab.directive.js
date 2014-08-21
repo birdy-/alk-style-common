@@ -1,11 +1,14 @@
-angular.module('jDashboardFluxApp').directive('navProduct',
+'use strict';
+
+angular.module('jDashboardFluxApp').directive('navProduct', [
+    '$location',
     function($location) {
         return {
             restrict: 'AEC',
             transclude: true,
             scope: {
                 product: '&',
-                locked: '=',
+                locked: '='
             },
             replace: true,
             templateUrl: '/src/maker/product/show/template/nav.html',
@@ -17,7 +20,7 @@ angular.module('jDashboardFluxApp').directive('navProduct',
                     return $location.path().indexOf(scope.link) !== -1;
                 };
                 scope.classes = function() {
-                    classes = {};
+                    var classes = {};
                     if (active()) {
                         classes.active = true;
                     }
@@ -43,16 +46,17 @@ angular.module('jDashboardFluxApp').directive('navProduct',
                 };
             }
         };
-});
+}]);
 
-angular.module('jDashboardFluxApp').directive('tabProduct',
+angular.module('jDashboardFluxApp').directive('tabProduct', [
+    '$location',
     function($location) {
         return {
             restrict: 'AEC',
             transclude: true,
             scope: {
                 product: '&',
-                locked: '=',
+                locked: '='
             },
             replace: true,
             templateUrl: '/src/maker/product/show/template/tab.html',
@@ -64,7 +68,7 @@ angular.module('jDashboardFluxApp').directive('tabProduct',
                     return $location.path().indexOf(scope.link) !== -1;
                 };
                 scope.classes = function() {
-                    classes = {};
+                    var classes = {};
                     if (active()) {
                         classes.active = true;
                     }
@@ -78,4 +82,4 @@ angular.module('jDashboardFluxApp').directive('tabProduct',
                 };
             }
         };
-});
+}]);

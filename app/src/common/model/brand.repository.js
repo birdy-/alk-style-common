@@ -9,7 +9,7 @@ angular.module('jDashboardFluxApp').service('$$BrandRepository', [
         var modelName = 'Brand';
 
         var get = function (id, options) {
-            id = parseInt(id);
+            id = parseInt(id, 10);
             // Return directly if cached (it means it was fully loaded)
             var entity = $$abstractRepository.getCache(modelName, id);
             if (entity) {
@@ -31,7 +31,6 @@ angular.module('jDashboardFluxApp').service('$$BrandRepository', [
                 entity.isSubBrandOf = $$abstractRepository.getLazy(entity.isSubBrandOf._type, entity.isSubBrandOf.id, true);
             }
             if (data.subBrands) {
-                var json;
                 entity.subBrands = data.subBrands.map(function(json)  {
                     return $$abstractRepository.getLazy(json._type, json.id, true);
                 });

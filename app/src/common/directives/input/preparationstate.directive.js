@@ -5,7 +5,7 @@ angular.module('jDashboardFluxApp').directive('selectPreparationstate', [
     return {
         restrict: 'AEC',
         scope: {
-            localModel: '=ngModel',
+            localModel: '=ngModel'
         },
         requires: 'ngModel',
         templateUrl: '/src/common/directives/input/select-id.html',
@@ -15,5 +15,5 @@ angular.module('jDashboardFluxApp').directive('selectPreparationstate', [
                 ProductStandardQuantity.PREPARATIONSTATE_PREPARED
             ];
         }
-    }
+    };
 }]);

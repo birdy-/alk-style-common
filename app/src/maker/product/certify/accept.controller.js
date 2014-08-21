@@ -4,8 +4,8 @@
  * Modal that allows the user to accept the responsability for a given product.
  */
 angular.module('jDashboardFluxApp').controller('ProductAcceptationModalController', [
-    '$scope', '$modalInstance', '$$sdkCrud', 'product', 'user',
-    function ($scope, $modalInstance, $$sdkCrud, product, user) {
+    '$scope', '$modalInstance', '$$sdkCrud', '$window', 'product', 'user',
+    function ($scope, $modalInstance, $$sdkCrud, $window, product, user) {
 
     $scope.product = product;
     $scope.user = user;
@@ -19,7 +19,7 @@ angular.module('jDashboardFluxApp').controller('ProductAcceptationModalControlle
             $scope.product.certified = response.data.certified;
             $modalInstance.close($scope.product);
         }).error(function(response){
-            alert("Erreur pendant l'acceptation du produit : "+response.message);
+            $window.alert("Erreur pendant l'acceptation du produit : "+response.message);
         });
     };
     $scope.cancel = function () {
@@ -31,7 +31,7 @@ angular.module('jDashboardFluxApp').controller('ProductAcceptationModalControlle
             $scope.product.certified = response.data.certified;
             $modalInstance.dismiss('cancel');
         }).error(function(response){
-            alert("Erreur pendant l'acceptation du produit : "+response.message);
+            $window.alert("Erreur pendant l'acceptation du produit : "+response.message);
             $modalInstance.dismiss('cancel');
         });
     };

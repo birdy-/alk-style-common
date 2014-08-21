@@ -1,0 +1,32 @@
+<div template-product>
+<div ng-controller="DashboardMakerProductShowSegmentController">
+
+<div class="row">
+	<div class="col-lg-6">
+		Ce produit appartient aux segments :
+	</div>
+	<div class="col-lg-6 text-right">
+		<div class="pull-right btn btn-success" ng-click="addToSegment()">
+			<i class="fa fa-plus"></i> Ajouter à un segment
+		</div>
+	</div>
+</div>
+<br/>
+<br/>
+<div class="row">
+	<div class="col-lg-12">
+		<div class="alert alert-success" ng-repeat="segment in segments">
+			<img entity-image entity="segment" height="50" width="50" class="pull-left" style="margin-right: 10px;"/>
+			<div class="pull-right">
+				<a class="true-link">
+					<i class="fa fa-eye"></i> Voir
+				</a>
+			</div>
+			<h2>{{ segment.name }}</h2>
+		</div>
+	</div>
+</div>
+
+
+</div>
+</div>

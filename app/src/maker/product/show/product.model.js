@@ -14,7 +14,7 @@ var Product = function(){
     };
 
     this.isValidated = function() {
-        return this.status === Product.STATUS_VALIDATED.id
+        return this.status === Product.STATUS_VALIDATED.id;
     };
     this.isCertified = function() {
         return this.certified === Product.CERTIFICATION_STATUS_CERTIFIED.id
@@ -48,8 +48,8 @@ var Product = function(){
     };
 };
 Product.CERTIFICATION_STATUS_DEFAULT        = new Constant(0, "DEFAULT",       "The Product has not been considered for review yet");
-Product.CERTIFICATION_STATUS_REVIEWING      = new Constant(4, "REVIEWING",     "The Product is being reviewed by us before being attributed.")
-Product.CERTIFICATION_STATUS_ATTRIBUTED     = new Constant(5, "ATTRIBUTED",    "The Product was attributed to its producer.")
+Product.CERTIFICATION_STATUS_REVIEWING      = new Constant(4, "REVIEWING",     "The Product is being reviewed by us before being attributed.");
+Product.CERTIFICATION_STATUS_ATTRIBUTED     = new Constant(5, "ATTRIBUTED",    "The Product was attributed to its producer.");
 Product.CERTIFICATION_STATUS_ACCEPTED       = new Constant(1, "ACCEPTED",      "The Product was accepted by its producer.");
 Product.CERTIFICATION_STATUS_CERTIFIED      = new Constant(2, "CERTIFIED",     "The Product was certified by its producer.");
 Product.CERTIFICATION_STATUS_PUBLISHED      = new Constant(3, "PUBLISHED",     "The Product was published by its producer.");
@@ -166,7 +166,7 @@ var ProductStandardQuantity = function(){
     this.fromJson = function(json) {
         var pnq;
         for (var key in json) {
-            if (key == 'contains') {
+            if (key === 'contains') {
                 for (var i = 0; i < json.contains.length; i++) {
                     pnq = new ProductNutritionalQuantity().fromJson(json.contains[i]);
                     this.contains.push(pnq);
@@ -179,7 +179,7 @@ var ProductStandardQuantity = function(){
     };
     this.getContainsById = function(id) {
         for (var i = 0; i < this.contains.length; i++) {
-            if (this.contains[i].isConceptualizedBy.id == id) {
+            if (this.contains[i].isConceptualizedBy.id === id) {
                 return this.contains[i];
             }
         }

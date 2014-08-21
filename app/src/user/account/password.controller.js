@@ -6,23 +6,22 @@
  * authenticate directive for that matter.
  */
 angular.module('jDashboardFluxApp').controller('PasswordResetController', [
-    '$scope', '$http', 'URL_SERVICE_AUTH', '$location',
-     function ($scope, $http, URL_SERVICE_AUTH, $location) {
+    '$scope', '$http', 'URL_SERVICE_AUTH', '$location', '$window',
+     function ($scope, $http, URL_SERVICE_AUTH, $location, $window) {
 
     $scope.login = null;
 
     $scope.sendResetEmail = function() {
-        
+
         $http.post(URL_SERVICE_AUTH + '/auth/v1/user/password/forgotten', {
-            username: $scope.login    
+            username: $scope.login
         })
         .success(function (response) {
-            $location.path('/account/reset_email_sent')
+            $location.path('/account/reset_email_sent');
         })
         .error(function (response) {
             $scope.message = 'Une erreur est survenue. Merci de réessayer ultérieurement.';
         });
-
     };
 
     $scope.newPassword = null;
@@ -33,10 +32,10 @@ angular.module('jDashboardFluxApp').controller('PasswordResetController', [
     $scope.resetPassword = function() {
 
         if ($scope.newPassword !== $scope.newPasswordConfirm) {
-            alert('Les mots de passe ne correspondent pas !');
+            $window.alert('Les mots de passe ne correspondent pas !');
             return;
         }
-        
+
         $http.post(URL_SERVICE_AUTH + '/auth/v1/user/password/reset', {
             username: $scope.username,
             reset_token: $scope.resetToken,
@@ -47,7 +46,7 @@ angular.module('jDashboardFluxApp').controller('PasswordResetController', [
             $location.path('/login');
         })
         .error(function (response) {
-            alert('Une erreur est survenue. Merci de réessayer ultérieurement.');
+            $window.alert('Une erreur est survenue. Merci de réessayer ultérieurement.');
         });
 
     };

@@ -63,7 +63,7 @@ module.exports = function (grunt) {
       options: {
         port: 9005,
         // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localhost.alkemics.com',
+        hostname: '127.0.0.1',
         livereload: 357005
       },
       livereload: {
@@ -100,7 +100,8 @@ module.exports = function (grunt) {
       },
       all: [
         'Gruntfile.js',
-        '<%= yeoman.app %>/scripts/{,*/}*.js'
+        '<%= yeoman.app %>/src/**/*.js',
+        '<%= yeoman.app %>/bower_components/sdk-dashboard/**/*.js'
       ],
       test: {
         options: {
@@ -288,11 +289,17 @@ module.exports = function (grunt) {
           src: [
             'generated/*'
           ]
+        }, {
+          expand: true,
+          cwd: '.tmp/concat/scripts',
+          dest: '<%= yeoman.dist %>/scripts',
+          src: [
+            '*'
+          ]
         }]
       },
       prod: {
-        expand: true, cwd: '<%= yeoman.app %>', dest: '<%= yeoman.dist %>', src: ['**/*.png', '**/*.html', '!**/bower_components/**', '!index.html'],
-
+        expand: true, cwd: '<%= yeoman.app %>', dest: '<%= yeoman.dist %>', src: ['**/*.png', '**/*.html', '!**/bower_components/**', '!index.html']
       },
       styles: {
         expand: true,
@@ -372,7 +379,7 @@ module.exports = function (grunt) {
                 {expand: true, cwd: '<%= yeoman.dist %>/images', src: ['**'], dest: 'images'}
               ]
 
-        },
+        }
     },
     shell: {
         compress: {
@@ -393,6 +400,7 @@ module.exports = function (grunt) {
       'concurrent:server',
       'autoprefixer',
       'connect:livereload',
+      //'jshint',
       'watch'
     ]);
   });
@@ -421,6 +429,23 @@ module.exports = function (grunt) {
     'cdnify',
     'cssmin',
     'uglify',
+    'rev',
+    'usemin',
+    'copy:prod',
+    'custom'
+  ]);
+
+  grunt.registerTask('build-preprod', [
+    'clean:dist',
+    'useminPrepare',
+    'concurrent:dist',
+    // 'autoprefixer',
+    'concat',
+    // 'ngmin',
+    'copy:dist',
+    'cdnify',
+    'cssmin',
+    // 'uglify',
     'rev',
     'usemin',
     'copy:prod',

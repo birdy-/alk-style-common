@@ -1,9 +1,11 @@
+"use strict";
+
 /**
  * Modal that allows the user to register on the mailing list
  */
 angular.module('jDashboardFluxApp').controller('ContactController', [
-    '$scope', '$modalInstance', '$$sdkAuth', '$location', 'user', 'message',
-    function ($scope, $modalInstance, $$sdkAuth, $location, user, message) {
+    '$scope', '$modalInstance', '$$sdkAuth', '$location', '$window', 'user', 'message',
+    function ($scope, $modalInstance, $$sdkAuth, $location, $window, user, message) {
 
     message = message ? message : "Merci de m'inscrire à votre mailing list.";
 
@@ -21,12 +23,12 @@ angular.module('jDashboardFluxApp').controller('ContactController', [
 
     $scope.submit = function () {
         if (!$scope.record.username) {
-            alert('Merci de préciser votre email.');
+            $window.alert('Merci de préciser votre email.');
             return;
         }
-        $$sdkAuth.MailingListPost($scope.record).then(function (response) {
+        $$sdkAuth.MailingListPost($scope.record).then(function () {
             $modalInstance.close();
-        }, function (response) {
+        }, function () {
             $modalInstance.close();
         });
     };

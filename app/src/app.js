@@ -13,7 +13,8 @@ var app = angular.module('jDashboardFluxApp', [
   'sdk-dashboard',
   'infinite-scroll',
   'ui.sortable',
-  'ui.tree'
+  'ui.tree',
+  'nvd3ChartDirectives'
 ]);
 
 // Update on each deploy
@@ -36,7 +37,7 @@ function($window) {
 
 var env = (window.location.hostname.indexOf('localhost') === 0) ? 'dev' : 'prod';
 // env = 'prod';
-if (env == "prod") {
+if (env === 'prod') {
     app.constant('API_URL', 'https://api.alkemics.com');
     app.constant('URL_SERVICE_AUTH', 'https://auth.alkemics.com');
     angular.module('jDashboardFluxApp').constant('URL_SERVICE_MEDIA', 'https://service-media.alkemics.com');
@@ -46,7 +47,7 @@ if (env == "prod") {
     //     $logProvider.debugEnabled(true);
     // });
 
-} else if (env == "dev") {
+} else if (env === 'dev') {
     app.constant('API_URL', '//localhost.alkemics.com:6543');
     app.constant('URL_SERVICE_AUTH', 'http://localhost.alkemics.com:6545');
     app.constant('URL_SERVICE_MEDIA', 'http://localhost.alkemics.com:6551');
@@ -64,7 +65,7 @@ app.config(function ($routeProvider) {
     // Product views
     $routeProvider.when('/maker/brand/all/product', {
         templateUrl: 'src/maker/product/list/index.html',
-        controller: 'DashboardMakerProductListController',
+        controller: 'DashboardMakerProductListController'
     });
     $routeProvider.when('/maker/brand/:id/product', {
         templateUrl: 'src/maker/product/list/index.html',
@@ -141,6 +142,11 @@ app.config(function ($routeProvider) {
         controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
+    $routeProvider.when('/maker/product/:id/segment', {
+        templateUrl: 'src/maker/product/show/segment/segment.html',
+        controller: 'DashboardMakerProductShowController',
+        parameter: {id: 'integer'}
+    });
     $routeProvider.when('/maker/product/:id/marketing', {
         templateUrl: 'src/maker/product/show/marketing/marketing.html',
         controller: 'DashboardMakerProductShowController',
@@ -170,7 +176,7 @@ app.config(function ($routeProvider) {
     // Home views
     $routeProvider.when('/maker/home', {
         templateUrl: 'src/maker/notification/list/list.html',
-        controller: 'DashboardMakerNotificationsController',
+        controller: 'DashboardMakerNotificationsController'
     });
 
     // ------------------------------------------------------------------------------------------

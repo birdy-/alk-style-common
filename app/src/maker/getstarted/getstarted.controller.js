@@ -16,7 +16,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerGetStartedControll
     $scope.showConfirm = false;
     $scope.brands = [
         {id: 1, name:'Coca-Cola', accepted: null},
-        {id: 2, name:'Schweppes', accepted: null},
+        {id: 2, name:'Schweppes', accepted: null}
     ];
     $scope.brand = $scope.brands[0];
 

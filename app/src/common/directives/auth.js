@@ -31,5 +31,5 @@ angular.module('jDashboardFluxApp').directive('authdemoapplication', [
                 $location.path($location.path());
             });
         }
-    }
+    };
 }]);

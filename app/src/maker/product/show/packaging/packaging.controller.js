@@ -9,11 +9,11 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPackagi
     // ------------------------------------------------------------------------
     $scope.select2productOptions = $$autocomplete.getOptionAutocompletes('product', {
         maximumSelectionSize: 1, multiple: false,
-        initSelection: function(el, fn) {}, // https://github.com/angular-ui/ui-select2/issues/186
+        initSelection: function(el, fn) {} // https://github.com/angular-ui/ui-select2/issues/186
     });
     $scope.select2commonunitOptions = $$autocomplete.getOptionAutocompletes('commonunit', {
         maximumSelectionSize: 1, multiple: false, allowClear: false,
-        initSelection: function(el, fn) {}, // https://github.com/angular-ui/ui-select2/issues/186
+        initSelection: function(el, fn) {} // https://github.com/angular-ui/ui-select2/issues/186
     });
 
     $scope.typePackagings = [
@@ -23,7 +23,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPackagi
         Product.TYPEPACKAGING_CASE_HOMO,
         Product.TYPEPACKAGING_CASE_HETERO,
         Product.TYPEPACKAGING_PALLET_HOMO,
-        Product.TYPEPACKAGING_PALLET_HETERO,
+        Product.TYPEPACKAGING_PALLET_HETERO
     ];
     $scope.typePromotionals = function() {
         if (!$scope.product._type) {
@@ -36,7 +36,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPackagi
                 Product.TYPEPROMOTIONAL_SAMPLE,
                 Product.TYPEPROMOTIONAL_FREEGIFTATTACHED,
                 Product.TYPEPROMOTIONAL_SPECIALPACKAGING,
-                Product.TYPEPROMOTIONAL_SPECIALPRICE,
+                Product.TYPEPROMOTIONAL_SPECIALPRICE
             ];
         }
         if ($scope.product.isTypePackagingEach()) {
@@ -47,7 +47,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPackagi
                 Product.TYPEPROMOTIONAL_SAMPLE,
                 Product.TYPEPROMOTIONAL_FREEGIFTATTACHED,
                 Product.TYPEPROMOTIONAL_SPECIALPACKAGING,
-                Product.TYPEPROMOTIONAL_SPECIALPRICE,
+                Product.TYPEPROMOTIONAL_SPECIALPRICE
             ];
         } else if ($scope.product.isTypePackagingMultiple()) {
             return [
@@ -56,7 +56,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPackagi
                 Product.TYPEPROMOTIONAL_FREECOMPONENTS,
                 Product.TYPEPROMOTIONAL_MULTIPACK,
                 Product.TYPEPROMOTIONAL_COMBINATIONPACK,
-                Product.TYPEPROMOTIONAL_SPECIALPRICE,
+                Product.TYPEPROMOTIONAL_SPECIALPRICE
             ];
         } else {
             return [];
@@ -82,7 +82,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPackagi
     $scope.deleteIsMadeOf = function(pimop) {
         var index = -1;
         for (var i = 0; i < $scope.product.isMadeOf.length; i++) {
-            if ($scope.product.isMadeOf[i] == pimop) {
+            if ($scope.product.isMadeOf[i] === pimop) {
                 index = i;
                 break;
             }
@@ -98,7 +98,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPackagi
     // ------------------------------------------------------------------------
 
     $scope.$watch('product', function(){
-        var product;
         // Load the isMadeOf relations
         if ($scope.product.isMadeOf) {
             $scope.product.isMadeOf.forEach(function(isMadeOf){
@@ -131,7 +130,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPackagi
                 initSelection: function(el, fn) {}
             }, {
                 filter_isbrandedby_id: $scope.product.isBrandedBy.id,
-                filter_certified: '1,2,3',
+                filter_certified: '1,2,3'
             });
         }
 

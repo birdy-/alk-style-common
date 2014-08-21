@@ -9,7 +9,7 @@ angular.module('jDashboardFluxApp').directive('selectMyBrands', [
     return {
         restrict: 'AEC',
         scope: {
-            localModel: '=ngModel',
+            localModel: '=ngModel'
         },
         requires: 'ngModel',
         templateUrl: '/src/common/directives/input/brand.html',
@@ -27,5 +27,5 @@ angular.module('jDashboardFluxApp').directive('selectMyBrands', [
                 angular.extend(scope.options.data, user.managesBrand);
             });
         }
-    }
+    };
 }]);

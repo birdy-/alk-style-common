@@ -9,7 +9,7 @@ angular.module('jDashboardFluxApp').service('$$CommonUnitRepository', [
         var modelName = 'CommonUnit';
 
         var get = function (id, options) {
-            id = parseInt(id);
+            id = parseInt(id, 10);
             // Return directly if cached (it means it was fully loaded)
             var entity = $$abstractRepository.getCache(modelName, id);
             if (entity) {
@@ -31,7 +31,7 @@ angular.module('jDashboardFluxApp').service('$$CommonUnitRepository', [
             // Cache entity for future reuse
             $$abstractRepository.registerCache(entity);
             return entity;
-        }
+        };
 
         var hydrateResponse = function(response) {
             return hydrate(response.data.data, true);

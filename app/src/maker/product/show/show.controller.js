@@ -1,8 +1,8 @@
 'use_strict';
 
 angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowController', [
-    '$scope', '$$sdkCrud', '$routeParams', '$$autocomplete', '$location',
-    function ($scope, $$sdkCrud, $routeParams, $$autocomplete, $location) {
+    '$scope', '$$sdkCrud', '$routeParams', '$$autocomplete', '$location', '$window',
+    function ($scope, $$sdkCrud, $routeParams, $$autocomplete, $location, $window) {
 
     // ------------------------------------------------------------------------
     // Variables
@@ -26,14 +26,14 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowControl
             return [];
         }
         if ($scope.productForm[field].$invalid) {
-            if (isEmpty($scope.productForm[field].$viewValue)) {
+            if (angular.isEmpty($scope.productForm[field].$viewValue)) {
                 classes['has-warning'] = true;
             } else {
                 classes['has-error'] = true;
             }
         }
         if ($scope.productForm[field].$valid) {
-            if (isEmpty($scope.productForm[field].$viewValue)) {
+            if (angular.isEmpty($scope.productForm[field].$viewValue)) {
                 // Empty fields that are not required should not be displayed green
             } else {
                 classes['has-success'] = true;
@@ -56,7 +56,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowControl
             'quantityFree',
             'quantityBase',
             'quantityNormalized',
-            'drainedWeight',
+            'drainedWeight'
         ];
         var value;
         for (var i = 0; i < nulls.length; i++) {
@@ -71,7 +71,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowControl
         if ($scope.productForm.$pristine) {
             return;
         }
-        if (!confirm("Des changements n'ont pas été enregistrés, quitter quand même ?")) {
+        if (!$window.confirm("Des changements n'ont pas été enregistrés, quitter quand même ?")) {
             event.preventDefault();
         }
     });
@@ -81,7 +81,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowControl
     // ------------------------------------------------------------------------
     $scope.load = function(id) {
         $scope.productForm.$loading = true;
-        withs = {};
+        var withs = {};
         withs.isIdentifiedBy = true;
         if ($location.path().indexOf('label') !== -1) {
             withs.isLabeledBy = true;
@@ -110,7 +110,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowControl
             $scope.product = product;
 
             $scope.select2productOptions = $$autocomplete.getOptionAutocompletes('product', {
-                maximumSelectionSize: 1,
+                maximumSelectionSize: 1
             }, {
                 filter_isbrandedby_id: $scope.product.isBrandedBy.id
             });

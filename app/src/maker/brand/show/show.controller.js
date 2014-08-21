@@ -10,8 +10,8 @@
  * @return {[type]}              [description]
  */
 angular.module('jDashboardFluxApp').controller('DashboardMakerBrandShowController', [
-    '$scope', '$$sdkCrud', '$routeParams', 'permission', '$location', '$modal',
-    function ($scope, $$sdkCrud, $routeParams, permission, $location, $modal) {
+    '$scope', '$$sdkCrud', '$routeParams', 'permission', '$location', '$modal', '$window', '$log',
+    function ($scope, $$sdkCrud, $routeParams, permission, $location, $modal, $window, $log) {
 
     // ------------------------------------------------------------------------
     // Variables
@@ -34,7 +34,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerBrandShowControlle
             if (response && response.message) {
                 message = ' : ' + response.message;
             }
-            alert('Erreur pendant la mise à jour de la marque'+message);
+            $window.alert('Erreur pendant la mise à jour de la marque'+message);
         });
     };
 
@@ -61,8 +61,8 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerBrandShowControlle
     };
     var init = function() {
         permission.getUser().then(function(user){
-            if (!user.isAllowed('Brand', parseInt($routeParams.id))) {
-                alert("Vous n'êtes pas autorisé à consulter cette page.");
+            if (!user.isAllowed('Brand', parseInt($routeParams.id, 10))) {
+                $window.alert("Vous n'êtes pas autorisé à consulter cette page.");
                 $location.path('/maker/brand');
                 return;
             }

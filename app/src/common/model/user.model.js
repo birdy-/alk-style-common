@@ -1,3 +1,5 @@
+'use strict';
+
 var User = function(){
     this.fromJson = function(json) {
         for (var key in json) {

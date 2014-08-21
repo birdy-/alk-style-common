@@ -1,15 +1,17 @@
+"use strict";
+
 /**
  * Modal that allows the user to register on the mailing list
  */
 angular.module('jDashboardFluxApp').controller('UserRoleAddController', [
-    '$scope', '$modalInstance', '$$sdkAuth', '$$ORM', '$$autocomplete', 'permission', 'user', 'brand', 'organization',
-    function ($scope, $modalInstance, $$sdkAuth, $$ORM, $$autocomplete, permission, user, brand, organization) {
+    '$scope', '$modalInstance', '$$sdkAuth', '$$ORM', '$$autocomplete', '$window', 'permission', 'user', 'brand', 'organization',
+    function ($scope, $modalInstance, $$sdkAuth, $$ORM, $$autocomplete, $window, permission, user, brand, organization) {
 
     // ------------------------------------------------------------------------
     // Variables
     // ------------------------------------------------------------------------
     user.text = user.username;
-    organization.text = organization.name;
+    organization.text = organization.nameLegal;
     $scope.select2brandOptions = $$autocomplete.getOptionAutocompletes(null, {
         data:[], multiple:false, maximumSelectionSize:1, minimumInputLength:0
     });
@@ -34,15 +36,15 @@ angular.module('jDashboardFluxApp').controller('UserRoleAddController', [
     // ------------------------------------------------------------------------
     $scope.submit = function () {
         if (!$scope.role.user) {
-            alert("Merci de préciser l'utilisateur.");
+            $window.alert("Merci de préciser l'utilisateur.");
             return;
         }
         if (!$scope.role.brand) {
-            alert("Merci de préciser la marque.");
+            $window.alert("Merci de préciser la marque.");
             return;
         }
         if (!$scope.role.organization) {
-            alert("Merci de préciser l'organisation.");
+            $window.alert("Merci de préciser l'organisation.");
             return;
         }
 
@@ -58,7 +60,7 @@ angular.module('jDashboardFluxApp').controller('UserRoleAddController', [
             if (response && response.data && response.data.message) {
                 message = ' : '+ response.data.message + '.';
             }
-            alert("Problème lors de l'ajout de la permission.");
+            $window.alert("Problème lors de l'ajout de la permission.");
         });
 
     };
@@ -76,8 +78,11 @@ angular.module('jDashboardFluxApp').controller('UserRoleAddController', [
         angular.extend($scope.select2organizationOptions.data, user.belongsTo);
     });
     $$sdkAuth.OrganizationBrands(organization.id).then(function (response) {
-        response.data.data.forEach(function (brand) {
-            $$ORM.repository('Brand').get(brand.id).then(function (entity) {
+        var brandIds = response.data.data.map(function (brand) {
+            return brand.id;
+        });
+        $$ORM.repository('Brand').list({}, {id: brandIds}, {}, 0, 100).then(function (entitys) {
+            entitys.forEach(function(entity){
                 $scope.select2brandOptions.data.push(entity);
             });
         });

@@ -20,9 +20,9 @@ angular.module('jDashboardFluxApp').service('permission', [
      * @return user The global user.
      */
     var getUser = function() {
-        if (userPromise == null) {
+        if (userPromise === null) {
             var url = URL_SERVICE_AUTH + '/auth/v1/user/me';
-            userPromise = $http.get(url).then(function(response, status, headers, config) {
+            userPromise = $http.get(url).then(function(response) {
                 // Load entity
                 user = $$ORM.repository('User').hydrate(response.data.data);
 
@@ -62,7 +62,7 @@ angular.module('jDashboardFluxApp').service('permission', [
         }).success(function (response) {
             authService.loginConfirmed();
             $window.sessionStorage.token = response.access_token;
-        }).error(function (response, status, headers, config) {
+        }).error(function () {
             delete $window.sessionStorage.token;
         });
     };

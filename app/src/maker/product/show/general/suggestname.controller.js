@@ -4,8 +4,8 @@
  * Modal that allows the user to certify a given product.
  */
 angular.module('jDashboardFluxApp').controller('ProductMarketingNameSuggestModalController', [
-	'$scope', '$modalInstance', '$$sdkCrud', 'product',
-	function ($scope, $modalInstance, $$sdkCrud, product) {
+	'$scope', '$modalInstance', '$$sdkCrud', '$window', 'product',
+	function ($scope, $modalInstance, $$sdkCrud, $window, product) {
 
     $scope.productInShops = [];
 
@@ -14,7 +14,7 @@ angular.module('jDashboardFluxApp').controller('ProductMarketingNameSuggestModal
     ).success(function(response){
         $scope.productInShops = response.data.isInstantiatedBy;
     }).error(function(response){
-        alert("Erreur pendant la récupération du produit : "+response.data.data.message);
+        $window.alert("Erreur pendant la récupération du produit : "+response.data.data.message);
     });
 
     $scope.active = function(productInShop) {

@@ -7,7 +7,7 @@ var Notification = function(){
         20: 'check',
         30: 'warning',
         40: 'warning', //'error',
-        50: 'critical',
+        50: 'critical'
     };
     this.LEVELS = {
         0: '',
@@ -15,7 +15,7 @@ var Notification = function(){
         20: 'success',
         30: 'warning',
         40: 'danger', //'error',
-        50: 'critical',
+        50: 'critical'
     };
     this.SUBJECTS = {
         1: "Rapport d'erreur",
@@ -25,7 +25,7 @@ var Notification = function(){
         7: "Produit accepté",
         6: "Produit certifié",
         4: "Import réussi",
-        5: "Nouveau produit attribué",
+        5: "Nouveau produit attribué"
     };
     this.fromJson = function(json) {
         this.id = json['id'];
