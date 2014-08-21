@@ -11,7 +11,7 @@ angular.module('jDashboardFluxApp').controller('UserRoleAddController', [
     // Variables
     // ------------------------------------------------------------------------
     user.text = user.username;
-    organization.text = organization.name;
+    organization.text = organization.nameLegal;
     $scope.select2brandOptions = $$autocomplete.getOptionAutocompletes(null, {
         data:[], multiple:false, maximumSelectionSize:1, minimumInputLength:0
     });
@@ -78,8 +78,11 @@ angular.module('jDashboardFluxApp').controller('UserRoleAddController', [
         angular.extend($scope.select2organizationOptions.data, user.belongsTo);
     });
     $$sdkAuth.OrganizationBrands(organization.id).then(function (response) {
-        response.data.data.forEach(function (brand) {
-            $$ORM.repository('Brand').get(brand.id).then(function (entity) {
+        var brandIds = response.data.data.map(function (brand) {
+            return brand.id;
+        });
+        $$ORM.repository('Brand').list({}, {id: brandIds}, {}, 0, 100).then(function (entitys) {
+            entitys.forEach(function(entity){
                 $scope.select2brandOptions.data.push(entity);
             });
         });

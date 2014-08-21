@@ -13,7 +13,8 @@ var app = angular.module('jDashboardFluxApp', [
   'sdk-dashboard',
   'infinite-scroll',
   'ui.sortable',
-  'ui.tree'
+  'ui.tree',
+  'nvd3ChartDirectives'
 ]);
 
 // Update on each deploy
@@ -138,6 +139,11 @@ app.config(function ($routeProvider) {
     });
     $routeProvider.when('/maker/product/:id/search', {
         templateUrl: 'src/maker/product/show/search/search.html',
+        controller: 'DashboardMakerProductShowController',
+        parameter: {id: 'integer'}
+    });
+    $routeProvider.when('/maker/product/:id/segment', {
+        templateUrl: 'src/maker/product/show/segment/segment.html',
         controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });

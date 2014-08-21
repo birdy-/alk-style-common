@@ -13,20 +13,47 @@ angular.module('jDashboardFluxApp').controller('UserProfileShowController', [
     // Variables
     // --------------------------------------------------------------------------------
     $scope.user = {};
+    $scope.userFormInit = function(form) {
+        form.$loading = true;
+        form.$saving = false;
+        $scope.userForm = form;
+    };
+    $scope.passwordFormInit = function(form) {
+        form.$loading = true;
+        form.$saving = false;
+        $scope.passwordForm = form;
+    };
 
     // --------------------------------------------------------------------------------
     // Event binding
     // --------------------------------------------------------------------------------
-    var changePassword = function(){
-        $$sdkAuth.UserChangePassword($scope.user).success(function(){
+    $scope.updatePassword = function(){
+        $scope.userForm.$saving = true;
+        $$sdkAuth.UserChangePassword({
+            id: $scope.user.id,
+            password: $scope.user.password
+        }).success(function(){
             $window.alert('Le mot de passe a été changé avec succès.');
             $scope.user.password['old'] = null;
             $scope.user.password['new'] = null;
+            $scope.passwordForm.$saving = false;
+            $scope.passwordForm.$setPristine();
         }).error(function(response){
-            $window.alert('Erreur lors du changement du mot de passe : '+response.message);
+            var message = '.';
+            if (response && response.data && response.data.message) {
+                message = ' : ' + response.data.message;
+            }
+            $window.alert('Erreur lors du changement du mot de passe'+message);
         });
     };
-    $scope.changePassword = changePassword;
+
+    $scope.updateUser = function() {
+        $scope.userForm.$saving = true;
+        $$sdkAuth.UserUpdate($scope.user).then(function(response){
+            $scope.userForm.$saving = false;
+            $scope.userForm.$setPristine();
+        });
+    };
 
     $scope.addBrand = function(brand) {
         // We could do better...
@@ -73,12 +100,17 @@ angular.module('jDashboardFluxApp').controller('UserProfileShowController', [
     // Init
     // --------------------------------------------------------------------------------
     var hydrate = function(user) {
+        if ($scope.userForm) {
+            $scope.userForm.$loading = false;
+        }
+        if ($scope.passwordForm) {
+            $scope.passwordForm.$loading = false;
+        }
         user.belongsTo.forEach(function(entity){
             $$ORM.repository('Organization').get(entity.id);
         });
-        user.managesBrand.forEach(function(entity){
-            $$ORM.repository('Brand').get(entity.id);
-        });
+        var brandIds = user.managesBrand.map(function(entity){ return entity.id; });
+        $$ORM.repository('Brand').list({}, {id: brandIds});
         user.managesWebsite.forEach(function(entity){
             $$ORM.repository('Website').get(entity.id);
         });

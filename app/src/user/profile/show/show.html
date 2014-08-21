@@ -75,7 +75,7 @@
                     <tbody>
                         <tr ng-repeat="organization in user.belongsTo">
                             <td>{{ organization.id }}</td>
-                            <td><a ng-href="/#/organization/{{ organization.id }}/profile">{{ organization.name }}</a></td>
+                            <td><a ng-href="/#/organization/{{ organization.id }}/profile">{{ organization.nameLegal }}</a></td>
                             <td>
                                 <span ng-repeat-start="permission in organization.permissions | filter:value" class="label label-default">{{ permission }}</span>&emsp;
                                 <span ng-repeat-end></span>

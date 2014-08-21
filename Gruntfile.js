@@ -63,7 +63,7 @@ module.exports = function (grunt) {
       options: {
         port: 9005,
         // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localhost.alkemics.com',
+        hostname: '127.0.0.1',
         livereload: 357005
       },
       livereload: {
@@ -400,7 +400,7 @@ module.exports = function (grunt) {
       'concurrent:server',
       'autoprefixer',
       'connect:livereload',
-      'jshint',
+      //'jshint',
       'watch'
     ]);
   });
@@ -424,7 +424,24 @@ module.exports = function (grunt) {
     'concurrent:dist',
     // 'autoprefixer',
     'concat',
-    //'ngmin',
+    'ngmin',
+    'copy:dist',
+    'cdnify',
+    'cssmin',
+    'uglify',
+    'rev',
+    'usemin',
+    'copy:prod',
+    'custom'
+  ]);
+
+  grunt.registerTask('build-preprod', [
+    'clean:dist',
+    'useminPrepare',
+    'concurrent:dist',
+    // 'autoprefixer',
+    'concat',
+    // 'ngmin',
     'copy:dist',
     'cdnify',
     'cssmin',
