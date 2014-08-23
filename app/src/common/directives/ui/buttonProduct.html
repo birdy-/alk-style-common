@@ -1,0 +1,37 @@
+<div>
+    <iframe width="200"
+            marginwidth="0"
+            height="50"
+            marginheight="0"
+            frameborder="0"
+            scrolling="No"
+            align="top"
+            hspace="0"
+            vspace="0"
+            id="alk_banner"
+            style="overflow: hidden; margin-bottom: 10px;"
+            ng-src="{{ src() }}" ng-if="iframe">
+    </iframe>
+    <div ng-if="code">
+<pre>
+&lt;div class="alk-ui-button-product"
+<span ng-if="oneclick === false">     data-alk-ui-oneclick="0"
+</span><span ng-if="showPrice === false">     data-alk-ui-show-price="0"
+</span><span ng-if="showShop === false">     data-alk-ui-show-shop="0"
+</span>     data-alk-ui-productreference_reference="{{ product.isIdentifiedBy[0].reference }}"
+     data-alk-ui-productreference_type="{{ product.isIdentifiedBy[0].type }}"
+     data-alk-ui-client_id="{{ client.id }}"
+     data-alk-ui-app_id="{{ application.id }}"&gt;
+     &lt;!-- Le bouton apparaîtra ici --&gt;
+&lt;/div&gt;
+</pre>
+<pre>
+&lt;script type="text/javascript" charset="utf-8" id="alkemicscom_sdk_rw"&gt;
+    //&lt;![CDATA[
+    window.alkAsyncInit = function() {ALK.init({appId: "{{ application.id }}", clientId: "'{{ client.id }}'", auto : true }); };
+    (function(a,l,k,e,m,i,c,s){m=l.createElement(k),i=l.getElementsByTagName(k)[0]; m.async=1;m.src=(document.location.protocol === 'https:' ? 'https://ssl' : 'http://') + e; i.parentNode.insertBefore(m,i); })(window, document, 'script', 'cdn.alkemics.com/rw/sdk.js');
+    //]]&gt;
+&lt;/script&gt;</pre>
+<!--     data-alk-ui-placement_id="1234"-->
+    </div>
+</div>
