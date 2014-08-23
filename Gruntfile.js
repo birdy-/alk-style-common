@@ -28,7 +28,7 @@ module.exports = function (grunt) {
     // Watches files for changes and runs tasks based on the changed files
     watch: {
       js: {
-        files: ['{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js'],
+        files: ['{.tmp,<%= yeoman.app %>}/src/{,*/}*.js'],
         tasks: ['newer:jshint:all']
       },
       jsTest: {
@@ -52,6 +52,8 @@ module.exports = function (grunt) {
         },
         files: [
           '<%= yeoman.app %>/{,*/}*.html',
+          '<%= yeoman.app %>/**/*.js',
+          '<%= yeoman.app %>/**/*.html',
           '.tmp/styles/{,*/}*.css',
           '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
@@ -69,6 +71,15 @@ module.exports = function (grunt) {
       livereload: {
         options: {
           open: true,
+          base: [
+            '.tmp',
+            '<%= yeoman.app %>'
+          ]
+        }
+      },
+      build: {
+        options: {
+          open: false,
           base: [
             '.tmp',
             '<%= yeoman.app %>'
@@ -378,14 +389,52 @@ module.exports = function (grunt) {
                 {expand: true, cwd: '<%= yeoman.dist %>/styles', src: ['**'], dest: 'styles'},
                 {expand: true, cwd: '<%= yeoman.dist %>/images', src: ['**'], dest: 'images'}
               ]
-
         }
     },
     shell: {
         compress: {
             command: 'tar -czf app.tar.gz <%= yeoman.dist %>/*'
         }
-    }
+    },
+    sosie7: {
+      version: {
+        path: '<%= yeoman.dist %>/index.html'
+      }
+    },
+    htmlSnapshot: {
+        all: {
+            options: {
+                //that's the path where the snapshots should be placed
+                //it's empty by default which means they will go into the directory
+                //where your Gruntfile.js is placed
+                snapshotPath: 'snapshots/',
+                //This should be either the base path to your index.html file
+                //or your base URL. Currently the task does not use it's own
+                //webserver. So if your site needs a webserver to be fully
+                //functional configure it here.
+                sitePath: 'http://localhost.alkemics.com:9005/',
+                //you can choose a prefix for your snapshots
+                //by default it's 'snapshot_'
+                fileNamePrefix: '',
+                //by default the task waits 500ms before fetching the html.
+                //this is to give the page enough time to to assemble itself.
+                //if your page needs more time, tweak here.
+                msWaitForPages: 1000,
+                //sanitize function to be used for filenames. Converts '#!/' to '_' as default
+                //has a filename argument, must have a return that is a sanitized string
+                sanitize: function (requestUri) {
+                    //returns 'index.html' if the url is '/', otherwise a prefix
+                    if (/\/$/.test(requestUri)) {
+                      return 'index.html';
+                    } else {
+                      return requestUri.replace(/\//g, 'prefix-');
+                    }
+                },
+                //here goes the list of all urls that should be fetched
+                urls: ['/']
+              }
+          }
+      }
 
   });
 
@@ -431,8 +480,9 @@ module.exports = function (grunt) {
     'uglify',
     'rev',
     'usemin',
+    'sosie',
     'copy:prod',
-    'custom'
+    'shell:compress'
   ]);
 
   grunt.registerTask('build-preprod', [
@@ -441,24 +491,30 @@ module.exports = function (grunt) {
     'concurrent:dist',
     // 'autoprefixer',
     'concat',
-    // 'ngmin',
+    // 'ngmin', // Do not compress for preprod debug
     'copy:dist',
     'cdnify',
     'cssmin',
-    // 'uglify',
+    // 'uglify',// Do not compress for preprod debug
     'rev',
     'usemin',
+    'sosie',
     'copy:prod',
-    'custom'
+    'shell:compress'
+  ]);
+
+  // Starts a webserver, renders the page, injects it in the index.html under embeded
+  // ie7-specific tags.
+  // NB : must be done after usemin in order to avoid breaking in-memory references
+  grunt.registerTask('sosie', [
+    'connect:build',
+    'htmlSnapshot',
+    'sosie7',
   ]);
 
   grunt.registerTask('default', [
     'newer:jshint',
     'test',
     'build'
-  ]);
-
-  grunt.registerTask('custom', [
-    'shell:compress'
   ]);
 };
