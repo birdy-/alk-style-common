@@ -9,9 +9,9 @@
  * @param  {[type]} permission)  [description]
  * @return {[type]}              [description]
  */
-angular.module('jDashboardFluxApp').controller('DashboardMakerBrandShowCtrl', [
-    '$scope', '$$sdkCrud', '$routeParams', 'permission', '$location', '$modal',
-    function ($scope, $$sdkCrud, $routeParams, permission, $location, $modal) {
+angular.module('jDashboardFluxApp').controller('DashboardMakerBrandShowController', [
+    '$scope', '$$sdkCrud', '$routeParams', 'permission', '$location', '$modal', '$window', '$log',
+    function ($scope, $$sdkCrud, $routeParams, permission, $location, $modal, $window, $log) {
 
     // ------------------------------------------------------------------------
     // Variables
@@ -34,7 +34,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerBrandShowCtrl', [
             if (response && response.message) {
                 message = ' : ' + response.message;
             }
-            alert('Erreur pendant la mise à jour de la marque'+message);
+            $window.alert('Erreur pendant la mise à jour de la marque'+message);
         });
     };
 
@@ -61,8 +61,8 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerBrandShowCtrl', [
     };
     var init = function() {
         permission.getUser().then(function(user){
-            if (!user.isAllowed('Brand', parseInt($routeParams.id))) {
-                alert("Vous n'êtes pas autorisé à consulter cette page.");
+            if (!user.isAllowed('Brand', parseInt($routeParams.id, 10))) {
+                $window.alert("Vous n'êtes pas autorisé à consulter cette page.");
                 $location.path('/maker/brand');
                 return;
             }
@@ -81,7 +81,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerBrandShowCtrl', [
             templateUrl: 'src/maker/brand/show/media/upload-brand.html',
             scope : $scope,
             backdrop : 'static',
-            controller: 'DashboardMakerBrandShowMediaUploadCtrl'
+            controller: 'DashboardMakerBrandShowMediaUploadController'
         });
 
         uploadModal.result.then(function () {
@@ -94,7 +94,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerBrandShowCtrl', [
 
 
 
-angular.module('jDashboardFluxApp').controller('DashboardMakerBrandShowMediaUploadCtrl', [
+angular.module('jDashboardFluxApp').controller('DashboardMakerBrandShowMediaUploadController', [
     '$scope', '$modalInstance', '$document', '$log', '$routeParams',
     function($scope, $modalInstance, $document, $log, $routeParams) {
 

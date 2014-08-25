@@ -1,8 +1,7 @@
 'use strict';
 
-angular.module('jDashboardFluxApp').controller('FaqCtrl', [
-    '$scope',
-    function ($scope) {
+angular.module('jDashboardFluxApp').controller('FaqController', [
+    function () {
 
     // ------------------------------------------------------------------------
     // Variables

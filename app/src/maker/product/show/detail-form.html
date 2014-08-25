@@ -1,33 +1,33 @@
-<div>
-    <div>
+<div class="row">
+    <div class="col-sm-12">
+        <br/>
         <a ng-href="/#/maker/brand/{{ product.isBrandedBy.id }}/product">&lt; Retour</a>
         <br/>
         <br/>
     </div>
+</div>
 
-    <div class="thumbnail">
-        <div class="ratio" ng-style="{'background-image': 'url(' + product.urlPictureOriginal + ')'}" style="height: 100px;">
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="thumbnail">
+            <div class="ratio" ng-style="{'background-image': 'url(' + product.urlPictureOriginal + ')'}"  style="height: 100px;">
+            </div>
+        </div>
+        <div class="text-center">
+            <h4>{{ product.nameLegal }}</h4>
+            <span class="badge color-stream">{{ product.isIdentifiedBy[0].reference }}</span>
+            <br/> <br/> <br/>
         </div>
     </div>
-    <div class="text-center">
-        <h4>{{ product.nameLegal }}</h4>
-        <strong>{{ product.packaging }}</strong>
-        <br/>
-        <br/>
-        <span class="label label-success" ng-show="product.isAccepted() === true" tooltip-placement="top" tooltip="Vous avez reconnu être en charge de ce produit." tooltip-trigger="mouseenter">
-            <i class="fa fa-check"></i> Accepté
-        </span>
-        <span class="label label-warning" ng-show="product.isAccepted() === false" tooltip-placement="top" tooltip="Vous n'avez pas reconnu être en charge de ce produit." tooltip-trigger="mouseenter">
-            <i class="fa fa-warning"></i> Non accepté
-        </span>
-        <br/>
-        <br/>
-        <span class="label label-success" ng-show="product.isCertified() === true" tooltip-placement="top" tooltip="Vous avez certifié la conformité des informations sur ce produit." tooltip-trigger="mouseenter">
-            <i class="fa fa-certificate"></i> Certifié
-        </span>
-        <span class="label label-warning" ng-show="product.isCertified() === false" tooltip-placement="top" tooltip="Vous n'avez pas encore certifié la conformité des informations sur ce produit." tooltip-trigger="mouseenter">
-            <i class="fa fa-warning"></i> Non certifié
-        </span>
+    <div>
+        <ul class="nav nav-stacked" role="tablist">
+            <div nav-product link="data" legend="Données" product="product.id" locked="false" color="transparent"></div>
+            <div nav-product link="merchandising" legend="Merchandising" product="product.id" locked="false" color="#d6e9c6"></div>
+            <div nav-product link="search" legend="Search" product="product.id" locked="false" color="#d6e9c6"></div>
+            <div nav-product link="marketing" legend="Marketing" product="product.id" locked="true" color="#d6e9c6"></div>
+            <div nav-product link="segment" legend="Segments" product="product.id" locked="false" color="#d6e9c6" class="last"></div>
+        </ul>
     </div>
     <div class="actions-container">
         <div class="actions">
@@ -47,7 +47,7 @@
             </div>
             <br/>
             <br/>
-            <button ng-click="certify()" class="btn btn-success col-lg-12">
+            <button ng-click="certify()" class="btn color-stream-inverse col-lg-12">
                 <i class="fa fa-certificate"></i> Certifier
             </button>
         </div>

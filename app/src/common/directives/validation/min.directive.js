@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('jDashboardFluxApp').directive('ngMin', function() {
     return {
         restrict: 'A',

@@ -1,9 +1,9 @@
 'use strict';
 
 
-angular.module('jDashboardFluxApp').controller('HeaderCtrl', [
-    '$scope', 'permission', '$$sdkCrud', '$location', '$modal',
-    function ($scope, permission, $$sdkCrud, $location, $modal) {
+angular.module('jDashboardFluxApp').controller('HeaderController', [
+    '$scope', 'permission', '$location', '$modal',
+    function ($scope, permission, $location, $modal) {
 
     // ------------------------------------------------------------------------
     // Variables
@@ -23,22 +23,7 @@ angular.module('jDashboardFluxApp').controller('HeaderCtrl', [
         $location.path('/');
     };
 
-    // ------------------------------------------------------------------------
-    // Init
-    // ------------------------------------------------------------------------
-    var init = function() {
-        permission.getUser().then(function (user) {
-            $scope.logged = true;
-            $scope.user = user;
-            $scope.brand = user.managesBrand[0];
-            $scope.brand.picture = {
-                logo: 'https://smedia.alkemics.com/brand/' + $scope.brand.id + '/picture/logo/original.png',
-            };
-        });
-    };
-    init();
-
-    var subscribe = function(message){
+    $scope.subscribe = function(message){
         var modalInstance = $modal.open({
             templateUrl: '/src/home/contact.html',
             controller: 'ContactController',
@@ -56,5 +41,19 @@ angular.module('jDashboardFluxApp').controller('HeaderCtrl', [
         }, function () {
         });
     };
-    $scope.subscribe = subscribe;
+
+    // ------------------------------------------------------------------------
+    // Init
+    // ------------------------------------------------------------------------
+    var init = function() {
+        permission.getUser().then(function (user) {
+            $scope.logged = true;
+            $scope.user = user;
+            $scope.brand = user.managesBrand[0];
+            $scope.brand.picture = {
+                logo: 'https://smedia.alkemics.com/brand/' + $scope.brand.id + '/picture/logo/original.png'
+            };
+        });
+    };
+    init();
 }]);

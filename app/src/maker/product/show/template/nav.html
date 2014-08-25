@@ -1,0 +1,9 @@
+<li ng-class="classes()">
+	<a class="pointer-link product-tab" ng-click="go()" ng-style="style()">
+		{{ legend }}
+		<span class="pull-right">
+			<i ng-if="locked" class="fa fa-lock fa-fw"></i>
+			<i ng-if="!locked" class="fa fa-caret-right fa-fw"></i>
+		</span>
+	</a>
+</li>

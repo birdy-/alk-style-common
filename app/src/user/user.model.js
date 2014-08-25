@@ -1,4 +1,3 @@
-
 'use strict';
 
 var User = function(){
@@ -14,17 +13,17 @@ var User = function(){
 
     this.isAllowed = function(type, id) {
         var considers = [];
-        if (type == 'Shop') {
+        if (type === 'Shop') {
             considers = this.managesShop;
-        } else if (type == 'Brand') {
+        } else if (type === 'Brand') {
             considers = this.managesBrand;
-        } else if (type == 'Website') {
+        } else if (type === 'Website') {
             considers = this.managesWebsite;
         } else {
             throw 'Unknown type : '+type;
         }
         for (var i = 0; i < considers.length; i++) {
-            if (considers[i].id == id) {
+            if (considers[i].id === id) {
                 return true;
             }
         }
@@ -32,13 +31,13 @@ var User = function(){
     };
 
     this.allowedWebsites = function(permission) {
-    	var returns = [];
+        var returns = [];
         for (var i = 0; i < this.managesWebsite.length; i++) {
-        	for (var j = 0; j < this.managesWebsite[i].permissions.length; j++) {
-        		if (this.managesWebsite[i].permissions[j] == permission) {
-        			returns.push(this.managesWebsite[i].id);
-        		}
-        	}
+            for (var j = 0; j < this.managesWebsite[i].permissions.length; j++) {
+                if (this.managesWebsite[i].permissions[j] === permission) {
+                    returns.push(this.managesWebsite[i].id);
+                }
+            }
         }
         return returns;
     };

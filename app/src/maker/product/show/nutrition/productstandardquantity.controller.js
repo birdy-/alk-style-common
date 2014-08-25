@@ -1,12 +1,31 @@
+'use_strict';
+
 /**
  * Modal that allows the user to create a PSQ.
  */
 angular.module('jDashboardFluxApp').controller('ProductStandardQuantityModalController', [
-    '$scope', '$modalInstance', '$$sdkCrud', 'productStandardQuantity',
-    function ($scope, $modalInstance, $$sdkCrud, productStandardQuantity) {
+    '$scope', '$modalInstance', '$$sdkCrud', '$$sdkMl', '$$CommonUnitRepository', '$window', 'productStandardQuantity',
+    function ($scope, $modalInstance, $$sdkCrud, $$sdkMl, $$CommonUnitRepository, $window, productStandardQuantity) {
 
+    // ------------------------------------------------------------------------
+    // Variables
+    // ------------------------------------------------------------------------
     $scope.psq = productStandardQuantity;
-    $scope.commonUnits =
+
+    // ------------------------------------------------------------------------
+    // Event handling
+    // ------------------------------------------------------------------------
+    $scope.parse = function() {
+        if (!$scope.psq.name) {
+            return;
+        }
+        $$sdkMl.ProductPackagingParse($scope.psq.name).then(function(response){
+            var data = response.data.data;
+            $scope.psq.quantity = data.quantityNormalized;
+            $scope.psq.isMeasuredBy = $$CommonUnitRepository.lazy(data.isMeasuredBy.id);
+        });
+
+    };
     $scope.ok = function () {
         $$sdkCrud.ProductStandardQuantityCreate(
             $scope.psq
@@ -14,10 +33,16 @@ angular.module('jDashboardFluxApp').controller('ProductStandardQuantityModalCont
             $scope.psq = $scope.psq.fromJson(response.data);
             $modalInstance.close($scope.psq);
         }).error(function(response){
-            alert("Erreur pendant la création de la ProductStandardQuantity : "+response.data.message);
+            $window.alert("Erreur pendant la création de la ProductStandardQuantity : "+response.data.message);
         });
     };
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
     };
+
+
+    // ------------------------------------------------------------------------
+    // Init
+    // ------------------------------------------------------------------------
+
 }]);

@@ -12,7 +12,7 @@ angular.module('jDashboardFluxApp').directive('alkInteger', function() {
                 }
                 if (INTEGER_REGEXP.test(viewValue)) {
                     ctrl.$setValidity('integer', true);
-                    return parseInt(viewValue.replace(',', '.'));
+                    return parseInt(viewValue.replace(',', '.'), 10);
                 } else {
                     ctrl.$setValidity('integer', false);
                     return undefined;

@@ -1,0 +1,54 @@
+<div template-product>
+<div ng-controller="DashboardMakerProductShowSearchController">
+
+<div class="row">
+    <div class="col-lg-8">
+        <nvd3-scatter-chart
+            data="datas"
+            id="exampleId"
+            height="800"
+            objectequality="true"
+            showLegend="true"
+            interactive="true"
+            tooltips="true"
+            yAxisTickFormat="yAxisTickFormatFunction()"
+            xAxisTickFormat="xAxisTickFormatFunction()">
+                <svg></svg>
+        </nvd3-scatter-chart>
+    </div>
+    <div class="col-lg-4">
+        <div>
+        <nvd3-multi-bar-chart
+            data="volumes"
+            id="exampleId2"
+            height="300"
+            objectequality="true"
+            rotateLabels="90"
+            showXAxis="true"
+            showYAxis="true">
+                <svg></svg>
+        </nvd3-multi-bar-chart>
+        </div>
+        <br/>
+        <br/>
+        <table class="table table-bordered table-condensed">
+            <thead>
+                <tr class="color-stream-inverse">
+                    <td>Mot clé</td>
+                    <td>Volume total</td>
+                    <td>Taux de clic produit</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="stat in stats | orderBy:'percentage':true">
+                    <td>{{ stat.keyword }}</td>
+                    <td>{{ stat.volume }}</td>
+                    <td>{{ stat.percentage | number:2 }} %</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</div>
+</div>

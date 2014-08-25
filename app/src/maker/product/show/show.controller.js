@@ -1,17 +1,15 @@
 'use_strict';
 
-angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', [
-    '$scope', '$$sdkCrud', '$routeParams', '$$autocomplete', 'permission', '$$BrandRepository', '$location',
-    function ($scope, $$sdkCrud, $routeParams, $$autocomplete, permission, $$BrandRepository, $location) {
+angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowController', [
+    '$scope', '$$sdkCrud', '$routeParams', '$$autocomplete', '$location', '$window',
+    function ($scope, $$sdkCrud, $routeParams, $$autocomplete, $location, $window) {
 
     // ------------------------------------------------------------------------
     // Variables
     // ------------------------------------------------------------------------
     $scope.user = {};
     $scope.product = {};
-    $scope.select2brandOptions = $$autocomplete.getOptionAutocompletes(null, {
-        data:[], multiple:false, maximumSelectionSize:1, minimumInputLength:0
-    });
+    $scope.productId = $routeParams.id;
     $scope.productForm = {};
     $scope.formInit = function(form) {
         form.$loading = true;
@@ -28,14 +26,14 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
             return [];
         }
         if ($scope.productForm[field].$invalid) {
-            if (isEmpty($scope.productForm[field].$viewValue)) {
+            if (angular.isEmpty($scope.productForm[field].$viewValue)) {
                 classes['has-warning'] = true;
             } else {
                 classes['has-error'] = true;
             }
         }
         if ($scope.productForm[field].$valid) {
-            if (isEmpty($scope.productForm[field].$viewValue)) {
+            if (angular.isEmpty($scope.productForm[field].$viewValue)) {
                 // Empty fields that are not required should not be displayed green
             } else {
                 classes['has-success'] = true;
@@ -58,7 +56,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
             'quantityFree',
             'quantityBase',
             'quantityNormalized',
-            'drainedWeight',
+            'drainedWeight'
         ];
         var value;
         for (var i = 0; i < nulls.length; i++) {
@@ -73,7 +71,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
         if ($scope.productForm.$pristine) {
             return;
         }
-        if (!confirm("Des changements n'ont pas été enregistrés, quitter quand même ?")) {
+        if (!$window.confirm("Des changements n'ont pas été enregistrés, quitter quand même ?")) {
             event.preventDefault();
         }
     });
@@ -83,7 +81,8 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
     // ------------------------------------------------------------------------
     $scope.load = function(id) {
         $scope.productForm.$loading = true;
-        withs = {};
+        var withs = {};
+        withs.isIdentifiedBy = true;
         if ($location.path().indexOf('label') !== -1) {
             withs.isLabeledBy = true;
         } else if ($location.path().indexOf('packaging') !== -1) {
@@ -94,9 +93,9 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
             withs.isSubstitutableWith = true;
             withs.isComplementaryWith = true;
         }
-        $$sdkCrud.ProductShow(id, withs, function(response){
+        $$sdkCrud.ProductShow(id, withs).then(function(response){
             $scope.productForm.$loading = false;
-            var product = new Product().fromJson(response.data);
+            var product = new Product().fromJson(response.data.data);
             // Fill up for autocompletion reasons
             product.isMeasuredBy.text = product.isMeasuredBy.name;
             product.isBrandedBy.text = product.isBrandedBy.name;
@@ -113,19 +112,11 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCtrl', 
             $scope.product.urlPictureOriginal = 'https://smedia.alkemics.com/product/' + $scope.product.id + '/picture/packshot/original.png?' + Math.random() * 100000000;
 
             $scope.select2productOptions = $$autocomplete.getOptionAutocompletes('product', {
-                maximumSelectionSize: 1,
+                maximumSelectionSize: 1
             }, {
                 filter_isbrandedby_id: $scope.product.isBrandedBy.id
             });
         });
     };
-    permission.getUser().then(function(user){
-        $scope.user = user;
-        user.managesBrand.forEach(function(brand){
-            $$BrandRepository.get(brand.id);
-        });
-        angular.extend($scope.select2brandOptions.data, user.managesBrand);
-    });
-
-    $scope.load($routeParams.id);
+    $scope.load($scope.productId);
 }]);

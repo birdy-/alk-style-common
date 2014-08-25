@@ -1,6 +1,6 @@
 'use_strict';
 
-angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowConservationCtrl', [
+angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowConservationController', [
     '$scope',
     function ($scope) {
 }]);

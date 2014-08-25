@@ -7,7 +7,7 @@
  * @param  {[type]} $routeParams  [description]
  * @return {[type]}               [description]
  */
-angular.module('jDashboardFluxApp').controller('DashboardRetailerNotificationsCtrl', [
+angular.module('jDashboardFluxApp').controller('DashboardRetailerNotificationsController', [
     '$scope', '$$sdkCrud',
     function ($scope, $$sdkCrud) {
 
@@ -27,9 +27,9 @@ angular.module('jDashboardFluxApp').controller('DashboardRetailerNotificationsCt
  * @param  {[type]} $routeParams  [description]
  * @return {[type]}               [description]
  */
-angular.module('jDashboardFluxApp').controller('DashboardRetailerProductShowCtrl', [
-    '$scope', '$$sdkCrud', '$routeParams',
-    function ($scope, $$sdkCrud, $routeParams) {
+angular.module('jDashboardFluxApp').controller('DashboardRetailerProductShowController', [
+    '$scope', '$$sdkCrud', '$routeParams', '$window',
+    function ($scope, $$sdkCrud, $routeParams, $window) {
 
     $scope.productInShop = {
     };
@@ -45,14 +45,14 @@ angular.module('jDashboardFluxApp').controller('DashboardRetailerProductShowCtrl
         var id, productInShop, found = false;
         for (var i = 0; i < $scope.product.isInstantiatedBy.length; i++) {
             productInShop = $scope.product.isInstantiatedBy[i];
-            if (productInShop.isSoldBy.id == $scope.shop.id) {
+            if (productInShop.isSoldBy.id === $scope.shop.id) {
                 id = productInShop.id;
                 found = true;
                 break;
             }
         }
         if (!found) {
-            alert('Product not sold in this shop.');
+            $window.alert('Product not sold in this shop.');
         }
         $$sdkCrud.ProductInShopShow(id, function(response){
             $scope.productInShop = response.data;

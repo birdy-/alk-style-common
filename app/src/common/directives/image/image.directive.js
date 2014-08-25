@@ -5,13 +5,14 @@ angular.module('jDashboardFluxApp').directive('entityImage', [
     return {
         restrict: 'AEC',
         scope: {
-            entity: '=',
+            entity: '='
         },
         replace: true,
         templateUrl: '/src/common/directives/image/template.html',
         link: function(scope, elem, attrs) {
-            scope.class = attrs.class;
-            scope.$watch('entity', function(){
+
+            scope['class'] = attrs['class'];
+            scope.$watch('entity._type', function(){
 
                 var cachebuster = Math.random() * 10000000000000000;
 
@@ -30,7 +31,7 @@ angular.module('jDashboardFluxApp').directive('entityImage', [
                         && scope.entity.url.picture.length) {
                     scope.url = scope.entity.url.picture[0];
                 }
-            }, true);
+            });
         }
-    }
+    };
 }]);

@@ -1,13 +1,12 @@
 'use_strict';
 
-angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowLabelCtrl', [
+angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowLabelController', [
     '$scope', '$$sdkCrud', '$routeParams', '$$autocomplete', '$modal', '$location', 'permission',
     function ($scope, $$sdkCrud, $routeParams, $$autocomplete, $modal, $location, permission) {
 
     // ------------------------------------------------------------------------
     // Variables
     // ------------------------------------------------------------------------
-    $scope.select2brandOptions = $$autocomplete.getOptionAutocompletes(null, {data:[], multiple: false, maximumSelectionSize: 1, minimumInputLength:0});
 
     var labels = [
         { id:18070, name:"Vendanges Tardives"},
@@ -97,9 +96,9 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowLabelCt
         { id:19168, name: "Label NF Environnement"},
         { id:19169, name: "Label Atout Certifié Qualité"},
         { id:19170, name: "Label Critères Qualité Certifiés"},
-        { id:19171, name: "Label USDA Organic"},
+        { id:19171, name: "Label USDA Organic"}
     ];
-    $scope.labels = {}
+    $scope.labels = {};
     labels.map(function(label) {
         $scope.labels[label.id] = label;
     });

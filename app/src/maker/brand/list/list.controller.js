@@ -8,9 +8,9 @@
  * @param  {[type]} permission)  [description]
  * @return {[type]}              [description]
  */
-angular.module('jDashboardFluxApp').controller('DashboardMakerBrandListCtrl', [
-    '$scope', '$$BrandRepository', 'permission',
-    function ($scope, $$BrandRepository, permission) {
+angular.module('jDashboardFluxApp').controller('DashboardMakerBrandListController', [
+    '$scope', '$$BrandRepository', 'permission', '$window',
+    function ($scope, $$BrandRepository, permission, $window) {
 
     $scope.brands = [];
     permission.getUser().then(function (user) {
@@ -22,7 +22,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerBrandListCtrl', [
     });
 
     $scope.submit = function() {
-        alert('You do not have the necessary privileges to update this brand.');
+        $window.alert('You do not have the necessary privileges to update this brand.');
     };
 }]);
 

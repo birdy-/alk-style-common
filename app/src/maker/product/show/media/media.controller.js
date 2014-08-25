@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaUploadCtrl', [
+angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaUploadController', [
     '$scope', '$modalInstance', '$document', '$log', '$routeParams', '$route',
     function($scope, $modalInstance, $document, $log, $routeParams, $route) {
 
@@ -13,16 +13,18 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaUp
         $scope.total = null;
 
         // for the page
-        $scope.newPictures = [];        
-        
+
+        $scope.newPictures = [];
+
         $scope.$watchCollection("uploadedFiles", function (newFiles) {
             while(newFiles.length) {
-                var file = newFiles.pop();                
+                var file = newFiles.pop();
                 $log.info("got new uploaded file, pushing as asset", file);
-                $scope.newPictures.push({});                                                
+                $scope.newPictures.push({});
                 // Make the picture visible
-                // Don't know how to do that cleanly without additional network 
+                // Don't know how to do that cleanly without additional network
                 file.file.appendTo($('#uploaded-pictures'));
+
 
                 // Upload has completed
                 // User can still see the previous picture for two reasons:
@@ -61,11 +63,11 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaUp
 
 
 
-angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaCtrl', [
+angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaController', [
     "$scope", "$modal", "$log",
     function($scope, $modal, $log) {
-        
-        // upload new pictures        
+
+        // upload new pictures
         $scope.uploadNewPictures = function(mediaType, multiSelection) {
             $scope.mediaType = mediaType;
             $scope.multiSelection = multiSelection;
@@ -74,7 +76,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaCt
                 templateUrl: 'src/maker/product/show/media/upload-picture.html',
                 scope : $scope,
                 backdrop : 'static',
-                controller: 'DashboardMakerProductShowMediaUploadCtrl'
+                controller: 'DashboardMakerProductShowMediaUploadController'
             });
 
             uploadModal.result.then(function () {

@@ -9,8 +9,8 @@
  * the rest of the application.
  */
 angular.module('jDashboardFluxApp').service('permission', [
-    "URL_SERVICE_AUTH", "$http", "$rootScope", "authService", "$window", "$log", "$$BrandRepository",
-    function init(URL_SERVICE_AUTH, $http, $rootScope, authService, $window, $log, $$BrandRepository) {
+    "URL_SERVICE_AUTH", "$http", "$rootScope", "authService", "$window", "$log", "$$ORM",
+    function init(URL_SERVICE_AUTH, $http, $rootScope, authService, $window, $log, $$ORM) {
 
     var userPromise = null;
     var user = null;
@@ -20,28 +20,33 @@ angular.module('jDashboardFluxApp').service('permission', [
      * @return user The global user.
      */
     var getUser = function() {
-        if (userPromise == null) {
+        if (userPromise === null) {
             var url = URL_SERVICE_AUTH + '/auth/v1/user/me';
-            userPromise = $http.get(url).then(function(response, status, headers, config) {
-                // Lazy-load relateed entities
-                var managesBrand = [];
-                response.data.data.managesBrand.forEach(function(brand){
-                    var obj = $$BrandRepository.lazy(brand.id);
-                    obj.allowed = true;
-                    managesBrand.push(obj);
-                });
-                response.data.data.managesBrand = managesBrand;
+            userPromise = $http.get(url).then(function(response) {
+                // Load entity
+                user = $$ORM.repository('User').hydrate(response.data.data);
 
-                // Create user object
-                user = new User();
-                user.fromJson(response.data.data);
+                // Load relations
+                user.managesBrand.forEach(function(relation){ relation.allowed = true; });
+                user.managesWebsite.forEach(function(relation){ relation.allowed = true; });
+                user.managesShop.forEach(function(relation){ relation.allowed = true; });
+                user.belongsTo.forEach(function(relation){ relation.allowed = true; });
 
                 // Broadcast event
+                $log.log('Authentication Service : <User ' + user.id + '> loaded.');
                 $rootScope.$broadcast('event:auth-loginConfirmed');
                 return user;
             });
         }
         return userPromise;
+    };
+
+    /**
+     * Resets the service to clear the user.
+     */
+    var reset = function() {
+        userPromise = null;
+        user = null;
     };
 
 
@@ -57,7 +62,7 @@ angular.module('jDashboardFluxApp').service('permission', [
         }).success(function (response) {
             authService.loginConfirmed();
             $window.sessionStorage.token = response.access_token;
-        }).error(function (response, status, headers, config) {
+        }).error(function () {
             delete $window.sessionStorage.token;
         });
     };
@@ -68,8 +73,7 @@ angular.module('jDashboardFluxApp').service('permission', [
      */
     var logout = function() {
         $log.debug('User clicked Logout');
-        user = null;
-        userPromise = null;
+        reset();
         delete $window.sessionStorage.token;
         $log.debug('Logged out, authentication token erased');
 
@@ -83,7 +87,7 @@ angular.module('jDashboardFluxApp').service('permission', [
     };
 
     return {
-        user: user,
+        reset: reset,
         getUser: getUser,
         login: login,
         logout: logout,

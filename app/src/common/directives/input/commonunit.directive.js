@@ -1,22 +1,23 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').directive('selectCommonunit', [
-    function () {
+    '$$CommonUnitRepository',
+    function ($$CommonUnitRepository) {
     return {
         restrict: 'AEC',
         scope: {
-            localModel: '=ngModel',
+            localModel: '=ngModel'
         },
         requires: 'ngModel',
         templateUrl: '/src/common/directives/input/select-object.html',
         link: function(scope, elem, attrs) {
             scope.choices = [
-                { name:'g', id:3 },
-                { name:'kg', id:22 },
-                { name:'cl', id:7 },
-                { name:'l', id:9 },
-                { name:'ml', id:2 },
+                $$CommonUnitRepository.lazy(3).fromJson({ name:'g', id:3 }),
+                $$CommonUnitRepository.lazy(22).fromJson({ name:'kg', id:22 }),
+                $$CommonUnitRepository.lazy(7).fromJson({ name:'cl', id:7 }),
+                $$CommonUnitRepository.lazy(9).fromJson({ name:'l', id:9 }),
+                $$CommonUnitRepository.lazy(2).fromJson({ name:'ml', id:2 })
             ];
         }
-    }
+    };
 }]);

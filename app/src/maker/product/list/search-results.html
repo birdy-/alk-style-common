@@ -1,29 +1,12 @@
-<style>
-    .missing-picture {
-        background-position:center center;
-        background-image: url('/images/missing.png');
-        background-repeat: no-repeat;
-        background-size: 80% 80%;
-    }
-    .product-icons {
-        height: 15px;
-        text-align: center;
-        margin-bottom: 10px;
-    }
-    .breadcrumb {
-        margin-bottom: 0px;
-    }
-</style>
-
 <div class="sheet">
     <div class="row" infinite-scroll="more()">
         <div ng-repeat="product in products" class="col-sm-2 product">
-            <div class="picture missing-picture">
+            <div class="picture missing-picture" ng-click="show(product)">
                 <div class="ratio" ng-style="{'background-image': 'url(\'https://smedia.alkemics.com/product/' + product.id + '/picture/packshot/256x256.png\')'}" style="height">
                 </div>
             </div>
             <div class="name">
-                <a ng-href="/#/maker/product/{{ product.id }}/marketing">
+                <a ng-href="/#/maker/product/{{ product.id }}/data/general">
                     {{ product.nameLegal }}
                 </a>
             </div>

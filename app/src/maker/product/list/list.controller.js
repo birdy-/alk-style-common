@@ -8,9 +8,9 @@
  * @param  {[type]} permission    [description]
  * @return {[type]}               [description]
  */
-angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', [
-    '$scope', '$$sdkCrud', 'permission', '$$autocomplete', '$routeParams', '$$BrandRepository', '$log',
-    function ($scope, $$sdkCrud, permission, $$autocomplete, $routeParams, $$BrandRepository, $log) {
+angular.module('jDashboardFluxApp').controller('DashboardMakerProductListController', [
+    '$scope', '$$sdkCrud', 'permission', '$routeParams', '$$BrandRepository', '$log', '$location', '$window',
+    function ($scope, $$sdkCrud, permission, $routeParams, $$BrandRepository, $log, $location, $window) {
 
     // ------------------------------------------------------------------------
     // Variables
@@ -23,7 +23,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', 
             certifieds: {},
             isIdentifiedBy: {
                 reference: null
-            },
+            }
         }
     };
     $scope.products = [];
@@ -31,7 +31,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', 
         offset: 0,
         limit: 24,
         stop: false,
-        busy: false,
+        busy: false
     };
     $scope.allBrands = [];
     $scope.brands = [];
@@ -40,7 +40,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', 
     $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_CERTIFIED.id] = true;
     $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_PUBLISHED.id] = true;
     $scope.options = {
-        'data-drag-enabled': false,
+        'data-drag-enabled': false
     };
 
     // ------------------------------------------------------------------------
@@ -48,15 +48,15 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', 
     // ------------------------------------------------------------------------
 
     var list = function() {
-        $log.log('List');
         if ($scope.scroll.stop) {
-            $log.warn("List Products : end reached.");
+            $log.warn("Product List Controller : scroll end reached.");
             return;
         }
         if ($scope.scroll.busy) {
-            $log.warn("List Products : busy.");
+            $log.log("Product List Controller : busy listing <Products>.");
             return;
         }
+        $log.log("Product List Controller : listing <Products>.");
 
         // Collect parameters
         var certifieds = [];
@@ -65,7 +65,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', 
                 certifieds.push(key);
             }
         }
-        if (certifieds.length == 0) {
+        if (certifieds.length === 0) {
             certifieds = [2];
         }
         $scope.request.product.certified = certifieds.join(',');
@@ -84,7 +84,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', 
         var filters = {
             reference: $scope.request.product.isIdentifiedBy.reference
         };
-        $log.log('[findByReference] '+filters.reference);
+        $log.log("Product List Controller : listing by reference="+filters.reference);
         $scope.scroll.busy = true;
         $$sdkCrud.ProductReferenceList(queries, filters, {},
             $scope.scroll.offset,
@@ -94,7 +94,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', 
                 $scope.scroll.stop = true;
             }
             var product;
-            $log.log(response.data.length + ' results found.');
+            $log.log("Product List Controller : " + response.data.length + " results found.");
             for (var i = 0; i < response.data.length; i ++) {
                 product = new Product().fromJson(response.data[i].identifies);
                 $scope.products.push(product);
@@ -112,14 +112,13 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', 
                 brands.push($scope.allBrands[i].id);
             }
         }
-        $log.warn($scope.allBrands);
-        if (brands.length == 0) {
-            $log.warn("[findByBrand] no Brand set.");
-            return
+        if (brands.length === 0) {
+            $log.warn("Product List Controller : no <Brand> set in findByBrand.");
+            return;
         }
         brands = brands.join(',');
 
-        $log.log("[findByBrand] "+brands);
+        $log.log("Product List Controller : listing by <Brand> "+brands);
         var filters = {
             isbrandedby_id: brands,
             certified: $scope.request.product.certified
@@ -130,27 +129,27 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', 
     var findByName = function() {
         var brand = $scope.request.product.isBrandedBy;
         if (!brand || !brand.id) {
-            $log.warn("[findByName] no Brand set.");
+            $log.warn("Product List Controller : no <Brand> set in findByName.");
             return;
         }
-        $log.log("[findByName] "+brand.id);
         var filters = {
             isbrandedby_id: brand.id,
             certified: $scope.request.product.certified
         };
         var queries = {
             namelegal: $scope.request.product.nameLegal
-        }
+        };
+        $log.log("Product List Controller : listing by name '" + queries.nameLegal + "' in "+brand.id);
         return find(queries, filters);
     };
 
     var find = function(queries, filters) {
-        $log.log("[Find] chunk [" + $scope.scroll.offset + "-" + ($scope.scroll.offset + $scope.scroll.limit) + "]" );
+        $log.log("Product List Controller : listing [" + $scope.scroll.offset + "-" + ($scope.scroll.offset + $scope.scroll.limit) + "]" );
         $scope.scroll.busy = true;
-        filters.with_isidentifiedby = 1;
         $$sdkCrud.ProductList(queries, filters, {},
             $scope.scroll.offset,
-            $scope.scroll.limit
+            $scope.scroll.limit,
+            {isIdentifiedBy: 1}
         ).success(function(response){
             if (response.data.length < $scope.scroll.limit) {
                 $scope.scroll.stop = true;
@@ -163,7 +162,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', 
             $scope.scroll.busy = false;
             $scope.scroll.offset = $scope.products.length;
         }).error(function(response){
-            alert('Erreur pendant la récupération des Produits.');
+            $window.alert("Erreur pendant la récupération des Produits.");
         });
     };
 
@@ -171,7 +170,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', 
         list();
     };
     var refresh = function() {
-        $log.log('Refresh Products');
+        $log.log("Product List Controller : refresh <Products>.");
         $scope.scroll.offset = 0;
         $scope.scroll.stop = false;
         $scope.products = [];
@@ -191,6 +190,9 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', 
         propagate(brand, brand.active);
         refresh();
     };
+    $scope.show = function(product) {
+        $location.path('/maker/product/' + product.id + '/data/general');
+    };
 
     $scope.$watch('request.product.isIdentifiedBy.reference', refresh);
     $scope.$watch('request.product.nameLegal', refresh);
@@ -203,8 +205,11 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', 
         $scope.scroll.busy = true;
         permission.getUser().then(function(user){
             // Load all available brands
-            user.managesBrand.forEach(function(brand){
-                $$BrandRepository.get(brand.id).then(function(brand) {
+            var brandIds = user.managesBrand.map(function(brand){
+                return brand.id;
+            }).join(',');
+            $$BrandRepository.list({}, {id: brandIds}, {}, 0, 100, {subbrands:1}).then(function(brands) {
+                brands.forEach(function(brand){
                     brand.root = true;
                     if (typeof(brand.isSubBrandOf._subBrands) === 'undefined') {
                         brand.isSubBrandOf._subBrands = [];
@@ -226,21 +231,21 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListCtrl', 
             // Load by reference
             var reference = $routeParams.reference;
             if (reference) {
-                $log.log('[Init] Initializing screen with isIdentifiedBy = ' + reference);
+                $log.log("Product List Controller : initializing screen with isIdentifiedBy=" + reference);
                 $scope.request.product.isIdentifiedBy.reference = reference;
                 list();
                 return;
             }
 
             // Load brand
-            var brandId = $routeParams.id ? parseInt($routeParams.id) : null;
+            var brandId = $routeParams.id ? parseInt($routeParams.id, 10) : null;
             var active = false;
             if (brandId) {
-                $log.log('[Init] Initializing screen with isBrandedBy = ' + brandId);
+                $log.log("Product List Controller : initializing screen with isBrandedBy=" + brandId);
                 if (user.isAllowed('Brand', brandId)) {
                     $$BrandRepository.lazy(brandId).active = true;
                 } else {
-                    alert('You are not allowed to view Brand');
+                    $window.alert("You are not allowed to view Brand");
                     return;
                 }
             }
