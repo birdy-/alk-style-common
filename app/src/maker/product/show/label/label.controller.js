@@ -96,7 +96,35 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowLabelCo
         { id:19168, name: "Label NF Environnement"},
         { id:19169, name: "Label Atout Certifié Qualité"},
         { id:19170, name: "Label Critères Qualité Certifiés"},
-        { id:19171, name: "Label USDA Organic"}
+        { id:19171, name: "Label USDA Organic"},
+        { id: 10055, name: "Label Cosmétique Bio" },
+
+        { id: 10064, name: "Label Vegan" },
+        { id: 10262, name: "logo Alcool j'achète pas à moins de 18 ans" },
+        { id: 10265, name: "Label Approuvé par les médecins allergologues de l'ARCAA" },
+        { id: 10321, name: "Label Blason Prestige" },
+        { id: 10326, name: "Label Agneau St George" },
+        { id: 10327, name: "Charte des bonnes pratiques d'élevage" },
+        { id: 10328, name: "Label Fleur de Limousine" },
+        { id: 10329, name: "Label Filière Qualité Carrefour" },
+        { id: 10330, name: "Label Gourmet Naturel" },
+        { id: 10331, name: "Label Bœuf de Charolles" },
+        { id: 10332, name: "Label Sans Gluten ADFDIAG" },
+        { id: 10333, name: "Label Éleveurs de Champagne-Ardennes" },
+        { id: 10334, name: "Label Bovillage" },
+        { id: 10335, name: "Label Bœuf fermier de l'Aubrac" },
+        { id: 10336, name: "Label Charoluxe" },
+        { id: 10337, name: "Label race à viande" },
+        { id: 10338, name: "Label Saveur Occitane" },
+        { id: 10339, name: "Label Terroir Charolais" },
+        { id: 10340, name: "Label Qualivet Filière Non OGM" },
+        { id: 10341, name: "Label Qualité Limousine" },
+        { id: 10342, name: "Concours Général Agricole Or" },
+        { id: 10343, name: "Concours Général Agricole Argent" },
+        { id: 10344, name: "Concours Général Agricole Bronze" },
+        { id: 10345, name: "Sélection Guide Hachette" },
+        { id: 18935, name: "Dénomination d'Origine Protégée" },
+        { id: 19114, name: "Label Eco-Label" }
     ];
     $scope.labels = {};
     labels.map(function(label) {
