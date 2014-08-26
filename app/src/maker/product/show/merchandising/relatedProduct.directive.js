@@ -92,9 +92,13 @@ angular.module('jDashboardFluxApp').directive('relatedProduct', [
 
                 // Update autocompletes
                 if ($scope.product.isBrandedBy) {
-                    var certified = '1,2,3';
+                    var certified = [
+                        Product.CERTIFICATION_STATUS_ACCEPTED.id,
+                        Product.CERTIFICATION_STATUS_CERTIFIED.id,
+                        Product.CERTIFICATION_STATUS_PUBLISHED.id
+                    ].join(',');
                     $scope.select2productOptions = $$autocomplete.getOptionAutocompletes('product', {
-                        maximumSelectionSize: 1, multiple: false,
+                        maximumSelectionSize: 1, multiple: false, minimumInputLength: 0,
                         initSelection: function(el, fn) {}
                     }, {
                         filter_isbrandedby_id: $scope.product.isBrandedBy.id,
