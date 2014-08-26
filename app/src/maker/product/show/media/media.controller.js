@@ -1,8 +1,15 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaUploadController', [
-    '$scope', '$modalInstance', '$document', '$log', '$routeParams', '$route',
-    function($scope, $modalInstance, $document, $log, $routeParams, $route) {
+    '$scope', '$modalInstance', '$document', '$log', '$routeParams', '$route', 'URL_CDN_MEDIA', 'URL_SERVICE_MEDIA', '$http',
+    function($scope, $modalInstance, $document, $log, $routeParams, $route, URL_CDN_MEDIA, URL_SERVICE_MEDIA, $http) {
+
+        $scope.form = {
+            dateOptions: {
+                formatYear: 'yy',
+                startingDay: 1
+              }
+        };
 
         $log.debug('Init UploadAdController');
 
@@ -20,25 +27,11 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaUp
             while(newFiles.length) {
                 var file = newFiles.pop();
                 $log.info("got new uploaded file, pushing as asset", file);
-                $scope.newPictures.push({});
-                // Make the picture visible
-                // Don't know how to do that cleanly without additional network
-                file.file.appendTo($('#uploaded-pictures'));
-
-
-                // Upload has completed
-                // User can still see the previous picture for two reasons:
-                // A - the processing is asynchrone and slow
-                // B - caching from storage / browser
-                // A is handled by the setTimeout
-                // B is handled by with cachebuster
-                setTimeout(function(){
-                    $route.reload();
-                    $scope.done();
-                }, 15000)
+                
+                // Update the url of the picture
+                file.data.path = URL_CDN_MEDIA + file.data.path;                
+                $scope.newPictures.push(file.data);
             }            
-
-
         });        
 
         $scope.done = function() {
@@ -46,10 +39,44 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaUp
             // Add logic to select the face one
             var wrapper = $scope.newPictures;
             for (var i = 0; i < wrapper.length; i++) {
-                // saveCreativeWrapper(wrapper[i]);
+                saveProductPicture(wrapper[i]);
                 // do nothing
             }
             $modalInstance.close();
+        };
+
+
+        var saveProductPicture = function (newPicture) {
+            $log.debug('Saving picture for <Product ' + newPicture.entity_id + '>', newPicture);            
+
+            var payload = {
+                entity_id: newPicture.entity_id,
+                entity_type: newPicture.entity_type,
+                picture_data: newPicture
+            };
+
+            // Duplicate content
+            if (newPicture.contentType === ProductPicture.TYPE_OF_CONTENT_PACKAGED.id) {
+                newPicture.typeOfInformation = ProductPicture.TYPE_OF_INFORMATION_PACKAGED.id;
+            } else {
+                newPicture.typeOfInformation = ProductPicture.TYPE_OF_INFORMATION_UNPACKAGED.id;
+            }
+
+
+            // Default variables
+            payload.picture_data.canFilesBeEdited = false;
+            payload.picture_data.isFileBackgroundTransparent = false;
+            payload.picture_data.fileType = ProductPicture.TYPE_PICTURE_DEFINITION_STANDARD.id;
+            payload.picture_data.uniformResourceIdentifier = newPicture.path;
+            payload.picture_data.gtin = $scope.product.isIdentifiedBy[0].reference;
+
+            console.log(payload);
+
+            $http.post(URL_SERVICE_MEDIA + '/media/v2/picture/entity', payload).success(function(response){
+                $log.debug('MediaPictureEntityPostRequest Ok');
+                console.log(response);
+            });
+
         };
 
         $scope.cancel = function() {
@@ -60,7 +87,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaUp
         });
     }
 ]);
-
 
 
 angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaController', [
