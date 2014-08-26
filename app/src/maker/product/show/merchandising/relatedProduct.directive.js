@@ -5,8 +5,8 @@
  * on the event bus.
  */
 angular.module('jDashboardFluxApp').directive('relatedProduct', [
-    '$route', '$$sdkCrud', '$$autocomplete', '$log', '$window',
-    function ($route, $$sdkCrud, $$autocomplete, $log, $window) {
+    '$$sdkCrud', '$$autocomplete', '$log', '$window', 'permission',
+    function ($$sdkCrud, $$autocomplete, $log, $window, permission) {
     return {
         restrict: 'AEC',
         scope: {
@@ -26,9 +26,15 @@ angular.module('jDashboardFluxApp').directive('relatedProduct', [
             // ------------------------------------------------------------------------
             // Variables
             // ------------------------------------------------------------------------
+            // Autocompletes
+            var brandIds = [];
+            var certified = [
+                Product.CERTIFICATION_STATUS_ACCEPTED.id,
+                Product.CERTIFICATION_STATUS_CERTIFIED.id,
+                Product.CERTIFICATION_STATUS_PUBLISHED.id
+            ];
             $scope.target = null;
-            var attribute = $scope.attribute;
-            var Relation = $scope.relation;
+            // Sortable
             $scope.sortableOptions = {
                 stop: function(e, ui) {
                     $scope.product[attribute].forEach(function(relation, i){
@@ -36,6 +42,9 @@ angular.module('jDashboardFluxApp').directive('relatedProduct', [
                     });
                 }
             };
+            // Model
+            var attribute = $scope.attribute;
+            var Relation = $scope.relation;
 
             // ------------------------------------------------------------------------
             // Event binding
@@ -89,27 +98,29 @@ angular.module('jDashboardFluxApp').directive('relatedProduct', [
                         });
                     });
                 }
-
-                // Update autocompletes
-                if ($scope.product.isBrandedBy) {
-                    var certified = [
-                        Product.CERTIFICATION_STATUS_ACCEPTED.id,
-                        Product.CERTIFICATION_STATUS_CERTIFIED.id,
-                        Product.CERTIFICATION_STATUS_PUBLISHED.id
-                    ].join(',');
-                    $scope.select2productOptions = $$autocomplete.getOptionAutocompletes('product', {
-                        maximumSelectionSize: 1, multiple: false, minimumInputLength: 0,
-                        initSelection: function(el, fn) {}
-                    }, {
-                        filter_isbrandedby_id: $scope.product.isBrandedBy.id,
-                        filter_certified: certified
-                    });
-                }
             }, true);
+
+            permission.getUser().then(function(user){
+                brandIds = user.managesBrand.map(function(entity){
+                    return entity.id;
+                });
+                loadAutocomplete();
+            });
 
             // ------------------------------------------------------------------------
             // Init
             // ------------------------------------------------------------------------
+
+            var loadAutocomplete = function() {
+                $scope.select2productOptions = $$autocomplete.getOptionAutocompletes('product', {
+                    maximumSelectionSize: 1, multiple: false, minimumInputLength: 0,
+                    initSelection: function(el, fn) {}
+                }, {
+                    filter_isbrandedby_id: brandIds.join(','),
+                    filter_certified: certified.join(',')
+                });
+            };
+            loadAutocomplete();
         }
     };
 }]);
