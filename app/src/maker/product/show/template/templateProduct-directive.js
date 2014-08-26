@@ -6,7 +6,7 @@ angular.module('jDashboardFluxApp').directive('templateProduct', [
     return {
         restrict: 'AEC',
         transclude: true,
-        templateUrl: '/src/maker/product/show/template/template.html',
+        templateUrl: '/src/maker/product/show/template/templateProduct.html',
         link: function(scope, element, attrs, ctrl) {
 
 		    scope.active = function() {

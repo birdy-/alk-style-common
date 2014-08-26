@@ -149,6 +149,13 @@ app.config(function ($routeProvider) {
         parameter: {id: 'integer'}
     });
 
+    // Product Specific show
+    $routeProvider.when('/maker/product/:id/data/specific/wine', {
+        templateUrl: 'src/maker/product/show/specific/wine.html',
+        controller: 'DashboardMakerProductShowWineController',
+        parameter: {id: 'integer'}
+    });
+
     // Brand views
     $routeProvider.when('/maker/brand/:id', {
         templateUrl: 'src/maker/brand/show/show.html',

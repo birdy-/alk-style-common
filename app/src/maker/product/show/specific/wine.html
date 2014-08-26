@@ -1,17 +1,20 @@
 <div template-product>
-<div class="form-group">
-    <label for="name" class="col-sm-2 control-label">Type de vin</label>
-    <div class="col-sm-2">
-        Couleur
-    </div>
-    <div class="col-sm-2">
-        Effervescence
-    </div>
-    <div class="col-sm-2">
-        Sucre : doux, sec...
-    </div>
-</div>
+<div ng-controller="DashboardMakerProductShowWineController">
 
+<!--
+<div class="form-group">
+    <label for="wineType" class="col-sm-2 control-label">Type de vin</label>
+    <label for="hasColor" class="col-sm-3 control-label text-left">
+        Couleur
+    </label>
+    <label for="hasSparkliness" class="col-sm-3 control-label text-left">
+        Effervescence
+    </label>
+    <label for="hasSweetness" class="col-sm-4 control-label text-left">
+        Sucre : doux, sec...
+    </label>
+</div>
+-->
 
 <h3>Production</h3>
 <div class="form-group">
@@ -192,45 +195,16 @@
 
 <h3>Propriétés</h3>
 <div class="form-group">
-    <label class="col-sm-2 control-label">
-        Sulfites
-    </label>
-    <div class="col-sm-4">
-        <label class="radio-inline">
-            <input type="radio" name="hasSulfite" ng-model="product.hasSulfite" ng-value="true">
-            Contient des sulfites
-        </label>
-        <label class="radio-inline">
-            <input type="radio" name="hasSulfite" ng-model="product.hasSulfite" ng-value="false">
-            Sans sulfites
-        </label>
-        <label class="radio-inline">
-            <input type="radio" name="hasSulfite" ng-model="product.hasSulfite" ng-value="null">
-            Non renseigné
-        </label>
-    </div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasSulfite" label="Présence de sulfites"></div>
     <!--
     Anhydride sulfureux et sulfites en concentrations de plus de 10 mg/kg ou 10 mg/litre en termes de SO2 total pour les produits proposés prêts à consommer ou reconstitués conformément aux instructions du fabricant.
     -->
-    <label class="col-sm-1 control-label">
-        Lysozyme
-    </label>
-    <div class="col-sm-5">
-        <label class="radio-inline">
-            <input type="radio" name="hasLysozyme" ng-model="product.hasLysozyme" ng-value="true">
-            Contient du lysozyme
-        </label>
-        <label class="radio-inline">
-            <input type="radio" name="hasLysozyme" ng-model="product.hasLysozyme" ng-value="false">
-            Sans lysozyme
-        </label>
-        <label class="radio-inline">
-            <input type="radio" name="hasLysozyme" ng-model="product.hasLysozyme" ng-value="null">
-            Non renseigné
-        </label>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasLysozyme" label="Présence de lysozyme"></div>
     <!--
         Sans/Contient du/Traces éventuelles de Lysozyme (produit à partir d'œufs) utilisé dans le vin
     -->
     </div>
+</div>
+
 </div>
 </div>
