@@ -1,8 +1,7 @@
 <div class="checkbox">
     <label>
         <input type="checkbox" ng-model="label" ng-change="change()"/>
-        <!--<img height="32px" ng-src="{{ 'http://assets.alkemics.com/api/1/concept/picture/' + legend.id + '/original.png' }}">-->
-        <img height="32px" ng-src="https://smedia.alkemics.com/api/1/concept/{{legend.id}}/picture/logo/original.png">
+        <img ng-src="https://smedia.alkemics.com/api/1/concept/{{legend.id}}/picture/logo/original.png" class="label-picto"/>
         {{ legend.name }}
     </label>
 </div>

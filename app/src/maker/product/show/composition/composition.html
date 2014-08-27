@@ -11,7 +11,7 @@
     <label for="composition" class="col-sm-2 control-label">Ingrédients</label>
     <div class="col-sm-10">
         <!--<div ng-model="product.composition" ui-select2="select2productCompositionOptions" style="width: 100%;" rows="3" placeholder="Composition du produit."></div>-->
-        <textarea class="form-control" name="composition" rows="3" ng-model="product.composition" placeholder="Composition du produit." alk-focus required></textarea>
+        <textarea class="form-control" name="composition" rows="3" ng-model="product.composition" placeholder="Composition du produit." alk-focus required ng-blur="check()"></textarea>
         <div input-block-help field="productForm.composition">
             <strong id="art18">Liste des ingrédients</strong>
             Elle comprend tous les ingrédients de la denrée alimentaire, dans l'ordre décroissant de leur importance pondé­rale au moment de leur mise en œuvre dans la fabrication de la denrée.
@@ -168,45 +168,45 @@
     </div>
 </div>
 <div class="form-group">
-    <div ternary field="product.hasOilPalm" name="hasOilPalm" label="Présence d'huile de palme"></div>
-    <!--<div ternary field="product.hasAddedSugar" name="hasAddedSugar" label="Présence de sucres ajoutés"></div>-->
-    <div ternary field="product.hasDextrose" name="hasDextrose" label="Présence de dextrose"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasOilPalm" label="Présence d'huile de palme"></div>
+    <!--<div ternary ng-model="product" alk-suggest="suggest" name="hasAddedSugar" label="Présence de sucres ajoutés"></div>-->
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasDextrose" label="Présence de dextrose"></div>
 </div>
 <div class="form-group">
-    <div ternary field="product.hasOilCoprah" name="hasOilCoprah" label="Présence d'huile de coprah"></div>
-    <div ternary field="product.hasDextrine" name="hasDextrine" label="Présence de dextrine"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasOilCoprah" label="Présence d'huile de coprah"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasDextrine" label="Présence de dextrine"></div>
 </div>
 <div class="form-group">
-    <div ternary field="product.hasOilCoconut" name="hasOilCoconut" label="Présence d'huile de coco"></div>
-    <div ternary field="product.hasGlucose" name="hasGlucose" label="Présence de glucose"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasOilCoconut" label="Présence d'huile de coco"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasGlucose" label="Présence de glucose"></div>
 </div>
 <div class="form-group">
-    <div ternary field="product.hasOilSunflower" name="hasOilSunflower" label="Présence d'huile de tournesol"></div>
-    <div ternary field="product.hasFructose" name="hasFructose" label="Présence de fructose"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasOilSunflower" label="Présence d'huile de tournesol"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasFructose" label="Présence de fructose"></div>
 </div>
 <div class="form-group">
-    <div ternary field="product.hasOilOlive" name="hasOilOlive" label="Présence d'huile d'olive"></div>
-    <div ternary field="product.hasSugarSyrup" name="hasSugarSyrup" label="Présence de sirop de sucre"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasOilOlive" label="Présence d'huile d'olive"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasSugarSyrup" label="Présence de sirop de sucre"></div>
 </div>
 <div class="form-group">
-    <div ternary field="product.hasOilGrapeSeed" name="hasOilGrapeSeed" label="Présence d'huile de pépin de raisin"></div>
-    <div ternary field="product.hasHoney" name="hasHoney" label="Présence de miel"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasOilGrapeSeed" label="Présence d'huile de pépin de raisin"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasHoney" label="Présence de miel"></div>
 </div>
 <div class="form-group">
-    <div ternary field="product.hasOilCanola" name="hasOilCanola" label="Présence d'huile de colza"></div>
-    <div ternary field="product.hasGluten" name="hasGluten" label="Présence de gluten"></div>
-</div>
-<div class="form-group">
-    <div class="col-sm-6"></div>
-    <div ternary field="product.hasStarch" name="hasStarch" label="Présence d'amidon"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasOilCanola" label="Présence d'huile de colza"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasGluten" label="Présence de gluten"></div>
 </div>
 <div class="form-group">
     <div class="col-sm-6"></div>
-    <div ternary field="product.hasAspartame" name="hasAspartame" label="Présence d'aspartame"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasStarch" label="Présence d'amidon"></div>
 </div>
 <div class="form-group">
     <div class="col-sm-6"></div>
-    <div ternary field="product.hasStevia" name="hasStevia" label="Présence de stévia"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasAspartame" label="Présence d'aspartame"></div>
+</div>
+<div class="form-group">
+    <div class="col-sm-6"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasStevia" label="Présence de stévia"></div>
 </div>
 
 <div class="form-group">
@@ -218,40 +218,40 @@
     </div>
 </div>
 <div class="form-group">
-    <div ternary field="product.hasSaindoux" name="hasSaindoux" label="Présence de saindoux"></div>
-    <div ternary field="product.hasMeat" name="hasMeat" label="Présence de viande"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasSaindoux" label="Présence de saindoux"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasMeat" label="Présence de viande"></div>
 </div>
 <div class="form-group">
-    <div ternary field="product.hasButter" name="hasButter" label="Présence de beurre"></div>
-    <div ternary field="product.hasEgg" name="hasEgg" label="Présence d'œufs"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasButter" label="Présence de beurre"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasEgg" label="Présence d'œufs"></div>
 </div>
 <div class="form-group">
-    <div ternary field="product.hasCream" name="hasCream" label="Présence de crème"></div>
-    <div ternary field="product.hasAlbumine" name="hasAlbumine" label="Présence d'albumine"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasCream" label="Présence de crème"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasAlbumine" label="Présence d'albumine"></div>
 </div>
 <div class="form-group">
-    <div ternary field="product.hasLactose" name="hasLactose" label="Présence de lactose"></div>
-    <div ternary field="product.hasLysozyme" name="hasLysozyme" label="Présence de lysozyme"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasLactose" label="Présence de lactose"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasLysozyme" label="Présence de lysozyme"></div>
 </div>
 <div class="form-group">
-    <div ternary field="product.hasMilk" name="hasMilk" label="Présence de lait"></div>
-    <div ternary field="product.hasFish" name="hasFish" label="Présence de poisson"></div>
-</div>
-<div class="form-group">
-    <div class="col-sm-6"></div>
-    <div ternary field="product.hasFishGelatin" name="hasFishGelatin" label="Présence de gélatine de poisson"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasMilk" label="Présence de lait"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasFish" label="Présence de poisson"></div>
 </div>
 <div class="form-group">
     <div class="col-sm-6"></div>
-    <div ternary field="product.hasMollusk" name="hasMollusk" label="Présence de mollusques"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasFishGelatin" label="Présence de gélatine de poisson"></div>
 </div>
 <div class="form-group">
     <div class="col-sm-6"></div>
-    <div ternary field="product.hasShellfish" name="hasShellfish" label="Présence de crustacés"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasMollusk" label="Présence de mollusques"></div>
 </div>
 <div class="form-group">
     <div class="col-sm-6"></div>
-    <div ternary field="product.hasPorkGelatin" name="hasPorkGelatin" label="Présence de gélatine de porc"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasShellfish" label="Présence de crustacés"></div>
+</div>
+<div class="form-group">
+    <div class="col-sm-6"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasPorkGelatin" label="Présence de gélatine de porc"></div>
 </div>
 
 
@@ -265,67 +265,67 @@
 </div>
 
 <div class="form-group">
-    <div ternary field="product.hasAlcohol" name="hasAlcohol" label="Présence d'alcool"></div>
-    <div ternary field="product.hasGMO" name="hasGMO" label="Présence d'OGMs"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasAlcohol" label="Présence d'alcool"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasGMO" label="Présence d'OGMs"></div>
 </div>
 
 <div class="form-group">
-    <div ternary field="product.hasCafeine" name="hasCafeine" name="hasCafeine" label="Présence de caféine"></div>
-    <div ternary field="product.hasExtraFibers" name="hasExtraFibers" label="Présence de fibres ajoutées"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasCafeine" name="hasCafeine" label="Présence de caféine"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasExtraFibers" label="Présence de fibres ajoutées"></div>
 </div>
 <div class="form-group">
     <div class="col-sm-6"></div>
-    <!--<div ternary field="product.hasTaurine" name="hasTaurine" label="Présence de taurine"></div>-->
-    <div ternary field="product.isWholeCereals" name="isWholeCereals" label="Présence de céréales entières"></div>
+    <!--<div ternary ng-model="product" alk-suggest="suggest" name="hasTaurine" label="Présence de taurine"></div>-->
+    <div ternary ng-model="product" alk-suggest="suggest" name="isWholeCereals" label="Présence de céréales entières"></div>
 </div>
 <div class="form-group">
     <div class="col-sm-6"></div>
-    <!--<div ternary field="product.hasTheine" name="hasTheine" label="Présence de théine"></div>-->
-    <div ternary field="product.hasCelery" name="hasCelery" label="Présence de céleri"></div>
+    <!--<div ternary ng-model="product" alk-suggest="suggest" name="hasTheine" label="Présence de théine"></div>-->
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasCelery" label="Présence de céleri"></div>
 </div>
 <div class="form-group">
     <div class="col-sm-6"></div>
-    <div ternary field="product.hasLiquorice" name="hasLiquorice" label="Présence de réglisse"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasLiquorice" label="Présence de réglisse"></div>
 </div>
 <div class="form-group">
     <div class="col-sm-6"></div>
-    <div ternary field="product.hasLupinus" name="hasLupinus" label="Présence de lupin"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasLupinus" label="Présence de lupin"></div>
 </div>
 <div class="form-group">
     <div class="col-sm-6"></div>
-    <div ternary field="product.hasMustard" name="hasMustard" label="Présence de moutarde"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasMustard" label="Présence de moutarde"></div>
 </div>
 <div class="form-group">
     <div class="col-sm-6"></div>
-    <div ternary field="product.hasPeanut" name="hasPeanut" label="Présence d'arachide"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasPeanut" label="Présence d'arachide"></div>
 </div>
 <div class="form-group">
     <div class="col-sm-6"></div>
-    <div ternary field="product.hasPhenylalanine" name="hasPhenylalanine" label="Présence de phénylalanine"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasPhenylalanine" label="Présence de phénylalanine"></div>
 </div>
 <div class="form-group">
     <div class="col-sm-6"></div>
-    <div ternary field="product.hasSesame" name="hasSesame" label="Présence de sésame"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasSesame" label="Présence de sésame"></div>
 </div>
 <div class="form-group">
     <div class="col-sm-6"></div>
-    <div ternary field="product.hasSoya" name="hasSoya" label="Présence de soja"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasSoya" label="Présence de soja"></div>
 </div>
 <div class="form-group">
     <div class="col-sm-6"></div>
-    <div ternary field="product.hasNut" name="hasNut" label="Présence de noix"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasNut" label="Présence de noix"></div>
 </div>
 <div class="form-group">
     <div class="col-sm-6"></div>
-    <div ternary field="product.hasParaben" name="hasParaben" label="Présence de paraben"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasParaben" label="Présence de paraben"></div>
 </div>
 <div class="form-group">
     <div class="col-sm-6"></div>
-    <div ternary field="product.hasSoap" name="hasSoap" label="Présence de savon"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasSoap" label="Présence de savon"></div>
 </div>
 <div class="form-group">
     <div class="col-sm-6"></div>
-    <div ternary field="product.hasSulfite" name="hasSulfite" label="Présence de sulfites"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasSulfite" label="Présence de sulfites"></div>
 </div>
 </div>
 </div>

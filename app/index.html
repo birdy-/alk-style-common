@@ -54,11 +54,9 @@
 
     <!-- Fonts & CSS -->
     <link href='//fonts.googleapis.com/css?family=Varela:300,400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
 
     <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css">
     <link rel="stylesheet" href="bower_components/select2/select2.css">
     <link rel="stylesheet" href="bower_components/angular-ui-tree/dist/angular-ui-tree.min.css">
     <link rel="stylesheet" href="bower_components/nvd3/nv.d3.css"/>
@@ -78,8 +76,17 @@
     <![endif]-->
 </head>
 <body id="stream" class="requiresauth">
-    <!--[if lt IE 7]>
-        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <!--[if lte IE 7]>
+        <div class="browserhappy">
+            <div class="warning-sign-left">!</div>
+            <div class="warning-sign-right">!</div>
+            Vous utilisez un navigateur <strong>obsolète</strong>, incompatible avec le fonctionnement de ce site.
+            <br/>
+            Visitez <a href="http://browsehappy.com/">BrowseHappy.com</a> pour mettre à jour votre navigateur et profiter d'une expérience optimale.
+            <br/>
+            <br/>
+            Pour toute difficulté, contactez-nous sur <a href="mailto:contact@alkemics.com">contact@alkemics.com</a>.
+        </div>
     <![endif]-->
 
     <div ng-controller="LoginController" class="full-screen color-stream-inverse" id="login-holder" style="display: none;">
@@ -110,9 +117,9 @@
         </div>
     </div>
 
-    <div ng-view=""></div>
+    <div ng-view="" id="view"></div>
 
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+    <!-- Google Analytics -->
     <script type="text/javascript" id="google-analytics">
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
           (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -121,23 +128,22 @@
         ga('create', 'UA-47074386-1', 'alkemics.com');
         ga('send', 'pageview');
     </script>
+    <!-- Alkemics Abyss -->
     <script type="text/javascript" id="tocio_tck">
       //<![CDATA[
-            window._taq = _taq = [];
-            _taq.push(['_setAppId', 'UA-0000-2']); // Write here your Account ID
-            _taq.push(['_trackPageview']);
-            (function(t,o,c,a,l,k){
-                l=o.createElement(c),k=o.getElementsByTagName(c)[0];
-                l.defer=1;l.async=1;l.src=(o.location.protocol==='https:'? 'https://ssl':'http://')+a;
-                k.parentNode.insertBefore(l,k);
-            })(window, document, 'script', 'cdn.alkemics.com/tck/v2/tck.js');
+        window._taq = _taq = [];
+        _taq.push(['_setAppId', 'UA-0000-2']);
+        _taq.push(['_trackPageview']);
+        (function(t,o,c,a,l,k){
+            l=o.createElement(c),k=o.getElementsByTagName(c)[0];
+            l.defer=1;l.async=1;l.src=(o.location.protocol==='https:'? 'https://ssl':'http://')+a;
+            k.parentNode.insertBefore(l,k);
+        })(window, document, 'script', 'cdn.alkemics.com/tck/v2/tck.js');
         //]]>
     </script>
 
-
     <!--[if lte IE 7]>
         <script src="bower_components/json3/lib/json3.min.js"></script>
-        <script src="bower_components/css-selector-engine-polyfill/__COMPILED/CSS_selector_engine.ielt8.js"></script>
     <![endif]-->
     <!--[if lt IE 9]>
         <script src="bower_components/es5-shim/es5-shim.js"></script>
@@ -200,6 +206,7 @@
         <script type="text/javascript" src="src/common/model/commonunit.repository.js"></script>
         <script type="text/javascript" src="src/common/model/orm.model.js"></script>
         <script type="text/javascript" src="src/common/directives/input/brand.directive.js"></script>
+        <script type="text/javascript" src="src/common/directives/ui/buttonProduct-directive.js"></script>
 
         <script type="text/javascript" src="src/common/upload/plupload.js"></script>
 
@@ -230,6 +237,7 @@
         <script type="text/javascript" src="src/maker/product/show/general/suggestname.controller.js"></script>
         <script type="text/javascript" src="src/maker/product/show/general/suggestsynonym.controller.js"></script>
         <script type="text/javascript" src="src/maker/product/show/packaging/packaging.controller.js"></script>
+        <script type="text/javascript" src="src/maker/product/show/marketing/marketing.controller.js"></script>
         <script type="text/javascript" src="src/maker/product/show/merchandising/merchandising.controller.js"></script>
         <script type="text/javascript" src="src/maker/product/show/merchandising/relatedProduct.directive.js"></script>
         <script type="text/javascript" src="src/maker/product/show/merchandising/relatedRecipe.directive.js"></script>
@@ -243,13 +251,16 @@
         <script type="text/javascript" src="src/maker/product/show/label/label.controller.js"></script>
         <script type="text/javascript" src="src/maker/product/show/conservation/conservation.controller.js"></script>
         <script type="text/javascript" src="src/maker/product/show/productinshop/productinshop.controller.js"></script>
-        <script type="text/javascript" src="src/maker/product/show/template/preview.controller.js"></script>
-        <script type="text/javascript" src="src/maker/product/show/template/tab.directive.js"></script>
         <script type="text/javascript" src="src/maker/product/show/nutrition/productstandardquantity.controller.js"></script>
+        <script type="text/javascript" src="src/maker/product/show/template/preview.controller.js"></script>
+        <script type="text/javascript" src="src/maker/product/show/template/navProduct-directive.js"></script>
+        <script type="text/javascript" src="src/maker/product/show/template/tabProduct-directive.js"></script>
+        <script type="text/javascript" src="src/maker/product/show/template/tabProductSpecific-directive.js"></script>
+        <script type="text/javascript" src="src/maker/product/show/template/templateProduct-directive.js"></script>
         <script type="text/javascript" src="src/maker/product/show/product.model.js"></script>
         <script type="text/javascript" src="src/maker/product/show/block.directive.js"></script>
         <script type="text/javascript" src="src/maker/product/show/input.directive.js"></script>
-        <script type="text/javascript" src="src/maker/product/show/template/template.directive.js"></script>
+        <script type="text/javascript" src="src/maker/product/show/specific/wine.controller.js"></script>
         <script type="text/javascript" src="src/maker/product/list/list.controller.js"></script>
 
         <script type="text/javascript" src="src/maker/product/certify/accept.controller.js"></script>

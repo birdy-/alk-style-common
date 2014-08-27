@@ -40,17 +40,13 @@ var env = (window.location.hostname.indexOf('localhost') === 0) ? 'dev' : 'prod'
 if (env === 'prod') {
     app.constant('API_URL', 'https://api.alkemics.com');
     app.constant('URL_SERVICE_AUTH', 'https://auth.alkemics.com');
-    angular.module('jDashboardFluxApp').constant('URL_SERVICE_MEDIA', 'https://service-media.alkemics.com');
-    // app.constant('URL_SERVICE_MEDIA', 'http://localhost.alkemics.com:6551');
-
-    // app.config(function($logProvider){
-    //     $logProvider.debugEnabled(true);
-    // });
-
+    app.constant('URL_SERVICE_MEDIA', 'https://service-media.alkemics.com');
+    app.constant('URL_UI_BUTTON_PRODUCT', 'https://service-media.alkemics.com');
 } else if (env === 'dev') {
     app.constant('API_URL', '//localhost.alkemics.com:6543');
     app.constant('URL_SERVICE_AUTH', 'http://localhost.alkemics.com:6545');
     app.constant('URL_SERVICE_MEDIA', 'http://localhost.alkemics.com:6551');
+    app.constant('URL_UI_BUTTON_PRODUCT', 'http://localhost.alkemics.com:9010/');
     app.config(function($logProvider){
         $logProvider.debugEnabled(true);
     });
@@ -150,6 +146,13 @@ app.config(function ($routeProvider) {
     $routeProvider.when('/maker/product/:id/marketing', {
         templateUrl: 'src/maker/product/show/marketing/marketing.html',
         controller: 'DashboardMakerProductShowController',
+        parameter: {id: 'integer'}
+    });
+
+    // Product Specific show
+    $routeProvider.when('/maker/product/:id/data/specific/wine', {
+        templateUrl: 'src/maker/product/show/specific/wine.html',
+        controller: 'DashboardMakerProductShowWineController',
         parameter: {id: 'integer'}
     });
 

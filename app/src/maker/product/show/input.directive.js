@@ -4,13 +4,35 @@ angular.module('jDashboardFluxApp').directive('ternary', function($compile) {
     return {
         restrict: 'AEC',
         transclude: true,
+        require: '^ngModel',
         scope: {
-            field: '='
+            suggestModel: '=alkSuggest',
+            localModel: '=ngModel'
         },
         templateUrl: '/src/maker/product/show/input-ternary.html',
         link: function(scope, element, attrs, ctrl) {
-            scope.name = attrs.name;
+            scope.field = attrs.name;
             scope.label = attrs.label;
+            scope.suggestValue = function(value) {
+                if (!scope.suggestModel
+                || typeof(scope.suggestModel[scope.field]) === 'undefined'
+                || scope.suggestModel[scope.field] === null
+                || scope.suggestModel[scope.field] !== value
+                || scope.localModel[scope.field] === value) {
+                    return {};
+                }
+                return {'input-suggest': true };
+            };
+            scope.suggestSomething = function() {
+                if (!scope.suggestModel
+                || typeof(scope.suggestModel[scope.field]) === 'undefined') {
+                    return false;
+                }
+                if (scope.suggestModel[scope.field] === null) {
+                    return false;
+                }
+                return scope.suggestModel[scope.field] !== scope.localModel[scope.field];
+            };
         }
     };
 });
