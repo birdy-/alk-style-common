@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaUploadController', [
-    '$scope', '$modalInstance', '$document', '$log', '$routeParams', '$route', 'URL_CDN_MEDIA', 'URL_SERVICE_MEDIA', '$http',
-    function($scope, $modalInstance, $document, $log, $routeParams, $route, URL_CDN_MEDIA, URL_SERVICE_MEDIA, $http) {
+    '$scope', '$modalInstance', '$document', '$log', '$routeParams', '$route', 'URL_CDN_MEDIA', '$$sdkMedia',
+    function($scope, $modalInstance, $document, $log, $routeParams, $route, URL_CDN_MEDIA, $$sdkMedia) {
 
         $scope.form = {
             dateOptions: {
@@ -38,15 +38,18 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaUp
             // Add logic to select the packshot one
             // Add logic to select the face one
             var wrapper = $scope.newPictures;
+
+            var callback = function(){
+                $modalInstance.close();    
+            };
             for (var i = 0; i < wrapper.length; i++) {
-                saveProductPicture(wrapper[i]);
-                // do nothing
-            }
-            $modalInstance.close();
+                saveProductPicture(wrapper[i], callback);                
+            }            
+
         };
 
 
-        var saveProductPicture = function (newPicture) {
+        var saveProductPicture = function (newPicture, callback) {
             $log.debug('Saving picture for <Product ' + newPicture.entity_id + '>', newPicture);            
 
             var payload = {
@@ -70,11 +73,10 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaUp
             payload.picture_data.uniformResourceIdentifier = newPicture.path;
             payload.picture_data.gtin = $scope.product.isIdentifiedBy[0].reference;
 
-            console.log(payload);
-
-            $http.post(URL_SERVICE_MEDIA + '/media/v2/picture/entity', payload).success(function(response){
-                $log.debug('MediaPictureEntityPostRequest Ok');
-                console.log(response);
+            $log.debug('MediaPictureEntityPostRequest', payload);
+            $$sdkMedia.EntityPicturePost(payload).success(function(response){
+                $log.debug('MediaPictureEntityPostRequest Ok', response);                
+                callback();
             });
 
         };
@@ -90,8 +92,42 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaUp
 
 
 angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaController', [
-    "$scope", "$modal", "$log",
-    function($scope, $modal, $log) {
+    "$scope", "$modal", "$log", "$$sdkMedia",
+    function($scope, $modal, $log, $$sdkMedia) {
+
+        $scope.productPictures = [];
+
+        var fetchPictures = function (productId) {
+            var entity_type = 'product';
+            $log.debug('EntityPictureGetRequest');
+            $$sdkMedia.EntityPictureGet(entity_type, productId).success(function (response) {
+                $log.debug('EntityPictureGetRequest OK', response);
+                $scope.productPictures = response.data;
+            });
+        };
+
+        $scope.selectAsPackshot = function (picture) {
+            $log.debug('selectAsPackshot', picture);            
+            var payload = {
+                entity_type: 'product',
+                entity_id: picture.product_id,
+                entityPicture_id: picture.id,
+                picture_standard_type: 'packshot'
+            };
+            $log.debug('MediaPictureStandardPostRequest', payload);
+
+            $$sdkMedia.EntityStandardPost(payload).success(function(response){
+                $log.debug('MediaPictureStandardPostRequest Ok', response);                
+                alert('Nous avons bien pris en compte votre demande. Le visuel va être mis à jour. Cette opération peut prendre quelque temps, merci pour votre patience.');
+            });
+        };
+
+        $scope.$watch('product.id', function(value) {
+            if (value == null) {
+                return;
+            }
+            fetchPictures(value);
+        });
 
         // upload new pictures
         $scope.uploadNewPictures = function(mediaType, multiSelection) {
@@ -105,11 +141,13 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaCo
                 controller: 'DashboardMakerProductShowMediaUploadController'
             });
 
-            uploadModal.result.then(function () {
-
+            uploadModal.result.then(function () {   
+                // after upload, will also fetch the newly uploaded pictures
+                fetchPictures($scope.product.id);
             }, function () {
-              $log.info('Modal dismissed at: ' + new Date());
+              $log.info('Modal dismissed at: ' + new Date());              
             });
         };
+
     }
 ]);

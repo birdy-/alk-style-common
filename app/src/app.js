@@ -36,19 +36,17 @@ function($window) {
 
 
 var env = (window.location.hostname.indexOf('localhost') === 0) ? 'dev' : 'prod';
-//env = 'vagrant';
+env = 'vagrant';
 if (env === 'prod') {
     app.constant('API_URL', 'https://api.alkemics.com');
-    app.constant('URL_SERVICE_AUTH', 'https://auth.alkemics.com');
-    app.constant('URL_SERVICE_MEDIA', 'https://service-media.alkemics.com');
+    app.constant('URL_SERVICE_AUTH', 'https://auth.alkemics.com');    
     app.constant('URL_CDN_MEDIA', 'https://smedia.alkemics.com');
     
     angular.module('jDashboardFluxApp').constant('URL_SERVICE_MEDIA', 'https://service-media.alkemics.com');
 
 } else if (env === 'dev') {
     app.constant('API_URL', '//localhost.alkemics.com:6543');
-    app.constant('URL_SERVICE_AUTH', 'http://localhost.alkemics.com:6545');
-    app.constant('URL_SERVICE_MEDIA', 'http://localhost.alkemics.com:6551');
+    app.constant('URL_SERVICE_AUTH', 'http://localhost.alkemics.com:6545');    
     app.constant('URL_CDN_MEDIA', 'https://s3-eu-west-1.amazonaws.com/pprd.media.alkemics.com');
     app.config(function($logProvider){
         $logProvider.debugEnabled(true);
@@ -56,8 +54,7 @@ if (env === 'prod') {
 } else if (env === 'vagrant') {
 
     app.constant('API_URL', 'https://localcore.alkemics.com');
-    app.constant('URL_SERVICE_AUTH', 'https://localauth.alkemics.com');
-    app.constant('URL_SERVICE_MEDIA', 'https://localservice-media.alkemics.com');
+    app.constant('URL_SERVICE_AUTH', 'https://localauth.alkemics.com');    
     app.constant('URL_CDN_MEDIA', 'https://s3-eu-west-1.amazonaws.com/pprd.media.alkemics.com');
     app.config(function($logProvider){
         $logProvider.debugEnabled(true);

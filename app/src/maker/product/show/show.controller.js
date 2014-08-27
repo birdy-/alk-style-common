@@ -1,8 +1,8 @@
 'use_strict';
 
 angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowController', [
-    '$scope', '$$sdkCrud', '$routeParams', '$$autocomplete', '$location', '$window',
-    function ($scope, $$sdkCrud, $routeParams, $$autocomplete, $location, $window) {
+    '$scope', '$$sdkCrud', '$routeParams', '$$autocomplete', '$location', '$window', 'URL_CDN_MEDIA',
+    function ($scope, $$sdkCrud, $routeParams, $$autocomplete, $location, $window, URL_CDN_MEDIA) {
 
     // ------------------------------------------------------------------------
     // Variables
@@ -109,7 +109,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowControl
 
             $scope.product = product;
 
-            $scope.product.urlPictureOriginal = 'https://smedia.alkemics.com/product/' + $scope.product.id + '/picture/packshot/original.png?' + Math.random() * 100000000;
+            $scope.product.urlPictureOriginal = URL_CDN_MEDIA + '/product/' + $scope.product.id + '/picture/packshot/original.png?' + Math.random() * 100000000;
 
             $scope.select2productOptions = $$autocomplete.getOptionAutocompletes('product', {
                 maximumSelectionSize: 1

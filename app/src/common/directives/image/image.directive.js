@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('jDashboardFluxApp').directive('entityImage', [
-    function () {
+angular.module('jDashboardFluxApp').directive('entityImage', ['URL_CDN_MEDIA',
+    function (URL_CDN_MEDIA) {
     return {
         restrict: 'AEC',
         scope: {
@@ -24,7 +24,7 @@ angular.module('jDashboardFluxApp').directive('entityImage', [
                 } else if (scope.entity._type == 'Brand') {
                     scope.url = 'https://smedia.alkemics.com/brand/' + scope.entity.id + '/picture/logo/original.png' + '?' + cachebuster;
                 } else if (scope.entity._type == 'Product') {
-                    scope.url = 'https://smedia.alkemics.com/product/' + scope.entity.id + '/picture/packshot/256x256.png' + '?' + cachebuster;
+                    scope.url = URL_CDN_MEDIA + '/product/' + scope.entity.id + '/picture/packshot/256x256.png' + '?' + cachebuster;
                 } else if (scope.entity._type == 'Recipe'
                         && scope.entity.url
                         && scope.entity.url.picture
