@@ -28,7 +28,8 @@ angular.module('jDashboardFluxApp').directive('alkPlUpload', [
                 $('#' + iAttrs.id + ' .browse-button').attr("id", iAttrs.id + "-browse-button");
                 $('#' + iAttrs.id + ' .drop-target').attr("id", iAttrs.id + "-drop-target");
 
-                var uploadUrl = URL_SERVICE_MEDIA + '/media/v1/' + entity + '/' + entityId + '/picture/' + mediaType + '/upload';
+                //var uploadUrl = URL_SERVICE_MEDIA + '/media/v1/' + entity + '/' + entityId + '/picture/' + mediaType + '/upload';
+                var uploadUrl = URL_SERVICE_MEDIA + '/media/v2/picture/upload';
 
                 var specifiedMultiSelection = typeof scope.multiSelection !== "undefined";
                 var options = {
@@ -36,7 +37,7 @@ angular.module('jDashboardFluxApp').directive('alkPlUpload', [
                     browse_button : iAttrs.id + "-browse-button",
                     drop_element : iAttrs.id + "-drop-target",
                     multi_selection: specifiedMultiSelection ? (scope.multiSelection === "true") : true,
-                    max_file_size : "5mb",
+                    max_file_size : "15mb",
                     url : uploadUrl,
                     flash_swf_url : 'bower_components/plupload/js/Moxie.swf',
                     filters : {
@@ -48,6 +49,10 @@ angular.module('jDashboardFluxApp').directive('alkPlUpload', [
                     headers: {
                         // Add the Authentication Token
                         Authorization: 'Bearer ' + permission.getAccessToken()
+                    },
+                    multipart_params : {
+                        "entity_type": entity,
+                        "entity_id": entityId
                     }
                 };
 
@@ -161,9 +166,15 @@ angular.module('jDashboardFluxApp').directive('alkPlUpload', [
 
                 uploader.bind('FileUploaded', function(up, file, response) {
 
+
+
+
                     var item = showImagePreview(file);
 
                     var responseObj = $.parseJSON(response.response);
+
+                    console.log('RESPONSE UPLOAD');
+                    console.log(responseObj);
 
                     if (true || responseObj.status === "ok" && responseObj.data && scope.uploadedFiles) {
                         scope.$apply(function () {

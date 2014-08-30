@@ -5,13 +5,53 @@
 
     <div ng-show="newPictures.length" class="modal-header">
         <h3>Photos ajoutées ({{ newPictures.length }} / {{ total }})</h3>
-        <h4 ng-show="newPictures.length < total">Transfert en cours...</h4>
+        <h4 ng-show="newPictures.length < total">Transfert en cours...</h4>                
     </div>
 
     <div class="modal-body">
         <div ng-show="newPictures.length">
-            <ul id="uploaded-pictures" >
-            </ul>
+            <div ng-repeat="picture in newPictures">
+                <img ng-src="{{ picture.path }}" height="100px">
+                <form role="form">
+                    
+                    <div class="form-group" >
+                        <label for="contentType" class="col-sm-4 control-label">Type d'information</label>
+                        <div class="col-sm-8">                                
+                            <div select-productpicturecontenttype ng-model="picture.contentType"></div>
+                        </div>
+
+                        <label for="angleVertical" class="col-sm-4 control-label">Angle Vertical</label>
+                        <div class="col-sm-8">                                
+                            <div select-productpictureanglevertical ng-model="picture.angleVertical"></div>
+                        </div>
+
+                        <label for="angleHorizontal" class="col-sm-4 control-label">Angle Horizontal</label>
+                        <div class="col-sm-8">                                
+                            <div select-productpictureanglehorizontal ng-model="picture.angleHorizontal"></div>
+                        </div>
+
+                        <label for="productFace" class="col-sm-4 control-label">Face</label>
+                        <div class="col-sm-8">                                
+                            <div select-productpicturefacedisplayed ng-model="picture.productFace"></div>
+                        </div>       
+
+                        <label for="fileEffectiveStartDateTime" class="col-sm-4 control-label">Date de début de validité du visuel</label>
+                        <div style="display:inline-block; min-height:290px;">
+                            <datepicker ng-model="picture.fileEffectiveStartDateTime" min-date="minDate" show-weeks="true" class="well well-sm"></datepicker>
+                        </div>                        
+                        
+                        <label for="fileEffectiveEndDateTime" class="col-sm-4 control-label">Date de fin de validité du visuel</label>
+                        
+                        <div style="display:inline-block; min-height:290px;">
+                            <datepicker ng-model="picture.fileEffectiveEndDateTime" show-weeks="true" class="well well-sm"></datepicker>
+                        </div>
+                        
+                    </div>
+                    
+                </form>                
+
+            </div>
+            
         </div>
 
         <div alk-pl-upload id="ad-upload" uploaded-files="uploadedFiles" ng-show="!newPictures.length" media-type="{{ mediaType }}" entity-id="{{ productId }}" entity="product" multi-selection="multiSelection" message="message" total="total">
