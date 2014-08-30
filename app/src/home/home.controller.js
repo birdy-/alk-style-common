@@ -4,6 +4,7 @@ angular.module('jDashboardFluxApp').controller('HomeController', [
     '$scope', 'permission', '$modal',
     function ($scope, permission, $modal) {
 
+
     // ------------------------------------------------------------------------
     // Variables
     // ------------------------------------------------------------------------
@@ -31,6 +32,7 @@ angular.module('jDashboardFluxApp').controller('HomeController', [
         });
     };
 
+
     // ------------------------------------------------------------------------
     // Init
     // ------------------------------------------------------------------------
@@ -39,3 +41,4 @@ angular.module('jDashboardFluxApp').controller('HomeController', [
     });
 
 }]);
+
