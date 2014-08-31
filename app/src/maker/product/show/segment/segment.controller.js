@@ -30,7 +30,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowSegment
     };
 
     $scope.$watch('product.id', function(){
-        console.log($scope.product);
         if (!$scope.product.isBrandedBy) {
             return;
         }

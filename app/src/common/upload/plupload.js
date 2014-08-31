@@ -59,7 +59,6 @@ angular.module('jDashboardFluxApp').directive('alkPlUpload', [
                 uploader.bind('Error', function(up, err) {
                     scope.uploadError = err.message;
                     scope.$apply();
-                    console.log(scope.uploadError);
                     $log.error('Error :', err);
                 });
 

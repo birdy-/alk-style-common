@@ -6,7 +6,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowProduct
 
         $scope.$watch('product.id', function(productId){
             $$sdkCrud.ProductSearch(productId).then(function(response){
-                console.log(response);
             });
         });
 

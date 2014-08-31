@@ -7,9 +7,7 @@ var ProductPicture = function(){
             if (key === 'fileEffectiveStartDateTime'
             || key === 'fileEffectiveEndDateTime'
             || key === 'createdAt') {
-                console.log(json[key]);
                 json[key] = new Date(json[key]);
-                console.log(json[key]);
             }
             this[key] = json[key];
         }
