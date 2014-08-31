@@ -27,8 +27,8 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowSearchC
                         keyword: keyword,
                         volume: volume,
                         percentage: percentage,
-                        x: Math.log(volume), 
-                        y: percentage, 
+                        x: Math.log(volume),
+                        y: percentage,
                         size: frequencies[conceptId]
                     });
                     volumes.push([
@@ -37,7 +37,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowSearchC
                 }
                 $scope.datas.push({key: $scope.product.nameLegal, values: $scope.stats});
                 $scope.volumes.push({key: $scope.product.nameLegal, values: volumes});
-                
+
             });
         }, true);
 

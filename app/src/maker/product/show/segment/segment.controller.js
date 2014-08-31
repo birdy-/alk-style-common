@@ -1,7 +1,7 @@
 'use_strict';
 
 angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowSegmentController', [
-    '$scope', '$$sdkCrud', '$modal', 
+    '$scope', '$$sdkCrud', '$modal',
     function ($scope, $$sdkCrud, $modal) {
 
     // ------------------------------------------------------------------------
@@ -37,9 +37,9 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowSegment
         $scope.segments.push($scope.product.isBrandedBy);
     }, true);
 
-    
+
     // ------------------------------------------------------------------------
     // Init
-    // ------------------------------------------------------------------------    
+    // ------------------------------------------------------------------------
 
 }]);

@@ -25,7 +25,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreview
         if (!$scope.product
         || !$scope.product.id) {
             return;
-        }        
+        }
 
         $scope.completeness = computeScore($scope.product, $scope.productForm);
         if ($scope.product.certified === Product.CERTIFICATION_STATUS_ATTRIBUTED.id) {
