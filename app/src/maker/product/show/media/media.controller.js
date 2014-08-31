@@ -8,6 +8,16 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaCo
         // Variables
         // --------------------------------------------------------------------------------
         $scope.pictures = [];
+        $scope.availables = {
+            1: true,
+            2: false,
+            7: true,
+            10: false,
+            67: false,
+            65: false,
+            74: false,
+            75: false
+        };
 
         // --------------------------------------------------------------------------------
         // Event binding

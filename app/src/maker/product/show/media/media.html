@@ -26,6 +26,9 @@
 <div class="form-group">
     <div class="col-sm-10 col-sm-offset-2">
         <div class="row">
+            <div ng-if="!pictures.length" class="col-sm-12 alert alert-warning text-center">
+                <i class="fa fa-warning"></i> Vous n'avez pas encore ajouté de photo.
+            </div>
             <div ng-repeat="picture in pictures" class="col-sm-6">
                 <div class="row">
                     <div class="col-sm-4">
@@ -53,10 +56,19 @@
                 </div>
             </div>
         </div>
+        <br/>
+        <br/>
+        <br/>
         <div class="row">
             <div class="col-sm-12">
-                Accédez ci-dessous aux spécifications des enseignes :
-
+                Accédez ci-dessous aux spécifications de nos enseignes partenaires:
+            </div>
+        </div>
+        <div class="row">
+            <div ng-repeat="(shopId, available) in availables" class="col-sm-2 partner-shop">
+                <a ng-href="http://media.alkemics.com/corporate/stream/specification/picture/{{ shopId }}/specification.zip" target="_blank" ng-class="{'disabled': !available}">
+                    <img entity-image entity-id="{{ shopId }}" entity-type="Shop"/>
+                </a>
             </div>
         </div>
     </div>
