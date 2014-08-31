@@ -1,84 +1,107 @@
-<form ng-submit="done()">
-    <div ng-show="!newPictures.length" class="modal-header">
+<div ng-show="!newPictures.length">
+    <div class="modal-header">
         <h3>Ajouter des photos</h3>
     </div>
-
-    <div ng-show="newPictures.length" class="modal-header">
-        <h3>Photos ajoutées ({{ newPictures.length }} / {{ total }})</h3>
-        <h4 ng-show="newPictures.length < total">Transfert en cours...</h4>                
-    </div>
-
     <div class="modal-body">
-        <div ng-show="newPictures.length">
-            <div ng-repeat="picture in newPictures">
-                <img ng-src="{{ picture.path }}" height="100px">
-                <form role="form">
-                    
-                    <div class="form-group" >
-                        <label for="contentType" class="col-sm-4 control-label">Type d'information</label>
-                        <div class="col-sm-8">                                
-                            <div select-productpicturecontenttype ng-model="picture.contentType"></div>
-                        </div>
-
-                        <label for="angleVertical" class="col-sm-4 control-label">Angle Vertical</label>
-                        <div class="col-sm-8">                                
-                            <div select-productpictureanglevertical ng-model="picture.angleVertical"></div>
-                        </div>
-
-                        <label for="angleHorizontal" class="col-sm-4 control-label">Angle Horizontal</label>
-                        <div class="col-sm-8">                                
-                            <div select-productpictureanglehorizontal ng-model="picture.angleHorizontal"></div>
-                        </div>
-
-                        <label for="productFace" class="col-sm-4 control-label">Face</label>
-                        <div class="col-sm-8">                                
-                            <div select-productpicturefacedisplayed ng-model="picture.productFace"></div>
-                        </div>       
-
-                        <label for="fileEffectiveStartDateTime" class="col-sm-4 control-label">Date de début de validité du visuel</label>
-                        <div style="display:inline-block; min-height:290px;">
-                            <datepicker ng-model="picture.fileEffectiveStartDateTime" min-date="minDate" show-weeks="true" class="well well-sm"></datepicker>
-                        </div>                        
-                        
-                        <label for="fileEffectiveEndDateTime" class="col-sm-4 control-label">Date de fin de validité du visuel</label>
-                        
-                        <div style="display:inline-block; min-height:290px;">
-                            <datepicker ng-model="picture.fileEffectiveEndDateTime" show-weeks="true" class="well well-sm"></datepicker>
-                        </div>
-                        
+        <div alk-pl-upload
+             id="ad-upload"
+             uploaded-files="uploadedFiles"
+             media-type="{{ mediaType }}"
+             entity-id="{{ product.id }}"
+             entity="product"
+             multi-selection="multiSelection"
+             message="message"
+             upload-error="uploadError"
+             total="total">
+            <div class="row upload" ng-show="uploadError === null">
+                <div class="col-sm-7">
+                    <div class="drop-target" style="position: relative; z-index: 0;">
+                        {{ message }}
                     </div>
-                    
-                </form>                
-
+                    <div class="upload-debug">
+                        Le glisser / déposer n'est pas supporté par votre navigateur
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    ou
+                </div>
+                <div class="col-sm-4">
+                    <button class="browse-button btn btn-default">
+                        <i class="fa fa-folder"></i> Choisissez les fichiers
+                    </button>
+                </div>
             </div>
-            
-        </div>
-
-        <div alk-pl-upload id="ad-upload" uploaded-files="uploadedFiles" ng-show="!newPictures.length" media-type="{{ mediaType }}" entity-id="{{ productId }}" entity="product" multi-selection="multiSelection" message="message" total="total">
-
-            <button  class="browse-button" >
-                Choisir les fichiers
-            </button>
-
-            <div class="drop-target" style="position: relative; z-index: 0;">
-                {{ message }}
-            </div>
-
-            <div class="upload-debug">
-                Le Glisser/Déposer n'est pas supporté par votre navigateur
-            </div>
-
-            <div class="alert alert-danger" ng-if="uploadError">
+            <div class="alert alert-danger" ng-show="uploadError !== null">
                 {{ uploadError }}
             </div>
         </div>
-        <div class="modal-footer">
-            <button class="mics-btn mics-btn-finish" ng-show="newPictures.length">
-                Ok
-            </button>
-            <a ng-click="cancel()" ng-show="!newPictures.length">
-                Retour
-            </a>
+    </div>
+    <div class="modal-footer">
+        <a class="btn btn-warning" ng-click="cancel()">
+            <i class="fa fa-times"></i> Annuler
+        </a>
+    </div>
+</div>
+
+
+<div ng-show="newPictures.length">
+    <div class="modal-header">
+        <h3>Photos ajoutées ({{ newPictures.length }} / {{ total }})</h3>
+        <h4 ng-show="newPictures.length < total">Transfert en cours...</h4>
+    </div>
+    <div class="modal-body">
+        <div ng-repeat="picture in newPictures">
+            <form role="form" name="pictureForm">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="contentType">Type d'information</label>
+                            <div select-productpicturecontenttype ng-model="picture.contentType"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="angleVertical">Angle vertical</label>
+                            <div select-productpictureanglevertical ng-model="picture.angleVertical"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="angleHorizontal">Angle horizontal</label>
+                            <div select-productpictureanglehorizontal ng-model="picture.angleHorizontal"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="productFace">Face</label>
+                            <div select-productpicturefacedisplayed ng-model="picture.productFace"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <img ng-src="{{ picture.path }}" class="img-thumbnail img-responsive">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="fileEffectiveStartDateTime" class="col-sm-6">Date de début de validité du visuel</label>
+                        <label for="fileEffectiveEndDateTime" class="col-sm-6">Date de fin de validité du visuel</label>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <datepicker show-weeks="false" ng-model="picture.fileEffectiveStartDateTime" min-date="minDate"></datepicker>
+                        </div>
+                        <div class="col-sm-6">
+                            <datepicker show-weeks="false" ng-model="picture.fileEffectiveEndDateTime"></datepicker>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
-    </div>  
-</form>
+    </div>
+    <div class="modal-footer">
+        <a class="btn btn-warning" ng-click="cancel()">
+            <i class="fa fa-times"></i> Annuler
+        </a>
+        <a class="btn btn-success" ng-click="done()">
+            <i class="fa fa-check"></i> Valider
+        </a>
+    </div>
+</div>

@@ -13,23 +13,20 @@ angular.module('jDashboardFluxApp').directive('alkPlUpload', [
                 entity: '@',
                 entityId: '@',
                 mediaType: '@',
-                multiSelection: '='
+                multiSelection: '=',
+                uploadError: '='
             },
             link: function (scope, iElement, iAttrs) {
 
                 var entity = scope.entity;
                 var entityId = scope.entityId;
                 var mediaType = scope.mediaType;
-
                 $log.debug('Uploader configured for entity / id / type: ' + entity + ' / ' + entityId + ' / ' + mediaType);
 
                 scope.uploadError = null;
 
                 $('#' + iAttrs.id + ' .browse-button').attr("id", iAttrs.id + "-browse-button");
                 $('#' + iAttrs.id + ' .drop-target').attr("id", iAttrs.id + "-drop-target");
-
-                //var uploadUrl = URL_SERVICE_MEDIA + '/media/v1/' + entity + '/' + entityId + '/picture/' + mediaType + '/upload';
-                var uploadUrl = URL_SERVICE_MEDIA + '/media/v2/picture/upload';
 
                 var specifiedMultiSelection = typeof scope.multiSelection !== "undefined";
                 var options = {
@@ -38,7 +35,7 @@ angular.module('jDashboardFluxApp').directive('alkPlUpload', [
                     drop_element : iAttrs.id + "-drop-target",
                     multi_selection: specifiedMultiSelection ? (scope.multiSelection === "true") : true,
                     max_file_size : "15mb",
-                    url : uploadUrl,
+                    url : URL_SERVICE_MEDIA + '/media/v2/picture/upload',
                     flash_swf_url : 'bower_components/plupload/js/Moxie.swf',
                     filters : {
                       mime_types: [
@@ -56,53 +53,35 @@ angular.module('jDashboardFluxApp').directive('alkPlUpload', [
                     }
                 };
 
-                $log.log('plupload options :', options);
-
                 var uploader = new plupload.Uploader(options);
-
                 var rootId = iAttrs.id;
 
                 uploader.bind('Error', function(up, err) {
                     scope.uploadError = err.message;
                     scope.$apply();
-                    $log.warn('Error :', err);
-                });
-
-
-                uploader.bind('PostInit', function(up, params) {
-                    $log.info('Post init called, params :', params);
+                    console.log(scope.uploadError);
+                    $log.error('Error :', err);
                 });
 
                 uploader.bind('Init', function(up, params) {
-
                     if (uploader.features.dragdrop) {
-
-                        $log.log("dragdrop ok !");
-                        $log.log("rootId =", rootId);
-
+                        $log.debug("Drag & drop supported.");
                         $('#'+rootId+' .upload-debug').html("");
-
                         var target = $('#' + iAttrs.id + ' .drop-target');
-
                         target.ondragover = function(event) {
                             event.dataTransfer.dropEffect = "copy";
                         };
-
                         target.ondragenter = function() {
                             this.className = "dragover";
                         };
-
                         target.ondragleave = function() {
                             this.className = "";
                         };
-
                         target.ondrop = function() {
                             this.className = "";
                         };
                     }
-
                 });
-
                 uploader.init();
 
                 // DIRTY
@@ -152,30 +131,18 @@ angular.module('jDashboardFluxApp').directive('alkPlUpload', [
                 // post init binding
 
                 uploader.bind('FilesAdded', function(up, files) {
-
                     scope.uploadError = null;
                     scope.message = 'Transfert en cours...';
                     scope.$apply();
-                    $log.debug("files :", files);
-
+                    $log.debug("Files :", files);
                     scope.total = up.files.length;
-
                     up.start();
                 });
 
 
                 uploader.bind('FileUploaded', function(up, file, response) {
-
-
-
-
                     var item = showImagePreview(file);
-
                     var responseObj = $.parseJSON(response.response);
-
-                    console.log('RESPONSE UPLOAD');
-                    console.log(responseObj);
-
                     if (true || responseObj.status === "ok" && responseObj.data && scope.uploadedFiles) {
                         scope.$apply(function () {
                             scope.uploadedFiles.push({
@@ -193,13 +160,12 @@ angular.module('jDashboardFluxApp').directive('alkPlUpload', [
                 // the image is loaded it takes more space and pushes the browse button (but not the invisible input).
                 // A interval is a bit overkill but it works.
                 var refreshInterval = setInterval(function () {
-                    $log.debug("refreshing plupload");
+                    $log.debug("Refreshing plupload");
                     uploader.refresh();
                 }, 500);
 
-
                 scope.$on('$destroy', function() {
-                    $log.debug("stopping plupload refresh");
+                    $log.debug("Stopping plupload refresh");
                     clearInterval(refreshInterval);
                 });
             }

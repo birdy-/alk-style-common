@@ -1,44 +1,69 @@
-<form ng-submit="done()">
-    <div ng-show="!newPictures.length" class="modal-header">
-        <h3>Ajouter des photos</h3>
+<div ng-show="!newPictures.length">
+    <div class="modal-header">
+        <h3>Ajouter un logo</h3>
     </div>
+    <div class="modal-body">
+        <div alk-pl-upload
+             id="ad-upload"
+             class="upload"
+             uploaded-files="uploadedFiles"
+             ng-show="!newPictures.length"
+             media-type="{{ mediaType }}"
+             entity-id="{{ brandId }}"
+             entity="brand"
+             multi-selection="multiSelection"
+             message="message"
+             upload-error="uploadError"
+             total="total">
+            <div class="row upload" ng-show="uploadError === null">
+                <div class="col-sm-7">
+                    <div class="drop-target" style="position: relative; z-index: 0;">
+                        {{ message }}
+                    </div>
+                    <div class="upload-debug">
+                        Le glisser / déposer n'est pas supporté par votre navigateur
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    ou
+                </div>
+                <div class="col-sm-4">
+                    <button class="browse-button btn btn-default">
+                        <i class="fa fa-folder"></i> Choisissez les fichiers
+                    </button>
+                </div>
+            </div>
+            <div class="alert alert-danger" ng-show="uploadError !== null">
+                {{ uploadError }}
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a class="btn btn-warning" ng-click="cancel()">
+            <i class="fa fa-times"></i> Annuler
+        </a>
+    </div>
+</div>
 
-    <div ng-show="newPictures.length" class="modal-header">
-        <h3>Photos ajoutées ({{ newPictures.length }} / {{ total }})</h3>
+
+
+<div ng-show="newPictures.length">
+    <div class="modal-header">
+        <h3>Logo ajouté ({{ newPictures.length }} / {{ total }})</h3>
         <h4 ng-show="newPictures.length < total">Transfert en cours...</h4>
     </div>
-
     <div class="modal-body">
         <div ng-show="newPictures.length">
             <ul id="uploaded-pictures" >
             </ul>
         </div>
-
-        <div alk-pl-upload id="ad-upload" uploaded-files="uploadedFiles" ng-show="!newPictures.length" media-type="{{ mediaType }}" entity-id="{{ brandId }}" entity="brand" multi-selection="multiSelection" message="message" total="total">
-
-            <button  class="browse-button" >
-                Choisir les fichiers
-            </button>
-
-            <div class="drop-target" style="position: relative; z-index: 0;">
-                {{ message }}
-            </div>
-
-            <div class="upload-debug">
-                Le Glisser/Déposer n'est pas supporté par votre navigateur
-            </div>
-
-            <div class="alert alert-danger" ng-if="uploadError">
-                {{ uploadError }}
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button class="mics-btn mics-btn-finish" ng-show="newPictures.length">
-                Ok
-            </button>
-            <a ng-click="cancel()" ng-show="!newPictures.length">
-                Retour
-            </a>
-        </div>
-    </div>  
-</form>
+    </div>
+    <div class="modal-footer">
+        <a class="btn btn-warning" ng-click="cancel()">
+            <i class="fa fa-times"></i> Annuler
+        </a>
+        <a class="btn btn-success" ng-click="done()">
+            <i class="fa fa-check"></i> Valider
+        </a>
+    </div>
+</div>
