@@ -1,5 +1,10 @@
-// Generated on 2014-01-21 using generator-angular 0.6.0-rc.2
+// Generated on 2013-09-14 using generator-angular 0.4.0
 'use strict';
+var LIVERELOAD_PORT = 35701;
+var lrSnippet = require('connect-livereload')({ port: LIVERELOAD_PORT });
+var mountFolder = function (connect, dir) {
+  return connect.static(require('path').resolve(dir));
+};
 
 // # Globbing
 // for performance reasons we're only matching one level down:
@@ -14,6 +19,17 @@ module.exports = function (grunt) {
 
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
+
+  var yeomanConfig = {
+    app: 'app',
+    dist: 'dist',
+    compressed: 'compressed',
+
+  };
+
+  try {
+    yeomanConfig.app = require('./bower.json').appPath || yeomanConfig.app;
+  } catch (e) {}
 
   // Define the configuration for all the tasks
   grunt.initConfig({
@@ -65,40 +81,36 @@ module.exports = function (grunt) {
       options: {
         port: 9005,
         // Change this to '0.0.0.0' to access the server from outside.
-        hostname: '127.0.0.1',
-        livereload: 357005
+        hostname: 'localhost.alkemics.com'
       },
       livereload: {
         options: {
-          open: true,
-          base: [
-            '.tmp',
-            '<%= yeoman.app %>'
-          ]
-        }
-      },
-      build: {
-        options: {
-          open: false,
-          base: [
-            '.tmp',
-            '<%= yeoman.app %>'
-          ]
+          middleware: function (connect) {
+            return [
+              lrSnippet,
+              mountFolder(connect, '.tmp'),
+              mountFolder(connect, yeomanConfig.app)
+            ];
+          }
         }
       },
       test: {
         options: {
-          port: 9015,
-          base: [
-            '.tmp',
-            'test',
-            '<%= yeoman.app %>'
-          ]
+          middleware: function (connect) {
+            return [
+              mountFolder(connect, '.tmp'),
+              mountFolder(connect, 'test')
+            ];
+          }
         }
       },
       dist: {
         options: {
-          base: '<%= yeoman.dist %>'
+          middleware: function (connect) {
+            return [
+              mountFolder(connect, yeomanConfig.dist)
+            ];
+          }
         }
       }
     },
@@ -122,6 +134,11 @@ module.exports = function (grunt) {
       }
     },
 
+    open: {
+      server: {
+        url: 'http://localhost.alkemics.com:<%= connect.options.port %>'
+      }
+    },
     // Empties folders to start fresh
     clean: {
       dist: {
@@ -449,6 +466,7 @@ module.exports = function (grunt) {
       'concurrent:server',
       'autoprefixer',
       'connect:livereload',
+      //'open',
       //'jshint',
       'watch'
     ]);
