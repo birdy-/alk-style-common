@@ -68,7 +68,6 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
                 return brand.id;
             });
             $$BrandRepository.list({}, {id: brandIds}, {}, 0, 100).then(function(brands) {
-                console.log(brands);
                 $scope.brands = brands;
             });
         });

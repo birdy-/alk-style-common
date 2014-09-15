@@ -26,6 +26,9 @@ var Product = function(){
             || this.certified === Product.CERTIFICATION_STATUS_DISCONTINUED.id
             || this.certified === Product.CERTIFICATION_STATUS_PUBLISHED.id;
     };
+    this.isDiscontinued = function() {
+        return this.certified === Product.CERTIFICATION_STATUS_DISCONTINUED.id;
+    };
     this.isTypePackagingEach = function() {
         return this.typePackaging === Product.TYPEPACKAGING_EACH.id;
     };
@@ -180,7 +183,7 @@ var ProductStandardQuantity = function(){
         return this;
     };
     this.getContainsById = function(id) {
-        id = parseInt(id);
+        id = parseInt(id, 10);
         for (var i = 0; i < this.contains.length; i++) {
             if (this.contains[i].isConceptualizedBy.id === id) {
                 return this.contains[i];

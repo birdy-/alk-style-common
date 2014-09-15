@@ -27,13 +27,24 @@ angular.module('jDashboardFluxApp').controller('ProductStandardQuantityModalCont
 
     };
     $scope.ok = function () {
+        if (!$scope.psq.isMeasuredBy
+        || !$scope.psq.isMeasuredBy.id
+        || !$scope.psq.quantity
+        || !$scope.psq.name) {
+            $window.alert("Merci de compléter tous les champs.");
+            return;
+        }
         $$sdkCrud.ProductStandardQuantityCreate(
             $scope.psq
         ).success(function(response){
             $scope.psq = $scope.psq.fromJson(response.data);
             $modalInstance.close($scope.psq);
         }).error(function(response){
-            $window.alert("Erreur pendant la création de la ProductStandardQuantity : "+response.data.message);
+            var message = '.';
+            if (response && response.data && response.data.message) {
+                message = ' : '+ response.data.message + '.';
+            }
+            $window.alert("Erreur pendant la création de la ProductStandardQuantity : "+message);
         });
     };
     $scope.cancel = function () {

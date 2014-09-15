@@ -10,14 +10,14 @@ angular.module('jDashboardFluxApp').directive('alkSdkUiButtonProduct', [
             product: '=',
             showPrice: '=',
             showShop: '=',
-            oneclick: '=',
+            oneclick: '='
         },
         replace: true,
         templateUrl: '/src/common/directives/ui/buttonProduct.html',
         link: function(scope, elem, attrs) {
 
             var seed = function(s) {
-                var s = Math.sin(s) * 10000;
+                s = Math.sin(s) * 10000;
                 return String(s - Math.floor(s)).substring(2, 14);
             };
 

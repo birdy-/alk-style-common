@@ -1,37 +1,45 @@
 'use strict';
 
-angular.module('jDashboardFluxApp').directive('entityImage', ['URL_CDN_MEDIA',
+angular.module('jDashboardFluxApp').directive('entityImage', [
+    'URL_CDN_MEDIA',
     function (URL_CDN_MEDIA) {
-    return {
-        restrict: 'AEC',
-        scope: {
-            entity: '='
-        },
-        replace: true,
-        templateUrl: '/src/common/directives/image/template.html',
-        link: function(scope, elem, attrs) {
+        return {
+            restrict: 'AEC',
+            scope: {
+                entity: '='
+            },
+            replace: true,
+            templateUrl: '/src/common/directives/image/template.html',
+            link: function(scope, elem, attrs) {
+                scope['class'] = attrs['class'];
 
-            scope['class'] = attrs['class'];
-            scope.$watch('entity._type', function(){
+                var setUrl = function(type, id, extra) {
+                    var cachebuster = 'cachebuster=' + (Math.random() * 10000000000000000);
+                    if (type === 'Shop') {
+                        scope.url = URL_CDN_MEDIA + '/shop/' + id + '/picture/logo/original.png' + '?' + cachebuster;
+                    } else if (type === 'Brand') {
+                        scope.url = URL_CDN_MEDIA + '/brand/' + id + '/picture/logo/original.png' + '?' + cachebuster;
+                    } else if (type === 'Product') {
+                        scope.url = URL_CDN_MEDIA + '/product/' + id + '/picture/packshot/256x256.png' + '?' + cachebuster;
+                    } else if (type === 'Recipe'
+                            && extra.url
+                            && extra.url.picture
+                            && extra.url.picture.length) {
+                        scope.url = extra.url.picture[0];
+                    }
+                };
 
-                var cachebuster = Math.random() * 10000000000000000;
-
-                if (!scope.entity) {
-                    return;
+                if (attrs['entityId'] && attrs['entityType']) {
+                    setUrl(attrs['entityType'], attrs['entityId'], {});
                 }
-                if (scope.entity._type == 'Shop') {
-                    scope.url = 'https://smedia.alkemics.com/shop/' + scope.entity.id + '/picture/logo/original.png' + '?' + cachebuster;
-                } else if (scope.entity._type == 'Brand') {
-                    scope.url = 'https://smedia.alkemics.com/brand/' + scope.entity.id + '/picture/logo/original.png' + '?' + cachebuster;
-                } else if (scope.entity._type == 'Product') {
-                    scope.url = URL_CDN_MEDIA + '/product/' + scope.entity.id + '/picture/packshot/256x256.png' + '?' + cachebuster;
-                } else if (scope.entity._type == 'Recipe'
-                        && scope.entity.url
-                        && scope.entity.url.picture
-                        && scope.entity.url.picture.length) {
-                    scope.url = scope.entity.url.picture[0];
-                }
-            });
-        }
-    };
-}]);
+
+                scope.$watch('entity._type', function(){
+                    if (!scope.entity) {
+                        return;
+                    }
+                    setUrl(scope.entity._type, scope.entity.id, scope.entity);
+                });
+            }
+        };
+    }
+]);

@@ -14,8 +14,7 @@ angular.module('jDashboardFluxApp').controller('ProductCertificationModalControl
         if (!$scope.user.email) {
             return;
         }
-
-        $scope.product.certified = 3;
+        $scope.product.certified = Product.CERTIFICATION_STATUS_CERTIFIED.id;
         $$sdkCrud.ProductCertify(
             $scope.product,
             Product.CERTIFICATION_STATUS_CERTIFIED.id,
@@ -24,7 +23,7 @@ angular.module('jDashboardFluxApp').controller('ProductCertificationModalControl
             $scope.product.certified = response.data.certified;
             $modalInstance.close($scope.product);
         }).error(function(response){
-            $window.alert("Erreur pendant la certification du produit : "+response.data.message);
+            $window.alert("Erreur pendant la certification du produit : " + response.data.message);
         });
     };
     $scope.cancel = function () {

@@ -1,12 +1,8 @@
 'use strict';
 
 /**
- * Homepage for a Maker.
+ * Displays all the notifications that a User has received.
  *
- * @param  {[type]} $scope      [description]
- * @param  {[type]} $$sdkCrud   [description]
- * @param  {[type]} permission) [description]
- * @return {[type]}             [description]
  */
 angular.module('jDashboardFluxApp').controller('DashboardMakerNotificationsController', [
     '$scope', '$$sdkCrud', 'permission',
@@ -17,12 +13,11 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerNotificationsContr
 
     var loadNotifications = function() {
         $$sdkCrud.BrandNotificationList({}, {brand_id: $scope.brand.id}).success(function(response){
-            var notification;
-            for (var i = 0; i < response.data.length; i++) {
-                notification = new Notification();
-                notification.fromJson(response.data[i]);
-                $scope.notifications.push(notification);
-            }
+            $scope.notifications = response.data.forEach(function(json){
+                var notification = new Notification();
+                notification.fromJson(json);
+                return notification;
+            });
         });
     };
     var load = function (user) {
