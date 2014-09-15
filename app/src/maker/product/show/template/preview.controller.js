@@ -28,7 +28,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreview
         }
 
         $scope.completeness = computeScore($scope.product, $scope.productForm);
-        if ($scope.product.certified === Product.CERTIFICATION_STATUS_ATTRIBUTED.id) {
+        if (!$scope.product.isAccepted()) {
             $scope.accept();
         }
     }, true);

@@ -39,7 +39,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowLabelCo
         { id:19105, name:"Viande de Porc Français"},
         { id:19106, name:"Viande de Bœuf Français"},
         { id:19107, name:"Bleu Blanc Cœur"},
-        { id:19108, name:"Charte du Progrès Nutritionel"},
+        { id:19108, name:"Charte du Progrès Nutritionel (manger bouger)"},
         { id:19109, name:"Spécialité Traditionnelle Garantie"},
         { id:19110, name:"Marine Stewardship Council"},
         { id:19111, name:"Aquaculture Stewardship Council"},

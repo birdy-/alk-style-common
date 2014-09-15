@@ -31,11 +31,11 @@ var ProductPicture = function(){
             ProductPicture.TYPE_OF_INFORMATION_UNPACKAGED
         ];
     };
-    this.definitions = function() {
+    this.fileTypes = function() {
         return [
-            ProductPicture.TYPE_PICTURE_DEFINITION_STANDARD,
-            ProductPicture.TYPE_PICTURE_DEFINITION_HIGH,
-            ProductPicture.TYPE_PICTURE_OTHER
+            ProductPicture.FILETYPE_PICTURE_DEFINITION_STANDARD,
+            ProductPicture.FILETYPE_PICTURE_DEFINITION_HIGH,
+            ProductPicture.FILETYPE_PICTURE_OTHER
         ];
     };
     this.angleVerticals = function() {
@@ -166,9 +166,9 @@ ProductPicture.TYPE_OF_INFORMATION_PACKAGED = new Constant(0,  "PRODUCT_IMAGE", 
 ProductPicture.TYPE_OF_INFORMATION_UNPACKAGED = new Constant(1,  "OUT_OF_PACKAGE_IMAGE",       "Image du produit déballé");
 
 // File Type
-ProductPicture.TYPE_PICTURE_DEFINITION_STANDARD = new Constant(0, "A", "Photographie d’un produit (1 GTIN) en définition standard;");
-ProductPicture.TYPE_PICTURE_DEFINITION_HIGH = new Constant(1, "D", "Photographie d’un produit (1 GTIN) en haute définition");
-ProductPicture.TYPE_PICTURE_OTHER = new Constant(2, "Z", "Autre (ex. : dessin / illustration, logotype, pictogramme).");
+ProductPicture.FILETYPE_PICTURE_DEFINITION_STANDARD = new Constant(0, "A", "Photographie d’un produit (1 GTIN) en définition standard;");
+ProductPicture.FILETYPE_PICTURE_DEFINITION_HIGH = new Constant(1, "D", "Photographie d’un produit (1 GTIN) en haute définition");
+ProductPicture.FILETYPE_PICTURE_OTHER = new Constant(2, "Z", "Autre (ex. : dessin / illustration, logotype, pictogramme).");
 
 // Angle vertical
 ProductPicture.ANGLE_VERTICAL_PARALLEL = new Constant(0, "Parallèle au sol", "ANGLE_VERTICAL_PARALLEL");
