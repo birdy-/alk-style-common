@@ -1,8 +1,8 @@
 'use_strict';
 
 angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreviewController', [
-    '$scope', '$$sdkCrud', '$routeParams', '$$autocomplete', '$modal', '$location', 'permission', '$window',
-    function ($scope, $$sdkCrud, $routeParams, $$autocomplete, $modal, $location, permission, $window) {
+    '$scope', '$$sdkCrud', '$modal', '$location', 'permission', '$window',
+    function ($scope, $$sdkCrud, $modal, $location, permission, $window) {
 
     var computeScore = function(product, productForm) {
         var total = 0, ok = 0;
@@ -46,7 +46,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreview
             if (response && response.message) {
                 message = ' : ' + response.message;
             }
-            $window.alert("Erreur pendant la mise à jour du produit"+message);
+            $window.alert("Erreur pendant la mise à jour du produit" + message);
         });
     };
 

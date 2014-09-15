@@ -26,6 +26,9 @@ var Product = function(){
             || this.certified === Product.CERTIFICATION_STATUS_DISCONTINUED.id
             || this.certified === Product.CERTIFICATION_STATUS_PUBLISHED.id;
     };
+    this.isDiscontinued = function() {
+        return this.certified === Product.CERTIFICATION_STATUS_DISCONTINUED.id;
+    };
     this.isTypePackagingEach = function() {
         return this.typePackaging === Product.TYPEPACKAGING_EACH.id;
     };
