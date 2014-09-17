@@ -22,11 +22,11 @@
     </div>
     <div>
         <ul class="nav nav-stacked" role="tablist">
-            <div nav-product link="data" legend="Données" product="product.id" locked="false" color="transparent"></div>
-            <div nav-product link="merchandising" legend="Merchandising" product="product.id" locked="false" color="#d6e9c6"></div>
-            <div nav-product link="search" legend="Search" product="product.id" locked="false" color="#d6e9c6"></div>
-            <div nav-product link="marketing" legend="Marketing" product="product.id" locked="true" color="#d6e9c6"></div>
-            <div nav-product link="segment" legend="Segments" product="product.id" locked="false" color="#d6e9c6" class="last"></div>
+            <div nav-product link="data" legend="Données" product="product.id" locked="false"></div>
+            <div nav-product link="marketing" legend="Marketing" product="product.id" locked="false"></div>
+            <div nav-product link="merchandising" legend="Merchandising" product="product.id" locked="true"></div>
+            <div nav-product link="search" legend="Search" product="product.id" locked="true" class="last"></div>
+            <!--<div nav-product link="segment" legend="Segments" product="product.id" locked="false" color="#d6e9c6" class="last"></div>-->
         </ul>
     </div>
     <div class="actions-container">
@@ -43,11 +43,11 @@
                 </div>
             </div>
             -->
-            <div button-save button-class="col-lg-12" ng-click="submit()" form="productForm">
+            <div button-save button-class="col-sm-12" ng-click="submit()" form="productForm">
             </div>
             <br/>
             <br/>
-            <button ng-click="certify()" class="btn color-stream-inverse col-lg-12">
+            <button ng-click="certify()" class="btn color-stream-inverse col-sm-12">
                 <i class="fa fa-certificate"></i> Certifier
             </button>
         </div>

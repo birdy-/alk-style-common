@@ -1,32 +1,22 @@
 'use_strict';
 
-angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowCompositionController', [
-    '$scope', '$modal', '$$sdkMl',
-    function ($scope, $modal, $$sdkMl) {
+angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMarketingController', [
+    '$scope', '$$autocomplete', 'permission',
+    function ($scope, $$autocomplete, permission) {
 
     // ------------------------------------------------------------------------
     // Variables
     // ------------------------------------------------------------------------
-    $scope.suggest = {};
+    $scope.organization = null;
 
     // ------------------------------------------------------------------------
     // Event binding
     // ------------------------------------------------------------------------
-    var checkComposition = function(value) {
-        if (!value) {
-            return;
-        }
-        $$sdkMl.ProductCompositionParse(value).then(function(response){
-            $scope.suggest = response.data.data;
-        });
-    };
-    $scope.check = function(){
-        checkComposition($scope.product.composition);
-    };
 
     // ------------------------------------------------------------------------
     // Init
     // ------------------------------------------------------------------------
-
-
+    permission.getUser().then(function(user){
+        $scope.organization = user.belongsTo[0];
+    });
 }]);

@@ -178,6 +178,7 @@ var ProductStandardQuantity = function(){
         return this;
     };
     this.getContainsById = function(id) {
+        id = parseInt(id);
         for (var i = 0; i < this.contains.length; i++) {
             if (this.contains[i].isConceptualizedBy.id === id) {
                 return this.contains[i];

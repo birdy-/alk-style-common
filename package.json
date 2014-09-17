@@ -26,6 +26,7 @@
     "grunt-ngmin": "~0.0.2",
     "grunt-rev": "~0.1.0",
     "grunt-s3": "~0.2.0-alpha.3",
+    "grunt-sosie7": "git://github.com/alkemics/grunt-sosie7",
     "grunt-shell": "~0.6.4",
     "grunt-svgmin": "~0.2.0",
     "grunt-usemin": "~2.0.0",

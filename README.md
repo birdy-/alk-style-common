@@ -1,7 +1,6 @@
 Alkemics Stream Dashboard
 =========================
 
-
 ## Setup
 
 ```
@@ -22,7 +21,7 @@ gem install bundle
 gem install bundler
 
 # Install dependencies
-bower install 
+bower install
 
 # Prepare for deploy
 cd capistrano && bundle install
@@ -32,16 +31,23 @@ cd capistrano && bundle install
 
 ```
 # Serve
-grunt server
+grunt serve
 # Tests
 grunt test
 ```
 
 ## Deploy
 
+For preproduction :
+
 ```
-# Build app
+grunt build-preprod
+cd capistrano && bundle exec cap preprod alk:deploy
+```
+
+For production :
+
+```
 grunt build
-# Upload
 cd capistrano && bundle exec cap production alk:deploy
 ```
