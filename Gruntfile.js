@@ -112,6 +112,16 @@ module.exports = function (grunt) {
             ];
           }
         }
+      },
+      build: {
+        options: {
+          middleware: function (connect) {
+            return [
+              mountFolder(connect, '.tmp'),
+              mountFolder(connect, yeomanConfig.dist)
+            ];
+          }
+        }
       }
     },
 
