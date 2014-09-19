@@ -5,7 +5,7 @@ angular.module('jDashboardFluxApp').directive('selectProductpicturecontenttype',
     return {
         restrict: 'AEC',
         scope: {
-            localModel: '=ngModel',
+            localModel: '=ngModel'
         },
         requires: 'ngModel',
         templateUrl: '/src/common/directives/input/select-id.html',
@@ -17,7 +17,7 @@ angular.module('jDashboardFluxApp').directive('selectProductpicturecontenttype',
                 ProductPicture.TYPE_OF_CONTENT_USED
             ];
         }
-    }
+    };
 }]);
 
 
@@ -26,7 +26,7 @@ angular.module('jDashboardFluxApp').directive('selectProductpicturefacedisplayed
     return {
         restrict: 'AEC',
         scope: {
-            localModel: '=ngModel',
+            localModel: '=ngModel'
         },
         requires: 'ngModel',
         templateUrl: '/src/common/directives/input/select-id.html',
@@ -41,7 +41,7 @@ angular.module('jDashboardFluxApp').directive('selectProductpicturefacedisplayed
                 ProductPicture.PRODUCT_FACE_DISPLAYED_NA
             ];
         }
-    }
+    };
 }]);
 
 angular.module('jDashboardFluxApp').directive('selectProductpictureanglehorizontal', [
@@ -49,7 +49,7 @@ angular.module('jDashboardFluxApp').directive('selectProductpictureanglehorizont
     return {
         restrict: 'AEC',
         scope: {
-            localModel: '=ngModel',
+            localModel: '=ngModel'
         },
         requires: 'ngModel',
         templateUrl: '/src/common/directives/input/select-id.html',
@@ -60,7 +60,7 @@ angular.module('jDashboardFluxApp').directive('selectProductpictureanglehorizont
                 ProductPicture.ANGLE_HORIZONTAL_RIGHT
             ];
         }
-    }
+    };
 }]);
 
 angular.module('jDashboardFluxApp').directive('selectProductpictureanglevertical', [
@@ -68,7 +68,7 @@ angular.module('jDashboardFluxApp').directive('selectProductpictureanglevertical
     return {
         restrict: 'AEC',
         scope: {
-            localModel: '=ngModel',
+            localModel: '=ngModel'
         },
         requires: 'ngModel',
         templateUrl: '/src/common/directives/input/select-id.html',
@@ -79,7 +79,7 @@ angular.module('jDashboardFluxApp').directive('selectProductpictureanglevertical
                 ProductPicture.ANGLE_VERTICAL_CONTREPLONGEANTE
             ];
         }
-    }
+    };
 }]);
 
 angular.module('jDashboardFluxApp').directive('selectProductpicturetransparency', [
@@ -87,7 +87,7 @@ angular.module('jDashboardFluxApp').directive('selectProductpicturetransparency'
     return {
         restrict: 'AEC',
         scope: {
-            localModel: '=ngModel',
+            localModel: '=ngModel'
         },
         requires: 'ngModel',
         templateUrl: '/src/common/directives/input/select-id.html',
@@ -97,5 +97,5 @@ angular.module('jDashboardFluxApp').directive('selectProductpicturetransparency'
                 ProductPicture.TRANSPARENT_NOT
             ];
         }
-    }
+    };
 }]);

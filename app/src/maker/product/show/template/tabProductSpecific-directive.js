@@ -10,7 +10,7 @@ angular.module('jDashboardFluxApp').directive('tabProductSpecific', [
         return {
             restrict: 'AEC',
             scope: {
-                product: '=',
+                product: '='
             },
             replace: true,
             templateUrl: '/src/maker/product/show/template/tabProductSpecific.html',

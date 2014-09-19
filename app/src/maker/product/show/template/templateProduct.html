@@ -27,6 +27,14 @@
                     <span class="label label-warning" ng-show="product.isCertified() === false" tooltip-placement="bottom" tooltip="Vous n'avez pas encore certifié la conformité des informations sur ce produit." tooltip-trigger="mouseenter">
                         <i class="fa fa-warning"></i> Non certifié
                     </span>
+                    &nbsp;
+                    <span class="label label-default" ng-show="product.isDiscontinued() === false" tooltip-placement="bottom" tooltip="Archiver ce produit pour le faire disparaître de la vue principale." tooltip-trigger="mouseenter" ng-click="discontinue(true)">
+                        <i class="fa fa-archive"></i> Archiver
+                    </span>
+                    <span class="label label-default" ng-show="product.isDiscontinued() === true" tooltip-placement="bottom" tooltip="Ré-activer ce produit pour le faire apparaître de la vue principale." tooltip-trigger="mouseenter" ng-click="discontinue(false)">
+                        <i class="fa fa-archive"></i> Ré-activer
+                    </span>
+                    &nbsp;
                 </div>
             </div>
         </div>

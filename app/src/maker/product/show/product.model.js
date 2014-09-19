@@ -23,7 +23,11 @@ var Product = function(){
     this.isAccepted = function() {
         return this.certified === Product.CERTIFICATION_STATUS_ACCEPTED.id
             || this.certified === Product.CERTIFICATION_STATUS_CERTIFIED.id
+            || this.certified === Product.CERTIFICATION_STATUS_DISCONTINUED.id
             || this.certified === Product.CERTIFICATION_STATUS_PUBLISHED.id;
+    };
+    this.isDiscontinued = function() {
+        return this.certified === Product.CERTIFICATION_STATUS_DISCONTINUED.id;
     };
     this.isTypePackagingEach = function() {
         return this.typePackaging === Product.TYPEPACKAGING_EACH.id;
@@ -53,6 +57,7 @@ Product.CERTIFICATION_STATUS_ATTRIBUTED     = new Constant(5, "ATTRIBUTED",    "
 Product.CERTIFICATION_STATUS_ACCEPTED       = new Constant(1, "ACCEPTED",      "The Product was accepted by its producer.");
 Product.CERTIFICATION_STATUS_CERTIFIED      = new Constant(2, "CERTIFIED",     "The Product was certified by its producer.");
 Product.CERTIFICATION_STATUS_PUBLISHED      = new Constant(3, "PUBLISHED",     "The Product was published by its producer.");
+Product.CERTIFICATION_STATUS_DISCONTINUED   = new Constant(6, "DISCONTINUED",  "The Product is not produced anymore.");
 
 Product.STATUS_VALIDATED                    = new Constant(0, "VALIDATED",     "A Product that has been reviewed by an administrator.");
 Product.STATUS_REVIEWED                     = new Constant(1, "REVIEWED",      "A Product that has been reviewed by its brand.");
@@ -178,7 +183,7 @@ var ProductStandardQuantity = function(){
         return this;
     };
     this.getContainsById = function(id) {
-        id = parseInt(id);
+        id = parseInt(id, 10);
         for (var i = 0; i < this.contains.length; i++) {
             if (this.contains[i].isConceptualizedBy.id === id) {
                 return this.contains[i];

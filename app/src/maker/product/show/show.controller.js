@@ -42,6 +42,23 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowControl
         return classes;
     };
 
+    $scope.discontinue = function (value) {
+        if (value) {
+            $scope.product.certified = Product.CERTIFICATION_STATUS_DISCONTINUED.id;
+        } else {
+            $scope.product.certified = Product.CERTIFICATION_STATUS_ACCEPTED.id;
+        }
+        $$sdkCrud.ProductCertify(
+            $scope.product,
+            $scope.product.certified,
+            "1169"
+        ).success(function(response){
+            $location.path('/maker/brand/' + $scope.product.isBrandedBy.id + '/product');
+        }).error(function(response){
+            $window.alert("Erreur pendant l'archivage du produit : " + response.data.message);
+        });
+    };
+
     $scope.$watch('product', function(){
         // Prevents errors when clearing values
         var nulls = [
@@ -81,6 +98,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowControl
     // ------------------------------------------------------------------------
     $scope.load = function(id) {
         $scope.productForm.$loading = true;
+        // Decide which data to load with the call
         var withs = {};
         withs.isIdentifiedBy = true;
         if ($location.path().indexOf('label') !== -1) {
@@ -93,6 +111,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowControl
             withs.isSubstitutableWith = true;
             withs.isComplementaryWith = true;
         }
+        // Actually perform the call
         $$sdkCrud.ProductShow(id, withs).then(function(response){
             $scope.productForm.$loading = false;
             var product = new Product().fromJson(response.data.data);
@@ -108,7 +127,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowControl
             }
 
             $scope.product = product;
-
             $scope.product.urlPictureOriginal = URL_CDN_MEDIA + '/product/' + $scope.product.id + '/picture/packshot/original.png?' + Math.random() * 100000000;
 
             $scope.select2productOptions = $$autocomplete.getOptionAutocompletes('product', {

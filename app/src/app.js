@@ -36,27 +36,32 @@ function($window) {
 
 
 var env = (window.location.hostname.indexOf('localhost') === 0) ? 'dev' : 'prod';
+
 env = 'prod';
 if (env === 'prod') {
     app.constant('API_URL', 'https://api.alkemics.com');
-    app.constant('URL_SERVICE_AUTH', 'https://auth.alkemics.com');    
-    app.constant('URL_CDN_MEDIA', 'https://smedia.alkemics.com');    
+    app.constant('URL_SERVICE_AUTH', 'https://auth.alkemics.com');
     app.constant('URL_SERVICE_MEDIA', 'https://service-media.alkemics.com');
-    app.constant('URL_UI_BUTTON_PRODUCT', 'http://assets.toc.io');
+    app.constant('URL_UI_BUTTON_PRODUCT', 'https://assets.toc.io/ui/button/product/v1/index.html');
+    app.constant('URL_CDN_MEDIA', 'https://smedia.alkemics.com');
+    angular.module('jDashboardFluxApp').constant('URL_SERVICE_MEDIA', 'https://service-media.alkemics.com');
 } else if (env === 'dev') {
     app.constant('API_URL', '//localhost.alkemics.com:6543');
-    app.constant('URL_SERVICE_AUTH', 'http://localhost.alkemics.com:6545');    
+    app.constant('URL_SERVICE_AUTH', 'http://localhost.alkemics.com:6545');
+    app.constant('URL_SERVICE_MEDIA', 'http://localhost.alkemics.com:6551');
+    // app.constant('URL_UI_BUTTON_PRODUCT', 'http://localhost.alkemics.com:9010/');
+    app.constant('URL_UI_BUTTON_PRODUCT', 'http://assets.toc.io/ui/button/product/v1/index.html');
     app.constant('URL_CDN_MEDIA', 'https://s3-eu-west-1.amazonaws.com/pprd.media.alkemics.com');
     app.constant('URL_UI_BUTTON_PRODUCT', 'http://localhost.alkemics.com:9010/');
     app.config(function($logProvider){
         $logProvider.debugEnabled(true);
     });
 } else if (env === 'vagrant') {
-
     app.constant('API_URL', 'https://localcore.alkemics.com');
-    app.constant('URL_SERVICE_AUTH', 'https://localauth.alkemics.com');    
-    app.constant('URL_CDN_MEDIA', 'https://s3-eu-west-1.amazonaws.com/pprd.media.alkemics.com');
+    app.constant('URL_SERVICE_AUTH', 'https://localauth.alkemics.com');
+    app.constant('URL_SERVICE_MEDIA', 'https://localservice-media.alkemics.com');
     app.constant('URL_UI_BUTTON_PRODUCT', 'http://localhost.alkemics.com:9010/');
+    app.constant('URL_CDN_MEDIA', 'https://s3-eu-west-1.amazonaws.com/pprd.media.alkemics.com');
     app.config(function($logProvider){
         $logProvider.debugEnabled(true);
     });
@@ -261,3 +266,40 @@ app.config(function ($routeProvider) {
         redirectTo: '/'
     });
 });
+
+
+// Mock for development
+if (env === 'dev') {
+    app.config(function($provide) {
+        $provide.decorator('$httpBackend', angular.mock.e2e.$httpBackendDecorator);
+    });
+    app.run(function($httpBackend) {
+        $httpBackend.whenGET(new RegExp('/media/v2/picture/entitye')).respond({
+            data: [
+                {
+                    updatedAt: "2014-08-31T15:46:34",
+                    fileEffectiveStartDateTime: "2014-08-31T15:46:34",
+                    fileEffectiveEndDateTime: "2014-08-31T15:46:34",
+                    uniformResourceIdentifier: "https://smedia.alkemics.com/product/2558/picture/packshot/256x256.png"
+                },
+                {
+                    updatedAt: "2014-08-31T15:46:34",
+                    fileEffectiveStartDateTime: "2014-08-31T15:46:34",
+                    fileEffectiveEndDateTime: "2014-08-31T15:46:34",
+                    uniformResourceIdentifier: "https://smedia.alkemics.com/product/2559/picture/packshot/256x256.png"
+                },
+                {
+                    updatedAt: "2014-08-31T15:46:34",
+                    fileEffectiveStartDateTime: "2014-08-31T15:46:34",
+                    fileEffectiveEndDateTime: "2014-08-31T15:46:34",
+                    uniformResourceIdentifier: "https://smedia.alkemics.com/product/2559/picture/packshot/256x256.png"
+                }
+            ]
+        });
+        $httpBackend.whenJSONP().passThrough();
+        $httpBackend.whenGET().passThrough();
+        $httpBackend.whenPOST().passThrough();
+        $httpBackend.whenPUT().passThrough();
+        $httpBackend.whenGET().passThrough();
+    });
+}

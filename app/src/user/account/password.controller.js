@@ -32,7 +32,7 @@ angular.module('jDashboardFluxApp').controller('PasswordResetController', [
     $scope.resetPassword = function() {
 
         if ($scope.newPassword.length < 8) {
-            alert('Erreur: Le mot de passe doit faire au moins 8 caractères.');
+            $window.alert('Erreur: Le mot de passe doit faire au moins 8 caractères.');
             $scope.newPassword = null;
             $scope.newPasswordConfirm = null;
             return;

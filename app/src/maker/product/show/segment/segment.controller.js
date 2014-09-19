@@ -1,7 +1,7 @@
 'use_strict';
 
 angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowSegmentController', [
-    '$scope', '$$sdkCrud', '$modal', 
+    '$scope', '$$sdkCrud', '$modal',
     function ($scope, $$sdkCrud, $modal) {
 
     // ------------------------------------------------------------------------
@@ -30,16 +30,15 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowSegment
     };
 
     $scope.$watch('product.id', function(){
-        console.log($scope.product);
         if (!$scope.product.isBrandedBy) {
             return;
         }
         $scope.segments.push($scope.product.isBrandedBy);
     }, true);
 
-    
+
     // ------------------------------------------------------------------------
     // Init
-    // ------------------------------------------------------------------------    
+    // ------------------------------------------------------------------------
 
 }]);
