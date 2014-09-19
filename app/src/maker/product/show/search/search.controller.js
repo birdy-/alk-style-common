@@ -1,8 +1,8 @@
 'use_strict';
 
 angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowSearchController', [
-    '$scope', '$$sdkCrud',
-    function ($scope, $$sdkCrud) {
+    '$scope', '$$sdkSearch',
+    function ($scope, $$sdkSearch) {
 
         $scope.stats = {};
         $scope.datas = [];
@@ -12,7 +12,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowSearchC
             if (!productId) {
                 return;
             }
-            $$sdkCrud.ProductSearch(productId).then(function(response){
+            $$sdkSearch.ProductSearch(productId).then(function(response){
                 $scope.stats = [];
                 var frequencies, volume, percentage;
                 var volumes = [];
