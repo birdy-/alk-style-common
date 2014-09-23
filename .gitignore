@@ -9,3 +9,4 @@ snapshots
 
 *.DS_Store
 app.tar.gz
+app/styles
