@@ -55,10 +55,11 @@ angular.module('jDashboardFluxApp').service('permission', [
      * Post user-provided credentials
      */
     var login = function(login, password) {
-        return $http.post(URL_SERVICE_AUTH + '/auth/v1/token', {
+        return $http.post(URL_SERVICE_AUTH + '/auth/v1/user/login', {
             username: login,
             password: password,
-            grant_type: 'password'
+            grant_type: 'password',
+            origin: 'dashboard_stream'
         }).success(function (response) {
             authService.loginConfirmed();
             $window.sessionStorage.token = response.access_token;
