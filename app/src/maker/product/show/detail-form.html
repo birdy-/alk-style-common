@@ -22,10 +22,10 @@
     </div>
     <div>
         <ul class="nav nav-stacked" role="tablist">
-            <div nav-product link="data" legend="Données" product="product.id" locked="false"></div>
-            <div nav-product link="marketing" legend="Marketing" product="product.id" locked="false"></div>
-            <div nav-product link="merchandising" legend="Merchandising" product="product.id" locked="true"></div>
-            <div nav-product link="search" legend="Search" product="product.id" locked="true" class="last"></div>
+            <div nav-product link="data" legend="Données" product="product.isIdentifiedBy[0].reference" locked="false"></div>
+            <div nav-product link="marketing" legend="Marketing" product="product.isIdentifiedBy[0].reference" locked="false"></div>
+            <div nav-product link="merchandising" legend="Merchandising" product="product.isIdentifiedBy[0].reference" locked="true"></div>
+            <div nav-product link="search" legend="Search" product="product.isIdentifiedBy[0].reference" locked="true" class="last"></div>
             <!--<div nav-product link="segment" legend="Segments" product="product.id" locked="false" color="#d6e9c6" class="last"></div>-->
         </ul>
     </div>
