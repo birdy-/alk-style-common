@@ -69,7 +69,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaUp
             // Default variables
             payload.picture_data.canFilesBeEdited = false;
             payload.picture_data.isFileBackgroundTransparent = false;
-            payload.picture_data.fileType = ProductPicture.TYPE_PICTURE_DEFINITION_STANDARD.id;
+            payload.picture_data.fileType = ProductPicture.FILETYPE_PICTURE_DEFINITION_STANDARD.id;
             payload.picture_data.uniformResourceIdentifier = newPicture.path;
             payload.picture_data.gtin = $scope.product.isIdentifiedBy[0].reference;
 
