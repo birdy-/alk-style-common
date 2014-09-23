@@ -36,7 +36,8 @@ function($window) {
 
 
 var env = (window.location.hostname.indexOf('localhost') === 0) ? 'dev' : 'prod';
-// env = 'vagrant';
+
+env = 'prod';
 if (env === 'prod') {
     app.constant('API_URL', 'https://api.alkemics.com');
     app.constant('URL_SERVICE_AUTH', 'https://auth.alkemics.com');
@@ -51,6 +52,7 @@ if (env === 'prod') {
     // app.constant('URL_UI_BUTTON_PRODUCT', 'http://localhost.alkemics.com:9010/');
     app.constant('URL_UI_BUTTON_PRODUCT', 'http://assets.toc.io/ui/button/product/v1/index.html');
     app.constant('URL_CDN_MEDIA', 'https://s3-eu-west-1.amazonaws.com/pprd.media.alkemics.com');
+    app.constant('URL_UI_BUTTON_PRODUCT', 'http://localhost.alkemics.com:9010/');
     app.config(function($logProvider){
         $logProvider.debugEnabled(true);
     });
