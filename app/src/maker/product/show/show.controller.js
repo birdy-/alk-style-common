@@ -55,7 +55,11 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowControl
         ).success(function(response){
             $location.path('/maker/brand/' + $scope.product.isBrandedBy.id + '/product');
         }).error(function(response){
-            $window.alert("Erreur pendant l'archivage du produit : " + response.data.message);
+            var message = '.';
+            if (response && response.message) {
+                message = ' : ' + response.message;
+            }
+            $window.alert("Erreur pendant l'archivage du produit : " + message);
         });
     };
 

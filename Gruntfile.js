@@ -23,8 +23,7 @@ module.exports = function (grunt) {
   var yeomanConfig = {
     app: 'app',
     dist: 'dist',
-    compressed: 'compressed',
-
+    compressed: 'compressed'
   };
 
   try {
@@ -513,6 +512,7 @@ module.exports = function (grunt) {
     'useminPrepare',
     'concurrent:dist',
     // 'autoprefixer',
+    //'jshint',
     'concat',
     // 'ngmin', // Do not compress for preprod debug
     'copy:dist',
