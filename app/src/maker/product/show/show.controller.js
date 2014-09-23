@@ -9,7 +9,8 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowControl
     // ------------------------------------------------------------------------
     $scope.user = {};
     $scope.product = {};
-    $scope.productId = $routeParams.id;
+    $scope.productId = null;
+    $scope.productReference_reference = $routeParams.productReference_reference;
     $scope.productForm = {};
     $scope.formInit = function(form) {
         form.$loading = true;
@@ -100,7 +101,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowControl
     // ------------------------------------------------------------------------
     // Init
     // ------------------------------------------------------------------------
-    $scope.load = function(id) {
+    var loadProduct = function(productId) {
         $scope.productForm.$loading = true;
         // Decide which data to load with the call
         var withs = {};
@@ -116,7 +117,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowControl
             withs.isComplementaryWith = true;
         }
         // Actually perform the call
-        $$sdkCrud.ProductShow(id, withs).then(function(response){
+        $$sdkCrud.ProductShow(productId, withs).then(function(response){
             $scope.productForm.$loading = false;
             var product = new Product().fromJson(response.data.data);
             // Fill up for autocompletion reasons
@@ -132,7 +133,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowControl
 
             $scope.product = product;
             $scope.product.urlPictureOriginal = URL_CDN_MEDIA + '/product/' + $scope.product.id + '/picture/packshot/original.png?' + Math.random() * 100000000;
-
             $scope.select2productOptions = $$autocomplete.getOptionAutocompletes('product', {
                 maximumSelectionSize: 1
             }, {
@@ -140,5 +140,14 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowControl
             });
         });
     };
-    $scope.load($scope.productId);
+
+    var init = function () {
+        $$sdkCrud.ProductReferenceList({}, {reference: $scope.productReference_reference}, undefined, undefined)
+            .success(function (response){
+            var productId = response.data[0].identifies.id;
+            loadProduct(productId);
+        })        
+    };
+    $scope.load = loadProduct;
+    init();
 }]);

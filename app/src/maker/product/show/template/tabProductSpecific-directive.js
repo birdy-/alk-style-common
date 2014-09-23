@@ -59,7 +59,7 @@ angular.module('jDashboardFluxApp').directive('tabProductSpecific', [
                  * Loads the appropriate view.
                  */
                 scope.go = function() {
-                    $location.path('/maker/product/' + scope.product.id + '/data/' + scope.href);
+                    $location.path('/maker/product/' + scope.product.isIdentifiedBy[0].reference + '/data/' + scope.href);
                 };
             }
         };
