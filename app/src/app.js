@@ -37,6 +37,7 @@ function($window) {
 
 var env = (window.location.hostname.indexOf('localhost') === 0) ? 'dev' : 'prod';
 // env = 'vagrant';
+// env = 'prod';
 if (env === 'prod') {
     app.constant('API_URL', 'https://api.alkemics.com');
     app.constant('URL_SERVICE_AUTH', 'https://auth.alkemics.com');
@@ -51,6 +52,7 @@ if (env === 'prod') {
     // app.constant('URL_UI_BUTTON_PRODUCT', 'http://localhost.alkemics.com:9010/');
     app.constant('URL_UI_BUTTON_PRODUCT', 'http://assets.toc.io/ui/button/product/v1/index.html');
     app.constant('URL_CDN_MEDIA', 'https://s3-eu-west-1.amazonaws.com/pprd.media.alkemics.com');
+    app.constant('URL_UI_BUTTON_PRODUCT', 'http://localhost.alkemics.com:9010/');
     app.config(function($logProvider){
         $logProvider.debugEnabled(true);
     });
@@ -76,94 +78,94 @@ app.config(function ($routeProvider) {
         templateUrl: 'src/maker/product/list/index.html',
         controller: 'DashboardMakerProductListController'
     });
-    $routeProvider.when('/maker/brand/:id/product', {
+    $routeProvider.when('/maker/brand/:productReference_reference/product', {
         templateUrl: 'src/maker/product/list/index.html',
         controller: 'DashboardMakerProductListController',
         parameter: {id: 'integer'}
     });
-    $routeProvider.when('/maker/product/:id/data', {
+    $routeProvider.when('/maker/product/:productReference_reference/data', {
         templateUrl: 'src/maker/product/show/general/general.html',
         controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
-    $routeProvider.when('/maker/product/:id/data/general', {
+    $routeProvider.when('/maker/product/:productReference_reference/data/general', {
         templateUrl: 'src/maker/product/show/general/general.html',
         controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
-    $routeProvider.when('/maker/product/:id/data/packaging', {
+    $routeProvider.when('/maker/product/:productReference_reference/data/packaging', {
         templateUrl: 'src/maker/product/show/packaging/packaging.html',
         controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
-    $routeProvider.when('/maker/product/:id/data/manufacturer', {
+    $routeProvider.when('/maker/product/:productReference_reference/data/manufacturer', {
         templateUrl: 'src/maker/product/show/manufacturer/manufacturer.html',
         controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
-    $routeProvider.when('/maker/product/:id/data/identification', {
+    $routeProvider.when('/maker/product/:productReference_reference/data/identification', {
         templateUrl: 'src/maker/product/show/identification/identification.html',
         controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
-    $routeProvider.when('/maker/product/:id/data/media', {
+    $routeProvider.when('/maker/product/:productReference_reference/data/media', {
         templateUrl: 'src/maker/product/show/media/media.html',
         controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
-    $routeProvider.when('/maker/product/:id/data/composition', {
+    $routeProvider.when('/maker/product/:productReference_reference/data/composition', {
         templateUrl: 'src/maker/product/show/composition/composition.html',
         controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
-    $routeProvider.when('/maker/product/:id/data/nutrition', {
+    $routeProvider.when('/maker/product/:productReference_reference/data/nutrition', {
         templateUrl: 'src/maker/product/show/nutrition/nutrition.html',
         controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
-    $routeProvider.when('/maker/product/:id/data/label', {
+    $routeProvider.when('/maker/product/:productReference_reference/data/label', {
         templateUrl: 'src/maker/product/show/label/label.html',
         controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
-    $routeProvider.when('/maker/product/:id/data/conservation', {
+    $routeProvider.when('/maker/product/:productReference_reference/data/conservation', {
         templateUrl: 'src/maker/product/show/conservation/conservation.html',
         controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
-    $routeProvider.when('/maker/product/:id/data/productinshop', {
+    $routeProvider.when('/maker/product/:productReference_reference/data/productinshop', {
         templateUrl: 'src/maker/product/show/productinshop/productinshop.html',
         controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
-    $routeProvider.when('/maker/product/:id/data/version', {
+    $routeProvider.when('/maker/product/:productReference_reference/data/version', {
         templateUrl: 'src/maker/product/show/version/version.html',
         controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
-    $routeProvider.when('/maker/product/:id/merchandising', {
+    $routeProvider.when('/maker/product/:productReference_reference/merchandising', {
         templateUrl: 'src/maker/product/show/merchandising/merchandising.html',
         controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
-    $routeProvider.when('/maker/product/:id/search', {
+    $routeProvider.when('/maker/product/:productReference_reference/search', {
         templateUrl: 'src/maker/product/show/search/search.html',
         controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
-    $routeProvider.when('/maker/product/:id/segment', {
+    $routeProvider.when('/maker/product/:productReference_reference/segment', {
         templateUrl: 'src/maker/product/show/segment/segment.html',
         controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
-    $routeProvider.when('/maker/product/:id/marketing', {
+    $routeProvider.when('/maker/product/:productReference_reference/marketing', {
         templateUrl: 'src/maker/product/show/marketing/marketing.html',
         controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
 
     // Product Specific show
-    $routeProvider.when('/maker/product/:id/data/specific/wine', {
+    $routeProvider.when('/maker/product/:productReference_reference/data/specific/wine', {
         templateUrl: 'src/maker/product/show/specific/wine.html',
         controller: 'DashboardMakerProductShowWineController',
         parameter: {id: 'integer'}

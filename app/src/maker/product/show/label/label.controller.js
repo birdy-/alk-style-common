@@ -124,7 +124,8 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowLabelCo
         { id: 10344, name: "Concours Général Agricole Bronze" },
         { id: 10345, name: "Sélection Guide Hachette" },
         { id: 18935, name: "Dénomination d'Origine Protégée" },
-        { id: 19114, name: "Label Eco-Label" }
+        { id: 19114, name: "Label Eco-Label" },
+        { id: 10347, name: "Œuf pondu en France" }
     ];
     $scope.labels = {};
     labels.map(function(label) {

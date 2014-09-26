@@ -9,8 +9,8 @@
  * @return {[type]}               [description]
  */
 angular.module('jDashboardFluxApp').controller('DashboardMakerProductListController', [
-    '$scope', '$$sdkCrud', 'permission', '$routeParams', '$$BrandRepository', '$log', '$location', '$window',
-    function ($scope, $$sdkCrud, permission, $routeParams, $$BrandRepository, $log, $location, $window) {
+    '$scope', '$$sdkCrud', 'permission', '$routeParams', '$$BrandRepository', '$log', '$location', '$window', 'URL_CDN_MEDIA',
+    function ($scope, $$sdkCrud, permission, $routeParams, $$BrandRepository, $log, $location, $window, URL_CDN_MEDIA) {
 
     // ------------------------------------------------------------------------
     // Variables
@@ -97,7 +97,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
             var product;
             $log.log("Product List Controller : " + response.data.length + " results found.");
             for (var i = 0; i < response.data.length; i ++) {
-                product = new Product().fromJson(response.data[i].identifies);
+                product = hydrateProduct(response.data[i].identifies);
                 $scope.products.push(product);
             }
 
@@ -157,7 +157,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
             }
             var product;
             for (var i = 0; i < response.data.length; i ++) {
-                product = new Product().fromJson(response.data[i]);
+                product = hydrateProduct(response.data[i]);
                 $scope.products.push(product);
             }
             $scope.scroll.busy = false;
@@ -256,6 +256,13 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
             list();
             return;
         });
+    };
+
+    var hydrateProduct = function (data) {
+        var product = new Product().fromJson(data);
+        product.urlPictureOriginal = URL_CDN_MEDIA + '/product/' + product.id + '/picture/packshot/original.png?' + Math.random() * 100000000;    
+        $log.log(product);
+        return product;
     };
 
     init();

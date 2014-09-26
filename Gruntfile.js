@@ -502,7 +502,7 @@ module.exports = function (grunt) {
     'uglify',
     'rev',
     'usemin',
-    'sosie',
+    // 'sosie',
     'copy:prod',
     'shell:compress'
   ]);
@@ -512,6 +512,7 @@ module.exports = function (grunt) {
     'useminPrepare',
     'concurrent:dist',
     // 'autoprefixer',
+    //'jshint',
     'concat',
     // 'ngmin', // Do not compress for preprod debug
     'copy:dist',
@@ -520,7 +521,7 @@ module.exports = function (grunt) {
     // 'uglify',// Do not compress for preprod debug
     'rev',
     'usemin',
-    'sosie',
+    // 'sosie',
     'copy:prod',
     'shell:compress'
   ]);
