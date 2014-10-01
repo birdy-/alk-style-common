@@ -17,13 +17,13 @@ angular.module('jDashboardFluxApp').directive('randomCustomer', [
         return {
             restrict: 'AEC',
             templateUrl: '/src/home/randomCustomer-view.html',
-            link: function($scope, elem, attrs) {
+            link: function(scope, elem, attrs) {
 
                 var count = parseInt(attrs.len, 10);
                 var offset = 20;
 
                 // Init
-                $scope.brandIds = brandIds.slice(0 + offset, offset + count);
+                scope.brandIds = brandIds.slice(0 + offset, offset + count);
 
                 // Refresh
                 $interval(function(){
@@ -31,10 +31,10 @@ angular.module('jDashboardFluxApp').directive('randomCustomer', [
                     var index = Math.floor(Math.random() * count);
                     // Find an element that is not in the current array
                     var brandId = getRandomBrandId();
-                    while ($scope.brandIds.indexOf(brandId) !== -1) {
+                    while (scope.brandIds.indexOf(brandId) !== -1) {
                         brandId = getRandomBrandId();
                     }
-                    $scope.brandIds[index] = brandId;
+                    scope.brandIds[index] = brandId;
                 }, parseInt(attrs.interval, 10));
 
             }
