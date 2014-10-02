@@ -1,0 +1,17 @@
+<div ng-include="'/src/maker/home/header.html'"></div>
+<div class="row">
+    <div class="col-lg-offset-2 col-lg-8">
+        <h1 style="margin-bottom: 50px">Retailer Statistics</h1>
+        <div ng-repeat="stat in stats.data" class="col-lg-4">
+            <table class="table table-bordered">
+                <thead class="color-stream-inverse"><tr><th colspan="2">{{ stat.type }}</th></tr></thead>
+                <tr ng-repeat="metric in stat.stats">
+                    <td>{{ metric.metric }}</td><td>{{ metric.value }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="row">
+
+</div>
