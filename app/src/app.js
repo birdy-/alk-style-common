@@ -39,15 +39,15 @@ var env = (window.location.hostname.indexOf('localhost') === 0) ? 'dev' : 'prod'
 // env = 'vagrant';
 // env = 'prod';
 if (env === 'prod') {
-    app.constant('API_URL', 'https://api.alkemics.com:6543');
-    app.constant('URL_SERVICE_AUTH', 'https://auth.alkemics.com:6545');
+    app.constant('API_URL', 'https://api.alkemics.com');
+    app.constant('URL_SERVICE_AUTH', 'https://auth.alkemics.com');
     app.constant('URL_SERVICE_MEDIA', 'https://service-media.alkemics.com');
     app.constant('URL_UI_BUTTON_PRODUCT', 'https://assets.toc.io/ui/button/product/v1/index.html');
     app.constant('URL_CDN_MEDIA', 'https://smedia.alkemics.com');
     angular.module('jDashboardFluxApp').constant('URL_SERVICE_MEDIA', 'https://service-media.alkemics.com');
 } else if (env === 'dev') {
-    app.constant('API_URL', '//localcore.alkemics.com');
-    app.constant('URL_SERVICE_AUTH', 'http://localauth.alkemics.com');
+    app.constant('API_URL', '//localcore.alkemics.com:6543');
+    app.constant('URL_SERVICE_AUTH', 'http://localauth.alkemics.com:6545');
     app.constant('URL_SERVICE_MEDIA', 'http://localhost.alkemics.com:6551');
     // app.constant('URL_UI_BUTTON_PRODUCT', 'http://localhost.alkemics.com:9010/');
     app.constant('URL_UI_BUTTON_PRODUCT', 'http://assets.toc.io/ui/button/product/v1/index.html');
