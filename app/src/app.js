@@ -39,8 +39,8 @@ var env = (window.location.hostname.indexOf('localhost') === 0) ? 'dev' : 'prod'
 // env = 'vagrant';
 // env = 'prod';
 if (env === 'prod') {
-    app.constant('API_URL', 'https://api.alkemics.com');
-    app.constant('URL_SERVICE_AUTH', 'https://auth.alkemics.com');
+    app.constant('API_URL', 'https://api.alkemics.com:6543');
+    app.constant('URL_SERVICE_AUTH', 'https://auth.alkemics.com:6545');
     app.constant('URL_SERVICE_MEDIA', 'https://service-media.alkemics.com');
     app.constant('URL_UI_BUTTON_PRODUCT', 'https://assets.toc.io/ui/button/product/v1/index.html');
     app.constant('URL_CDN_MEDIA', 'https://smedia.alkemics.com');
@@ -236,12 +236,31 @@ app.config(function ($routeProvider) {
         isPublic: true
     });
 
+    $routeProvider.when('/prehome', {
+        templateUrl: 'src/user/login/prehome.html',
+        controller: 'PreHomeController',
+        isPublic: true
+    });
+
+    // ------------------------------------------------------------------------------------------
+    // Timeline views
+    // ------------------------------------------------------------------------------------------
+    $routeProvider.when('/timeline', {
+        templateUrl: 'src/retailer/notifications.html',
+        controller: 'DashboardRetailerNotificationsController',
+    });
+
     // ------------------------------------------------------------------------------------------
     // Statistics views
     // ------------------------------------------------------------------------------------------
     $routeProvider.when('/retailer', {
         templateUrl: 'src/retailer/statistics/index.html',
         controller: 'RetailerDataStatisticsController',
+    });
+
+    $routeProvider.when('/retailer/products', {
+        templateUrl: 'src/retailer/statistics/product.html',
+        controller: 'RetailerProductStatisticsController',
     });
 
     // ------------------------------------------------------------------------------------------
