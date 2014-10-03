@@ -92,8 +92,8 @@ angular.module('jDashboardFluxApp').controller('DashboardRetailerNotificationsCo
         return format;
     }
 
-    var get = function () {
-        return $$sdk['UserlineGet'](7).then(function(response) {
+    var get = function (user_id) {
+        return $$sdk['UserlineGet'](user_id).then(function(response) {
             $log.log(JSON.stringify(response.data));
             $scope.notifications = mock_tl_response.data;//response.data.data;
             for (var i in $scope.notifications) {
@@ -110,11 +110,10 @@ angular.module('jDashboardFluxApp').controller('DashboardRetailerNotificationsCo
         ids = user.managesShop.map(function(shop){
             return shop.id;
         });
-        get();
         $scope.shop = {
             id: ids[0]
         };
-        get();
+        get(user.id);
     });
     $scope.notif_cnt = 0;
     $scope.products = [];
