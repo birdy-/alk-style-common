@@ -147,7 +147,6 @@ angular.module('jDashboardFluxApp').controller('DashboardRetailerProductShowCont
     };
 
     $$sdkCrud.ProductShow($scope.product.id, {}, function(response){
-        console.log(JSON.stringify(response));  
         $scope.product = response.data;
         var id, productInShop, found = false;
         for (var i = 0; i < $scope.product.isInstantiatedBy.length; i++) {
