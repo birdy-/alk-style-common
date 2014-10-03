@@ -46,8 +46,8 @@ if (env === 'prod') {
     app.constant('URL_CDN_MEDIA', 'https://smedia.alkemics.com');
     angular.module('jDashboardFluxApp').constant('URL_SERVICE_MEDIA', 'https://service-media.alkemics.com');
 } else if (env === 'dev') {
-    app.constant('API_URL', '//localcore.alkemics.com:6543');
-    app.constant('URL_SERVICE_AUTH', 'http://localauth.alkemics.com:6545');
+    app.constant('API_URL', '//localhost.alkemics.com:6543');
+    app.constant('URL_SERVICE_AUTH', 'http://localhost.alkemics.com:6545');
     app.constant('URL_SERVICE_MEDIA', 'http://localhost.alkemics.com:6551');
     // app.constant('URL_UI_BUTTON_PRODUCT', 'http://localhost.alkemics.com:9010/');
     app.constant('URL_UI_BUTTON_PRODUCT', 'http://assets.toc.io/ui/button/product/v1/index.html');
