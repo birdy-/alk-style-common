@@ -236,6 +236,33 @@ app.config(function ($routeProvider) {
         isPublic: true
     });
 
+    $routeProvider.when('/prehome', {
+        templateUrl: 'src/user/login/prehome.html',
+        controller: 'PreHomeController',
+        isPublic: true
+    });
+
+    // ------------------------------------------------------------------------------------------
+    // Timeline views
+    // ------------------------------------------------------------------------------------------
+    $routeProvider.when('/timeline', {
+        templateUrl: 'src/retailer/notifications.html',
+        controller: 'DashboardRetailerNotificationsController',
+    });
+
+    // ------------------------------------------------------------------------------------------
+    // Statistics views
+    // ------------------------------------------------------------------------------------------
+    $routeProvider.when('/retailer', {
+        templateUrl: 'src/retailer/statistics/index.html',
+        controller: 'RetailerDataStatisticsController',
+    });
+
+    $routeProvider.when('/retailer/products', {
+        templateUrl: 'src/retailer/statistics/product.html',
+        controller: 'RetailerProductStatisticsController',
+    });
+
     // ------------------------------------------------------------------------------------------
     // Settings views
     // ------------------------------------------------------------------------------------------
@@ -265,6 +292,7 @@ app.config(function ($routeProvider) {
     $routeProvider.otherwise({
         redirectTo: '/'
     });
+
 });
 
 
