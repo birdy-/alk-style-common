@@ -1,6 +1,6 @@
 'use strict';
 
-var User = function(){
+var   User = function(){
     // NB : it is very important not to set the vaues below to [] otherwise
     // it will overwrite the related entities by a []...
     this._type = 'User';

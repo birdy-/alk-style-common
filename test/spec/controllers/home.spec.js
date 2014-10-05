@@ -5,15 +5,12 @@ describe('[Controller] HomeController', function () {
   beforeEach(module('jDashboardFluxApp'));
 
   var HomeController,
-    permission,
     scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    //permission = _permission_;
-    //console.log(_permission_);
-    //console.log(permission);
+
     HomeController = $controller('HomeController', {
       $scope: scope
     });
@@ -21,5 +18,15 @@ describe('[Controller] HomeController', function () {
 
   it('should exist', function () {
     expect(HomeController).toBeDefined();
+  });
+
+  it('should have a user object', function () {
+    expect(scope.user).toBeDefined();
+    expect(typeof(scope.user)).toEqual('object');
+  });
+
+  it('should have a subscribe function', function () {
+    expect(scope.subscribe).toBeDefined();
+    expect(typeof(scope.subscribe)).toEqual('function');
   });
 });
