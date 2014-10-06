@@ -16,6 +16,7 @@ angular.module('jDashboardFluxApp').controller('DashboardRetailerNotificationsCo
     
     var resx = {
         'ProductCertified' : {'icon': 'fa-gavel', 'color': 'color-green-inverse'},
+        'ProductInShopProductCertified' : {'icon': 'fa-gavel', 'color': 'color-green-inverse'},
         'ProductUpdated': {'icon': 'fa-gavel', 'color': 'color-green-inverse'},
         'ProductPictureUploaded' : {'icon': 'fa-picture-o', 'color': 'color-yellow-inverse'},
         'ProductCommented' : {'icon': 'fa-comment', 'color': 'color-blue-inverse'},
@@ -23,6 +24,13 @@ angular.module('jDashboardFluxApp').controller('DashboardRetailerNotificationsCo
         'ProductFillReminder' : {'icon': 'fa-check-square-o', 'color': 'color-yellow-inverse'},
         'ProductErrorReported' : {'icon': 'fa-warning', 'color': 'color-red-inverse'}
     };
+
+    var certif = {
+        1: 'a accepté de remplir la fiche du produit',
+        2: 'a certifié le produit',
+        3: 'a publié le produit',
+        6: 'a archivé un produit'
+    }
  
      var mock_tl_response = {
         "data": [
@@ -83,16 +91,15 @@ angular.module('jDashboardFluxApp').controller('DashboardRetailerNotificationsCo
         ]
     }
 
-    
-
     var get = function (user_id) {
-        return $$sdk['UserlineGet'](user_id).then(function(response) {
-            $log.log(JSON.stringify(response.data));
-            $scope.notifications = mock_tl_response.data;//response.data.data;
-            for (var i in $scope.notifications) {                
+        return $$sdk['TimelineGet'](user_id).then(function(response) {
+            $scope.notifications = response.data.data;
+            for (var i in $scope.notifications) {
                 $scope.notifications[i]['resx'] = resx[$scope.notifications[i]['event']['type']];
+                if ($scope.notifications[i]['event']['data']['certified']) {
+                    $scope.notifications[i]['certif'] = certif[$scope.notifications[i]['event']['data']['certified']];
+                }
             };
-            $scope.notifications[0]['icon'] = resx['ProductPictureUploaded'].icon; 
             $scope.notif_cnt = response.data.data.length;
         });
     };
@@ -112,6 +119,8 @@ angular.module('jDashboardFluxApp').controller('DashboardRetailerNotificationsCo
         id: 1
     };
     $$sdkCrud.ShopShow($scope.shop.id, function(response){
+
+        $log.log(response.data);
         $scope.shop = response.data;
     });
 }]);
