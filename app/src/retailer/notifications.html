@@ -22,8 +22,8 @@
 
             <div class="tl-entry" ng-repeat="notification in notifications">
               <div class="tl-time">
-                {{ notification.event.date }}<br>
-                {{ notification.event.time }}
+                {{ notification.event.timestamp * 1000 | date:'dd-MM-yyyy' }}<br>
+                {{ notification.event.timestamp * 1000 | date:'HH:mm' }}
               </div>
               <div class="tl-icon {{ notification.resx.color }}"><i class="fa {{ notification.resx.icon }}"></i></div>
               <div class="panel tl-body">

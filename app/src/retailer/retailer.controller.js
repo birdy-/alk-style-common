@@ -83,22 +83,11 @@ angular.module('jDashboardFluxApp').controller('DashboardRetailerNotificationsCo
         ]
     }
 
-    function dateFormat(date, format) {
-        format = format.replace("DD", (date.getDate() < 10 ? '0' : '') + date.getDate());
-        format = format.replace("MM", (date.getMonth() < 9 ? '0' : '') + (date.getMonth() + 1)); // Months are zero-based
-        format = format.replace("YYYY", date.getFullYear());
-        format = format.replace("HH", date.getHours());
-        format = format.replace("MM", date.getMinutes());
-        return format;
-    }
-
     var get = function (user_id) {
         return $$sdk['UserlineGet'](user_id).then(function(response) {
             $log.log(JSON.stringify(response.data));
-            $scope.notifications = mock_tl_response.data;//response.data.data;
+            $scope.notifications = response.data.data;
             for (var i in $scope.notifications) {
-                $scope.notifications[i]['event']['date'] = dateFormat(new Date($scope.notifications[i]['event']['timestamp']*1000), 'DD-MM-YYYY');
-                $scope.notifications[i]['event']['time'] = dateFormat(new Date($scope.notifications[i]['event']['timestamp']*1000), 'HH:MM');
                 $scope.notifications[i]['resx'] = resx[$scope.notifications[i]['event']['type']];
             };
             $scope.notifications[0]['icon'] = resx['ProductPictureUploaded'].icon; 
