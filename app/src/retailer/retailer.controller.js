@@ -86,7 +86,7 @@ angular.module('jDashboardFluxApp').controller('DashboardRetailerNotificationsCo
     var get = function (user_id) {
         return $$sdk['UserlineGet'](user_id).then(function(response) {
             $log.log(JSON.stringify(response.data));
-            $scope.notifications = response.data.data;
+            $scope.notifications = mock_tl_response.data;//response.data.data;
             for (var i in $scope.notifications) {
                 $scope.notifications[i]['resx'] = resx[$scope.notifications[i]['event']['type']];
             };
