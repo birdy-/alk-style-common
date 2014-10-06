@@ -51,3 +51,21 @@ For production :
 grunt build
 cd capistrano && bundle exec cap production alk:deploy
 ```
+
+## Tests!!
+
+### Unit tests
+
+```
+grunt test
+```
+
+### End-to-end (E2E) tests
+
+Be sure to have a JDK and protractor installed as described in [documentation](http://angular.github.io/protractor/#/)
+
+```
+npm install -g protractor
+grunt serve
+protractor test/protractor.conf.js
+```

@@ -247,7 +247,7 @@ app.config(function ($routeProvider) {
     // ------------------------------------------------------------------------------------------
     $routeProvider.when('/timeline', {
         templateUrl: 'src/retailer/notifications.html',
-        controller: 'DashboardRetailerNotificationsController',
+        controller: 'DashboardRetailerNotificationsController'
     });
 
     // ------------------------------------------------------------------------------------------
@@ -255,12 +255,12 @@ app.config(function ($routeProvider) {
     // ------------------------------------------------------------------------------------------
     $routeProvider.when('/retailer', {
         templateUrl: 'src/retailer/statistics/index.html',
-        controller: 'RetailerDataStatisticsController',
+        controller: 'RetailerDataStatisticsController'
     });
 
     $routeProvider.when('/retailer/products', {
         templateUrl: 'src/retailer/statistics/product.html',
-        controller: 'RetailerProductStatisticsController',
+        controller: 'RetailerProductStatisticsController'
     });
 
     // ------------------------------------------------------------------------------------------
