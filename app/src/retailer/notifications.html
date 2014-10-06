@@ -22,17 +22,37 @@
 
             <div class="tl-entry" ng-repeat="notification in notifications">
               <div class="tl-time">
-                {{ notification.event.date }}<br>
-                {{ notification.event.time }}
+                {{ notification.event.timestamp * 1000 | date:'yyyy-MM-dd' }}<br>
+                {{ notification.event.timestamp * 1000 | date:'HH:mm' }}
               </div>
               <div class="tl-icon {{ notification.resx.color }}"><i class="fa {{ notification.resx.icon }}"></i></div>
-              <div class="panel tl-body">
-                {{ notification.event.type }}
+
+              <div class="panel tl-body" ng-if="notification.event.type == 'ProductInShopProductCertified'">
+                <a href="mailto:{{ notification.event.data.user.username }}">
+                    {{ notification.event.data.user.firstname }} {{ notification.event.data.user.lastname }}
+                </a>
+                {{ notification.certif }}
+                {{ notification.event.data.product.nameLegal }} 
+                <div class="tl-wide text-center" style="padding: 10px;margin-top:15px;margin-bottom: 15px;background: #f1f1f1">
+                  <img src="{{ notification.event.data.productinshop.url_picture }}" alt="" style="max-height: 150px;max-width: 100%;">
+                </div>
               </div>
+
+              <div class="panel tl-body" ng-if="notification.event.type == 'ProductUpdated'">
+                <a href="mailto:{{ notification.event.data.user.username }}">
+                    {{ notification.event.data.user.firstname }} {{ notification.event.data.user.lastname }}
+                </a>
+                a mis à jour le produit 
+                {{ notification.event.data.product.nameLegal }} 
+              </div>             
+            
+              <div class="panel tl-body" ng-if="notification.event.type == 'PlatformNewFeature'">
+                {{ notification.event.data.message }} 
+              </div> 
+
             </div>
 
-
-<!-- 
+<!--
             <div class="tl-entry">
               <div class="tl-time">
                 1h ago
