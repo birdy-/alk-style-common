@@ -1,26 +1,99 @@
 <div ng-include="'/src/retailer/home/header.html'"></div>
-<div class="row">
-    <div class="col-lg-offset-2 col-lg-8">
-        <h1 style="margin-bottom: 50px">Retailer Product Statistics</h1>
-        <div class="col-lg-3"><h2>{{ stats.stats[0]['value'] }} Produits<h2></div>
-        <div class="col-lg-3"><h3 style="color:red">{{ stats.stats[4]['value'] }} Non connectés</h3></div>
-        <div class="col-lg-3"><h3 style="color:orange">{{ stats.stats[2]['value'] }} Attribués </h3></div>
-        <div class="col-lg-3"><h3 style="color:#5eac25">{{ stats.stats[1]['value'] }} Certifiés</h3></div>
-   </div>
-</div>
-<div class="row">
-    <div class="col-lg-offset-2 col-lg-8">
-    <h3>Derniers produits certifiés</h3>
-    <table class="table table-bordered">
-                <thead class="color-stream-inverse"><tr><th>CUG</th><th>EAN</th><th>Image</th><th>Nom du produit</th><th></th></tr></thead>
-                <tr ng-repeat="product in products">
-                    <td>{{ product.cug }}</td><td>{{ product.ean }}</td><td>{{ product.image }}</td><td>{{ product.name }}</td>
-                    <td>
-                        <a class="btn btn-success" href="/#/">
-                                <i class="fa fa-barcode"></i> Notifier
-                        </a>
-                    </td>
-                </tr>
-    </table>
+    <div class="container">
+        <h1>État du catalogue</h1>
+
+
+        <br/>
+        <h3>Total général</h3>
+        <div class="row text-center">
+            <div class="col-sm-3">
+                <h3>
+                    {{ stats.total }}
+                    <br/>
+                    <small>dans le catalogue</small>
+                </h3>
+            </div>
+            <div class="col-sm-1"><h3>=</h3></div>
+            <div class="col-sm-2">
+                <h3 class="color-red">
+                    {{ stats.missing }}
+                    <br/>
+                    <small>Non attribués</small>
+                </h3>
+            </div>
+            <div class="col-sm-1"><h3>+</h3></div>
+            <div class="col-sm-2">
+                <h3 class="color-yellow">
+                    {{ stats.attributed }}
+                    <br/>
+                    <small>En cours de remplissage</small>
+                </h3>
+            </div>
+            <div class="col-sm-1"><h3>+</h3></div>
+            <div class="col-sm-2">
+                <h3 class="color-green">
+                    {{ stats.certified }}
+                    <br/>
+                    <small>Certifiés</small>
+                </h3>
+           </div>
+        </div>
+
+
+        <br/>
+        <br/>
+        <br/>
+        <h3>Détails des produits</h3>
+        <div class="row">
+            <form class="form-inline" role="form">
+                <div class="col-sm-2">
+                    <input style="width: 100%;" type="text" class="form-control" placeholder="Reference" ng-model="request.productInShop.shortIdOut">
+                </div>
+                <div class="col-sm-2">
+                    <input style="width: 100%;" type="text" class="form-control" placeholder="EAN" ng-model="request.productReference.reference">
+                </div>
+                <div class="col-sm-4">
+                    <input style="width: 100%;" type="text" class="form-control" placeholder="Nom du produit" ng-model="request.productInShop.name">
+                </div>
+                <div class="col-sm-1">
+                    <button style="width: 100%;"  type="submit" class="btn btn-default" ng-click="refresh()"><i class="fa fa-filter"></i> Filtrer</button>
+                </div>
+                <div class="form-group col-sm-3 text-right">
+                    <span class="btn btn-success" ng-click="prev()"><i class="fa fa-arrow-left"></i></span>
+                    <span class="btn btn-success" ng-click="next()"><i class="fa fa-arrow-right"></i></span>
+                </div>
+            </form>
+        </div>
+
+
+        <br/>
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table table-bordered">
+                    <thead class="color-stream-inverse">
+                        <tr>
+                            <th>Référence</th>
+                            <th>EAN</th>
+                            <th>Image</th>
+                            <th>Nom</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="productInShop in productInShops">
+                            <td>{{ productInShop.shortIdOut }}</td>
+                            <td>{{ productInShop.ean }}</td>
+                            <td><img height="60" width="60" ng-src="{{ productInShop.picture.main }}"></td>
+                            <td>{{ productInShop.name }}</td>
+                            <td>
+                                <a class="btn btn-warning" ng-if="!isAttributed(productInShop)">
+                                    <i class="fa fa-envelope"></i> Attribuer
+                                </a>
+                            </td>
+                        </tr>
+                    <tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
