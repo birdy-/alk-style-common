@@ -18,7 +18,7 @@
                 <h3 class="color-red">
                     {{ stats.missing }}
                     <br/>
-                    <small>Non attribués</small>
+                    <small>non attribués</small>
                 </h3>
             </div>
             <div class="col-sm-1"><h3>+</h3></div>
@@ -26,7 +26,7 @@
                 <h3 class="color-yellow">
                     {{ stats.attributed }}
                     <br/>
-                    <small>En cours de remplissage</small>
+                    <small>en cours de remplissage</small>
                 </h3>
             </div>
             <div class="col-sm-1"><h3>+</h3></div>
@@ -34,7 +34,7 @@
                 <h3 class="color-green">
                     {{ stats.certified }}
                     <br/>
-                    <small>Certifiés</small>
+                    <small>certifiés</small>
                 </h3>
            </div>
         </div>
@@ -47,7 +47,7 @@
         <div class="row">
             <form class="form-inline" role="form">
                 <div class="col-sm-2">
-                    <input style="width: 100%;" type="text" class="form-control" placeholder="Reference" ng-model="request.productInShop.shortIdOut">
+                    <input style="width: 100%;" type="text" class="form-control" placeholder="Référence" ng-model="request.productInShop.shortIdOut">
                 </div>
                 <div class="col-sm-2">
                     <input style="width: 100%;" type="text" class="form-control" placeholder="EAN" ng-model="request.productReference.reference">
@@ -86,7 +86,7 @@
                             <td><img height="60" width="60" ng-src="{{ productInShop.picture.main }}"></td>
                             <td>{{ productInShop.name }}</td>
                             <td>
-                                <a class="btn btn-warning" ng-if="!isAttributed(productInShop)">
+                                <a class="btn btn-warning" ng-if="!isAttributed(productInShop)" ng-click="attribute(productInShop)">
                                     <i class="fa fa-envelope"></i> Attribuer
                                 </a>
                             </td>

@@ -39,8 +39,8 @@ angular.module('jDashboardFluxApp').controller('RetailerDataStatisticsController
 
 
 angular.module('jDashboardFluxApp').controller('RetailerProductStatisticsController', [
-    'permission', '$scope', '$$sdkCrud', '$log',
-    function (permission, $scope, $$sdkCrud, $log) {
+    'permission', '$scope', '$$sdkCrud', '$modal', '$log',
+    function (permission, $scope, $$sdkCrud, $modal, $log) {
 
 
         // ------------------------------------------------------------------------
@@ -100,6 +100,7 @@ angular.module('jDashboardFluxApp').controller('RetailerProductStatisticsControl
             $scope.request.offset = $scope.request.offset + $scope.request.limit;
             $scope.refresh();
         };
+
         $scope.isAttributed = function(productInShop) {
             var certified = productInShop.instantiates.certified;
             return [
@@ -109,11 +110,26 @@ angular.module('jDashboardFluxApp').controller('RetailerProductStatisticsControl
                 Product.CERTIFICATION_STATUS_PUBLISHED.id
             ].indexOf(certified) !== -1;
         };
+        $scope.attribute = function(productInShop) {
+            var modalInstance = $modal.open({
+                templateUrl: '/src/retailer/statistics/attribution-modal.html',
+                controller: 'ProductAttributionModalController',
+                resolve: {
+                    productInShop: function () {return productInShop; },
+                    user: function () {return $scope.user; }
+                }
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+            }, function () {
+            });
+        };
 
         // ------------------------------------------------------------------------
         // Init
         // ------------------------------------------------------------------------
         permission.getUser().then(function(user){
+            $scope.user = user;
             var shopId = user.managesShop.map(function(shop){
                 return shop.id;
             })[0];
