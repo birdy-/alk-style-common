@@ -6,7 +6,6 @@
 angular.module('jDashboardFluxApp').controller('ProductAttributionModalController', [
     '$scope', '$modalInstance', '$$sdkCrud', '$window', 'productInShop', 'user',
     function ($scope, $modalInstance, $$sdkCrud, $window, productInShop, user) {
-        console.log(user);
         $scope.productInShop = productInShop;
         $scope.message = {
             from: user,
