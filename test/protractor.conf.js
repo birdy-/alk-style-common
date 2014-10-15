@@ -2,7 +2,8 @@ exports.config = {
   seleniumAddress: 'http://127.0.0.1:4444/wd/hub',
 
   suites: {
-    home: 'integration/home/*.scenario.js'
+    home: 'integration/home/*.scenario.js',
+    registration: 'integration/registration/*.scenario.js'
   },
 
   baseUrl: 'http://localhost.alkemics:9005',

@@ -2,11 +2,12 @@
 
 var HomePage = function() {
   this.get = function() {
-    browser.get('http://localhost.alkemics.com:9005');
+    browser.get(browser.params.website.url);
   };
 
+  /** Header **/
   this.getHeader = function() {
-    return element(by.css('.navbar.navbar-inverse'));
+    return element.all(by.css('.navbar.navbar-inverse')).first();
   };
 
   this.getHeaderTabs = function() {
@@ -21,6 +22,7 @@ var HomePage = function() {
     return element(by.css('.navbar.navbar-inverse .navbar-collapse .nav li:nth-child(2)'));
   };
 
+  /** Contact Modal **/
   this.getContactModal = function() {
     return element(by.css('.modal'));
   };
@@ -57,8 +59,14 @@ var HomePage = function() {
     return element(by.css('.modal .modal-footer .btn-success'));
   };
 
+  /** Page content **/
+  this.getRegistrationPageButton = function() {
+    return element.all(by.css('.sign-up-btn')).first();
+  };
+
+  /** Footer **/
   this.getFooter = function() {
-    return element(by.css('footer'));
+    return element.all(by.css('.navbar.navbar-inverse')).last();
   };
 };
 

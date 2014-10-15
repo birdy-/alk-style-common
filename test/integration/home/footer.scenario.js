@@ -2,13 +2,13 @@
 
 var HomePage = require('../pages/home.page.js');
 
-describe('[Home page]', function() {
+describe('[Home page] Footer', function() {
   var homePage = new HomePage();
 
-  it('should have the correct path', function() {
+  it('should be present', function() {
     homePage.get();
 
-    expect(browser.getCurrentUrl())
-      .toEqual('http://localhost.alkemics.com:9005/#/');
+    expect(homePage.getFooter().isPresent())
+    .toBe(true);
   });
 });

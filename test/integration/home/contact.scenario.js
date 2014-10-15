@@ -3,6 +3,7 @@
 var HomePage = require('../pages/home.page.js');
 
 describe('[Home page] Contact ', function() {
+  browser.driver.manage().window().maximize();
   var homePage = new HomePage();
 
   it('should have a button on header', function() {
