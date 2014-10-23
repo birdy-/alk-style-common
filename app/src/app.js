@@ -37,12 +37,12 @@ function($window) {
 
 var env = (window.location.hostname.indexOf('localhost') === 0) ? 'dev' : 'prod';
 // env = 'vagrant';
-// env = 'prod';
+env = 'prod';
 if (env === 'prod') {
     app.constant('API_URL', 'https://api.alkemics.com');
     app.constant('URL_SERVICE_AUTH', 'https://auth.alkemics.com');
     app.constant('URL_SERVICE_MEDIA', 'https://service-media.alkemics.com');
-    app.constant('URL_UI_BUTTON_PRODUCT', 'https://assets.toc.io/ui/button/product/v1/index.html');
+    app.constant('URL_UI_BUTTON_PRODUCT', 'https://sassets.toc.io/ui/button/product/v1/index.html');
     app.constant('URL_CDN_MEDIA', 'https://smedia.alkemics.com');
     angular.module('jDashboardFluxApp').constant('URL_SERVICE_MEDIA', 'https://service-media.alkemics.com');
 } else if (env === 'dev') {
@@ -245,7 +245,7 @@ app.config(function ($routeProvider) {
     // ------------------------------------------------------------------------------------------
     // Timeline views
     // ------------------------------------------------------------------------------------------
-    $routeProvider.when('/timeline', {
+    $routeProvider.when('/retailer', {
         templateUrl: 'src/retailer/notifications.html',
         controller: 'DashboardRetailerNotificationsController',
     });
@@ -253,10 +253,10 @@ app.config(function ($routeProvider) {
     // ------------------------------------------------------------------------------------------
     // Statistics views
     // ------------------------------------------------------------------------------------------
-    $routeProvider.when('/retailer', {
-        templateUrl: 'src/retailer/statistics/index.html',
-        controller: 'RetailerDataStatisticsController',
-    });
+    // $routeProvider.when('/retailer', {
+    //     templateUrl: 'src/retailer/statistics/index.html',
+    //     controller: 'RetailerDataStatisticsController',
+    // });
 
     $routeProvider.when('/retailer/products', {
         templateUrl: 'src/retailer/statistics/product.html',

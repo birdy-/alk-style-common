@@ -39,6 +39,7 @@ angular.module('jDashboardFluxApp').controller('RetailerDataStatisticsController
 
 
 angular.module('jDashboardFluxApp').controller('RetailerProductStatisticsController', [
+
     'permission', '$scope', '$$sdkCrud', '$modal', '$log',
     function (permission, $scope, $$sdkCrud, $modal, $log) {
 
@@ -119,6 +120,7 @@ angular.module('jDashboardFluxApp').controller('RetailerProductStatisticsControl
                     user: function () {return $scope.user; }
                 }
             });
+
 
             modalInstance.result.then(function (selectedItem) {
             }, function () {

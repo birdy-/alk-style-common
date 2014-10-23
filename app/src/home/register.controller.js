@@ -85,6 +85,10 @@ angular.module('jDashboardFluxApp').controller('RegisterController', [
             }
             $scope.user.company = $scope.company.name;
 
+            var recordUser = angular.copy($scope.user);
+            // Remove password from the info that is sent for 
+            // Mailinglist record
+            delete recordUser['password'];
             // Create record of the registration
             var record = {
                 origin: 0,   // Website Corporate Alkemics
@@ -94,7 +98,7 @@ angular.module('jDashboardFluxApp').controller('RegisterController', [
                 phonenumber: $scope.user.phonenumber,
                 subject: 'New account created',
                 message: angular.toJson({
-                    user: $scope.user,
+                    user: recordUser,
                     company: $scope.company,
                     data: $scope.data
                 }, true)

@@ -1,7 +1,7 @@
 <div ng-include="'/src/retailer/home/header.html'"></div>
 <div class="row">
     <div class="col-lg-offset-2 col-lg-8">
-        <h1>{{ shop.name }} - Flux produit</h1>
+        <h1>{{ shop.name }}</h1>
         <div class="col-lg-2">
             <img class="pull-right" ng-src="{{ shop.picture.logo }}" width="200px"/>
         </div>
@@ -34,7 +34,7 @@
                 {{ notification.certif }}
                 {{ notification.event.data.product.nameLegal }} 
                 <div class="tl-wide text-center" style="padding: 10px;margin-top:15px;margin-bottom: 15px;background: #f1f1f1">
-                  <img src="{{ notification.event.data.productinshop.url_picture }}" alt="" style="max-height: 150px;max-width: 100%;">
+                  <img ng-src="{{ notification.event.data.productinshop.url_picture }}" alt="" style="max-height: 150px;max-width: 100%;">
                 </div>
               </div>
 
