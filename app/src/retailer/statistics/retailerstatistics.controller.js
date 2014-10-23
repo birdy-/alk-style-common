@@ -40,8 +40,8 @@ angular.module('jDashboardFluxApp').controller('RetailerDataStatisticsController
 
 angular.module('jDashboardFluxApp').controller('RetailerProductStatisticsController', [
 
-    'permission', '$scope', '$$sdkCrud', '$modal', '$log',
-    function (permission, $scope, $$sdkCrud, $modal, $log) {
+    'permission', '$scope', '$$sdkCrud', '$modal', '$log', '$filter',
+    function (permission, $scope, $$sdkCrud, $modal, $log, $filter) {
 
 
         // ------------------------------------------------------------------------
@@ -64,6 +64,9 @@ angular.module('jDashboardFluxApp').controller('RetailerProductStatisticsControl
             offset: 0,
             limit: 20
         };
+
+        $scope.productInShops = [];
+
 
         // ------------------------------------------------------------------------
         // Event handling
@@ -111,12 +114,32 @@ angular.module('jDashboardFluxApp').controller('RetailerProductStatisticsControl
                 Product.CERTIFICATION_STATUS_PUBLISHED.id
             ].indexOf(certified) !== -1;
         };
-        $scope.attribute = function(productInShop) {
+
+        $scope.attribute = function(productInShop, productInShops) {
+
+            // Variable that will be passed along
+            var productToAttribute;
+            // Detect if several products are selected
+            var multiple = false;            
+
+            var selectedProductInShops = [];
+            // @TODO - Use a filter for that
+            for (var i = 0; i < productInShops.length; i++) {
+                if (productInShops[i].selected) {
+                    selectedProductInShops.push(productInShops[i]);
+                }
+            }
+            if (selectedProductInShops.length > 0) {
+                productToAttribute = selectedProductInShops;
+            } else {
+                productToAttribute = [productInShop];
+            }
+
             var modalInstance = $modal.open({
                 templateUrl: '/src/retailer/statistics/attribution-modal.html',
                 controller: 'ProductAttributionModalController',
                 resolve: {
-                    productInShop: function () {return productInShop; },
+                    productInShops: function () {return productToAttribute; },
                     user: function () {return $scope.user; }
                 }
             });
