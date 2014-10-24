@@ -260,7 +260,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
 
     var hydrateProduct = function (data) {
         var product = new Product().fromJson(data);
-        product.urlPictureOriginal = URL_CDN_MEDIA + '/product/' + product.id + '/picture/packshot/original.png?' + Math.random() * 100000000;    
+        product.urlPictureOriginal = URL_CDN_MEDIA + '/product/' + product.id + '/picture/packshot/256x256.png?' + Math.random() * 100000000;    
         $log.log(product);
         return product;
     };

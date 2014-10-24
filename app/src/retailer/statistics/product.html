@@ -76,6 +76,7 @@
                             <th>EAN</th>
                             <th>Image</th>
                             <th>Nom</th>
+                            <th>Sélectionner</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -85,8 +86,9 @@
                             <td>{{ productInShop.ean }}</td>
                             <td><img height="60" width="60" ng-src="{{ productInShop.picture.main }}"></td>
                             <td>{{ productInShop.name }}</td>
+                            <td><input type="checkbox" ng-model="productInShop.selected" ng-if="!isAttributed(productInShop)"></td>
                             <td>
-                                <a class="btn btn-warning" ng-if="!isAttributed(productInShop)" ng-click="attribute(productInShop)">
+                                <a class="btn btn-warning" ng-if="!isAttributed(productInShop)" ng-click="attribute(productInShop, productInShops)">
                                     <i class="fa fa-envelope"></i> Attribuer
                                 </a>
                             </td>
