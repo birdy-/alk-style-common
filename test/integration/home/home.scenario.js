@@ -9,6 +9,6 @@ describe('[Home page]', function() {
     homePage.get();
 
     expect(browser.getCurrentUrl())
-      .toEqual('http://localhost.alkemics.com:9005/#/');
+      .toEqual(browser.params.website.url);
   });
 });

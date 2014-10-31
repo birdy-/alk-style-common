@@ -3,10 +3,11 @@ exports.config = {
 
   suites: {
     home: 'integration/home/*.scenario.js',
-    registration: 'integration/registration/*.scenario.js'
+    registration: 'integration/registration/*.scenario.js',
+    login: 'integration/login/*.scenario.js'
   },
 
-  baseUrl: 'http://localhost.alkemics:9005',
+  baseUrl: 'http://localhost.alkemics:9005/#/',
 
   capabilities: {
     'browserName': 'chrome'
@@ -14,7 +15,11 @@ exports.config = {
 
   params: {
     website: {
-      url: 'http://localhost.alkemics.com:9005'
+      url: 'http://localhost.alkemics.com:9005/#/'
+    },
+    user: {
+      username: 'XXXXXXXXXXX',
+      password: 'XXXXXXXXXXX'
     }
   }
 };

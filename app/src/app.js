@@ -36,7 +36,7 @@ function($window) {
 
 
 var env = (window.location.hostname.indexOf('localhost') === 0) ? 'dev' : 'prod';
-// env = 'vagrant';
+env = 'vagrant';
 // env = 'prod';
 if (env === 'prod') {
     app.constant('API_URL', 'https://api.alkemics.com');

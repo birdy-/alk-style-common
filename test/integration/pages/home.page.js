@@ -64,6 +64,10 @@ var HomePage = function() {
     return element.all(by.css('.sign-up-btn')).first();
   };
 
+  this.getLoginPageButton = function() {
+    return element(by.css('.ptor-signin'));
+  };
+
   /** Footer **/
   this.getFooter = function() {
     return element.all(by.css('.navbar.navbar-inverse')).last();
