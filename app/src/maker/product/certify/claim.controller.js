@@ -50,7 +50,7 @@ angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
      * Performs a set of tests against the claim request.
      */
     var checkClaim = function(response) {
-        // If the GTIN is incoherent (too few digits, incoherent verfication difit)
+        // If the GTIN is incoherent (too few digits, incoherent verification digit)
         if (false /* @todo */) {
             $log.error('Bad reference.');
             $scope.errors.badReference = true;

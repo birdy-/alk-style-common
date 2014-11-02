@@ -32,7 +32,6 @@ angular.module('jDashboardFluxApp').controller('LoginController', [
             });
         }, function(response, status, headers, config){
             // Login failure : bad password, bad login...
-            console.log(response);
             $scope.message = response.data.message
                           || response.data.error_description
                           || "Erreur lors de l'authentification.";
