@@ -39,10 +39,8 @@ angular.module('jDashboardFluxApp').controller('RetailerDataStatisticsController
 
 
 angular.module('jDashboardFluxApp').controller('RetailerProductStatisticsController', [
-
     'permission', '$scope', '$$sdkCrud', '$modal', '$log', '$filter',
     function (permission, $scope, $$sdkCrud, $modal, $log, $filter) {
-
 
         // ------------------------------------------------------------------------
         // Variables
@@ -74,7 +72,7 @@ angular.module('jDashboardFluxApp').controller('RetailerProductStatisticsControl
         var get = function (shopId) {
             return $$sdkCrud['StatisticsShow'](['productinshop', 'product', 'productbrand'], shopId).then(function(response) {
                 var productInShopStats = response.data.data.filter(function(stat){
-                    return stat.type == 'ProductInShop';
+                    return stat.type === 'ProductInShop';
                 })[0].stats;
                 $scope.stats = {
                     total: productInShopStats[0].value,
@@ -119,8 +117,6 @@ angular.module('jDashboardFluxApp').controller('RetailerProductStatisticsControl
 
             // Variable that will be passed along
             var productToAttribute;
-            // Detect if several products are selected
-            var multiple = false;            
 
             var selectedProductInShops = [];
             // @TODO - Use a filter for that
@@ -143,7 +139,6 @@ angular.module('jDashboardFluxApp').controller('RetailerProductStatisticsControl
                     user: function () {return $scope.user; }
                 }
             });
-
 
             modalInstance.result.then(function (selectedItem) {
             }, function () {

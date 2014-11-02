@@ -4,8 +4,8 @@
  * Modal that allows the user to accept the responsability for a given productInShop.
  */
 angular.module('jDashboardFluxApp').controller('ProductAttributionModalController', [
-    '$scope', '$log', '$modalInstance', '$$sdkCrud', '$window', 'productInShops', 'user', '$$sdkMailer',
-    function ($scope, $log, $modalInstance, $$sdkCrud, $window, productInShops, user, $$sdkMailer) {
+    '$scope', '$log', '$modalInstance', '$window', 'productInShops', 'user', '$$sdkMailer',
+    function ($scope, $log, $modalInstance, $window, productInShops, user, $$sdkMailer) {
 
         $scope.productInShops = productInShops;
         $scope.message = {
@@ -20,15 +20,15 @@ angular.module('jDashboardFluxApp').controller('ProductAttributionModalControlle
         };
         $scope.ok = function () {
             // @todo :
-            
+
             $$sdkMailer.RetailerProductDataCompletionInvitationPost($scope.message).success(function (response) {
                 $log.info(response);
-                alert('Le message a bien été envoyé.');
+                $window.alert('Le message a bien été envoyé.');
                 $modalInstance.close();
             }).error(function(){
-                alert('Une erreur est survenue pendant l\'envoi de l\'email. Merci de réessayer ultérieurement ou de contacter notre support.');
+                $window.alert('Une erreur est survenue pendant l\'envoi de l\'email. Merci de réessayer ultérieurement ou de contacter notre support.');
             });
-            
+
         };
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel');

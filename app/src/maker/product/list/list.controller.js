@@ -192,7 +192,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         refresh();
     };
     $scope.show = function(product) {
-        $location.path('/maker/product/' + product.isIdentifiedBy[0].reference + '/data/general');        
+        $location.path('/maker/product/' + product.isIdentifiedBy[0].reference + '/data/general');
     };
 
     $scope.$watch('request.product.isIdentifiedBy.reference', refresh);
@@ -260,7 +260,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
 
     var hydrateProduct = function (data) {
         var product = new Product().fromJson(data);
-        product.urlPictureOriginal = URL_CDN_MEDIA + '/product/' + product.id + '/picture/packshot/256x256.png?' + Math.random() * 100000000;    
+        product.urlPictureOriginal = URL_CDN_MEDIA + '/product/' + product.id + '/picture/packshot/256x256.png?' + Math.random() * 100000000;
         $log.log(product);
         return product;
     };

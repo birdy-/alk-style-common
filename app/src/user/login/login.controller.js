@@ -13,12 +13,7 @@ angular.module('jDashboardFluxApp').controller('LoginController', [
     $scope.password = null;
     $scope.message = null;
 
-    /**
-     * Function called when user validates credentials
-     *
-     */
     $scope.submit = function() {
-
         permission.login($scope.login, $scope.password)
         .error(function(response, status, headers, config){
             $scope.message = response.message || response.error_description || "Erreur lors de l'authentification.";
@@ -41,24 +36,28 @@ angular.module('jDashboardFluxApp').controller('PreHomeController', [
     $scope.nodashboard = true;
 
     permission.getUser().then(function(user){
-            $scope.shop_ids = user.managesShop.map(function(shop){
-                $scope.nodashboard = false;
-                return shop.id;
-            });
-            $scope.brand_ids = user.managesBrand.map(function(brand){
-                $scope.nodashboard = false;
-                return brand.id;
-            });
-            if ($scope.shop_ids.length > 0)
-                $scope.dashboardRetailer = true;
-            if ($scope.brand_ids.length > 0)
-                $scope.dashboardProduct = true;
-            if ($scope.dashboardProduct == false &&
-                $scope.dashboardRetailer == true)
-                 $location.path('/retailer');
-            else if ($scope.dashboardProduct == true &&
-                $scope.dashboardRetailer == false)
-                 $location.path('/maker/brand/all/product');
+        $scope.shop_ids = user.managesShop.map(function(shop){
+            $scope.nodashboard = false;
+            return shop.id;
+        });
+        $scope.brand_ids = user.managesBrand.map(function(brand){
+            $scope.nodashboard = false;
+            return brand.id;
+        });
+        if ($scope.shop_ids.length > 0) {
+            $scope.dashboardRetailer = true;
+        }
+        if ($scope.brand_ids.length > 0) {
+            $scope.dashboardProduct = true;
+        }
+        if ($scope.dashboardProduct === false &&
+            $scope.dashboardRetailer === true) {
+             $location.path('/retailer');
+        }
+        else if ($scope.dashboardProduct === true &&
+            $scope.dashboardRetailer === false) {
+             $location.path('/maker/brand/all/product');
+        }
     });
 
 }]);

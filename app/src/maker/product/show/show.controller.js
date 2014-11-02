@@ -146,7 +146,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowControl
             .success(function (response){
             var productId = response.data[0].identifies.id;
             loadProduct(productId);
-        })        
+        });
     };
     $scope.load = loadProduct;
     init();

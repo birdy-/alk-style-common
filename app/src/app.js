@@ -21,23 +21,21 @@ var app = angular.module('jDashboardFluxApp', [
 app.constant('version', '0.2');
 
 app.factory('jquery', [
-'$window',
-function($window) {
-  return $window.jQuery;
-}
+    '$window',
+    function($window) {
+      return $window.jQuery;
+    }
 ]);
 
 app.factory('plupload', [
-'$window',
-function($window) {
-  return $window.plupload;
-}
+    '$window',
+    function($window) {
+      return $window.plupload;
+    }
 ]);
 
 
 var env = (window.location.hostname.indexOf('localhost') === 0) ? 'dev' : 'prod';
-// env = 'vagrant';
-env = 'prod';
 if (env === 'prod') {
     app.constant('API_URL', 'https://api.alkemics.com');
     app.constant('URL_SERVICE_AUTH', 'https://auth.alkemics.com');
@@ -66,6 +64,13 @@ if (env === 'prod') {
         $logProvider.debugEnabled(true);
     });
 }
+
+
+
+
+// ==========================================================================================
+//                                          ROUTING
+// ==========================================================================================
 
 app.config(function ($routeProvider) {
 
@@ -247,7 +252,7 @@ app.config(function ($routeProvider) {
     // ------------------------------------------------------------------------------------------
     $routeProvider.when('/retailer', {
         templateUrl: 'src/retailer/notifications.html',
-        controller: 'DashboardRetailerNotificationsController',
+        controller: 'DashboardRetailerNotificationsController'
     });
 
     // ------------------------------------------------------------------------------------------
@@ -260,7 +265,7 @@ app.config(function ($routeProvider) {
 
     $routeProvider.when('/retailer/products', {
         templateUrl: 'src/retailer/statistics/product.html',
-        controller: 'RetailerProductStatisticsController',
+        controller: 'RetailerProductStatisticsController'
     });
 
     // ------------------------------------------------------------------------------------------
