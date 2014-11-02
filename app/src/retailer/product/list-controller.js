@@ -1,46 +1,8 @@
 'use strict';
 
-/**
- * [description]
- * @param  {[type]} $scope        [description]
- * @param  {[type]} $$sdkCrud     [description]
- * @param  {[type]} $routeParams  [description]
- * @return {[type]}               [description]
- */
-angular.module('jDashboardFluxApp').controller('RetailerDataStatisticsController', [
-    'permission', '$scope', '$$sdkCrud', '$log',
-    function (permission, $scope, $$sdkCrud, $log) {
-
-        // ------------------------------------------------------------------------
-        // Variables
-        // ------------------------------------------------------------------------
-
-        // ------------------------------------------------------------------------
-        // Event handling
-        // ------------------------------------------------------------------------
-        var get = function (shopId) {
-            return $$sdkCrud['StatisticsShow'](['productinshop', 'product', 'productbrand'], shopId).then(function(response) {
-                $scope.stats = response.data;
-            });
-        };
-
-        // ------------------------------------------------------------------------
-        // Init
-        // ------------------------------------------------------------------------
-        permission.getUser().then(function(user){
-            var shopIds = user.managesShop.map(function(shop){
-                return shop.id;
-            });
-            get(shopIds[0]);
-        });
-    }
-]);
-
-
-
-angular.module('jDashboardFluxApp').controller('RetailerProductStatisticsController', [
-    'permission', '$scope', '$$sdkCrud', '$modal', '$log', '$filter',
-    function (permission, $scope, $$sdkCrud, $modal, $log, $filter) {
+angular.module('jDashboardFluxApp').controller('RetailerProductListController', [
+    'permission', '$scope', '$$sdkCrud', '$modal', '$log',
+    function (permission, $scope, $$sdkCrud, $modal, $log) {
 
         // ------------------------------------------------------------------------
         // Variables
@@ -70,7 +32,7 @@ angular.module('jDashboardFluxApp').controller('RetailerProductStatisticsControl
         // Event handling
         // ------------------------------------------------------------------------
         var get = function (shopId) {
-            return $$sdkCrud['StatisticsShow'](['productinshop', 'product', 'productbrand'], shopId).then(function(response) {
+            return $$sdkCrud.StatisticsShow(['productinshop', 'product', 'productbrand'], shopId).then(function(response) {
                 var productInShopStats = response.data.data.filter(function(stat){
                     return stat.type === 'ProductInShop';
                 })[0].stats;
@@ -104,38 +66,29 @@ angular.module('jDashboardFluxApp').controller('RetailerProductStatisticsControl
         };
 
         $scope.isAttributed = function(productInShop) {
-            var certified = productInShop.instantiates.certified;
             return [
                 Product.CERTIFICATION_STATUS_ATTRIBUTED.id,
                 Product.CERTIFICATION_STATUS_ACCEPTED.id,
                 Product.CERTIFICATION_STATUS_CERTIFIED.id,
                 Product.CERTIFICATION_STATUS_PUBLISHED.id
-            ].indexOf(certified) !== -1;
+            ].indexOf(productInShop.instantiates.certified) !== -1;
         };
 
-        $scope.attribute = function(productInShop, productInShops) {
+        $scope.attribute = function(productInShop) {
 
-            // Variable that will be passed along
-            var productToAttribute;
-
-            var selectedProductInShops = [];
-            // @TODO - Use a filter for that
-            for (var i = 0; i < productInShops.length; i++) {
-                if (productInShops[i].selected) {
-                    selectedProductInShops.push(productInShops[i]);
-                }
-            }
-            if (selectedProductInShops.length > 0) {
-                productToAttribute = selectedProductInShops;
-            } else {
-                productToAttribute = [productInShop];
+            // Check if we have selected multiple Products
+            var selectedProductInShops = $scope.productInShops.filter(function (productInShop) {
+                return productInShop.selected;
+            });
+            if (selectedProductInShops.length === 0) {
+                selectedProductInShops = [productInShop];
             }
 
             var modalInstance = $modal.open({
                 templateUrl: '/src/retailer/statistics/attribution-modal.html',
                 controller: 'ProductAttributionModalController',
                 resolve: {
-                    productInShops: function () {return productToAttribute; },
+                    productInShops: function () { return selectedProductInShops; },
                     user: function () {return $scope.user; }
                 }
             });

@@ -202,8 +202,8 @@ app.config(function ($routeProvider) {
     });
 
     $routeProvider.when('/retailer/products', {
-        templateUrl: 'src/retailer/statistics/product.html',
-        controller: 'RetailerProductStatisticsController'
+        templateUrl: 'src/retailer/product/list.html',
+        controller: 'RetailerProductListController'
     });
 
 
