@@ -14,50 +14,28 @@ angular.module('jDashboardFluxApp').controller('LoginController', [
     $scope.message = null;
 
     $scope.submit = function() {
-        permission.login($scope.login, $scope.password)
-        .error(function(response, status, headers, config){
-            $scope.message = response.message || response.error_description || "Erreur lors de l'authentification.";
-        })
-        .success(function(response){
-            $location.path('/prehome');
+        permission.login(
+            $scope.login,
+            $scope.password
+        ).then(function(response){
+            // Choose which view to redirect to depending on user
+            permission.getUser().then(function(user){
+                // We first check whether I have multiple shops in case :
+                // - I am a Shop owner but I have also retailer Brands
+                if (user.managesShop.length > 0) {
+                    $location.path('/retailer/activity');
+                    return;
+                }
+                // The default behaviour is showing the brand view for multiple cases :
+                // - I just registered and I have no Brands nor Shops
+                $location.path('/maker/activity');
+            });
+        }, function(response, status, headers, config){
+            // Login failure : bad password, bad login...
+            console.log(response);
+            $scope.message = response.data.message
+                          || response.data.error_description
+                          || "Erreur lors de l'authentification.";
         });
     };
-
-}]);
-
-angular.module('jDashboardFluxApp').controller('PreHomeController', [
-    '$scope', 'permission', '$location',
-    function ($scope, permission, $location) {
-    $scope.shop_ids = [];
-    $scope.brand_ids = [];
-
-    $scope.dashboardRetailer = false;
-    $scope.dashboardProduct = false;
-    $scope.nodashboard = true;
-
-    permission.getUser().then(function(user){
-        $scope.shop_ids = user.managesShop.map(function(shop){
-            $scope.nodashboard = false;
-            return shop.id;
-        });
-        $scope.brand_ids = user.managesBrand.map(function(brand){
-            $scope.nodashboard = false;
-            return brand.id;
-        });
-        if ($scope.shop_ids.length > 0) {
-            $scope.dashboardRetailer = true;
-        }
-        if ($scope.brand_ids.length > 0) {
-            $scope.dashboardProduct = true;
-        }
-        if ($scope.dashboardProduct === false &&
-            $scope.dashboardRetailer === true) {
-             $location.path('/retailer');
-        }
-        else if ($scope.dashboardProduct === true &&
-            $scope.dashboardRetailer === false) {
-             $location.path('/maker/brand/all/product');
-        }
-    });
-
 }]);

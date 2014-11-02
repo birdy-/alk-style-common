@@ -186,10 +186,9 @@ app.config(function ($routeProvider) {
         controller: 'DashboardMakerBrandListController'
     });
 
-    $routeProvider.when('/getstarted', {
-        templateUrl: 'src/home/maker/getstarted/index.html',
-        controller: 'DashboardMakerGetStartedController'
-    });
+    // ------------------------------------------------------------------------------------------
+    // Retailer views
+    // ------------------------------------------------------------------------------------------
 
     // Notification views
     $routeProvider.when('/maker/notifications', {
@@ -241,11 +240,6 @@ app.config(function ($routeProvider) {
         isPublic: true
     });
 
-    $routeProvider.when('/prehome', {
-        templateUrl: 'src/user/login/prehome.html',
-        controller: 'PreHomeController',
-        isPublic: true
-    });
 
     // ------------------------------------------------------------------------------------------
     // Timeline views
