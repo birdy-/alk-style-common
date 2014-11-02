@@ -1,0 +1,14 @@
+<li ng-class="{'active': status == 'inprogress'}" class="step">
+    <a>
+        <span ng-if="status == 'todo'">
+            <i class="fa fa-circle-o"></i>
+        </span>
+        <span ng-if="status == 'inprogress'">
+            <i class="fa fa-circle"></i>
+        </span>
+        <span ng-if="status == 'done'">
+            <i class="fa fa-check-circle"></i>
+        </span>
+        <span ng-transclude></span>
+    </a>
+</li>
