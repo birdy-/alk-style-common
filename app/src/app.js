@@ -48,7 +48,8 @@ if (env === 'prod') {
     app.constant('URL_SERVICE_AUTH', 'http://localhost.alkemics.com:6545');
     app.constant('URL_SERVICE_MEDIA', 'http://localhost.alkemics.com:6551');
     // app.constant('URL_UI_BUTTON_PRODUCT', 'http://localhost.alkemics.com:9010/');
-    app.constant('URL_UI_BUTTON_PRODUCT', 'http://assets.toc.io/ui/button/product/v1/index.html');
+    // app.constant('URL_CDN_MEDIA', 'https://smedia.alkemics.com');
+    // app.constant('URL_UI_BUTTON_PRODUCT', 'http://assets.toc.io/ui/button/product/v1/index.html');
     app.constant('URL_CDN_MEDIA', 'https://s3-eu-west-1.amazonaws.com/pprd.media.alkemics.com');
     app.constant('URL_UI_BUTTON_PRODUCT', 'http://localhost.alkemics.com:9010/');
     app.config(function($logProvider){
@@ -276,6 +277,14 @@ app.config(function ($routeProvider) {
         redirectTo: '/'
     });
 
+});
+
+
+// Ajax Caching: IE caches the XHR requests. In order to avoid this, we set an HTTP response header to mimic default behaviors of moderns browsers.
+// http://ng-learn.org/2013/12/Dealing-with-IE-family/
+// https://www.ng-book.com/p/AngularJS-and-Internet-Explorer/
+app.config(function($httpProvider) {
+    $httpProvider.defaults.headers.common['Cache-Control'] = 'no-cache';
 });
 
 
