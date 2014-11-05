@@ -17,6 +17,11 @@ angular.module('jDashboardFluxApp').controller('BrandClaimModalController', [
     $scope.request = {};
     $scope.select2BrandOptions = $$autocomplete.getOptions('brand', {multiple: false});
 
+    var claimRequestType = {
+        createBrand: '0',
+        manageBrand: '1'
+    }
+
     // ------------------------------------------------------------------------
     // Event binding
     // ------------------------------------------------------------------------
@@ -41,11 +46,11 @@ angular.module('jDashboardFluxApp').controller('BrandClaimModalController', [
     };
 
     $scope.sendRequestBrand = function() {
-        $$sdkAuth.UserClaimProductBrandCreate($scope.request.selectedBrand.name, '1', $scope.request.selectedBrand.id).then(function () {$scope.errors.ok = false});
+        $$sdkAuth.UserClaimProductBrandCreate($scope.request.selectedBrand.name, claimRequestType.manageBrand, $scope.request.selectedBrand.id).then(function () {$scope.errors.ok = false});
     };
 
     $scope.sendRequestNewBrand = function() {
-        $$sdkAuth.UserClaimProductBrandCreate($scope.request.createdBrand, '0', 1).then(function () {$scope.errors.ok = false});
+        $$sdkAuth.UserClaimProductBrandCreate($scope.request.createdBrand, claimRequestType.createBrand, 1).then(function () {$scope.errors.ok = false});
     };
 
     // ------------------------------------------------------------------------

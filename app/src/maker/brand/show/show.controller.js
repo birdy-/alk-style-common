@@ -10,8 +10,8 @@
  * @return {[type]}              [description]
  */
 angular.module('jDashboardFluxApp').controller('DashboardMakerBrandShowController', [
-    '$scope', '$$sdkCrud', '$routeParams', 'permission', '$location', '$modal', '$window', '$log', '$$sdkAuth',
-    function ($scope, $$sdkCrud, $routeParams, permission, $location, $modal, $window, $log, $$sdkAuth) {
+    '$scope', '$$sdkCrud', '$routeParams', 'permission', '$location', '$modal', '$window', '$log',
+    function ($scope, $$sdkCrud, $routeParams, permission, $location, $modal, $window, $log) {
 
     // ------------------------------------------------------------------------
     // Variables

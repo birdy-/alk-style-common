@@ -29,8 +29,8 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerBrandListControlle
 
     $scope.listProductBrandClaims = function() {
         $$sdkAuth.UserClaimProductBrandList().then(
-            function (data) {
-                $scope.claims = data.data.data;
+            function (response) {
+                $scope.claims = response.data.data;
             }
         );
     }

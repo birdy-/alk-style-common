@@ -45,7 +45,7 @@ angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
      */
     var checkClaim = function(response) {
         // If the GTIN is incoherent (too few digits, incoherent verification digit)
-        if (response.data.message && response.data.message.indexOf("is not valid") > 1 /* @todo */) {
+        if (response.data.message && response.data.message.indexOf("is not valid") !== -1) {
             $log.error('Bad reference.');
             $scope.errors.badReference = true;
             $scope.errors.ok = false;
@@ -105,8 +105,8 @@ angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
     // ------------------------------------------------------------------------
     // Event binding
     // ------------------------------------------------------------------------
-    $scope.sendClaim = function() {
-        var brand_id = ($scope.brand) ? $scope.brand.id : $scope.product.isBrandedBy.id;
+    var sendClaim = function() {
+        var brand_id = $scope.brand ? $scope.brand.id : $scope.product.isBrandedBy.id;
         $$sdkAuth.UserClaimProductReferenceCreate($scope.product.nameLegal, 
             $scope.productReference.reference, 
             brand_id).then(function (response) {
@@ -130,7 +130,7 @@ angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
      * Called when the Product is new and is created
      */
     $scope.create = function() {
-        $scope.sendClaim();
+        sendClaim();
     };
     /**
      * Called when everything went OK
