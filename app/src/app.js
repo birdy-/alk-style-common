@@ -21,23 +21,21 @@ var app = angular.module('jDashboardFluxApp', [
 app.constant('version', '0.2');
 
 app.factory('jquery', [
-'$window',
-function($window) {
-  return $window.jQuery;
-}
+    '$window',
+    function($window) {
+      return $window.jQuery;
+    }
 ]);
 
 app.factory('plupload', [
-'$window',
-function($window) {
-  return $window.plupload;
-}
+    '$window',
+    function($window) {
+      return $window.plupload;
+    }
 ]);
 
 
 var env = (window.location.hostname.indexOf('localhost') === 0) ? 'dev' : 'prod';
-// env = 'vagrant';
-env = 'prod';
 if (env === 'prod') {
     app.constant('API_URL', 'https://api.alkemics.com');
     app.constant('URL_SERVICE_AUTH', 'https://auth.alkemics.com');
@@ -67,11 +65,24 @@ if (env === 'prod') {
     });
 }
 
+
+
+
+// ==========================================================================================
+//                                          ROUTING
+// ==========================================================================================
+
 app.config(function ($routeProvider) {
 
     // ------------------------------------------------------------------------------------------
     // Maker views
     // ------------------------------------------------------------------------------------------
+
+    // Notification views
+    $routeProvider.when('/maker/activity', {
+        templateUrl: 'src/maker/notification/list/list.html',
+        controller: 'DashboardMakerNotificationsController'
+    });
 
     // Product views
     $routeProvider.when('/maker/brand/all/product', {
@@ -181,21 +192,20 @@ app.config(function ($routeProvider) {
         controller: 'DashboardMakerBrandListController'
     });
 
-    $routeProvider.when('/getstarted', {
-        templateUrl: 'src/home/maker/getstarted/index.html',
-        controller: 'DashboardMakerGetStartedController'
+    // ------------------------------------------------------------------------------------------
+    // Retailer views
+    // ------------------------------------------------------------------------------------------
+
+    $routeProvider.when('/retailer/activity', {
+        templateUrl: 'src/retailer/notification/list.html',
+        controller: 'DashboardRetailerNotificationListController'
     });
 
-    // Notification views
-    $routeProvider.when('/maker/notifications', {
-        templateUrl: 'src/maker/notification/list/list.html',
-        controller: 'DashboardMakerNotificationsController'
+    $routeProvider.when('/retailer/products', {
+        templateUrl: 'src/retailer/product/list.html',
+        controller: 'RetailerProductListController'
     });
-    // Home views
-    $routeProvider.when('/maker/home', {
-        templateUrl: 'src/maker/notification/list/list.html',
-        controller: 'DashboardMakerNotificationsController'
-    });
+
 
     // ------------------------------------------------------------------------------------------
     // Security views
@@ -234,33 +244,6 @@ app.config(function ($routeProvider) {
         templateUrl: 'src/user/account/password_reset.html',
         controller: 'PasswordResetController',
         isPublic: true
-    });
-
-    $routeProvider.when('/prehome', {
-        templateUrl: 'src/user/login/prehome.html',
-        controller: 'PreHomeController',
-        isPublic: true
-    });
-
-    // ------------------------------------------------------------------------------------------
-    // Timeline views
-    // ------------------------------------------------------------------------------------------
-    $routeProvider.when('/retailer', {
-        templateUrl: 'src/retailer/notifications.html',
-        controller: 'DashboardRetailerNotificationsController',
-    });
-
-    // ------------------------------------------------------------------------------------------
-    // Statistics views
-    // ------------------------------------------------------------------------------------------
-    // $routeProvider.when('/retailer', {
-    //     templateUrl: 'src/retailer/statistics/index.html',
-    //     controller: 'RetailerDataStatisticsController',
-    // });
-
-    $routeProvider.when('/retailer/products', {
-        templateUrl: 'src/retailer/statistics/product.html',
-        controller: 'RetailerProductStatisticsController',
     });
 
     // ------------------------------------------------------------------------------------------

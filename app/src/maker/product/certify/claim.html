@@ -4,22 +4,49 @@
     </h3>
 </div>
 <div class="modal-body">
-    <form class="form-horizontal" role="form">
-        <div class="row" ng-init="formInit(brandForm)">
-            Je souhaite créer un produit :
-            <div class="form-group">
-                <label for="name" class="col-sm-2 control-label">EAN</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" name="name" ng-model="productReference.reference" placeholder="le code EAN 13 du produit" required/>
+    <form role="form" name="claimForm">
+        <div class="form-group">
+            <label for="name">EAN</label>
+            <div class="input-group">
+                <input type="text" class="form-control" name="name" ng-model="productReference.reference" placeholder="ex: 3760019702101" required/>
+                <div class="input-group-addon" ng-click="search()">
+                    <i class="fa fa-search"></i>
                 </div>
+            </div>
+        </div>
+        <div>
+            <div ng-if="errors.badReference" class="alert alert-danger">
+                L'EAN demandée n'est pas valide.
+            </div>
+            <div ng-if="errors.alreadyClaimed" class="alert alert-danger">
+                Une personne a déjà réclamé ce produit. Merci de contacter notre <a href="mailto:support@alkemics.com">support</a> pour clarifier votre demande.
+            </div>
+            <div ng-if="errors.coherency" class="alert alert-warning">
+                Notre support examine votre demande et reviendra vers vous sous peu.
+            </div>
+            <div ng-if="errors.confirmBrand" class="alert alert-warning">
+                Notre support examine votre demande et reviendra vers vous sous peu.
+            </div>
+            <div ng-if="errors.unknown">
+                <div class="form-group">
+                    <label for="nameLegal">Dénomination légale du produit</label>
+                    <input type="text" class="form-control" name="nameLegal" ng-model="product.nameLegal" placeholder="ex: Sauce" required/>
+                </div>
+                <div class="form-group">
+                    <label for="isBrandedBy">Marque commerciale du produit</label>
+                    <div select-my-brands ng-model="product.isBrandedBy"></div>
+                </div>
+            </div>
+            <div ng-if="errors.ok">
+                S'agit-il bien de : "{{ product.nameLegal }}" ?
             </div>
         </div>
     </form>
 </div>
 <div class="modal-footer">
-    <form class="form-inline" role="form">
-        <div class="form-group">
-            <button class="btn btn-success" ng-click="ok()"><i class="fa fa-certificate"></i> Créer le produit</button>
-        </div>
-    </form>
+    <div class="text-right">
+        <span class="btn btn-success" ng-if="errors.unknown === true" ng-click="create()"><i class="fa fa-plus"></i> Créer ce produit</span>
+        <span class="btn btn-success" ng-if="errors.ok === true" ng-click="fill()"><i class="fa fa-check"></i> Remplir ce produit</span>
+        <span class="btn btn-warning" ng-if="errors.ok === false" ng-click="cancel()"><i class="fa fa-check"></i> OK</span>
+    </div>
 </div>
