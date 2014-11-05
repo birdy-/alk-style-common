@@ -4,8 +4,8 @@
  * Modal that allows the user to certify a given product.
  */
 angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
-    '$scope', '$modalInstance', '$$sdkCrud', '$window', '$log', 'permission',
-    function ($scope, $modalInstance, $$sdkCrud, $window, $log, permission) {
+    '$scope', '$modalInstance', '$$sdkCrud', '$window', '$log', 'permission', '$routeParams', '$$sdkAuth',
+    function ($scope, $modalInstance, $$sdkCrud, $window, $log, permission, $routeParams, $$sdkAuth) {
 
     // ------------------------------------------------------------------------
     // Variables
@@ -26,12 +26,6 @@ angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
     // ------------------------------------------------------------------------
     // Logic
     // ------------------------------------------------------------------------
-    var sendClaim = function() {
-        // @todo : plug here the claim system
-        // @todo : make sure to connect the Product to the ProductSegment that
-        // authorizes the Organization to access this Product
-        $$sdkCrud.ProductClaim($scope.product);
-    };
 
     /**
      * Verifies whether I have rights over the given brand
@@ -51,7 +45,7 @@ angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
      */
     var checkClaim = function(response) {
         // If the GTIN is incoherent (too few digits, incoherent verification digit)
-        if (false /* @todo */) {
+        if (response.data.message && response.data.message.indexOf("is not valid") > 1 /* @todo */) {
             $log.error('Bad reference.');
             $scope.errors.badReference = true;
             $scope.errors.ok = false;
@@ -96,7 +90,7 @@ angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
                 $log.warn('Brand coherency.');
                 $scope.errors.confirmBrand = true;
                 $scope.errors.ok = false;
-                sendClaim();
+                $scope.sendClaim();
                 return;
             }
             // Else everything is fine
@@ -111,6 +105,17 @@ angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
     // ------------------------------------------------------------------------
     // Event binding
     // ------------------------------------------------------------------------
+    $scope.sendClaim = function() {
+        var brand_id = ($scope.brand) ? $scope.brand.id : $scope.product.isBrandedBy.id;
+        $$sdkAuth.UserClaimProductReferenceCreate($scope.product.nameLegal, 
+            $scope.productReference.reference, 
+            brand_id).then(function (response) {
+                $scope.errors.noError = ($scope.errors.confirmBrand == true) ? false : true;
+                $scope.errors.unknown = false;
+                $scope.errors.ok = false;
+            }, checkClaim);
+    };
+
     $scope.search = function() {
         // @todo : adapt with Claim call
         $$sdkCrud.ProductReferenceList({}, {
@@ -125,16 +130,7 @@ angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
      * Called when the Product is new and is created
      */
     $scope.create = function() {
-        $$sdkCrud.ProductCreate($scope.product).then(function (response) {
-            // @todo : make sure to connect the Product to the ProductReference
-            // @todo : make sure to connect the Product to the ProductSegment that
-            // authorizes the Organization to access this Product
-            $scope.product = response.data.data;
-            // Redirect to the Product page
-            $location.path('/maker/product/' + $scope.productReference.reference + '/data/general');
-        }, function (response) {
-            $window.alert("Erreur pendant la création du produit : " + response.data.message);
-        });
+        $scope.sendClaim();
     };
     /**
      * Called when everything went OK

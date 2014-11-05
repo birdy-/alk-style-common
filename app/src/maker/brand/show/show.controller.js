@@ -10,8 +10,8 @@
  * @return {[type]}              [description]
  */
 angular.module('jDashboardFluxApp').controller('DashboardMakerBrandShowController', [
-    '$scope', '$$sdkCrud', '$routeParams', 'permission', '$location', '$modal', '$window', '$log',
-    function ($scope, $$sdkCrud, $routeParams, permission, $location, $modal, $window, $log) {
+    '$scope', '$$sdkCrud', '$routeParams', 'permission', '$location', '$modal', '$window', '$log', '$$sdkAuth',
+    function ($scope, $$sdkCrud, $routeParams, permission, $location, $modal, $window, $log, $$sdkAuth) {
 
     // ------------------------------------------------------------------------
     // Variables
@@ -49,6 +49,20 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerBrandShowControlle
         form.$saving = false;
     };
 
+    $scope.openClaimModal = function() {
+        var claimModal = $modal.open({
+            templateUrl: 'src/maker/product/certify/claim.html',
+            scope : $scope,
+            backdrop : 'static',
+            controller: 'ProductClaimModalController'
+        });
+
+        claimModal.result.then(function () {
+
+        }, function () {
+          $log.info('Modal dismissed at: ' + new Date());
+        });
+    }
 
     // ------------------------------------------------------------------------
     // Init
