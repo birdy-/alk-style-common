@@ -1,6 +1,6 @@
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<html xmlns:ng="http://angularjs.org" class="no-js" ng-app="jDashboardFluxApp" id="ng-app">
+<html xmlns:ng="http://angularjs.org" class="no-js" data-ng-app="jDashboardFluxApp" id="ng-app">
 <head>
     <!-- Page characteristics -->
     <meta charset="utf-8">
@@ -146,6 +146,8 @@
         <script type="text/javascript" src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
     <!--[if lt IE 9]>
+        <script type="text/javascript" src="bower_components/xdomain/dist/0.6/xdomain.js" slave="http://stream.alkemics.com"></script>
+        <script>xdomain.debug = true;</script>
         <script type="text/javascript" src="bower_components/es5-shim/es5-shim.js"></script>
     <![endif]-->
 
@@ -192,6 +194,7 @@
         <script type="text/javascript" src="bower_components/sdk-dashboard/src/sdk-media.js"></script>
         <script type="text/javascript" src="bower_components/sdk-dashboard/src/sdk-search.js"></script>
         <script type="text/javascript" src="bower_components/sdk-dashboard/src/sdk-timeline.js"></script>
+        <script type="text/javascript" src="bower_components/sdk-dashboard/src/sdk-mailer.js"></script>
 
         <script type="text/javascript" src="src/app.js"></script>
 
@@ -218,6 +221,7 @@
         <script type="text/javascript" src="src/home/faq.controller.js"></script>
         <script type="text/javascript" src="src/home/header.controller.js"></script>
         <script type="text/javascript" src="src/home/register.controller.js"></script>
+        <script type="text/javascript" src="src/home/registerStep-directive.js"></script>
         <script type="text/javascript" src="src/home/contact.controller.js"></script>
         <script type="text/javascript" src="src/home/randomCustomer-directive.js"></script>
 
@@ -231,9 +235,10 @@
         <script type="text/javascript" src="src/user/role/role.directive.js"></script>
         <script type="text/javascript" src="src/user/role/add.controller.js"></script>
 
-        <script type="text/javascript" src="src/retailer/statistics/attribution.controller.js"></script>
-        <script type="text/javascript" src="src/retailer/statistics/retailerstatistics.controller.js"></script>
-        <script type="text/javascript" src="src/retailer/retailer.controller.js"></script>
+        <script type="text/javascript" src="src/retailer/product/attribution.controller.js"></script>
+        <script type="text/javascript" src="src/retailer/product/list-controller.js"></script>
+        <script type="text/javascript" src="src/retailer/notification/list-controller.js"></script>
+        <script type="text/javascript" src="src/retailer/notification/notification-directive.js"></script>
 
         <script type="text/javascript" src="src/organization/profile/show.controller.js"></script>
         <script type="text/javascript" src="src/organization/user/add.controller.js"></script>
@@ -278,11 +283,10 @@
 
         <script type="text/javascript" src="src/maker/product/certify/accept.controller.js"></script>
         <script type="text/javascript" src="src/maker/product/certify/certify.controller.js"></script>
+        <script type="text/javascript" src="src/maker/product/certify/claim.controller.js"></script>
+        <script type="text/javascript" src="src/maker/brand/list/claim.controller.js"></script>
 
         <script type="text/javascript" src="src/maker/notification/list/list.controller.js"></script>
-        <script type="text/javascript" src="src/maker/notification/notification.model.js"></script>
-        <script type="text/javascript" src="src/maker/getstarted/getstarted.controller.js"></script>
-
 
         <script type="text/javascript" src="src/common/directives/validation/button.directive.js"></script>
         <script type="text/javascript" src="src/common/directives/validation/case.directive.js"></script>

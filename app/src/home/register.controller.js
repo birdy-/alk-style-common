@@ -9,16 +9,12 @@ angular.module('jDashboardFluxApp').controller('RegisterController', [
         // ------------------------------------------------------------------------
         $scope.userForm = {};
         $scope.companyForm = {};
-        $scope.dataForm = {};
+        $scope.emailForm = {};
         $scope.formInit = function(form) {
             form.$loading = true;
             form.$saving = false;
         };
 
-        $scope.data = {
-            product: null,
-            brand: null
-        };
         $scope.company = {
             rcs: null,
             nameLegal: null,
@@ -45,13 +41,36 @@ angular.module('jDashboardFluxApp').controller('RegisterController', [
         // Event binding
         // ------------------------------------------------------------------------
 
-        $scope.checkCompanyForm = function(field) {
-            return checkForm(field, $scope.companyForm);
-        };
+
         $scope.checkUserForm = function(field) {
-            return checkForm(field, $scope.userForm);
+            return checkForm($scope.userForm);
         };
-        var checkForm = function(field, form) {
+        $scope.checkCompanyForm = function(field) {
+            return checkForm($scope.companyForm);
+        };
+        $scope.checkEmailForm = function(field) {
+            if ($scope.companyForm.$valid) {
+                return 'inprogress';
+            }
+            return 'todo';
+        };
+        var checkForm = function(form) {
+            if (form.$valid) {
+                return 'done';
+            }
+            if (form.$pristine) {
+                return 'todo';
+            }
+            return 'inprogress';
+        };
+
+        $scope.checkCompanyFormField = function(field) {
+            return checkFormField(field, $scope.companyForm);
+        };
+        $scope.checkUserFormField = function(field) {
+            return checkFormField(field, $scope.userForm);
+        };
+        var checkFormField = function(field, form) {
             var classes = {};
             if(!form
             || !form[field]) {
@@ -79,12 +98,11 @@ angular.module('jDashboardFluxApp').controller('RegisterController', [
                 $window.alert("Le formulaire est invalide, merci de le compléter.");
                 return;
             }
-            if (!$scope.user.accept) {
-                $window.alert("Vous n'avez pas accepté les CGU.");
-                return;
-            }
             $scope.user.company = $scope.company.name;
 
+            var recordUser = angular.copy($scope.user);
+            // Remove password from the info that is sent for Mailinglist record
+            delete recordUser['password'];
             // Create record of the registration
             var record = {
                 origin: 0,   // Website Corporate Alkemics
@@ -94,9 +112,8 @@ angular.module('jDashboardFluxApp').controller('RegisterController', [
                 phonenumber: $scope.user.phonenumber,
                 subject: 'New account created',
                 message: angular.toJson({
-                    user: $scope.user,
+                    user: recordUser,
                     company: $scope.company,
-                    data: $scope.data
                 }, true)
             };
             $$sdkAuth.MailingListPost(record);
@@ -108,6 +125,8 @@ angular.module('jDashboardFluxApp').controller('RegisterController', [
                 $scope.ok = false;
                 $scope.message = "Une erreur a eu lieu pendant votre inscription : "+response.message;
             });
+
+            // @todo : siltently register user so we will not have to re-ask the login
         };
 
         // ------------------------------------------------------------------------

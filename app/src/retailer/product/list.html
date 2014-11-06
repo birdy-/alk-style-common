@@ -72,24 +72,26 @@
                 <table class="table table-bordered">
                     <thead class="color-stream-inverse">
                         <tr>
-                            <th>Référence</th>
-                            <th>EAN</th>
-                            <th>Image</th>
+                            <th class="text-center">Référence</th>
+                            <th class="text-center">EAN</th>
+                            <th class="text-center">Image</th>
                             <th>Nom</th>
-                            <th>Action</th>
+                            <th class="text-center">Action</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="productInShop in productInShops">
-                            <td>{{ productInShop.shortIdOut }}</td>
-                            <td>{{ productInShop.ean }}</td>
-                            <td><img height="60" width="60" ng-src="{{ productInShop.picture.main }}"></td>
+                            <td class="text-center">{{ productInShop.shortIdOut }}</td>
+                            <td class="text-center">{{ productInShop.ean }}</td>
+                            <td class="text-center"><img height="60" width="60" ng-src="{{ productInShop.picture.main }}"></td>
                             <td>{{ productInShop.name }}</td>
-                            <td>
+                            <td class="text-center">
                                 <a class="btn btn-warning" ng-if="!isAttributed(productInShop)" ng-click="attribute(productInShop)">
                                     <i class="fa fa-envelope"></i> Attribuer
                                 </a>
                             </td>
+                            <td class="text-center"><input type="checkbox" ng-model="productInShop.selected" ng-if="!isAttributed(productInShop)"></td>
                         </tr>
                     <tbody>
                 </table>

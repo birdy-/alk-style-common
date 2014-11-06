@@ -21,28 +21,27 @@ var app = angular.module('jDashboardFluxApp', [
 app.constant('version', '0.2');
 
 app.factory('jquery', [
-'$window',
-function($window) {
-  return $window.jQuery;
-}
+    '$window',
+    function($window) {
+      return $window.jQuery;
+    }
 ]);
 
 app.factory('plupload', [
-'$window',
-function($window) {
-  return $window.plupload;
-}
+    '$window',
+    function($window) {
+      return $window.plupload;
+    }
 ]);
 
 
 var env = (window.location.hostname.indexOf('localhost') === 0) ? 'dev' : 'prod';
-env = 'vagrant';
-// env = 'prod';
+
 if (env === 'prod') {
     app.constant('API_URL', 'https://api.alkemics.com');
     app.constant('URL_SERVICE_AUTH', 'https://auth.alkemics.com');
     app.constant('URL_SERVICE_MEDIA', 'https://service-media.alkemics.com');
-    app.constant('URL_UI_BUTTON_PRODUCT', 'https://assets.toc.io/ui/button/product/v1/index.html');
+    app.constant('URL_UI_BUTTON_PRODUCT', 'https://sassets.toc.io/ui/button/product/v1/index.html');
     app.constant('URL_CDN_MEDIA', 'https://smedia.alkemics.com');
     angular.module('jDashboardFluxApp').constant('URL_SERVICE_MEDIA', 'https://service-media.alkemics.com');
 } else if (env === 'dev') {
@@ -50,7 +49,8 @@ if (env === 'prod') {
     app.constant('URL_SERVICE_AUTH', 'http://localhost.alkemics.com:6545');
     app.constant('URL_SERVICE_MEDIA', 'http://localhost.alkemics.com:6551');
     // app.constant('URL_UI_BUTTON_PRODUCT', 'http://localhost.alkemics.com:9010/');
-    app.constant('URL_UI_BUTTON_PRODUCT', 'http://assets.toc.io/ui/button/product/v1/index.html');
+    // app.constant('URL_CDN_MEDIA', 'https://smedia.alkemics.com');
+    // app.constant('URL_UI_BUTTON_PRODUCT', 'http://assets.toc.io/ui/button/product/v1/index.html');
     app.constant('URL_CDN_MEDIA', 'https://s3-eu-west-1.amazonaws.com/pprd.media.alkemics.com');
     app.constant('URL_UI_BUTTON_PRODUCT', 'http://localhost.alkemics.com:9010/');
     app.config(function($logProvider){
@@ -67,11 +67,24 @@ if (env === 'prod') {
     });
 }
 
+
+
+
+// ==========================================================================================
+//                                          ROUTING
+// ==========================================================================================
+
 app.config(function ($routeProvider) {
 
     // ------------------------------------------------------------------------------------------
     // Maker views
     // ------------------------------------------------------------------------------------------
+
+    // Notification views
+    $routeProvider.when('/maker/activity', {
+        templateUrl: 'src/maker/notification/list/list.html',
+        controller: 'DashboardMakerNotificationsController'
+    });
 
     // Product views
     $routeProvider.when('/maker/brand/all/product', {
@@ -181,21 +194,20 @@ app.config(function ($routeProvider) {
         controller: 'DashboardMakerBrandListController'
     });
 
-    $routeProvider.when('/getstarted', {
-        templateUrl: 'src/home/maker/getstarted/index.html',
-        controller: 'DashboardMakerGetStartedController'
+    // ------------------------------------------------------------------------------------------
+    // Retailer views
+    // ------------------------------------------------------------------------------------------
+
+    $routeProvider.when('/retailer/activity', {
+        templateUrl: 'src/retailer/notification/list.html',
+        controller: 'DashboardRetailerNotificationListController'
     });
 
-    // Notification views
-    $routeProvider.when('/maker/notifications', {
-        templateUrl: 'src/maker/notification/list/list.html',
-        controller: 'DashboardMakerNotificationsController'
+    $routeProvider.when('/retailer/products', {
+        templateUrl: 'src/retailer/product/list.html',
+        controller: 'RetailerProductListController'
     });
-    // Home views
-    $routeProvider.when('/maker/home', {
-        templateUrl: 'src/maker/notification/list/list.html',
-        controller: 'DashboardMakerNotificationsController'
-    });
+
 
     // ------------------------------------------------------------------------------------------
     // Security views
@@ -236,33 +248,6 @@ app.config(function ($routeProvider) {
         isPublic: true
     });
 
-    $routeProvider.when('/prehome', {
-        templateUrl: 'src/user/login/prehome.html',
-        controller: 'PreHomeController',
-        isPublic: true
-    });
-
-    // ------------------------------------------------------------------------------------------
-    // Timeline views
-    // ------------------------------------------------------------------------------------------
-    $routeProvider.when('/timeline', {
-        templateUrl: 'src/retailer/notifications.html',
-        controller: 'DashboardRetailerNotificationsController'
-    });
-
-    // ------------------------------------------------------------------------------------------
-    // Statistics views
-    // ------------------------------------------------------------------------------------------
-    $routeProvider.when('/retailer', {
-        templateUrl: 'src/retailer/statistics/index.html',
-        controller: 'RetailerDataStatisticsController'
-    });
-
-    $routeProvider.when('/retailer/products', {
-        templateUrl: 'src/retailer/statistics/product.html',
-        controller: 'RetailerProductStatisticsController'
-    });
-
     // ------------------------------------------------------------------------------------------
     // Settings views
     // ------------------------------------------------------------------------------------------
@@ -293,6 +278,14 @@ app.config(function ($routeProvider) {
         redirectTo: '/'
     });
 
+});
+
+
+// Ajax Caching: IE caches the XHR requests. In order to avoid this, we set an HTTP response header to mimic default behaviors of moderns browsers.
+// http://ng-learn.org/2013/12/Dealing-with-IE-family/
+// https://www.ng-book.com/p/AngularJS-and-Internet-Explorer/
+app.config(function($httpProvider) {
+    $httpProvider.defaults.headers.common['Cache-Control'] = 'no-cache';
 });
 
 
