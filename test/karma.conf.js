@@ -72,9 +72,17 @@ module.exports = function(config) {
     // - Safari (only Mac)
     // - PhantomJS
     // - IE (only Windows)
-    browsers: ['Chrome'],
+    browsers: ['PhantomJS'],
 
-
+    reporters: ['dots', 'junit'],
+    junitReporter: {
+      outputFile: 'dashboard-flux-test-results.xml',
+      suite: 'unit'
+    },
+    coverageReporter: {
+      type : 'cobertura',
+      dir : 'target/coverage/'
+    },
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
     singleRun: true
