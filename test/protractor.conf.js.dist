@@ -13,6 +13,15 @@ exports.config = {
     'browserName': 'chrome'
   },
 
+  // If you need to disable websecurity uncommented the following lines
+  // And remove the previous capabilities option
+  //capabilities: {
+  //  browserName: 'chrome',
+  //  chromeOptions: {
+  //    args: ['--disable-web-security']
+  //  }
+  //},
+
   params: {
     website: {
       url: 'http://localhost.alkemics.com:9005/#/'
