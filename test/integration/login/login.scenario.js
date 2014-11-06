@@ -34,7 +34,7 @@ describe('[Login page]', function() {
         loginPage.fillLoginFields(browser.params.user.username, browser.params.user.password).then(function() {
             loginPage.getLoginButton().click().then(function() {
                 expect(browser.getCurrentUrl())
-                .toEqual(browser.params.website.url + 'prehome');
+                .toEqual(browser.params.website.url + 'retailer/activity');
             });
         });
     });

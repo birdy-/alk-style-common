@@ -28,9 +28,7 @@ describe('[Registration page]', function() {
       'getEmailField',
       'getJobField',
       'getPhoneField',
-      'getPasswordField',
-      'getCGUField',
-      'getSubmitButton'
+      'getPasswordField'
     ];
 
     inputGetMethods.map(function(method) {
@@ -51,34 +49,28 @@ describe('[Registration page]', function() {
     .toBe(true);
   });
 
-  it('should hide data form when company fields are blank', function() {
-    expect(registrationPage.getDataForm().isDisplayed())
+  it('should hide email form when company fields are blank', function() {
+    expect(registrationPage.getEmailForm().isDisplayed())
     .toBe(false);
   });
 
-  it('should display data form when company fields are filled', function() {
+  it('should display email form when company fields are filled', function() {
     registrationPage.fillCompanyFields();
 
-    expect(registrationPage.getDataForm().isDisplayed())
+    expect(registrationPage.getEmailForm().isDisplayed())
     .toBe(true);
   });
 
   it('should have 3 forms when all fields are filled', function() {
-    registrationPage.fillDataFields();
-
     var forms = [
       'getUserForm',
-      'getCompanyForm',
-      'getDataForm'
+      'getCompanyForm'
     ];
 
     forms.map(function(form) {
       expect(utils.hasClass(registrationPage[form].apply(this), 'ng-valid'))
-        .toBe(true);
+      .toBe(true);
     });
-
-    expect(utils.hasClass(registrationPage.getAcceptForm(), 'ng-invalid'))
-    .toBe(true);
   });
 
   // Checkbox click issue with protractor
@@ -87,8 +79,7 @@ describe('[Registration page]', function() {
   //    var forms = [
   //      'getUserForm',
   //      'getCompanyForm',
-  //      'getDataForm',
-  //      'getAcceptForm'
+  //      'getEmailForm'
   //    ];
   //
   //    forms.map(function(form) {

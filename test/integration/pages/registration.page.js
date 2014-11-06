@@ -15,12 +15,8 @@ var RegistrationPage = function() {
     return element(by.css('form[name=companyForm]'));
   };
 
-  this.getDataForm = function() {
-    return element(by.css('form[name=dataForm]'));
-  };
-
-  this.getAcceptForm = function() {
-    return element(by.css('form[name=acceptForm]'));
+  this.getEmailForm = function() {
+    return element(by.css('form[name=emailForm]'));
   };
 
   /** User fields **/
@@ -115,31 +111,6 @@ var RegistrationPage = function() {
 
   this.fillCompanyFields = function() {
     fillCompanyFields();
-  };
-
-  /** Data fields **/
-
-  this.getBrand = function() {
-    return element(by.model('data.brand'));
-  };
-
-  this.getProduct = function() {
-    return element(by.model('data.product'));
-  };
-
-  var fillDataFields = function() {
-    var dataFields = [
-      { method: 'getBrand', input: 'Alkemics, Chef Jérôme'},
-      { method: 'getProduct', input: '3596710025565, 3596710293988'}
-    ];
-
-    dataFields.map(function(field) {
-      that[field.method].apply(this).sendKeys(field.input);
-    });
-  };
-
-  this.fillDataFields = function() {
-    fillDataFields()
   };
 
   /** Accept form **/
