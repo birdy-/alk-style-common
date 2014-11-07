@@ -7,7 +7,7 @@ exports.config = {
     login: 'integration/login/*.scenario.js'
   },
 
-  baseUrl: 'http://localhost.alkemics:9005/#/',
+  baseUrl: 'http://localhost.alkemics.com:9005/#/',
 
   capabilities: {
     'browserName': 'chrome'

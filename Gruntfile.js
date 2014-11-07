@@ -399,6 +399,28 @@ module.exports = function (grunt) {
         singleRun: true
       }
     },
+    protractor_webdriver: {
+        your_target: {
+            options: {
+                path: 'node_modules/.bin/',
+                command: 'webdriver-manager start'
+            }
+        }
+    },
+    protractor: {
+        options: {
+            configFile: "test/protractor.conf.js",
+            keepAlive: true,
+            noColor: false,
+            args: {}
+        },
+        your_target: {
+            options: {
+                configFile: "test/protractor.conf.js",
+                args: {}
+            }
+        }
+    },
     aws: grunt.file.readJSON('grunt-aws.json'),
     aws_s3: {
         options: {
@@ -487,7 +509,9 @@ module.exports = function (grunt) {
     'concurrent:test',
     'autoprefixer',
     'connect:test',
-    'karma'
+    'karma',
+    'protractor_webdriver',
+    'protractor'
   ]);
 
   grunt.registerTask('build', [
