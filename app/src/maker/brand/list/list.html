@@ -29,7 +29,7 @@
                 <tbody>
                     <tr ng-repeat="brand in brands">
                         <td>
-                            <img class="brand-logo" ng-src="https://smedia.alkemics.com/brand/{{ brand.id }}/picture/logo/original.png"/>
+                            <img class="brand-logo" ng-src="https://smedia.alkemics.com/brand/{{ brand.id }}/picture/logo/original.png" fallback-src="https://stream.alkemics.com/images/5078aa32.missing.png"/>
                         </td>
                         <td>
                             <a href="/#/maker/brand/{{ brand.id }}">{{ brand.name }}</a>

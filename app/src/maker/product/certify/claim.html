@@ -4,7 +4,7 @@
             Créer un produit <span ng-if="brand"> pour la marque {{ brand.name }}</span>
         </h3>
         <div ng-if="brand" class="col-xs-2">
-             <img style="height:50px" ng-src="https://smedia.alkemics.com/brand/{{ brand.id }}/picture/logo/original.png" class="pull-right" />
+             <img style="height:50px" ng-src="https://smedia.alkemics.com/brand/{{ brand.id }}/picture/logo/original.png" fallback-src="https://stream.alkemics.com/images/5078aa32.missing.png" class="pull-right" />
         </div>
     </div>
 </div>
