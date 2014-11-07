@@ -4,8 +4,8 @@
  * Modal that allows the user to certify a given product.
  */
 angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
-    '$scope', '$modalInstance', '$$sdkCrud', '$window', '$log', 'permission', '$routeParams', '$$sdkAuth',
-    function ($scope, $modalInstance, $$sdkCrud, $window, $log, permission, $routeParams, $$sdkAuth) {
+    '$scope', '$modalInstance', '$$sdkCrud', '$window', '$log', 'permission', '$routeParams', '$$sdkAuth', 'brand',
+    function ($scope, $modalInstance, $$sdkCrud, $window, $log, permission, $routeParams, $$sdkAuth, brand) {
 
     // ------------------------------------------------------------------------
     // Variables
@@ -13,6 +13,10 @@ angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
     $scope.productReference = {};
     $scope.product = null;
     $scope.user = null;
+    if (typeof(brand) !== 'undefined') {
+        $scope.brand = brand;    
+    }
+    
 
     $scope.errors = {
         badReference: null,

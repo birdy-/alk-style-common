@@ -132,7 +132,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowControl
             }
 
             $scope.product = product;
-            $scope.product.urlPictureOriginal = URL_CDN_MEDIA + '/product/' + $scope.product.id + '/picture/packshot/original.png?' + Math.random() * 100000000;
+            $scope.product.urlPictureOriginal = URL_CDN_MEDIA + '/product/' + $scope.product.id + '/picture/packshot/256x256.png?' + Math.random() * 100000000;
             $scope.select2productOptions = $$autocomplete.getOptionAutocompletes('product', {
                 maximumSelectionSize: 1
             }, {

@@ -35,12 +35,17 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerBrandListControlle
         );
     }
 
-    $scope.openClaimReferenceModal = function() {
+    $scope.openClaimReferenceModal = function(brand) {
         var claimModal = $modal.open({
             templateUrl: 'src/maker/product/certify/claim.html',
             scope : $scope,
             backdrop : 'static',
-            controller: 'ProductClaimModalController'
+            controller: 'ProductClaimModalController',
+            resolve: {
+                brand: function () {
+                    return brand;
+                }
+            }
         });
 
         claimModal.result.then(function () {
