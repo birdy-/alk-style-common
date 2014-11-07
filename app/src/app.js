@@ -14,7 +14,8 @@ var app = angular.module('jDashboardFluxApp', [
   'infinite-scroll',
   'ui.sortable',
   'ui.tree',
-  'nvd3ChartDirectives'
+  'nvd3ChartDirectives',
+  'ngHandsontable'
 ]);
 
 // Update on each deploy
