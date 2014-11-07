@@ -1,3 +1,8 @@
+<style type="text/css">
+    .product-composition .ta-scroll-window.form-control {height: auto; min-height: 50px; overflow: auto; font-family: inherit; font-size: 100%; position: relative; padding: 0;}
+    .product-composition .ta-scroll-window > .ta-bind {height: auto; min-height: 80px; padding: 6px 12px;}
+    .product-composition .ta-editor.ta-html {min-height: 80px; height: auto; overflow: auto; font-family: inherit; font-size: 100%}
+</style>
 <div template-product>
 <div ng-controller="DashboardMakerProductShowCompositionController">
 
@@ -9,9 +14,10 @@
 
 <div class="form-group">
     <label for="composition" class="col-sm-2 control-label">Ingrédients</label>
-    <div class="col-sm-10">
+    <div class="col-sm-10 product-composition">
         <!--<div ng-model="product.composition" ui-select2="select2productCompositionOptions" style="width: 100%;" rows="3" placeholder="Composition du produit."></div>-->
-        <textarea class="form-control" name="composition" rows="3" ng-model="product.composition" placeholder="Composition du produit." alk-focus required ng-blur="check()"></textarea>
+        <!-- <textarea class="form-control" name="composition" rows="3" ng-model="product.composition" placeholder="Composition du produit." alk-focus required ng-blur="check()"></textarea> -->
+        <text-angular ng-model="product.compositionHtml" name="composition" alk-focus placeholder="Composition du produit." ta-toolbar="[['bold']]" required ng-blur="check()"></text-angular>
         <div input-block-help field="productForm.composition">
             <strong id="art18">Liste des ingrédients</strong>
             Elle comprend tous les ingrédients de la denrée alimentaire, dans l'ordre décroissant de leur importance pondé­rale au moment de leur mise en œuvre dans la fabrication de la denrée.
