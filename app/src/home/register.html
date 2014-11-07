@@ -145,7 +145,7 @@
             <form class="form-horizontal" name="emailForm" ng-show="companyForm.$valid">
                 <h3>3. Je finalise mon inscription et vérifie mon email</h3><br/>
                 <div class="form-group">
-                    <div class="col-sm-8 col-sm-offset-4">
+                    <div class="col-sm-4 col-sm-offset-4">
                         <div class="checkbox">
                             <label>
                                 <input type="checkbox" ng-model="user.accept" required> J'accepte les <a href="http://media.alkemics.com/corporate/stream/contract/cgu.pdf" target="_blank">CGU</a>
@@ -153,6 +153,11 @@
                         </div>
                         <br/>
                         <button type="button" ng-click="submit(); waitingForEmail = true" class="btn color-success-inverse">&gt; Je m'inscris</button>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="alert alert-danger" ng-if="message">
+                            {{ message }}
+                        </div>
                     </div>
                 </div>
                 <div class="text-center" ng-show="waitingForEmail">
