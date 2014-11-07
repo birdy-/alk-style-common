@@ -9,6 +9,8 @@ exports.config = {
 
   baseUrl: 'http://localhost.alkemics.com:9005/#/',
 
+  chromeDriver: 'node_modules/protractor/selenium/',
+
   capabilities: {
     'browserName': 'chrome'
   },
