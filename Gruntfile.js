@@ -399,14 +399,6 @@ module.exports = function (grunt) {
         singleRun: true
       }
     },
-    protractor_webdriver: {
-        your_target: {
-            options: {
-                path: 'node_modules/.bin/',
-                command: 'webdriver-manager start'
-            }
-        }
-    },
     protractor: {
         options: {
             configFile: "test/protractor.conf.js",
@@ -510,7 +502,6 @@ module.exports = function (grunt) {
     'autoprefixer',
     'connect:test',
     'karma',
-    'protractor_webdriver',
     'protractor'
   ]);
 
