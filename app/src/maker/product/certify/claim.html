@@ -12,20 +12,23 @@
     </div>
 </div>
 <div class="modal-body" ng-show="multiple">
-    <form role="form" name="claimForm">        
+    <form role="form" name="claimForm">
 
-        <div class="form-group">            
+        <div class="form-group">
             <div hot-table
-                settings="{colHeaders: colHeaders, contextMenu: ['row_above', 'row_below', 'remove_row'], afterChange: afterChange}"
-                rowHeaders="true"
-                minSpareRows="12"
-                datarows="products"
-                height="300"
-                width="700"
-                stretchH="all">
+                id="claim-table"
+                settings="{
+                    colHeaders: colHeaders,
+                    contextMenu: ['row_above', 'row_below', 'remove_row'],
+                    afterChange: afterChange,
+                    stretchH: 'all',
+                    rowHeaders: true,
+                    minSpareRows: '12'
+                }"
+                datarows="products">
                 <hot-column data="reference" title="'EAN'"></hot-column>
-                <hot-column data="nameLegal" title="'Dénomination légale du produit'"></hot-column>            
-            </div>            
+                <hot-column data="nameLegal" title="'Dénomination légale du produit'"></hot-column>
+            </div>
         </div>
         <div>
             <div ng-if="errors.coherency" class="alert alert-warning">
@@ -33,7 +36,7 @@
             </div>
             <div ng-if="errors.noError" class="alert alert-success">
                 Votre demande à bien été enregistrée.
-            </div>            
+            </div>
         </div>
 
     </form>
@@ -48,7 +51,7 @@
                     <i class="fa fa-search"></i>
                 </div>
             </div>
-        </div>        
+        </div>
         <div>
             <div ng-if="errors.badReference" class="alert alert-danger">
                 L'EAN demandée n'est pas valide.
@@ -86,7 +89,7 @@
 
 <div class="modal-footer">
     <div class="text-right">
-        <span class="btn btn-default pull-left" ng-if="multiple === false" ng-click="switchMultiple()" >Ajout multiple</span>        
+        <span class="btn btn-default pull-left" ng-if="multiple === false" ng-click="switchMultiple()" >Ajout multiple</span>
         <span class="btn btn-default pull-left" ng-if="multiple === true" ng-click="switchMultiple()">Ajout d'un produit</span>
 
         <span class="btn btn-success" ng-if="(errors.unknown !== true) && !multiple && (errors.ok !== false)" ng-click="search()"><i class="fa fa-search"></i>Chercher ce produit</span>
@@ -94,7 +97,7 @@
 
         <span class="btn btn-success" ng-if="errors.ok === true" ng-click="fill()"><i class="fa fa-check"></i> Remplir ce produit</span>
         <span class="btn btn-success" ng-if="errors.ok === false" ng-click="renewClaim()"><i class="fa fa-check"></i>Ajouter un autre produit</span>
-        
+
         <span class="btn btn-success" ng-if="multiple && (errors.ok !== false) && (errors.ok !== true)" ng-click="fillMultiple()"><i class="fa fa-check"></i>Ajouter ces produits</span>
         <span class="btn btn-link" ng-click="cancel()"><i class="fa fa-times"></i> Annuler</span>
     </div>
