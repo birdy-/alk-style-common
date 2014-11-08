@@ -215,7 +215,9 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
                     if (typeof(brand.isSubBrandOf._subBrands) === 'undefined') {
                         brand.isSubBrandOf._subBrands = [];
                     }
-                    if (brand.isSubBrandOf._subBrands.indexOf(brand) !== -1) {
+                    var subBrandIndex = brand.isSubBrandOf._subBrands.indexOf(brand);
+                    // We need to check if the subbrand is in the $scope.brands because of lazy load
+                    if ($scope.brands.indexOf(brand.isSubBrandOf._subBrands[subBrandIndex]) !== -1 && subBrandIndex !== -1) {
                         return;
                     }
                     brand.isSubBrandOf._subBrands.push(brand);
