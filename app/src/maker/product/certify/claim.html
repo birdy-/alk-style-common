@@ -76,7 +76,12 @@
                 </div>
                 <div ng-if="!brand" class="form-group">
                     <label for="isBrandedBy">Marque commerciale du produit</label>
-                    <div select-my-brands ng-model="product.isBrandedBy"></div>
+                    <div alk-autocomplete-my
+                         alk-autocomplete-type="Brand"
+                         alk-autocomplete-multiple="false"
+                         placeholder="Choisir une marque"
+                         ng-model="product.isBrandedBy">
+                     </div>
                 </div>
             </div>
             <div ng-if="errors.ok">
