@@ -5,6 +5,7 @@ var app = angular.module('jDashboardFluxApp', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
+  'ngAnimate',
   'http-auth-interceptor',
   'ui.select2',
   'ui.bootstrap',

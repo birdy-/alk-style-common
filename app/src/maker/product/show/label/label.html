@@ -1,201 +1,61 @@
 <div template-product>
-<div ng-controller="DashboardMakerProductShowLabelController">
-<div class="form-group">
-    <div class="col-sm-3">
-        <h3>Agriculture biologique</h3>
-        <div>
-            <div product-label product="product" legend="labels[19096]"></div>
-            <div product-label product="product" legend="labels[19095]"></div>
-            <div product-label product="product" legend="labels[19098]"></div>
-            <div product-label product="product" legend="labels[19099]"></div>
-            <div product-label product="product" legend="labels[19103]"></div>
-            <div product-label product="product" legend="labels[19171]"></div>
+    <div ng-controller="DashboardMakerProductShowLabelController">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <div class="label-summary" data-ng-if="product.isLabeledBy.length === 0">Ce produit a 0 label</div>
+                <div class="label-summary" data-ng-if="product.isLabeledBy.length > 0">Les labels du produits :</div>
+                <p><img data-ng-repeat="label in product.isLabeledBy" data-ng-src="https://smedia.alkemics.com/api/1/concept/{{ label.concept.id }}/picture/logo/original.png" class="label-picto"/></p>
+            </div>
+
+            <div class="col-xs-12"
+                data-ng-repeat="labelGroup in labelGroups"
+                data-product="product"
+                data-label-group="label-group"
+                data-title="labelGroup.title"
+                data-labels="labelGroup.labels">
+            </div>
         </div>
-
-        <h3>Qualité / récompenses</h3>
-        <div>
-            <div product-label product="product" legend="labels[19126]"></div>
-            <div product-label product="product" legend="labels[19166]"></div>
-            <div product-label product="product" legend="labels[19169]"></div>
-            <div product-label product="product" legend="labels[19170]"></div>
-            <div product-label product="product" legend="labels[19108]"></div>
-            <div product-label product="product" legend="labels[10342]"></div> <!--Concours Général Agricole Or -->
-            <div product-label product="product" legend="labels[10343]"></div> <!--Concours Général Agricole Argent -->
-            <div product-label product="product" legend="labels[10344]"></div> <!--Concours Général Agricole Bronze -->
-            <div product-label product="product" legend="labels[10345]"></div> <!--sélection Guide Hachette -->
+        <div class="form-group">
+            <div class="col-sm-6">
+                <h3>Régimes religieux</h3>
+            </div>
+            <div class="col-sm-6">
+                <h3>Régimes particuliers</h3>
+            </div>
         </div>
-
-        <h3>Utilisation</h3>
-        <div>
-            <div product-label product="product" legend="labels[19133]"></div>
-            <div product-label product="product" legend="labels[19150]"></div>
-            <div product-label product="product" legend="labels[10262]"></div> <!--logo Alcool j'achète pas à moins de 18 ans -->
-        </div>
-
-        <h3>Régimes particuliers</h3>
-        <div>
-            <div product-label product="product" legend="labels[10064]"></div> <!--label Vegan -->
-            <div product-label product="product" legend="labels[10332]"></div> <!--label Sans Gluten ADFDIAG -->
-        </div>
-
-        <h3>Allergènes</h3>
-        <div>
-            <div product-label product="product" legend="labels[10265]"></div> <!--label Approuvé par les médecins allergologues del'ARCAA-->
-        </div>
-    </div>
-
-
-    <div class="col-sm-3">
-        <h3>Production équitable</h3>
-        <div>
-            <div product-label product="product" legend="labels[19094]"></div>
-            <div product-label product="product" legend="labels[19097]"></div>
-            <div product-label product="product" legend="labels[19101]"></div>
-            <div product-label product="product" legend="labels[19121]"></div>
-        </div>
-
-        <h3>Développement durable</h3>
-        <div>
-            <div product-label product="product" legend="labels[19114]"></div> <!--label Eco-Label-->
-            <div product-label product="product" legend="labels[19102]"></div>
-            <div product-label product="product" legend="labels[19107]"></div>
-            <div product-label product="product" legend="labels[19110]"></div>
-            <div product-label product="product" legend="labels[19122]"></div>
-            <div product-label product="product" legend="labels[19112]"></div>
-            <div product-label product="product" legend="labels[19134]"></div>
-            <div product-label product="product" legend="labels[19149]"></div>
-            <div product-label product="product" legend="labels[19152]"></div>
-            <div product-label product="product" legend="labels[19153]"></div>
-            <div product-label product="product" legend="labels[19155]"></div>
-            <div product-label product="product" legend="labels[19156]"></div>
-            <div product-label product="product" legend="labels[19157]"></div>
-            <div product-label product="product" legend="labels[19159]"></div>
-            <div product-label product="product" legend="labels[19160]"></div>
-            <div product-label product="product" legend="labels[19161]"></div>
-            <div product-label product="product" legend="labels[19162]"></div>
-            <div product-label product="product" legend="labels[19163]"></div>
-            <div product-label product="product" legend="labels[19164]"></div>
-            <div product-label product="product" legend="labels[19165]"></div>
-            <div product-label product="product" legend="labels[19167]"></div>
-            <div product-label product="product" legend="labels[19168]"></div>
-            <div product-label product="product" legend="labels[19129]"></div>
+        <div class="form-group">
+            <div class="col-sm-3">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="isKasher" ng-model="product.isKasher"/>
+                        Kasher
+                    </label>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="isHalal" ng-model="product.isHalal"/>
+                        Halal
+                    </label>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="isVegetarian" ng-model="product.isVegetarian"/>
+                        Végétarien
+                    </label>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="isVegetalian" ng-model="product.isVegetalian"/>
+                        Végétalien
+                    </label>
+                </div>
+            </div>
         </div>
     </div>
-
-    <div class="col-sm-3">
-        <h3>Provenance</h3>
-        <div>
-            <div product-label product="product" legend="labels[19100]"></div>
-            <div product-label product="product" legend="labels[18266]"></div>
-            <div product-label product="product" legend="labels[18264]"></div>
-            <div product-label product="product" legend="labels[18265]"></div> <!--Indication géographique protégée -->
-            <div product-label product="product" legend="labels[18935]"></div> <!--Dénomination d'Origine Protégée -->
-            <div product-label product="product" legend="labels[19109]"></div> <!--label Spécialité Traditionnelle Garantie -->
-            <div product-label product="product" legend="labels[19104]"></div>
-            <div product-label product="product" legend="labels[18942]"></div>
-            <div product-label product="product" legend="labels[19122]"></div>
-            <div product-label product="product" legend="labels[19128]"></div>
-            <div product-label product="product" legend="labels[10347]"></div> <!--Œuf pondu en France -->
-        </div>
-
-        <h3>Viande et poissons</h3>
-        <div>
-            <div product-label product="product" legend="labels[19105]"></div>
-            <div product-label product="product" legend="labels[19106]"></div>
-            <div product-label product="product" legend="labels[19151]"></div>
-            <div product-label product="product" legend="labels[10321]"></div> <!--label Blason Prestige -->
-            <div product-label product="product" legend="labels[10326]"></div> <!--label Agneau St George -->
-            <div product-label product="product" legend="labels[10327]"></div> <!--charte des bonnes pratiques d'élevage -->
-            <div product-label product="product" legend="labels[10328]"></div> <!--label Fleur de Limousine -->
-            <div product-label product="product" legend="labels[10329]"></div> <!--label Filière Qualité Carrefour -->
-            <div product-label product="product" legend="labels[10331]"></div> <!--label Bœuf de Charolles -->
-            <div product-label product="product" legend="labels[10333]"></div> <!--label Éleveurs de Champagne-Ardennes -->
-            <div product-label product="product" legend="labels[10334]"></div> <!--label Bovillage -->
-            <div product-label product="product" legend="labels[10335]"></div> <!--label Bœuf fermier de l'Aubrac -->
-            <div product-label product="product" legend="labels[10336]"></div> <!--label Charoluxe -->
-            <div product-label product="product" legend="labels[10337]"></div> <!--label race à viande -->
-            <div product-label product="product" legend="labels[10338]"></div> <!--label Saveur Occitane -->
-            <div product-label product="product" legend="labels[10339]"></div> <!--label Terroir Charolais -->
-            <div product-label product="product" legend="labels[10340]"></div> <!--label Qualivet Filière Non OGM -->
-            <div product-label product="product" legend="labels[10341]"></div> <!--label Qualité Limousine -->
-            <div product-label product="product" legend="labels[19111]"></div>
-            <div product-label product="product" legend="labels[19154]"></div>
-            <div product-label product="product" legend="labels[19158]"></div>
-            <div product-label product="product" legend="labels[10330]"></div> <!--label Gourmet Naturel -->
-
-        </div>
-    </div>
-
-    <div class="col-sm-3">
-        <h3>Emballage / recyclage</h3>
-        <div>
-            <div product-label product="product" legend="labels[19123]"></div>
-            <div product-label product="product" legend="labels[19124]"></div>
-            <div product-label product="product" legend="labels[19125]"></div>
-            <div product-label product="product" legend="labels[19127]"></div>
-            <div product-label product="product" legend="labels[19130]"></div>
-            <div product-label product="product" legend="labels[19131]"></div>
-            <div product-label product="product" legend="labels[19132]"></div>
-            <div product-label product="product" legend="labels[19135]"></div>
-            <div product-label product="product" legend="labels[19137]"></div>
-            <div product-label product="product" legend="labels[19138]"></div>
-            <div product-label product="product" legend="labels[19139]"></div>
-            <div product-label product="product" legend="labels[19140]"></div>
-            <div product-label product="product" legend="labels[19141]"></div>
-            <div product-label product="product" legend="labels[19142]"></div>
-            <div product-label product="product" legend="labels[19143]"></div>
-            <div product-label product="product" legend="labels[19144]"></div>
-            <div product-label product="product" legend="labels[19145]"></div>
-            <div product-label product="product" legend="labels[19146]"></div>
-            <div product-label product="product" legend="labels[19147]"></div>
-            <div product-label product="product" legend="labels[19148]"></div>
-        </div>
-    </div>
-</div>
-
-
-<div class="form-group">
-    <div class="col-sm-6">
-        <h3>Régimes religieux</h3>
-    </div>
-    <div class="col-sm-6">
-        <h3>Régimes particuliers</h3>
-    </div>
-</div>
-<div class="form-group">
-    <div class="col-sm-3">
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" name="isKasher" ng-model="product.isKasher"/>
-                Kasher
-            </label>
-        </div>
-    </div>
-    <div class="col-sm-3">
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" name="isHalal" ng-model="product.isHalal"/>
-                Halal
-            </label>
-        </div>
-    </div>
-    <div class="col-sm-3">
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" name="isVegetarian" ng-model="product.isVegetarian"/>
-                Végétarien
-            </label>
-        </div>
-    </div>
-    <div class="col-sm-3">
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" name="isVegetalian" ng-model="product.isVegetalian"/>
-                Végétalien
-            </label>
-        </div>
-    </div>
-</div>
-
-</div>
 </div>

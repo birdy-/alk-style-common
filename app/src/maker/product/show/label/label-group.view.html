@@ -1,0 +1,11 @@
+<div class="label-group col-xs-12" data-ng-class="{active: isActive}" data-ng-init="isActive = false">
+    <div class="header" data-ng-click="isActive = !isActive">
+        <h3>
+            <img data-ng-hide="isActive" data-ng-src="https://smedia.alkemics.com/api/1/concept/{{ labels.0.id }}/picture/logo/original.png" class="label-picto"/>
+            {{ title }}
+        </h3>
+    </div>
+    <div class="row" data-ng-show="isActive">
+        <div class="col-xs-6 col-md-4" data-ng-repeat="label in labels" data-product-label data-product="product" data-legend="label"></div>
+    </div>
+</div>
