@@ -35,18 +35,25 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerBrandListControlle
         );
     }
 
-    $scope.openClaimReferenceModal = function() {
+    $scope.openClaimReferenceModal = function(brand) {
         var claimModal = $modal.open({
             templateUrl: 'src/maker/product/certify/claim.html',
             scope : $scope,
             backdrop : 'static',
-            controller: 'ProductClaimModalController'
+            controller: 'ProductClaimModalController',
+            resolve: {
+                brand: function () {
+                    return brand;
+                }
+            }
         });
 
         claimModal.result.then(function () {
-
-        }, function () {
-          $log.info('Modal dismissed at: ' + new Date());
+            // If successful and
+            // and claim a new product has been clicked
+            $scope.openClaimReferenceModal(brand);
+        }, function () {            
+            $log.info('Modal dismissed at: ' + new Date());
         });
     }
 
@@ -59,7 +66,9 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerBrandListControlle
         });
 
         claimModal.result.then(function () {
-
+            // if successful
+            // and clicked on claim a new brand
+            $scope.openClaimBrandModal
         }, function () {
           $log.info('Modal dismissed at: ' + new Date());
         });
