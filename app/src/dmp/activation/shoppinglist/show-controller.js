@@ -4,8 +4,8 @@
  * Modal that allows the user to certify a given product.
  */
 angular.module('jDashboardFluxApp').controller('DmpActivationShoppingListShowController', [
-    '$scope', '$$ORM', 'permission', '$$sdkCrud', '$routeParams', '$window', '$log', '$location',
-    function ($scope, $$ORM, permission, $$sdkCrud, $routeParams, $window, $log, $location) {
+    '$scope', '$$ORM', 'permission', '$$sdkCrud', '$routeParams', '$window', '$log', '$location', '$$sdkMerchandising',
+    function ($scope, $$ORM, permission, $$sdkCrud, $routeParams, $window, $log, $location, $$sdkMerchandising) {
 
     // --------------------------------------------------------------------------------
     // Variables
@@ -13,6 +13,7 @@ angular.module('jDashboardFluxApp').controller('DmpActivationShoppingListShowCon
     $scope.campaign = null;
     $scope.recipe = null;
     $scope.user = null;
+    $scope.preview = false;
 
     // --------------------------------------------------------------------------------
     // Event binding
@@ -49,19 +50,19 @@ angular.module('jDashboardFluxApp').controller('DmpActivationShoppingListShowCon
         $scope.campaign.runsIn = [$scope.campaign._runsIn];
 
         // Error callback
-        var error = function(error) {
-            $log.error('', error);
+        var error = function(response) {
+            $log.error('', response);
             $window.alert('Une erreur est survenue pendant la mise à jour de la campagne.')
+        };
+        var success = function (response) {
+            $scope.preview = true;
+            $$sdkMerchandising.RecipeCacheGenerate('*', '*', $scope.campaign._runsIn.id);
         };
         // Save
         if ($scope.campaign.id) {
-            $$ORM.repository('Campaign').update($scope.campaign).then(function() {
-                $location.path('/dmp/activation/campaign');
-            }, error);
+            $$ORM.repository('Campaign').update($scope.campaign).then(success, error);
         } else {
-            $$ORM.repository('Campaign').create($scope.campaign).then(function() {
-                $location.path('/dmp/activation/campaign');
-            }, error);
+            $$ORM.repository('Campaign').create($scope.campaign).then(success, error);
         }
     };
 
@@ -96,6 +97,7 @@ angular.module('jDashboardFluxApp').controller('DmpActivationShoppingListShowCon
                 campaign._runsIn = null;
             }
             $scope.campaign = campaign;
+            $scope.preview = true;
         }, function (response) {
             $window.alert('Une erreur est survenue pendant le chargement de la campagne.')
         });
