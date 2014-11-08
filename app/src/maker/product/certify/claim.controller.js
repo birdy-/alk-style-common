@@ -4,8 +4,8 @@
  * Modal that allows the user to certify a given product.
  */
 angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
-    '$scope', '$modalInstance', '$$sdkCrud', '$window', '$log', 'permission', '$routeParams', '$$sdkAuth',
-    function ($scope, $modalInstance, $$sdkCrud, $window, $log, permission, $routeParams, $$sdkAuth) {
+    '$scope', '$modalInstance', '$$sdkCrud', '$window', '$log', 'permission', '$routeParams', '$$sdkAuth', 'brand', '$location',
+    function ($scope, $modalInstance, $$sdkCrud, $window, $log, permission, $routeParams, $$sdkAuth, brand, $location) {
 
     // ------------------------------------------------------------------------
     // Variables
@@ -13,6 +13,13 @@ angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
     $scope.productReference = {};
     $scope.product = null;
     $scope.user = null;
+    if (typeof(brand) !== 'undefined') {
+        $scope.brand = brand;    
+    }
+    $scope.multiple = false;
+    $scope.switchMultiple = function() {
+        $scope.multiple = !$scope.multiple;
+    };
 
     $scope.errors = {
         badReference: null,
@@ -22,6 +29,8 @@ angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
         confirmBrand: null,
         ok: null
     };
+
+    $scope.products = [];
 
     // ------------------------------------------------------------------------
     // Logic
@@ -116,6 +125,24 @@ angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
             }, checkClaim);
     };
 
+    var sendClaimMultiple = function() {
+        var brand_id = $scope.brand ? $scope.brand.id : $scope.product.isBrandedBy.id;
+        var products = $scope.products;
+        for (var index in products) {            
+            if (!products[index].reference.length) {
+                continue;
+            }
+            $$sdkAuth.UserClaimProductReferenceCreate(
+                products[index].nameLegal,
+                products[index].reference,
+                brand_id).then(function (response) {
+                    $scope.errors.noError = ($scope.errors.confirmBrand == true) ? false : true;
+                    $scope.errors.unknown = false;
+                    $scope.errors.ok = false;
+                });    
+        }        
+    };
+
     $scope.search = function() {
         // @todo : adapt with Claim call
         $$sdkCrud.ProductReferenceList({}, {
@@ -140,12 +167,26 @@ angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
         $location.path('/maker/product/' + $scope.productReference.reference + '/data/general');
         $modalInstance.close($scope.product);
     };
+
+    $scope.fillMultiple = function () {
+        sendClaimMultiple();
+        $modalInstance.close($scope.product);
+    };
+
     /**
-     * Called when something when wrong
+     * Called when something went wrong
      */
     $scope.cancel = function () {
         // The claim request was sent above.
-        $modalInstance.dismiss('cancel');
+        $modalInstance.dismiss('cancel');        
+    };
+
+    /**
+     * 
+     */
+    $scope.renewClaim = function () {
+        // The claim request was sent above.
+        $modalInstance.close();
     };
 
     // ------------------------------------------------------------------------

@@ -11,8 +11,7 @@
     <h2>Mes marques</h2>
     <div class="row">
         <div class="btn-group pull-right">
-            <button class="btn btn-primary" ng-click="openClaimBrandModal()">Gérer une nouvelle marque</button>
-            <button class="btn btn-primary" ng-click="openClaimReferenceModal()">Créer un produit</button>
+            <button class="btn btn-primary" ng-click="openClaimBrandModal()">Gérer une nouvelle marque</button>            
         </div>
     </div>
     <br>
@@ -23,13 +22,17 @@
                     <tr>
                         <td>Logo</td>
                         <td>Nom</td>
-                        <td></td>
+                        <td></td>                        
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="brand in brands">
-                        <td><img class="brand-logo" ng-src="https://smedia.alkemics.com/brand/{{ brand.id }}/picture/logo/original.png"/></td>
-                        <td><a href="/#/maker/brand/{{ brand.id }}">{{ brand.name }}</a></td>
+                        <td>
+                            <img class="brand-logo" ng-src="https://smedia.alkemics.com/brand/{{ brand.id }}/picture/logo/original.png" fallback-src="https://stream.alkemics.com/images/5078aa32.missing.png"/>
+                        </td>
+                        <td>
+                            <a href="/#/maker/brand/{{ brand.id }}">{{ brand.name }}</a>
+                        </td>
                         <td>
                             <a class="btn btn-warning" href="/#/maker/brand/{{ brand.id }}">
                                 <i class="fa fa-edit"></i> Éditer
@@ -37,7 +40,8 @@
                             <a class="btn btn-success" href="/#/maker/brand/{{ brand.id }}/product">
                                 <i class="fa fa-barcode"></i> Produits
                             </a>
-                        </td>
+                            <button class="btn btn-success pull-right" ng-click="openClaimReferenceModal(brand)">Ajouter un produit à la marque</button>
+                        </td>                        
                     </tr>
                 </tbody>
             </table>
