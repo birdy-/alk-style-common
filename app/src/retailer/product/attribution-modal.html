@@ -1,0 +1,47 @@
+<div class="modal-header">
+    <div class="pull-right">
+        <img height="60" width="60" ng-src="{{ productInShop.picture.main }}"/>
+    </div>
+    <h3>
+        Attributer le produit
+        <small>{{ productInShop.name }}</small>
+    </h3>
+</div>
+<div class="modal-body">
+    <form role="form">
+        <div class="form-group">
+            <label for="from">De :</label>
+            <input type="email" disabled class="form-control" id="from" ng-model="message.from.username">
+        </div>
+        <div class="form-group">
+            <label for="to">À :</label>
+            <input type="email" class="form-control" id="to" placeholder="Entrez l'email de votre correspondant" ng-model="message.to.username">
+        </div>
+        <div class="form-group">
+            <label for="subject">Objet :</label>
+            <input type="text" disabled class="form-control" id="subject" ng-model="message.subject">
+        </div>
+        <div class="form-group">
+            <div class="well text-center">
+                {{ message.from.firstname }} {{ message.from.lastname }} vous invite à remplir vos fiches produits :
+                <br/>
+                <br/>
+                <div ng-repeat="productInShop in productInShops">
+                    <img height="120" width="120" class="img-thumbnail" ng-src="{{ productInShop.picture.main }}"/>
+                    <br/>
+                    <br/>
+                    {{ productInShop.name }} ({{ productInShop.shortIdOut }})
+                    <br/>
+                    <br/>
+                    <span class="btn btn-success">J'y vais !</span>    
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <div class="text-right">
+        <span class="btn btn-warning" ng-click="cancel()"><i class="fa fa-times"></i> Annuler</span>
+        <span class="btn btn-success" ng-click="ok()"><i class="fa fa-envelope"></i> Envoyer</span>
+    </div>
+</div>

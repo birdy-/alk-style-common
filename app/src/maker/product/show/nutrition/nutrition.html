@@ -1,0 +1,153 @@
+<div template-product>
+<div ng-controller="DashboardMakerProductShowNutritionController">
+
+<h3>Nutrition</h3>
+
+<p>
+    Les valeurs ci-dessous doivent être remplies en valeur moyenne, c'est à dire avec la valeur qui représente le mieux la quantité d’un nutriment contenu dans une denrée alimentaire donnée et qui tient compte des tolérances dues aux variations saisonnières, aux habitudes de consommation et aux autres facteurs pouvant influencer la valeur effective.
+</p>
+
+<div class="pull-right">
+    <span class="btn btn-success" ng-click="addPSQ()"><i class="fa fa-plus"></i> Créer une quantité de référence</span>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th class="col-lg-2 text-right">Taille de référence</th>
+            <th ng-repeat="(psqId, psq) in psqs" class="text-center psq-col">{{ psq.name }}</th>
+        </tr>
+    </thead>
+    <thead>
+        <tr>
+            <th class="col-lg-2 text-right"></th>
+            <th ng-repeat="(psqId, psq) in psqs" class="text-center psq-col">
+                <span class="btn btn-success" ng-click="savePSQ(psq)">
+                    <i class="fa fa-save"></i>
+                    Enregistrer
+                </span>
+                <span class="btn btn-danger" ng-click="deletePSQ(psq)">
+                    <i class="fa fa-trash-o"></i>
+                    Supprimer
+                </span>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="{{ 1 + len() }}" class="psq-line"><h3>
+                <i class="fa fa-fw fa-caret-right" ng-click="showNutrition = !showNutrition" ng-show="!showNutrition"></i>
+                <i class="fa fa-fw fa-caret-down" ng-click="showNutrition = !showNutrition" ng-show="showNutrition"></i>
+                Déclaration nutritionnelle
+            </h3></td>
+        </tr>
+    </tbody>
+    <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[19195]"></tbody>
+    <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[19196]"></tbody>
+    <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[19058]"></tbody>
+    <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[19059]"></tbody>
+    <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[19060]"></tbody>
+    <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[19061]"></tbody>
+    <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[19062]"></tbody>
+    <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[19063]"></tbody>
+    <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[19064]"></tbody>
+    <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[19065]"></tbody>
+    <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[19066]"></tbody>
+    <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[19067]"></tbody>
+    <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[19068]"></tbody>
+    <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[19069]"></tbody>
+    <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[19070]"></tbody>
+    <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[19071]"></tbody>
+    <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[19072]"></tbody>
+    <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[19073]"></tbody>
+    <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[19074]"></tbody>
+
+    <tbody>
+        <tr>
+            <td colspan="{{ 1 + len()  }}" class="psq-line"><h3>
+                <i class="fa fa-fw fa-caret-right" ng-click="showVitamins = !showVitamins" ng-show="!showVitamins"></i>
+                <i class="fa fa-fw fa-caret-down" ng-click="showVitamins = !showVitamins" ng-show="showVitamins"></i>
+                Vitamines
+            </h3></td>
+        </tr>
+    </tbody>
+    <tbody ng-show="showVitamins" product-nutrition psqs="psqs" legend="pnqs[18978]"></tbody>
+    <tbody ng-show="showVitamins" product-nutrition psqs="psqs" legend="pnqs[18739]"></tbody>
+    <tbody ng-show="showVitamins" product-nutrition psqs="psqs" legend="pnqs[18740]"></tbody>
+    <tbody ng-show="showVitamins" product-nutrition psqs="psqs" legend="pnqs[18741]"></tbody>
+    <tbody ng-show="showVitamins" product-nutrition psqs="psqs" legend="pnqs[18744]"></tbody>
+    <tbody ng-show="showVitamins" product-nutrition psqs="psqs" legend="pnqs[18983]"></tbody>
+    <tbody ng-show="showVitamins" product-nutrition psqs="psqs" legend="pnqs[18743]"></tbody>
+    <tbody ng-show="showVitamins" product-nutrition psqs="psqs" legend="pnqs[18742]"></tbody>
+    <tbody ng-show="showVitamins" product-nutrition psqs="psqs" legend="pnqs[18984]"></tbody>
+    <tbody ng-show="showVitamins" product-nutrition psqs="psqs" legend="pnqs[18985]"></tbody>
+    <tbody ng-show="showVitamins" product-nutrition psqs="psqs" legend="pnqs[18982]"></tbody>
+    <tbody ng-show="showVitamins" product-nutrition psqs="psqs" legend="pnqs[18979]"></tbody>
+    <tbody ng-show="showVitamins" product-nutrition psqs="psqs" legend="pnqs[18980]"></tbody>
+    <tbody ng-show="showVitamins" product-nutrition psqs="psqs" legend="pnqs[18981]"></tbody>
+    <tbody ng-show="showVitamins" product-nutrition psqs="psqs" legend="pnqs[18986]"></tbody>
+
+    <tbody>
+        <tr>
+            <td colspan="{{ 1 + len()  }}" class="psq-line"><h3>
+                <i class="fa fa-fw fa-caret-right" ng-click="showMinerals = !showMinerals" ng-show="!showMinerals"></i>
+                <i class="fa fa-fw fa-caret-down" ng-click="showMinerals = !showMinerals" ng-show="showMinerals"></i>
+                Minéraux et métaux
+            </h3></td>
+        </tr>
+    </tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[19075]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[19076]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[19077]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[18989]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[18988]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[18998]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[19078]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[18994]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[18992]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[18996]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[19000]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[18991]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[18999]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[19079]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[18990]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[19080]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[18987]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[19081]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[19082]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[19083]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[18997]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[19084]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[18993]"></tbody>
+</table>
+
+<!--
+<h3>Traitements spécifiques</h3>
+<div class="form-group">
+    <label class="col-sm-2 control-label">Teneur en sel réduite de</label>
+    <div class="col-sm-4">
+        <div class="input-group">
+            <input type="text" class="form-control" name="isReducedSalt" ng-model="product.isReducedSalt" placeholder="ex : 25">
+            <span class="input-group-addon">%</span>
+        </div>
+    </div>
+    <label class="col-sm-2 control-label">Teneur en sucre réduite de</label>
+    <div class="col-sm-4">
+        <div class="input-group">
+            <input type="text" class="form-control" name="isReducedSugar" ng-model="product.isReducedSugar" placeholder="ex : 25">
+            <span class="input-group-addon">%</span>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2 control-label">Teneur en graisses réduite de</label>
+    <div class="col-sm-4">
+        <div class="input-group">
+            <input type="text" class="form-control" name="isReducedFat" ng-model="product.isReducedFat" placeholder="ex : 25">
+            <span class="input-group-addon">%</span>
+        </div>
+    </div>
+</div>
+-->
+</div>
+</div>

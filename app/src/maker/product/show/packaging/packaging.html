@@ -1,0 +1,257 @@
+<div template-product>
+<div ng-controller="DashboardMakerProductShowPackagingController">
+
+
+<!-- ================================================================================================================================== -->
+<!--                                                Packaging                                                              -->
+<!-- ================================================================================================================================== -->
+
+<h3>Unité de consommation / lot</h3>
+
+<div class="form-group has-feedback" ng-class="check('typePackaging')">
+    <label for="typePackaging" class="col-sm-4 control-label">Ce produit est-il :</label>
+    <div class="col-sm-8">
+        <div class="radio" ng-repeat="typePackaging in typePackagings">
+            <label>
+                <input ng-model="product.typePackaging" name="typePackaging" type="radio" ng-value="typePackaging.id"/> {{ typePackaging.description }}
+            </label>
+        </div>
+    </div>
+</div>
+
+<fieldset ng-show="product.isTypePackagingEach()">
+    <div class="form-group has-feedback" ng-class="check('packaging')">
+        <label for="packaging" class="col-sm-4 control-label">Packaging</label>
+        <div class="col-sm-8">
+            <input ng-model="product.packaging" name="packaging" class="form-control" type="text" placeholder="ex : 3 sachets de 100 grammes" required alk-focus>
+            <div input-block-help field="productForm.packaging">
+                An alphanumeric size factor the brand owner wishes to communicate to the consumer.
+                <br/>
+                Contient le contenu net tel que exprimé sur l'emballage : "24 x 33 cl". La quantité totale de produit (792 cl) continue d'être échangée dans la donnée netContent.
+            </div>
+            <div input-block-example field="productForm.packaging">
+                ex : 4x100g
+            </div>
+            <div input-block-gdsn field="productForm.packaging">
+                Correspond dans la GDSN a la balise <code>descriptiveSize</code>.
+            </div>
+        </div>
+    </div>
+    <!--<div class="form-group has-feedback" ng-class="check('packagingName')" >
+        <label for="packagingName" class="col-sm-6 control-label">Dans quoi est emballé ce produit ?</label>
+        <div class="col-sm-6">
+            <input ng-model="product.packagingName" name="packagingName" type="text" class="form-control" placeholder="ex : conserve">
+        </div>
+    </div>-->
+    <div class="form-group has-feedback" ng-class="check('isSplitable')">
+        <label for="isSplitable" class="col-sm-4 control-label">Ce {{ product.packagingName || 'produit' }} contient-il des {{ product.unitFridge || 'subdivision' }}(s) ?</label>
+        <div class="col-sm-8">
+            <label class="radio-inline">
+                <input ng-model="product.isSplitable" name="isSplitable" type="radio" ng-value="true" > oui
+            </label>
+            <label class="radio-inline">
+                <input ng-model="product.isSplitable" name="isSplitable" type="radio" ng-value="false"> non
+            </label>
+        </div>
+    </div>
+</fieldset>
+<fieldset ng-show="isSplitable()">
+    <div class="form-group has-feedback" ng-class="check('factorFUPA')">
+        <label for="factorFUPA" class="col-sm-4 control-label">Combien de {{ product.unitFridge || 'subdivision' }}(s) ?</label>
+        <div class="col-sm-8">
+            <input ng-model="product.factorFUPA" name="factorFUPA" type="text" class="form-control" placeholder="ex : 2" alk-integer ng-min="0">
+            <span ng-show="productForm.factorFUPA.$error.integer" class="help-block">Cette quantité doit être un nombre entier.</span>
+            <span ng-show="productForm.factorFUPA.$error.min" class="help-block">Cette quantité doit être plus grande que 0.</span>
+        </div>
+    </div>
+    <div class="form-group has-feedback" ng-class="check('unitFridge')">
+        <label for="unitFridge" class="col-sm-4 control-label">Comment s'appelle une subdivision ?</label>
+        <div class="col-sm-8">
+            <input ng-model="product.unitFridge" name="unitFridge" type="text" class="form-control" placeholder="ex : barquette">
+        </div>
+    </div>
+    <div class="form-group has-feedback" ng-class="check('factorSIFU')">
+        <label for="factorSIFU" class="col-sm-4 control-label">Combien mesure une {{ product.unitFridge || 'subdivision' }}(s) ?</label>
+        <div class="col-sm-4">
+            <input ng-model="product.factorSIFU" name="factorSIFU" type="text" class="form-control" placeholder="ex : 200" alk-float/>
+            <span ng-show="productForm.factorSIFU.$error.float" class="help-block">Cette quantité doit être un nombre décimal.</span>
+            <span ng-show="productForm.factorSIFU.$error.min" class="help-block">Cette quantité doit être plus grande que 0.</span>
+        </div>
+        <label class="col-sm-4 control-label text-left">
+            {{ product.isMeasuredBy.name }}
+        </label>
+    </div>
+</fieldset>
+
+
+<div class="form-group has-feedback" ng-if="product.isTypePackagingMultiple()">
+    <label for="isMadeOf" class="col-sm-4 control-label">Ce produit est composé de :</label>
+    <div class="col-sm-8">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Quantité</th>
+                    <th></th>
+                    <th>Composant</th>
+                    <th ng-show="product.isTypePromotionalPromotional()">Quantité gratuite</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="pimop in product.isMadeOf" ng-form="isMadeOf">
+                    <td>
+                        <span class="btn btn-danger" ng-click="deleteIsMadeOf(pimop)">
+                            <i class="fa fa-trash-o"></i>
+                        </span>
+                    </td>
+                    <td>
+                        <input name="quantity" ng-model="pimop.quantity" type="number" class="form-control" placeholder="ex : 2" alk-integer min="0" ng-min="0" required/>
+                    </td>
+                    <td>
+                        <img entity-image entity="pimop.item" height="40" width="40"/>
+                    </td>
+                    <td>
+                        <input name="item" ng-model="pimop.item" type="text" ui-select2="select2productOptions" style="width: 100%;" data-placeholder="Choisir un produit"/>
+                    </td>
+                    <td ng-show="product.typePromotional != 0">
+                        <input name="quantityFree" ng-model="pimop.quantityFree" type="text" class="form-control" min="0" placeholder="ex : 2" alk-integer ng-min="0"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="btn btn-success" ng-click="addIsMadeOf()">
+                            <i class="fa fa-plus"></i>
+                        </span>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- ================================================================================================================================== -->
+<!--                                                        Quantité nette                                                              -->
+<!-- ================================================================================================================================== -->
+<br/>
+<br/>
+<div class="form-group has-feedback" ng-class="check('quantityNormalized')">
+    <label for="quantityNormalized" class="col-sm-4 control-label">Soit une quantité nette</label>
+    <div class="col-sm-4">
+        <input ng-model="product.quantityNormalized" name="quantityNormalized" type="text" class="form-control" placeholder="ex : 200" ng-min="0" alk-float alk-focus required/>
+        <span ng-show="productForm.quantityNormalized.$error.required" class="help-block">La quantité nette du produit est obligatoire.</span>
+        <span ng-show="productForm.quantityNormalized.$error.float" class="help-block">La quantité nette du produit doit être un nombre décimal.</span>
+        <span ng-show="productForm.quantityNormalized.$error.min" class="help-block">Cette quantité doit être plus grande que 0.</span>
+    </div>
+    <div class="col-sm-4">
+        <input ng-model="product.isMeasuredBy" name="isMeasuredBy" type="text" ui-select2="select2commonunitOptions" style="width: 100%" data-placeholder="ex : g"/>
+    </div>
+    <div input-block-help field="productForm.quantityNormalized" class="col-sm-offset-4 col-sm-8">
+        <strong id="art23">Quantité nette :</strong>
+        La quantité nette d'une denrée alimentaire est exprimée, en utilisant, selon le cas, le litre, le centilitre, le millilitre ou bien le kilogramme ou le gramme:
+        <ul>
+            <li>en unités de volume pour les produits liquides; </li>
+            <li>en unités de masse pour les autres produits. </li>
+        </ul>
+    </div>
+    <div input-block-help field="productForm.quantityNormalized" class="col-sm-offset-4 col-sm-8">
+        The amount of the trade item contained by a package, usually as claimed on the label. For  example, Water 750ml net content = "750 ML" ; 20 count pack of diapers, net content = "20 PC.". In case of multi-pack, indicates the net content of the total trade item. For fixed
+        alue trade items use the value claimed on the package, to avoid variable fill rate issue that  arises with some trade item which are sold by volume or weight, and whose actual content  may  vary  slightly  from  batch  to  batch.  In  case  of  variable  quantity trade items, indicates the average quantity.
+        <br/>
+        Doit  correspondre à la quantité nette telle que déclarée sur l'emballage de la denrée alimentaire. La quantité nette doit être échangée dans une des unités de mesure suivante :le litre, le centilitre, le millilitre, le kilogramme, le gramme. Le contenu net de certaines denrées alimentaires (ex : œufs) peut également être exprimé en pièce, code GS1 : PC.
+    </div>
+    <div input-block-help field="productForm.quantityNormalized" class="col-sm-offset-4 col-sm-8">
+        Correspond dans la GDSN a la balise <code>netContent</code>.
+    </div>
+</div>
+<fieldset ng-show="product.isTypePromotionalPromotional()">
+    <div class="form-group has-feedback" ng-class="check('quantityFree')">
+        <label for="quantityFree" class="col-sm-4 control-label">dont</label>
+        <div class="col-sm-2">
+            <input ng-model="product.quantityFree" name="quantityFree" type="text" class="form-control" placeholder="ex : 200" ng-min="0" alk-float alk-focus/>
+            <span ng-show="productForm.quantityFree.$error.float" class="help-block">La quantité offerte du produit doit être un nombre décimal.</span>
+            <span ng-show="productForm.quantityFree.$error.min" class="help-block">Cette quantité doit être plus grande que 0.</span>
+        </div>
+        <label for="quantityFree" class="col-sm-2 control-label text-left">{{ product.isMeasuredBy.name }} gratuit(s) + </label>
+        <div class="col-sm-2">
+            <input ng-model="product.quantityBase" name="quantityBase" type="text" class="form-control" placeholder="ex : 100" ng-min="0" alk-float alk-focus/>
+            <span ng-show="productForm.quantityBase.$error.float" class="help-block">La quantité de base du produit doit être un nombre décimal.</span>
+            <span ng-show="productForm.quantityBase.$error.min" class="help-block">Cette quantité doit être plus grande que 0.</span>
+        </div>
+        <label for="quantityFree" class="col-sm-2 control-label text-left">{{ product.isMeasuredBy.name }} payant(s)</label>
+    </div>
+</fieldset>
+<div class="form-group has-feedback" ng-class="check('drainedWeight')">
+    <label for="drainedWeight" class="col-sm-4 control-label">et un poids net égoutté</label>
+    <div class="col-sm-4">
+        <input ng-model="product.drainedWeight" name="drainedWeight" type="text" class="form-control" placeholder="ex : 200" ng-min="0" alk-float alk-focus/>
+        <span ng-show="productForm.drainedWeight.$error.float" class="help-block">Cette quantité  doit être un nombre décimal.</span>
+        <span ng-show="productForm.drainedWeight.$error.min" class="help-block">Cette quantité doit être plus grande que 0.</span>
+    </div>
+    <label class="col-sm-4 control-label text-left">
+        gramme
+        <!--
+        <input type="text" name="isMeasuredBy" ng-model="product.isMeasuredBy" type="text" select ui-select2="select2commonunitOptions" style="width: 100%" placeholder="ex : g"/>
+        -->
+    </label>
+    <div input-block-help field="productForm.drainedWeight" class="col-sm-offset-2 col-sm-10">
+        The weight of the trade item when drained of its liquid. For example 225 "GR", Jar of pickles in vinegar. Applies to defined bricks of GCI Global trade item Classification Mainly food trade item. Has to be associated with a valid UoM.
+        <br/>
+        La quantité nette doit être échangée dans une des unités de mesure suivante : le kilogramme, le gramme. La quantité nette décrite dans la fiche produit doit correspondre exactement à celle présente sur l'emballage du produit.
+    </div>
+    <div input-block-help field="productForm.drainedWeight">
+        Correspond dans la GDSN a la balise <code>drainedWeight</code>.
+    </div>
+</div>
+
+
+<!-- ================================================================================================================================== -->
+<!--                                                Promotions                                                              -->
+<!-- ================================================================================================================================== -->
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+<h3>Promotion</h3>
+
+<div class="form-group has-feedback" ng-class="check('typePromotional')">
+    <label for="typePromotional" class="col-sm-4 control-label">Ce produit :</label>
+    <div class="col-sm-8">
+        <div class="radio" ng-repeat="typePromotional in typePromotionals()">
+            <label>
+                <input ng-model="product.typePromotional" name="typePromotional" type="radio" ng-value="typePromotional.id"/> {{ typePromotional.description }}
+            </label>
+        </div>
+    </div>
+</div>
+<fieldset ng-show="product.isTypePromotionalPromotional()">
+    <div class="form-group has-feedback">
+        <label for="typePromotional" class="col-sm-4 control-label">Cette promotion dérive d'un produit :</label>
+        <div class="col-sm-8">
+            <label class="radio-inline">
+                <input ng-model="product.isDerivable" name="isDerivable" type="radio" ng-value="true" > oui
+            </label>
+            <label class="radio-inline">
+                <input ng-model="product.isDerivable" name="isDerivable" type="radio" ng-value="false"> non
+            </label>
+        </div>
+    </div>
+    <div class="form-group has-feedback" ng-class="check('isDerivedFrom')" ng-show="product.isDerivable">
+        <label for="isDerivedFrom" class="col-sm-4 control-label">lequel :</label>
+        <div class="col-sm-8">
+            <input name="isDerivedFrom" ng-model="product.isDerivedFrom.target" type="text" ui-select2="select2productOptions" style="width: 100%;"/>
+        </div>
+    </div>
+</fieldset>
+
+<br/>
+<br/>
+<br/>
+
+</div>
+</div>

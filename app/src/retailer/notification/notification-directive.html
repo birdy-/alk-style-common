@@ -1,0 +1,57 @@
+<div class="tl-entry">
+
+    <!-- The date of the notification -->
+    <div class="tl-time">
+        {{ notification.event.timestamp * 1000 | date:'yyyy-MM-dd' }}
+        <br/>
+        {{ notification.event.timestamp * 1000 | date:'HH:mm' }}
+    </div>
+
+    <!-- The icon -->
+    <div class="tl-icon {{ notification.color }}">
+        <i class="fa {{ notification.icon }}"></i>
+    </div>
+
+    <!-- The box -->
+    <div class="panel tl-body" ng-switch="notification.event.type">
+
+        <div ng-switch-when="ProductInShopProductCertified">
+            <a href="mailto:{{ notification.event.data.user.username }}">
+                {{ notification.event.data.user.firstname }} {{ notification.event.data.user.lastname }}
+            </a>
+            <span ng-switch="notification.event.data.certified">
+                <span ng-switch-when="1">a accepté de remplir la fiche du produit</span>
+                <span ng-switch-when="2">a certifié le produit</span>
+                <span ng-switch-when="3">a publié le produit</span>
+                <span ng-switch-when="6">a archivé un produit</span>
+            </span>
+            {{ notification.event.data.product.nameLegal }}
+            <div class="tl-wide text-center" style="padding:10px; margin-top:15px; margin-bottom:15px; background:#f1f1f1">
+                <img ng-src="{{ notification.event.data.productinshop.url_picture }}" alt="" style="max-height:150px; max-width:100%;">
+            </div>
+        </div>
+
+        <div ng-switch-when="ProductUpdated">
+            <a href="mailto:{{ notification.event.data.user.username }}">
+                {{ notification.event.data.user.firstname }} {{ notification.event.data.user.lastname }}
+            </a>
+            a mis à jour le produit
+            {{ notification.event.data.product.nameLegal }}
+        </div>
+
+        <div ng-switch-when="PlatformNewFeature">
+            {{ notification.event.data.message }}
+        </div>
+
+        <div ng-switch-when="PlatformBrandWelcome">
+            Bravo pour votre inscription sur le portail Alkemics ! Commençons par...
+            <br/> <br/>
+            <div class="text-center">
+                <span class="btn btn-default" ng-click="claim()">
+                    <i class="fa fa-plus"></i> Créer un nouveau produit
+                </span>
+            </div>
+        </div>
+    </div>
+
+</div>

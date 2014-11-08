@@ -1,0 +1,186 @@
+<div template-product>
+<div ng-controller="DashboardMakerProductShowManufacturerController">
+<!--<div class="pull-right">
+	<span class="btn btn-default" ng-click="fillManufacturerFromOrganization"><i class="fa fa-download"></i> Remplir avec la marque</span>
+</div>-->
+<h3>Exploitant</h3>
+<br/>
+
+<div class="form-group">
+    <label for="manufacturerName" class="col-sm-3 control-label">Nom de l'exploitant</label>
+    <div class="col-sm-9">
+        <input type="text" name="manufacturerName" ng-model="product.manufacturerName" placeholder="ex : Nestlé SA" required class="form-control"/>
+        <div input-block-help field="productForm.manufacturerName">
+            Le nom de l'exploitant du secteur alimentaire tel qu'indiqué sur l'emballage. L'industriel peut décider de rajouter certaines informations sur la nature de l'exploitant du secteur alimentaire.
+        </div>
+        <div input-block-example field="productForm.manufacturerName">
+            ex : Commercialisé par￼Orangina Schweppes France. Fabriqué avec l’autorisation du propriétaire de la￼marque.
+            <br/>
+            ex : Casino
+        </div>
+        <div input-block-gdsn field="productForm.manufacturerName">
+            Correspond dans la GDNS a la balise <code>contactName</code>.
+        </div>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="manufacturerText" class="col-sm-3 control-label">Adresse de l'exploitant</label>
+    <div class="col-sm-9">
+        <textarea name="manufacturerText" ng-model="product.manufacturerText" placeholder="ex : 82 rue du Faubourg Saint Martin, 75010 PARIS" rows="2" required class="form-control"></textarea>
+        <div input-block-help field="productForm.manufacturerText">
+            L'adresse de l'exploitant du secteur alimentaire telle qu'indiquée sur l'emballage.
+        </div>
+        <div input-block-example field="productForm.manufacturerText">
+            ex : Orangina Schweppes France, CS 80491, 13593 Aix-en-Provence Cedex 3,￼France
+            <br/>
+            ex : Casino 42008￼Saint-Etienne Cedex 2.
+        </div>
+        <div input-block-gdsn field="productForm.manufacturerText">
+            Correspond dans la GDNS a la balise <code>communicationAddress</code>.
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <label for="manufacturerName" class="col-sm-3 control-label">Contact</label>
+    <div class="col-sm-2">
+        <input type="text" name="manufacturerEmail" ng-model="product.manufacturerEmail" placeholder="Email" class="form-control"/>
+    </div>
+    <div class="col-sm-3">
+        <input type="text" name="manufacturerPhonenumber" ng-model="product.manufacturerPhonenumber" placeholder="Téléphone" class="form-control"/>
+    </div>
+    <div class="col-sm-4">
+        <input type="text" name="manufacturerWebsite" ng-model="product.manufacturerWebsite" placeholder="Site web" class="form-control"/>
+    </div>
+</div>
+
+
+<br/>
+<br/>
+<br/>
+<!--<div class="pull-right">
+	<span class="btn btn-default" ng-click="fillConsumerSupportFromOrganization"><i class="fa fa-download"></i> Remplir avec la marque</span>
+</div>-->
+<h3>Service consommateur</h3>
+<br/>
+
+<div class="form-group">
+    <label for="consumerSupportName" class="col-sm-3 control-label">Nom</label>
+    <div class="col-sm-9">
+        <input type="text" class="form-control" name="consumerSupportName" ng-model="product.consumerSupportName" placeholder="Nom du service consommateur"/>
+    </div>
+</div>
+<div class="form-group">
+    <label for="consumerSupportAddress" class="col-sm-3 control-label">Adresse</label>
+    <div class="col-sm-9">
+        <textarea class="form-control" name="consumerSupportAddress" ng-model="product.consumerSupportAddress" placeholder="N° et rue"></textarea>
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-2">
+        <input type="text" class="form-control" name="consumerSupportPostcode" ng-model="product.consumerSupportPostcode" placeholder="Code postal"/>
+    </div>
+    <div class="col-sm-3">
+        <input type="text" class="form-control" name="consumerSupportCity" ng-model="product.consumerSupportCity" placeholder="Ville"/>
+    </div>
+    <div class="col-sm-4">
+        <input type="text" class="form-control" name="consumerSupportCountry" ng-model="product.consumerSupportCountry" placeholder="Pays"/>
+    </div>
+</div>
+<div class="form-group">
+    <label for="consumerSupportEmail" class="col-sm-3 control-label">Contact</label>
+    <div class="col-sm-2">
+        <input type="text" class="form-control" name="consumerSupportEmail" ng-model="product.consumerSupportEmail" placeholder="Email"/>
+    </div>
+    <div class="col-sm-3">
+        <input type="text" class="form-control" name="consumerSupportPhonenumber" ng-model="product.consumerSupportPhonenumber" placeholder="Téléphone"/>
+    </div>
+    <div class="col-sm-4">
+        <input type="text" class="form-control" name="consumerSupportWebsite" ng-model="product.consumerSupportWebsite" placeholder="Site web"/>
+    </div>
+</div>
+
+
+<h3>Traçabilité</h3>
+<div class="form-group">
+    <label for="origin" class="col-sm-2 control-label">Origine</label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" name="origin" ng-model="product.origin" placeholder="ex : Bourgogne, France" alk-focus required/>
+        <div input-block-help field="productForm.origin">
+            Free text description of the geographic area the product originates from. Each Description structure SHALL have a different language code, and SHALL represent presentations of the same value in different languages.
+            <br/>
+            La donnée doit correspondre exactement à l’allégation d’origine présente sur le produit.
+            Donnée utilisée notamment pour les spécialités traditionnelles garanties, les indications géographiques et les appellations d’origine des produits agricoles et des denrées alimentaires.
+        </div>
+        <div input-block-example field="productForm.origin">
+            ex : ORIGINE FRANCE
+            <br/>
+            ex : ELEVE AU￼ROYAUME UNI (ECOSSE)
+        </div>
+        <div input-block-gdsn field="productForm.origin">
+            Correspond dans la GDSN a la balise <code>countryOfOriginStatement</code>.
+        </div>
+    </div>
+</div>
+
+<!--
+<div class="form-group">
+    <label for="traceabilityBirth" class="col-sm-2 control-label">Lieu de naissance</label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" name="traceabilityBirth" ng-model="product.traceability.birth" placeholder="ex : Bourgogne, France" alk-focus/>
+        <div input-block-help field="productForm.traceabilityBirth">
+            Is the place the animal was born/hatched. The place may be a country, region (land or  sea), city, etc. Since a company may have multiple facilities in multiple countries, the attribute needs to be repeating to reflect the potential places. The actual birth place of a particular animal would be transactional. Note: the term animal includes but is not limited to mammals, birds, fish and crustaceans.
+        </div>
+        <div input-block-example field="productForm.traceabilityBirth">
+            ex : IRLANDE
+        </div>
+        <div input-block-gdsn field="productForm.traceabilityBirth">
+            Correspond dans la GDSN a la balise <code>placeOfBirth</code>.
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <label for="traceabilityBreed" class="col-sm-2 control-label">Lieu d'élevage</label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" name="traceabilityBreed" ng-model="product.traceability.breed" placeholder="ex : Bourgogne, France" alk-focus/>
+        <div input-block-help field="productForm.traceabilityBreed">
+            Is the place the animal was raised after birth to the end of the animal’s life. The place may  be a country, region (land or sea), city, etc. Since a company may have multiple facilities in  multiple countries, the attribute needs to be repeating to reflect the potential places. The  actual rearing place(s) of a particular animal would be transactional.
+            <br/>
+            Guidance:
+            <br/>
+            If the animal was a particular animal that was raised in multiple locations, one instance of the attribute should be populated. E.g. Reared in Spain and Portugal.
+            If the animal may have been raised in a single location but for a particular animal it is transactional, it is suggested to populate the attribute for each possibility of location an animal may have come from. E.g. Instance 1) Reared in Spain, Instance 2) Reared in Portugal. Note: the term animal includes but is not limited to mammals, birds, fish and crustaceans.
+        </div>
+        <div input-block-example field="productForm.traceabilityBreed">
+            ex : IRLANDE
+        </div>
+        <div input-block-gdsn field="productForm.traceabilityBreed">
+            Correspond dans la GDSN a la balise <code>placeOfRearing</code>.
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <label for="traceabilitySlaughter" class="col-sm-2 control-label">Lieu d'abattage</label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" name="traceabilitySlaughter" ng-model="product.traceability.slaughter" placeholder="ex : Bourgogne, France" alk-focus/>
+        <div input-block-help field="productForm.traceabilitySlaughter">
+            Is the place the animal was killed to be processed for food, or other purposes. The place may be a country, region (land or sea), city, etc. Since a company may have multiple facilities in multiple countries, the attribute needs to be repeating to reflect the potential places. The actual slaughter place of a particular animal would be transactional. Note: the term animal includes but is not limited to mammals, birds, fish and crustaceans.
+        </div>
+        <div input-block-example field="productForm.traceabilitySlaughter">
+            ex : IRLANDE
+        </div>
+        <div input-block-gdsn field="productForm.traceabilitySlaughter">
+            Correspond dans la GDSN a la balise <code>placeOfSlaughter</code>.
+        </div>
+    </div>
+</div>
+-->
+
+
+
+
+
+
+</div>
+</div>

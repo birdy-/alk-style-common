@@ -1,0 +1,26 @@
+<div class="modal-header">
+    <div class="pull-right">
+        <img height="60" width="60" ng-src="{{ product.picture.main.replace('original', '256x256') }}"/>
+    </div>
+    <h3>
+        Acceptation
+        <small>{{ product.nameLegal }}</small>
+    </h3>
+</div>
+<div class="modal-body">
+    <div class="well">
+        En signant électroniquement ce document, j'atteste que je suis le responsable de la certification de ce produit.
+    </div>
+</div>
+<div class="modal-footer">
+    <form class="form-inline" role="form">
+        <div class="form-group">
+            <div class="col-sm-6 text-left">
+                <button class="btn btn-warning" ng-click="cancel()"><i class="fa fa-ban"></i> Je ne suis pas responsable de ce produit</button>
+            </div>
+            <div class="col-sm-6 text-right">
+                <button class="btn btn-success" ng-click="ok()"><i class="fa fa-certificate"></i> J'accepte le remplissage de ce produit</button>
+            </div>
+        </div>
+    </form>
+</div>

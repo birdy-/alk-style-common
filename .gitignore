@@ -3,7 +3,12 @@ dist
 .tmp
 .sass-cache
 app/bower_components
+app/bower_components/*
 !app/bower_components/angular-mocks/content-mocks.js
 grunt-aws.json
+snapshots
+.idea
 
 *.DS_Store
+app.tar.gz
+app/styles

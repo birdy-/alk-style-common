@@ -1,0 +1,63 @@
+<div class="sheet">
+    <div class="row" infinite-scroll="more()">
+        <div ng-repeat="product in products" class="col-sm-2 product">
+            <div class="picture missing-picture" ng-click="show(product)">
+                <div class="ratio" ng-style="{'background-image': 'url(' + product.urlPictureOriginal + ')'}"  style="height: 100px;">
+                </div>
+            </div>
+            <div class="name">
+                <!-- Use the first ProductReference linked to identify the product -->
+                <a ng-href="/#/maker/product/{{ product.isIdentifiedBy[0].reference }}/data/general">
+                    {{ product.nameLegal }}
+                </a>
+            </div>
+            <div class="packaging">
+                {{ product.packaging }}
+            </div>
+            <div class="reference text-center">
+                <span class="badge" ng-repeat="reference in product.isIdentifiedBy | limitTo:1" >
+                    {{ reference.reference }}
+                </span>
+            </div>
+            <div class="product-icons">
+                <span class="label label-success" ng-show="product.isCertified()">
+                    <i class="fa fa-check"></i> Certifié
+                </span>
+            </div>
+        </div>
+        <!--
+        <div class="col-sm-2 product new">
+            <div class="picture">
+                <div class="ratio">+</div>
+            </div>
+            <div class="name">
+                <a href="/#/maker/product/create">
+                    Nouveau produit
+                </a>
+            </div>
+            <div class="packaging">
+            </div>
+            <div class="product-icons">
+            </div>
+        </div>
+        -->
+    </div>
+    <div class="row" ng-if="scroll.busy">
+        <div class="col-sm-12 text-center">
+            <br/>
+            <br/>
+            <br/>
+            <i class="fa fa-spinner fa-spin fa-4x"></i>
+        </div>
+    </div>
+    <div class="row" ng-if="!scroll.busy && products.length == 0">
+        <div class="col-sm-12 text-center">
+            <br/>
+            <br/>
+            <br/>
+            <h3>Aucun produit trouvé.</h3>
+            <small>Vos filtres sont peut-être trop spécifiques, ou vous n'êtes pas autorisé à accéder au produit demandé.</small>
+        </div>
+    </div>
+</div>
+

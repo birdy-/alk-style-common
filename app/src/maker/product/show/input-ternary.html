@@ -1,0 +1,24 @@
+<label class="col-sm-2 control-label">
+	{{ label }}
+</label>
+<div class="col-sm-4 has-feedback">
+	<label class="radio-inline" ng-class="suggestValue(1)">
+	    <input type="radio" ng-model="localModel[field]" ng-value="1"/>
+	    Oui
+	</label>
+	<label class="radio-inline" ng-class="suggestValue(0)">
+	    <input type="radio" ng-model="localModel[field]" ng-value="0"/>
+	    Non
+	</label>
+	<label class="radio-inline" ng-class="suggestValue(2)">
+	    <input type="radio" ng-model="localModel[field]" ng-value="2"/>
+	    Traces
+	</label>
+	<label class="radio-inline" ng-class="suggestValue(null)">
+	    <input type="radio" ng-model="localModel[field]" ng-value="null"/>
+	    NC
+	</label>
+	<label class="radio-inline input-suggest" ng-show="suggestSomething()">
+		<span title="Nous pensons que cet allergène est présent." class="fa fa-warning"></span>
+	</label>
+</div>

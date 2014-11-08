@@ -1,0 +1,55 @@
+<form role="form">
+    <h4><i class="fa fa-filter"></i> Filtrer par...</h4>
+    <div class="form-group">
+        <label>Marque commerciale :</label>
+        <div ui-tree="options" data-drag-enabled="false" class="brand-tree">
+            <ol ui-tree-nodes ng-model="brands">
+                <li ng-repeat="brand in brands | filter:root:true" ui-tree-node ng-include="'/src/maker/product/list/node.html'"></li>
+            </ol>
+        </div>
+    </div>
+    <br/>
+    <div class="form-group">
+        <label>Nom</label>
+        <input type="text" class="form-control" ng-model="request.product.nameLegal"/>
+    </div>
+    <br/>
+    <div class="form-group">
+        <label>EAN</label>
+        <input type="text" class="form-control" ng-model="request.product.isIdentifiedBy.reference"/>
+    </div>
+    <br/>
+    <div class="form-group">
+        <label>Afficher les produits :</label>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" name="certified" ng-model="request.product.certifieds[5]"/>
+                demandés par le distribueur
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" name="certified" ng-model="request.product.certifieds[1]"/>
+                que je dois remplir
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" name="certified" ng-model="request.product.certifieds[2]"/>
+                que j'ai terminés de remplir
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" name="certified" ng-model="request.product.certifieds[3]"/>
+                que j'ai publiés
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" name="certified" ng-model="request.product.certifieds[6]"/>
+                que j'ai archivés
+            </label>
+        </div>
+    </div>
+</form>

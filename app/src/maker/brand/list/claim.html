@@ -1,0 +1,43 @@
+<div class="modal-header">
+    <div class="row">
+        <h3 class="col-xs-12">
+            <span ng-if="errors.unknown === false">Gérer une marque existante</span>
+            <span ng-if="errors.unknown">Créer une nouvelle marque</span>
+        </h3>
+    </div>
+</div>
+<div class="modal-body">
+    <form role="form" name="claimForm">
+        <div class="form-group" ng-if="errors.unknown === false">
+                <div class="form-group">
+                    <label for="isBrandedBy">Rechercher une marque</label>
+                    <input type="text" select ui-select2="select2BrandOptions" ng-model="request.selectedBrand" style="width:100%" placeholder="ex : Nestlé"/>
+                </div>
+        </div>
+        <div>
+            <div ng-if="errors.unknown">
+                <div class="form-group">
+                    <label for="nameLegal">Dénomination légale de la marque</label>
+                    <input type="text" class="form-control" name="nameLegal" ng-model="request.createdBrand" placeholder="ex: Ma marque" required/>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <span ng-if="errors.ok">
+                <span class="btn btn-success" ng-if="errors.unknown === false" ng-click="sendRequestBrand()"><i class="fa fa-plus"></i> Demander l'accès à cette marque</span>
+                <span class="btn btn-success" ng-if="errors.unknown === true" ng-click="sendRequestNewBrand()"><i class="fa fa-plus"></i> Créer cette marque</span>
+            </span>        
+        </div>
+    </form>
+    <div ng-if="errors.ok === false" class="alert alert-success">
+                Votre demande à bien été enregistrée.
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="text-right">
+        <span class="btn btn-default" ng-if="errors.unknown === true" ng-click="brandNotInList()">Rechercher parmi les marques existantes</span>
+        <span class="btn btn-default" ng-if="errors.unknown === false" ng-click="brandNotInList()">Ma marque n'est pas dans la liste</span>
+        <span class="btn btn-success" ng-if="errors.ok === false" ng-click="cancel()"><i class="fa fa-check"></i> OK</span>
+        <span class="btn btn-link" ng-click="cancel()"><i class="fa fa-times"></i> Annuler</span>
+    </div>
+</div>

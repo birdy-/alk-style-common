@@ -1,0 +1,331 @@
+<div template-product>
+<div ng-controller="DashboardMakerProductShowCompositionController">
+
+<div class="form-group">
+    <div class="col-sm-6">
+        <h3>Composition</h3>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="composition" class="col-sm-2 control-label">Ingrédients</label>
+    <div class="col-sm-10">
+        <!--<div ng-model="product.composition" ui-select2="select2productCompositionOptions" style="width: 100%;" rows="3" placeholder="Composition du produit."></div>-->
+        <textarea class="form-control" name="composition" rows="3" ng-model="product.composition" placeholder="Composition du produit." alk-focus required ng-blur="check()"></textarea>
+        <div input-block-help field="productForm.composition">
+            <strong id="art18">Liste des ingrédients</strong>
+            Elle comprend tous les ingrédients de la denrée alimentaire, dans l'ordre décroissant de leur importance pondé­rale au moment de leur mise en œuvre dans la fabrication de la denrée.
+            <br/>
+            Les ingrédients sont désignés par leur nom spécifique.
+            <br/>
+            Tous les ingrédients qui se présentent sous forme de nanomatériaux manufacturés sont indiqués clairement dans la liste des ingrédients. Le nom des ingrédients est suivi du mot "ano» entre crochets.
+            <br/>
+
+            <strong id="art19">Omission de la liste des ingrédients</strong>
+            Une liste des ingrédients n'est pas requise pour les denrées alimentaires suivantes:
+            <ul>
+                <li>les fruits et légumes frais, y compris les pommes de terre, qui n'ont pas fait l'objet d'un épluchage, d'un découpage ou d'autres traitements similaires;  </li>
+                <li>les eaux gazéifiées, dont la dénomination fait apparaître cette caractéristique;  </li>
+                <li>les vinaigres de fermentation s'ils proviennent exclusivement d'un seul produit de base et pour autant qu'aucun autre ingrédient n'ait été ajouté;  </li>
+                <li>les fromages, le beurre, les laits et crèmes fermentés pour autant que n'aient pas été ajoutés d'autres ingrédients que des produits lactés, des enzymes alimentaires et des cultures de micro-organismes nécessaires à la fabrication ou, dans le cas des fromages autres que frais ou fondus, que le sel nécessaire à leur fabrication; </li>
+                <li>les produits ne comportant qu'un seul ingrédient, à condition que la dénomination de la denrée alimentaire:
+                    <ul>
+                        <li>soit identique au nom de l'ingrédient; ou </li>
+                        <li>permette de déterminer la nature de l'ingrédient sans risque de confusion. </li>
+                    </ul>
+                </li>
+            </ul>
+            <br/>
+
+            <strong id="art20">Omission de constituants d'une denrée alimentaire de la liste des ingrédients</strong>
+            L'indication des constituants suivants d'une denrée alimentaire n'est pas requise dans la liste des ingrédients:
+            <ul>
+                <li>ceux qui, au cours du processus de fabrication, ont été temporairement soustraits pour être réincorporés ensuite en quantité ne dépassant pas la teneur initiale; </li>
+                <li>les additifs alimentaires et enzymes alimentaires:
+                    <ul>
+                        <li>dont la présence dans une denrée alimentaire est unique­ment due au fait qu'ils étaient contenus dans un ou plusieurs ingrédients de cette denrée, conformément au principe de transfert visé à l'article 18, paragraphe 1, points a) et b), du règlement (CE) no 1333/2008, et sous réserve qu'ils ne remplissent pas de fonction tech­nologique dans le produit fini; ou</li>
+                        <li>qui sont utilisés en tant qu'auxiliaires technologiques;</li>
+                    </ul>
+                </li>
+                <li>les supports, ainsi que les substances qui ne sont pas des additifs alimentaires mais qui sont utilisées de la même manière et dans le même but que les supports, qui sont utilisés aux doses strictement nécessaires;</li>
+                <li>les substances qui ne sont pas des additifs alimentaires mais qui sont utilisées de la même manière et dans le même but que les auxiliaires technologiques et qui sont toujours présentes dans le produit fini, même sous une forme modi­fiée;</li>
+                <li>l'eau:
+                    <ul>
+                        <li>lorsque l'eau est utilisée, lors du processus de fabrication, uniquement pour permettre la reconstitution dans son état d'origine d'un ingrédient utilisé sous forme concen­trée ou déshydratée, ou </li>
+                        <li>dans le cas du liquide de couverture, qui n'est normale­ment pas consommé.</li>
+                    </ul>
+                </li>
+            </ul>
+            <br/>
+
+            <strong id="art22">Indication quantitative des ingrédients :</strong>
+            L'indication de la quantité d'un ingrédient ou d'une caté­gorie d'ingrédients utilisé dans la fabrication ou la préparation d'une denrée alimentaire est requise lorsque cet ingrédient ou cette catégorie d'ingrédients:
+            <ul>
+                <li>figure dans la dénomination de la denrée alimentaire ou est généralement associé à cette dénomination par les consom­mateurs;</li>
+                <li>est mis en évidence dans l'étiquetage par des mots, des images ou une représentation graphique; ou</li>
+                <li>est essentiel pour caractériser une denrée alimentaire et la distinguer des produits avec lesquels elle pourrait être confondue en raison de sa dénomination ou de son aspect.</li>
+            </ul>
+        </div>
+        <div input-block-help field="productForm.composition">
+            La liste des ingrédients échangée dans la fiche produit GS1 doit correspondre exactement à la liste présente sur l'emballage du produit.
+            <br/>
+            Pour les produits commercialisés sur le marché français, la liste des ingrédients est fournie en français. Le code langue associé au texte descriptif est le code fr. Les codes langues utilisés dans le standard GDSN sont les codes ISO 639 format 2 caractères alphabétiques.
+            <br/>
+            La liste des ingrédients commence toujours par le mot "Ingrédients :" ou "Ingrédient :".
+            <br/>
+            La liste des ingrédients inclut les éventuelles notes de bas de page.
+            <br/>
+            S'il le souhaite, l'industriel peut également inclure les traces d'allergènes en fin de liste d'ingrédients. Les absences avérées d'allergènes sont traitées comme des allégations marketing.
+        </div>
+        <div input-block-example field="productForm.composition">
+            Ingrédients : eau de source 80%, jus de fruits à base de concentrés 12% (orange 10%,￼pomme), sucre, acidifiants : acide citrique et acide malique, arômes, antioxydant : acide ascorbique,￼colorant : extrait de paprika.
+            <br/>
+            Ingrédients : Légumes 38,75% : pommes de terre (contient sulfites) – carottes – oignons.￼Sauce : eau – vin rouge (contient sulfites) – amide modifié de maïs – concentré de tomates – farine￼de blé – huile de colza – arômes (contient : blé, orge, lait, céleri et soja) – sel – sucre – épices et￼aromates – colorant E150c. Viande de bœuf préparée en salaison précuite 25% : viande bovine￼(Origine UE) – vin rouge (contient sulfites) – eau – ail – sel – amidon modifié de maïs – stabilisants :￼E451i, E407a et E410 – oignon – dextrose. Traces de crustacés, poisson et￼moutarde
+        </div>
+        <div input-block-gdsn field="productForm.composition">
+            Correspond dans la GDSN a la balise <code>ingredientStatement</code>.
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <label for="allergens" class="col-sm-2 control-label">Allergènes</label>
+    <div class="col-sm-10">
+        <textarea ng-model="product.allergens" name="allergens" rows="3" class="form-control" placeholder="Allergènes notables du produit." required alk-focus></textarea>
+        <div input-block-help field="productForm.allergens">
+            Textual description of the presence or absence of allergens as governed by local rules and regulations, specified as one string.
+            <br/>
+            Ce champ contient le nom des substances ou produits qui sont mis en évidence dans la liste  des  ingrédients  présente  sur  l"emballage  car  provoquant  des  allergies  ou  des  intolérances.  Si  une même substance ou un même produit est mis en évidence plusieurs fois dans la liste des  ingrédients, il n"est pas nécessaire de répéter le nom de la substance ou du produit.  Le séparateur virgule "," est utilisé pour séparer chaque nom de substance ou produit mis en  évidence dans la liste des ingrédients.
+        </div>
+        <div input-block-example field="productForm.allergens">
+            calmars, moules, crevettes, poisson, blé, céleri, crustacés, moutarde
+            <br/>
+            sulfites, blé, orge, lait, céleri, soja
+        </div>
+        <div input-block-gdsn field="productForm.allergens">
+            Correspond dans la GDSN a la balise <code>allergenStatement</code>.
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <label for="additives" class="col-sm-2 control-label">Additifs et conservateurs</label>
+    <div class="col-sm-10">
+        <textarea class="form-control" rows="3" ng-model="product.additives" name="additives" placeholder="Liste des additifs et conservateurs."></textarea>
+        <!--<div ng-model="product.additives" ui-select2="select2productCompositionOptions" style="width: 100%;" rows="3" placeholder="Liste des additifs et conservateurs."></div>-->
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-sm-6">
+        <h3>Quantités particulières</h3>
+    </div>
+</div>
+<div class="form-group">
+    <label for="ratioAlcohol" class="col-sm-2 control-label">Degré d'alcool</label>
+    <div class="col-sm-4">
+        <div class="input-group">
+            <input type="text" class="form-control" name="ratioAlcohol" ng-model="product.ratioAlcohol" placeholder="ex : 18" alk-focus/>
+            <span class="input-group-addon">°</span>
+        </div>
+        <div input-block-gdsn ng-show="productForm.ratioAlcohol">
+            Percentage of alcohol contained in the base unit trade item.
+            <br/>
+            Conformément à l’annexe XII du Règlement, le titre alcoométrique volumique acquis est un chiffre comportant au maximum une décimale. Le titre alcoométrique est déterminé à 20°C. Les tolérances accordées sont indiquées dans l’annexe XII du Règlement.
+            Pour mise à disposition du consommateur, le titre alcoométrique est suivi du symbole  "% vol" et peut être précédé du terme alcool ou de l’abréviation "alc.".
+        </div>
+        <div input-block-gdsn ng-show="productForm.ratioAlcohol">
+            Correspond dans la GDSN a la balise <code>percentageOfAlcoholByVolume</code>.
+        </div>
+    </div>
+    <label for="ratioCacao" class="col-sm-2 control-label">Teneur en cacao</label>
+    <div class="col-sm-4">
+        <div class="input-group">
+            <input type="text" name="ratioCacao" class="form-control" ng-model="product.ratioCacao" placeholder="ex : 72" alk-focus/>
+            <span class="input-group-addon">%</span>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <label for="ratioFat" class="col-sm-2 control-label">Rapport gras</label>
+    <div class="col-sm-4">
+        <div class="input-group">
+            <input type="text" class="form-control" name="ratioFat" ng-model="product.ratioFat" placeholder="ex : 18" alk-focus/>
+            <span class="input-group-addon">%</span>
+        </div>
+    </div>
+    <label for="levelPH" class="col-sm-2 control-label">pH</label>
+    <div class="col-sm-4">
+        <input type="text" class="form-control" name="levelPH" ng-model="product.levelPH" placeholder="ex : 18" alk-focus/>
+    </div>
+</div>
+
+
+<div class="form-group">
+    <div class="col-sm-6">
+        <h3>Graisses</h3>
+    </div>
+    <div class="col-sm-6">
+        <h3>Sucres</h3>
+    </div>
+</div>
+<div class="form-group">
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasOilPalm" label="Présence d'huile de palme"></div>
+    <!--<div ternary ng-model="product" alk-suggest="suggest" name="hasAddedSugar" label="Présence de sucres ajoutés"></div>-->
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasDextrose" label="Présence de dextrose"></div>
+</div>
+<div class="form-group">
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasOilCoprah" label="Présence d'huile de coprah"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasDextrine" label="Présence de dextrine"></div>
+</div>
+<div class="form-group">
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasOilCoconut" label="Présence d'huile de coco"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasGlucose" label="Présence de glucose"></div>
+</div>
+<div class="form-group">
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasOilSunflower" label="Présence d'huile de tournesol"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasFructose" label="Présence de fructose"></div>
+</div>
+<div class="form-group">
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasOilOlive" label="Présence d'huile d'olive"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasSugarSyrup" label="Présence de sirop de sucre"></div>
+</div>
+<div class="form-group">
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasOilGrapeSeed" label="Présence d'huile de pépin de raisin"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasHoney" label="Présence de miel"></div>
+</div>
+<div class="form-group">
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasOilCanola" label="Présence d'huile de colza"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasGluten" label="Présence de gluten"></div>
+</div>
+<div class="form-group">
+    <div class="col-sm-6"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasStarch" label="Présence d'amidon"></div>
+</div>
+<div class="form-group">
+    <div class="col-sm-6"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasAspartame" label="Présence d'aspartame"></div>
+</div>
+<div class="form-group">
+    <div class="col-sm-6"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasStevia" label="Présence de stévia"></div>
+</div>
+
+<div class="form-group">
+    <div class="col-sm-6">
+        <h3>Composés lactés</h3>
+    </div>
+    <div class="col-sm-6">
+        <h3>Viande, poisson et œufs</h3>
+    </div>
+</div>
+<div class="form-group">
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasSaindoux" label="Présence de saindoux"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasMeat" label="Présence de viande"></div>
+</div>
+<div class="form-group">
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasButter" label="Présence de beurre"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasEgg" label="Présence d'œufs"></div>
+</div>
+<div class="form-group">
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasCream" label="Présence de crème"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasAlbumine" label="Présence d'albumine"></div>
+</div>
+<div class="form-group">
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasLactose" label="Présence de lactose"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasLysozyme" label="Présence de lysozyme"></div>
+</div>
+<div class="form-group">
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasMilk" label="Présence de lait"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasFish" label="Présence de poisson"></div>
+</div>
+<div class="form-group">
+    <div class="col-sm-6"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasFishGelatin" label="Présence de gélatine de poisson"></div>
+</div>
+<div class="form-group">
+    <div class="col-sm-6"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasMollusk" label="Présence de mollusques"></div>
+</div>
+<div class="form-group">
+    <div class="col-sm-6"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasShellfish" label="Présence de crustacés"></div>
+</div>
+<div class="form-group">
+    <div class="col-sm-6"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasPorkGelatin" label="Présence de gélatine de porc"></div>
+</div>
+
+
+<div class="form-group">
+    <div class="col-sm-6">
+        <h3>Excitants</h3>
+    </div>
+    <div class="col-sm-6">
+        <h3>Allergènes notables</h3>
+    </div>
+</div>
+
+<div class="form-group">
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasAlcohol" label="Présence d'alcool"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasGMO" label="Présence d'OGMs"></div>
+</div>
+
+<div class="form-group">
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasCafeine" name="hasCafeine" label="Présence de caféine"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasExtraFibers" label="Présence de fibres ajoutées"></div>
+</div>
+<div class="form-group">
+    <div class="col-sm-6"></div>
+    <!--<div ternary ng-model="product" alk-suggest="suggest" name="hasTaurine" label="Présence de taurine"></div>-->
+    <div ternary ng-model="product" alk-suggest="suggest" name="isWholeCereals" label="Présence de céréales entières"></div>
+</div>
+<div class="form-group">
+    <div class="col-sm-6"></div>
+    <!--<div ternary ng-model="product" alk-suggest="suggest" name="hasTheine" label="Présence de théine"></div>-->
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasCelery" label="Présence de céleri"></div>
+</div>
+<div class="form-group">
+    <div class="col-sm-6"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasLiquorice" label="Présence de réglisse"></div>
+</div>
+<div class="form-group">
+    <div class="col-sm-6"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasLupinus" label="Présence de lupin"></div>
+</div>
+<div class="form-group">
+    <div class="col-sm-6"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasMustard" label="Présence de moutarde"></div>
+</div>
+<div class="form-group">
+    <div class="col-sm-6"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasPeanut" label="Présence d'arachide"></div>
+</div>
+<div class="form-group">
+    <div class="col-sm-6"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasPhenylalanine" label="Présence de phénylalanine"></div>
+</div>
+<div class="form-group">
+    <div class="col-sm-6"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasSesame" label="Présence de sésame"></div>
+</div>
+<div class="form-group">
+    <div class="col-sm-6"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasSoya" label="Présence de soja"></div>
+</div>
+<div class="form-group">
+    <div class="col-sm-6"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasNut" label="Présence de noix"></div>
+</div>
+<div class="form-group">
+    <div class="col-sm-6"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasParaben" label="Présence de paraben"></div>
+</div>
+<div class="form-group">
+    <div class="col-sm-6"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasSoap" label="Présence de savon"></div>
+</div>
+<div class="form-group">
+    <div class="col-sm-6"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" name="hasSulfite" label="Présence de sulfites"></div>
+</div>
+</div>
+</div>

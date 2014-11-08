@@ -1,0 +1,11 @@
+<tr>
+    <td class="pnq-name">
+        <label for="{{ legend.id }}" class="control-label">{{ legend.isConceptualizedBy.name }}</label>
+    </td>
+    <td ng-repeat="(psqId, pnq) in legend.pnqs" class="psq-col">
+        <div product-nutrition-cell legend="legend" psq="psqs[psqId]" pnq="pnq"></div>
+    </td>
+    <td class="pnq-legend">
+        {{ legend.isConceptualizedBy.legend }}
+    </td>
+</tr>

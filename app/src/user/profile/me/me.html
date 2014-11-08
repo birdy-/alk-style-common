@@ -1,0 +1,253 @@
+<h1>
+    <i class="fa fa-user"></i>
+    Mon profil
+</h1>
+<hr/>
+
+<div class="row">
+    <div class="col-md-2">
+        <img ng-src="https://secure.gravatar.com/avatar/{{ user.username | gravatar }}?s=512&d=mm" class="img-thumbnail img-responsive"/>
+    </div>
+    <div class="col-md-10">
+        <section class="row">
+            <div class="col-md-4">
+                <h2>Mes informations de connexion</h2>
+                <p>
+                    Les identifiants que j'utilise pour me connecter à la plateforme. Je les garde secrets et personnels !
+                </p>
+            </div>
+            <div class="col-md-8">
+                <form name="passwordForm" class="form-horizontal" role="form">
+                    <div ng-init="passwordFormInit(passwordForm)">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" placeholder="Email" ng-model="user.username" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="password_old">Ancien mot de passe</label>
+                            <input type="password" class="form-control" id="password_old" placeholder="Ancien password" ng-model="user.password.old">
+                        </div>
+                        <div class="form-group">
+                            <label for="password_new">Nouveau mot de passe</label>
+                            <input type="password" class="form-control" id="password_new" placeholder="Nouveau password" ng-model="user.password.new">
+                        </div>
+                        <div class="form-group">
+                            <div class="text-right">
+                                <div button-save ng-click="updatePassword()" form="passwordForm"><i class="fa fa-save"></i> Changer mon mot de passe</div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+        <br/> <br/> <br/> <br/>
+
+
+        <section class="row">
+            <div class="col-md-4">
+                <h2>Mes informations personnelles</h2>
+                <p>
+                    Quelques informations pour que nous répondions mieux à vos demandes.
+                </p>
+            </div>
+            <div class="col-md-8">
+                <form name="userForm" class="form-horizontal" role="form">
+                    <div ng-init="userFormInit(userForm)">
+                        <div class="form-group">
+                            <label for="firstname">Prénom</label>
+                            <input type="text" name="firstname" class="form-control" id="firstname" placeholder="ex : Jean" ng-model="user.firstname"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname">Nom</label>
+                            <input type="text" name="lastname" class="form-control" id="lastname" placeholder="ex : Dupont" ng-model="user.lastname"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="phoneNumber">Téléphone</label>
+                            <input type="text" name="phoneNumber" class="form-control" id="phoneNumber" placeholder="ex : +33 1 23 45 67 89" ng-model="user.phoneNumber"/>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <label for="jobTitle" class="col-sm-6">Je suis...</label>
+                                <label for="company" class="col-sm-6">chez ...</label>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <input type="text" name="jobTitle" class="form-control" id="jobTitle" placeholder="ex : Responsable Qualité" ng-model="user.jobTitle"/>
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="text" name="company" class="form-control" id="company" placeholder="ex : ACME" ng-model="user.company"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="text-right">
+                                <div button-save ng-click="updateUser()" form="userForm"></div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+        <br/> <br/> <br/> <br/>
+
+
+        <section class="row" ng-show="user.belongsTo.length">
+            <div class="col-md-4">
+                <h2>Mes organisations</h2>
+            </div>
+            <div class="col-md-8">
+                <table class="table table-condensed table-bordered">
+                    <thead>
+                        <tr class="color-organization">
+                            <th></th>
+                            <th>Nom</th>
+                            <th>Permissions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="organization in user.belongsTo">
+                            <td>{{ organization.id }}</td>
+                            <td><a ng-href="/#/organization/{{ organization.id }}/profile">{{ organization.nameLegal }}</a></td>
+                            <td>
+                                <span ng-repeat-start="permission in organization.permissions" class="label label-default">{{ permission }}</span>&emsp;
+                                <span ng-repeat-end></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <br/> <br/> <br/> <br/>
+
+
+        <section class="row" ng-show="user.managesBrand.length">
+            <div class="col-md-4">
+                <h2>Mes marques</h2>
+            </div>
+            <div class="col-md-8">
+                <div class="row">
+                    <div ng-repeat="brand in user.managesBrand">
+                        <div role-sticker role-delete="deleteBrand" relation="brand" class="col-md-6"></div>
+                    </div>
+                    <div role-sticker role-add="addBrand" relation="null" class="col-md-6"></div>
+                </div>
+            </div>
+        </section>
+        <br/> <br/> <br/> <br/>
+
+
+        <section class="row" ng-show="user.managesWebsite.length">
+            <div class="col-md-4">
+                <h2>Mes sites web</h2>
+            </div>
+            <div class="col-md-8">
+                <table class="table table-condensed table-bordered">
+                    <thead>
+                        <tr class="color-website">
+                            <th></th>
+                            <th>Nom</th>
+                            <th>Permissions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="website in user.managesWebsite">
+                            <td>{{ website.id }}</td>
+                            <td>{{ website.name }}</td>
+                            <td>
+                                <span ng-repeat-start="permission in website.permissions" class="label label-default">{{ permission }}</span>&emsp;
+                                <span ng-repeat-end></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <br/> <br/> <br/> <br/>
+
+
+        <!--
+        <section class="row" ng-show="user.managesShop.length">
+            <div class="col-md-4">
+                <h2>Mes magasins</h2>
+            </div>
+            <div class="col-md-8">
+                <table class="table table-condensed table-bordered">
+                    <thead>
+                        <tr class="color-shop">
+                            <th></th>
+                            <th>Nom</th>
+                            <th>Permissions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="shop in user.managesShop">
+                            <td>{{ shop.id }}</td>
+                            <td>{{ shop.name }}</td>
+                            <td>
+                                <span ng-repeat-start="permission in shop.permissions" class="label label-default">{{ permission }}</span>&emsp;
+                                <span ng-repeat-end></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <br/> <br/> <br/> <br/>
+        -->
+
+
+        <!--
+        <section class="row" ng-show="user.configures.length">
+            <div class="col-md-4">
+                <h2>Mes plugins</h2>
+            </div>
+            <div class="col-md-8">
+                <table class="table table-condensed table-bordered">
+                    <thead>
+                        <tr class="color-plugin">
+                            <th></th>
+                            <th>Nom</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="plugin in user.configures">
+                            <td>{{ plugin.id }}</td>
+                            <td>{{ plugin.name }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <br/> <br/> <br/> <br/>
+        -->
+
+        <!--
+        <section class="row" ng-show="user.managesPlacement.length">
+            <div class="col-md-4">
+                <h2>Mes emplacements</h2>
+            </div>
+            <div class="col-md-8">
+                <table class="table table-condensed table-bordered">
+                    <thead>
+                        <tr class="color-placement">
+                            <th></th>
+                            <th>Nom</th>
+                            <th>Site</th>
+                            <th>Organization</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="placement in user.managesPlacement">
+                            <td>{{ placement.id }}</td>
+                            <td>{{ placement.name }}</td>
+                            <td>{{ placement.appearsOn.id }}</td>
+                            <td>{{ placement.ownedBy.id }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        -->
+    </div>
+</div>
+

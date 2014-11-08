@@ -1,0 +1,165 @@
+<div ng-include="'/src/home/header.html'"></div>
+
+
+<br/>
+<br/>
+<div class="container" ng-show="ok">
+    <br/> <br/> <br/> <br/> <br/> <br/>
+    <div class="alert alert-success text-center">
+        Votre inscription a bien été prise en compte. Vous recevrez sous peu un email de confirmation.
+        <br/>
+        <br/>
+        <p>
+            En attendant, vous pouvez nous suivre sur les réseaux sociaux :
+            <br/>
+            <br/>
+            <iframe allowtransparency="true" frameborder="0" scrolling="no" src="//platform.twitter.com/widgets/follow_button.html?screen_name=alkemics&lang=fr&show_count=false" style="width:150px; height:20px;"></iframe>
+        </p>
+    </div>
+    <br/> <br/> <br/> <br/> <br/> <br/>
+</div>
+
+
+
+<div class="container" ng-show="!ok">
+    <div class="row">
+        <nav class="sidemenu navbar navbar-default" role="navigation">
+            <ul class="nav navbar-nav">
+                <div alk-register-step="checkUserForm()">
+                    1. Je créée mon compte
+                </div>
+                <div alk-register-step="checkCompanyForm()">
+                    2. J'enregistre ma société
+                </div>
+                <div alk-register-step="checkEmailForm()">
+                    3. Je confirme mon email
+                </div>
+                <div alk-register-step="'todo'">
+                    4. Je remplis mon premier produit
+                </div>
+            </ul>
+        </nav>
+
+        <div class="col-sm-9 col-sm-offset-3">
+            <h1>
+                Je m'inscris
+                <small>
+                    C'est sans engagement ni exclusivité !
+                </small>
+            </h1>
+            <form class="form-horizontal" ng-hide="isReset" name="userForm">
+                <div ng-init="formInit(userForm)">
+                    <h3>1. Quelques détails sur moi...</h3><br/>
+                    <div class="form-group" ng-class="checkUserFormField('lastname')">
+                        <label class="col-sm-4 control-label">Je m'appelle...</label>
+                        <div class="col-sm-4">
+                            <input type="text" name="firstname" class="form-control" ng-model="user.firstname" placeholder="Prénom" alk-focus ng-minlength="1" required/>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" name="lastname" class="form-control" ng-model="user.lastname" placeholder="Nom" alk-focus ng-minlength="1" required/>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="checkUserFormField('username')">
+                        <label class="col-sm-4 control-label">Mon email</label>
+                        <div class="col-sm-8">
+                            <input type="email" name="username" class="form-control" ng-model="user.username" placeholder="Email" alk-focus ng-minlength="5" required/>
+                            <div ng-show="userForm.username.$invalid && userForm.username.$focus">
+                                Veuillez entrer un email valide.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="checkUserFormField('job')">
+                        <label class="col-sm-4 control-label">Mon poste</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="job" class="form-control" ng-model="user.job" placeholder="ex : Responsable qualité" alk-focus ng-minlength="1" required/>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="checkUserFormField('phonenumber')">
+                        <label class="col-sm-4 control-label">Mon numéro de téléphone</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="phonenumber" class="form-control" ng-model="user.phonenumber" placeholder="ex : 0 800 943 859" alk-focus ng-minlength="5" required ng-pattern="/^[0-9 \+\.\-]+$/"/>
+                            <div ng-show="userForm.phonenumber.$invalid && userForm.phonenumber.$focus">
+                                Veuillez entrer un numéro de téléphone valide.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="checkUserFormField('password')">
+                        <label class="col-sm-4 control-label">Mon mot de passe</label>
+                        <div class="col-sm-8">
+                            <input type="password" name="password" class="form-control" ng-model="user.password" placeholder="Mot de passe" alk-focus ng-minlength="8" required/>
+                            <div ng-show="userForm.password.$error.minlength" class="help-block">
+                                Votre mot de passe doit contenir au moins 8 caractères.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+
+            <br/>
+            <form class="form-horizontal" name="companyForm" ng-show="userForm.$valid">
+                <div ng-init="formInit(companyForm)">
+                    <h3>2. Quelques détails sur ma société...</h3><br/>
+                    <div class="form-group" ng-class="checkCompanyFormField('companyNameLegal')">
+                        <label class="col-sm-4 control-label">Mon entreprise</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="companyNameLegal" class="form-control" ng-model="company.nameLegal" placeholder="ex : Rik et Rok" ng-minlength="1" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Son numéro de RCS (facultatif)</label>
+                        <div class="col-sm-3">
+                            <input type="text" name="companyIdentifierLegal" class="form-control" ng-model="company.identifierLegal" placeholder="535 078 190"/>
+                        </div>
+                        <label class="col-sm-1 control-label">de</label>
+                        <div class="col-sm-4">
+                            <input type="text" name="companyIdentifierCity" class="form-control" ng-model="company.identifierCity" placeholder="Pontoise"/>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="checkCompanyFormField('companyCountry')">
+                        <div>
+                            <label class="col-sm-4 control-label">Son adresse</label>
+                            <div class="col-sm-8">
+                                <textarea name="companyAdress" class="form-control" ng-model="company.adress" placeholder="ex : 82 rue du Faubourg Saint-Martin" ng-minlength="1" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="checkCompanyFormField('companyPostcode')">
+                        <div>
+                            <div class="col-sm-2 col-sm-offset-4">
+                                <input type="text" name="companyPostcode" class="form-control" ng-model="company.postcode" placeholder="ex : 75010" ng-minlength="1" required/>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="text" name="companyCity" class="form-control" ng-model="company.city" placeholder="ex : Paris" ng-minlength="1" required/>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="text" name="companyCountry" class="form-control" ng-model="company.country" placeholder="ex : France" ng-minlength="1" required/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+
+            <br/>
+            <form class="form-horizontal" name="emailForm" ng-show="companyForm.$valid">
+                <h3>3. Je finalise mon inscription et vérifie mon email</h3><br/>
+                <div class="form-group">
+                    <div class="col-sm-8 col-sm-offset-4">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-model="user.accept" required> J'accepte les <a href="http://media.alkemics.com/corporate/stream/contract/cgu.pdf" target="_blank">CGU</a>
+                            </label>
+                        </div>
+                        <br/>
+                        <button type="button" ng-click="submit(); waitingForEmail = true" class="btn color-success-inverse">&gt; Je m'inscris</button>
+                    </div>
+                </div>
+                <div class="text-center" ng-show="waitingForEmail">
+                    Je vérifie ma messagerie pour valider mon email.
+                </div>
+            </form>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>

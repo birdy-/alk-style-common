@@ -1,0 +1,22 @@
+<label ng-if="!legend.isConceptualizedBy.compulsory" class="control-label pull-left separator"></label>
+<div class="input-group">
+    <span class="input-group-btn productnutritionalquantity-precision">
+        <select class="form-control" ng-model="pnq.measurementPrecision" ng-options="precision.id as precision.name for precision in precisions" required>
+        </select>
+      </span>
+    <input type="text" class="form-control" ng-model="pnq.quantity" placeholder="ex : 100" alk-float="2" alk-focus ng-min="0" required/>
+    <span class="input-group-addon">{{ pnq.isMeasuredBy.name }} / {{ psq.name }}</span>
+</div>
+<span ng-show="false" class="help-block">La valeur entrée doit être un nombre décimal.</span>
+<span ng-show="false" class="help-block">La valeur entrée ne doit pas être inférieure à 0.</span>
+<div ng-show="show()">
+    <br/>
+    <label ng-if="!legend.isConceptualizedBy.compulsory" class="control-label pull-left separator"></label>
+    <label class="control-label pull-left separator">soit</label>
+    <div class="input-group">
+        <input type="text" class="form-control" ng-model="pnq.percentageOfDailyValueIntake" placeholder="ex : 23.7" alk-float="2" alk-focus ng-min="0" required/>
+        <span class="input-group-addon">% des AJR</span>
+    </div>
+    <span ng-show="false" class="help-block">La valeur entrée doit être un nombre décimal.</span>
+    <span ng-show="false" class="help-block">La valeur entrée ne doit pas être inférieure à 0.</span>
+</td>

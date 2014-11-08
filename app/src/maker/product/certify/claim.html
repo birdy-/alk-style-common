@@ -1,0 +1,104 @@
+<div class="modal-header">
+    <div class="row">
+        <h3 class="col-xs-10" ng-hide="multiple">
+            Créer un produit <span ng-if="brand"> pour la marque {{ brand.name }}</span>
+        </h3>
+        <h3 class="col-xs-10" ng-show="multiple">
+            Créer des produits <span ng-if="brand"> pour la marque {{ brand.name }}</span>
+        </h3>
+        <div ng-if="brand" class="col-xs-2">
+             <img style="height:50px" ng-src="https://smedia.alkemics.com/brand/{{ brand.id }}/picture/logo/original.png" fallback-src="https://stream.alkemics.com/images/5078aa32.missing.png" class="pull-right" />
+        </div>
+    </div>
+</div>
+<div class="modal-body" ng-show="multiple">
+    <form role="form" name="claimForm">
+
+        <div class="form-group">
+            <div hot-table
+                id="claim-table"
+                settings="{
+                    colHeaders: colHeaders,
+                    contextMenu: ['row_above', 'row_below', 'remove_row'],
+                    afterChange: afterChange,
+                    stretchH: 'all',
+                    rowHeaders: true,
+                    minSpareRows: '12'
+                }"
+                datarows="products">
+                <hot-column data="reference" title="'EAN'"></hot-column>
+                <hot-column data="nameLegal" title="'Dénomination légale du produit'"></hot-column>
+            </div>
+        </div>
+        <div>
+            <div ng-if="errors.coherency" class="alert alert-warning">
+                Notre support examine votre demande et reviendra vers vous sous peu.
+            </div>
+            <div ng-if="errors.noError" class="alert alert-success">
+                Votre demande à bien été enregistrée.
+            </div>
+        </div>
+
+    </form>
+</div>
+<div class="modal-body" ng-hide="multiple">
+    <form role="form" name="claimForm">
+        <div class="form-group">
+            <label for="name">EAN</label>
+            <div class="input-group">
+                <input type="text" class="form-control" name="name" ng-model="productReference.reference" placeholder="ex: 3760019702101" required/>
+                <div class="input-group-addon" ng-click="search()">
+                    <i class="fa fa-search"></i>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div ng-if="errors.badReference" class="alert alert-danger">
+                L'EAN demandée n'est pas valide.
+            </div>
+            <div ng-if="errors.alreadyClaimed" class="alert alert-danger">
+                Une personne a déjà réclamé ce produit. Merci de contacter notre <a href="mailto:support@alkemics.com">support</a> pour clarifier votre demande.
+            </div>
+            <div ng-if="errors.coherency" class="alert alert-warning">
+                Notre support examine votre demande et reviendra vers vous sous peu.
+            </div>
+            <div ng-if="errors.confirmBrand" class="alert alert-warning">
+                Votre produit est déja enregistré dans une autre marque,
+                notre support examine votre demande et reviendra vers vous sous peu.
+            </div>
+            <div ng-if="errors.noError" class="alert alert-success">
+                Votre demande à bien été enregistrée.
+            </div>
+            <div ng-if="errors.unknown">
+                <div class="form-group">
+                    <label for="nameLegal">Dénomination légale du produit</label>
+                    <input type="text" class="form-control" name="nameLegal" ng-model="product.nameLegal" placeholder="ex: Sauce" required/>
+                </div>
+                <div ng-if="!brand" class="form-group">
+                    <label for="isBrandedBy">Marque commerciale du produit</label>
+                    <div select-my-brands ng-model="product.isBrandedBy"></div>
+                </div>
+            </div>
+            <div ng-if="errors.ok">
+                S'agit-il bien de : "{{ product.nameLegal }}" ?
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<div class="modal-footer">
+    <div class="text-right">
+        <span class="btn btn-default pull-left" ng-if="multiple === false" ng-click="switchMultiple()" >Ajout multiple</span>
+        <span class="btn btn-default pull-left" ng-if="multiple === true" ng-click="switchMultiple()">Ajout d'un produit</span>
+
+        <span class="btn btn-success" ng-if="(errors.unknown !== true) && !multiple && (errors.ok !== false)" ng-click="search()"><i class="fa fa-search"></i>Chercher ce produit</span>
+        <span class="btn btn-success" ng-if="errors.unknown === true" ng-click="create()"><i class="fa fa-plus"></i> Créer ce produit</span>
+
+        <span class="btn btn-success" ng-if="errors.ok === true" ng-click="fill()"><i class="fa fa-check"></i> Remplir ce produit</span>
+        <span class="btn btn-success" ng-if="errors.ok === false" ng-click="renewClaim()"><i class="fa fa-check"></i>Ajouter un autre produit</span>
+
+        <span class="btn btn-success" ng-if="multiple && (errors.ok !== false) && (errors.ok !== true)" ng-click="fillMultiple()"><i class="fa fa-check"></i>Ajouter ces produits</span>
+        <span class="btn btn-link" ng-click="cancel()"><i class="fa fa-times"></i> Annuler</span>
+    </div>
+</div>

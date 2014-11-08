@@ -1,5 +1,10 @@
-// Generated on 2014-01-21 using generator-angular 0.6.0-rc.2
+// Generated on 2013-09-14 using generator-angular 0.4.0
 'use strict';
+var LIVERELOAD_PORT = 35701;
+var lrSnippet = require('connect-livereload')({ port: LIVERELOAD_PORT });
+var mountFolder = function (connect, dir) {
+  return connect.static(require('path').resolve(dir));
+};
 
 // # Globbing
 // for performance reasons we're only matching one level down:
@@ -15,6 +20,16 @@ module.exports = function (grunt) {
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
+  var yeomanConfig = {
+    app: 'app',
+    dist: 'dist',
+    compressed: 'compressed'
+  };
+
+  try {
+    yeomanConfig.app = require('./bower.json').appPath || yeomanConfig.app;
+  } catch (e) {}
+
   // Define the configuration for all the tasks
   grunt.initConfig({
 
@@ -28,7 +43,7 @@ module.exports = function (grunt) {
     // Watches files for changes and runs tasks based on the changed files
     watch: {
       js: {
-        files: ['{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js'],
+        files: ['{.tmp,<%= yeoman.app %>}/src/{,*/}*.js'],
         tasks: ['newer:jshint:all']
       },
       jsTest: {
@@ -52,6 +67,8 @@ module.exports = function (grunt) {
         },
         files: [
           '<%= yeoman.app %>/{,*/}*.html',
+          '<%= yeoman.app %>/**/*.js',
+          '<%= yeoman.app %>/**/*.html',
           '.tmp/styles/{,*/}*.css',
           '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
@@ -63,31 +80,46 @@ module.exports = function (grunt) {
       options: {
         port: 9005,
         // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localhost',
-        livereload: 357005
+        hostname: 'localhost.alkemics.com'
       },
       livereload: {
         options: {
-          open: true,
-          base: [
-            '.tmp',
-            '<%= yeoman.app %>'
-          ]
+          middleware: function (connect) {
+            return [
+              lrSnippet,
+              mountFolder(connect, '.tmp'),
+              mountFolder(connect, yeomanConfig.app)
+            ];
+          }
         }
       },
       test: {
         options: {
-          port: 9015,
-          base: [
-            '.tmp',
-            'test',
-            '<%= yeoman.app %>'
-          ]
+          middleware: function (connect) {
+            return [
+              mountFolder(connect, '.tmp'),
+              mountFolder(connect, 'test')
+            ];
+          }
         }
       },
       dist: {
         options: {
-          base: '<%= yeoman.dist %>'
+          middleware: function (connect) {
+            return [
+              mountFolder(connect, yeomanConfig.dist)
+            ];
+          }
+        }
+      },
+      build: {
+        options: {
+          middleware: function (connect) {
+            return [
+              mountFolder(connect, '.tmp'),
+              mountFolder(connect, yeomanConfig.dist)
+            ];
+          }
         }
       }
     },
@@ -100,7 +132,8 @@ module.exports = function (grunt) {
       },
       all: [
         'Gruntfile.js',
-        '<%= yeoman.app %>/scripts/{,*/}*.js'
+        '<%= yeoman.app %>/src/**/*.js',
+        '<%= yeoman.app %>/bower_components/sdk-dashboard/**/*.js'
       ],
       test: {
         options: {
@@ -110,6 +143,11 @@ module.exports = function (grunt) {
       }
     },
 
+    open: {
+      server: {
+        url: 'http://localhost.alkemics.com:<%= connect.options.port %>'
+      }
+    },
     // Empties folders to start fresh
     clean: {
       dist: {
@@ -240,7 +278,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%= yeoman.app %>',
-          src: ['*.html', 'views/*.html'],
+          src: ['*.html', 'views/**/*.html'],
           dest: '<%= yeoman.dist %>'
         }]
       }
@@ -288,7 +326,17 @@ module.exports = function (grunt) {
           src: [
             'generated/*'
           ]
+        }, {
+          expand: true,
+          cwd: '.tmp/concat/scripts',
+          dest: '<%= yeoman.dist %>/scripts',
+          src: [
+            '*'
+          ]
         }]
+      },
+      prod: {
+        expand: true, cwd: '<%= yeoman.app %>', dest: '<%= yeoman.dist %>', src: ['**/*.png', '**/*.html', '!**/bower_components/**', '!index.html']
       },
       styles: {
         expand: true,
@@ -367,9 +415,53 @@ module.exports = function (grunt) {
                 {expand: true, cwd: '<%= yeoman.dist %>/styles', src: ['**'], dest: 'styles'},
                 {expand: true, cwd: '<%= yeoman.dist %>/images', src: ['**'], dest: 'images'}
               ]
+        }
+    },
+    shell: {
+        compress: {
+            command: 'tar -czf app.tar.gz <%= yeoman.dist %>/*'
+        }
+    },
+    sosie7: {
+      version: {
+        path: '<%= yeoman.dist %>/index.html'
+      }
+    },
+    htmlSnapshot: {
+        all: {
+            options: {
+                //that's the path where the snapshots should be placed
+                //it's empty by default which means they will go into the directory
+                //where your Gruntfile.js is placed
+                snapshotPath: 'snapshots/',
+                //This should be either the base path to your index.html file
+                //or your base URL. Currently the task does not use it's own
+                //webserver. So if your site needs a webserver to be fully
+                //functional configure it here.
+                sitePath: 'http://localhost.alkemics.com:9005/',
+                //you can choose a prefix for your snapshots
+                //by default it's 'snapshot_'
+                fileNamePrefix: '',
+                //by default the task waits 500ms before fetching the html.
+                //this is to give the page enough time to to assemble itself.
+                //if your page needs more time, tweak here.
+                msWaitForPages: 1000,
+                //sanitize function to be used for filenames. Converts '#!/' to '_' as default
+                //has a filename argument, must have a return that is a sanitized string
+                sanitize: function (requestUri) {
+                    //returns 'index.html' if the url is '/', otherwise a prefix
+                    if (/\/$/.test(requestUri)) {
+                      return 'index.html';
+                    } else {
+                      return requestUri.replace(/\//g, 'prefix-');
+                    }
+                },
+                //here goes the list of all urls that should be fetched
+                urls: ['/']
+              }
+          }
+      }
 
-        },
-    }
   });
 
 
@@ -383,13 +475,10 @@ module.exports = function (grunt) {
       'concurrent:server',
       'autoprefixer',
       'connect:livereload',
+      //'open',
+      //'jshint',
       'watch'
     ]);
-  });
-
-  grunt.registerTask('server', function () {
-    grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
-    grunt.task.run(['serve']);
   });
 
   grunt.registerTask('test', [
@@ -404,7 +493,7 @@ module.exports = function (grunt) {
     'clean:dist',
     'useminPrepare',
     'concurrent:dist',
-    'autoprefixer',
+    // 'autoprefixer',
     'concat',
     'ngmin',
     'copy:dist',
@@ -412,7 +501,38 @@ module.exports = function (grunt) {
     'cssmin',
     'uglify',
     'rev',
-    'usemin'
+    'usemin',
+    // 'sosie',
+    'copy:prod',
+    'shell:compress'
+  ]);
+
+  grunt.registerTask('build-preprod', [
+    'clean:dist',
+    'useminPrepare',
+    'concurrent:dist',
+    // 'autoprefixer',
+    //'jshint',
+    'concat',
+    // 'ngmin', // Do not compress for preprod debug
+    'copy:dist',
+    'cdnify',
+    'cssmin',
+    // 'uglify',// Do not compress for preprod debug
+    'rev',
+    'usemin',
+    // 'sosie',
+    'copy:prod',
+    'shell:compress'
+  ]);
+
+  // Starts a webserver, renders the page, injects it in the index.html under embeded
+  // ie7-specific tags.
+  // NB : must be done after usemin in order to avoid breaking in-memory references
+  grunt.registerTask('sosie', [
+    'connect:build',
+    'htmlSnapshot',
+    'sosie7'
   ]);
 
   grunt.registerTask('default', [
