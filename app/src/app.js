@@ -39,30 +39,30 @@ app.factory('plupload', [
 
 var env = (window.location.hostname.indexOf('localhost') === 0) ? 'dev' : 'prod';
 if (env === 'prod') {
-    app.constant('API_URL', 'https://api.alkemics.com');
+    app.constant('URL_CDN_MEDIA', 'https://smedia.alkemics.com');
     app.constant('URL_SERVICE_AUTH', 'https://auth.alkemics.com');
     app.constant('URL_SERVICE_MEDIA', 'https://service-media.alkemics.com');
     app.constant('URL_UI_BUTTON_PRODUCT', 'https://sassets.toc.io/ui/button/product/v1/index.html');
-    app.constant('URL_CDN_MEDIA', 'https://smedia.alkemics.com');
-    angular.module('jDashboardFluxApp').constant('URL_SERVICE_MEDIA', 'https://service-media.alkemics.com');
+    app.constant('URL_UI_SHOPPINGLIST', 'https://sassets.toc.io/interfaces/banner/v3/index.html');
+    app.constant('URL_UI_LANDINGPAGE', 'https://pprd.cdn.toc.io/interfaces/landing-page-product/vpprd/index.html');
 } else if (env === 'dev') {
-    app.constant('API_URL', '//localhost.alkemics.com:6543');
+    app.constant('URL_CDN_MEDIA', 'https://smedia.alkemics.com');
     app.constant('URL_SERVICE_AUTH', 'http://localhost.alkemics.com:6545');
     app.constant('URL_SERVICE_MEDIA', 'http://localhost.alkemics.com:6551');
-    // app.constant('URL_UI_BUTTON_PRODUCT', 'http://localhost.alkemics.com:9010/');
-    // app.constant('URL_CDN_MEDIA', 'https://smedia.alkemics.com');
-    // app.constant('URL_UI_BUTTON_PRODUCT', 'http://assets.toc.io/ui/button/product/v1/index.html');
-    app.constant('URL_CDN_MEDIA', 'https://s3-eu-west-1.amazonaws.com/pprd.media.alkemics.com');
-    app.constant('URL_UI_BUTTON_PRODUCT', 'http://localhost.alkemics.com:9010/');
+    //app.constant('URL_UI_BUTTON_PRODUCT', 'http://localhost.alkemics.com:9010/');
+    app.constant('URL_UI_BUTTON_PRODUCT', 'https://sassets.toc.io/ui/button/product/v1/index.html');
+    app.constant('URL_UI_SHOPPINGLIST', 'https://sassets.toc.io/interfaces/banner/v3/index.html');
+    app.constant('URL_UI_LANDINGPAGE', 'https://pprd.cdn.toc.io/interfaces/landing-page-product/vpprd/index.html');
     app.config(function($logProvider){
         $logProvider.debugEnabled(true);
     });
 } else if (env === 'vagrant') {
-    app.constant('API_URL', 'https://localcore.alkemics.com');
+    app.constant('URL_CDN_MEDIA', 'https://s3-eu-west-1.amazonaws.com/pprd.media.alkemics.com');
     app.constant('URL_SERVICE_AUTH', 'https://localauth.alkemics.com');
     app.constant('URL_SERVICE_MEDIA', 'https://localservice-media.alkemics.com');
     app.constant('URL_UI_BUTTON_PRODUCT', 'http://localhost.alkemics.com:9010/');
-    app.constant('URL_CDN_MEDIA', 'https://s3-eu-west-1.amazonaws.com/pprd.media.alkemics.com');
+    app.constant('URL_UI_SHOPPINGLIST', 'https://sassets.toc.io/interfaces/banner/v3/index.html');
+    app.constant('URL_UI_LANDINGPAGE', 'https://pprd.cdn.toc.io/interfaces/landing-page-product/vpprd/index.html');
     app.config(function($logProvider){
         $logProvider.debugEnabled(true);
     });
