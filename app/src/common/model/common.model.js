@@ -4,36 +4,15 @@ angular.module('jDashboardFluxApp').service('$$abstractRepository', [
     function service() {
 
         var session = {
-            CommonUnit: {
-                model: CommonUnit,
-                lazy: {},
-                loaded: {}
-            },
-            Brand: {
-                model: Brand,
-                lazy: {},
-                loaded: {}
-            },
-            User: {
-                model: User,
-                lazy: {},
-                loaded: {}
-            },
-            Organization: {
-                model: Organization,
-                lazy: {},
-                loaded: {}
-            },
-            Shop: {
-                model: Shop,
-                lazy: {},
-                loaded: {}
-            },
-            Website: {
-                model: Website,
-                lazy: {},
-                loaded: {}
-            }
+            CommonUnit: {model: CommonUnit, lazy: {}, loaded: {} },
+            Brand: {model: Brand, lazy: {}, loaded: {} },
+            User: {model: User, lazy: {}, loaded: {} },
+            Organization: {model: Organization, lazy: {}, loaded: {} },
+            Product: {model: Product, lazy: {}, loaded: {} },
+            Placement: {model: Placement, lazy: {}, loaded: {} },
+            Shop: {model: Shop, lazy: {}, loaded: {} },
+            Website: {model: Website, lazy: {}, loaded: {} },
+            Campaign: {model: Campaign, lazy: {}, loaded: {} }
         };
 
         var getLazy = function(type, id, create) {
@@ -89,4 +68,17 @@ var Constant = function(id, name, description){
     this.description = description;
 };
 
-
+var dateObjectFromUTC = function(s) {
+    if (!s) {
+        return null;
+    }
+    // Do not reparse if already Date()
+    if (typeof(s) === 'object') {
+        return s;
+    }
+    s = s.split(/\D/);
+    if (typeof(s[3]) === 'undefined') {
+        return new Date(Date.UTC(+s[0], --s[1], +s[2]));
+    }
+    return new Date(Date.UTC(+s[0], --s[1], +s[2], +s[3], +s[4], +s[5], 0));
+};

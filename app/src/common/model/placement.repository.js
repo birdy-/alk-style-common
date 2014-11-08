@@ -1,12 +1,12 @@
 'use strict';
 
-angular.module('jDashboardFluxApp').service('$$WebsiteRepository', [
-    '$$sdkCrud', '$$abstractRepository', '$q',
-    function service($$sdkCrud, $$abstractRepository, $q) {
+angular.module('jDashboardFluxApp').service('$$PlacementRepository', [
+    '$$sdkCampaign', '$$abstractRepository', '$q',
+    function service($$sdkCampaign, $$abstractRepository, $q) {
 
-        var Model = Website;
-        var $$sdk = $$sdkCrud;
-        var modelName = 'Website';
+        var Model = Placement;
+        var $$sdk = $$sdkCampaign;
+        var modelName = 'Placement';
 
         var get = function (id, options) {
             id = parseInt(id, 10);
@@ -27,6 +27,9 @@ angular.module('jDashboardFluxApp').service('$$WebsiteRepository', [
 
             // Fill properties
             entity.text = entity.name;
+            if (entity.appearsOn) {
+                entity.appearsOn = $$abstractRepository.getLazy(entity.appearsOn._type, entity.appearsOn.id, true);
+            }
 
             // Cache entity for future reuse
             $$abstractRepository.registerCache(entity);
@@ -40,11 +43,9 @@ angular.module('jDashboardFluxApp').service('$$WebsiteRepository', [
         var list = function(queries, filters, sorts, offset, limit) {
             return $$sdk[modelName + 'List'](
                 queries, filters, sorts, offset, limit
-            ).then(function(response){
+            ).then(function(response) {
                 return response.data.data.map(function(json){
-                    var entity = hydrate(json);
-                    $$abstractRepository.registerCache(entity);
-                    return entity;
+                    return hydrate(json);
                 });
             });
         };

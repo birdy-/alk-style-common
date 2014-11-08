@@ -1,12 +1,12 @@
 'use strict';
 
-angular.module('jDashboardFluxApp').service('$$WebsiteRepository', [
+angular.module('jDashboardFluxApp').service('$$ProductRepository', [
     '$$sdkCrud', '$$abstractRepository', '$q',
     function service($$sdkCrud, $$abstractRepository, $q) {
 
-        var Model = Website;
+        var Model = Product;
         var $$sdk = $$sdkCrud;
-        var modelName = 'Website';
+        var modelName = 'Product';
 
         var get = function (id, options) {
             id = parseInt(id, 10);
@@ -26,7 +26,10 @@ angular.module('jDashboardFluxApp').service('$$WebsiteRepository', [
             entity.fromJson(data);
 
             // Fill properties
-            entity.text = entity.name;
+            entity.text = entity.nameLegal;
+            if (entity.isBrandedBy) {
+                entity.isBrandedBy = $$abstractRepository.getLazy(entity.isBrandedBy._type, entity.isBrandedBy.id, true);
+            }
 
             // Cache entity for future reuse
             $$abstractRepository.registerCache(entity);
@@ -40,11 +43,9 @@ angular.module('jDashboardFluxApp').service('$$WebsiteRepository', [
         var list = function(queries, filters, sorts, offset, limit) {
             return $$sdk[modelName + 'List'](
                 queries, filters, sorts, offset, limit
-            ).then(function(response){
+            ).then(function(response) {
                 return response.data.data.map(function(json){
-                    var entity = hydrate(json);
-                    $$abstractRepository.registerCache(entity);
-                    return entity;
+                    return hydrate(json);
                 });
             });
         };
