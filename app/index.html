@@ -60,7 +60,7 @@
     <link rel="stylesheet" href="bower_components/select2/select2.css">
     <link rel="stylesheet" href="bower_components/angular-ui-tree/dist/angular-ui-tree.min.css">
     <link rel="stylesheet" href="bower_components/nvd3/nv.d3.css"/>
-    <link rel="stylesheet" media="screen" href="bower_components/handsontable/dist/jquery.handsontable.full.css">
+    <link rel="stylesheet" href="bower_components/handsontable/dist/jquery.handsontable.full.css" media="screen"/>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -69,7 +69,6 @@
     <link rel="stylesheet" href="styles/stream/main.css">
     <!-- endbuild -->
     <!-- bower_components/textAngular -->
-    <link rel='stylesheet' href='/bower_components/textAngular/dist/textAngular.min.css'>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -122,7 +121,7 @@
 
     <div ng-view="" id="view"></div>
 
-    <!-- Google Analytics -->
+    <!--
     <script type="text/javascript" id="google-analytics">
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
           (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -131,7 +130,7 @@
         ga('create', 'UA-47074386-1', 'alkemics.com');
         ga('send', 'pageview');
     </script>
-    <!-- Alkemics Abyss -->
+
     <script type="text/javascript" id="tocio_tck">
       //<![CDATA[
         window._taq = _taq = [];
@@ -143,7 +142,7 @@
             k.parentNode.insertBefore(l,k);
         })(window, document, 'script', 'cdn.alkemics.com/tck/v2/tck.js');
         //]]>
-    </script>
+    </script>-->
 
     <!--[if lte IE 7]>
         <script type="text/javascript" src="bower_components/json3/lib/json3.min.js"></script>
@@ -253,6 +252,8 @@
         <script type="text/javascript" src="src/maker/home/header.controller.js"></script>
         <script type="text/javascript" src="src/maker/brand/show/show.controller.js"></script>
         <script type="text/javascript" src="src/maker/brand/list/list.controller.js"></script>
+        <script type="text/javascript" src="src/maker/brand/certify/claim-controller.js"></script>
+        <script type="text/javascript" src="src/maker/brand/certify/claim-directive.js"></script>
         <script type="text/javascript" src="src/maker/product/show/show.controller.js"></script>
         <script type="text/javascript" src="src/maker/product/show/general/general.controller.js"></script>
         <script type="text/javascript" src="src/maker/product/show/general/suggestname.controller.js"></script>
@@ -291,7 +292,7 @@
         <script type="text/javascript" src="src/maker/product/certify/accept.controller.js"></script>
         <script type="text/javascript" src="src/maker/product/certify/certify.controller.js"></script>
         <script type="text/javascript" src="src/maker/product/certify/claim.controller.js"></script>
-        <script type="text/javascript" src="src/maker/brand/list/claim.controller.js"></script>
+        <script type="text/javascript" src="src/maker/product/certify/claim-directive.js"></script>
 
         <script type="text/javascript" src="src/maker/notification/list/list.controller.js"></script>
 

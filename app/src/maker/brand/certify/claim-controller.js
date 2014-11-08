@@ -4,8 +4,8 @@
  * Modal that allows the user to certify a given product.
  */
 angular.module('jDashboardFluxApp').controller('BrandClaimModalController', [
-    '$scope', '$modalInstance', '$$sdkCrud', '$window', '$log', 'permission', '$routeParams', '$$sdkAuth', '$$autocomplete',
-    function ($scope, $modalInstance, $$sdkCrud, $window, $log, permission, $routeParams, $$sdkAuth, $$autocomplete) {
+    '$scope', '$modalInstance', '$$sdkAuth', '$$autocomplete', 'permission',
+    function ($scope, $modalInstance, $$sdkAuth, $$autocomplete, permission) {
 
     // ------------------------------------------------------------------------
     // Variables
@@ -20,7 +20,7 @@ angular.module('jDashboardFluxApp').controller('BrandClaimModalController', [
     var claimRequestType = {
         createBrand: '0',
         manageBrand: '1'
-    }
+    };
 
     // ------------------------------------------------------------------------
     // Event binding
@@ -46,11 +46,15 @@ angular.module('jDashboardFluxApp').controller('BrandClaimModalController', [
     };
 
     $scope.sendRequestBrand = function() {
-        $$sdkAuth.UserClaimProductBrandCreate($scope.request.selectedBrand.name, claimRequestType.manageBrand, $scope.request.selectedBrand.id).then(function () {$scope.errors.ok = false});
+        $$sdkAuth.UserClaimProductBrandCreate($scope.request.selectedBrand.name, claimRequestType.manageBrand, $scope.request.selectedBrand.id).then(function () {
+            $scope.errors.ok = false
+        });
     };
 
     $scope.sendRequestNewBrand = function() {
-        $$sdkAuth.UserClaimProductBrandCreate($scope.request.createdBrand, claimRequestType.createBrand, 1).then(function () {$scope.errors.ok = false});
+        $$sdkAuth.UserClaimProductBrandCreate($scope.request.createdBrand, claimRequestType.createBrand, 1).then(function () {
+            $scope.errors.ok = false
+        });
     };
 
     // ------------------------------------------------------------------------

@@ -39,16 +39,6 @@ angular.module('jDashboardFluxApp').directive('alkNotification', [
             link: function(scope, elem, attrs) {
                 scope.notification.icon = icon[scope.notification.event.type];
                 scope.notification.color = color[scope.notification.event.type];
-
-                scope.claim = function(){
-                    var modalInstance = $modal.open({
-                        templateUrl: '/src/maker/product/certify/claim.html',
-                        controller: 'ProductClaimModalController'
-                    });
-                    modalInstance.result.then(function () {
-                    }, function () {
-                });
-            };
             }
         };
     }
