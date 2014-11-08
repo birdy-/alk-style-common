@@ -1,37 +1,42 @@
 'use strict';
 
-angular.module('jDashboardFluxApp').directive('alkSdkUiButtonProduct', [
-    'URL_UI_BUTTON_PRODUCT', '$sce', 'md5',
-    function (URL_UI_BUTTON_PRODUCT, $sce, md5) {
+angular.module('jDashboardFluxApp').directive('alkSdkUiLandingpage', [
+    'URL_UI_LANDINGPAGE', '$sce', 'md5', '$log',
+    function (URL_UI_LANDINGPAGE, $sce, md5, $log) {
     return {
         restrict: 'AEC',
         scope: {
-            organization: '=alkSdkUiButtonProductOrganization',
-            product: '=alkSdkUiButtonProductProduct',
-            placement: '=alkSdkUiButtonProductPlacement',
-            campaign: '=alkSdkUiButtonProductCampaign',
-            showPrice: '=alkSdkUiButtonProductShowPrice',
-            showShop: '=alkSdkUiButtonProductShowShop',
-            oneclick: '=alkSdkUiButtonProductOneclick'
+            organization: '=alkSdkUiLandingpageOrganization',
+            product: '=alkSdkUiLandingpageProduct',
+            campaign: '=alkSdkUiLandingpageCampaign',
+            placement: '=alkSdkUiLandingpagePlacement'
         },
         replace: true,
-        templateUrl: '/src/common/directives/ui/buttonProduct.html',
+        templateUrl: '/src/common/directives/ui/landingPage.html',
         link: function(scope, elem, attrs) {
 
-            scope.iframe = attrs.alkSdkUiButtonProductIframe;
-            scope.code = attrs.alkSdkUiButtonProductCode;
+            scope.iframe = attrs.alkSdkUiLandingpageIframe;
+            scope.code = attrs.alkSdkUiLandingpageCode;
 
+            // http://pprd.cdn.toc.io/interfaces/landing-page-product/vpprd/index.html#/
+            // ?productreference_reference=7613034056122
+            // &productreference_type=ean13
+            // &placement_id=1241
+            // &app_id=UA-0000-0
+            // &client_id=toto
             scope.src = function() {
-                var src = URL_UI_BUTTON_PRODUCT + '#/?alk=1';
+                var src = URL_UI_LANDINGPAGE + '#/?alk=1';
                 if (!scope.product
                 || !scope.product.isIdentifiedBy
                 || !scope.product.isIdentifiedBy.length) {
+                    $log.warn('Missing product.isIdentifiedBy');
                     return '';
                 }
                 src += '&productreference_reference=' + scope.product.isIdentifiedBy[0].reference;
                 src += '&productreference_type=' + scope.product.isIdentifiedBy[0].type;
                 if (!scope.placement
                 || !scope.placement.id) {
+                    $log.warn('Missing placement');
                     return '';
                 }
                 src += '&placement_id=' + scope.placement.id;

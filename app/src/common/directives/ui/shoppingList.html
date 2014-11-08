@@ -1,29 +1,27 @@
+
 <div>
-    <iframe width="200"
+    <iframe width="300"
             marginwidth="0"
-            height="50"
+            height="575"
             marginheight="0"
             frameborder="0"
             scrolling="No"
             align="top"
             hspace="0"
             vspace="0"
-            id="alk_banner"
+            id="alk_shoppinglist"
             style="overflow: hidden; margin-bottom: 10px;"
-            ng-src="{{ src() }}" ng-if="iframe">
+            ng-src="{{ src() }}"
+            ng-if="iframe">
     </iframe>
     <div ng-if="code">
 <pre>
-&lt;div class="alk-ui-button-product"
-<span ng-if="oneclick === false">     data-alk-ui-oneclick="0"
-</span><span ng-if="showPrice === false">     data-alk-ui-show-price="0"
-</span><span ng-if="showShop === false">     data-alk-ui-show-shop="0"
-</span>     data-alk-ui-productreference_reference="{{ product.isIdentifiedBy[0].reference }}"
-     data-alk-ui-productreference_type="{{ product.isIdentifiedBy[0].type }}"
-     data-alk-ui-placement_id="{{ placement.id }}"
-     data-alk-ui-client_id="{{ clientId() }}"
+&lt;div class="alk-ui-shoppinglist"
+     data-alk-ui-placement_id="{{ placement.id }}"
+     data-alk-ui-recipe_urlrecipes="{{ recipe.isDescribedOn.url }}"
+     data-alk-ui-client_id="{{ clientId() }}"
      data-alk-ui-app_id="{{ applicationId() }}"&gt;
-     &lt;!-- Le bouton apparaîtra ici --&gt;
+     &lt;!-- Le module apparaîtra ici --&gt;
 &lt;/div&gt;
 </pre>
 <pre>

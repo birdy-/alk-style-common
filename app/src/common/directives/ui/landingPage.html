@@ -1,0 +1,20 @@
+<div>
+    <div ng-if="code">
+        <pre>{{ src() }}</pre>
+    </div>
+    <div ng-if="iframe">
+        <iframe width="100%"
+                marginwidth="0"
+                height="347"
+                marginheight="0"
+                frameborder="0"
+                scrolling="No"
+                align="top"
+                hspace="0"
+                vspace="0"
+                id="alk_landingpage"
+                style="overflow: hidden; margin-bottom: 10px;"
+                ng-src="{{ src() }}">
+        </iframe>
+    </div>
+</div>
