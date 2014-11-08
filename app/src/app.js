@@ -172,11 +172,6 @@ app.config(function ($routeProvider) {
         controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
-    $routeProvider.when('/maker/product/:productReference_reference/marketing', {
-        templateUrl: 'src/maker/product/show/marketing/marketing.html',
-        controller: 'DashboardMakerProductShowController',
-        parameter: {id: 'integer'}
-    });
 
     // Product Specific show
     $routeProvider.when('/maker/product/:productReference_reference/data/specific/wine', {
@@ -193,6 +188,40 @@ app.config(function ($routeProvider) {
     $routeProvider.when('/maker/brand', {
         templateUrl: 'src/maker/brand/list/list.html',
         controller: 'DashboardMakerBrandListController'
+    });
+
+    // Activation views
+    $routeProvider.when('/dmp/activation/campaign', {
+        templateUrl: 'src/dmp/activation/campaign/list.html',
+        controller: 'DmpActivationCampaignListController'
+    });
+    $routeProvider.when('/dmp/activation/shoppinglist', {
+        templateUrl: 'src/dmp/activation/shoppinglist/show.html',
+        controller: 'DmpActivationShoppingListShowController'
+    });
+    $routeProvider.when('/dmp/activation/shoppinglist/:id', {
+        templateUrl: 'src/dmp/activation/shoppinglist/show.html',
+        controller: 'DmpActivationShoppingListShowController'
+    });
+    $routeProvider.when('/dmp/activation/button', {
+        templateUrl: 'src/dmp/activation/button/show.html',
+        controller: 'DmpActivationButtonShowController'
+    });
+    $routeProvider.when('/dmp/activation/button/:id', {
+        templateUrl: 'src/dmp/activation/button/show.html',
+        controller: 'DmpActivationButtonShowController'
+    });
+    $routeProvider.when('/dmp/activation/landingpage', {
+        templateUrl: 'src/dmp/activation/landingpage/show.html',
+        controller: 'DmpActivationButtonShowController'
+    });
+    $routeProvider.when('/dmp/activation/landingpage/:id', {
+        templateUrl: 'src/dmp/activation/landingpage/show.html',
+        controller: 'DmpActivationButtonShowController'
+    });
+    $routeProvider.when('/dmp/activation/landingpage', {
+        templateUrl: 'src/dmp/activation/landingpage/show.html',
+        controller: 'DmpActivationButtonShowController'
     });
 
     // ------------------------------------------------------------------------------------------
