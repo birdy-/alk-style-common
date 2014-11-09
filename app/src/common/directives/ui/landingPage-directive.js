@@ -18,7 +18,7 @@ angular.module('jDashboardFluxApp').directive('alkSdkUiLandingpage', [
             scope.iframe = attrs.alkSdkUiLandingpageIframe;
             scope.code = attrs.alkSdkUiLandingpageCode;
 
-            // http://pprd.cdn.toc.io/interfaces/landing-page-product/vpprd/index.html#/
+            // https://sassets.toc.io/interfaces/landing-page-product/v1/index.html#/
             // ?productreference_reference=7613034056122
             // &productreference_type=ean13
             // &placement_id=1241
