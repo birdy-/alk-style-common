@@ -224,6 +224,14 @@ app.config(function ($routeProvider) {
         controller: 'DmpActivationButtonShowController'
     });
 
+    // Analytics views
+
+    $routeProvider.when('/dmp/analytics/campaign/:id', {
+        templateUrl: 'src/dmp/analytics/campaign/show.html',
+        controller: 'DmpAnalyticsCampaignShowController'
+    });
+
+
     // ------------------------------------------------------------------------------------------
     // Retailer views
     // ------------------------------------------------------------------------------------------
