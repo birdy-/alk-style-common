@@ -151,7 +151,12 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowLabelCo
                 $scope.labels[19166],
                 $scope.labels[19169],
                 $scope.labels[19170],
-                $scope.labels[19108],
+                $scope.labels[19108]
+            ]
+        },
+        {
+            title: 'Distinctions',
+            labels: [
                 $scope.labels[10342], // Concours Général Agricole Or
                 $scope.labels[10343], // Concours Général Agricole Argent
                 $scope.labels[10344], // Concours Général Agricole Bronze
