@@ -52,7 +52,7 @@ angular.module('jDashboardFluxApp').directive('boolean', function($compile) {
 });
 angular.module('jDashboardFluxApp').directive('productLabel', function($compile) {
     return {
-        restrict: 'AEC',
+        restrict: 'A',
         transclude: true,
         scope: {
             product: '=',

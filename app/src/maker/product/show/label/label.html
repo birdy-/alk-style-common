@@ -1,7 +1,7 @@
 <div template-product>
     <div ng-controller="DashboardMakerProductShowLabelController">
         <div class="form-group">
-            <div class="col-xs-12">
+            <div class="col-xs-12 product-labels-header">
                 <div class="label-summary" data-ng-if="product.isLabeledBy.length === 0">Ce produit a 0 label</div>
                 <div class="label-summary" data-ng-if="product.isLabeledBy.length > 0">Les labels du produits :</div>
                 <p><img data-ng-repeat="label in product.isLabeledBy" data-ng-src="https://smedia.alkemics.com/api/1/concept/{{ label.concept.id }}/picture/logo/original.png" class="label-picto"/></p>
@@ -14,46 +14,58 @@
                 data-title="labelGroup.title"
                 data-labels="labelGroup.labels">
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-6">
-                <h3>Régimes religieux</h3>
-            </div>
-            <div class="col-sm-6">
-                <h3>Régimes particuliers</h3>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-3">
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="isKasher" ng-model="product.isKasher"/>
-                        Kasher
-                    </label>
+            <div class="label-group col-xs-12" data-ng-class="{active: isActive}" data-ng-init="isActive = false">
+                <div class="header" data-ng-click="isActive = !isActive">
+                    <h3>Communautaire</h3>
+                </div>
+                <div class="row" data-ng-show="isActive">
+                    <div class="col-xs-6 col-md-4 product-label">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="isKasher" ng-model="product.isKasher"/>
+                                <p>
+                                    Kasher
+                                </p>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-4 product-label">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="isHalal" ng-model="product.isHalal"/>
+                                <p>
+                                    Halal
+                                </p>
+                            </label>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-sm-3">
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="isHalal" ng-model="product.isHalal"/>
-                        Halal
-                    </label>
+            <div class="label-group col-xs-12" data-ng-class="{active: isSpecificDietActive}" data-ng-init="isSpecificDietActive = false">
+                <div class="header" data-ng-click="isSpecificDietActive = !isSpecificDietActive">
+                    <h3>Régimes particuliers</h3>
                 </div>
-            </div>
-            <div class="col-sm-3">
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="isVegetarian" ng-model="product.isVegetarian"/>
-                        Végétarien
-                    </label>
-                </div>
-            </div>
-            <div class="col-sm-3">
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="isVegetalian" ng-model="product.isVegetalian"/>
-                        Végétalien
-                    </label>
+                <div class="row" data-ng-show="isSpecificDietActive">
+                    <div class="col-xs-6 col-md-4 product-label">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="isVegetarian" ng-model="product.isVegetarian"/>
+                                <p>
+                                    Végétarien
+                                </p>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-4 product-label">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="isVegetalian" ng-model="product.isVegetalian"/>
+                                <p>
+                                    Végétalien
+                                </p>
+                            </label>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
