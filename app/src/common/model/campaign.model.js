@@ -1,6 +1,6 @@
 "use strict";
 
-var Campaign = function() {
+var Campaign = function () {
     this.id = null;
     this.name = null;
     this.type = null;
@@ -30,16 +30,16 @@ var Campaign = function() {
 
     this._type = 'Campaign';
 
-    this.typeName = function() {
+    this.typeName = function () {
         var types = this.types();
         for (var i = 0; i < types.length; i++) {
-            if (types[i].id == this.type) {
+            if (types[i].id === this.type) {
                 return types[i].name;
             }
         }
         return '';
     };
-    this.types = function() {
+    this.types = function () {
         return [
             Campaign.TYPE_PROMOTE,
             Campaign.TYPE_FILTER,
@@ -50,7 +50,7 @@ var Campaign = function() {
             Campaign.TYPE_LANDINGPAGE
         ];
     };
-    this.fromJson = function(json) {
+    this.fromJson = function (json) {
         for (var key in json) {
             this[key] = json[key];
         }

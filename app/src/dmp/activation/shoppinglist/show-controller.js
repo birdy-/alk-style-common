@@ -33,7 +33,7 @@ angular.module('jDashboardFluxApp').controller('DmpActivationShoppingListShowCon
         });
     }, true);
 
-    $scope.persist = function() {
+    $scope.persist = function () {
         // Compute campaign parameters
         var whitelist = {};
         $scope.campaign.whitelist.forEach(function (brand) {
@@ -50,9 +50,9 @@ angular.module('jDashboardFluxApp').controller('DmpActivationShoppingListShowCon
         $scope.campaign.runsIn = [$scope.campaign._runsIn];
 
         // Error callback
-        var error = function(response) {
+        var error = function (response) {
             $log.error('', response);
-            $window.alert('Une erreur est survenue pendant la mise à jour de la campagne.')
+            $window.alert('Une erreur est survenue pendant la mise à jour de la campagne.');
         };
         var success = function (response) {
             $scope.preview = true;
@@ -99,12 +99,12 @@ angular.module('jDashboardFluxApp').controller('DmpActivationShoppingListShowCon
             $scope.campaign = campaign;
             $scope.preview = true;
         }, function (response) {
-            $window.alert('Une erreur est survenue pendant le chargement de la campagne.')
+            $window.alert('Une erreur est survenue pendant le chargement de la campagne.');
         });
     };
 
-    var init = function() {
-        permission.getUser().then(function(user) {
+    var init = function () {
+        permission.getUser().then(function (user) {
             $scope.user = user;
             if ($routeParams.id) {
                 show($routeParams.id);
@@ -112,7 +112,7 @@ angular.module('jDashboardFluxApp').controller('DmpActivationShoppingListShowCon
                 create();
             }
         });
-    }
+    };
     init();
 
 }]);

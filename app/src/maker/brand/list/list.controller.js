@@ -27,8 +27,8 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerBrandListControlle
     // ------------------------------------------------------------------------
     var init = function() {
         permission.getUser().then(function (user) {
-            user.managesBrand.forEach(function(brand){
-                $$BrandRepository.get(brand.id).then(function(brand){
+            user.managesBrand.forEach(function (brand) {
+                $$BrandRepository.get(brand.id).then(function (brand) {
                     $scope.brands.push(brand);
                 });
             });
@@ -36,6 +36,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerBrandListControlle
         $$sdkAuth.UserClaimProductBrandList().then(function (response) {
             $scope.claims = response.data.data;
         });
-    }
+    };
     init();
 }]);

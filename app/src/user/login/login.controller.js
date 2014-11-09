@@ -6,13 +6,13 @@
  * authenticate directive for that matter.
  */
 angular.module('jDashboardFluxApp').controller('LoginController', [
-    '$scope', 'permission', '$location', 
+    '$scope', 'permission', '$location',
      function ($scope, permission, $location) {
 
     $scope.login = null;
     $scope.password = null;
     $scope.message = null;
-    $scope.displayActivationMessage = ($location.search()['activation'] === '1') ? true : false;    
+    $scope.displayActivationMessage = ($location.search()['activation'] === '1') ? true : false;
 
     $scope.submit = function() {
         permission.login(

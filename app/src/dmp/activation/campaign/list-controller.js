@@ -43,8 +43,8 @@ angular.module('jDashboardFluxApp').controller('DmpActivationCampaignListControl
     // ------------------------------------------------------------------------
     // Init
     // ------------------------------------------------------------------------
-    var list = function() {
-        var placementIds = $scope.placements.map(function(placement) {return placement.id}).join(",");
+    var list = function () {
+        var placementIds = $scope.placements.map(function (placement) {return placement.id;}).join(",");
         var types = [
             Campaign.TYPE_QRCODE.id,
             Campaign.TYPE_SHOPPINGLIST.id,
@@ -54,14 +54,14 @@ angular.module('jDashboardFluxApp').controller('DmpActivationCampaignListControl
         $$ORM.repository('Campaign').list({}, {
             runsIn_id: placementIds,
             type: types
-        }, {}, $scope.limit, $scope.offset).then(function(campaigns) {
+        }, {}, $scope.limit, $scope.offset).then(function (campaigns) {
             $scope.campaigns = campaigns;
         });
     };
 
-    var init = function() {
-        permission.getUser().then(function(user) {
-            var websiteIds = user.managesWebsite.map(function(website) {return website.id}).join(",");
+    var init = function () {
+        permission.getUser().then(function (user) {
+            var websiteIds = user.managesWebsite.map(function (website) {return website.id;}).join(",");
             var types = [
                 Placement.TYPE_SHOPPING_LIST_RECIPE.id,
                 Placement.TYPE_SHOPPING_LIST_LIST.id,
@@ -77,7 +77,7 @@ angular.module('jDashboardFluxApp').controller('DmpActivationCampaignListControl
             $$ORM.repository('Placement').list({}, {
                 appearsOn_id: websiteIds,
                 type: types
-            }).then(function(placements) {
+            }).then(function (placements) {
                 $scope.placements = placements;
                 list();
             });

@@ -1,8 +1,8 @@
 'use_strict';
 
 angular.module('jDashboardFluxApp').controller('DmpActivationButtonShowController', [
-    '$scope', '$$ORM', 'permission', '$routeParams', '$window',
-    function ($scope, $$ORM, permission, $routeParams, $window) {
+    '$scope', '$$ORM', 'permission', '$routeParams', '$window', '$location', '$log',
+    function ($scope, $$ORM, permission, $routeParams, $window, $location, $log) {
 
     // ------------------------------------------------------------------------
     // Variables
@@ -15,22 +15,22 @@ angular.module('jDashboardFluxApp').controller('DmpActivationButtonShowControlle
     // ------------------------------------------------------------------------
     // Event binding
     // ------------------------------------------------------------------------
-    $scope.persist = function() {
+    $scope.persist = function () {
         // Compute campaign parameters
         $scope.campaign.runsIn = [$scope.campaign._runsIn];
         $scope.campaign.runsOnProduct = [$scope.campaign._runsOnProduct];
 
         // Error callback
-        var error = function(response) {
+        var error = function (response) {
             $window.alert('Une erreur est survenue pendant la mise à jour de la campagne.');
         };
         // Save
         if ($scope.campaign.id) {
-            $$ORM.repository('Campaign').update($scope.campaign).then(function() {
+            $$ORM.repository('Campaign').update($scope.campaign).then(function () {
                 $scope.preview = true;
             }, error);
         } else {
-            $$ORM.repository('Campaign').create($scope.campaign).then(function() {
+            $$ORM.repository('Campaign').create($scope.campaign).then(function () {
                 $scope.preview = true;
             }, error);
         }
@@ -49,7 +49,7 @@ angular.module('jDashboardFluxApp').controller('DmpActivationButtonShowControlle
         } else if ($location.path().indexOf('landingpage')) {
             $scope.campaign.type = Campaign.TYPE_LANDINGPAGE.id;
         } else {
-            $window.alert('Type de campagne inconnu.')
+            $window.alert('Type de campagne inconnu.');
         }
     };
     var show = function (id) {
@@ -70,7 +70,7 @@ angular.module('jDashboardFluxApp').controller('DmpActivationButtonShowControlle
             $scope.campaign = campaign;
             $scope.preview = true;
         }, function (response) {
-            $window.alert('Une erreur est survenue pendant le chargement de la campagne.')
+            $window.alert('Une erreur est survenue pendant le chargement de la campagne.');
         });
     };
 
@@ -81,13 +81,13 @@ angular.module('jDashboardFluxApp').controller('DmpActivationButtonShowControlle
             if (entitys.length === 1) {
                 $scope.campaign._runsOnProduct = entitys[0];
             } else {
-                $log.warn('Multiple Products found.')
+                $log.warn('Multiple Products found.');
             }
         });
     };
 
-    var init = function() {
-        permission.getUser().then(function(user) {
+    var init = function () {
+        permission.getUser().then(function (user) {
             $scope.user = user;
             if ($routeParams.id) {
                 show($routeParams.id);
