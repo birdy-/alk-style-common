@@ -1,6 +1,8 @@
 "use strict";
 
 var Campaign = function () {
+    this._type = 'Campaign';
+
     this.id = null;
     this.name = null;
     this.type = null;
@@ -28,7 +30,6 @@ var Campaign = function () {
 
     this.volumeDisplay = 0;
 
-    this._type = 'Campaign';
 
     this.typeName = function () {
         var types = this.types();
@@ -61,6 +62,7 @@ var Campaign = function () {
         return this;
     };
 };
+Campaign._type = 'Campaign';
 Campaign.TYPE_PROMOTE = new Constant(1, 'Mise en avant', 'Mise en avant des produits de la marque');
 Campaign.TYPE_FILTER = new Constant(2, 'Exclu', 'Affichage exclusif des produits de la marque');
 Campaign.TYPE_TARGETING = new Constant(3, 'Ciblage', '');

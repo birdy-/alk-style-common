@@ -9,3 +9,4 @@ var CommonUnit = function(){
     };
     this._type = 'CommonUnit';
 };
+CommonUnit._type = 'CommonUnit';

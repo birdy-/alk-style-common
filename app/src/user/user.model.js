@@ -42,3 +42,4 @@ var User = function(){
         return returns;
     };
 };
+User._type = 'User';

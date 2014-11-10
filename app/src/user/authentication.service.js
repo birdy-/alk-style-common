@@ -19,18 +19,14 @@ angular.module('jDashboardFluxApp').service('permission', [
      * Returns a promise that is an image of the user.
      * @return user The global user.
      */
-    var getUser = function() {
+    var getUser = function () {
         if (userPromise === null) {
-            var url = URL_SERVICE_AUTH + '/auth/v1/user/me';
-            userPromise = $http.get(url).then(function(response) {
-                // Load entity
-                user = $$ORM.repository('User').hydrate(response.data.data);
-
+            $$ORM.repository('User').method('Me')().then(function (user) {
                 // Load relations
-                user.managesBrand.forEach(function(relation){ relation.allowed = true; });
-                user.managesWebsite.forEach(function(relation){ relation.allowed = true; });
-                user.managesShop.forEach(function(relation){ relation.allowed = true; });
-                user.belongsTo.forEach(function(relation){ relation.allowed = true; });
+                user.managesBrand.forEach(function (relation) { relation.allowed = true; });
+                user.managesWebsite.forEach(function (relation) { relation.allowed = true; });
+                user.managesShop.forEach(function (relation) { relation.allowed = true; });
+                user.belongsTo.forEach(function (relation) { relation.allowed = true; });
 
                 // Broadcast event
                 $log.log('Authentication Service : <User ' + user.id + '> loaded.');
@@ -44,7 +40,7 @@ angular.module('jDashboardFluxApp').service('permission', [
     /**
      * Resets the service to clear the user.
      */
-    var reset = function() {
+    var reset = function () {
         userPromise = null;
         user = null;
     };
@@ -54,7 +50,7 @@ angular.module('jDashboardFluxApp').service('permission', [
      * Requests Authentication Token from authentication server
      * Post user-provided credentials
      */
-    var login = function(login, password) {
+    var login = function (login, password) {
         return $http.post(URL_SERVICE_AUTH + '/auth/v1/user/login', {
             username: login,
             password: password,
@@ -72,7 +68,7 @@ angular.module('jDashboardFluxApp').service('permission', [
      * Logs out the user from authenticated session
      *
      */
-    var logout = function() {
+    var logout = function () {
         $log.debug('User clicked Logout');
         reset();
         delete $window.sessionStorage.token;

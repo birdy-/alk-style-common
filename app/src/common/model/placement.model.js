@@ -9,7 +9,7 @@ var Placement = function() {
     };
     this._type = 'Placement';
 };
-
+Placement._type = 'Placement';
 Placement.TYPE_SHOPPING_LIST_RECIPE   = new Constant(1, "Shopping List");
 Placement.TYPE_SHOPPING_LIST_LIST     = new Constant(2, "List shopping list interface");
 Placement.TYPE_PRINTED_LIST_RECIPE    = new Constant(11, "Recipe printed list interface");

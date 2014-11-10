@@ -1,11 +1,11 @@
 'use strict';
 
-var Product = function (){
+var Product = function () {
+    this._type = 'Product';
     // NB : it is very important not to set the vaues below to [] otherwise
     // it will overwrite the related entities by a []...
     this.isPartitionedBy = null;
     this.isInstantiatedBy = null;
-    this._type = 'Product';
     this.fromJson = function (json) {
         for (var key in json) {
             this[key] = json[key];
@@ -51,6 +51,7 @@ var Product = function (){
             || this.typePromotional === Product.TYPEPROMOTIONAL_SPECIALPRICE.id;
     };
 };
+Product._type = 'Product';
 Product.CERTIFICATION_STATUS_DEFAULT        = new Constant(0, "DEFAULT",       "The Product has not been considered for review yet");
 Product.CERTIFICATION_STATUS_REVIEWING      = new Constant(4, "REVIEWING",     "The Product is being reviewed by us before being attributed.");
 Product.CERTIFICATION_STATUS_ATTRIBUTED     = new Constant(5, "ATTRIBUTED",    "The Product was attributed to its producer.");
@@ -95,6 +96,8 @@ var ProductHasLabel = function () {
         return this;
     };
 };
+ProductHasLabel._type = 'ProductHasLabel';
+
 
 var ProductIsMadeOfProduct = function () {
     this._type = 'ProductIsMadeOfProduct';
@@ -107,6 +110,8 @@ var ProductIsMadeOfProduct = function () {
         return this;
     };
 };
+ProductIsMadeOfProduct._type = 'ProductIsMadeOfProduct';
+
 
 var ProductIsComplementaryWithProduct = function () {
     this._type = 'ProductIsComplementaryWithProduct';
@@ -119,6 +124,8 @@ var ProductIsComplementaryWithProduct = function () {
         return this;
     };
 };
+ProductIsComplementaryWithProduct._type = 'ProductIsComplementaryWithProduct';
+
 
 var ProductIsSubstitutableWithProduct = function () {
     this._type = 'ProductIsSubstitutableWithProduct';
@@ -131,6 +138,7 @@ var ProductIsSubstitutableWithProduct = function () {
         return this;
     };
 };
+ProductIsSubstitutableWithProduct._type = 'ProductIsSubstitutableWithProduct';
 
 
 var ProductIsRequiredInRecipe = function () {
@@ -144,6 +152,7 @@ var ProductIsRequiredInRecipe = function () {
         return this;
     };
 };
+ProductIsRequiredInRecipe._type = 'ProductIsRequiredInRecipe';
 
 
 var ProductNutritionalQuantity = function () {
@@ -162,13 +171,14 @@ var ProductNutritionalQuantity = function () {
         return this;
     };
 };
+ProductNutritionalQuantity._type = 'ProductNutritionalQuantity';
 ProductNutritionalQuantity.MEASUREMENTPRECISION_EXACT         = new Constant(0, "=", "If this nutriment measurement precision is exact");
 ProductNutritionalQuantity.MEASUREMENTPRECISION_APPROXIMATELY = new Constant(1, "~", "If nutriment declaration as no precision");
 ProductNutritionalQuantity.MEASUREMENTPRECISION_LESS_THAN     = new Constant(2, "<", "If this nutriment declaration contains '<'");
 
 
 
-var ProductStandardQuantity = function (){
+var ProductStandardQuantity = function () {
     this._type = 'ProductStandardQuantity';
     this.id = null;
     this.name = null;
@@ -199,6 +209,7 @@ var ProductStandardQuantity = function (){
         return null;
     };
 };
+ProductStandardQuantity._type = 'ProductStandardQuantity';
 ProductStandardQuantity.PREPARATIONSTATE_UNPREPARED = new Constant(0, "avant préparation", "If the nutrients supplied correspond to the nutrition values of the food in the state in which it is sold");
 ProductStandardQuantity.PREPARATIONSTATE_PREPARED = new Constant(1, "après préparation", "If the nutrients supplied correspond to the nutrition values of the food in the state after preparation");
 
