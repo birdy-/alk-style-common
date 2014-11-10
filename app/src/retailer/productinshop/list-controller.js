@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('jDashboardFluxApp').controller('RetailerProductListController', [
+angular.module('jDashboardFluxApp').controller('RetailerProductInShopListController', [
     'permission', '$scope', '$$sdkCrud', '$modal', '$log',
     function (permission, $scope, $$sdkCrud, $modal, $log) {
 
@@ -48,11 +48,14 @@ angular.module('jDashboardFluxApp').controller('RetailerProductListController', 
 
         $scope.refresh = function() {
             $$sdkCrud.ProductInShopList({
-                productinshop_name: $scope.request.productInShop.name
+                name: $scope.request.productInShop.name
             }, {
+                productReference_reference: $scope.request.productReference.reference,
                 shortIdOut: $scope.request.productInShop.shortIdOut,
                 shop_shortId: $scope.request.shop.shortId
-            }, {}, $scope.request.offset, $scope.request.limit).then(function(response){
+            }, {}, $scope.request.offset, $scope.request.limit, {
+                isIdentifiedBy: true
+            }).then(function(response){
                 $scope.productInShops = response.data.data;
             });
         };
@@ -75,7 +78,6 @@ angular.module('jDashboardFluxApp').controller('RetailerProductListController', 
         };
 
         $scope.attribute = function(productInShop) {
-
             // Check if we have selected multiple Products
             var selectedProductInShops = $scope.productInShops.filter(function (productInShop) {
                 return productInShop.selected;
@@ -94,6 +96,23 @@ angular.module('jDashboardFluxApp').controller('RetailerProductListController', 
             });
 
             modalInstance.result.then(function (selectedItem) {
+            }, function () {
+            });
+        };
+
+        $scope.show = function(productInShop) {
+            var modalInstance = $modal.open({
+                templateUrl: '/src/retailer/product/show-modal.html',
+                controller: 'ProductShowModalController',
+                size: 'lg',
+                resolve: {
+                    product: function() {
+                        return productInShop.instantiates;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function () {
             }, function () {
             });
         };
