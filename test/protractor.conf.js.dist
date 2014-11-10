@@ -12,7 +12,7 @@ exports.config = {
   chromeDriver: 'node_modules/protractor/selenium/',
 
   capabilities: {
-    'browserName': 'chrome'
+    'browserName': 'firefox'
   },
 
   // If you need to disable websecurity uncommented the following lines
