@@ -11,3 +11,14 @@ angular.module('jDashboardFluxApp').filter('alkPowerOfThousands', function () {
         return value;
     };
 });
+
+angular.module('jDashboardFluxApp').filter('isEmpty', function () {
+    return function (obj) {
+        for (var key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                return false;
+            }
+        }
+        return true;
+    };
+});
