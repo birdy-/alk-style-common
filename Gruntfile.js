@@ -80,7 +80,7 @@ module.exports = function (grunt) {
       options: {
         port: 9005,
         // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localhost.alkemics.com'
+        hostname: 'localstream.alkemics.com:9005'
       },
       livereload: {
         options: {
@@ -453,7 +453,7 @@ module.exports = function (grunt) {
                 //or your base URL. Currently the task does not use it's own
                 //webserver. So if your site needs a webserver to be fully
                 //functional configure it here.
-                sitePath: 'http://localstream.alkemics.com:9005/',
+                sitePath: 'http://localhost.alkemics.com:9005/',
                 //you can choose a prefix for your snapshots
                 //by default it's 'snapshot_'
                 fileNamePrefix: '',
