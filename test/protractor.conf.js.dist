@@ -17,6 +17,12 @@ exports.config = {
     }
   },
 
+  onPrepare: function() {
+    require('jasmine-reporters');
+    jasmine.getEnv().addReporter(
+      new jasmine.JUnitXmlReporter('xmloutput', true, true));
+  },
+
   params: {
     website: {
       url: 'http://localstream.alkemics.com:9005/#/'

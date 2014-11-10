@@ -54,7 +54,8 @@
     "karma-junit-reporter": "~0.2.2",
     "protractor": "~1.4.0",
     "grunt-protractor-webdriver": "~0.1.9",
-    "grunt-protractor-runner": "~1.1.4"
+    "grunt-protractor-runner": "~1.1.4",
+    "jasmine-reporters": "~1.0.1"
   },
   "engines": {
     "node": ">=0.8.0"
