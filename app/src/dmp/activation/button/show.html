@@ -15,7 +15,7 @@
             <form role="form">
                 <div class="form-group">
                     <label for="name">Comment appeler cette campagne ?</label>
-                    <input type="text" class="form-control" ng-model="campaign.name" placeholder="ex : Opération spéciale Noël"/>
+                    <input type="text" class="form-control" ng-model="campaign.name" placeholder="ex : Opération spéciale Noël" id="name"/>
                 </div>
 
                 <div class="form-group">
@@ -24,7 +24,8 @@
                          alk-autocomplete-type="Product"
                          alk-autocomplete-multiple="false"
                          placeholder="Choisir un produit"
-                         ng-model="campaign._runsOnProduct">
+                         ng-model="campaign._runsOnProduct"
+                         id="_runsOnProduct">
                     </div>
                 </div>
 
@@ -34,7 +35,8 @@
                          alk-autocomplete-type="Placement"
                          alk-autocomplete-multiple="false"
                          placeholder="Choisir un emplacement"
-                         ng-model="campaign._runsIn">
+                         ng-model="campaign._runsIn"
+                         id="_runsIn">
                     </div>
                 </div>
 

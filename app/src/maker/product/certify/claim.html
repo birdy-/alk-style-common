@@ -47,7 +47,7 @@
             <label for="name">EAN</label>
             <div class="input-group">
                 <input type="text" class="form-control" name="name" ng-model="productReference.reference" placeholder="ex: 3760019702101" required/>
-                <div class="input-group-addon" ng-click="search()">
+                <div class="input-group-addon" ng-click="search()" id="name">
                     <i class="fa fa-search"></i>
                 </div>
             </div>
@@ -80,7 +80,8 @@
                          alk-autocomplete-type="Brand"
                          alk-autocomplete-multiple="false"
                          placeholder="Choisir une marque"
-                         ng-model="product.isBrandedBy">
+                         ng-model="product.isBrandedBy"
+                         id="isBrandedBy">
                      </div>
                 </div>
             </div>

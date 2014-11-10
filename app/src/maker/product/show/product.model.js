@@ -1,38 +1,38 @@
 'use strict';
 
-var Product = function(){
+var Product = function (){
     // NB : it is very important not to set the vaues below to [] otherwise
     // it will overwrite the related entities by a []...
     this.isPartitionedBy = null;
     this.isInstantiatedBy = null;
     this._type = 'Product';
-    this.fromJson = function(json) {
+    this.fromJson = function (json) {
         for (var key in json) {
             this[key] = json[key];
         }
         return this;
     };
 
-    this.isValidated = function() {
+    this.isValidated = function () {
         return this.status === Product.STATUS_VALIDATED.id;
     };
-    this.isCertified = function() {
+    this.isCertified = function () {
         return this.certified === Product.CERTIFICATION_STATUS_CERTIFIED.id
             || this.certified === Product.CERTIFICATION_STATUS_PUBLISHED.id;
     };
-    this.isAccepted = function() {
+    this.isAccepted = function () {
         return this.certified === Product.CERTIFICATION_STATUS_ACCEPTED.id
             || this.certified === Product.CERTIFICATION_STATUS_CERTIFIED.id
             || this.certified === Product.CERTIFICATION_STATUS_DISCONTINUED.id
             || this.certified === Product.CERTIFICATION_STATUS_PUBLISHED.id;
     };
-    this.isDiscontinued = function() {
+    this.isDiscontinued = function () {
         return this.certified === Product.CERTIFICATION_STATUS_DISCONTINUED.id;
     };
-    this.isTypePackagingEach = function() {
+    this.isTypePackagingEach = function () {
         return this.typePackaging === Product.TYPEPACKAGING_EACH.id;
     };
-    this.isTypePackagingMultiple = function() {
+    this.isTypePackagingMultiple = function () {
         return this.typePackaging === Product.TYPEPACKAGING_PACK_HOMO.id
             || this.typePackaging === Product.TYPEPACKAGING_PACK_HETERO.id
             || this.typePackaging === Product.TYPEPACKAGING_CASE_HOMO.id
@@ -40,7 +40,7 @@ var Product = function(){
             || this.typePackaging === Product.TYPEPACKAGING_PALLET_HOMO.id
             || this.typePackaging === Product.TYPEPACKAGING_PALLET_HETERO.id;
     };
-    this.isTypePromotionalPromotional = function() {
+    this.isTypePromotionalPromotional = function () {
         return this.typePromotional === Product.TYPEPROMOTIONAL_BONUSPACK.id
             || this.typePromotional === Product.TYPEPROMOTIONAL_FREECOMPONENTS.id
             || this.typePromotional === Product.TYPEPROMOTIONAL_MULTIPACK.id
@@ -84,10 +84,11 @@ Product.TYPEPACKAGING_PALLET_HOMO           = new Constant(5, "PL",             
 Product.TYPEPACKAGING_PALLET_HETERO         = new Constant(6, "MX",              "une palette hétérogène");
 
 
-var ProductHasLabel = function() {
+var ProductHasLabel = function () {
+    this._type = 'ProductHasLabel';
     this.id = null;
     this.isConceptualizedBy = {};
-    this.fromJson = function(json) {
+    this.fromJson = function (json) {
         for (var key in json) {
             this[key] = json[key];
         }
@@ -95,10 +96,11 @@ var ProductHasLabel = function() {
     };
 };
 
-var ProductIsMadeOfProduct = function() {
+var ProductIsMadeOfProduct = function () {
+    this._type = 'ProductIsMadeOfProduct';
     this.id = null;
     this.item = null;
-    this.fromJson = function(json) {
+    this.fromJson = function (json) {
         for (var key in json) {
             this[key] = json[key];
         }
@@ -106,10 +108,11 @@ var ProductIsMadeOfProduct = function() {
     };
 };
 
-var ProductIsComplementaryWithProduct = function() {
+var ProductIsComplementaryWithProduct = function () {
+    this._type = 'ProductIsComplementaryWithProduct';
     this.id = null;
     this.target = null;
-    this.fromJson = function(json) {
+    this.fromJson = function (json) {
         for (var key in json) {
             this[key] = json[key];
         }
@@ -117,10 +120,11 @@ var ProductIsComplementaryWithProduct = function() {
     };
 };
 
-var ProductIsSubstitutableWithProduct = function() {
+var ProductIsSubstitutableWithProduct = function () {
+    this._type = 'ProductIsSubstitutableWithProduct';
     this.id = null;
     this.target = null;
-    this.fromJson = function(json) {
+    this.fromJson = function (json) {
         for (var key in json) {
             this[key] = json[key];
         }
@@ -129,10 +133,11 @@ var ProductIsSubstitutableWithProduct = function() {
 };
 
 
-var ProductIsRequiredInRecipe = function() {
+var ProductIsRequiredInRecipe = function () {
+    this._type = 'ProductIsRequiredInRecipe';
     this.id = null;
     this.target = null;
-    this.fromJson = function(json) {
+    this.fromJson = function (json) {
         for (var key in json) {
             this[key] = json[key];
         }
@@ -141,7 +146,8 @@ var ProductIsRequiredInRecipe = function() {
 };
 
 
-var ProductNutritionalQuantity = function() {
+var ProductNutritionalQuantity = function () {
+    this._type = 'ProductNutritionalQuantity';
     this.id = null;
     this.name = null;
     this.quantity = null;
@@ -149,7 +155,7 @@ var ProductNutritionalQuantity = function() {
     this.percentageOfDailyValueIntake = null;
     this.isConceptualizedBy = {};
     this.isMeasuredBy = {};
-    this.fromJson = function(json) {
+    this.fromJson = function (json) {
         for (var key in json) {
             this[key] = json[key];
         }
@@ -162,13 +168,14 @@ ProductNutritionalQuantity.MEASUREMENTPRECISION_LESS_THAN     = new Constant(2, 
 
 
 
-var ProductStandardQuantity = function(){
+var ProductStandardQuantity = function (){
+    this._type = 'ProductStandardQuantity';
     this.id = null;
     this.name = null;
     this.quantity = null;
     this.preparationState = null;
     this.contains = [];
-    this.fromJson = function(json) {
+    this.fromJson = function (json) {
         var pnq;
         for (var key in json) {
             if (key === 'contains') {
@@ -182,7 +189,7 @@ var ProductStandardQuantity = function(){
         }
         return this;
     };
-    this.getContainsById = function(id) {
+    this.getContainsById = function (id) {
         id = parseInt(id, 10);
         for (var i = 0; i < this.contains.length; i++) {
             if (this.contains[i].isConceptualizedBy.id === id) {
