@@ -7,7 +7,7 @@ exports.config = {
     login: 'integration/login/*.scenario.js'
   },
 
-  baseUrl: 'http://localhost.alkemics.com:9005/#/',
+  baseUrl: 'http://localstream.alkemics.com:9005/#/',
   chromeDriver: 'node_modules/protractor/selenium/',
 
   capabilities: {
@@ -19,7 +19,7 @@ exports.config = {
 
   params: {
     website: {
-      url: 'http://localhost.alkemics.com:9005/#/'
+      url: 'http://localstream.alkemics.com:9005/#/'
     },
     user: {
       username: 'XXXXXXXXXXX',
