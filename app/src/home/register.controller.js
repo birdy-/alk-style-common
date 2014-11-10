@@ -116,16 +116,16 @@ angular.module('jDashboardFluxApp').controller('RegisterController', [
                     company: $scope.company,
                 }, true)
             };
-            $$sdkAuth.MailingListPost(record);
 
             // Create user
             $$sdkAuth.UserSignUp($scope.user).success(function(){
                 $scope.ok = true;
             }).error(function(response){
                 $scope.ok = false;
-                $scope.message = "Une erreur a eu lieu pendant votre inscription : "+response.message;
+                $scope.message = "Une erreur a eu lieu pendant votre inscription : " + response.message;
             });
 
+            $$sdkAuth.MailingListPost(record);
             // @todo : siltently register user so we will not have to re-ask the login
         };
 
