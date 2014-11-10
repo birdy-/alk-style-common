@@ -1,0 +1,342 @@
+<style>
+    #product-preview h2 {
+        margin-top: 0px;
+    }
+    #product-preview .product-brand {
+        color: gray;
+        font-style: italic;
+        margin-bottom: 5px;
+    }
+</style>
+<div class="row" id="product-preview">
+    <div class="col-sm-4">
+        <div class="text-center">
+            <img ng-src="{{ product.picture.main }}" class="img-responsive img-thumbnail"/>
+        </div>
+        <br/>
+        <div class="row text-center">
+            <div class="col-xs-4" ng-repeat="i in [1, 2, 3]">
+                <img ng-src="{{ product.picture.main }}" class="img-responsive img-thumbnail"/>
+            </div>
+        </div>
+        <br/>
+        <div class="text-center">
+            <span alk-product-allergen product="product" field="hasOilPalm" legend="huile de palme"></span>
+            <span alk-product-allergen product="product" field="hasAddedSugar" legend="sucres ajoutés"></span>
+            <span alk-product-allergen product="product" field="hasDextrose" legend="dextrose"></span>
+            <span alk-product-allergen product="product" field="hasOilCoprah" legend="huile de coprah"></span>
+            <span alk-product-allergen product="product" field="hasDextrine" legend="dextrine"></span>
+            <span alk-product-allergen product="product" field="hasOilCoconut" legend="huile de coco"></span>
+            <span alk-product-allergen product="product" field="hasGlucose" legend="glucose"></span>
+            <span alk-product-allergen product="product" field="hasOilSunflower" legend="huile de tournesol"></span>
+            <span alk-product-allergen product="product" field="hasFructose" legend="fructose"></span>
+            <span alk-product-allergen product="product" field="hasOilOlive" legend="huile d'olive"></span>
+            <span alk-product-allergen product="product" field="hasSugarSyrup" legend="sirop de sucre"></span>
+            <span alk-product-allergen product="product" field="hasOilGrapeSeed" legend="huile de pépin de raisin"></span>
+            <span alk-product-allergen product="product" field="hasHoney" legend="miel"></span>
+            <span alk-product-allergen product="product" field="hasOilCanola" legend="huile de colza"></span>
+            <span alk-product-allergen product="product" field="hasGluten" legend="gluten"></span>
+            <span alk-product-allergen product="product" field="hasStarch" legend="amidon"></span>
+            <span alk-product-allergen product="product" field="hasAspartame" legend="aspartame"></span>
+            <span alk-product-allergen product="product" field="hasStevia" legend="stévia"></span>
+            <span alk-product-allergen product="product" field="hasSaindoux" legend="saindoux"></span>
+            <span alk-product-allergen product="product" field="hasMeat" legend="viande"></span>
+            <span alk-product-allergen product="product" field="hasButter" legend="beurre"></span>
+            <span alk-product-allergen product="product" field="hasEgg" legend="œufs"></span>
+            <span alk-product-allergen product="product" field="hasCream" legend="crème"></span>
+            <span alk-product-allergen product="product" field="hasAlbumine" legend="albumine"></span>
+            <span alk-product-allergen product="product" field="hasLactose" legend="lactose"></span>
+            <span alk-product-allergen product="product" field="hasLysozyme" legend="lysozyme"></span>
+            <span alk-product-allergen product="product" field="hasMilk" legend="lait"></span>
+            <span alk-product-allergen product="product" field="hasFish" legend="poisson"></span>
+            <span alk-product-allergen product="product" field="hasFishGelatin" legend="gélatine de poisson"></span>
+            <span alk-product-allergen product="product" field="hasMollusk" legend="mollusques"></span>
+            <span alk-product-allergen product="product" field="hasShellfish" legend="crustacés"></span>
+            <span alk-product-allergen product="product" field="hasPorkGelatin" legend="gélatine de porc"></span>
+            <span alk-product-allergen product="product" field="hasAlcohol" legend="alcool"></span>
+            <span alk-product-allergen product="product" field="hasGMO" legend="OGMs"></span>
+            <span alk-product-allergen product="product" field="hasCafeine" name="hasCafeine" legend="caféine"></span>
+            <span alk-product-allergen product="product" field="hasExtraFibers" legend="fibres ajoutées"></span>
+            <span alk-product-allergen product="product" field="hasTaurine" legend="taurine"></span>
+            <span alk-product-allergen product="product" field="isWholeCereals" legend="céréales entières"></span>
+            <span alk-product-allergen product="product" field="hasTheine" legend="théine"></span>
+            <span alk-product-allergen product="product" field="hasCelery" legend="céleri"></span>
+            <span alk-product-allergen product="product" field="hasLiquorice" legend="réglisse"></span>
+            <span alk-product-allergen product="product" field="hasLupinus" legend="lupin"></span>
+            <span alk-product-allergen product="product" field="hasMustard" legend="moutarde"></span>
+            <span alk-product-allergen product="product" field="hasPeanut" legend="arachide"></span>
+            <span alk-product-allergen product="product" field="hasPhenylalanine" legend="phénylalanine"></span>
+            <span alk-product-allergen product="product" field="hasSesame" legend="sésame"></span>
+            <span alk-product-allergen product="product" field="hasSoya" legend="soja"></span>
+            <span alk-product-allergen product="product" field="hasNut" legend="noix"></span>
+            <span alk-product-allergen product="product" field="hasParaben" legend="paraben"></span>
+            <span alk-product-allergen product="product" field="hasSoap" legend="savon"></span>
+            <span alk-product-allergen product="product" field="hasSulfite" legend="sulfites"></span>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <h3 class="product-brand">
+            <img entity-image entity="product.isBrandedBy" height="24" width="24"/>
+            {{ product.isBrandedBy.name }}
+        </h3>
+        <h2>{{ product.nameLegal }}</h2>
+        <div class="pull-right">
+            <span alk-product-label product="product" field="19096" legend="labels[19096]"></span>
+            <span alk-product-label product="product" field="19095" legend="labels[19095]"></span>
+            <span alk-product-label product="product" field="19098" legend="labels[19098]"></span>
+            <span alk-product-label product="product" field="19099" legend="labels[19099]"></span>
+            <span alk-product-label product="product" field="19103" legend="labels[19103]"></span>
+            <span alk-product-label product="product" field="19171" legend="labels[19171]"></span>
+            <span alk-product-label product="product" field="19126" legend="labels[19126]"></span>
+            <span alk-product-label product="product" field="19166" legend="labels[19166]"></span>
+            <span alk-product-label product="product" field="19169" legend="labels[19169]"></span>
+            <span alk-product-label product="product" field="19170" legend="labels[19170]"></span>
+            <span alk-product-label product="product" field="19108" legend="labels[19108]"></span>
+            <span alk-product-label product="product" field="10342" legend="labels[10342]"></span>
+            <span alk-product-label product="product" field="10343" legend="labels[10343]"></span>
+            <span alk-product-label product="product" field="10344" legend="labels[10344]"></span>
+            <span alk-product-label product="product" field="10345" legend="labels[10345]"></span>
+            <span alk-product-label product="product" field="19133" legend="labels[19133]"></span>
+            <span alk-product-label product="product" field="19150" legend="labels[19150]"></span>
+            <span alk-product-label product="product" field="10262" legend="labels[10262]"></span>
+            <span alk-product-label product="product" field="10064" legend="labels[10064]"></span>
+            <span alk-product-label product="product" field="10332" legend="labels[10332]"></span>
+            <span alk-product-label product="product" field="10265" legend="labels[10265]"></span>
+            <span alk-product-label product="product" field="19094" legend="labels[19094]"></span>
+            <span alk-product-label product="product" field="19097" legend="labels[19097]"></span>
+            <span alk-product-label product="product" field="19101" legend="labels[19101]"></span>
+            <span alk-product-label product="product" field="19121" legend="labels[19121]"></span>
+            <span alk-product-label product="product" field="19114" legend="labels[19114]"></span>
+            <span alk-product-label product="product" field="19102" legend="labels[19102]"></span>
+            <span alk-product-label product="product" field="19107" legend="labels[19107]"></span>
+            <span alk-product-label product="product" field="19110" legend="labels[19110]"></span>
+            <span alk-product-label product="product" field="19122" legend="labels[19122]"></span>
+            <span alk-product-label product="product" field="19112" legend="labels[19112]"></span>
+            <span alk-product-label product="product" field="19134" legend="labels[19134]"></span>
+            <span alk-product-label product="product" field="19149" legend="labels[19149]"></span>
+            <span alk-product-label product="product" field="19152" legend="labels[19152]"></span>
+            <span alk-product-label product="product" field="19153" legend="labels[19153]"></span>
+            <span alk-product-label product="product" field="19155" legend="labels[19155]"></span>
+            <span alk-product-label product="product" field="19156" legend="labels[19156]"></span>
+            <span alk-product-label product="product" field="19157" legend="labels[19157]"></span>
+            <span alk-product-label product="product" field="19159" legend="labels[19159]"></span>
+            <span alk-product-label product="product" field="19160" legend="labels[19160]"></span>
+            <span alk-product-label product="product" field="19161" legend="labels[19161]"></span>
+            <span alk-product-label product="product" field="19162" legend="labels[19162]"></span>
+            <span alk-product-label product="product" field="19163" legend="labels[19163]"></span>
+            <span alk-product-label product="product" field="19164" legend="labels[19164]"></span>
+            <span alk-product-label product="product" field="19165" legend="labels[19165]"></span>
+            <span alk-product-label product="product" field="19167" legend="labels[19167]"></span>
+            <span alk-product-label product="product" field="19168" legend="labels[19168]"></span>
+            <span alk-product-label product="product" field="19129" legend="labels[19129]"></span>
+            <span alk-product-label product="product" field="19100" legend="labels[19100]"></span>
+            <span alk-product-label product="product" field="18266" legend="labels[18266]"></span>
+            <span alk-product-label product="product" field="18264" legend="labels[18264]"></span>
+            <span alk-product-label product="product" field="18265" legend="labels[18265]"></span>
+            <span alk-product-label product="product" field="18935" legend="labels[18935]"></span>
+            <span alk-product-label product="product" field="19109" legend="labels[19109]"></span>
+            <span alk-product-label product="product" field="19104" legend="labels[19104]"></span>
+            <span alk-product-label product="product" field="18942" legend="labels[18942]"></span>
+            <span alk-product-label product="product" field="19122" legend="labels[19122]"></span>
+            <span alk-product-label product="product" field="19128" legend="labels[19128]"></span>
+            <span alk-product-label product="product" field="10347" legend="labels[10347]"></span>
+            <span alk-product-label product="product" field="19105" legend="labels[19105]"></span>
+            <span alk-product-label product="product" field="19106" legend="labels[19106]"></span>
+            <span alk-product-label product="product" field="19151" legend="labels[19151]"></span>
+            <span alk-product-label product="product" field="10321" legend="labels[10321]"></span>
+            <span alk-product-label product="product" field="10326" legend="labels[10326]"></span>
+            <span alk-product-label product="product" field="10327" legend="labels[10327]"></span>
+            <span alk-product-label product="product" field="10328" legend="labels[10328]"></span>
+            <span alk-product-label product="product" field="10329" legend="labels[10329]"></span>
+            <span alk-product-label product="product" field="10331" legend="labels[10331]"></span>
+            <span alk-product-label product="product" field="10333" legend="labels[10333]"></span>
+            <span alk-product-label product="product" field="10334" legend="labels[10334]"></span>
+            <span alk-product-label product="product" field="10335" legend="labels[10335]"></span>
+            <span alk-product-label product="product" field="10336" legend="labels[10336]"></span>
+            <span alk-product-label product="product" field="10337" legend="labels[10337]"></span>
+            <span alk-product-label product="product" field="10338" legend="labels[10338]"></span>
+            <span alk-product-label product="product" field="10339" legend="labels[10339]"></span>
+            <span alk-product-label product="product" field="10340" legend="labels[10340]"></span>
+            <span alk-product-label product="product" field="10341" legend="labels[10341]"></span>
+            <span alk-product-label product="product" field="19111" legend="labels[19111]"></span>
+            <span alk-product-label product="product" field="19154" legend="labels[19154]"></span>
+            <span alk-product-label product="product" field="19158" legend="labels[19158]"></span>
+            <span alk-product-label product="product" field="10330" legend="labels[10330]"></span>
+            <span alk-product-label product="product" field="19123" legend="labels[19123]"></span>
+            <span alk-product-label product="product" field="19124" legend="labels[19124]"></span>
+            <span alk-product-label product="product" field="19125" legend="labels[19125]"></span>
+            <span alk-product-label product="product" field="19127" legend="labels[19127]"></span>
+            <span alk-product-label product="product" field="19130" legend="labels[19130]"></span>
+            <span alk-product-label product="product" field="19131" legend="labels[19131]"></span>
+            <span alk-product-label product="product" field="19132" legend="labels[19132]"></span>
+            <span alk-product-label product="product" field="19135" legend="labels[19135]"></span>
+            <span alk-product-label product="product" field="19137" legend="labels[19137]"></span>
+            <span alk-product-label product="product" field="19138" legend="labels[19138]"></span>
+            <span alk-product-label product="product" field="19139" legend="labels[19139]"></span>
+            <span alk-product-label product="product" field="19140" legend="labels[19140]"></span>
+            <span alk-product-label product="product" field="19141" legend="labels[19141]"></span>
+            <span alk-product-label product="product" field="19142" legend="labels[19142]"></span>
+            <span alk-product-label product="product" field="19143" legend="labels[19143]"></span>
+            <span alk-product-label product="product" field="19144" legend="labels[19144]"></span>
+            <span alk-product-label product="product" field="19145" legend="labels[19145]"></span>
+            <span alk-product-label product="product" field="19146" legend="labels[19146]"></span>
+            <span alk-product-label product="product" field="19147" legend="labels[19147]"></span>
+            <span alk-product-label product="product" field="19148" legend="labels[19148]"></span>
+        </div>
+        <p>{{ product.allegations }}</p>
+        <p>{{ product.packagingMentions }}</p>
+        <p>{{ product.advertisedInformations }}</p>
+        <div class="well">
+            <p>{{ product.packaging }}</p>
+            <p ng-if="product.servesText">{{ product.servesText }}</p>
+            <p ng-if="product.serves">pour {{ product.serves }} personnes</p>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="product.description || product.history || product.fabrication || product.appearanceOlfactory || product.appearanceTaste || product.appearanceVisual || product.advices">
+    <div class="col-sm-12">
+        <h3>Description</h3>
+        <p ng-if="product.description">
+            <strong>Description :</strong>
+            {{ product.description }}
+        </p>
+        <p>{{ product.history }}</p>
+        <p>{{ product.fabrication }}</p>
+        <p>{{ product.appearanceOlfactory }}</p>
+        <p>{{ product.appearanceTaste }}</p>
+        <p>{{ product.appearanceVisual }}</p>
+        <!-- pairings -->
+        <!-- tempConsomation -->
+        <p ng-if="product.advices">
+            <strong>Mode d'emploi :</strong>
+            {{ product.advices }}
+        </p>
+    </div>
+</div>
+<div class="row" ng-if="product.composition">
+    <div class="col-sm-12">
+        <h3>Composition</h3>
+        <p>{{ product.composition }}</p>
+        <!-- allergens -->
+        <!-- additives -->
+        <!-- ratioAlcohol -->
+        <!-- ratioCacao -->
+        <!-- ratioFat -->
+        <!-- levelPH -->
+    </div>
+</div>
+<div class="row" ng-if="product.consumerBenefits || product.productBenefits">
+    <div class="col-sm-12">
+        <h3>Avantages</h3>
+        <p>{{ product.consumerBenefits }}</p>
+        <p>{{ product.productBenefits }}</p>
+        <!-- allegations -->
+        <!-- packagingMentions -->
+        <!-- advertisedInformations -->
+    </div>
+</div>
+<div class="row" ng-if="product.origin">
+    <div class="col-sm-12">
+        <h3>Origine</h3>
+        <p>{{ product.origin }}</p>
+    </div>
+</div>
+<div class="row" ng-if="product.compulsoryStatements || product.warnings">
+    <div class="col-sm-12">
+        <h3>Avertissements</h3>
+        <p>{{ product.compulsoryStatements }}</p>
+        <p>{{ product.warnings }}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-9">
+        <h3>Informations nutritionelles</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr class="color-green-inverse">
+                    <th class="text-right">pour</th>
+                    <th ng-repeat="(psqId, psq) in psqs" class="text-center" colspan="2">
+                        {{ psq.name }}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[19195]" legend="legend[19195]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[19196]" legend="legend[19196]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[19058]" legend="legend[19058]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[19059]" legend="legend[19059]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[19060]" legend="legend[19060]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[19061]" legend="legend[19061]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[19062]" legend="legend[19062]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[19063]" legend="legend[19063]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[19064]" legend="legend[19064]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[19065]" legend="legend[19065]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[19066]" legend="legend[19066]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[19067]" legend="legend[19067]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[19068]" legend="legend[19068]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[19069]" legend="legend[19069]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[19070]" legend="legend[19070]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[19071]" legend="legend[19071]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[19072]" legend="legend[19072]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[19073]" legend="legend[19073]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[19074]" legend="legend[19074]"></tr>
+
+                <!-- Vitamines -->
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[18978]" legend="legend[18978]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[18739]" legend="legend[18739]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[18740]" legend="legend[18740]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[18741]" legend="legend[18741]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[18744]" legend="legend[18744]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[18983]" legend="legend[18983]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[18743]" legend="legend[18743]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[18742]" legend="legend[18742]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[18984]" legend="legend[18984]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[18985]" legend="legend[18985]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[18982]" legend="legend[18982]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[18979]" legend="legend[18979]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[18980]" legend="legend[18980]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[18981]" legend="legend[18981]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[18986]" legend="legend[18986]"></tr>
+
+                <!-- Minéraux et métaux -->
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[19075]" legend="legend[19075]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[19076]" legend="legend[19076]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[19077]" legend="legend[19077]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[18989]" legend="legend[18989]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[18988]" legend="legend[18988]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[18998]" legend="legend[18998]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[19078]" legend="legend[19078]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[18994]" legend="legend[18994]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[18992]" legend="legend[18992]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[18996]" legend="legend[18996]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[19000]" legend="legend[19000]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[18991]" legend="legend[18991]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[18999]" legend="legend[18999]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[19079]" legend="legend[19079]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[18990]" legend="legend[18990]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[19080]" legend="legend[19080]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[18987]" legend="legend[18987]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[19081]" legend="legend[19081]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[19082]" legend="legend[19082]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[19083]" legend="legend[19083]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[18997]" legend="legend[18997]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[19084]" legend="legend[19084]"></tr>
+                <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[18993]" legend="legend[18993]"></tr>
+            </tbody>
+            <tfoot>
+            </tfoot>
+        </table>
+    </div>
+    <div class="col-sm-3">
+        <h3>Fabricant</h3>
+        <p>{{ product.manufacturerName }}, {{ product.manufacturerText }}</p>
+        <p ng-if="product.manufacturerPhonenumber">
+            <span class="label label-success">
+                <i class="fa fa-phone"></i> {{ product.manufacturerPhonenumber }}
+            </span>
+        </p>
+        <p ng-if="product.manufacturerWebsite">
+            <a ng-href="product.manufacturerWebsite">{{ product.manufacturerWebsite }}</a>
+        </p>
+    </div>
+</div>
