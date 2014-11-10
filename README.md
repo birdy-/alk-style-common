@@ -69,3 +69,7 @@ npm install -g protractor
 grunt serve
 protractor test/protractor.conf.js
 ```
+
+### Jenkins integration
+
+Check [Confluence](https://alkemics.atlassian.net/wiki/display/ITH/How+to+setup+Jenkins+for+the+frontend)
