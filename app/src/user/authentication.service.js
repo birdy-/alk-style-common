@@ -21,7 +21,7 @@ angular.module('jDashboardFluxApp').service('permission', [
      */
     var getUser = function () {
         if (userPromise === null) {
-            $$ORM.repository('User').method('Me')().then(function (user) {
+            userPromise = $$ORM.repository('User').method('Me')().then(function (user) {
                 // Load relations
                 user.managesBrand.forEach(function (relation) { relation.allowed = true; });
                 user.managesWebsite.forEach(function (relation) { relation.allowed = true; });
