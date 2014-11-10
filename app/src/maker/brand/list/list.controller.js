@@ -27,10 +27,11 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerBrandListControlle
     // ------------------------------------------------------------------------
     var init = function() {
         permission.getUser().then(function (user) {
-            user.managesBrand.forEach(function (brand) {
-                $$ORM.repository('Brand').get(brand.id).then(function (brand) {
-                    $scope.brands.push(brand);
-                });
+            var brandIds = user.managesBrand.map(function (brand) {
+                return brand.id
+            });
+            $$ORM.repository('Brand').list({}, {id: brandIds}).then(function (brands) {
+                $scope.brands = brands;
             });
         });
         $$sdkAuth.UserClaimProductBrandList().then(function (response) {
