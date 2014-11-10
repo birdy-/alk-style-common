@@ -1,9 +1,8 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').controller('OrganizationProfileShowController', [
-    '$scope', '$$sdkAuth', '$routeParams', '$modal',
-    '$$OrganizationRepository', '$$BrandRepository', '$$UserRepository',
-    function ($scope, $$sdkAuth, $routeParams, $modal, $$OrganizationRepository, $$BrandRepository, $$UserRepository) {
+    '$scope', '$$sdkAuth', '$routeParams', '$modal', '$$ORM',
+    function ($scope, $$sdkAuth, $routeParams, $modal, $$ORM) {
 
     $scope.organization = {};
     $scope.brands = [];
@@ -48,7 +47,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
     // --------------------------------------------------------------------------------
 
     var organizationId = $routeParams.id;
-    $$OrganizationRepository.get(organizationId).then(function (entity) {
+    $$ORM.repository('Organization').get(organizationId).then(function (entity) {
         $scope.organization = entity;
         $scope.organizationForm.$loading = false;
     });
@@ -56,7 +55,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
     var loadUsers = function () {
         $$sdkAuth.OrganizationUsers(organizationId).then(function (response) {
             $scope.users = response.data.data.map(function (json) {
-                return $$UserRepository.hydrate(json);
+                retur.hydrate(json);
             });
         });
     };
@@ -67,7 +66,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
             var brandIds = response.data.data.map(function (brand) {
                 return brand.id;
             });
-            $$BrandRepository.list({}, {id: brandIds}, {}, 0, 100).then(function(brands) {
+            $$ORM.repository('Brand').list({}, {id: brandIds}, {}, 0, 100).then(function(brands) {
                 $scope.brands = brands;
             });
         });

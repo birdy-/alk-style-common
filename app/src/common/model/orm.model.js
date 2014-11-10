@@ -96,9 +96,13 @@ angular.module('jDashboardFluxApp').service('$$ORM', [
 
         // Items that need to be lazily loaded in order to avoid calls on the APIs
         var commonUnits = [
-            {id: 3, name: 'gramme'},
+            {id:   3, name: 'gramme'},
             {id: 104, name: 'kilo joule'},
-            {id: 106, name: 'kilo calorie'}
+            {id: 106, name: 'kilo calorie'},
+            {id:  22, name: 'kg'},
+            {id:   7, name: 'cl'},
+            {id:   9, name: 'l'},
+            {id:   2, name: 'ml'}
         ];
         var concepts = [
             { id: 19195, name: 'Valeur énergétique (kJ)',  isMeasuredBy: {id: 104, _type: 'CommonUnit' }, type: 'Nutrition', compulsory: true,  legend: "" },
