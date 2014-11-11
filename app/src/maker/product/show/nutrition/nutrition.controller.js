@@ -22,15 +22,11 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowNutriti
         18987, 19081, 19082, 19083, 18997, 19084, 18993
     ].map(function (id) {
         return $$ORM.repository('Concept').lazy(id);
-    }).map(function (pnq) {
-        $scope.pnqs[pnq.id] = {
-            isConceptualizedBy: {
-                id: pnq.id,
-                name: pnq.name,
-                compulsory: pnq.compulsory
-            },
-            isMeasuredBy: $$ORM.repository('CommonUnit').lazy(pnq.isMeasuredBy_id),
-            type: pnq.type,
+    }).map(function (concept) {
+        $scope.pnqs[concept.id] = {
+            isConceptualizedBy: concept,
+            isMeasuredBy: concept.isMeasuredBy,
+            type: concept.type,
             pnqs: {}
         };
     });
@@ -73,7 +69,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowNutriti
         for (var conceptId in $scope.pnqs) {
             pnq = $scope.pnqs[conceptId].pnqs[psq.id];
             if (!pnq) {
-                throw 'Missing ProductNutritionalQuantity for ProductStandardQuantity '+pnq.id+' and Concept '+conceptId;
+                throw 'Missing ProductNutritionalQuantity for ProductStandardQuantity ' + pnq.id + ' and Concept ' + conceptId;
             }
             if ((typeof(pnq.quantity) === 'undefined' || pnq.quantity === null)
             && (typeof(pnq.percentageOfDailyValueIntake) === 'undefined' || pnq.percentageOfDailyValueIntake === null)) {
