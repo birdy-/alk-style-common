@@ -293,16 +293,18 @@ angular.module('jDashboardFluxApp').service('$$ORM', [
 
         var repositorys = {
             Brand: abstractRepository(Brand, $$sdkCrud, $$cacheManager, $q, [], addTextFrom('name')),
+            Campaign: abstractRepository(Campaign, $$sdkCampaign, $$cacheManager, $q, [], null),
             CommonUnit: abstractRepository(CommonUnit, $$sdkCrud, $$cacheManager, $q, commonUnits, addTextFrom('name')),
             Concept: abstractRepository(Concept, $$sdkCrud, $$cacheManager, $q, concepts, addTextFrom('name')),
             Organization: abstractRepository(Organization, $$sdkAuth, $$cacheManager, $q, [], addTextFrom('name')),
-            Product: abstractRepository(Product, $$sdkCrud, $$cacheManager, $q, [], addTextFrom('nameLegal')),
-            ProductStandardQuantity: abstractRepository(ProductStandardQuantity, $$sdkCrud, $$cacheManager, $q, [], null),
-            ProductNutritionalQuantity: abstractRepository(ProductNutritionalQuantity, $$sdkCrud, $$cacheManager, $q, [], null),
             Placement: abstractRepository(Placement, $$sdkCampaign, $$cacheManager, $q, [], addTextFrom('name')),
+            Product: abstractRepository(Product, $$sdkCrud, $$cacheManager, $q, [], addTextFrom('nameLegal')),
+            ProductNutritionalQuantity: abstractRepository(ProductNutritionalQuantity, $$sdkCrud, $$cacheManager, $q, [], null),
+            ProductStandardQuantity: abstractRepository(ProductStandardQuantity, $$sdkCrud, $$cacheManager, $q, [], null),
+            ProductInShopSegment: abstractRepository(ProductInShopSegment, $$sdkCrud, $$cacheManager, $q, [], null),
+            ProductInShop: abstractRepository(ProductInShop, $$sdkCrud, $$cacheManager, $q, [], null),
             Shop: abstractRepository(Shop, $$sdkCrud, $$cacheManager, $q, [], addTextFrom('name')),
             User: abstractRepository(User, $$sdkAuth, $$cacheManager, $q, [], null),
-            Campaign: abstractRepository(Campaign, $$sdkCampaign, $$cacheManager, $q, [], null),
             Website: abstractRepository(Website, $$sdkCrud, $$cacheManager, $q, [], addTextFrom('name'))
         };
 
