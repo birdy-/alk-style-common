@@ -240,10 +240,13 @@ app.config(function ($routeProvider) {
         templateUrl: 'src/retailer/notification/list.html',
         controller: 'DashboardRetailerNotificationListController'
     });
-
     $routeProvider.when('/retailer/productinshop', {
         templateUrl: 'src/retailer/productinshop/list.html',
         controller: 'RetailerProductInShopListController'
+    });
+    $routeProvider.when('/retailer/productinshopsegment', {
+        templateUrl: 'src/retailer/productinshopsegment/list.html',
+        controller: 'RetailerProductInShopSegmentListController'
     });
 
 

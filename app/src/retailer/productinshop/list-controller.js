@@ -92,7 +92,7 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
             }
 
             var modalInstance = $modal.open({
-                templateUrl: '/src/retailer/statistics/attribution-modal.html',
+                templateUrl: '/src/retailer/productinshop/attribution-modal.html',
                 controller: 'ProductAttributionModalController',
                 resolve: {
                     productInShops: function () { return selectedProductInShops; },
