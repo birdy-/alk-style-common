@@ -8,21 +8,24 @@
 </style>
 
 <div class="container">
-    <h2>Mes marques</h2>
     <div class="row">
-        <div class="btn-group pull-right">
-            <button class="btn btn-primary" ng-click="openClaimBrandModal()">Gérer une nouvelle marque</button>            
+        <div class="col-sm-6">
+            <h2>Mes marques</h2>
+        </div>
+        <div class="col-sm-6 text-right">
+            <br/>
+            <span alk-button-brand-claim></span>
         </div>
     </div>
-    <br>
+    <br/>
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-sm-12">
             <table class="table table-bordered">
                 <thead class="color-stream-inverse">
                     <tr>
                         <td>Logo</td>
                         <td>Nom</td>
-                        <td></td>                        
+                        <td></td>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,8 +43,8 @@
                             <a class="btn btn-success" href="/#/maker/brand/{{ brand.id }}/product">
                                 <i class="fa fa-barcode"></i> Produits
                             </a>
-                            <button class="btn btn-success pull-right" ng-click="openClaimReferenceModal(brand)">Ajouter un produit à la marque</button>
-                        </td>                        
+                            <span alk-button-product-claim></span>
+                        </td>
                     </tr>
                 </tbody>
             </table>

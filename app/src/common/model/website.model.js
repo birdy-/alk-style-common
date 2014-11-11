@@ -9,3 +9,4 @@ var Website = function(){
     };
     this._type = 'Website';
 };
+Website._type = 'Website';

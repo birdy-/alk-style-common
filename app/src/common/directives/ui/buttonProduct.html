@@ -20,18 +20,18 @@
 </span><span ng-if="showShop === false">     data-alk-ui-show-shop="0"
 </span>     data-alk-ui-productreference_reference="{{ product.isIdentifiedBy[0].reference }}"
      data-alk-ui-productreference_type="{{ product.isIdentifiedBy[0].type }}"
-     data-alk-ui-client_id="{{ client.id }}"
-     data-alk-ui-app_id="{{ application.id }}"&gt;
+     data-alk-ui-placement_id="{{ placement.id }}"
+     data-alk-ui-client_id="{{ clientId() }}"
+     data-alk-ui-app_id="{{ applicationId() }}"&gt;
      &lt;!-- Le bouton apparaîtra ici --&gt;
 &lt;/div&gt;
 </pre>
 <pre>
 &lt;script type="text/javascript" charset="utf-8" id="alkemicscom_sdk_rw"&gt;
     //&lt;![CDATA[
-    window.alkAsyncInit = function() {ALK.init({appId: "{{ application.id }}", clientId: "'{{ client.id }}'", auto : true }); };
+    window.alkAsyncInit = function() {ALK.init({appId: "{{ applicationId() }}", clientId: "'{{ clientId() }}'", auto : true }); };
     (function(a,l,k,e,m,i,c,s){m=l.createElement(k),i=l.getElementsByTagName(k)[0]; m.async=1;m.src=(document.location.protocol === 'https:' ? 'https://ssl' : 'http://') + e; i.parentNode.insertBefore(m,i); })(window, document, 'script', 'cdn.alkemics.com/rw/sdk.js');
     //]]&gt;
 &lt;/script&gt;</pre>
-<!--     data-alk-ui-placement_id="1234"-->
     </div>
 </div>
