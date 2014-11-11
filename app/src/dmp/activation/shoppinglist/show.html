@@ -23,34 +23,37 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="runsIn">A quel emplacement ce module doit-il apparaître ?</label>
+                    <label for="_runsIn">A quel emplacement ce module doit-il apparaître ?</label>
                     <div alk-autocomplete-my
                          alk-autocomplete-type="Placement"
                          alk-autocomplete-multiple="false"
                          placeholder="Choisir un emplacement"
-                         ng-model="campaign._runsIn">
+                         ng-model="campaign._runsIn"
+                         id="_runsIn">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="client">Marques black-listées :</label>
+                    <label for="blacklist">Marques black-listées :</label>
                     <div alk-autocomplete
                          alk-autocomplete-type="Brand"
                          alk-autocomplete-multiple="true"
                          alk-autocomplete-restrict="{}"
                          placeholder="Choisir une ou plusieurs marques"
-                         ng-model="campaign.blacklist">
+                         ng-model="campaign.blacklist"
+                         id="blacklist">
                      </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="client">Marques white-listées :</label>
+                    <label for="whitelist">Marques white-listées :</label>
                     <div alk-autocomplete
                          alk-autocomplete-type="Brand"
                          alk-autocomplete-multiple="true"
                          alk-autocomplete-restrict="{}"
                          placeholder="Choisir une ou plusieurs marques"
-                         ng-model="campaign.whitelist">
+                         ng-model="campaign.whitelist"
+                         id="whitelist">
                      </div>
                 </div>
 

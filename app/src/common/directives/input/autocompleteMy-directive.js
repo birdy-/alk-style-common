@@ -13,7 +13,7 @@ angular.module('jDashboardFluxApp').directive('alkAutocompleteMy', [
             multiple: '&alkAutocompleteMultiple',
             restrict: '=alkAutocompleteRestrict'
         },
-        requires: 'ngModel',
+        require: 'ngModel',
         templateUrl: '/src/common/directives/input/select-2.html',
         controller: function($scope, $element, $attrs) {
             // A controller is necessary in order to initialized the select2 config

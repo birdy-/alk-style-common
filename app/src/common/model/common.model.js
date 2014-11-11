@@ -62,7 +62,7 @@ angular.module('jDashboardFluxApp').service('$$cacheManager', [
     // ------------------------------------------------------------------------
     // Hydration
     // ------------------------------------------------------------------------
-        var hydrate = function(data, full) {
+        var hydrate = function (data, full) {
             // If simple dictionary, don't do anything
             if (typeof(data._type) === 'undefined') {
                 return data;
@@ -77,29 +77,31 @@ angular.module('jDashboardFluxApp').service('$$cacheManager', [
             entity.fromJson(data);
 
             // Hydrate relations
+            var value;
             for (var key in data) {
+                value = data[key];
                 // Skip methods and null values
                 if (!data.hasOwnProperty(key)
-                || data[key] === null) {
+                || value === null) {
                     continue;
                 }
                 // Check if this is an array
-                if (data[key] instanceof Array) {
-                    entity[key] = data[key].map(function (json) {
-                        return hydrate(json);
+                if (value instanceof Array) {
+                    entity[key] = value.map(function (json) {
+                        return hydrate(json, false);
                     });
                     continue;
                 }
-                // Check if this is an object
-                if (typeof(data[key]) === 'object'
-                && typeof(data[key].fromJson) === 'undefined') {
-                    entity[key] = hydrate(data[key]);
+                // Check if this is an object that has already been hydrated
+                if (typeof(value) === 'object'
+                && typeof(value.fromJson) === 'undefined') {
+                    entity[key] = hydrate(value, false);
                 }
             }
             return entity;
         };
 
-        var hydrateResponse = function(response) {
+        var hydrateResponse = function (response) {
             return hydrate(response.data.data, true);
         };
 
@@ -122,7 +124,7 @@ angular.module('jDashboardFluxApp').service('$$cacheManager', [
     }
 ]);
 
-var Constant = function (id, name, description){
+var Constant = function (id, name, description) {
     this.id = id;
     this.name = name;
     this.description = description;
