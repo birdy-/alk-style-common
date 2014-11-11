@@ -113,7 +113,7 @@ angular.module('jDashboardFluxApp').controller('RegisterController', [
                 subject: 'New account created',
                 message: angular.toJson({
                     user: recordUser,
-                    company: $scope.company,
+                    company: $scope.company
                 }, true)
             };
 

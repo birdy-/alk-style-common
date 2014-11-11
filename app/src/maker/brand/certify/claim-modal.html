@@ -8,14 +8,12 @@
 </div>
 <div class="modal-body">
     <form role="form" name="claimForm">
-
         <div class="form-group" ng-if="errors.unknown === false">
                 <div class="form-group">
                     <label for="isBrandedBy">Rechercher une marque</label>
                     <input type="text" select ui-select2="select2BrandOptions" ng-model="request.selectedBrand" style="width:100%" placeholder="ex : Nestlé"/>
                 </div>
         </div>
-
         <div>
             <div ng-if="errors.unknown">
                 <div class="form-group">
@@ -24,22 +22,22 @@
                 </div>
             </div>
         </div>
-        <div class="form-group">
-            <span class="btn btn-default" ng-if="errors.unknown === false" ng-click="brandNotInList()">Ma marque n'est pas dans la liste</span>
-            <span class="btn btn-default" ng-if="errors.unknown === true" ng-click="brandNotInList()">Rechercher ma marque</span>
+        <div class="form-group text-right">
+            <span ng-if="errors.ok">
+                <span class="btn btn-success" ng-if="errors.unknown === false" ng-click="sendRequestBrand()"><i class="fa fa-plus"></i> Demander l'accès à cette marque</span>
+                <span class="btn btn-success" ng-if="errors.unknown === true" ng-click="sendRequestNewBrand()"><i class="fa fa-plus"></i> Créer cette marque</span>
+            </span>
         </div>
     </form>
     <div ng-if="errors.ok === false" class="alert alert-success">
-                Votre demande à bien été enregistrée.
+        Votre demande à bien été enregistrée.
     </div>
 </div>
 <div class="modal-footer">
     <div class="text-right">
-        <span ng-if="errors.ok">
-            <span class="btn btn-success" ng-if="errors.unknown === false" ng-click="sendRequestBrand()"><i class="fa fa-plus"></i> Demander l'accès à cette marque</span>
-            <span class="btn btn-success" ng-if="errors.unknown === true" ng-click="sendRequestNewBrand()"><i class="fa fa-plus"></i> Créer cette marque</span>
-        </span>
-        <span class="btn btn-warning" ng-if="errors.ok === false" ng-click="cancel()"><i class="fa fa-check"></i> OK</span>
+        <span class="btn btn-default" ng-if="errors.unknown === true" ng-click="brandNotInList()">Rechercher parmi les marques existantes</span>
+        <span class="btn btn-default" ng-if="errors.unknown === false" ng-click="brandNotInList()">Ma marque n'est pas dans la liste</span>
+        <span class="btn btn-success" ng-if="errors.ok === false" ng-click="cancel()"><i class="fa fa-check"></i> OK</span>
         <span class="btn btn-link" ng-click="cancel()"><i class="fa fa-times"></i> Annuler</span>
     </div>
 </div>

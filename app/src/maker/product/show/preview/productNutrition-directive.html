@@ -1,0 +1,11 @@
+<tr ng-hide="pnqs | isEmpty">
+    <td class="pnq-name">
+        {{ legend.name }}
+    </td>
+    <td ng-repeat-start="psq in psqs">
+    	{{ pnqs[psq.id].quantity }} {{ pnqs[psq.id].isMeasuredBy.name }}
+    </td>
+    <td ng-repeat-end>
+    	<span ng-if="pnqs[psq.id].percentageOfDailyValueIntake">{{ pnqs[psq.id].percentageOfDailyValueIntake }} % des A.J.R.</span>
+    </td>
+</tr>

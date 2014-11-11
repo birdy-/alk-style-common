@@ -9,3 +9,4 @@ var Organization = function(){
     };
     this._type = 'Organization';
 };
+Organization._type = 'Organization';

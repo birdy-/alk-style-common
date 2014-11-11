@@ -9,3 +9,4 @@ var Shop = function(){
     };
     this._type = 'Shop';
 };
+Shop._type = 'Shop';

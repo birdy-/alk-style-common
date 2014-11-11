@@ -8,16 +8,18 @@
 </style>
 
 <div class="container">
-    <h2>Mes marques</h2>
     <div class="row">
-        <div class="btn-group pull-right">
-            <button class="btn btn-primary" ng-click="openClaimBrandModal()">Gérer une nouvelle marque</button>
-            <button class="btn btn-primary" ng-click="openClaimReferenceModal()">Créer un produit</button>
+        <div class="col-sm-6">
+            <h2>Mes marques</h2>
+        </div>
+        <div class="col-sm-6 text-right">
+            <br/>
+            <span alk-button-brand-claim></span>
         </div>
     </div>
-    <br>
+    <br/>
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-sm-12">
             <table class="table table-bordered">
                 <thead class="color-stream-inverse">
                     <tr>
@@ -28,8 +30,12 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="brand in brands">
-                        <td><img class="brand-logo" ng-src="https://smedia.alkemics.com/brand/{{ brand.id }}/picture/logo/original.png"/></td>
-                        <td><a href="/#/maker/brand/{{ brand.id }}">{{ brand.name }}</a></td>
+                        <td>
+                            <img class="brand-logo" ng-src="https://smedia.alkemics.com/brand/{{ brand.id }}/picture/logo/original.png" fallback-src="https://stream.alkemics.com/images/5078aa32.missing.png"/>
+                        </td>
+                        <td>
+                            <a href="/#/maker/brand/{{ brand.id }}">{{ brand.name }}</a>
+                        </td>
                         <td>
                             <a class="btn btn-warning" href="/#/maker/brand/{{ brand.id }}">
                                 <i class="fa fa-edit"></i> Éditer
@@ -37,6 +43,7 @@
                             <a class="btn btn-success" href="/#/maker/brand/{{ brand.id }}/product">
                                 <i class="fa fa-barcode"></i> Produits
                             </a>
+                            <span alk-button-product-claim></span>
                         </td>
                     </tr>
                 </tbody>
