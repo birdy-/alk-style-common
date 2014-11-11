@@ -7,7 +7,7 @@ angular.module('jDashboardFluxApp').directive('alkModelProductstandardquantityPr
         scope: {
             localModel: '=ngModel'
         },
-        requires: 'ngModel',
+        require: 'ngModel',
         templateUrl: '/src/common/directives/input/select-id.html',
         link: function (scope, elem, attrs) {
             scope.choices = [

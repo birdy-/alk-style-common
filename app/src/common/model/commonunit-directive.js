@@ -8,7 +8,7 @@ angular.module('jDashboardFluxApp').directive('alkModelCommonunitSelect', [
         scope: {
             localModel: '=ngModel'
         },
-        requires: 'ngModel',
+        require: 'ngModel',
         templateUrl: '/src/common/directives/input/select-object.html',
         link: function (scope, elem, attrs) {
             scope.choices = [
