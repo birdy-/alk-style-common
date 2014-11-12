@@ -45,12 +45,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     // Timeout with no delay is necessary to let the DOM load
     $timeout(function () {
         if ($scope.request.scrollAnchor) {
-            // Offset for header
-            $anchorScroll.yOffset = -50;
-
-            // var productPerRow = 6;
-            // var previousRowIndex = $scope.request.scrollAnchor > productPerRow ? ($scope.request.scrollAnchor - productPerRow) : 0;
-            var anchor = 'product-' + $scope.request.scrollAnchor;
+            var anchor = 'product-' + ($scope.request.scrollAnchor - 6);
             if ($location.hash() !== anchor) {
                $location.hash(anchor);
              } else {
