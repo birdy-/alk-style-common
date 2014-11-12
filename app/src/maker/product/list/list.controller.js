@@ -15,7 +15,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     // ------------------------------------------------------------------------
     // Variables
     // ------------------------------------------------------------------------
-    $scope.products = [];
+    $scope.products = $scope.request.products || [];
     $scope.scroll = {
         offset: 0,
         limit: 24,
@@ -95,6 +95,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
                 $scope.products.push(product);
             }
 
+            $scope.request.products = $scope.products;
             $scope.scroll.busy = false;
             $scope.scroll.offset = $scope.products.length;
         });
@@ -154,6 +155,8 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
                 product = hydrateProduct(response.data[i]);
                 $scope.products.push(product);
             }
+
+            $scope.request.products = $scope.products;
             $scope.scroll.busy = false;
             $scope.scroll.offset = $scope.products.length;
         }).error(function (response) {
@@ -170,6 +173,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         $scope.scroll.offset = 0;
         $scope.scroll.stop = false;
         $scope.products = [];
+        $scope.request.products = $scope.products;
         list();
     };
 
@@ -192,9 +196,15 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         $location.path('/maker/product/' + product.isIdentifiedBy[0].reference + '/data/general');
     };
 
-    $scope.$watch('request.product.isIdentifiedBy.reference', refresh);
-    $scope.$watch('request.product.nameLegal', refresh);
-    $scope.$watch('request.product.certifieds', refresh, true);
+    $scope.$watch('request.product.isIdentifiedBy.reference', function(newVal, oldVal) {
+        if (oldVal !== newVal) refresh();
+    });
+    $scope.$watch('request.product.nameLegal', function(newVal, oldVal) {
+        if (oldVal !== newVal) refresh();
+    });
+    $scope.$watch('request.product.certifieds', function(newVal, oldVal) {
+        if (oldVal !== newVal) refresh();
+    }, true);
 
     // ------------------------------------------------------------------------
     // Init
