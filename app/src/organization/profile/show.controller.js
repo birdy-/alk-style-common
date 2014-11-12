@@ -1,14 +1,13 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').controller('OrganizationProfileShowController', [
-    '$scope', '$$sdkAuth', '$routeParams', '$modal',
-    '$$OrganizationRepository', '$$BrandRepository', '$$UserRepository',
-    function ($scope, $$sdkAuth, $routeParams, $modal, $$OrganizationRepository, $$BrandRepository, $$UserRepository) {
+    '$scope', '$routeParams', '$modal', '$$ORM',
+    function ($scope, $routeParams, $modal, $$ORM) {
 
     $scope.organization = {};
     $scope.brands = [];
     $scope.organizationForm = {};
-    $scope.organizationFormInit = function(form) {
+    $scope.organizationFormInit = function (form) {
         form.$loading = true;
         form.$saving = false;
         $scope.organizationForm = form;
@@ -18,20 +17,20 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
     // Event binding
     // --------------------------------------------------------------------------------
 
-    $scope.updateOrganization = function() {
+    $scope.updateOrganization = function () {
         $scope.organizationForm.$saving = true;
-        $$sdkAuth.OrganizationUpdate($scope.organization).then(function(response){
+        $$ORM.repo('Organization').update($scope.organization).then(function (organization) {
             $scope.organizationForm.$saving = false;
             $scope.organizationForm.$setPristine();
         });
     };
 
-    $scope.addUser = function() {
+    $scope.addUser = function () {
         var modalInstance = $modal.open({
             templateUrl: '/src/organization/user/add.html',
             controller: 'OrganizationUserAddController',
             resolve: {
-                organization: function() {
+                organization: function () {
                     return $scope.organization;
                 }
             }
@@ -48,26 +47,24 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
     // --------------------------------------------------------------------------------
 
     var organizationId = $routeParams.id;
-    $$OrganizationRepository.get(organizationId).then(function (entity) {
+    $$ORM.repository('Organization').get(organizationId).then(function (entity) {
         $scope.organization = entity;
         $scope.organizationForm.$loading = false;
     });
 
     var loadUsers = function () {
-        $$sdkAuth.OrganizationUsers(organizationId).then(function (response) {
-            $scope.users = response.data.data.map(function (json) {
-                return $$UserRepository.hydrate(json);
-            });
+        $$ORM.repository('Organization').method('Users')(organizationId).then(function (users) {
+            $scope.users = users;
         });
     };
     loadUsers();
 
     var loadBrands = function () {
-        $$sdkAuth.OrganizationBrands(organizationId).then(function (response) {
-            var brandIds = response.data.data.map(function (brand) {
+        $$ORM.repository('Organization').method('Brands')(organizationId).then(function (brands) {
+            var brandIds = brands.map(function (brand) {
                 return brand.id;
             });
-            $$BrandRepository.list({}, {id: brandIds}, {}, 0, 100).then(function(brands) {
+            $$ORM.repository('Brand').list({}, {id: brandIds}, {}, 0, 100).then(function (brands) {
                 $scope.brands = brands;
             });
         });

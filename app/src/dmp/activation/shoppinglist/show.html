@@ -1,0 +1,110 @@
+<div ng-include="'/src/maker/home/header.html'"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1>
+                Shopping List
+                <br/>
+                <small>Transformez les recettes de votre site en panier</small>
+            </h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-8">
+
+            <form role="form">
+
+                <h2>Paramétrage</h2>
+
+                <div class="form-group">
+                    <label for="name">Comment appeler cette campagne ?</label>
+                    <input type="text" class="form-control" ng-model="campaign.name" placeholder="ex : Liste de courses sur le site web"/>
+                </div>
+
+                <div class="form-group">
+                    <label for="_runsIn">A quel emplacement ce module doit-il apparaître ?</label>
+                    <div alk-autocomplete-my
+                         alk-autocomplete-type="Placement"
+                         alk-autocomplete-multiple="false"
+                         placeholder="Choisir un emplacement"
+                         ng-model="campaign._runsIn"
+                         id="_runsIn">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="blacklist">Marques black-listées :</label>
+                    <div alk-autocomplete
+                         alk-autocomplete-type="Brand"
+                         alk-autocomplete-multiple="true"
+                         alk-autocomplete-restrict="{}"
+                         placeholder="Choisir une ou plusieurs marques"
+                         ng-model="campaign.blacklist"
+                         id="blacklist">
+                     </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="whitelist">Marques white-listées :</label>
+                    <div alk-autocomplete
+                         alk-autocomplete-type="Brand"
+                         alk-autocomplete-multiple="true"
+                         alk-autocomplete-restrict="{}"
+                         placeholder="Choisir une ou plusieurs marques"
+                         ng-model="campaign.whitelist"
+                         id="whitelist">
+                     </div>
+                </div>
+
+                <div class="text-right">
+                    <button type="submit" class="btn btn-success" ng-click="persist()">
+                        <i class="fa fa-check"></i> OK
+                    </button>
+                </div>
+            </form>
+
+            <div ng-if="preview">
+                <h2>Intégration</h2>
+
+                <p>
+                    Il vous suffit d'intégrer ces deux morceaux de code au sein de vos pages, respectivement à l'endroit où vous souhaitez voir apparaître le bouton, et tout en bas de la page, juste avant la balise <code>&lt;/body&gt;</code> :
+                </p>
+                <p>
+                    <div alk-sdk-ui-shoppinglist
+                         alk-sdk-ui-shoppinglist-website="campaign._runsIn.appearsOn"
+                         alk-sdk-ui-shoppinglist-placement="campaign._runsIn"
+                         alk-sdk-ui-shoppinglist-organization="campaign.billedBy"
+                         alk-sdk-ui-shoppinglist-recipe="recipe"
+                         alk-sdk-ui-shoppinglist-campaign="campaign"
+                         alk-sdk-ui-shoppinglist-code="true">
+                    </div>
+                </p>
+                <img src="/images/home/0800.png" class="pull-right" height="27"/>
+                <p>
+                    Pour toute question, vous pouvez également contacter notre support :
+                </p>
+                <br/>
+                <br/>
+            </div>
+        </div>
+        <div class="col-sm-4" ng-if="preview">
+            <h2>Aperçu</h2>
+            <!-- Demo -->
+            <div alk-sdk-ui-shoppinglist
+                 alk-sdk-ui-shoppinglist-website="campaign._runsInWebsite.appearsOn"
+                 alk-sdk-ui-shoppinglist-placement="campaign._runsIn"
+                 alk-sdk-ui-shoppinglist-organization="campaign.billedBy"
+                 alk-sdk-ui-shoppinglist-recipe="recipe"
+                 alk-sdk-ui-shoppinglist-campaign="campaign"
+                 alk-sdk-ui-shoppinglist-iframe="true">
+            </div>
+            <div class="text-right">
+                <a class="btn btn-default" href="/#/dmp/activation/campaign">
+                    <i class="fa fa-arrow-left"></i> Retour
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+

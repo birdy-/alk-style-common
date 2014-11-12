@@ -22,15 +22,15 @@
                 </div>
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group text-right">
             <span ng-if="errors.ok">
                 <span class="btn btn-success" ng-if="errors.unknown === false" ng-click="sendRequestBrand()"><i class="fa fa-plus"></i> Demander l'accès à cette marque</span>
                 <span class="btn btn-success" ng-if="errors.unknown === true" ng-click="sendRequestNewBrand()"><i class="fa fa-plus"></i> Créer cette marque</span>
-            </span>        
+            </span>
         </div>
     </form>
     <div ng-if="errors.ok === false" class="alert alert-success">
-                Votre demande à bien été enregistrée.
+        Votre demande à bien été enregistrée.
     </div>
 </div>
 <div class="modal-footer">
