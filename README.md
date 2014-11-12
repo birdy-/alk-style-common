@@ -56,11 +56,14 @@ cd capistrano && bundle exec cap production alk:deploy
 
 ### Unit tests
 
+Shut down your grunt serve or adapt the port
+
 ```
 grunt test
 ```
 
-### End-to-end (E2E) tests
+~~### End-to-end (E2E) tests~~
+Grunt test will launch all tests now
 
 Be sure to have a JDK and protractor installed as described in [documentation](http://angular.github.io/protractor/#/)
 
