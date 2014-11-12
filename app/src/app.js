@@ -327,6 +327,25 @@ app.config(function($httpProvider) {
     $httpProvider.defaults.headers.common['Cache-Control'] = 'no-cache';
 });
 
+// ------------------------------------------------------------------------------------------
+// App init
+// ------------------------------------------------------------------------------------------
+
+// Configure the navigation parameters on dashboard maker products
+app.run(function ($rootScope) {
+    $rootScope.request = {
+        product: {
+            name: '',
+            isBrandedBy: null,
+            certified: [],
+            certifieds: {},
+            isIdentifiedBy: {
+                reference: null
+            }
+        },
+        initialized: false
+    };
+});
 
 // Mock for development
 if (env === 'dev') {
