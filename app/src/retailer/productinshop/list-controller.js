@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').controller('RetailerProductInShopListController', [
-    'permission', '$scope', '$$sdkCrud', '$modal', '$log',
-    function (permission, $scope, $$sdkCrud, $modal, $log) {
+    'permission', '$scope', '$$sdkCrud', '$modal', '$log', '$$ORM',
+    function (permission, $scope, $$sdkCrud, $modal, $log, $$ORM) {
 
         // ------------------------------------------------------------------------
         // Variables
@@ -25,9 +25,7 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
             offset: 0,
             limit: 50
         };
-        $scope.restrict = {
-            filter_type: ProductInShopSegment.TYPE_CONTACT.id
-        };
+        $scope.restrict = {};
 
         $scope.productInShops = [];
 
@@ -51,7 +49,7 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
         };
 
         $scope.refresh = function () {
-            $$sdkCrud.ProductInShopList({
+            $$ORM.repository('ProductInShop').list({
                 name: $scope.request.productInShop.name
             }, {
                 productInShopSegment_id: $scope.request.productInShopSegment ? $scope.request.productInShopSegment.id : null,
@@ -60,8 +58,9 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
                 shop_shortId: $scope.request.shop.shortId
             }, {}, $scope.request.offset, $scope.request.limit, {
                 isIdentifiedBy: true
-            }).then(function (response) {
-                $scope.productInShops = response.data.data;
+            }).then(function (entitys) {
+                $scope.productInShops = entitys;
+                console.log($scope.productInShops[0].instantiates.certifiedName());
             });
         };
         $scope.prev = function () {
@@ -120,6 +119,48 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
             modalInstance.result.then(function () {
             }, function () {
             });
+        };
+
+        $scope.certifiedName = function (productInShop) {
+            switch (productInShop.instantiates.certified) {
+                case Product.CERTIFICATION_STATUS_DEFAULT.id:
+                    return 'A contacter';
+                case Product.CERTIFICATION_STATUS_REVIEWING.id:
+                    return 'A contacter';
+                case Product.CERTIFICATION_STATUS_ATTRIBUTED.id:
+                    return 'Remplissage';
+                case Product.CERTIFICATION_STATUS_ACCEPTED.id:
+                    return 'Remplissage';
+                case Product.CERTIFICATION_STATUS_CERTIFIED.id:
+                    return 'Certifié';
+                case Product.CERTIFICATION_STATUS_PUBLISHED.id:
+                    return 'Certifié';
+                case Product.CERTIFICATION_STATUS_DISCONTINUED.id:
+                    return 'Archivé';
+                default:
+                    return "";
+            }
+        };
+
+        $scope.certifiedClass = function (productInShop) {
+            switch (productInShop.instantiates.certified) {
+                case Product.CERTIFICATION_STATUS_DEFAULT.id:
+                    return 'label-danger';
+                case Product.CERTIFICATION_STATUS_REVIEWING.id:
+                    return 'label-danger';
+                case Product.CERTIFICATION_STATUS_ATTRIBUTED.id:
+                    return 'label-warning';
+                case Product.CERTIFICATION_STATUS_ACCEPTED.id:
+                    return 'label-primary';
+                case Product.CERTIFICATION_STATUS_CERTIFIED.id:
+                    return 'label-success';
+                case Product.CERTIFICATION_STATUS_PUBLISHED.id:
+                    return 'label-success';
+                case Product.CERTIFICATION_STATUS_DISCONTINUED.id:
+                    return 'label-default';
+                default:
+                    return "";
+            }
         };
 
         // ------------------------------------------------------------------------

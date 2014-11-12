@@ -3,7 +3,7 @@
 /**
  * Repository that groups all CRUD methods for a given model.
  */
-var abstractRepository = function(Model, $$sdk, $$cacheManager, $q, cache, hydrateCustom) {
+var abstractRepository = function (Model, $$sdk, $$cacheManager, $q, cache, hydrateCustom) {
 
     // Parameters
     var modelName = Model._type;
@@ -32,33 +32,33 @@ var abstractRepository = function(Model, $$sdk, $$cacheManager, $q, cache, hydra
         }
         return $$sdk[modelName + 'Show'](id, options).then(hydrateResponse);
     };
-    var lazy = function(id, create) {
+    var lazy = function (id, create) {
         return $$cacheManager.getLazy(modelName, id, true);
     };
-    var list = function(queries, filters, sorts, offset, limit) {
+    var list = function (queries, filters, sorts, offset, limit, withs) {
         return $$sdk[modelName + 'List'](
-            queries, filters, sorts, offset, limit
-        ).then(function(response) {
-            return response.data.data.map(function(json){
+            queries, filters, sorts, offset, limit, withs
+        ).then(function (response) {
+            return response.data.data.map(function (json){
                 return hydrate(json);
             });
         });
     };
-    var update = function(entity) {
+    var update = function (entity) {
         return $$sdk[modelName + 'Update'](
             entity
-        ).then(function(response) {
+        ).then(function (response) {
             entity.fromJson(response.data.data);
         });
     };
-    var create = function(entity) {
+    var create = function (entity) {
         return $$sdk[modelName + 'Create'](
             entity
-        ).then(function(response) {
+        ).then(function (response) {
             entity.fromJson(response.data.data);
         });
     };
-    var del = function(id) {
+    var del = function (id) {
         $$cacheManager.popCache(modelName, id);
         return $$sdk[modelName + 'Delete'](
             id
@@ -308,7 +308,7 @@ angular.module('jDashboardFluxApp').service('$$ORM', [
             Website: abstractRepository(Website, $$sdkCrud, $$cacheManager, $q, [], addTextFrom('name'))
         };
 
-        var repository = function(which) {
+        var repository = function (which) {
             return repositorys[which];
         };
 

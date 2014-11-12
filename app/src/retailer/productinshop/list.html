@@ -83,6 +83,7 @@
                     <tr>
                         <th class="text-center">Référence</th>
                         <th class="text-center">EAN</th>
+                        <th class="text-center">Statut</th>
                         <th class="text-center">Image</th>
                         <th>Nom</th>
                         <th class="text-center">Action</th>
@@ -95,6 +96,11 @@
                         <td class="text-center">
                             <span ng-repeat="pr in productInShop.isIdentifiedBy">
                                 <span class="label label-default">{{ pr.reference }}</span> <br/>
+                            </span>
+                        </td>
+                        <td class="text-center">
+                            <span class="label" ng-class="certifiedClass(productInShop)">
+                                {{ certifiedName(productInShop) }}
                             </span>
                         </td>
                         <td class="text-center"><img height="60" width="60" ng-src="{{ productInShop.picture.main }}"></td>
