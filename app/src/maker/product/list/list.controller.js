@@ -9,8 +9,8 @@
  * @return {[type]}               [description]
  */
 angular.module('jDashboardFluxApp').controller('DashboardMakerProductListController', [
-    '$scope', '$$sdkCrud', 'permission', '$routeParams', '$$ORM', '$log', '$location', '$window', 'URL_CDN_MEDIA',
-    function ($scope, $$sdkCrud, permission, $routeParams, $$ORM, $log, $location, $window, URL_CDN_MEDIA) {
+    '$scope', '$$sdkCrud', 'permission', '$routeParams', '$$ORM', '$log', '$location', '$window', 'URL_CDN_MEDIA', '$timeout', '$anchorScroll',
+    function ($scope, $$sdkCrud, permission, $routeParams, $$ORM, $log, $location, $window, URL_CDN_MEDIA, $timeout, $anchorScroll) {
 
     // ------------------------------------------------------------------------
     // Variables
@@ -37,6 +37,27 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     $scope.options = {
         'data-drag-enabled': false
     };
+
+    // ------------------------------------------------------------------------
+    // Init
+    // ------------------------------------------------------------------------
+
+    // Timeout with no delay is necessary to let the DOM load
+    $timeout(function () {
+        if ($scope.request.scrollAnchor) {
+            // Offset for header
+            $anchorScroll.yOffset = -50;
+
+            // var productPerRow = 6;
+            // var previousRowIndex = $scope.request.scrollAnchor > productPerRow ? ($scope.request.scrollAnchor - productPerRow) : 0;
+            var anchor = 'product-' + $scope.request.scrollAnchor;
+            if ($location.hash() !== anchor) {
+               $location.hash(anchor);
+             } else {
+               $anchorScroll();
+             }
+        };
+    });
 
     // ------------------------------------------------------------------------
     // Event handling
@@ -192,7 +213,8 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         refresh();
     };
 
-    $scope.show = function (product) {
+    $scope.show = function (product, index) {
+        $scope.request.scrollAnchor = index;
         $location.path('/maker/product/' + product.isIdentifiedBy[0].reference + '/data/general');
     };
 
