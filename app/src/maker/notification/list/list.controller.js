@@ -30,7 +30,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerNotificationsContr
         $$sdkTimeline.TimelineGet(user.id).then(function(response) {
             $scope.notifications = response.data.data;
             // Temporary fix for new subscribers, will be moved in the registraiton process
-            if ($scope.notifications.length == 0) {
+            if ($scope.notifications.length === 0) {
                 $scope.notifications.push({
                     "event": {
                         "user_id": 1,

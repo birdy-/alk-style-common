@@ -40,30 +40,30 @@ app.factory('plupload', [
 var env = (window.location.hostname.indexOf('localhost') === 0) ? 'dev' : 'prod';
 
 if (env === 'prod') {
-    app.constant('API_URL', 'https://api.alkemics.com');
+    app.constant('URL_CDN_MEDIA', 'https://smedia.alkemics.com');
     app.constant('URL_SERVICE_AUTH', 'https://auth.alkemics.com');
     app.constant('URL_SERVICE_MEDIA', 'https://service-media.alkemics.com');
     app.constant('URL_UI_BUTTON_PRODUCT', 'https://sassets.toc.io/ui/button/product/v1/index.html');
-    app.constant('URL_CDN_MEDIA', 'https://smedia.alkemics.com');
-    angular.module('jDashboardFluxApp').constant('URL_SERVICE_MEDIA', 'https://service-media.alkemics.com');
+    app.constant('URL_UI_SHOPPINGLIST', 'https://sassets.toc.io/interfaces/banner/v3/index.html');
+    app.constant('URL_UI_LANDINGPAGE', 'https://sassets.toc.io/interfaces/landing-page-product/v1/index.html');
 } else if (env === 'dev') {
-    app.constant('API_URL', '//localhost.alkemics.com:6543');
+    app.constant('URL_CDN_MEDIA', 'https://smedia.alkemics.com');
     app.constant('URL_SERVICE_AUTH', 'http://localhost.alkemics.com:6545');
     app.constant('URL_SERVICE_MEDIA', 'http://localhost.alkemics.com:6551');
-    // app.constant('URL_UI_BUTTON_PRODUCT', 'http://localhost.alkemics.com:9010/');
-    // app.constant('URL_CDN_MEDIA', 'https://smedia.alkemics.com');
-    // app.constant('URL_UI_BUTTON_PRODUCT', 'http://assets.toc.io/ui/button/product/v1/index.html');
-    app.constant('URL_CDN_MEDIA', 'https://s3-eu-west-1.amazonaws.com/pprd.media.alkemics.com');
-    app.constant('URL_UI_BUTTON_PRODUCT', 'http://localhost.alkemics.com:9010/');
+    //app.constant('URL_UI_BUTTON_PRODUCT', 'http://localhost.alkemics.com:9010/');
+    app.constant('URL_UI_BUTTON_PRODUCT', 'https://sassets.toc.io/ui/button/product/v1/index.html');
+    app.constant('URL_UI_SHOPPINGLIST', 'https://sassets.toc.io/interfaces/banner/v3/index.html');
+    app.constant('URL_UI_LANDINGPAGE', 'https://sassets.toc.io/interfaces/landing-page-product/v1/index.html');
     app.config(function($logProvider){
         $logProvider.debugEnabled(true);
     });
 } else if (env === 'vagrant') {
-    app.constant('API_URL', 'https://localcore.alkemics.com');
+    app.constant('URL_CDN_MEDIA', 'https://s3-eu-west-1.amazonaws.com/pprd.media.alkemics.com');
     app.constant('URL_SERVICE_AUTH', 'https://localauth.alkemics.com');
     app.constant('URL_SERVICE_MEDIA', 'https://localservice-media.alkemics.com');
     app.constant('URL_UI_BUTTON_PRODUCT', 'http://localhost.alkemics.com:9010/');
-    app.constant('URL_CDN_MEDIA', 'https://s3-eu-west-1.amazonaws.com/pprd.media.alkemics.com');
+    app.constant('URL_UI_SHOPPINGLIST', 'https://sassets.toc.io/interfaces/banner/v3/index.html');
+    app.constant('URL_UI_LANDINGPAGE', 'https://sassets.toc.io/interfaces/landing-page-product/v1/index.html');
     app.config(function($logProvider){
         $logProvider.debugEnabled(true);
     });
@@ -173,11 +173,6 @@ app.config(function ($routeProvider) {
         controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
-    $routeProvider.when('/maker/product/:productReference_reference/marketing', {
-        templateUrl: 'src/maker/product/show/marketing/marketing.html',
-        controller: 'DashboardMakerProductShowController',
-        parameter: {id: 'integer'}
-    });
 
     // Product Specific show
     $routeProvider.when('/maker/product/:productReference_reference/data/specific/wine', {
@@ -196,6 +191,48 @@ app.config(function ($routeProvider) {
         controller: 'DashboardMakerBrandListController'
     });
 
+    // Activation views
+    $routeProvider.when('/dmp/activation/campaign', {
+        templateUrl: 'src/dmp/activation/campaign/list.html',
+        controller: 'DmpActivationCampaignListController'
+    });
+    $routeProvider.when('/dmp/activation/shoppinglist', {
+        templateUrl: 'src/dmp/activation/shoppinglist/show.html',
+        controller: 'DmpActivationShoppingListShowController'
+    });
+    $routeProvider.when('/dmp/activation/shoppinglist/:id', {
+        templateUrl: 'src/dmp/activation/shoppinglist/show.html',
+        controller: 'DmpActivationShoppingListShowController'
+    });
+    $routeProvider.when('/dmp/activation/button', {
+        templateUrl: 'src/dmp/activation/button/show.html',
+        controller: 'DmpActivationButtonShowController'
+    });
+    $routeProvider.when('/dmp/activation/button/:id', {
+        templateUrl: 'src/dmp/activation/button/show.html',
+        controller: 'DmpActivationButtonShowController'
+    });
+    $routeProvider.when('/dmp/activation/landingpage', {
+        templateUrl: 'src/dmp/activation/landingpage/show.html',
+        controller: 'DmpActivationButtonShowController'
+    });
+    $routeProvider.when('/dmp/activation/landingpage/:id', {
+        templateUrl: 'src/dmp/activation/landingpage/show.html',
+        controller: 'DmpActivationButtonShowController'
+    });
+    $routeProvider.when('/dmp/activation/landingpage', {
+        templateUrl: 'src/dmp/activation/landingpage/show.html',
+        controller: 'DmpActivationButtonShowController'
+    });
+
+    // Analytics views
+
+    $routeProvider.when('/dmp/analytics/campaign/:id', {
+        templateUrl: 'src/dmp/analytics/campaign/show.html',
+        controller: 'DmpAnalyticsCampaignShowController'
+    });
+
+
     // ------------------------------------------------------------------------------------------
     // Retailer views
     // ------------------------------------------------------------------------------------------
@@ -205,9 +242,9 @@ app.config(function ($routeProvider) {
         controller: 'DashboardRetailerNotificationListController'
     });
 
-    $routeProvider.when('/retailer/products', {
-        templateUrl: 'src/retailer/product/list.html',
-        controller: 'RetailerProductListController'
+    $routeProvider.when('/retailer/productinshop', {
+        templateUrl: 'src/retailer/productinshop/list.html',
+        controller: 'RetailerProductInShopListController'
     });
 
 

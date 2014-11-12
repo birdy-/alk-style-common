@@ -14,7 +14,7 @@ angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
     $scope.product = null;
     $scope.user = null;
     if (typeof(brand) !== 'undefined') {
-        $scope.brand = brand;    
+        $scope.brand = brand;
     }
     $scope.multiple = false;
     $scope.switchMultiple = function() {
@@ -116,10 +116,10 @@ angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
     // ------------------------------------------------------------------------
     var sendClaim = function() {
         var brand_id = $scope.brand ? $scope.brand.id : $scope.product.isBrandedBy.id;
-        $$sdkAuth.UserClaimProductReferenceCreate($scope.product.nameLegal, 
-            $scope.productReference.reference, 
+        $$sdkAuth.UserClaimProductReferenceCreate($scope.product.nameLegal,
+            $scope.productReference.reference,
             brand_id).then(function (response) {
-                $scope.errors.noError = ($scope.errors.confirmBrand == true) ? false : true;
+                $scope.errors.noError = ($scope.errors.confirmBrand === true) ? false : true;
                 $scope.errors.unknown = false;
                 $scope.errors.ok = false;
             }, checkClaim);
@@ -128,7 +128,7 @@ angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
     var sendClaimMultiple = function() {
         var brand_id = $scope.brand ? $scope.brand.id : $scope.product.isBrandedBy.id;
         var products = $scope.products;
-        for (var index in products) {            
+        for (var index in products) {
             if (!products[index].reference.length) {
                 continue;
             }
@@ -136,11 +136,11 @@ angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
                 products[index].nameLegal,
                 products[index].reference,
                 brand_id).then(function (response) {
-                    $scope.errors.noError = ($scope.errors.confirmBrand == true) ? false : true;
+                    $scope.errors.noError = ($scope.errors.confirmBrand === true) ? false : true;
                     $scope.errors.unknown = false;
                     $scope.errors.ok = false;
-                });    
-        }        
+                });
+        }
     };
 
     $scope.search = function() {
@@ -178,11 +178,11 @@ angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
      */
     $scope.cancel = function () {
         // The claim request was sent above.
-        $modalInstance.dismiss('cancel');        
+        $modalInstance.dismiss('cancel');
     };
 
     /**
-     * 
+     *
      */
     $scope.renewClaim = function () {
         // The claim request was sent above.

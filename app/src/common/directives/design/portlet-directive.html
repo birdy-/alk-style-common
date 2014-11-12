@@ -1,0 +1,19 @@
+<div class="portlet-container portlet-{{ color }}">
+    <div class="portlet-heading">
+        <div class="portlet-title">
+            <h4>{{ title }}</h4>
+        </div>
+        <div class="portlet-widgets">
+            <a><i class="fa fa-refresh"></i></a>
+            <span class="divider"></span>
+            <a><i class="fa-chevron-down fa" ng-click="show = false" ng-show="show"></i></a>
+            <a><i class="fa-chevron-right fa" ng-click="show = true" ng-show="!show"></i></a>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="panel-collapse collapse in" ng-show="show">
+        <div class="portlet-body">
+            <div ng-transclude></div>
+        </div>
+    </div>
+</div>

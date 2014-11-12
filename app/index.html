@@ -60,7 +60,7 @@
     <link rel="stylesheet" href="bower_components/select2/select2.css">
     <link rel="stylesheet" href="bower_components/angular-ui-tree/dist/angular-ui-tree.min.css">
     <link rel="stylesheet" href="bower_components/nvd3/nv.d3.css"/>
-    <link rel="stylesheet" media="screen" href="bower_components/handsontable/dist/jquery.handsontable.full.css">
+    <link rel="stylesheet" href="bower_components/handsontable/dist/jquery.handsontable.full.css" media="screen"/>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -69,7 +69,6 @@
     <link rel="stylesheet" href="styles/stream/main.css">
     <!-- endbuild -->
     <!-- bower_components/textAngular -->
-    <link rel='stylesheet' href='/bower_components/textAngular/dist/textAngular.min.css'>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -122,7 +121,7 @@
 
     <div ng-view="" id="view"></div>
 
-    <!-- Google Analytics -->
+
     <script type="text/javascript" id="google-analytics">
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
           (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -131,7 +130,7 @@
         ga('create', 'UA-47074386-1', 'alkemics.com');
         ga('send', 'pageview');
     </script>
-    <!-- Alkemics Abyss -->
+
     <script type="text/javascript" id="tocio_tck">
       //<![CDATA[
         window._taq = _taq = [];
@@ -183,11 +182,11 @@
         <script type="text/javascript" src="bower_components/plupload/js/moxie.js"></script>
         <script type="text/javascript" src="bower_components/plupload/js/plupload.dev.js"></script>
 
-        <script src="bower_components/d3/d3.js"></script>
-        <script src="bower_components/nvd3/nv.d3.js"></script>
-        <script src="bower_components/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.js"></script>
-        <script src='/bower_components/textAngular/dist/textAngular-sanitize.min.js'></script>
-        <script src='/bower_components/textAngular/dist/textAngular.min.js'></script>
+        <script type="text/javascript" src="bower_components/d3/d3.js"></script>
+        <script type="text/javascript" src="bower_components/nvd3/nv.d3.js"></script>
+        <script type="text/javascript" src="bower_components/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.js"></script>
+        <script type="text/javascript" src='bower_components/textAngular/dist/textAngular-sanitize.min.js'></script>
+        <script type="text/javascript" src='bower_components/textAngular/dist/textAngular.min.js'></script>
     <!-- endbuild -->
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
@@ -195,32 +194,38 @@
         <script type="text/javascript" src="bower_components/sdk-dashboard/src/app.js"></script>
         <script type="text/javascript" src="bower_components/sdk-dashboard/src/segment.js"></script>
         <script type="text/javascript" src="bower_components/sdk-dashboard/src/autocomplete.js"></script>
-        <script type="text/javascript" src="bower_components/sdk-dashboard/src/sdk-crud.js"></script>
+        <script type="text/javascript" src="bower_components/sdk-dashboard/src/autocomplete-directive.js"></script>
         <script type="text/javascript" src="bower_components/sdk-dashboard/src/sdk-auth.js"></script>
-        <script type="text/javascript" src="bower_components/sdk-dashboard/src/sdk-ml.js"></script>
+        <script type="text/javascript" src="bower_components/sdk-dashboard/src/sdk-campaign.js"></script>
+        <script type="text/javascript" src="bower_components/sdk-dashboard/src/sdk-analytics.js"></script>
+        <script type="text/javascript" src="bower_components/sdk-dashboard/src/sdk-crud.js"></script>
+        <script type="text/javascript" src="bower_components/sdk-dashboard/src/sdk-mailer.js"></script>
         <script type="text/javascript" src="bower_components/sdk-dashboard/src/sdk-media.js"></script>
+        <script type="text/javascript" src="bower_components/sdk-dashboard/src/sdk-merchandising.js"></script>
+        <script type="text/javascript" src="bower_components/sdk-dashboard/src/sdk-ml.js"></script>
         <script type="text/javascript" src="bower_components/sdk-dashboard/src/sdk-search.js"></script>
         <script type="text/javascript" src="bower_components/sdk-dashboard/src/sdk-timeline.js"></script>
-        <script type="text/javascript" src="bower_components/sdk-dashboard/src/sdk-mailer.js"></script>
 
         <script type="text/javascript" src="src/app.js"></script>
 
         <script type="text/javascript" src="src/common/model/common.model.js"></script>
-        <script type="text/javascript" src="src/common/model/website.model.js"></script>
-        <script type="text/javascript" src="src/common/model/website.repository.js"></script>
         <script type="text/javascript" src="src/common/model/brand.model.js"></script>
-        <script type="text/javascript" src="src/common/model/brand.repository.js"></script>
-        <script type="text/javascript" src="src/common/model/shop.model.js"></script>
-        <script type="text/javascript" src="src/common/model/shop.repository.js"></script>
-        <script type="text/javascript" src="src/common/model/organization.model.js"></script>
-        <script type="text/javascript" src="src/common/model/organization.repository.js"></script>
-        <script type="text/javascript" src="src/common/model/user.model.js"></script>
-        <script type="text/javascript" src="src/common/model/user.repository.js"></script>
+        <script type="text/javascript" src="src/common/model/campaign.model.js"></script>
         <script type="text/javascript" src="src/common/model/commonunit.model.js"></script>
-        <script type="text/javascript" src="src/common/model/commonunit.repository.js"></script>
+        <script type="text/javascript" src="src/common/model/concept.model.js"></script>
+        <script type="text/javascript" src="src/common/model/placement.model.js"></script>
+        <script type="text/javascript" src="src/common/model/organization.model.js"></script>
+        <script type="text/javascript" src="src/maker/product/show/product.model.js"></script>
+        <script type="text/javascript" src="src/common/model/shop.model.js"></script>
+        <script type="text/javascript" src="src/common/model/website.model.js"></script>
         <script type="text/javascript" src="src/common/model/orm.model.js"></script>
-        <script type="text/javascript" src="src/common/directives/input/brand.directive.js"></script>
+        <script type="text/javascript" src="src/common/directives/input/autocompleteMy-directive.js"></script>
         <script type="text/javascript" src="src/common/directives/ui/buttonProduct-directive.js"></script>
+        <script type="text/javascript" src="src/common/directives/ui/landingPage-directive.js"></script>
+        <script type="text/javascript" src="src/common/directives/ui/shoppingList-directive.js"></script>
+        <script type="text/javascript" src="src/common/directives/graphTools-service.js"></script>
+        <script type="text/javascript" src="src/common/directives/design/portlet-directive.js"></script>
+        <script type="text/javascript" src="src/common/directives/design/metric-directive.js"></script>
 
         <script type="text/javascript" src="src/common/upload/plupload.js"></script>
 
@@ -242,8 +247,9 @@
         <script type="text/javascript" src="src/user/role/role.directive.js"></script>
         <script type="text/javascript" src="src/user/role/add.controller.js"></script>
 
-        <script type="text/javascript" src="src/retailer/product/attribution.controller.js"></script>
-        <script type="text/javascript" src="src/retailer/product/list-controller.js"></script>
+        <script type="text/javascript" src="src/retailer/productinshop/attribution.controller.js"></script>
+        <script type="text/javascript" src="src/retailer/productinshop/list-controller.js"></script>
+        <script type="text/javascript" src="src/retailer/productinshop/show-controller.js"></script>
         <script type="text/javascript" src="src/retailer/notification/list-controller.js"></script>
         <script type="text/javascript" src="src/retailer/notification/notification-directive.js"></script>
 
@@ -253,12 +259,13 @@
         <script type="text/javascript" src="src/maker/home/header.controller.js"></script>
         <script type="text/javascript" src="src/maker/brand/show/show.controller.js"></script>
         <script type="text/javascript" src="src/maker/brand/list/list.controller.js"></script>
+        <script type="text/javascript" src="src/maker/brand/certify/claim-controller.js"></script>
+        <script type="text/javascript" src="src/maker/brand/certify/claim-directive.js"></script>
         <script type="text/javascript" src="src/maker/product/show/show.controller.js"></script>
         <script type="text/javascript" src="src/maker/product/show/general/general.controller.js"></script>
         <script type="text/javascript" src="src/maker/product/show/general/suggestname.controller.js"></script>
         <script type="text/javascript" src="src/maker/product/show/general/suggestsynonym.controller.js"></script>
         <script type="text/javascript" src="src/maker/product/show/packaging/packaging.controller.js"></script>
-        <script type="text/javascript" src="src/maker/product/show/marketing/marketing.controller.js"></script>
         <script type="text/javascript" src="src/maker/product/show/merchandising/merchandising.controller.js"></script>
         <script type="text/javascript" src="src/maker/product/show/merchandising/relatedProduct.directive.js"></script>
         <script type="text/javascript" src="src/maker/product/show/merchandising/relatedRecipe.directive.js"></script>
@@ -271,6 +278,9 @@
         <script type="text/javascript" src="src/maker/product/show/media/product.picture.directive.js"></script>
         <script type="text/javascript" src="src/maker/product/show/media/product.picture.model.js"></script>
 
+        <script type="text/javascript" src="src/maker/product/show/preview/productNutrition-directive.js"></script>
+        <script type="text/javascript" src="src/maker/product/show/preview/productLabel-directive.js"></script>
+        <script type="text/javascript" src="src/maker/product/show/preview/productAllergen-directive.js"></script>
         <script type="text/javascript" src="src/maker/product/show/composition/composition.controller.js"></script>
         <script type="text/javascript" src="src/maker/product/show/nutrition/nutrition.controller.js"></script>
         <script type="text/javascript" src="src/maker/product/show/label/label.controller.js"></script>
@@ -282,7 +292,6 @@
         <script type="text/javascript" src="src/maker/product/show/template/tabProduct-directive.js"></script>
         <script type="text/javascript" src="src/maker/product/show/template/tabProductSpecific-directive.js"></script>
         <script type="text/javascript" src="src/maker/product/show/template/templateProduct-directive.js"></script>
-        <script type="text/javascript" src="src/maker/product/show/product.model.js"></script>
         <script type="text/javascript" src="src/maker/product/show/block.directive.js"></script>
         <script type="text/javascript" src="src/maker/product/show/input.directive.js"></script>
         <script type="text/javascript" src="src/maker/product/show/specific/wine.controller.js"></script>
@@ -291,10 +300,17 @@
         <script type="text/javascript" src="src/maker/product/certify/accept.controller.js"></script>
         <script type="text/javascript" src="src/maker/product/certify/certify.controller.js"></script>
         <script type="text/javascript" src="src/maker/product/certify/claim.controller.js"></script>
-        <script type="text/javascript" src="src/maker/brand/list/claim.controller.js"></script>
+        <script type="text/javascript" src="src/maker/product/certify/claim-directive.js"></script>
 
         <script type="text/javascript" src="src/maker/notification/list/list.controller.js"></script>
 
+        <script type="text/javascript" src="src/dmp/activation/campaign/list-controller.js"></script>
+        <script type="text/javascript" src="src/dmp/activation/shoppinglist/show-controller.js"></script>
+        <script type="text/javascript" src="src/dmp/activation/button/show-controller.js"></script>
+
+        <script type="text/javascript" src="src/dmp/analytics/campaign/show-controller.js"></script>
+
+        <script type="text/javascript" src="src/common/directives/quantityFormatting-filter.js"></script>
         <script type="text/javascript" src="src/common/directives/validation/button.directive.js"></script>
         <script type="text/javascript" src="src/common/directives/validation/case.directive.js"></script>
         <script type="text/javascript" src="src/common/directives/validation/float.directive.js"></script>
