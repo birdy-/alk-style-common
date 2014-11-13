@@ -45,11 +45,14 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     // Timeout with no delay is necessary to let the DOM load
     $timeout(function () {
         if ($scope.request.scrollAnchor) {
-            var anchor = 'product-' + ($scope.request.scrollAnchor - 6);
+            var anchor = 'product-' + ($scope.request.scrollAnchor);
             if ($location.hash() !== anchor) {
                $location.hash(anchor);
              } else {
                $anchorScroll();
+               // 'Hacky' fix for fixed header
+               // https://github.com/angular/angular.js/issues/2070
+               $window.scrollTo($window.pageXOffset, $window.pageYOffset - 50);
              }
         };
     });
