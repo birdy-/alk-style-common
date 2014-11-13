@@ -59,33 +59,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerNotificationsContr
                         }
                     });
                 });
-                var claim = claims[2];
-                $scope.notifications.push({
-                    'event': {
-                        'user_id': user.id,
-                        'timestamp': moment().unix(),
-                        'brandName': 'Test fail',
-                        'type': claim.status
-                    }
-                });
-                var claim = claims[1];
-                $scope.notifications.push({
-                    'event': {
-                        'user_id': user.id,
-                        'timestamp': moment().unix(),
-                        'brandName': 'Test success',
-                        'type': claim.status
-                    }
-                });
-                var claim = claims[3];
-                $scope.notifications.push({
-                    'event': {
-                        'user_id': user.id,
-                        'timestamp': moment().unix(),
-                        'brandName': 'Test error',
-                        'type': claim.status
-                    }
-                });
 
                 $scope.notifications.sort(function (a, b) { return b.event.timestamp - a.event.timestamp });
                 // Temporary fix for new subscribers, will be moved in the registraiton process
