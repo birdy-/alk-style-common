@@ -7,7 +7,7 @@
             </div>
             <div class="name">
                 <!-- Use the first ProductReference linked to identify the product -->
-                <a ng-href="/#/maker/product/{{ product.isIdentifiedBy[0].reference }}/data/general">
+                <a ng-click="show(product, $index)">
                     {{ product.nameLegal }}
                 </a>
             </div>
