@@ -12,6 +12,7 @@ angular.module('jDashboardFluxApp').directive('alkButtonBrandClaim', [
             scope: {},
             templateUrl: '/src/maker/brand/certify/claim-directive.html',
             link: function(scope, elem, attrs) {
+                scope.buttonClass = attrs.alkButtonClass || 'btn-default';
                 scope.claim = function () {
                     var modalInstance = $modal.open({
                         templateUrl: '/src/maker/brand/certify/claim-modal.html',
