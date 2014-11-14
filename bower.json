@@ -1,62 +1,23 @@
 {
-  "author": "Alkemics",
-  "name": "dashboard-flux",
+  "name": "alk-style-common",
   "version": "1.0.0",
-  "homepage": "https://github.com/alkemics/dashboard-flux",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:alkemics/dashboard-flux.git"
-  },
+  "homepage": "https://github.com/alkemics/alk-style-common",
+  "author": "Alkemics",
+  "description": "Common style of Alkemics projects",
+  "main": "src/alk-style-common.scss",
+  "keywords": [
+    "Alkemics",
+    "UI",
+    "bootstrap",
+    "theme"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "bower_components"
+  ],
   "dependencies": {
-    "angular": "~1.2.26",
-    "json3": "~3.2.4",
-    "es5-shim": "~2.3.0",
-    "jquery": "~1.10.2",
-    "angular-i18n": "~1.2.0",
-    "angular-resource": "~1.2.0",
-    "angular-cookies": "~1.2.0",
-    "angular-sanitize": "~1.2.0",
-    "angular-route": "~1.2.0",
-    "angular-animate": "~1.2.26",
-    "angular-bootstrap": "~0.11.0",
-    "angular-md5": "~0.1.7",
-    "angular-ui": "~0.4.0",
-    "angular-ui-tree": "2.1.5",
-    "angular-ui-select2": "git://github.com/angular-ui/ui-select2#afa6589a54cb72815fc70ae10f5320ffa782dfa9",
-    "angular-ui-router": "~0.2.0",
-    "angular-ui-sortable": "~0.12.8",
-    "angular-http-auth": "*",
-    "infinite-scroll": "https://github.com/BinaryMuse/ngInfiniteScroll/archive/1.0.0.tar.gz",
-    "plupload": "~2.1.2",
-    "css-selector-engine-polyfill": "git://github.com/termi/CSS_selector_engine#1833e36807127cfc8b9bee8388e817934bf451c8",
-    "angularjs-nvd3-directives": "~0.0.7",
-    "textAngular": "~1.2.2",
-    "handsontable": "~0.13.0",
-    "nghandsontable": "~0.5.0",
-    "moment": "~2.8.3",
-    "alk-style-common": "git@github.com:alkemics/alk-style-common",
-    "sdk-dashboard": "git@github.com:alkemics/sdk-dashboard",
-    "angular-ui-utils": "~0.1.1",
-    "angulartics": "~0.17.2",
-    "lodash": "~3.3.1",
-    "ngtoast": "~1.5.0",
-    "jszip": "Stuk/jszip#~2.5.0",
-    "jszip-utils": "~0.0.2",
-    "mdi": "~1.0.62-beta"
-  },
-  "devDependencies": {
-    "angular-mocks": "~1.2.0",
-    "angular-scenario": "~1.2.0"
-  },
-  "resolutions": {
-    "angular": "~1.2.26",
-    "d3": "~3.4.1",
     "bootstrap-sass-official": "~3.3.1",
-    "font-awesome": "~4.3.0",
-    "handsontable": "~0.13.0",
-    "angular-cookies": "~1.2.0",
-    "moment": "2.9.0",
-    "angular-ui-select2": "afa6589a54cb72815fc70ae10f5320ffa782dfa9",
-    "jquery": "~1.10.2"
+    "font-awesome": "~4.2.0"
   }
 }
