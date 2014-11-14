@@ -19,16 +19,21 @@ angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
     $scope.multiple = false;
     $scope.switchMultiple = function() {
         $scope.multiple = !$scope.multiple;
+        initErrors();
     };
 
-    $scope.errors = {
-        badReference: null,
-        alreadyClaimed: null,
-        coherency: null,
-        unknown: null,
-        confirmBrand: null,
-        ok: null
+    var initErrors = function () {
+        $scope.errors = {
+            badReference: null,
+            alreadyClaimed: null,
+            coherency: null,
+            unknown: null,
+            confirmBrand: null,
+            ok: null
+        };
     };
+
+    initErrors();
 
     $scope.products = [];
 

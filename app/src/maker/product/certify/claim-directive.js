@@ -9,7 +9,9 @@ angular.module('jDashboardFluxApp').directive('alkButtonProductClaim', [
     function ($modal) {
         return {
             restrict: 'AEC',
-            scope: {},
+            scope: {
+                brand: '=brand'
+            },
             templateUrl: '/src/maker/product/certify/claim-directive.html',
             link: function(scope, elem, attrs) {
                 scope.claim = function () {
@@ -18,7 +20,7 @@ angular.module('jDashboardFluxApp').directive('alkButtonProductClaim', [
                         controller: 'ProductClaimModalController',
                         resolve: {
                             brand: function() {
-                                return null;
+                                return scope.brand;
                             }
                         }
                     });

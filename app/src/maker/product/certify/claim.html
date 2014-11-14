@@ -11,7 +11,8 @@
         </div>
     </div>
 </div>
-<div class="modal-body" ng-show="multiple">
+<!-- ng-if is necessary here to let the DOM reload and the JS compute the size -->
+<div class="modal-body" ng-if="multiple">
     <form role="form" name="claimForm">
 
         <div class="form-group">
