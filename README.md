@@ -36,6 +36,20 @@ grunt serve
 grunt test
 ```
 
+## Dev
+
+By default the sdk-dashboard package is installed via Github.
+However when developping you will probably need to use your local version.
+
+```
+cd ~/alkemics/dev/sdk-dashboard
+bower link
+cd ~/alkemics/dev/dashboard-flux
+bower link sdk-dashboard
+```
+
+That's it! You've got your working dev package.
+
 ## Deploy
 
 For preproduction:
