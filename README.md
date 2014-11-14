@@ -51,3 +51,28 @@ For production :
 grunt build
 cd capistrano && bundle exec cap production alk:deploy
 ```
+
+## Tests!!
+
+### Unit tests
+
+Shut down your grunt serve or adapt the port
+
+```
+grunt test
+```
+
+~~### End-to-end (E2E) tests~~
+Grunt test will launch all tests now
+
+Be sure to have a JDK and protractor installed as described in [documentation](http://angular.github.io/protractor/#/)
+
+```
+npm install -g protractor
+grunt serve
+protractor test/protractor.conf.js
+```
+
+### Jenkins integration
+
+Check [Confluence](https://alkemics.atlassian.net/wiki/display/ITH/How+to+setup+Jenkins+for+the+frontend)

@@ -80,7 +80,7 @@ module.exports = function (grunt) {
       options: {
         port: 9005,
         // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localhost.alkemics.com'
+        hostname: 'localstream.alkemics.com'
       },
       livereload: {
         options: {
@@ -98,6 +98,7 @@ module.exports = function (grunt) {
           middleware: function (connect) {
             return [
               mountFolder(connect, '.tmp'),
+              mountFolder(connect, yeomanConfig.app),
               mountFolder(connect, 'test')
             ];
           }
@@ -133,7 +134,8 @@ module.exports = function (grunt) {
       all: [
         'Gruntfile.js',
         '<%= yeoman.app %>/src/**/*.js',
-        '<%= yeoman.app %>/bower_components/sdk-dashboard/**/*.js'
+        '!<%= yeoman.app %>/bower_components/**/*.js',
+        '<%= yeoman.app %>/bower_components/sdk-dashboard/src/**/*.js'
       ],
       test: {
         options: {
@@ -145,7 +147,7 @@ module.exports = function (grunt) {
 
     open: {
       server: {
-        url: 'http://localhost.alkemics.com:<%= connect.options.port %>'
+        url: 'http://localstream.alkemics.com:<%= connect.options.port %>'
       }
     },
     // Empties folders to start fresh
@@ -394,9 +396,23 @@ module.exports = function (grunt) {
     // Test settings
     karma: {
       unit: {
-        configFile: 'karma.conf.js',
+        configFile: 'test/karma.conf.js',
         singleRun: true
       }
+    },
+    protractor: {
+        options: {
+            configFile: "test/protractor.conf.js",
+            keepAlive: true,
+            noColor: false,
+            args: {}
+        },
+        your_target: {
+            options: {
+                configFile: "test/protractor.conf.js",
+                args: {}
+            }
+        }
     },
     aws: grunt.file.readJSON('grunt-aws.json'),
     aws_s3: {
@@ -438,7 +454,7 @@ module.exports = function (grunt) {
                 //or your base URL. Currently the task does not use it's own
                 //webserver. So if your site needs a webserver to be fully
                 //functional configure it here.
-                sitePath: 'http://localhost.alkemics.com:9005/',
+                sitePath: 'http://localstream.alkemics.com:9005/',
                 //you can choose a prefix for your snapshots
                 //by default it's 'snapshot_'
                 fileNamePrefix: '',
@@ -486,7 +502,8 @@ module.exports = function (grunt) {
     'concurrent:test',
     'autoprefixer',
     'connect:test',
-    'karma'
+    'karma',
+    'protractor'
   ]);
 
   grunt.registerTask('build', [

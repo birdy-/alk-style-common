@@ -1,3 +1,4 @@
+.idea
 node_modules
 dist
 .tmp
@@ -7,8 +8,10 @@ app/bower_components/*
 !app/bower_components/angular-mocks/content-mocks.js
 grunt-aws.json
 snapshots
-.idea
+xmloutput
+dashboard-flux-test-results.xml
 
 *.DS_Store
 app.tar.gz
 app/styles
+test/protractor.conf.js
