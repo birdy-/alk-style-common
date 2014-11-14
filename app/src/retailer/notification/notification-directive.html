@@ -1,5 +1,4 @@
 <div class="tl-entry">
-
     <!-- The date of the notification -->
     <div class="tl-time">
         {{ notification.event.timestamp * 1000 | date:'yyyy-MM-dd' }}
@@ -44,11 +43,37 @@
         </div>
 
         <div ng-switch-when="PlatformBrandWelcome">
-            Bravo pour votre inscription sur le portail Alkemics ! Commençons par...
-            <br/> <br/>
+            Bravo pour votre inscription sur le portail Alkemics ! Voici les étapes à suivre :
+            <ol>
+                <li>Je crée ma marque via le bouton « Créer une nouvelle marque »</li>
+                <li>Ma demande est étudiée par Alkemics sous les plus brefs délais</li>
+                <li>Je reçois une confirmation de création de ma marque sur cet espace</li>
+                <li>Je me rends sur l’onglet « Activité » ou « Mes marques » et j’ajoute mes produits via le bouton « créer un nouveau produit »</li>
+                <li>Je remplis mes fiches produits, les enregistre et les certifie</li>
+            </ol>
+            <br/>
             <div class="text-center">
-                <span alk-button-product-claim></span>
-                <span alk-button-brand-claim></span>
+                <span alk-button-brand-claim alk-button-class="btn-success"></span>
+            </div>
+        </div>
+
+        <div ng-switch-when="BrandClaimCreated">
+            Nous avons bien reçu votre demande pour la marque : <strong>{{ notification.event.brandName }}</strong>. Nous étudions votre demande et revenons vers vous dans les plus brefs délais.
+        </div>
+
+        <div ng-switch-when="BrandClaimAccepted">
+            Votre demande pour la marque <strong>{{ notification.event.brandName }}</strong> a été acceptée. Rendez-vous sur <a href="/#/maker/brand">la page de vos marques</a> pour la gérer !
+        </div>
+
+        <div ng-switch-when="BrandClaimRefused">
+            Votre demande pour la marque <strong>{{ notification.event.brandName }}</strong> a été refusée. <a href="mailto:support@alkemics.com">Contactez-notre support</a> pour plus d'informations.
+        </div>
+
+        <div ng-switch-when="BrandClaimErrored">
+            Une erreur est survenue lors de votre demande pour la marque <strong>{{ notification.event.brandName }}</strong>. Veuillez réessayer et <a href="mailto:support@alkemics.com">contactez-notre support</a> si le problème persiste.
+            <br/><br/>
+            <div class="text-center">
+                <span alk-button-brand-claim alk-button-class="btn-success"></span>
             </div>
         </div>
     </div>

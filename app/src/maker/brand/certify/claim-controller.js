@@ -4,8 +4,8 @@
  * Modal that allows the user to certify a given product.
  */
 angular.module('jDashboardFluxApp').controller('BrandClaimModalController', [
-    '$scope', '$modalInstance', '$$sdkAuth', '$$autocomplete', 'permission',
-    function ($scope, $modalInstance, $$sdkAuth, $$autocomplete, permission) {
+    '$scope', '$modalInstance', '$$sdkAuth', '$$autocomplete', 'permission', '$route', '$timeout',
+    function ($scope, $modalInstance, $$sdkAuth, $$autocomplete, permission, $route, $timeout) {
 
     // ------------------------------------------------------------------------
     // Variables
@@ -53,7 +53,12 @@ angular.module('jDashboardFluxApp').controller('BrandClaimModalController', [
 
     $scope.sendRequestNewBrand = function () {
         $$sdkAuth.UserClaimProductBrandCreate($scope.request.createdBrand, claimRequestType.createBrand, 1).then(function () {
-            $scope.errors.ok = falsel
+            $scope.errors.ok = false
+
+            // Refresh timeline on background
+            $timeout(function () {
+                $route.reload();
+            }, 500);
         });
     };
 
