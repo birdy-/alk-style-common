@@ -40,8 +40,6 @@ app.factory('plupload', [
 
 var env = (window.location.hostname.indexOf('localhost') === 0) ? 'dev' : 'prod';
 
-//env = 'prod';
-
 if (env === 'prod') {
     app.constant('URL_CDN_MEDIA', 'https://smedia.alkemics.com');
     app.constant('URL_SERVICE_AUTH', 'https://auth.alkemics.com');
