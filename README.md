@@ -29,6 +29,8 @@ cd capistrano && bundle install
 
 ## Run
 
+Make sure to have an entry for `localstream.alkemics.com` in your /etc/hosts
+
 ```
 # Serve
 grunt serve
@@ -81,11 +83,26 @@ Grunt test will launch all tests now
 
 Be sure to have a JDK and protractor installed as described in [documentation](http://angular.github.io/protractor/#/)
 
+Run Protractor
+
 ```
 npm install -g protractor
 grunt serve
 protractor test/protractor.conf.js
 ```
+
+Make sure to have selenium running in the background
+
+```
+./node_modules/.bin/webdriver update
+./node_modules/.bin/webdriver start
+```
+
+The first time, you will need to copy protractor dist configuration file
+```
+cp test/protractor.conf.js.dist test/protractor.conf.js
+```
+
 
 ### Jenkins integration
 
