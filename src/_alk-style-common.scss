@@ -1,0 +1,26 @@
+// Font Awesome
+$fa-font-path: "/bower_components/font-awesome/fonts";
+@import "font-awesome/scss/font-awesome";
+
+// Bootstrap overriding
+@import "_variables";
+@import "_overrides";
+@import "colors";
+
+// Bootstrap
+@import "bootstrap-sass-official/assets/stylesheets/bootstrap";
+
+// File import
+@import "navbar";
+@import "home";
+@import "sidebar";
+@import "footer";
+@import "cgu";
+@import "upload";
+
+@import "user/login/login";
+@import "portlet";
+@import "tile";
+@import "metric";
+@import "placeholder";
+@import "browsehappy";

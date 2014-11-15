@@ -191,8 +191,7 @@ $alk-yellow-darker: rgba(241, 201, 0, 1);
 }
 
 .color-stream-inverse {
-    background-color: $alk-green;
-    color: white;
+    @extend .color-green-inverse;
 }
 
 .color-api {
