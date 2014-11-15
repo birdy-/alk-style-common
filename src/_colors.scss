@@ -35,7 +35,7 @@ $alk-yellow-darker: rgba(241, 201, 0, 1);
 }
 
 .color-green {
-    color: $alk-green;
+    color: $alk-green !important;
 }
 
 .color-green-inverse {
@@ -44,7 +44,7 @@ $alk-yellow-darker: rgba(241, 201, 0, 1);
 }
 
 .color-darkgreen {
-    color: $alk-darkgreen;
+    color: $alk-darkgreen !important;
 }
 
 .color-darkgreen-inverse {
@@ -182,8 +182,8 @@ $alk-yellow-darker: rgba(241, 201, 0, 1);
 }
 
 .color-stream {
-    background-color: white;
-    color: $alk-green;
+    @extend .color-green;
+    background-color: white !important;
 }
 
 .color-stream-transparent {
