@@ -1,13 +1,17 @@
 {
+  "author": "Alkemics",
   "name": "dashboard-flux",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "homepage": "https://github.com/alkemics/dashboard-flux",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:alkemics/dashboard-flux.git"
+  },
   "dependencies": {
-    "angular": "~1.2.12",
-    "font-awesome": "~4.1.0",
+    "angular": "~1.2.26",
     "json3": "~3.2.4",
     "es5-shim": "~2.3.0",
     "jquery": "~1.10.2",
-    "bootstrap-sass-official": "~3.2.0",
     "angular-i18n": "~1.2.0",
     "angular-resource": "~1.2.0",
     "angular-cookies": "~1.2.0",
@@ -25,13 +29,20 @@
     "infinite-scroll": "https://github.com/BinaryMuse/ngInfiniteScroll/archive/1.0.0.tar.gz",
     "plupload": "~2.1.2",
     "css-selector-engine-polyfill": "git://github.com/termi/CSS_selector_engine#1833e36807127cfc8b9bee8388e817934bf451c8",
-    "angularjs-nvd3-directives": "~0.0.7"
+    "angularjs-nvd3-directives": "~0.0.7",
+    "textAngular": "~1.2.2",
+    "handsontable": "~0.11.4",
+    "nghandsontable": "~0.4.0",
+    "moment": "~2.8.3",
+    "alk-style-common": "git@github.com:alkemics/alk-style-common",
+    "sdk-dashboard": "git@github.com:alkemics/sdk-dashboard"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.0",
     "angular-scenario": "~1.2.0"
   },
   "resolutions": {
-    "angular": "1.2.26"
+    "angular": "1.2.26",
+    "d3": "~3.4.1"
   }
 }

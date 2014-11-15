@@ -17,7 +17,7 @@
     <h2>
         {{ brand.name }}
         <small>Marque commerciale</small>
-        <button class="btn btn-success pull-right" ng-click="openClaimModal()">Ajouter un produit à la marque</button>
+        <!-- <button class="btn btn-success pull-right" ng-click="openClaimModal()">Ajouter un produit à la marque</button> -->
     </h2>
 
     <br/>
@@ -108,7 +108,7 @@
                     <label class="col-sm-2 control-label">Sous-marques</label>
                     <div class="col-lg-10">
                         <a ng-href="/#/maker/{{ subBrand.id}}/show" ng-repeat="subBrand in brand.subBrands">
-                            <img ng-src="{{ subBrand.picture.logo }}" width="64px" style="margin-right: 10px;"/>
+                            <img ng-src="{{ subBrand.picture.logo }}" fallback-src="https://stream.alkemics.com/images/5078aa32.missing.png" width="64px" style="margin-right: 10px;"/>
                         </a>
                     </div>
                 </div>
@@ -118,7 +118,7 @@
                 <br/>
                 <br/>
                 <div>
-                    <img ng-src="https://smedia.alkemics.com/brand/{{ brand.id }}/picture/logo/original.png" style="width: 100%; padding-bottom: 20px;"/>
+                    <img ng-src="https://smedia.alkemics.com/brand/{{ brand.id }}/picture/logo/original.png" fallback-src="https://stream.alkemics.com/images/5078aa32.missing.png" style="width: 100%; padding-bottom: 20px;"/>
                 </div>
                 <div class="well" ng-click="uploadNewPictures('logo', false)" style="cursor:pointer;">
                     <i class="fa fa-picture-o" name="logo"></i> Déposer ici votre logo

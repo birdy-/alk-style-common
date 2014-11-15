@@ -1,0 +1,35 @@
+exports.config = {
+  seleniumAddress: 'http://127.0.0.1:4444/wd/hub',
+
+  suites: {
+    home: 'integration/home/*.scenario.js',
+    registration: 'integration/registration/*.scenario.js',
+    login: 'integration/login/*.scenario.js'
+  },
+
+  baseUrl: 'http://localstream.alkemics.com:9005/#/',
+  chromeDriver: 'node_modules/protractor/selenium/',
+
+  capabilities: {
+    browserName: 'chrome',
+    chromeOptions: {
+      args: ['--disable-web-security']
+    }
+  },
+
+  onPrepare: function() {
+    require('jasmine-reporters');
+    jasmine.getEnv().addReporter(
+      new jasmine.JUnitXmlReporter('xmloutput', true, true));
+  },
+
+  params: {
+    website: {
+      url: 'http://localstream.alkemics.com:9005/#/'
+    },
+    user: {
+      username: 'XXXXXXXXXXX',
+      password: 'XXXXXXXXXXX'
+    }
+  }
+};

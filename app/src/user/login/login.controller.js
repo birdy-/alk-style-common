@@ -12,6 +12,7 @@ angular.module('jDashboardFluxApp').controller('LoginController', [
     $scope.login = null;
     $scope.password = null;
     $scope.message = null;
+    $scope.displayActivationMessage = ($location.search()['activation'] === '1') ? true : false;
 
     $scope.submit = function() {
         permission.login(

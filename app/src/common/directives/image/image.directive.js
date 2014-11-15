@@ -10,10 +10,10 @@ angular.module('jDashboardFluxApp').directive('entityImage', [
             },
             replace: true,
             templateUrl: '/src/common/directives/image/template.html',
-            link: function(scope, elem, attrs) {
+            link: function (scope, elem, attrs) {
                 scope['class'] = attrs['class'];
 
-                var setUrl = function(type, id, extra) {
+                var setUrl = function (type, id, extra) {
                     var cachebuster = 'cachebuster=' + (Math.random() * 10000000000000000);
                     if (type === 'Shop') {
                         scope.url = URL_CDN_MEDIA + '/shop/' + id + '/picture/logo/original.png' + '?' + cachebuster;
@@ -33,7 +33,7 @@ angular.module('jDashboardFluxApp').directive('entityImage', [
                     setUrl(attrs['entityType'], attrs['entityId'], {});
                 }
 
-                scope.$watch('entity._type', function(){
+                scope.$watch('entity._type', function () {
                     if (!scope.entity) {
                         return;
                     }
@@ -43,3 +43,15 @@ angular.module('jDashboardFluxApp').directive('entityImage', [
         };
     }
 ]);
+
+
+angular.module('jDashboardFluxApp').directive('fallbackSrc', function () {
+    return {
+        link: function postLink (scope, iElement, iAttrs) {
+            iElement.bind('error', function () {
+                angular.element(this).attr("src", iAttrs.fallbackSrc);
+            });
+        }
+   };
+});
+

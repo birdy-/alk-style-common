@@ -1,9 +1,9 @@
 {
   "name": "dashboardflux",
   "version": "0.0.0",
-  "repository" : {
-    "type" : "git",
-    "url" : "git@github.com:alkemics/dashboard-flux.git"
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:alkemics/dashboard-flux.git"
   },
   "dependencies": {},
   "devDependencies": {
@@ -50,7 +50,12 @@
     "karma-script-launcher": "~0.1.0",
     "load-grunt-tasks": "~0.2.0",
     "requirejs": "~2.1.10",
-    "time-grunt": "~0.2.1"
+    "time-grunt": "~0.2.1",
+    "karma-junit-reporter": "~0.2.2",
+    "protractor": "~1.4.0",
+    "grunt-protractor-webdriver": "~0.1.9",
+    "grunt-protractor-runner": "~1.1.4",
+    "jasmine-reporters": "~1.0.1"
   },
   "engines": {
     "node": ">=0.8.0"

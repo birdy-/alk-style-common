@@ -9,3 +9,4 @@ var Brand = function(){
     };
     this._type = 'Brand';
 };
+Brand._type = 'Brand';

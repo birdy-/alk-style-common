@@ -4,8 +4,8 @@
  * Modal that allows the user to create a PSQ.
  */
 angular.module('jDashboardFluxApp').controller('ProductStandardQuantityModalController', [
-    '$scope', '$modalInstance', '$$sdkCrud', '$$sdkMl', '$$CommonUnitRepository', '$window', 'productStandardQuantity',
-    function ($scope, $modalInstance, $$sdkCrud, $$sdkMl, $$CommonUnitRepository, $window, productStandardQuantity) {
+    '$scope', '$modalInstance', '$$sdkCrud', '$$sdkMl', '$$ORM', '$window', 'productStandardQuantity',
+    function ($scope, $modalInstance, $$sdkCrud, $$sdkMl, $$ORM, $window, productStandardQuantity) {
 
     // ------------------------------------------------------------------------
     // Variables
@@ -22,7 +22,7 @@ angular.module('jDashboardFluxApp').controller('ProductStandardQuantityModalCont
         $$sdkMl.ProductPackagingParse($scope.psq.name).then(function(response){
             var data = response.data.data;
             $scope.psq.quantity = data.quantityNormalized;
-            $scope.psq.isMeasuredBy = $$CommonUnitRepository.lazy(data.isMeasuredBy.id);
+            $scope.psq.isMeasuredBy = $$ORM.repository('CommonUnit').lazy(data.isMeasuredBy.id);
         });
 
     };

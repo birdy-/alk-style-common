@@ -1,0 +1,35 @@
+
+<div>
+    <iframe width="300"
+            marginwidth="0"
+            height="575"
+            marginheight="0"
+            frameborder="0"
+            scrolling="No"
+            align="top"
+            hspace="0"
+            vspace="0"
+            id="alk_shoppinglist"
+            style="overflow: hidden; margin-bottom: 10px;"
+            ng-src="{{ src() }}"
+            ng-if="iframe">
+    </iframe>
+    <div ng-if="code">
+<pre>
+&lt;div class="alk-ui-shoppinglist"
+     data-alk-ui-placement_id="{{ placement.id }}"
+     data-alk-ui-recipe_urlrecipes="{{ recipe.isDescribedOn.url }}"
+     data-alk-ui-client_id="{{ clientId() }}"
+     data-alk-ui-app_id="{{ applicationId() }}"&gt;
+     &lt;!-- Le module apparaîtra ici --&gt;
+&lt;/div&gt;
+</pre>
+<pre>
+&lt;script type="text/javascript" charset="utf-8" id="alkemicscom_sdk_rw"&gt;
+    //&lt;![CDATA[
+    window.alkAsyncInit = function() {ALK.init({appId: "{{ applicationId() }}", clientId: "'{{ clientId() }}'", auto : true }); };
+    (function(a,l,k,e,m,i,c,s){m=l.createElement(k),i=l.getElementsByTagName(k)[0]; m.async=1;m.src=(document.location.protocol === 'https:' ? 'https://ssl' : 'http://') + e; i.parentNode.insertBefore(m,i); })(window, document, 'script', 'cdn.alkemics.com/rw/sdk.js');
+    //]]&gt;
+&lt;/script&gt;</pre>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+// Import libs (which contain Bootstrap)
+@import "../bower_components/alk-style-common/src/alk-style-common";
+@import "../bower_components/sdk-dashboard/src/autocomplete";
+
+@import "global";
+
+@import "maker/product/certify/claim";
+@import "maker/product/index";
+@import "maker/product/list/index";
+@import "maker/product/show/template";
+@import "maker/product/show/composition";
+@import "maker/product/show/nutrition";
+@import "maker/product/show/merchandising";
+@import "maker/product/show/marketing";
+@import "maker/product/show/label";
+@import "maker/product/show/media";
+@import "maker/product/show/preview";
+@import "maker/notification/timeline";
+
+@import "user/role/index";
+@import "user/login";
+
+@import "home/pricing";
+@import "home/register";

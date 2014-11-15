@@ -9,6 +9,10 @@ angular.module('jDashboardFluxApp').directive('alkNotification', [
     function ($modal) {
         // Rendering definitions
         var icon = {
+            'BrandClaimAccepted': 'fa-check-circle-o',
+            'BrandClaimCreated': 'fa-info-circle',
+            'BrandClaimErrored': 'fa-exclamation-triangle',
+            'BrandClaimRefused': 'fa-times',
             'ProductCertified': 'fa-gavel',
             'ProductInShopProductCertified': 'fa-gavel',
             'ProductUpdated': 'fa-barcode',
@@ -20,6 +24,10 @@ angular.module('jDashboardFluxApp').directive('alkNotification', [
             'ProductErrorReported': 'fa-warning'
         };
         var color = {
+             'BrandClaimAccepted': 'color-green-inverse',
+             'BrandClaimCreated': 'color-blue-inverse',
+             'BrandClaimErrored': 'color-orange-inverse',
+             'BrandClaimRefused': 'color-error-inverse',
              'ProductCertified': 'color-green-inverse',
              'ProductInShopProductCertified': 'color-green-inverse',
              'ProductUpdated': 'color-green-inverse',
@@ -39,16 +47,6 @@ angular.module('jDashboardFluxApp').directive('alkNotification', [
             link: function(scope, elem, attrs) {
                 scope.notification.icon = icon[scope.notification.event.type];
                 scope.notification.color = color[scope.notification.event.type];
-
-                scope.claim = function(){
-                    var modalInstance = $modal.open({
-                        templateUrl: '/src/maker/product/certify/claim.html',
-                        controller: 'ProductClaimModalController'
-                    });
-                    modalInstance.result.then(function () {
-                    }, function () {
-                });
-            };
             }
         };
     }

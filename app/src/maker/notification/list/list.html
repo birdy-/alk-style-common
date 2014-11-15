@@ -2,18 +2,18 @@
 
 <div class="container-fluid" id="timeline">
 
-    <div class="container" id="timeline">
+    <br/> <br/>
+    <div class="text-right">
+        <span alk-button-brand-claim></span>
+    </div>
 
-        <br/> <br/>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="timeline">
+                <div class="tl-header now color-blue-inverse">Maintenant</div>
 
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="timeline">
-                    <div class="tl-header now color-blue-inverse">Maintenant</div>
-
-                    <div ng-repeat="notification in notifications">
-                        <div alk-notification="notification"></div>
-                    </div>
+                <div ng-repeat="notification in notifications">
+                    <div alk-notification="notification"></div>
                 </div>
             </div>
         </div>

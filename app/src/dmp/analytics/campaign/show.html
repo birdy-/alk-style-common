@@ -1,0 +1,157 @@
+<div ng-include="'/src/maker/home/header.html'"></div>
+
+<div class="container-fluid">
+    <div class="row breadcrumb">
+        <div class="col-lg-6 col-sm-12">
+            <h1>
+                {{ campaign.name }}
+                <br/>
+                <small>Statistiques</small>
+            </h1>
+        </div>
+        <div class="col-lg-6 col-sm-12">
+            <div class="pull-right">
+                <form class="form-inline" role="form">
+                    <br/>
+                    <div class="form-group">
+                        <label>Du</label>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control"
+                                   datepicker-popup="yyyy-MM-dd"
+                                   datepicker-options="dateOptions"
+                                   close-text="Fermer"
+                                   clear-text="Annuler"
+                                   current-text="Auj."
+                                   toggle-weeks-text="Semaines"
+                                   is-open="opened.dateStart"
+                                   ng-required="true"
+                                   ng-model="request.dateStart"
+                                   ng-change="refresh()"/>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="open($event, 'dateStart')"><i class="fa fa-calendar"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label> au </label>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control"
+                                   datepicker-popup="yyyy-MM-dd"
+                                   datepicker-options="dateOptions"
+                                   close-text="Fermer"
+                                   clear-text="Annuler"
+                                   current-text="Auj."
+                                   toggle-weeks-text="Semaines"
+                                   is-open="opened.dateEnd"
+                                   ng-model="request.dateEnd"
+                                   ng-required="true"
+                                   ng-change="refresh()"/>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="open($event, 'dateEnd')"><i class="fa fa-calendar"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-9 col-sm-12">
+            <portlet color="orange" title="Volumes d'affichages &amp; taux de clic">
+                <nvd3-line-plus-bar-chart
+                    data="linechartVolumes"
+                    objectequality="true"
+                    xAxisTickFormat="graph.dateFilter()"
+                    y1AxisTickFormat="graph.floatFilter()"
+                    y2AxisTickFormat="graph.floatFilter()"
+                    barinteractive="true"
+                    height="350"
+                    forceY="0"
+                    showXAxis="true"
+                    showYAxis="true"
+                    legendcolor="graph.colorIterator()"
+                    tooltipcontent="true"
+                    lineinteractive="true"
+                    color="graph.colorIterator()"
+                    objectequality="true"
+                    margin="{left:60, right:60}"
+                    showLegend="true">
+                        <svg></svg>
+                </nvd3-line-plus-bar-chart>
+            </portlet>
+        </div>
+
+        <div class="col-lg-3 col-sm-12">
+            <metric color="orange-inverse" title="Totaux"></metric>
+            <metric color="orange" title="Imp.">
+                {{ totalViews | alkPowerOfThousands }}
+            </metric>
+            <metric color="orange" title="Clicks">
+                {{ totalClicks | alkPowerOfThousands }}
+            </metric>
+            <metric color="orange" title="Retargeted">
+                {{ totalRetargeted / totalViews * 100 | number:2 }} %
+            </metric>
+            <metric color="orange" title="Click rate">
+                {{ totalClicks / totalViews * 100 | number:2 }} %
+            </metric>
+            <metric color="orange" title="Leads">
+                {{ totalLeads | alkPowerOfThousands }}
+            </metric>
+            <metric color="orange" title="CTR">
+                {{ totalLeads / totalClicks * 100 | number:2 }} %
+            </metric>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-12 col-sm-12">
+            <portlet color="orange" title="Évolution des performances">
+                <table class="table table-condensed table-bordered">
+                    <thead>
+                        <tr class="color-advertising-inverse">
+                            <th>Date</th>
+                            <th ng-repeat="display in linechartVolumes[0].values">{{display[0] | date:'MM-dd'}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th class="color-advertising">Impressions</th>
+                            <td ng-repeat="display in linechartVolumes[0].values">{{display[1]}}</td>
+                        </tr>
+                        <tr>
+                            <th class="color-advertising">Impressions Anonymes</th>
+                            <td ng-repeat="display in linechartVolumes[1].values">{{display[1]}}</td>
+                        </tr>
+                        <tr>
+                            <th class="color-advertising">Impressions Reconnu</th>
+                            <td ng-repeat="display in linechartVolumes[2].values">{{display[1]}}</td>
+                        </tr>
+                        <tr>
+                            <th class="color-advertising">Taux Reconnu %</th>
+                            <td ng-repeat="tx in txRetargeted.values">{{tx[1]}}</td>
+                        </tr>
+                        <tr>
+                            <th class="color-advertising">Leads</th>
+                            <td ng-repeat="lead in linechartVolumes[3].values">{{lead[1]}}</td>
+                        </tr>
+                        <tr>
+                            <th class="color-advertising">Taux Lead %</th>
+                            <td ng-repeat="tx in txLead.values">{{tx[1]}}</td>
+                        </tr>
+                        <tr>
+                            <th class="color-advertising">Taux Lead Reconnu %</th>
+                            <td ng-repeat="tx in txLeadRetargeted.values">{{tx[1]}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </portlet>
+        </div>
+    </div>
+</div>
