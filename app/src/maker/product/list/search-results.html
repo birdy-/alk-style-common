@@ -1,13 +1,13 @@
 <div class="sheet">
     <div class="row" infinite-scroll="more()">
-        <div ng-repeat="product in products" class="col-sm-2 product">
-            <div class="picture missing-picture" ng-click="show(product)">
+        <div ng-repeat="product in products track by $index" class="col-sm-2 product" id="product-{{ $index }}">
+            <div class="picture missing-picture" ng-click="show(product, $index)">
                 <div class="ratio" ng-style="{'background-image': 'url(' + product.urlPictureOriginal + ')'}"  style="height: 100px;">
                 </div>
             </div>
             <div class="name">
                 <!-- Use the first ProductReference linked to identify the product -->
-                <a ng-href="/#/maker/product/{{ product.isIdentifiedBy[0].reference }}/data/general">
+                <a ng-click="show(product, $index)">
                     {{ product.nameLegal }}
                 </a>
             </div>

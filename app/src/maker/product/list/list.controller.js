@@ -9,24 +9,14 @@
  * @return {[type]}               [description]
  */
 angular.module('jDashboardFluxApp').controller('DashboardMakerProductListController', [
-    '$scope', '$$sdkCrud', 'permission', '$routeParams', '$$ORM', '$log', '$location', '$window', 'URL_CDN_MEDIA',
-    function ($scope, $$sdkCrud, permission, $routeParams, $$ORM, $log, $location, $window, URL_CDN_MEDIA) {
+    '$rootScope', '$scope', '$$sdkCrud', 'permission', '$routeParams', '$$ORM', '$log', '$location', '$window', 'URL_CDN_MEDIA', '$timeout', '$anchorScroll',
+    function ($rootScope, $scope, $$sdkCrud, permission, $routeParams, $$ORM, $log, $location, $window, URL_CDN_MEDIA, $timeout, $anchorScroll) {
 
     // ------------------------------------------------------------------------
     // Variables
     // ------------------------------------------------------------------------
-    $scope.request = {
-        product: {
-            name: '',
-            isBrandedBy: null,
-            certified: [],
-            certifieds: {},
-            isIdentifiedBy: {
-                reference: null
-            }
-        }
-    };
-    $scope.products = [];
+    $scope.request = $rootScope.navigation.maker.request;
+    $scope.products = $scope.request.products || [];
     $scope.scroll = {
         offset: 0,
         limit: 24,
@@ -35,14 +25,39 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     };
     $scope.allBrands = [];
     $scope.brands = [];
-    $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_ATTRIBUTED.id] = true;
-    $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_ACCEPTED.id] = true;
-    $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_CERTIFIED.id] = true;
-    $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_PUBLISHED.id] = true;
-    $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_DISCONTINUED.id] = false;
+
+    // `$scope.request` is retrieved from the rootScope by inheritance
+    if (!$scope.request.initialized) {
+        $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_ATTRIBUTED.id] = true;
+        $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_ACCEPTED.id] = true;
+        $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_CERTIFIED.id] = true;
+        $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_PUBLISHED.id] = true;
+        $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_DISCONTINUED.id] = false;
+        $scope.request.initialized = true;
+    }
     $scope.options = {
         'data-drag-enabled': false
     };
+
+    // ------------------------------------------------------------------------
+    // Init
+    // ------------------------------------------------------------------------
+
+    // Allow scrolling back to previous position when infinite scolling
+    // Timeout with no delay is necessary to let the DOM load
+    $timeout(function () {
+        if ($scope.request.scrollAnchor) {
+            var anchor = 'product-' + ($scope.request.scrollAnchor);
+            if ($location.hash() !== anchor) {
+               $location.hash(anchor);
+             } else {
+               $anchorScroll();
+               // 'Hacky' fix for fixed header
+               // https://github.com/angular/angular.js/issues/2070
+               $window.scrollTo($window.pageXOffset, $window.pageYOffset - 50);
+             }
+        };
+    });
 
     // ------------------------------------------------------------------------
     // Event handling
@@ -101,6 +116,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
                 $scope.products.push(product);
             }
 
+            $scope.request.products = $scope.products;
             $scope.scroll.busy = false;
             $scope.scroll.offset = $scope.products.length;
         });
@@ -160,6 +176,8 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
                 product = hydrateProduct(response.data[i]);
                 $scope.products.push(product);
             }
+
+            $scope.request.products = $scope.products;
             $scope.scroll.busy = false;
             $scope.scroll.offset = $scope.products.length;
         }).error(function (response) {
@@ -170,13 +188,16 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     $scope.more = function () {
         list();
     };
+
     var refresh = function () {
         $log.log("Product List Controller : refresh <Products>.");
         $scope.scroll.offset = 0;
         $scope.scroll.stop = false;
         $scope.products = [];
+        $scope.request.products = $scope.products;
         list();
     };
+
     var propagate = function (brand, value) {
         if (!brand._subBrands) {
             return;
@@ -191,13 +212,21 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         propagate(brand, brand.active);
         refresh();
     };
-    $scope.show = function (product) {
+
+    $scope.show = function (product, index) {
+        $scope.request.scrollAnchor = index;
         $location.path('/maker/product/' + product.isIdentifiedBy[0].reference + '/data/general');
     };
 
-    $scope.$watch('request.product.isIdentifiedBy.reference', refresh);
-    $scope.$watch('request.product.nameLegal', refresh);
-    $scope.$watch('request.product.certifieds', refresh, true);
+    $scope.$watch('request.product.isIdentifiedBy.reference', function(newVal, oldVal) {
+        if (oldVal !== newVal) refresh();
+    });
+    $scope.$watch('request.product.nameLegal', function(newVal, oldVal) {
+        if (oldVal !== newVal) refresh();
+    });
+    $scope.$watch('request.product.certifieds', function(newVal, oldVal) {
+        if (oldVal !== newVal) refresh();
+    }, true);
 
     // ------------------------------------------------------------------------
     // Init
