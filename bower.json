@@ -19,5 +19,9 @@
   "dependencies": {
     "bootstrap-sass-official": "~3.3.1",
     "font-awesome": "~4.2.0"
+  },
+  "resolutions": {
+    "bootstrap-sass-official": "~3.3.1",
+    "font-awesome": "~4.2.0"
   }
 }
