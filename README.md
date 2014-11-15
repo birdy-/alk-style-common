@@ -52,14 +52,14 @@ That's it! You've got your working dev package.
 
 ## Deploy
 
-For preproduction :
+For preproduction:
 
 ```
 grunt build-preprod
 cd capistrano && bundle exec cap preprod alk:deploy
 ```
 
-For production :
+For production:
 
 ```
 grunt build
