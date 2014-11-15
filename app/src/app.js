@@ -335,17 +335,21 @@ app.config(function($httpProvider) {
 app.run([
     '$rootScope',
     function ($rootScope) {
-        $rootScope.request = {
-            product: {
-                name: '',
-                isBrandedBy: null,
-                certified: [],
-                certifieds: {},
-                isIdentifiedBy: {
-                    reference: null
+        $rootScope.navigation = {
+            maker: {
+                request: {
+                    product: {
+                        name: '',
+                        isBrandedBy: null,
+                        certified: [],
+                        certifieds: {},
+                        isIdentifiedBy: {
+                            reference: null
+                        }
+                    },
+                    initialized: false
                 }
-            },
-            initialized: false
+            }
         };
     }
 ]);

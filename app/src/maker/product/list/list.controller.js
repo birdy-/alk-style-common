@@ -9,12 +9,13 @@
  * @return {[type]}               [description]
  */
 angular.module('jDashboardFluxApp').controller('DashboardMakerProductListController', [
-    '$scope', '$$sdkCrud', 'permission', '$routeParams', '$$ORM', '$log', '$location', '$window', 'URL_CDN_MEDIA', '$timeout', '$anchorScroll',
-    function ($scope, $$sdkCrud, permission, $routeParams, $$ORM, $log, $location, $window, URL_CDN_MEDIA, $timeout, $anchorScroll) {
+    '$rootScope', '$scope', '$$sdkCrud', 'permission', '$routeParams', '$$ORM', '$log', '$location', '$window', 'URL_CDN_MEDIA', '$timeout', '$anchorScroll',
+    function ($rootScope, $scope, $$sdkCrud, permission, $routeParams, $$ORM, $log, $location, $window, URL_CDN_MEDIA, $timeout, $anchorScroll) {
 
     // ------------------------------------------------------------------------
     // Variables
     // ------------------------------------------------------------------------
+    $scope.request = $rootScope.navigation.maker.request;
     $scope.products = $scope.request.products || [];
     $scope.scroll = {
         offset: 0,
@@ -42,6 +43,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     // Init
     // ------------------------------------------------------------------------
 
+    // Allow scrolling back to previous position when infinite scolling
     // Timeout with no delay is necessary to let the DOM load
     $timeout(function () {
         if ($scope.request.scrollAnchor) {
