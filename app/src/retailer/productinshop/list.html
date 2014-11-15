@@ -52,13 +52,22 @@
             <div class="col-sm-2">
                 <input style="width: 100%;" type="text" class="form-control" placeholder="EAN" ng-model="request.productReference.reference">
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-2">
+                <div alk-autocomplete-my
+                     alk-autocomplete-type="ProductInShopSegment"
+                     alk-autocomplete-multiple="false"
+                     alk-autocomplete-restrict="restrict"
+                     placeholder="Choisir un fournisseur"
+                     ng-model="request.productInShopSegment">
+                </div>
+            </div>
+            <div class="col-sm-3">
                 <input style="width: 100%;" type="text" class="form-control" placeholder="Nom du produit" ng-model="request.productInShop.name">
             </div>
             <div class="col-sm-1">
-                <button style="width: 100%;"  type="submit" class="btn btn-default" ng-click="refresh()"><i class="fa fa-filter"></i> Filtrer</button>
+                <button style="width: 100%;"  type="submit" class="btn btn-success" ng-click="refresh()"><i class="fa fa-search"></i></button>
             </div>
-            <div class="form-group col-sm-3 text-right">
+            <div class="form-group col-sm-2 text-right">
                 <span class="btn btn-success" ng-click="prev()"><i class="fa fa-arrow-left"></i></span>
                 <span class="btn btn-success" ng-click="next()"><i class="fa fa-arrow-right"></i></span>
             </div>
@@ -74,6 +83,7 @@
                     <tr>
                         <th class="text-center">Référence</th>
                         <th class="text-center">EAN</th>
+                        <th class="text-center">Statut</th>
                         <th class="text-center">Image</th>
                         <th>Nom</th>
                         <th class="text-center">Action</th>
@@ -86,6 +96,11 @@
                         <td class="text-center">
                             <span ng-repeat="pr in productInShop.isIdentifiedBy">
                                 <span class="label label-default">{{ pr.reference }}</span> <br/>
+                            </span>
+                        </td>
+                        <td class="text-center">
+                            <span class="label" ng-class="certifiedClass(productInShop)">
+                                {{ certifiedName(productInShop) }}
                             </span>
                         </td>
                         <td class="text-center"><img height="60" width="60" ng-src="{{ productInShop.picture.main }}"></td>

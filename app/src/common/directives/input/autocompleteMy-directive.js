@@ -106,6 +106,14 @@ angular.module('jDashboardFluxApp').directive('alkAutocompleteMy', [
                     }
                     var config = $$autocomplete.getOptionAutocompletes(type, {}, scope.filters);
                     angular.extend(scope.options.ajax, config.ajax);
+                } else if (type === 'productinshopsegment') {
+                    if (!scope.filters.filter_shop_id) {
+                        scope.filters.filter_shop_id = user.managesShop.map(function (entity) {
+                            return entity.id;
+                        }).join(',');
+                    }
+                    var config = $$autocomplete.getOptionAutocompletes(type, {}, scope.filters);
+                    angular.extend(scope.options.ajax, config.ajax);
                 }
             });
         }

@@ -13,6 +13,27 @@ var Product = function () {
         return this;
     };
 
+    this.certifieds = function () {
+        return [
+            Product.CERTIFICATION_STATUS_DEFAULT,
+            Product.CERTIFICATION_STATUS_REVIEWING,
+            Product.CERTIFICATION_STATUS_ATTRIBUTED,
+            Product.CERTIFICATION_STATUS_ACCEPTED,
+            Product.CERTIFICATION_STATUS_CERTIFIED,
+            Product.CERTIFICATION_STATUS_PUBLISHED,
+            Product.CERTIFICATION_STATUS_DISCONTINUED
+        ];
+    };
+    this.certifiedName = function () {
+        var certifieds = this.certifieds();
+        for (var i = 0; i < certifieds.length; i++) {
+            if (certifieds[i].id === this.certified) {
+                return certifieds[i].name;
+            }
+        }
+        return '';
+    };
+
     this.isValidated = function () {
         return this.status === Product.STATUS_VALIDATED.id;
     };

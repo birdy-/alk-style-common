@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('jDashboardFluxApp').directive('selectCommonunit', [
+angular.module('jDashboardFluxApp').directive('alkModelCommonunitSelect', [
     '$$ORM',
     function ($$ORM) {
     return {
@@ -8,9 +8,9 @@ angular.module('jDashboardFluxApp').directive('selectCommonunit', [
         scope: {
             localModel: '=ngModel'
         },
-        requires: 'ngModel',
+        require: 'ngModel',
         templateUrl: '/src/common/directives/input/select-object.html',
-        link: function(scope, elem, attrs) {
+        link: function (scope, elem, attrs) {
             scope.choices = [
                 $$ORM.repository('CommonUnit').lazy(3),
                 $$ORM.repository('CommonUnit').lazy(22),
