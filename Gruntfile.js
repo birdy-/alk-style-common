@@ -541,7 +541,7 @@ module.exports = function (grunt) {
     // 'uglify',// Do not compress for preprod debug
     'rev',
     'usemin',
-    // 'sosie',
+    'sosie',
     'copy:prod',
     'shell:compress'
   ]);
