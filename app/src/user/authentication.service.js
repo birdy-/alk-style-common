@@ -52,8 +52,8 @@ angular.module('jDashboardFluxApp').service('permission', [
      */
     var login = function (login, password) {
         return $http.post(URL_SERVICE_AUTH + '/auth/v1/user/login', {
-            username: login,
-            password: password,
+            username: login.toString(),
+            password: password.toString(),
             grant_type: 'password',
             origin: 'dashboard_stream'
         }).success(function (response) {
