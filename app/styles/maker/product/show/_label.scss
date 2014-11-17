@@ -1,0 +1,108 @@
+.label-picto {
+    max-height: 50px;
+    max-width: 50px;
+}
+
+.product-labels-header {
+    border-bottom: 1px solid $gray-lighter;
+    min-height: 80px;
+
+    .label-summary {
+        font-size: 1.5em;
+
+        p {
+            font-size: 0.9em;
+        }
+    }
+}
+
+.label-group {
+    border-bottom: 1px solid $gray-lighter;
+
+    .row {
+        @include transition(all 0.3s ease);
+        opacity: 0;
+    }
+
+    &.active {
+        .row {
+            @include transition(all 0.3s ease);
+            opacity: 1;
+        }
+
+        .header {
+            h3 {
+                &:after {
+                    content: "\f106";
+                }
+            }
+        }
+    }
+
+    .header {
+        height: 80px;
+
+        h3 {
+            cursor: pointer;
+            line-height: 80px;
+            margin: 0;
+            vertical-align: middle;
+
+            &:after {
+                content: "\f107";
+                font-family: "FontAwesome";
+                margin-left: 1em;
+            }
+        }
+    }
+
+    .product-label {
+        margin-bottom: 20px;
+
+        .checkbox {
+            padding-top: 0;
+
+            label {
+                width: 100%;
+
+                input[type="checkbox"] {
+                    &:checked {
+                        ~ p {
+                            border: 2px solid $alk-green;
+                            background: lighten($alk-green-lighter, 20%);
+
+                            img {
+                                background: white;
+                                border: 1px solid $alk-green;
+                            }
+                        }
+                    }
+                }
+            }
+
+            p {
+                @include user-select(none);
+                padding: 10px;
+                height: 70px;
+                margin-top: 0;
+                margin-bottom: 0;
+            }
+
+            img {
+                float: left;
+                margin-right: 10px;
+                vertical-align: baseline;
+            }
+        }
+    }
+
+    [data-product-label] {
+        .checkbox {
+            label {
+                input[type="checkbox"] {
+                    display: none;
+                }
+            }
+        }
+    }
+}

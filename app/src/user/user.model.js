@@ -1,7 +1,7 @@
 'use strict';
 
-var   User = function(){
-    // NB : it is very important not to set the vaues below to [] otherwise
+var User = function(){
+    // NB : it is very important not to set the values below to [] otherwise
     // it will overwrite the related entities by a []...
     this._type = 'User';
     this.fromJson = function(json) {

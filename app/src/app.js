@@ -5,6 +5,7 @@ var app = angular.module('jDashboardFluxApp', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
+  'ngAnimate',
   'http-auth-interceptor',
   'ui.select2',
   'ui.bootstrap',
@@ -38,6 +39,8 @@ app.factory('plupload', [
 
 
 var env = (window.location.hostname.indexOf('localhost') === 0) ? 'dev' : 'prod';
+
+//env = 'prod';
 
 if (env === 'prod') {
     app.constant('URL_CDN_MEDIA', 'https://smedia.alkemics.com');
@@ -241,10 +244,13 @@ app.config(function ($routeProvider) {
         templateUrl: 'src/retailer/notification/list.html',
         controller: 'DashboardRetailerNotificationListController'
     });
-
     $routeProvider.when('/retailer/productinshop', {
         templateUrl: 'src/retailer/productinshop/list.html',
         controller: 'RetailerProductInShopListController'
+    });
+    $routeProvider.when('/retailer/productinshopsegment', {
+        templateUrl: 'src/retailer/productinshopsegment/list.html',
+        controller: 'RetailerProductInShopSegmentListController'
     });
 
 
@@ -327,6 +333,32 @@ app.config(function($httpProvider) {
     $httpProvider.defaults.headers.common['Cache-Control'] = 'no-cache';
 });
 
+// ------------------------------------------------------------------------------------------
+// App init
+// ------------------------------------------------------------------------------------------
+
+// Configure the navigation parameters on dashboard maker products
+app.run([
+    '$rootScope',
+    function ($rootScope) {
+        $rootScope.navigation = {
+            maker: {
+                request: {
+                    product: {
+                        name: '',
+                        isBrandedBy: null,
+                        certified: [],
+                        certifieds: {},
+                        isIdentifiedBy: {
+                            reference: null
+                        }
+                    },
+                    initialized: false
+                }
+            }
+        };
+    }
+]);
 
 // Mock for development
 if (env === 'dev') {

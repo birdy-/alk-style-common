@@ -7,7 +7,7 @@ angular.module('jDashboardFluxApp').directive('selectProductpicturecontenttype',
         scope: {
             localModel: '=ngModel'
         },
-        requires: 'ngModel',
+        require: 'ngModel',
         templateUrl: '/src/common/directives/input/select-id.html',
         link: function(scope, elem, attrs) {
             scope.choices = [
@@ -28,7 +28,7 @@ angular.module('jDashboardFluxApp').directive('selectProductpicturefacedisplayed
         scope: {
             localModel: '=ngModel'
         },
-        requires: 'ngModel',
+        require: 'ngModel',
         templateUrl: '/src/common/directives/input/select-id.html',
         link: function(scope, elem, attrs) {
             scope.choices = [
@@ -51,7 +51,7 @@ angular.module('jDashboardFluxApp').directive('selectProductpictureanglehorizont
         scope: {
             localModel: '=ngModel'
         },
-        requires: 'ngModel',
+        require: 'ngModel',
         templateUrl: '/src/common/directives/input/select-id.html',
         link: function(scope, elem, attrs) {
             scope.choices = [
@@ -70,7 +70,7 @@ angular.module('jDashboardFluxApp').directive('selectProductpictureanglevertical
         scope: {
             localModel: '=ngModel'
         },
-        requires: 'ngModel',
+        require: 'ngModel',
         templateUrl: '/src/common/directives/input/select-id.html',
         link: function(scope, elem, attrs) {
             scope.choices = [
@@ -89,7 +89,7 @@ angular.module('jDashboardFluxApp').directive('selectProductpicturetransparency'
         scope: {
             localModel: '=ngModel'
         },
-        requires: 'ngModel',
+        require: 'ngModel',
         templateUrl: '/src/common/directives/input/select-id.html',
         link: function(scope, elem, attrs) {
             scope.choices = [

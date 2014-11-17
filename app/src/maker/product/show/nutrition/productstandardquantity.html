@@ -18,10 +18,10 @@
                 <input name="quantity" type="text" class="form-control" ng-model="psq.quantity" placeholder="ex : 100" required alk-float/>
             </div>
             <div class="col-sm-3">
-                <div select-commonunit name="isMeasuredBy" ng-model="psq.isMeasuredBy"></div>
+                <div alk-model-commonunit-select name="isMeasuredBy" ng-model="psq.isMeasuredBy"></div>
             </div>
             <div class="col-sm-4">
-                <div select-preparationstate name="preparationState" ng-model="psq.preparationState"></div>
+                <div alk-model-productstandardquantity-preparationstate-select name="preparationState" ng-model="psq.preparationState"></div>
             </div>
         </div>
     </form>

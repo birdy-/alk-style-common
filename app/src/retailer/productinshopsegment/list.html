@@ -1,0 +1,60 @@
+<div ng-include="'/src/retailer/home/header.html'"></div>
+
+<div class="container">
+    <h1>Fournisseurs</h1>
+
+    <div class="row">
+        <form class="form-inline" role="form">
+            <div class="col-sm-2">
+                <input type="text" class="form-control" style="width: 100%;"
+                       placeholder="Référence"
+                       ng-model="request.productInShopSegment.shortId"
+                       ng-change="refresh()">
+            </div>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" style="width: 100%;"
+                       placeholder="Nom du fournisseur"
+                       ng-model="request.productInShopSegment.name"
+                       ng-change="refresh()">
+            </div>
+            <div class="col-sm-1">
+                <button type="submit" class="btn btn-success" style="width: 100%;"
+                        ng-click="refresh()">
+                    <i class="fa fa-search"></i>
+                </button>
+            </div>
+            <div class="col-sm-4"></div>
+            <div class="form-group col-sm-2 text-right">
+                <span class="btn btn-success" ng-click="prev()"><i class="fa fa-arrow-left"></i></span>
+                <span class="btn btn-success" ng-click="next()"><i class="fa fa-arrow-right"></i></span>
+            </div>
+        </form>
+    </div>
+
+
+    <br/>
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-bordered">
+                <thead class="color-stream-inverse">
+                    <tr>
+                        <th class="text-center">Référence</th>
+                        <th>Nom</th>
+                        <th>Total</th>
+                        <th>En cours</th>
+                        <th>Certifiés</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="productInShopSegment in productInShopSegments">
+                        <td class="text-center">{{ productInShopSegment.shortId }}</td>
+                        <td>{{ productInShopSegment.name }}</td>
+                        <td class="text-center"><!-- todo --></td>
+                        <td class="text-center"><!-- todo --></td>
+                        <td class="text-center"><!-- todo --></td>
+                    </tr>
+                <tbody>
+            </table>
+        </div>
+    </div>
+</div>

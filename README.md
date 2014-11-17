@@ -29,6 +29,8 @@ cd capistrano && bundle install
 
 ## Run
 
+Make sure to have an entry for `localstream.alkemics.com` in your /etc/hosts
+
 ```
 # Serve
 grunt serve
@@ -36,16 +38,30 @@ grunt serve
 grunt test
 ```
 
+## Dev
+
+By default the sdk-dashboard package is installed via Github.
+However when developping you will probably need to use your local version.
+
+```
+cd ~/alkemics/dev/sdk-dashboard
+bower link
+cd ~/alkemics/dev/dashboard-flux
+bower link sdk-dashboard
+```
+
+That's it! You've got your working dev package.
+
 ## Deploy
 
-For preproduction :
+For preproduction:
 
 ```
 grunt build-preprod
 cd capistrano && bundle exec cap preprod alk:deploy
 ```
 
-For production :
+For production:
 
 ```
 grunt build
@@ -67,11 +83,26 @@ Grunt test will launch all tests now
 
 Be sure to have a JDK and protractor installed as described in [documentation](http://angular.github.io/protractor/#/)
 
+Run Protractor
+
 ```
 npm install -g protractor
 grunt serve
 protractor test/protractor.conf.js
 ```
+
+Make sure to have selenium running in the background
+
+```
+./node_modules/.bin/webdriver update
+./node_modules/.bin/webdriver start
+```
+
+The first time, you will need to copy protractor dist configuration file
+```
+cp test/protractor.conf.js.dist test/protractor.conf.js
+```
+
 
 ### Jenkins integration
 

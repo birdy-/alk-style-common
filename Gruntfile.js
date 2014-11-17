@@ -51,7 +51,10 @@ module.exports = function (grunt) {
         tasks: ['newer:jshint:test', 'karma']
       },
       compass: {
-        files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
+        files: [
+          '<%= yeoman.app %>/styles/{,*/}*.{scss,sass}',
+          '<%= yeoman.app %>/bower_components/alk-style-common/{,*/}*.{scss,sass}'
+        ],
         tasks: ['compass:server', 'autoprefixer']
       },
       styles: {
@@ -538,7 +541,7 @@ module.exports = function (grunt) {
     // 'uglify',// Do not compress for preprod debug
     'rev',
     'usemin',
-    // 'sosie',
+    'sosie',
     'copy:prod',
     'shell:compress'
   ]);

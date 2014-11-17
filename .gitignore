@@ -13,5 +13,4 @@ dashboard-flux-test-results.xml
 
 *.DS_Store
 app.tar.gz
-app/styles
 test/protractor.conf.js
