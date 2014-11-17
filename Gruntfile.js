@@ -406,7 +406,6 @@ module.exports = function (grunt) {
     protractor: {
         options: {
             configFile: "test/protractor.conf.js",
-            keepAlive: true,
             noColor: false,
             args: {}
         },
