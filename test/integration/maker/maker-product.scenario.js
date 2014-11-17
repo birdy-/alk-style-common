@@ -48,6 +48,7 @@ describe('[Dashboard Maker] Product page', function () {
 
                 console.log('absolutePath', absolutePath);
                 productPage.getUploadMediaBtn().sendKeys(absolutePath);
+                // browser.pause();
 
                 // productPage.getValidateUploadMediaBtn().click().then(function () {
                 //     console.log('should have been uploaded')
