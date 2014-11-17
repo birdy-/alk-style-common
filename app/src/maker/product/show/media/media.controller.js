@@ -33,7 +33,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaCo
             });
         };
 
-        $scope.uploadNewPictures = function() {
+        $scope.uploadNewPictures = function () {
             var uploadModal = $modal.open({
                 templateUrl: 'src/maker/product/show/media/upload-picture.html',
                 resolve: {
@@ -48,6 +48,12 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaCo
             uploadModal.result.then(function () {
                 fetchPictures($scope.product.id);
             }, function () {
+            });
+        };
+
+        $scope.deletePicture = function (picture) {
+            $$sdkMedia.EntityPictureDelete(picture.id).then(function(response){
+                $window.alert('Nous avons bien pris en compte votre demande. Le visuel va être supprimé. Cette opération peut prendre quelque temps, merci pour votre patience.');
             });
         };
 
