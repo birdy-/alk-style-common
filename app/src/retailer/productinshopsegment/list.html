@@ -49,9 +49,9 @@
                     <tr ng-repeat="productInShopSegment in productInShopSegments">
                         <td class="text-center">{{ productInShopSegment.shortId }}</td>
                         <td>{{ productInShopSegment.name }}</td>
-                        <td class="text-center"><!-- todo --></td>
-                        <td class="text-center"><!-- todo --></td>
-                        <td class="text-center"><!-- todo --></td>
+                        <td class="text-center">{{ productInShopSegment.statistics.total }}</td>
+                        <td class="text-center">{{ productInShopSegment.statistics.inProgress }}</td>
+                        <td class="text-center">{{ productInShopSegment.statistics.certified }}</td>
                     </tr>
                 <tbody>
             </table>
