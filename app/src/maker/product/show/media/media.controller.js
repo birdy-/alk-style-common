@@ -52,7 +52,11 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaCo
         };
 
         $scope.deletePicture = function (picture) {
-            $$sdkMedia.EntityPictureDelete(picture.id).then(function(response){
+            $$sdkMedia.EntityPictureDelete(
+                'product',
+                picture.product_id,
+                picture.id
+            ).then(function(response){
                 $window.alert('Nous avons bien pris en compte votre demande. Le visuel va être supprimé. Cette opération peut prendre quelque temps, merci pour votre patience.');
             });
         };
