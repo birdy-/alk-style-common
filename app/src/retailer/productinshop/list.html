@@ -38,11 +38,13 @@
             </h3>
        </div>
     </div>
-
-
     <br/>
     <br/>
     <br/>
+    <h3>Détails par fournisseurs</h3>
+    <div class="row">
+        <div class="col-sm-3"><a href="#/retailer/productinshopsegment" class="btn btn-block btn-default">Voir le détail</a></div>
+    </div>
     <h3>Détails des produits</h3>
     <div class="row">
         <form class="form-inline" role="form">
@@ -52,7 +54,7 @@
             <div class="col-sm-2">
                 <input style="width: 100%;" type="text" class="form-control" placeholder="EAN" ng-model="request.productReference.reference">
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-3">
                 <div alk-autocomplete-my
                      alk-autocomplete-type="ProductInShopSegment"
                      alk-autocomplete-multiple="false"
@@ -61,7 +63,7 @@
                      ng-model="request.productInShopSegment">
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-2">
                 <input style="width: 100%;" type="text" class="form-control" placeholder="Nom du produit" ng-model="request.productInShop.name">
             </div>
             <div class="col-sm-1">
