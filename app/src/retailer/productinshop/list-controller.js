@@ -54,6 +54,7 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
             }, {
                 productInShopSegment_id: $scope.request.productInShopSegment ? $scope.request.productInShopSegment.id : null,
                 productReference_reference: $scope.request.productReference.reference,
+                product_certified: $scope.request.product.certified,
                 shortIdOut: $scope.request.productInShop.shortIdOut,
                 shop_shortId: $scope.request.shop.shortId
             }, {}, $scope.request.offset, $scope.request.limit, {
@@ -106,7 +107,7 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
 
         $scope.show = function (productInShop) {
             var modalInstance = $modal.open({
-                templateUrl: '/src/retailer/product/show-modal.html',
+                templateUrl: '/src/retailer/productinshop/show-modal.html',
                 controller: 'ProductShowModalController',
                 size: 'lg',
                 resolve: {
@@ -136,7 +137,7 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
                 case Product.CERTIFICATION_STATUS_PUBLISHED.id:
                     return 'Certifié';
                 case Product.CERTIFICATION_STATUS_DISCONTINUED.id:
-                    return 'Archivé';
+                    return 'Déprécié';
                 default:
                     return "";
             }

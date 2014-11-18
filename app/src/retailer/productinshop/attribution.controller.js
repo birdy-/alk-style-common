@@ -7,6 +7,9 @@ angular.module('jDashboardFluxApp').controller('ProductAttributionModalControlle
     '$scope', '$log', '$modalInstance', '$window', 'productInShops', 'user', '$$sdkMailer',
     function ($scope, $log, $modalInstance, $window, productInShops, user, $$sdkMailer) {
 
+    // ------------------------------------------------------------------------
+    // Variables
+    // ------------------------------------------------------------------------
         $scope.productInShops = productInShops;
         $scope.message = {
             from: user,
@@ -18,20 +21,25 @@ angular.module('jDashboardFluxApp').controller('ProductAttributionModalControlle
                 productInShops: productInShops
             }
         };
-        $scope.ok = function () {
-            // @todo :
 
+    // ------------------------------------------------------------------------
+    // Event binding
+    // ------------------------------------------------------------------------
+        $scope.ok = function () {
             $$sdkMailer.RetailerProductDataCompletionInvitationPost($scope.message).success(function (response) {
-                $log.info(response);
                 $window.alert('Le message a bien été envoyé.');
                 $modalInstance.close();
             }).error(function(){
                 $window.alert('Une erreur est survenue pendant l\'envoi de l\'email. Merci de réessayer ultérieurement ou de contacter notre support.');
             });
-
         };
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel');
         };
+
+
+    // ------------------------------------------------------------------------
+    // Init
+    // ------------------------------------------------------------------------
     }
 ]);
