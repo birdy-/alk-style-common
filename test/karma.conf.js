@@ -31,6 +31,7 @@ module.exports = function(config) {
       'app/bower_components/angular-ui-select2/src/select2.js',
       'app/bower_components/angular-ui-sortable/sortable.js',
       'app/bower_components/angular-ui-tree/dist/angular-ui-tree.js',
+      'app/bower_components/angular-ui-utils/ui-utils.js',
       'app/bower_components/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.js',
       //'app/bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js',
       //'app/bower_components/d3/d3.js',
