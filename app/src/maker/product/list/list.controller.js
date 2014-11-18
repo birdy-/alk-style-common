@@ -40,26 +40,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     };
 
     // ------------------------------------------------------------------------
-    // Init
-    // ------------------------------------------------------------------------
-
-    // Allow scrolling back to previous position when infinite scolling
-    // Timeout with no delay is necessary to let the DOM load
-    $timeout(function () {
-        if ($scope.request.scrollAnchor) {
-            var anchor = 'product-' + ($scope.request.scrollAnchor);
-            if ($location.hash() !== anchor) {
-               $location.hash(anchor);
-             } else {
-               $anchorScroll();
-               // 'Hacky' fix for fixed header
-               // https://github.com/angular/angular.js/issues/2070
-               $window.scrollTo($window.pageXOffset, $window.pageYOffset - 50);
-             }
-        };
-    });
-
-    // ------------------------------------------------------------------------
     // Event handling
     // ------------------------------------------------------------------------
 
@@ -96,33 +76,15 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     };
 
     var findByReference = function () {
-        var queries = {};
         var filters = {
-            reference: $scope.request.product.isIdentifiedBy.reference
+            isidentifiedby_reference: $scope.request.product.isIdentifiedBy.reference
         };
-        $log.log("Product List Controller : listing by reference="+filters.reference);
-        $scope.scroll.busy = true;
-        $$sdkCrud.ProductReferenceList(queries, filters, {},
-            $scope.scroll.offset,
-            $scope.scroll.limit
-        ).success(function (response) {
-            if (response.data.length < $scope.scroll.limit) {
-                $scope.scroll.stop = true;
-            }
-            var product;
-            $log.log("Product List Controller : " + response.data.length + " results found.");
-            for (var i = 0; i < response.data.length; i ++) {
-                product = hydrateProduct(response.data[i].identifies);
-                $scope.products.push(product);
-            }
 
-            $scope.request.products = $scope.products;
-            $scope.scroll.busy = false;
-            $scope.scroll.offset = $scope.products.length;
-        });
+        return findByBrand(filters);
     };
 
-    var findByBrand = function () {
+    var findByBrand = function (filters) {
+        var filters = filters || {};
         var brands = [];
         for (var i = 0; i < $scope.allBrands.length; i++) {
             if ($scope.allBrands[i].active === true) {
@@ -136,10 +98,10 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         brands = brands.join(',');
 
         $log.log("Product List Controller : listing by <Brand> " + brands);
-        var filters = {
+        var filters = angular.extend({
             isbrandedby_id: brands,
             certified: $scope.request.product.certified
-        };
+        }, filters);
         return find({}, filters);
     };
 
@@ -166,7 +128,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         $$sdkCrud.ProductList(queries, filters, {},
             $scope.scroll.offset,
             $scope.scroll.limit,
-            {isIdentifiedBy: 1}
+            { isIdentifiedBy: 1 }
         ).success(function (response) {
             if (response.data.length < $scope.scroll.limit) {
                 $scope.scroll.stop = true;
@@ -231,6 +193,23 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     // ------------------------------------------------------------------------
     // Init
     // ------------------------------------------------------------------------
+
+    // Allow scrolling back to previous position when infinite scolling
+    // Timeout with no delay is necessary to let the DOM load
+    $timeout(function () {
+        if ($scope.request.scrollAnchor) {
+            var anchor = 'product-' + ($scope.request.scrollAnchor);
+            if ($location.hash() !== anchor) {
+               $location.hash(anchor);
+             } else {
+               $anchorScroll();
+               // 'Hacky' fix for fixed header
+               // https://github.com/angular/angular.js/issues/2070
+               $window.scrollTo($window.pageXOffset, $window.pageYOffset - 50);
+             }
+        };
+    });
+
     var init = function () {
         $scope.scroll.busy = true;
         permission.getUser().then(function (user) {

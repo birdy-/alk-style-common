@@ -15,6 +15,7 @@ var app = angular.module('jDashboardFluxApp', [
   'infinite-scroll',
   'ui.sortable',
   'ui.tree',
+  'ui.utils',
   'nvd3ChartDirectives',
   'textAngular',
   'ngHandsontable'
