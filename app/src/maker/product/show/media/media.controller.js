@@ -56,8 +56,14 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaCo
                 'product',
                 picture.product_id,
                 picture.id
-            ).then(function(response){
+            ).success(function (response) {
                 $window.alert('Nous avons bien pris en compte votre demande. Le visuel va être supprimé. Cette opération peut prendre quelque temps, merci pour votre patience.');
+            }).error(function (error) {
+                if (error.status === 403) {
+                    $window.alert('Vous n\'avez pas les permissions nécessaires pour cette opération');
+                } else {
+                    $window.alert('Une erreur est survenue : ' + error.message);
+                }
             });
         };
 
