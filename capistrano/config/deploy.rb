@@ -42,8 +42,21 @@ set :log_level, :debug
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
+set :slack_team, "alkemics"
+set :slack_token, "xoxp-2722465896-2945065910-3034863114-8cf50a"
+
+set :slack_channel,      ->{ '#front' }
+set :slack_username,     ->{ 'Slackistrano - dashboard-flux' }
+set :slack_run_starting, ->{ true }
+set :slack_run_finished, ->{ true }
+set :slack_run_failed,   ->{ true }
+set :slack_msg_starting, ->{ "#{ENV['USER'] || ENV['USERNAME']} has started deploying branch #{fetch :branch} of #{fetch :application} to #{fetch :stage, 'unknown stage'}." }
+set :slack_msg_finished, ->{ "#{ENV['USER'] || ENV['USERNAME']} has finished deploying branch #{fetch :branch} of #{fetch :application} to #{fetch :stage, 'unknown stage'}." }
+set :slack_msg_failed,   ->{ "*ERROR!* #{ENV['USER'] || ENV['USERNAME']} failed to deploy branch #{fetch :branch} of #{fetch :application} to #{fetch :stage, 'unknown stage'}." }
+set :slack_via_slackbot, ->{ true } # Set to true to send the message via slackbot instead of webhook
+
 namespace :alk do
-    
+
     desc 'Full Deploy'
     task :deploy do
         on roles(:all), in: :parallel do
@@ -56,14 +69,14 @@ namespace :alk do
     task :upload_app do
         on roles(:all), in: :parallel do
             info "Uploading tar archive"
-            upload!("../app.tar.gz", "#{deploy_to}/app.tar.gz")            
+            upload!("../app.tar.gz", "#{deploy_to}/app.tar.gz")
 
             execute "mkdir -p #{deploy_to}/backup"
             execute "rm -Rf #{deploy_to}/backup/*"
             execute "mkdir -p #{deploy_to}/current"
             execute "mv #{deploy_to}/current #{deploy_to}/backup/"
             execute "mkdir -p #{deploy_to}/current"
-            
+
         end
     end
 
@@ -80,10 +93,10 @@ namespace :alk do
     task :rollback do
         on roles(:all), in: :parallel do
             execute "mkdir -p #{deploy_to}/backup"
-            execute "mkdir -p #{deploy_to}/current"            
+            execute "mkdir -p #{deploy_to}/current"
             execute "rm -Rf #{deploy_to}/current"
             execute "cp -R #{deploy_to}/backup/current #{deploy_to}/"
-            alk.restart  
+            alk.restart
         end
     end
 
@@ -91,6 +104,6 @@ namespace :alk do
     task :restart do
         on roles(:all), in: :parallel do
             execute :sudo, "/etc/init.d/nginx reload"
-        end    
+        end
     end
 end
