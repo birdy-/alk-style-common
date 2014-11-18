@@ -15,6 +15,7 @@ var app = angular.module('jDashboardFluxApp', [
   'infinite-scroll',
   'ui.sortable',
   'ui.tree',
+  'ui.unique',
   'nvd3ChartDirectives',
   'textAngular',
   'ngHandsontable'
@@ -40,8 +41,8 @@ app.factory('plupload', [
 
 var env = (window.location.hostname.indexOf('localhost') === 0) ? 'dev' : 'prod';
 
-//env = 'prod';
-
+// env = 'prod';
+// env = 'vagrant';
 if (env === 'prod') {
     app.constant('URL_CDN_MEDIA', 'https://smedia.alkemics.com');
     app.constant('URL_SERVICE_AUTH', 'https://auth.alkemics.com');

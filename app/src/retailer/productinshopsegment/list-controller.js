@@ -1,12 +1,13 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').controller('RetailerProductInShopSegmentListController', [
-    '$scope', '$$ORM', '$log', 'permission',
-    function ($scope, $$ORM, $log, permission) {
+    '$scope', '$$ORM', '$log', 'permission', '$$sdkCrud',
+    function ($scope, $$ORM, $log, permission, $$sdkCrud) {
 
         // ------------------------------------------------------------------------
         // Variables
         // ------------------------------------------------------------------------
+
         $scope.request = {
             productInShopSegment: {
                 name: null,
@@ -21,7 +22,6 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopSegmentList
         };
 
         $scope.productInShopSegments = [];
-
         // ------------------------------------------------------------------------
         // Event handling
         // ------------------------------------------------------------------------
@@ -32,8 +32,35 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopSegmentList
                 shortId: $scope.request.productInShopSegment.shortId,
                 type: $scope.request.productInShopSegment.type,
                 shop_id: $scope.request.shop.shortId
-            }, {}, $scope.request.offset, $scope.request.limit).then(function (productInShopSegments) {
+            }, {}, $scope.request.limit, $scope.request.offset).then(function (productInShopSegments) {
                 $scope.productInShopSegments = productInShopSegments;
+                var pishsIds = [];
+                for (var i in $scope.productInShopSegments) {
+                    pishsIds.push($scope.productInShopSegments[i].id);
+                }
+                $$sdkCrud.ProductInShopSegmentStatistics(pishsIds).then(function (response) {
+                    var data = response.data.data;
+                    for (var i in $scope.productInShopSegments) {
+                        var segment = $scope.productInShopSegments[i];
+                        segment.statistics = []
+                        segment.statistics[Product.CERTIFICATION_STATUS_DEFAULT.id] = 0;
+                        segment.statistics[Product.CERTIFICATION_STATUS_REVIEWING.id] = 0
+                        segment.statistics[Product.CERTIFICATION_STATUS_ATTRIBUTED.id] = 0
+                        segment.statistics[Product.CERTIFICATION_STATUS_ACCEPTED.id] = 0
+                        segment.statistics[Product.CERTIFICATION_STATUS_CERTIFIED.id] = 0
+                        segment.statistics[Product.CERTIFICATION_STATUS_PUBLISHED.id] = 0
+                        segment.statistics[Product.CERTIFICATION_STATUS_DISCONTINUED.id] = 0
+                        for (var j in data) {
+                            if (data[j].about.id == segment.id) {
+                                segment.statistics = data[j].counts;
+                                break;
+                            }
+                        }
+                        segment.statistics.inProgress = segment.statistics[Product.CERTIFICATION_STATUS_ATTRIBUTED.id] +
+                        segment.statistics[Product.CERTIFICATION_STATUS_PUBLISHED.id] + segment.statistics[Product.CERTIFICATION_STATUS_ACCEPTED.id];
+                        segment.statistics.certified = segment.statistics[Product.CERTIFICATION_STATUS_CERTIFIED.id];
+                        segment.statistics.total = segment.statistics.inProgress + segment.statistics.certified;                    }
+                });
             });
         };
         $scope.prev = function () {
