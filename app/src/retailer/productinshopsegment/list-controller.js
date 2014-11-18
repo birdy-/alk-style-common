@@ -52,18 +52,24 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopSegmentList
                     var data = response.data.data;
                     for (var i in $scope.productInShopSegments) {
                         var segment = $scope.productInShopSegments[i];
-                        segment.statistics = {"0": 0, "1": 0, "2": 0, "3": 0, "4": 0, "5": 0, "6": 0};
+                        segment.statistics = []
+                        segment.statistics[Product.CERTIFICATION_STATUS_DEFAULT.id] = 0;
+                        segment.statistics[Product.CERTIFICATION_STATUS_REVIEWING.id] = 0
+                        segment.statistics[Product.CERTIFICATION_STATUS_ATTRIBUTED.id] = 0
+                        segment.statistics[Product.CERTIFICATION_STATUS_ACCEPTED.id] = 0
+                        segment.statistics[Product.CERTIFICATION_STATUS_CERTIFIED.id] = 0
+                        segment.statistics[Product.CERTIFICATION_STATUS_PUBLISHED.id] = 0
+                        segment.statistics[Product.CERTIFICATION_STATUS_DISCONTINUED.id] = 0
                         for (var j in data) {
                             if (data[j].about.id == segment.id) {
                                 segment.statistics = data[j].counts;
                                 break;
                             }
-                        }                       
-                        segment.statistics.inProgress = segment.statistics[certification_map['ATTRIBUTED']] +
-                        segment.statistics[certification_map['ACCEPTED']] + segment.statistics[certification_map['PUBLISHED']];
-                        segment.statistics.certified = segment.statistics[certification_map['CERTIFIED']];
-                        segment.statistics.total = segment.statistics.inProgress + segment.statistics.certified;
-                    }
+                        }
+                        segment.statistics.inProgress = segment.statistics[Product.CERTIFICATION_STATUS_ATTRIBUTED.id] +
+                        segment.statistics[Product.CERTIFICATION_STATUS_PUBLISHED.id] + segment.statistics[Product.CERTIFICATION_STATUS_ACCEPTED.id];
+                        segment.statistics.certified = segment.statistics[Product.CERTIFICATION_STATUS_CERTIFIED.id];
+                        segment.statistics.total = segment.statistics.inProgress + segment.statistics.certified;                    }
                 });
             });
         };
