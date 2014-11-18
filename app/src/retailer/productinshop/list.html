@@ -46,11 +46,16 @@
     <h3>Détails des produits</h3>
     <div class="row">
         <form class="form-inline" role="form">
-            <div class="col-sm-2">
+            <div class="col-sm-1">
                 <input style="width: 100%;" type="text" class="form-control" placeholder="Référence" ng-model="request.productInShop.shortIdOut">
             </div>
             <div class="col-sm-2">
                 <input style="width: 100%;" type="text" class="form-control" placeholder="EAN" ng-model="request.productReference.reference">
+            </div>
+            <div class="col-sm-2">
+                <div alk-model-product-certified-select
+                     placeholder="-- Statut --"
+                     ng-model="request.product.certified"></div>
             </div>
             <div class="col-sm-2">
                 <div alk-autocomplete-my
@@ -64,10 +69,8 @@
             <div class="col-sm-3">
                 <input style="width: 100%;" type="text" class="form-control" placeholder="Nom du produit" ng-model="request.productInShop.name">
             </div>
-            <div class="col-sm-1">
-                <button style="width: 100%;"  type="submit" class="btn btn-success" ng-click="refresh()"><i class="fa fa-search"></i></button>
-            </div>
             <div class="form-group col-sm-2 text-right">
+                <span class="btn btn-success" ng-click="refresh()"><i class="fa fa-search"></i></span>
                 <span class="btn btn-success" ng-click="prev()"><i class="fa fa-arrow-left"></i></span>
                 <span class="btn btn-success" ng-click="next()"><i class="fa fa-arrow-right"></i></span>
             </div>
