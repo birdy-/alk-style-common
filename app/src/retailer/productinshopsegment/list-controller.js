@@ -44,25 +44,21 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopSegmentList
                 shop_id: $scope.request.shop.shortId
             }, {}, $scope.request.limit, $scope.request.offset).then(function (productInShopSegments) {
                 $scope.productInShopSegments = productInShopSegments;
-                var pishs_ids = [];
+                var pishsIds = [];
                 for (var i in $scope.productInShopSegments) {
-                    pishs_ids.push($scope.productInShopSegments[i].id);
+                    pishsIds.push($scope.productInShopSegments[i].id);
                 }
-                $$sdkCrud.ProductInShopSegmentStatistics(pishs_ids).then(function (response) {
+                $$sdkCrud.ProductInShopSegmentStatistics(pishsIds).then(function (response) {
                     var data = response.data.data;
                     for (var i in $scope.productInShopSegments) {
                         var segment = $scope.productInShopSegments[i];
-                        var done = false;
+                        segment.statistics = {"0": 0, "1": 0, "2": 0, "3": 0, "4": 0, "5": 0, "6": 0};
                         for (var j in data) {
                             if (data[j].about.id == segment.id) {
                                 segment.statistics = data[j].counts;
-                                done = true;
                                 break;
                             }
-                        }
-                        //For Segment which does not have any ProductInShop
-                        if (done == false) segment.statistics ={"0": 0, "1": 0, "2": 0, "3": 0, "4": 0, "5": 0, "6": 0};
-                        
+                        }                       
                         segment.statistics.inProgress = segment.statistics[certification_map['ATTRIBUTED']] +
                         segment.statistics[certification_map['ACCEPTED']] + segment.statistics[certification_map['PUBLISHED']];
                         segment.statistics.certified = segment.statistics[certification_map['CERTIFIED']];
