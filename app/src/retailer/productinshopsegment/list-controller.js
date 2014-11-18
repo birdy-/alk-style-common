@@ -8,16 +8,6 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopSegmentList
         // Variables
         // ------------------------------------------------------------------------
 
-        var certification_map = {
-            'DEFAULT': '0',
-            'REVIEWING': '4',
-            'ATTRIBUTED': '5',
-            'ACCEPTED': '1',
-            'CERTIFIED': '2',
-            'PUBLISHED': '3',
-            'DISCONTINUED': '6'
-        }
-
         $scope.request = {
             productInShopSegment: {
                 name: null,
