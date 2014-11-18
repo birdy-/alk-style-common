@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaController', [
-    "$scope", "$modal", "$log", "$$sdkMedia", "$window",
+    '$scope', '$modal', '$log', '$$sdkMedia', '$window',
     function($scope, $modal, $log, $$sdkMedia, $window) {
 
         // --------------------------------------------------------------------------------
@@ -33,7 +33,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaCo
             });
         };
 
-        $scope.uploadNewPictures = function() {
+        $scope.uploadNewPictures = function () {
             var uploadModal = $modal.open({
                 templateUrl: 'src/maker/product/show/media/upload-picture.html',
                 resolve: {
@@ -48,6 +48,23 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaCo
             uploadModal.result.then(function () {
                 fetchPictures($scope.product.id);
             }, function () {
+            });
+        };
+
+        $scope.deletePicture = function (picture) {
+            $$sdkMedia.EntityPictureDelete(
+                'product',
+                picture.product_id,
+                picture.id,
+                $scope.product.isBrandedBy.id // Obtained by inheritance
+            ).success(function (response) {
+                $window.alert('Nous avons bien pris en compte votre demande. Le visuel va être supprimé. Cette opération peut prendre quelque temps, merci pour votre patience. N\'hésitez pas à raffraichir la page.');
+            }).error(function (error) {
+                if (error.status === 403) {
+                    $window.alert('Vous n\'avez pas les permissions nécessaires pour cette opération');
+                } else {
+                    $window.alert('Une erreur est survenue : ' + error.message);
+                }
             });
         };
 
