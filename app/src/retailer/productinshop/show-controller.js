@@ -53,6 +53,9 @@ angular.module('jDashboardFluxApp').controller('ProductShowModalController', [
     // ------------------------------------------------------------------------
     // Event binding
     // ------------------------------------------------------------------------
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
 
     // ------------------------------------------------------------------------
     // Init
