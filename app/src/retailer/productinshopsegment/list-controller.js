@@ -1,12 +1,23 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').controller('RetailerProductInShopSegmentListController', [
-    '$scope', '$$ORM', '$log', 'permission',
-    function ($scope, $$ORM, $log, permission) {
+    '$scope', '$$ORM', '$log', 'permission', '$$sdkCrud',
+    function ($scope, $$ORM, $log, permission, $$sdkCrud) {
 
         // ------------------------------------------------------------------------
         // Variables
         // ------------------------------------------------------------------------
+
+        var certification_map = {
+            'DEFAULT': '0',
+            'REVIEWING': '4',
+            'ATTRIBUTED': '5',
+            'ACCEPTED': '1',
+            'CERTIFIED': '2',
+            'PUBLISHED': '3',
+            'DISCONTINUED': '6'
+        }
+
         $scope.request = {
             productInShopSegment: {
                 name: null,
@@ -21,7 +32,6 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopSegmentList
         };
 
         $scope.productInShopSegments = [];
-
         // ------------------------------------------------------------------------
         // Event handling
         // ------------------------------------------------------------------------
@@ -32,8 +42,33 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopSegmentList
                 shortId: $scope.request.productInShopSegment.shortId,
                 type: $scope.request.productInShopSegment.type,
                 shop_id: $scope.request.shop.shortId
-            }, {}, $scope.request.offset, $scope.request.limit).then(function (productInShopSegments) {
+            }, {}, $scope.request.limit, $scope.request.offset).then(function (productInShopSegments) {
                 $scope.productInShopSegments = productInShopSegments;
+                var pishs_ids = [];
+                for (var i in $scope.productInShopSegments) {
+                    pishs_ids.push($scope.productInShopSegments[i].id);
+                }
+                $$sdkCrud.ProductInShopSegmentStatistics(pishs_ids).then(function (response) {
+                    var data = response.data.data;
+                    for (var i in $scope.productInShopSegments) {
+                        var segment = $scope.productInShopSegments[i];
+                        var done = false;
+                        for (var j in data) {
+                            if (data[j].about.id == segment.id) {
+                                segment.statistics = data[j].counts;
+                                done = true;
+                                break;
+                            }
+                        }
+                        //For Segment which does not have any ProductInShop
+                        if (done == false) segment.statistics ={"0": 0, "1": 0, "2": 0, "3": 0, "4": 0, "5": 0, "6": 0};
+                        
+                        segment.statistics.inProgress = segment.statistics[certification_map['ATTRIBUTED']] +
+                        segment.statistics[certification_map['ACCEPTED']] + segment.statistics[certification_map['PUBLISHED']];
+                        segment.statistics.certified = segment.statistics[certification_map['CERTIFIED']];
+                        segment.statistics.total = segment.statistics.inProgress + segment.statistics.certified;
+                    }
+                });
             });
         };
         $scope.prev = function () {
