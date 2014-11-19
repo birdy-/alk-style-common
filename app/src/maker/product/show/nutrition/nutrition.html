@@ -35,11 +35,13 @@
     </thead>
     <tbody>
         <tr>
-            <td colspan="{{ 1 + len() }}" class="psq-line"><h3>
+            <td colspan="{{ 1 + len() }}" class="psq-line">
+                <h3 class="inco-field">
                 <i class="fa fa-fw fa-caret-right" ng-click="showNutrition = !showNutrition" ng-show="!showNutrition"></i>
                 <i class="fa fa-fw fa-caret-down" ng-click="showNutrition = !showNutrition" ng-show="showNutrition"></i>
                 Déclaration nutritionnelle
-            </h3></td>
+                </h3>
+            </td>
         </tr>
     </tbody>
     <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[19195]"></tbody>
