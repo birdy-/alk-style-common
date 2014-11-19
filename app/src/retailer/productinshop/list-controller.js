@@ -60,7 +60,6 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
                 isIdentifiedBy: true
             }).then(function (entitys) {
                 $scope.productInShops = entitys;
-                console.log($scope.productInShops[0].instantiates.certifiedName());
             });
         };
         $scope.prev = function () {
