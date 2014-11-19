@@ -26,25 +26,53 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
             limit: 50
         };
         $scope.restrict = {};
-
+        $scope.stats = {
+            attributed: null,
+            certified: null,
+            total: null,
+            missing: null
+        };
         $scope.productInShops = [];
-
+        $scope.segment = null;
 
         // ------------------------------------------------------------------------
         // Event handling
         // ------------------------------------------------------------------------
-        var get = function (shopId) {
-            return $$sdkCrud.StatisticsShow(['productinshop', 'product', 'productbrand'], shopId).then(function (response) {
-                var productInShopStats = response.data.data.filter(function (stat) {
-                    return stat.type === 'ProductInShop';
-                })[0].stats;
-                $scope.stats = {
-                    total: productInShopStats[0].value,
-                    missing: null,
-                    attributed: productInShopStats[2].value,
-                    certified: productInShopStats[1].value
-                };
+        /**
+         * Find the ProductInShopSegment that is used for active products
+         */
+        var getSegment = function (shopId) {
+            return $$ORM.repository('ProductInShopSegment').list({}, {
+                shortId: 'INCO',
+                type: ProductInShopSegment.TYPE_TECHNICAL.id,
+                shop_id: shopId
+            }).then(function (segments) {
+                if (segments.length != 1) {
+                    $log.warn("Incoherent ProductInShopSegment for active products.");
+                    throw "Incoherent ProductInShopSegment for active products.";
+                }
+                return segments[0];
+            });
+        };
+
+        /**
+         * Retrieve the stats for this ProductInShopSegment.
+         */
+        var getStats = function (segment) {
+            $scope.segment = segment;
+            return $$ORM.repository('ProductInShopSegment').method('Statistics')([segment.id]).then(function (stats) {
+                stats = stats[0].counts;
+                $scope.stats.attributed = stats[Product.CERTIFICATION_STATUS_ATTRIBUTED.id]
+                                        + stats[Product.CERTIFICATION_STATUS_ACCEPTED.id];
+                $scope.stats.certified = stats[Product.CERTIFICATION_STATUS_CERTIFIED.id]
+                                       + stats[Product.CERTIFICATION_STATUS_DISCONTINUED.id]
+                                       + stats[Product.CERTIFICATION_STATUS_PUBLISHED.id];
+                $scope.stats.total = 0;
+                angular.forEach(stats, function (value, key) {
+                    $scope.stats.total += value;
+                });
                 $scope.stats.missing = $scope.stats.total - $scope.stats.attributed - $scope.stats.certified;
+                $scope.stats.show = true;
             });
         };
 
@@ -173,7 +201,7 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
                 return shop.id;
             })[0];
             $scope.request.shop.shortId = shopId;
-            get(shopId);
+            getSegment(shopId).then(getStats);
         });
 
     }
