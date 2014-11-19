@@ -18,3 +18,4 @@ ProductInShopSegment.TYPE_PROMOTION  = new Constant(4, 'Promotion', "Defines a l
 ProductInShopSegment.TYPE_NEW        = new Constant(5, 'Nouveauté', "Defines a list of ProductInShops that are new.")
 ProductInShopSegment.TYPE_PERMISSION = new Constant(6, 'Permission', "Defines a list of ProductInShops a User has some rights on.")
 ProductInShopSegment.TYPE_CONTACT    = new Constant(7, 'Contact', 'Defines a list of ProductInShops that share the same contact.')
+ProductInShopSegment.TYPE_TECHNICAL  = new Constant(8, 'Technical', 'Defines a list of ProductInShops for technical reasons.')

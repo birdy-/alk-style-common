@@ -1,63 +1,68 @@
 <div ng-include="'/src/retailer/home/header.html'"></div>
 
 <div class="container">
-    <h1>État du catalogue</h1>
-
+    <h1>Produits</h1>
     <br/>
-    <h3>Total général</h3>
-    <div class="row text-center">
-        <div class="col-sm-3">
-            <h3>
-                {{ stats.total }}
-                <br/>
-                <small>dans le catalogue</small>
-            </h3>
+    <div ng-if="segment">
+        <h3>Total</h3>
+        <div class="row text-center">
+            <div class="col-sm-3">
+                <h3>
+                    {{ stats.total }}
+                    <br/>
+                    <small>dans le catalogue</small>
+                </h3>
+            </div>
+            <div class="col-sm-1"><h3>=</h3></div>
+            <div class="col-sm-2">
+                <h3 class="color-red">
+                    {{ stats.missing }}
+                    <br/>
+                    <small>non attribués</small>
+                </h3>
+            </div>
+            <div class="col-sm-1"><h3>+</h3></div>
+            <div class="col-sm-2">
+                <h3 class="color-yellow">
+                    {{ stats.attributed }}
+                    <br/>
+                    <small>en cours de remplissage</small>
+                </h3>
+            </div>
+            <div class="col-sm-1"><h3>+</h3></div>
+            <div class="col-sm-2">
+                <h3 class="color-green">
+                    {{ stats.certified }}
+                    <br/>
+                    <small>certifiés</small>
+                </h3>
+           </div>
         </div>
-        <div class="col-sm-1"><h3>=</h3></div>
-        <div class="col-sm-2">
-            <h3 class="color-red">
-                {{ stats.missing }}
-                <br/>
-                <small>non attribués</small>
-            </h3>
+        <div>
+            * Calcul effectué sur le segment {{ segment.name }} {{ segment.id }}
         </div>
-        <div class="col-sm-1"><h3>+</h3></div>
-        <div class="col-sm-2">
-            <h3 class="color-yellow">
-                {{ stats.attributed }}
-                <br/>
-                <small>en cours de remplissage</small>
-            </h3>
-        </div>
-        <div class="col-sm-1"><h3>+</h3></div>
-        <div class="col-sm-2">
-            <h3 class="color-green">
-                {{ stats.certified }}
-                <br/>
-                <small>certifiés</small>
-            </h3>
-       </div>
     </div>
     <br/>
     <br/>
     <br/>
-    <h3>Détails par fournisseurs</h3>
-    <div class="row">
-        <div class="col-sm-3"><a href="#/retailer/productinshopsegment" class="btn btn-block btn-default">Voir le détail</a></div>
-    </div>
     <h3>Détails des produits</h3>
     <div class="row">
         <form class="form-inline" role="form">
-            <div class="col-sm-1">
-                <input style="width: 100%;" type="text" class="form-control" placeholder="Référence" ng-model="request.productInShop.shortIdOut">
+            <div class="col-sm-2">
+                <input style="width: 100%;" type="text" class="form-control" placeholder="Référence"
+                       ng-model="request.productInShop.shortIdOut"
+                       ng-change="refresh()"/>
             </div>
             <div class="col-sm-2">
-                <input style="width: 100%;" type="text" class="form-control" placeholder="EAN" ng-model="request.productReference.reference">
+                <input style="width: 100%;" type="text" class="form-control" placeholder="EAN"
+                       ng-model="request.productReference.reference"
+                       ng-change="refresh()"/>
             </div>
             <div class="col-sm-2">
                 <div alk-model-product-certified-select
                      placeholder="-- Statut --"
-                     ng-model="request.product.certified">
+                     ng-model="request.product.certified"
+                     ng-change="refresh()">
                 </div>
             </div>
             <div class="col-sm-2">
@@ -66,15 +71,19 @@
                      alk-autocomplete-multiple="false"
                      alk-autocomplete-restrict="restrict"
                      placeholder="Choisir un fournisseur"
-                     ng-model="request.productInShopSegment">
+                     ng-model="request.productInShopSegment"
+                     ng-change="refresh()">
                 </div>
             </div>
             <div class="col-sm-2">
-                <input style="width: 100%;" type="text" class="form-control" placeholder="Nom du produit" ng-model="request.productInShop.name">
+                <input style="width: 100%;" type="text" class="form-control" placeholder="Nom du produit"
+                       ng-model="request.productInShop.name"
+                       ng-change="refresh()"/>
             </div>
             <div class="form-group col-sm-2 text-right">
                 <span class="btn btn-success" ng-click="refresh()"><i class="fa fa-search"></i></span>
                 <span class="btn btn-success" ng-click="prev()"><i class="fa fa-arrow-left"></i></span>
+                {{ request.offset }} - {{ request.offset + request.limit }}
                 <span class="btn btn-success" ng-click="next()"><i class="fa fa-arrow-right"></i></span>
             </div>
         </form>
@@ -118,11 +127,22 @@
                             <a class="btn btn-warning" ng-if="!isAttributed(productInShop)" ng-click="attribute(productInShop)">
                                 <i class="fa fa-envelope"></i> Attribuer
                             </a>
+                            <a class="btn btn-primary" ng-click="show(productInShop)">
+                                <i class="fa fa-eye"></i> Aperçu
+                            </a>
                         </td>
                         <td class="text-center"><input type="checkbox" ng-model="productInShop.selected" ng-if="!isAttributed(productInShop)"></td>
                     </tr>
                 <tbody>
             </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-4 col-sm-offset-8 text-right">
+            <span class="btn btn-success" ng-click="prev()"><i class="fa fa-arrow-left"></i></span>
+            {{ request.offset }} - {{ request.offset + request.limit }}
+            <span class="btn btn-success" ng-click="next()"><i class="fa fa-arrow-right"></i></span>
         </div>
     </div>
 </div>
