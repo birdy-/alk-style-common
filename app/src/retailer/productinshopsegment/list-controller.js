@@ -32,7 +32,7 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopSegmentList
                 shortId: $scope.request.productInShopSegment.shortId,
                 type: $scope.request.productInShopSegment.type,
                 shop_id: $scope.request.shop.shortId
-            }, {}, $scope.request.limit, $scope.request.offset).then(function (productInShopSegments) {
+            }, {}, $scope.request.offset, $scope.request.limit).then(function (productInShopSegments) {
                 $scope.productInShopSegments = productInShopSegments;
                 var pishsIds = [];
                 for (var i in $scope.productInShopSegments) {
