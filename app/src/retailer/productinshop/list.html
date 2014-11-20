@@ -100,6 +100,7 @@
                         <th class="text-center">EAN</th>
                         <th class="text-center">Statut</th>
                         <th class="text-center">Image</th>
+                        <th class="text-center">Image Fournisseur</th>
                         <th>Nom</th>
                         <th class="text-center">Action</th>
                         <th></th>
@@ -118,7 +119,12 @@
                                 {{ certifiedName(productInShop) }}
                             </span>
                         </td>
-                        <td class="text-center"><img height="60" width="60" ng-src="{{ productInShop.picture.main }}"></td>
+                        <td class="text-center">
+                            <img height="60" width="60" ng-src="{{ productInShop.picture.main }}">
+                        </td>
+                        <td class="text-center">
+                            <img entity-image entity="productInShop.instantiates" height="60" width="60"/>
+                        </td>
                         <td>
                             {{ productInShop.name }}
                             <!--<a class="pointer-link" ng-click="show(productInShop)">{{ productInShop.name }}</a>-->
