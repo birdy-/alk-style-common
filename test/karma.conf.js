@@ -9,6 +9,10 @@ module.exports = function(config) {
     // testing framework to use (jasmine/mocha/qunit/...)
     frameworks: ['jasmine'],
 
+    preprocessors: {
+      'app/src/**/*.html': ['ng-html2js']
+    },
+
     // list of files / patterns to load in the browser
     files: [
       'app/bower_components/angular/angular.js',
@@ -51,12 +55,19 @@ module.exports = function(config) {
       'app/bower_components/sdk-dashboard/src/*.js',
       'app/src/app.js',
       'app/src/common/model/common.model.js',
+      'app/src/**/*.html',
       'app/src/**/*.js',
       'test/spec/**/*.js'
     ],
 
     // list of files / patterns to exclude
     exclude: [],
+
+    ngHtml2JsPreprocessor: {
+      stripPrefix: 'app/',
+      prependPrefix: '/',
+      moduleName: 'alkDashboardFluxTemplates'
+    },
 
     // web server port
     port: 8080,

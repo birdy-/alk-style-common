@@ -5,8 +5,7 @@
  * on the event bus.
  */
 angular.module('jDashboardFluxApp').directive('alkNotification', [
-    '$modal',
-    function ($modal) {
+    function () {
         // Rendering definitions
         var icon = {
             'BrandClaimAccepted': 'fa-check-circle-o',
