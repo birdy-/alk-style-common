@@ -4,7 +4,10 @@
     </h3>
 </div>
 <div class="modal-body">
-    <div ng-include="'/src/maker/product/show/preview/preview.html'"></div>
+    <div ng-include="'/src/maker/product/show/preview/preview.html'" ng-if="product"></div>
+    <div ng-if="!product">
+        Vous n'avez pas les permissions nécessaires pour afficher ce produit.
+    </div>
 </div>
 <div class="modal-footer">
     <div class="text-right">
