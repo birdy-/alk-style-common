@@ -8,7 +8,7 @@
 </div>
 
 <div class="form-group">
-    <label for="composition" class="col-sm-2 control-label">Ingrédients</label>
+    <label for="composition" class="col-sm-2 control-label inco-field">Ingrédients</label>
     <div class="col-sm-10 product-composition">
         <div name="composition" placeholder="Composition du produit." required
              text-angular
@@ -93,7 +93,7 @@
     </div>
 </div>
 <div class="form-group">
-    <label for="allergens" class="col-sm-2 control-label">Allergènes</label>
+    <label for="allergens" class="col-sm-2 control-label inco-field">Allergènes</label>
     <div class="col-sm-10">
         <textarea ng-model="product.allergens" name="allergens" rows="3" class="form-control" placeholder="Allergènes notables du produit." required alk-focus></textarea>
         <div input-block-help field="productForm.allergens">
@@ -125,7 +125,7 @@
     </div>
 </div>
 <div class="form-group">
-    <label for="ratioAlcohol" class="col-sm-2 control-label">Degré d'alcool</label>
+    <label for="ratioAlcohol" class="col-sm-2 control-label inco-field">Degré d'alcool</label>
     <div class="col-sm-4">
         <div class="input-group">
             <input type="text" class="form-control" name="ratioAlcohol" ng-model="product.ratioAlcohol" placeholder="ex : 18" alk-focus/>
