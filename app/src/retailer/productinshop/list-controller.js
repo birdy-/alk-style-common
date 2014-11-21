@@ -191,6 +191,10 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
             }
         };
 
+        $scope.isCertified = function (productInShop) {
+            return productInShop.instantiates.certified === Product.CERTIFICATION_STATUS_CERTIFIED.id;
+        };
+
         // ------------------------------------------------------------------------
         // Init
         // ------------------------------------------------------------------------
@@ -201,6 +205,7 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
             })[0];
             $scope.request.shop.shortId = shopId;
             getSegment(shopId).then(getStats);
+            $scope.refresh();
         });
 
     }

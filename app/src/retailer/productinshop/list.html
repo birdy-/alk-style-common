@@ -133,7 +133,7 @@
                             <a class="btn btn-warning" ng-if="!isAttributed(productInShop)" ng-click="attribute(productInShop)">
                                 <i class="fa fa-envelope"></i> Attribuer
                             </a>
-                            <a class="btn btn-primary" ng-click="show(productInShop)">
+                            <a class="btn btn-primary" ng-click="show(productInShop)" ng-if="isCertified(productInShop)">
                                 <i class="fa fa-eye"></i> Aperçu
                             </a>
                         </td>
