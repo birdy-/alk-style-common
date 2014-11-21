@@ -133,19 +133,22 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
         };
 
         $scope.show = function (productInShop) {
-            var modalInstance = $modal.open({
-                templateUrl: '/src/retailer/productinshop/show-modal.html',
-                controller: 'ProductShowModalController',
-                size: 'lg',
-                resolve: {
-                    product: function () {
-                        return productInShop.instantiates;
+            $$ORM.repository('ProductInShop').method('ShowProduct')(productInShop.id).then(function (product) {
+                var modalInstance = $modal.open({
+                    templateUrl: '/src/retailer/productinshop/show-modal.html',
+                    controller: 'ProductShowModalController',
+                    size: 'lg',
+                    resolve: {
+                        product: function () {
+                            return product;
+                        },
+                        productInShopId: function () {
+                            return productInShop.id
+                        }
                     }
-                }
-            });
+                });
 
-            modalInstance.result.then(function () {
-            }, function () {
+                modalInstance.result.then(function () {}, function () {});
             });
         };
 

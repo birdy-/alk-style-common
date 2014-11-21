@@ -4,13 +4,13 @@
  * Modal that allows the user to certify a given product.
  */
 angular.module('jDashboardFluxApp').controller('ProductShowModalController', [
-    '$scope', '$$ORM', '$modalInstance', 'product',
-    function ($scope, $$ORM, $modalInstance, product) {
+    '$scope', '$$ORM', '$modalInstance', 'product', 'productInShopId',
+    function ($scope, $$ORM, $modalInstance, product, productInShopId) {
 
     // ------------------------------------------------------------------------
     // Variables
     // ------------------------------------------------------------------------
-    $scope.product = null;
+    $scope.product = product;
     // Lists all the categories
     $scope.labels = {};
     [
@@ -61,15 +61,9 @@ angular.module('jDashboardFluxApp').controller('ProductShowModalController', [
     // Init
     // ------------------------------------------------------------------------
     var productId = product.id;
-    $scope.loading = true;
-    $$ORM.repository('Product').get(productId, {isLabeledBy: true}).then(function (product) {
-        $scope.product = product;
-        $scope.loading = false;
-    }, function (error) {
-        $scope.loading = false;
-    });
 
-    $$ORM.repository('ProductStandardQuantity').list({}, {'partitions_id': productId}).then(function (psqs) {
+    $$ORM.repository('ProductInShop').method('ProductStandardQuantity')(productInShopId, productId).then(function (psqs) {
+        console.log('PSQS', psqs);
         psqs.forEach(function (psq) {
             psq.contains.forEach(function (pnq) {
                 if (!$scope.pnqs[pnq.isConceptualizedBy.id]) {
