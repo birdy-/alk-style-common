@@ -65,7 +65,10 @@ angular.module('jDashboardFluxApp').controller('ProductShowModalController', [
     $$ORM.repository('Product').get(productId, {isLabeledBy: true}).then(function (product) {
         $scope.product = product;
         $scope.loading = false;
-    }, function (error) { $scope.loading = false; });
+    }, function (error) {
+        $scope.loading = false;
+    });
+
     $$ORM.repository('ProductStandardQuantity').list({}, {'partitions_id': productId}).then(function (psqs) {
         psqs.forEach(function (psq) {
             psq.contains.forEach(function (pnq) {
