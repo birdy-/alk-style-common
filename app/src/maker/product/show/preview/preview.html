@@ -1,12 +1,12 @@
 <div class="row" id="product-preview">
     <div class="col-sm-4">
         <div class="text-center">
-            <img ng-src="{{ product.picture.main }}" class="img-responsive img-thumbnail"/>
+            <img entity-image entity="product" class="img-responsive img-thumbnail"/>
         </div>
         <br/>
         <div class="row text-center">
             <div class="col-xs-4" ng-repeat="i in [1, 2, 3]">
-                <img ng-src="{{ product.picture.main }}" class="img-responsive img-thumbnail"/>
+                <img ng-src="{{ pictures[i] }}" class="img-responsive img-thumbnail"/>
             </div>
         </div>
         <br/>

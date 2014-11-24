@@ -4,8 +4,8 @@
  * Modal that allows the user to certify a given product.
  */
 angular.module('jDashboardFluxApp').controller('ProductShowModalController', [
-    '$scope', '$$ORM', '$modalInstance', 'product', 'productInShopId',
-    function ($scope, $$ORM, $modalInstance, product, productInShopId) {
+    '$scope', '$$ORM', '$modalInstance', 'product', '$$sdkMedia',
+    function ($scope, $$ORM, $modalInstance, product, $$sdkMedia) {
 
     // ------------------------------------------------------------------------
     // Variables
@@ -72,5 +72,14 @@ angular.module('jDashboardFluxApp').controller('ProductShowModalController', [
         });
     });
     $scope.psqs = psqs;
+
+    $$sdkMedia.EntityPictureGet('product', productId).then(function (response) {
+        console.log('response', response);
+        $scope.pictures = response.data.data.map(function(json){
+            var picture = new ProductPicture();
+            picture.fromJson(json);
+            return picture;
+        });
+    });
 
 }]);

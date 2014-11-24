@@ -142,9 +142,6 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
                     resolve: {
                         product: function () {
                             return productInShop.instantiates[0];
-                        },
-                        productInShopId: function () {
-                            return productInShop.id
                         }
                     }
                 });
