@@ -71,7 +71,7 @@
                     <div class="form-group" ng-class="checkUserFormField('usernameConfirm')">
                         <label class="col-sm-4 control-label">Je confirme mon email</label>
                         <div class="col-sm-8">
-                            <input type="email" name="usernameConfirm" class="form-control" ng-model="user.usernameConfirm" placeholder="Confirmation de mon email" alk-focus ng-minlength="5" required input-match="user.username"/>
+                            <input type="email" name="usernameConfirm" class="form-control" ng-model="user.usernameConfirm" placeholder="Confirmation de mon email" alk-focus ng-minlength="5" required input-match="user.username" no-paste/>
                             <div ng-show="userForm.usernameConfirm.$invalid && userForm.usernameConfirm.$focus">
                                 Veuillez entrer un email valide.
                             </div>
