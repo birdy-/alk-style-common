@@ -61,8 +61,9 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
                 certifieds.push(key);
             }
         }
+        // If no option is selected do not make any call
         if (certifieds.length === 0) {
-            certifieds = [2];
+            return;
         }
         $scope.request.product.certified = certifieds.join(',');
 
