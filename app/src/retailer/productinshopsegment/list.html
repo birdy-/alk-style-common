@@ -26,6 +26,7 @@
             <div class="col-sm-4"></div>
             <div class="form-group col-sm-2 text-right">
                 <span class="btn btn-success" ng-click="prev()"><i class="fa fa-arrow-left"></i></span>
+                {{ request.offset }} - {{ request.offset + request.limit }}
                 <span class="btn btn-success" ng-click="next()"><i class="fa fa-arrow-right"></i></span>
             </div>
         </form>
@@ -49,12 +50,22 @@
                     <tr ng-repeat="productInShopSegment in productInShopSegments">
                         <td class="text-center">{{ productInShopSegment.shortId }}</td>
                         <td>{{ productInShopSegment.name }}</td>
-                        <td class="text-center"><!-- todo --></td>
-                        <td class="text-center"><!-- todo --></td>
-                        <td class="text-center"><!-- todo --></td>
+                        <td class="text-center">{{ productInShopSegment.statistics.total }}</td>
+                        <td class="text-center">{{ productInShopSegment.statistics.inProgress }}</td>
+                        <td class="text-center">{{ productInShopSegment.statistics.certified }}</td>
                     </tr>
                 <tbody>
             </table>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-sm-4 col-sm-offset-8 text-right">
+            <span class="btn btn-success" ng-click="prev()"><i class="fa fa-arrow-left"></i></span>
+            {{ request.offset }} - {{ request.offset + request.limit }}
+            <span class="btn btn-success" ng-click="next()"><i class="fa fa-arrow-right"></i></span>
+        </div>
+    </div>
+    <br/>
+
 </div>

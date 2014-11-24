@@ -7,7 +7,7 @@
 
 <h3>Dénomination</h3>
 <div class="form-group has-feedback" ng-class="check('nameLegal')">
-    <label for="nameLegal" class="col-sm-3 control-label">Dénomination légale</label>
+    <label for="nameLegal" class="col-sm-3 control-label inco-field">Dénomination légale</label>
     <div class="col-sm-9">
         <input ng-model="product.nameLegal" name="nameLegal" type="text" class="form-control" placeholder="Le nom du produit, sans mention de la marque ni packaging" required ng-minlength="3" alk-validation-name="{{ product.isBrandedBy.name }}" alk-validation-case="sentence" alk-focus ng-change="predict(product)"/>
         <span ng-show="productForm.nameLegal.$error.required" class="help-block">Cet élément est obligatoire.</span>
@@ -108,7 +108,7 @@
     </div>
 </div>
 <div class="form-group has-feedback" ng-class="check('advices')">
-    <label for="advices" class="col-sm-3 control-label">Mode d'emploi</label>
+    <label for="advices" class="col-sm-3 control-label inco-field">Mode d'emploi</label>
     <div class="col-sm-9">
         <textarea type="text" ng-model="product.advices" name="advices" class="form-control" rows="3" placeholder="Conseils d'utilisation du produit." alk-focus required></textarea>
         <span ng-show="productForm.advices.$error.required" class="help-block">Un mode d'emploi du produit est obligatoire.</span>

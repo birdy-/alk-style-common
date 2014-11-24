@@ -1,12 +1,13 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').controller('RetailerProductInShopSegmentListController', [
-    '$scope', '$$ORM', '$log', 'permission',
-    function ($scope, $$ORM, $log, permission) {
+    '$scope', '$$ORM', '$log', 'permission', '$$sdkCrud',
+    function ($scope, $$ORM, $log, permission, $$sdkCrud) {
 
         // ------------------------------------------------------------------------
         // Variables
         // ------------------------------------------------------------------------
+
         $scope.request = {
             productInShopSegment: {
                 name: null,
@@ -23,26 +24,53 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopSegmentList
         $scope.productInShopSegments = [];
 
         // ------------------------------------------------------------------------
+        // Data retrievers
+        // ------------------------------------------------------------------------
+        var list = function () {
+            $$ORM.repository('ProductInShopSegment').list({
+                name: $scope.request.productInShopSegment.name,
+                shortId: $scope.request.productInShopSegment.shortId
+            }, {
+                type: $scope.request.productInShopSegment.type,
+                shop_id: $scope.request.shop.shortId
+            }, {}, $scope.request.offset, $scope.request.limit).then(function (segments) {
+                $scope.productInShopSegments = segments;
+                var segmentIds = $scope.productInShopSegments.map(function (segment) {
+                    return segment.id;
+                });
+                if (!segmentIds.length) {
+                    return;
+                }
+                $$sdkCrud.ProductInShopSegmentStatistics(segmentIds).then(function (response) {
+                    response.data.data.forEach(function (stat) {
+                        var segment = $$ORM.repository('ProductInShopSegment').lazy(stat.about.id);
+                        segment.statistics = {};
+                        segment.statistics.inProgress = stat.counts[Product.CERTIFICATION_STATUS_ATTRIBUTED.id]
+                                                      + stat.counts[Product.CERTIFICATION_STATUS_PUBLISHED.id]
+                                                      + stat.counts[Product.CERTIFICATION_STATUS_ACCEPTED.id];
+                        segment.statistics.certified = stat.counts[Product.CERTIFICATION_STATUS_CERTIFIED.id];
+                                                     + stat.counts[Product.CERTIFICATION_STATUS_DISCONTINUED.id];
+                        segment.statistics.total = segment.statistics.inProgress
+                                                 + segment.statistics.certified;
+                    });
+                });
+            });
+        }
+
+        // ------------------------------------------------------------------------
         // Event handling
         // ------------------------------------------------------------------------
         $scope.refresh = function () {
-            $$ORM.repository('ProductInShopSegment').list({
-                name: $scope.request.productInShopSegment.name
-            }, {
-                shortId: $scope.request.productInShopSegment.shortId,
-                type: $scope.request.productInShopSegment.type,
-                shop_id: $scope.request.shop.shortId
-            }, {}, $scope.request.offset, $scope.request.limit).then(function (productInShopSegments) {
-                $scope.productInShopSegments = productInShopSegments;
-            });
+            $scope.request.offset = 0;
+            list();
         };
         $scope.prev = function () {
             $scope.request.offset = Math.max(0, $scope.request.offset - $scope.request.limit);
-            $scope.refresh();
+            list();
         };
         $scope.next = function () {
             $scope.request.offset = $scope.request.offset + $scope.request.limit;
-            $scope.refresh();
+            list();
         };
 
         // ------------------------------------------------------------------------

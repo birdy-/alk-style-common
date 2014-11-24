@@ -4,7 +4,8 @@ exports.config = {
   suites: {
     home: 'integration/home/*.scenario.js',
     registration: 'integration/registration/*.scenario.js',
-    login: 'integration/login/*.scenario.js'
+    login: 'integration/login/*.scenario.js',
+    maker: 'integration/maker/*.scenario.js'
   },
 
   baseUrl: 'http://localstream.alkemics.com:9005/#/',

@@ -10,6 +10,8 @@ describe('[Login page]', function() {
     var utils = new Utils();
 
     it('should be accessible from home page', function() {
+        homePage.get()
+
         homePage.getLoginPageButton().click().then(function() {
             expect(browser.getCurrentUrl())
             .toEqual(browser.params.website.url + 'login');
