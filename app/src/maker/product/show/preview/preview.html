@@ -313,20 +313,21 @@
                 <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[19084]" legend="legend[19084]"></tr>
                 <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[18993]" legend="legend[18993]"></tr>
             </tbody>
-            <tfoot>
-            </tfoot>
         </table>
     </div>
     <div class="col-sm-3">
         <h3>Fabricant</h3>
-        <p>{{ product.manufacturerName }}, {{ product.manufacturerText }}</p>
-        <p ng-if="product.manufacturerPhonenumber">
+        <p>
+            <span ng-if="product.manufacturer.name">{{ product.manufacturer.name }}, </span>
+            <span>{{ product.manufacturer.text }}</span>
+        </p>
+        <p ng-if="product.manufacturer.phonenumber">
             <span class="label label-success">
-                <i class="fa fa-phone"></i> {{ product.manufacturerPhonenumber }}
+                <i class="fa fa-phone"></i> {{ product.manufacturer.phonenumber }}
             </span>
         </p>
-        <p ng-if="product.manufacturerWebsite">
-            <a ng-href="product.manufacturerWebsite">{{ product.manufacturerWebsite }}</a>
+        <p ng-if="product.manufacturer.website">
+            <a ng-href="product.manufacturer.website">{{ product.manufacturer.website }}</a>
         </p>
     </div>
 </div>

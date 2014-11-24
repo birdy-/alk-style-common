@@ -62,17 +62,15 @@ angular.module('jDashboardFluxApp').controller('ProductShowModalController', [
     // ------------------------------------------------------------------------
     var productId = product.id;
 
-    $$ORM.repository('ProductInShop').method('ProductStandardQuantity')(productInShopId, productId).then(function (psqs) {
-        console.log('PSQS', psqs);
-        psqs.forEach(function (psq) {
-            psq.contains.forEach(function (pnq) {
-                if (!$scope.pnqs[pnq.isConceptualizedBy.id]) {
-                    $scope.pnqs[pnq.isConceptualizedBy.id] = {};
-                }
-                $scope.pnqs[pnq.isConceptualizedBy.id][psq.id] = pnq;
-            });
+    var psqs = product.isPartitionedBy;
+    psqs.forEach(function (psq) {
+        psq.contains.forEach(function (pnq) {
+            if (!$scope.pnqs[pnq.isConceptualizedBy.id]) {
+                $scope.pnqs[pnq.isConceptualizedBy.id] = {};
+            }
+            $scope.pnqs[pnq.isConceptualizedBy.id][psq.id] = pnq;
         });
-        $scope.psqs = psqs;
     });
+    $scope.psqs = psqs;
 
 }]);

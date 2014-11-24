@@ -133,14 +133,15 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
         };
 
         $scope.show = function (productInShop) {
-            $$ORM.repository('ProductInShop').method('ShowProduct')(productInShop.id).then(function (product) {
+            $$ORM.repository('ProductInShop').method('ShowProduct')(productInShop.id).then(function (productInShop) {
+                console.log('PRODUCT', productInShop);
                 var modalInstance = $modal.open({
                     templateUrl: '/src/retailer/productinshop/show-modal.html',
                     controller: 'ProductShowModalController',
                     size: 'lg',
                     resolve: {
                         product: function () {
-                            return product;
+                            return productInShop.instantiates[0];
                         },
                         productInShopId: function () {
                             return productInShop.id
