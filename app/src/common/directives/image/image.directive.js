@@ -22,6 +22,8 @@ angular.module('jDashboardFluxApp').directive('entityImage', [
                         scope.url = URL_CDN_MEDIA + '/brand/' + id + '/picture/logo/original.png' + '?' + cachebuster;
                     } else if (type === 'Product') {
                         scope.url = URL_CDN_MEDIA + '/product/' + id + '/picture/packshot/256x256.png' + '?' + cachebuster;
+                    } else if (type === 'ProductInShop' && extra.picture) {
+                        scope.url = extra.picture.main + '?' + cachebuster;
                     } else if (type === 'Recipe'
                             && extra.url
                             && extra.url.picture
