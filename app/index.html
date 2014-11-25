@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE HTML>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <html xmlns:ng="http://angularjs.org" class="no-js" data-ng-app="jDashboardFluxApp" id="ng-app">
 <head>
@@ -69,13 +69,31 @@
     <!-- endbuild -->
     <!-- bower_components/textAngular -->
 
+    <!--[if lte IE 7]>
+        <script type="text/javascript" src="bower_components/json3/lib/json3.min.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+        <script type="text/javascript" src="//cdn.rawgit.com/jpillora/xdomain/0.6.15/dist/0.6/xdomain.js" slave="http://localstream.alkemics.com" master="*"></script>
+        <script>xdomain.debug = true;</script>
+    <![endif]-->
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-      <script src="//cdnjs.cloudflare.com/ajax/libs/json3/3.3.2/json3.min.js"></script>
-      <script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script>
+      <script type="text/javascript" src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script type="text/javascript" src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/json3/3.3.2/json3.min.js"></script>
+      <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script>
+      <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/4.0.3/es5-shim.min.js"><
+
+      <script>
+        document.createElement('ng-include');
+        document.createElement('ng-view');
+
+        // Optionally these for CSS
+        document.createElement('ng:include');
+        document.createElement('ng:view');
+      </script>
     <![endif]-->
 </head>
 <body id="stream" class="requiresauth">
@@ -144,15 +162,6 @@
         })(window, document, 'script', 'cdn.alkemics.com/tck/v2/tck.js');
         //]]>
     </script>
-
-    <!--[if lte IE 7]>
-        <script type="text/javascript" src="bower_components/json3/lib/json3.min.js"></script>
-    <![endif]-->
-    <!--[if lt IE 9]>
-        <script type="text/javascript" src="//cdn.rawgit.com/jpillora/xdomain/0.6.15/dist/0.6/xdomain.min.js" slave="http://stream.alkemics.com"></script>
-        <script>xdomain.debug = true;</script>
-        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/4.0.3/es5-shim.min.js"></script>
-    <![endif]-->
 
     <!-- build:js scripts/plugins.js -->
         <script type="text/javascript" src="bower_components/jquery/jquery.js"></script>
