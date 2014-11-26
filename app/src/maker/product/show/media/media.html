@@ -32,7 +32,9 @@
             <div ng-repeat="picture in pictures" class="col-sm-12">
                 <div class="row">
                     <div class="col-sm-4">
-                        <img ng-src="{{ picture.uniformResourceIdentifier }}" class="img-responsive img-thumbnail">
+                        <a ng-href="{{ picture.uniformResourceIdentifier }}" target="_blank">
+                            <img ng-src="{{ picture.uniformResourceIdentifier }}" class="img-responsive img-thumbnail">
+                        </a>
                     </div>
                     <div class="col-sm-8">
                         <div class="col-sm-12">
@@ -46,13 +48,8 @@
                             <br/>
                             Valide du {{ picture.fileEffectiveStartDateTime | date:'dd/MM/yyyy' }} au {{ picture.fileEffectiveEndDateTime | date:'dd/MM/yyyy' }}
                         </div>
-                        <div class="col-sm-4">
-                            <a ng-href="{{ picture.uniformResourceIdentifier }}" target="_blank" class="btn btn-success btn-block">
-                                <i class="fa fa-eye"></i> Voir l'original
-                            </a>
-                        </div>
-                        <div class="col-sm-6">
-                            <div ng-click="selectAsPackshot(picture)" class="btn btn-warning btn-block">
+                        <div class="col-sm-offset-2 col-sm-6">
+                            <div ng-click="selectAsPackshot(picture)" class="btn btn-success btn-block">
                                 <i class="fa fa-picture-o"></i> Définir comme packshot
                             </div>
                         </div>
