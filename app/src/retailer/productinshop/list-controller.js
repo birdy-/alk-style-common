@@ -45,7 +45,8 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
             return $$ORM.repository('ProductInShopSegment').list({}, {
                 shortId: 'INCO',
                 type: ProductInShopSegment.TYPE_TECHNICAL.id,
-                shop_id: shopId
+                shop_id: shopId,
+                shop_shortId: shopId
             }).then(function (segments) {
                 if (segments.length != 1) {
                     $log.warn("Incoherent ProductInShopSegment for active products.");
