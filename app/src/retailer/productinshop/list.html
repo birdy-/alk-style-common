@@ -118,7 +118,9 @@
                                 {{ certifiedName(productInShop) }}
                             </span>
                         </td>
-                        <td class="text-center"><img height="60" width="60" ng-src="{{ productInShop.picture.main }}"></td>
+                        <td class="text-center">
+                            <img entity-image entity="productInShop" height="60" width="60">
+                        </td>
                         <td>
                             {{ productInShop.name }}
                             <!--<a class="pointer-link" ng-click="show(productInShop)">{{ productInShop.name }}</a>-->
@@ -127,7 +129,7 @@
                             <a class="btn btn-warning" ng-if="!isAttributed(productInShop)" ng-click="attribute(productInShop)">
                                 <i class="fa fa-envelope"></i> Attribuer
                             </a>
-                            <a class="btn btn-primary" ng-click="show(productInShop)">
+                            <a class="btn btn-primary" ng-click="show(productInShop)" ng-if="isCertified(productInShop)">
                                 <i class="fa fa-eye"></i> Aperçu
                             </a>
                         </td>

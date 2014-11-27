@@ -2,7 +2,7 @@
 
 var Product = function () {
     this._type = 'Product';
-    // NB : it is very important not to set the vaues below to [] otherwise
+    // NB : it is very important not to set the values below to [] otherwise
     // it will overwrite the related entities by a []...
     this.isPartitionedBy = null;
     this.isInstantiatedBy = null;

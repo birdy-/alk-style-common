@@ -4,13 +4,13 @@
  * Modal that allows the user to certify a given product.
  */
 angular.module('jDashboardFluxApp').controller('ProductShowModalController', [
-    '$scope', '$$ORM', '$modalInstance', 'product',
-    function ($scope, $$ORM, $modalInstance, product) {
+    '$scope', '$$ORM', '$modalInstance', 'product', '$$sdkMedia',
+    function ($scope, $$ORM, $modalInstance, product, $$sdkMedia) {
 
     // ------------------------------------------------------------------------
     // Variables
     // ------------------------------------------------------------------------
-    $scope.product = null;
+    $scope.product = product;
     // Lists all the categories
     $scope.labels = {};
     [
@@ -61,19 +61,24 @@ angular.module('jDashboardFluxApp').controller('ProductShowModalController', [
     // Init
     // ------------------------------------------------------------------------
     var productId = product.id;
-    $$ORM.repository('Product').get(productId, {isLabeledBy: true}).then(function (product) {
-        $scope.product = product;
-    });
-    $$ORM.repository('ProductStandardQuantity').list({}, {'partitions_id': productId}).then(function (psqs) {
-        psqs.forEach(function (psq) {
-            psq.contains.forEach(function (pnq) {
-                if (!$scope.pnqs[pnq.isConceptualizedBy.id]) {
-                    $scope.pnqs[pnq.isConceptualizedBy.id] = {};
-                }
-                $scope.pnqs[pnq.isConceptualizedBy.id][psq.id] = pnq;
-            });
+
+    var psqs = product.isPartitionedBy;
+    psqs.forEach(function (psq) {
+        psq.contains.forEach(function (pnq) {
+            if (!$scope.pnqs[pnq.isConceptualizedBy.id]) {
+                $scope.pnqs[pnq.isConceptualizedBy.id] = {};
+            }
+            $scope.pnqs[pnq.isConceptualizedBy.id][psq.id] = pnq;
         });
-        $scope.psqs = psqs;
+    });
+    $scope.psqs = psqs;
+
+    $$sdkMedia.EntityPictureGet('product', productId).then(function (response) {
+        $scope.pictures = response.data.data.map(function(json){
+            var picture = new ProductPicture();
+            picture.fromJson(json);
+            return picture;
+        });
     });
 
 }]);
