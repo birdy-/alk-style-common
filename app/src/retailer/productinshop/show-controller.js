@@ -71,6 +71,7 @@ angular.module('jDashboardFluxApp').controller('ProductShowModalController', [
             $scope.pnqs[pnq.isConceptualizedBy.id][psq.id] = pnq;
         });
     });
+    $scope.hasPsqs = !!(psqs[0]);
     $scope.psqs = psqs;
 
     $$sdkMedia.EntityPictureGet('product', productId).then(function (response) {
