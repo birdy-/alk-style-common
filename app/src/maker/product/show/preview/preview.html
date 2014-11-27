@@ -241,7 +241,7 @@
 <div class="row">
     <div class="col-sm-9">
         <h3>Informations nutritionelles</h3>
-        <table class="table table-bordered">
+        <table class="table table-bordered" ng-if="hasPsqs">
             <thead>
                 <tr class="color-green-inverse">
                     <th class="text-right">pour</th>
@@ -314,6 +314,9 @@
                 <tr alk-product-nutrition psqs="psqs" pnqs="pnqs[18993]" legend="legend[18993]"></tr>
             </tbody>
         </table>
+        <div ng-if="!hasPsqs">
+            Non disponible
+        </div>
     </div>
     <div class="col-sm-3">
         <h3>Fabricant</h3>
