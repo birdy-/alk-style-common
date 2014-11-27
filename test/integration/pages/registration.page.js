@@ -32,6 +32,10 @@ var RegistrationPage = function() {
     return element(by.model('user.username'));
   };
 
+  this.getConfirmEmailField = function() {
+    return element(by.model('user.usernameConfirm'));
+  };
+
   this.getJobField = function() {
     return element(by.model('user.job'));
   };
@@ -49,6 +53,7 @@ var RegistrationPage = function() {
       { method: 'getFirstNameField', input: 'JF'},
       { method: 'getLastNameField', input: 'Dean'},
       { method: 'getEmailField', input: 'jf@alkemics.com'},
+      { method: 'getConfirmEmailField', input: 'jf@alkemics.com'},
       { method: 'getJobField', input: 'jedi'},
       { method: 'getPhoneField', input: '0600000000'},
       { method: 'getPasswordField', input: 'NoPassw0rdIsG00dEnough'}
