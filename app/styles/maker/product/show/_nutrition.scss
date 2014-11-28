@@ -1,5 +1,10 @@
 .productnutritionalquantity-precision {
     width: 50px;
+
+    select.form-control {
+        padding: 0;
+        width: 40px;
+    }
 }
 
 .productnutritionalquantity-value {
