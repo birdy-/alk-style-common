@@ -2,6 +2,10 @@
     width: 50px;
 }
 
+.productnutritionalquantity-value {
+    min-width: 80px;
+}
+
 .pnq-name {
     text-align: right;
 }
@@ -15,6 +19,7 @@
 .table thead tr th.psq-col,
 .table tbody tr td.psq-col {
     border-left: 1px solid #dddddd;
+    min-width: 250px;
 }
 
 .table .separator {
