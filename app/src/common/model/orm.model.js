@@ -115,7 +115,7 @@ angular.module('jDashboardFluxApp').service('$$ORM', [
             { id: 19063, name: 'Cholestérol',              isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Nutrition', compulsory: false, legend: "" },
             { id: 19064, name: 'Oméga 3',                  isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Nutrition', compulsory: false, legend: "" },
             { id: 19065, name: 'Oméga 6',                  isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Nutrition', compulsory: false, legend: ""  },
-            { id: 19066, name: 'Rapport gras',             isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Nutrition', compulsory: false, legend: ""  },
+            { id: 19066, name: '% de matières grasses',    isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Nutrition', compulsory: false, legend: ""  },
             { id: 19067, name: 'Glucides',                 isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Nutrition', compulsory: true,  legend: "La quantité totale de tous les glucides métabolisés par l’homme, y compris les polyols, rapportée à 100 grammes de produit." },
             { id: 19068, name: 'Sucres',                   isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Nutrition', compulsory: true,  legend: "La quantité totale de tous les monosaccharides et disaccharides présents dans une denrée alimentaire, à l’exclusion des polyols, rapportée à 100 grammes de produit." },
             { id: 19069, name: 'Polyols',                  isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Nutrition', compulsory: false, legend: "La quantité totale de tous les alcools comprenant plus de deux groupes hydroxyles, rapportée à 100 grammes de produit." },
