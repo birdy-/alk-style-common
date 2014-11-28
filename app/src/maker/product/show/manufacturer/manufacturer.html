@@ -3,11 +3,11 @@
 <!--<div class="pull-right">
 	<span class="btn btn-default" ng-click="fillManufacturerFromOrganization"><i class="fa fa-download"></i> Remplir avec la marque</span>
 </div>-->
-<h3 class="inco-field">Exploitant</h3>
+<h3>Exploitant</h3>
 <br/>
 
 <div class="form-group">
-    <label for="manufacturerName" class="col-sm-3 control-label">Nom de l'exploitant</label>
+    <label for="manufacturerName" class="col-sm-3 control-label inco-field">Nom de l'exploitant</label>
     <div class="col-sm-9">
         <input type="text" name="manufacturerName" ng-model="product.manufacturerName" placeholder="ex : Nestlé SA" required class="form-control"/>
         <div input-block-help field="productForm.manufacturerName">
@@ -25,7 +25,7 @@
 </div>
 
 <div class="form-group">
-    <label for="manufacturerText" class="col-sm-3 control-label">Adresse de l'exploitant</label>
+    <label for="manufacturerText" class="col-sm-3 control-label inco-field">Adresse de l'exploitant</label>
     <div class="col-sm-9">
         <textarea name="manufacturerText" ng-model="product.manufacturerText" placeholder="ex : 82 rue du Faubourg Saint Martin, 75010 PARIS" rows="2" required class="form-control"></textarea>
         <div input-block-help field="productForm.manufacturerText">
@@ -102,9 +102,9 @@
 </div>
 
 
-<h3 class="inco-field">Traçabilité</h3>
+<h3>Traçabilité</h3>
 <div class="form-group">
-    <label for="origin" class="col-sm-2 control-label">Origine</label>
+    <label for="origin" class="col-sm-2 control-label inco-field">Origine</label>
     <div class="col-sm-10">
         <input type="text" class="form-control" name="origin" ng-model="product.origin" placeholder="ex : Bourgogne, France" alk-focus required/>
         <div input-block-help field="productForm.origin">
