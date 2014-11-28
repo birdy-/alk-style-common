@@ -27,6 +27,8 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerNotificationsContr
     // ------------------------------------------------------------------------
     permission.getUser().then(function (user) {
         $scope.user = user;
+        var brands = user.managesBrand;
+        console.log('USER', user);
         $$sdkTimeline.TimelineGet(user.id).then(function (response) {
             $scope.notifications = response.data.data;
 
@@ -47,6 +49,21 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerNotificationsContr
                         'status': 'BrandClaimErrored'
                     }
                 ];
+
+                user.managesBrand.forEach(function (brand) {
+                    $$sdkAuth.UserClaimProductReferenceList(brand.id).then(function (response) {
+                        var productClaimEvents = response.data.data;
+                        console.log('response', response);
+                        $scope.notifications.push({
+                            'event': {
+                                'user_id': user.id,
+                                'timestamp': moment(claimEvent.updatedAt).unix(),
+                                'productName': claimEvent.value,
+                                'type': claim.status
+                        }
+                        });
+                    });
+                });
 
                 claimEvents.forEach(function (claimEvent) {
                     var claim = claims[claimEvent.status];
