@@ -12,7 +12,7 @@
             <div class="timeline">
                 <div class="tl-header now color-blue-inverse">Maintenant</div>
 
-                <div ng-repeat="notification in notifications">
+                <div ng-repeat="notification in notifications | orderBy:'event.timestamp':true">
                     <div alk-notification="notification"></div>
                 </div>
             </div>

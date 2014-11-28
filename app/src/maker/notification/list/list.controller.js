@@ -34,8 +34,8 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerNotificationsContr
 
             // Temporary fix for new subscribers, will be moved in the registraiton process
             $$sdkAuth.UserClaimProductBrandList().then(function (response) {
-                var claimEvents = response.data.data;
-                var claims = [
+                var brandClaimEvents = response.data.data;
+                var brandClaims = [
                     {
                         'status': 'BrandClaimCreated'
                     },
@@ -50,23 +50,8 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerNotificationsContr
                     }
                 ];
 
-                user.managesBrand.forEach(function (brand) {
-                    $$sdkAuth.UserClaimProductReferenceList(brand.id).then(function (response) {
-                        var productClaimEvents = response.data.data;
-                        console.log('response', response);
-                        $scope.notifications.push({
-                            'event': {
-                                'user_id': user.id,
-                                'timestamp': moment(claimEvent.updatedAt).unix(),
-                                'productName': claimEvent.value,
-                                'type': claim.status
-                        }
-                        });
-                    });
-                });
-
-                claimEvents.forEach(function (claimEvent) {
-                    var claim = claims[claimEvent.status];
+                brandClaimEvents.forEach(function (claimEvent) {
+                    var claim = brandClaims[claimEvent.status];
                     $scope.notifications.push({
                         'event': {
                             'user_id': user.id,
@@ -77,7 +62,40 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerNotificationsContr
                     });
                 });
 
-                $scope.notifications.sort(function (a, b) { return b.event.timestamp - a.event.timestamp });
+                user.managesBrand.forEach(function (brand) {
+                    $$sdkAuth.UserClaimProductReferenceList(brand.id).then(function (response) {
+                        var productClaimEvents = response.data.data;
+                        var productClaims = [
+                            {
+                                'status': 'ProductClaimCreated'
+                            },
+                            {
+                                'status': 'ProductClaimAccepted'
+                            },
+                            {
+                                'status': 'ProductClaimRefused'
+                            },
+                            {
+                                'status': 'ProductClaimErrored'
+                            }
+                        ];
+
+                        productClaimEvents.forEach(function (claimEvent) {
+                            var claim = productClaims[claimEvent.status];
+                            console.log('claimEvent', claimEvent);
+                            $scope.notifications.push({
+                                'event': {
+                                    'user_id': user.id,
+                                    'timestamp': moment(claimEvent.updatedAt).unix(),
+                                    'productName': claimEvent.product_name,
+                                    'productReference': claimEvent.reference,
+                                    'type': claim.status
+                                }
+                            });
+                        });
+                    });
+                });
+
                 // Temporary fix for new subscribers, will be moved in the registraiton process
                 $scope.notifications.push({
                     'event': {
