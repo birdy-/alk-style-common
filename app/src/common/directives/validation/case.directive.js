@@ -4,11 +4,14 @@ angular.module('jDashboardFluxApp').directive('alkValidationCase', function() {
     return {
         require: 'ngModel',
         link: function(scope, elm, attrs, ctrl) {
+            var allowFirstCharNumber = attrs.alkAllowFirstCharNumber === 'true';
+
             var validator = function(viewValue) {
                 if (angular.isEmpty(viewValue)) {
                     return viewValue;
                 }
-                if (/^[a-z]/.test(viewValue) || /^[0-9]/.test(viewValue)) {
+
+                if (/^[a-z]/.test(viewValue) || !allowFirstCharNumber && /^[0-9]/.test(viewValue)) {
                     ctrl.$setValidity('caseStart', false);
                 } else {
                     ctrl.$setValidity('caseStart', true);

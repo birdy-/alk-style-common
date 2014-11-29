@@ -9,7 +9,7 @@
 <div class="form-group has-feedback" ng-class="check('nameLegal')">
     <label for="nameLegal" class="col-sm-3 control-label inco-field">Dénomination légale</label>
     <div class="col-sm-9">
-        <input ng-model="product.nameLegal" name="nameLegal" type="text" class="form-control" placeholder="Le nom du produit, sans mention de la marque ni packaging" required ng-minlength="3" alk-validation-name="{{ product.isBrandedBy.name }}" alk-validation-case="sentence" alk-focus ng-change="predict(product)"/>
+        <input ng-model="product.nameLegal" name="nameLegal" type="text" class="form-control" placeholder="Le nom du produit, sans mention de la marque ni packaging" required ng-minlength="3" alk-validation-name="{{ product.isBrandedBy.name }}" alk-validation-case="sentence" alk-allow-first-char-number="true" alk-focus ng-change="predict(product)"/>
         <span ng-show="productForm.nameLegal.$error.required" class="help-block">Cet élément est obligatoire.</span>
         <span ng-show="productForm.nameLegal.$error.minlength" class="help-block">Le nom du produit est trop court.</span>
         <span ng-show="productForm.nameLegal.$error.caseTooManyUpper" class="help-block">La dénomination ne doit pas comporter trop de majuscules.</span>
