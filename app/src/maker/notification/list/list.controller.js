@@ -27,13 +27,15 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerNotificationsContr
     // ------------------------------------------------------------------------
     permission.getUser().then(function (user) {
         $scope.user = user;
+        var brands = user.managesBrand;
+
         $$sdkTimeline.TimelineGet(user.id).then(function (response) {
             $scope.notifications = response.data.data;
 
             // Temporary fix for new subscribers, will be moved in the registraiton process
             $$sdkAuth.UserClaimProductBrandList().then(function (response) {
-                var claimEvents = response.data.data;
-                var claims = [
+                var brandClaimEvents = response.data.data;
+                var brandClaims = [
                     {
                         'status': 'BrandClaimCreated'
                     },
@@ -48,8 +50,8 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerNotificationsContr
                     }
                 ];
 
-                claimEvents.forEach(function (claimEvent) {
-                    var claim = claims[claimEvent.status];
+                brandClaimEvents.forEach(function (claimEvent) {
+                    var claim = brandClaims[claimEvent.status];
                     $scope.notifications.push({
                         'event': {
                             'user_id': user.id,
@@ -60,7 +62,20 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerNotificationsContr
                     });
                 });
 
-                $scope.notifications.sort(function (a, b) { return b.event.timestamp - a.event.timestamp });
+                user.managesBrand.forEach(function (brand) {
+                    $$sdkAuth.UserClaimProductReferenceList(brand.id).then(function (response) {
+                        var productClaimEvents = response.data.data;
+
+                        productClaimEvents.forEach(function (claimEvent) {
+                            var claim = new UserClaimProductReference();
+
+                            $scope.notifications.push({
+                                'event': claim.fromJson(claimEvent)
+                            });
+                        });
+                    });
+                });
+
                 // Temporary fix for new subscribers, will be moved in the registraiton process
                 $scope.notifications.push({
                     'event': {

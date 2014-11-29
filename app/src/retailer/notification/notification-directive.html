@@ -87,6 +87,22 @@
                 <span alk-button-brand-claim alk-button-class="btn-success"></span>
             </div>
         </div>
+
+        <div ng-switch-when="ProductClaimCreated">
+            Nous avons bien reçu votre demande pour le produit : <strong>{{ notification.event.productName }}</strong>. Nous étudions votre demande et revenons vers vous dans les plus brefs délais.
+        </div>
+
+        <div ng-switch-when="ProductClaimAccepted">
+            Votre demande pour le produit <strong>{{ notification.event.productName }}</strong> a été acceptée. Rendez-vous sur <a ng-href="/#/maker/product/{{ notification.event.productReference }}/data/general">la page du produit</a> pour le gérer !
+        </div>
+
+        <div ng-switch-when="ProductClaimRefused">
+            Votre demande pour le produit <strong>{{ notification.event.productName }}</strong> a été refusée. <a href="mailto:support@alkemics.com">Contactez-notre support</a> pour plus d'informations.
+        </div>
+
+        <div ng-switch-when="ProductClaimErrored">
+            Une erreur est survenue lors de votre demande pour le produit <strong>{{ notification.event.productName }}</strong>. Veuillez réessayer et <a href="mailto:support@alkemics.com">contactez-notre support</a> si le problème persiste.
+        </div>
     </div>
 
 </div>
