@@ -28,7 +28,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerNotificationsContr
     permission.getUser().then(function (user) {
         $scope.user = user;
         var brands = user.managesBrand;
-        console.log('USER', user);
+
         $$sdkTimeline.TimelineGet(user.id).then(function (response) {
             $scope.notifications = response.data.data;
 
@@ -65,32 +65,12 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerNotificationsContr
                 user.managesBrand.forEach(function (brand) {
                     $$sdkAuth.UserClaimProductReferenceList(brand.id).then(function (response) {
                         var productClaimEvents = response.data.data;
-                        var productClaims = [
-                            {
-                                'status': 'ProductClaimCreated'
-                            },
-                            {
-                                'status': 'ProductClaimAccepted'
-                            },
-                            {
-                                'status': 'ProductClaimRefused'
-                            },
-                            {
-                                'status': 'ProductClaimErrored'
-                            }
-                        ];
 
                         productClaimEvents.forEach(function (claimEvent) {
-                            var claim = productClaims[claimEvent.status];
-                            console.log('claimEvent', claimEvent);
+                            var claim = new UserClaimProductReference();
+
                             $scope.notifications.push({
-                                'event': {
-                                    'user_id': user.id,
-                                    'timestamp': moment(claimEvent.updatedAt).unix(),
-                                    'productName': claimEvent.product_name,
-                                    'productReference': claimEvent.reference,
-                                    'type': claim.status
-                                }
+                                'event': claim.fromJson(claimEvent)
                             });
                         });
                     });
