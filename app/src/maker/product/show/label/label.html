@@ -2,7 +2,7 @@
     <div ng-controller="DashboardMakerProductShowLabelController">
         <div class="form-group">
             <div class="col-xs-12 product-labels-header">
-                <div class="label-summary" data-ng-if="product.isLabeledBy.length === 0">Ce produit a 0 label</div>
+                <div class="label-summary" data-ng-if="product.isLabeledBy.length === 0">Ce produit n'a pas de label</div>
                 <div class="label-summary" data-ng-if="product.isLabeledBy.length > 0">Les labels du produits :</div>
                 <p><img data-ng-repeat="label in product.isLabeledBy" data-ng-src="https://smedia.alkemics.com/api/1/concept/{{ label.concept.id }}/picture/logo/original.png" class="label-picto"/></p>
             </div>
