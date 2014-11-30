@@ -19,7 +19,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowLabelCo
         19161, 19162, 19163, 19164, 19165, 19166, 19167, 19168, 19169, 19170, 19171,
         10055, 10064, 10262, 10265, 10321, 10326, 10327, 10328, 10329, 10330, 10331,
         10332, 10333, 10334, 10335, 10336, 10337, 10338, 10339, 10340, 10341, 10342,
-        10343, 10344, 10345, 18935, 19114, 10347
+        10343, 10344, 10345, 18935, 19114, 10347, 10419, 10431
     ].map(function (labelId) {
         $scope.labels[labelId] = $$ORM.repository('Concept').lazy(labelId);
     });
@@ -91,7 +91,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowLabelCo
                 $scope.labels[19114], // label Eco-Label
                 $scope.labels[19102],
                 $scope.labels[19107],
-                $scope.labels[19110],
                 $scope.labels[19122],
                 $scope.labels[19112],
                 $scope.labels[19134],
@@ -150,7 +149,10 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowLabelCo
                 $scope.labels[10339], // label Terroir Charolais
                 $scope.labels[10340], // label Qualivet Filière Non OGM
                 $scope.labels[10341], // label Qualité Limousine
-                $scope.labels[19111],
+                $scope.labels[19110], // label Marine Stewardship Council
+                $scope.labels[19111], // label Aquaculture Stewardship Council
+                $scope.labels[10419], // label IFFO RS assured
+                $scope.labels[10431], // label Sustainable Fisheries Partnership
                 $scope.labels[19154],
                 $scope.labels[19158],
                 $scope.labels[10330] // label Gourmet Naturel

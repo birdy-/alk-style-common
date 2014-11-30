@@ -280,7 +280,9 @@ angular.module('jDashboardFluxApp').service('$$ORM', [
             { id: 10345, name: "Sélection Guide Hachette",                                                type: 'Label'},
             { id: 18935, name: "Dénomination d'Origine Protégée",                                         type: 'Label'},
             { id: 19114, name: "Label Eco-Label",                                                         type: 'Label'},
-            { id: 10347, name: "Œuf pondu en France",                                                     type: 'Label'}
+            { id: 10347, name: "Œuf pondu en France",                                                     type: 'Label'},
+            { id: 10419, name: "Label IFFO RS assured",                                                   type: 'Label'},
+            { id: 10431, name: "Label Sustainable Fisheries Partnership",                                 type: 'Label'}
         ];
 
         // Duplicates a field in the text attribute of the object, so it can be used by the autocomplete lubrary
