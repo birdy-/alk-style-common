@@ -133,13 +133,13 @@ angular.module('jDashboardFluxApp').service('$$ORM', [
             { id: 18983, name: 'Vitamine B6',              isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Vitamin',   compulsory: false, legend: "" },
             { id: 18743, name: 'Vitamine B8',              isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Vitamin',   compulsory: false, legend: "" },
             { id: 18742, name: 'Vitamine B9',              isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Vitamin',   compulsory: false, legend: "" },
-            { id: 18984, name: 'Vitamine B11',             isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Vitamin',   compulsory: false, legend: "" },
+            // { id: 18984, name: 'Vitamine B11',             isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Vitamin',   compulsory: false, legend: "" }, Seems to be a duplicate of B9
             { id: 18985, name: 'Vitamine B12',             isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Vitamin',   compulsory: false, legend: "" },
             { id: 18982, name: 'Vitamine C',               isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Vitamin',   compulsory: false, legend: "" },
             { id: 18979, name: 'Vitamine D',               isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Vitamin',   compulsory: false, legend: "" },
             { id: 18980, name: 'Vitamine E',               isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Vitamin',   compulsory: false, legend: "" },
             { id: 18981, name: 'Vitamine K',               isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Vitamin',   compulsory: false, legend: "" },
-            { id: 18986, name: 'Vitamine H',               isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Vitamin',   compulsory: false, legend: "" },
+            // { id: 18986, name: 'Vitamine H',               isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Vitamin',   compulsory: false, legend: "" }, Seems to be a duplicate of B8
 
             { id: 19075, name: 'Aluminium',                isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Mineral',   compulsory: false, legend: "" },
             { id: 19076, name: 'Arsenic',                  isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Mineral',   compulsory: false, legend: "" },
