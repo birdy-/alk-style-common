@@ -107,19 +107,26 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     };
 
     var findByName = function () {
-        var brand = $scope.request.product.isBrandedBy;
-        if (!brand || !brand.id) {
+        var brands = [];
+        for (var i = 0; i < $scope.allBrands.length; i++) {
+            if ($scope.allBrands[i].active === true) {
+                brands.push($scope.allBrands[i].id);
+            }
+        }
+        if (brands.length === 0) {
             $log.warn("Product List Controller : no <Brand> set in findByName.");
             return;
         }
+        brands = brands.join(',');
+
         var filters = {
-            isbrandedby_id: brand.id,
+            isbrandedby_id: brands,
             certified: $scope.request.product.certified
         };
         var queries = {
             namelegal: $scope.request.product.nameLegal
         };
-        $log.log("Product List Controller : listing by name '" + queries.nameLegal + "' in "+brand.id);
+        $log.log("Product List Controller : listing by name '" + queries.nameLegal + "' in " + brands);
         return find(queries, filters);
     };
 
