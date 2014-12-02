@@ -7,19 +7,28 @@
 angular.module('jDashboardFluxApp').directive('alkButtonProductClaim', [
     '$modal',
     function ($modal) {
-        scope.claim = function () {
-            var modalInstance = $modal.open({
-                templateUrl: '/src/maker/product/certify/claim.html',
-                controller: 'ProductClaimModalController',
-                resolve: {
-                    brand: function() {
-                        return scope.brand;
-                    }
-                }
-            });
-            modalInstance.result.then(function () {
-            }, function () {
-            });
+        return {
+            restrict: 'AEC',
+            scope: {
+                brand: '=brand'
+            },
+            templateUrl: '/src/maker/product/certify/claim-directive.html',
+            link: function(scope, elem, attrs) {
+                scope.claim = function () {
+                    var modalInstance = $modal.open({
+                        templateUrl: '/src/maker/product/certify/claim.html',
+                        controller: 'ProductClaimModalController',
+                        resolve: {
+                            brand: function() {
+                                return scope.brand;
+                            }
+                        }
+                    });
+                    modalInstance.result.then(function () {
+                    }, function () {
+                    });
+                };
+            }
         };
     }
 ]);
