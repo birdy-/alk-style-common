@@ -205,8 +205,12 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
                 return shop.id;
             })[0];
             $scope.request.shop.shortId = shopId;
-            getSegment(shopId).then(getStats);
-            $scope.refresh();
+            getSegment(shopId).then(function (segment) {
+                getStats(segment);
+                // make a first refresh based on the INCO products
+                $scope.request.productInShopSegment = segment;
+                $scope.refresh();
+            });
         });
 
     }
