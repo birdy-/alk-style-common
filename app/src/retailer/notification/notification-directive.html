@@ -103,6 +103,13 @@
         <div ng-switch-when="ProductClaimErrored">
             Une erreur est survenue lors de votre demande pour le produit <strong>{{ notification.event.productName }}</strong>. Veuillez réessayer et <a href="mailto:support@alkemics.com">contactez-notre support</a> si le problème persiste.
         </div>
+
+        <div ng-switch-when="PlatformDemoVideo">
+            <p>Retrouver notre démo de la plate-forme ci-dessous.</p>
+            <div class="tl-wide text-center">
+                <img class="preview-videowrapper" demo-video ng-click="openDemoVideo()" src="../images/home/demo-video-preview.png"/>
+            </div>
+        </div>
     </div>
 
 </div>
