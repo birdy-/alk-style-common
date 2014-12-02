@@ -84,6 +84,14 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerNotificationsContr
                         'type': 'PlatformBrandWelcome'
                     }
                 });
+
+                // Temporary fix, will be moved in the timeline process
+                $scope.notifications.push({
+                    'event': {
+                        'timestamp': moment().unix(),
+                        'type': 'PlatformDemoVideo'
+                    }
+                });
             });
         });
     });
