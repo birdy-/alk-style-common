@@ -3,8 +3,8 @@
 angular.module('jDashboardFluxApp')
 
 .controller('DemoVideoModalController', [
-    '$modalInstance',
-    function ($modalInstance) {
+    '$modalInstance', '$scope',
+    function ($modalInstance, $scope) {
         $scope.closeDemoVideo = function () {
             $modalInstance.dismiss('cancel');
         };
