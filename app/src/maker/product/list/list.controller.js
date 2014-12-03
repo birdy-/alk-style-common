@@ -19,7 +19,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     $scope.products = $scope.request.products || [];
     $scope.scroll = {
         offset: 0,
-        limit: 24,
+        limit: 240,
         stop: false,
         busy: false
     };
