@@ -6,11 +6,11 @@
  * authenticate directive for that matter.
  */
 angular.module('jDashboardFluxApp').controller('LoginController', [
-    '$scope', 'permission', '$location',
-     function ($scope, permission, $location) {
+    '$scope', 'permission', '$location', '$window',
+     function ($scope, permission, $location, $window) {
 
-    $scope.login = null;
-    $scope.password = null;
+    $scope.login = $window.localStorage ? $window.localStorage.login : null;
+    $scope.password = null;// $window.localStorage ? $window.localStorage.password : null;
     $scope.message = null;
     $scope.displayActivationMessage = ($location.search()['activation'] === '1') ? true : false;
 
@@ -19,6 +19,10 @@ angular.module('jDashboardFluxApp').controller('LoginController', [
             $scope.login,
             $scope.password
         ).then(function(response){
+            if ($window.localStorage) {
+                $window.localStorage.login = $scope.login;
+                // $window.localStorage.password = $scope.password;
+            }
             // Choose which view to redirect to depending on user
             permission.getUser().then(function(user){
                 // We first check whether I have multiple shops in case :
