@@ -26,7 +26,6 @@ angular.module('jDashboardFluxApp').controller('LoginController', [
             }
 
             // If we are not on the login page, just hide the page
-            console.log($location.path());
             if ($location.path() !== '/login') {
                 return;
             }
