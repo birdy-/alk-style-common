@@ -16,7 +16,7 @@ var app = angular.module('jDashboardFluxApp', [
   'ui.sortable',
   'ui.tree',
   'ui.unique',
-  'nvd3ChartDirectives',
+  // 'nvd3ChartDirectives',
   'textAngular',
   'ngHandsontable'
 ]);
@@ -42,7 +42,7 @@ app.factory('plupload', [
 var env = (window.location.hostname.indexOf('localhost') === 0) ? 'dev' : 'prod';
 
 // env = 'prod';
-// env = 'vagrant';
+env = 'vagrant';
 if (env === 'prod') {
     app.constant('URL_CDN_MEDIA', 'https://smedia.alkemics.com');
     app.constant('URL_SERVICE_AUTH', 'https://auth.alkemics.com');
@@ -63,7 +63,7 @@ if (env === 'prod') {
     });
 } else if (env === 'vagrant') {
     app.constant('URL_CDN_MEDIA', 'https://s3-eu-west-1.amazonaws.com/pprd.media.alkemics.com');
-    app.constant('URL_SERVICE_AUTH', 'https://localauth.alkemics.com');
+    app.constant('URL_SERVICE_AUTH', 'http://localauth.alkemics.com');
     app.constant('URL_SERVICE_MEDIA', 'https://localservice-media.alkemics.com');
     app.constant('URL_UI_BUTTON_PRODUCT', 'http://localhost.alkemics.com:9010/');
     app.constant('URL_UI_SHOPPINGLIST', 'https://sassets.toc.io/interfaces/banner/v3/index.html');

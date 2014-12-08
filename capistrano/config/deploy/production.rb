@@ -25,7 +25,7 @@ role :srv2, %w{deploy_sdk@alk-cdn-1.cloudapp.net:61868}
 # Global options
 # --------------
   set :ssh_options, {
-    keys: %w(~/.ssh/id_rsa),
+    keys: %w(~/.ssh/stream_rsa),
 #    forward_agent: false,
 #    auth_methods: %w(password)
   }

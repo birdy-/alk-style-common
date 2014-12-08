@@ -73,8 +73,16 @@
         <script type="text/javascript" src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
     <!--[if lt IE 8]>
-        <script type="text/javascript" src="//cdn.rawgit.com/jpillora/xdomain/0.6.15/dist/0.6/xdomain.js" slave="http://localstream.alkemics.com" master="*"></script>
+        <script type="text/javascript" src="//cdn.rawgit.com/jpillora/xdomain/0.6.15/dist/0.6/xdomain.js"></script>
+        <script type="text/javascript" src="//cdn.rawgit.com/jpillora/xdomain/0.6.15/dist/0.6/xdomain.min.js"></script>
+        <script>
+          xdomain.slaves({
+            "http://localcore.alkemics.com": "/static/proxy.html",
+            "http://localauth.alkemics.com": "/static/proxy.html"
+          });
+        </script>
         <script>xdomain.debug = true;</script>
+        <script type="text/javascript" src="bower_components/es5-shim/es5-shim.js"></script>
     <![endif]-->
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -194,9 +202,9 @@
         <script type="text/javascript" src="bower_components/plupload/js/moxie.js"></script>
         <script type="text/javascript" src="bower_components/plupload/js/plupload.dev.js"></script>
 
-        <script type="text/javascript" src="bower_components/d3/d3.js"></script>
+        <!-- <script type="text/javascript" src="bower_components/d3/d3.js"></script>
         <script type="text/javascript" src="bower_components/nvd3/nv.d3.js"></script>
-        <script type="text/javascript" src="bower_components/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.js"></script>
+        <script type="text/javascript" src="bower_components/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.js"></script> -->
         <script type="text/javascript" src='bower_components/textAngular/dist/textAngular-sanitize.min.js'></script>
         <script type="text/javascript" src='bower_components/textAngular/dist/textAngular.min.js'></script>
         <script type="text/javascript" src='bower_components/moment/moment.js'></script>

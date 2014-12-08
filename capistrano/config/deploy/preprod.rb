@@ -25,7 +25,7 @@ set :deploy_to, '/var/www/pprd.stream.alkemics.com'
 # Global options
 # --------------
   set :ssh_options, {
-    keys: %w(~/.ssh/id_rsa),
+    keys: %w(~/.ssh/stream_rsa),
 #    forward_agent: false,
 #    auth_methods: %w(password)
   }
