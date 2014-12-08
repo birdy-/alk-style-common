@@ -8,7 +8,7 @@
             <div class="name">
                 <!-- Use the first ProductReference linked to identify the product -->
                 <a ng-click="show(product, $index)">
-                    {{ product.nameLegal }}
+                    {{ product.namePublicLong || product.nameLegal }}
                 </a>
             </div>
             <div class="packaging">

@@ -6,11 +6,11 @@
 <div class="container" ng-show="ok">
     <br/> <br/> <br/> <br/> <br/> <br/>
     <div class="alert alert-success text-center">
-        Votre inscription a bien été prise en compte. Vous recevrez sous peu un email de confirmation.
+        Votre inscription a bien été prise en compte. Vous recevrez sous peu un email de confirmation. Mais vous pouvez d’ores et déjà vous connecter avec vos identifiants sur <a href="/#/login">notre page de connexion</a>.
         <br/>
         <br/>
         <p>
-            En attendant, vous pouvez nous suivre sur les réseaux sociaux :
+            Vous pouvez nous suivre sur les réseaux sociaux :
             <br/>
             <br/>
             <iframe allowtransparency="true" frameborder="0" scrolling="no" src="//platform.twitter.com/widgets/follow_button.html?screen_name=alkemics&lang=fr&show_count=false" style="width:150px; height:20px;"></iframe>
@@ -37,6 +37,7 @@
                 <div alk-register-step="'todo'">
                     4. Je remplis mon premier produit
                 </div>
+                <img class="preview-videowrapper" demo-video ng-click="openDemoVideo()" src="../images/home/demo-video-preview.png"/>
             </ul>
         </nav>
 
@@ -65,6 +66,18 @@
                             <input type="email" name="username" class="form-control" ng-model="user.username" placeholder="Email" alk-focus ng-minlength="5" required/>
                             <div ng-show="userForm.username.$invalid && userForm.username.$focus">
                                 Veuillez entrer un email valide.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="checkUserFormField('usernameConfirm')">
+                        <label class="col-sm-4 control-label">Je confirme mon email</label>
+                        <div class="col-sm-8">
+                            <input type="email" name="usernameConfirm" class="form-control" ng-model="user.usernameConfirm" placeholder="Confirmation de mon email" alk-focus ng-minlength="5" required input-match="user.username" no-paste/>
+                            <div ng-show="userForm.usernameConfirm.$invalid && userForm.usernameConfirm.$focus">
+                                Veuillez entrer un email valide.
+                            </div>
+                            <div ng-show="userForm.usernameConfirm.$error.inputMatch">
+                                Les emails ne correspondent pas.
                             </div>
                         </div>
                     </div>
@@ -116,23 +129,23 @@
                             <input type="text" name="companyIdentifierCity" class="form-control" ng-model="company.identifierCity" placeholder="Pontoise"/>
                         </div>
                     </div>
-                    <div class="form-group" ng-class="checkCompanyFormField('companyCountry')">
+                    <div class="form-group">
                         <div>
                             <label class="col-sm-4 control-label">Son adresse</label>
-                            <div class="col-sm-8">
+                            <div class="col-sm-8" ng-class="checkCompanyFormField('companyAdress')">
                                 <textarea name="companyAdress" class="form-control" ng-model="company.adress" placeholder="ex : 82 rue du Faubourg Saint-Martin" ng-minlength="1" required></textarea>
                             </div>
                         </div>
                     </div>
-                    <div class="form-group" ng-class="checkCompanyFormField('companyPostcode')">
+                    <div class="form-group">
                         <div>
-                            <div class="col-sm-2 col-sm-offset-4">
+                            <div class="col-sm-2 col-sm-offset-4" ng-class="checkCompanyFormField('companyPostcode')">
                                 <input type="text" name="companyPostcode" class="form-control" ng-model="company.postcode" placeholder="ex : 75010" ng-minlength="1" required/>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-3" ng-class="checkCompanyFormField('companyCity')">
                                 <input type="text" name="companyCity" class="form-control" ng-model="company.city" placeholder="ex : Paris" ng-minlength="1" required/>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-3" ng-class="checkCompanyFormField('companyCountry')">
                                 <input type="text" name="companyCountry" class="form-control" ng-model="company.country" placeholder="ex : France" ng-minlength="1" required/>
                             </div>
                         </div>
@@ -161,7 +174,7 @@
                     </div>
                 </div>
                 <div class="text-center" ng-show="waitingForEmail">
-                    Je vérifie ma messagerie pour valider mon email.
+                    Je vérifie ma messagerie pour valider mon email mais je peux d’ores et déjà me connecter avec les identifiants que j'ai choisi.
                 </div>
             </form>
         </div>

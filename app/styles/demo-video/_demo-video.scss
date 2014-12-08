@@ -1,0 +1,23 @@
+.videowrapper, .preview-videowrapper {
+    position: relative;
+    width: 100%;
+
+    iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.videowrapper {
+    height: 400px;
+}
+
+.preview-videowrapper {
+    cursor: pointer;
+    height: 180px;
+    max-width: 300px;
+    text-align: center;
+}

@@ -1,5 +1,14 @@
 .productnutritionalquantity-precision {
     width: 50px;
+
+    select.form-control {
+        padding: 0;
+        width: 40px;
+    }
+}
+
+.productnutritionalquantity-value {
+    min-width: 80px;
 }
 
 .pnq-name {
@@ -15,6 +24,7 @@
 .table thead tr th.psq-col,
 .table tbody tr td.psq-col {
     border-left: 1px solid #dddddd;
+    min-width: 250px;
 }
 
 .table .separator {

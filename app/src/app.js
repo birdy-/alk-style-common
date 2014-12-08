@@ -72,7 +72,7 @@ if (env === 'prod') {
         $logProvider.debugEnabled(true);
     });
 }
-
+angular.module('sdk-dashboard').constant('APPLICATION_ID', 'UA-0000-3');
 
 
 

@@ -4,7 +4,7 @@
         <select class="form-control" ng-model="pnq.measurementPrecision" ng-options="precision.id as precision.name for precision in precisions" required>
         </select>
       </span>
-    <input type="text" class="form-control" ng-model="pnq.quantity" placeholder="ex : 100" alk-float="2" alk-focus ng-min="0" required/>
+    <input type="text" class="form-control productnutritionalquantity-value" ng-model="pnq.quantity" placeholder="ex : 100" alk-float="2" alk-focus ng-min="0" required/>
     <span class="input-group-addon">{{ pnq.isMeasuredBy.name }} / {{ psq.name }}</span>
 </div>
 <span ng-show="false" class="help-block">La valeur entrée doit être un nombre décimal.</span>

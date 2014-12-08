@@ -108,14 +108,14 @@ angular.module('jDashboardFluxApp').service('$$ORM', [
             { id: 19195, name: 'Valeur énergétique (kJ)',  isMeasuredBy: {id: 104, _type: 'CommonUnit' }, type: 'Nutrition', compulsory: true,  legend: "" },
             { id: 19196, name: 'Valeur énergétique (kCal)',isMeasuredBy: {id: 106, _type: 'CommonUnit' }, type: 'Nutrition', compulsory: true,  legend: "" },
             { id: 19058, name: 'Matières grasses',         isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Nutrition', compulsory: true,  legend: "La quantité totale de lipides (y compris phospholipides), rapportée 100 grammes de produit." },
-            { id: 19059, name: 'Acides gras saturatés',    isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Nutrition', compulsory: true,  legend: "La quantité totale d'acides gras sans double liaison, rapportée à 100 grammes de produit." },
+            { id: 19059, name: 'Acides gras saturés',      isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Nutrition', compulsory: true,  legend: "La quantité totale d'acides gras sans double liaison, rapportée à 100 grammes de produit." },
             { id: 19060, name: 'Acides gras monoinsaturés',isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Nutrition', compulsory: false, legend: "La quantité totale d'acides gras avec une double liaison cis, rapportée à 100 grammes de produit." },
             { id: 19061, name: 'Acides gras polyinsaturés',isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Nutrition', compulsory: false, legend: "La quantité totale d'acides gras avec deux (ou plus) doubles liaisons interrompues cis ou cis-méthylène, rapportée à 100 grammes de produit." },
             { id: 19062, name: 'Acides gras trans',        isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Nutrition', compulsory: false, legend: "" },
             { id: 19063, name: 'Cholestérol',              isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Nutrition', compulsory: false, legend: "" },
             { id: 19064, name: 'Oméga 3',                  isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Nutrition', compulsory: false, legend: "" },
             { id: 19065, name: 'Oméga 6',                  isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Nutrition', compulsory: false, legend: ""  },
-            { id: 19066, name: 'Rapport gras',             isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Nutrition', compulsory: false, legend: ""  },
+            { id: 19066, name: '% de matières grasses',    isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Nutrition', compulsory: false, legend: ""  },
             { id: 19067, name: 'Glucides',                 isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Nutrition', compulsory: true,  legend: "La quantité totale de tous les glucides métabolisés par l’homme, y compris les polyols, rapportée à 100 grammes de produit." },
             { id: 19068, name: 'Sucres',                   isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Nutrition', compulsory: true,  legend: "La quantité totale de tous les monosaccharides et disaccharides présents dans une denrée alimentaire, à l’exclusion des polyols, rapportée à 100 grammes de produit." },
             { id: 19069, name: 'Polyols',                  isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Nutrition', compulsory: false, legend: "La quantité totale de tous les alcools comprenant plus de deux groupes hydroxyles, rapportée à 100 grammes de produit." },
@@ -133,13 +133,13 @@ angular.module('jDashboardFluxApp').service('$$ORM', [
             { id: 18983, name: 'Vitamine B6',              isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Vitamin',   compulsory: false, legend: "" },
             { id: 18743, name: 'Vitamine B8',              isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Vitamin',   compulsory: false, legend: "" },
             { id: 18742, name: 'Vitamine B9',              isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Vitamin',   compulsory: false, legend: "" },
-            { id: 18984, name: 'Vitamine B11',             isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Vitamin',   compulsory: false, legend: "" },
+            // { id: 18984, name: 'Vitamine B11',             isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Vitamin',   compulsory: false, legend: "" }, Seems to be a duplicate of B9
             { id: 18985, name: 'Vitamine B12',             isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Vitamin',   compulsory: false, legend: "" },
             { id: 18982, name: 'Vitamine C',               isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Vitamin',   compulsory: false, legend: "" },
             { id: 18979, name: 'Vitamine D',               isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Vitamin',   compulsory: false, legend: "" },
             { id: 18980, name: 'Vitamine E',               isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Vitamin',   compulsory: false, legend: "" },
             { id: 18981, name: 'Vitamine K',               isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Vitamin',   compulsory: false, legend: "" },
-            { id: 18986, name: 'Vitamine H',               isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Vitamin',   compulsory: false, legend: "" },
+            // { id: 18986, name: 'Vitamine H',               isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Vitamin',   compulsory: false, legend: "" }, Seems to be a duplicate of B8
 
             { id: 19075, name: 'Aluminium',                isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Mineral',   compulsory: false, legend: "" },
             { id: 19076, name: 'Arsenic',                  isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Mineral',   compulsory: false, legend: "" },
@@ -280,7 +280,9 @@ angular.module('jDashboardFluxApp').service('$$ORM', [
             { id: 10345, name: "Sélection Guide Hachette",                                                type: 'Label'},
             { id: 18935, name: "Dénomination d'Origine Protégée",                                         type: 'Label'},
             { id: 19114, name: "Label Eco-Label",                                                         type: 'Label'},
-            { id: 10347, name: "Œuf pondu en France",                                                     type: 'Label'}
+            { id: 10347, name: "Œuf pondu en France",                                                     type: 'Label'},
+            { id: 10419, name: "Label IFFO RS assured",                                                   type: 'Label'},
+            { id: 10431, name: "Label Sustainable Fisheries Partnership",                                 type: 'Label'}
         ];
 
         // Duplicates a field in the text attribute of the object, so it can be used by the autocomplete lubrary

@@ -18,7 +18,7 @@ angular.module('jDashboardFluxApp').directive('alkProductLabel', function () {
             legend: '=',
             product: '='
         },
-        templateUrl: '/src/maker/product/show/preview/productlabel-directive.html',
+        templateUrl: '/src/maker/product/show/preview/productLabel-directive.html',
         link: function(scope, element, attrs) {
 
             scope.$watch('product.isLabeledBy', function (labels) {

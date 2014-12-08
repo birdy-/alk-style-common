@@ -12,6 +12,7 @@ angular.module('jDashboardFluxApp').directive('entityImage', [
             templateUrl: '/src/common/directives/image/template.html',
             link: function (scope, elem, attrs) {
                 scope['class'] = attrs['class'];
+                scope.fallbackSrcUrl = '/images/missing.png';
 
                 var setUrl = function (type, id, extra) {
                     var cachebuster = 'cachebuster=' + (Math.random() * 10000000000000000);
@@ -21,6 +22,8 @@ angular.module('jDashboardFluxApp').directive('entityImage', [
                         scope.url = URL_CDN_MEDIA + '/brand/' + id + '/picture/logo/original.png' + '?' + cachebuster;
                     } else if (type === 'Product') {
                         scope.url = URL_CDN_MEDIA + '/product/' + id + '/picture/packshot/256x256.png' + '?' + cachebuster;
+                    } else if (type === 'ProductInShop' && extra.picture) {
+                        scope.url = extra.picture.main + '?' + cachebuster;
                     } else if (type === 'Recipe'
                             && extra.url
                             && extra.url.picture
@@ -47,9 +50,9 @@ angular.module('jDashboardFluxApp').directive('entityImage', [
 
 angular.module('jDashboardFluxApp').directive('fallbackSrc', function () {
     return {
-        link: function postLink (scope, iElement, iAttrs) {
-            iElement.bind('error', function () {
-                angular.element(this).attr("src", iAttrs.fallbackSrc);
+        link: function postLink (scope, element, attrs) {
+            element.bind('error', function () {
+                angular.element(this).attr("src", attrs.fallbackSrc);
             });
         }
    };

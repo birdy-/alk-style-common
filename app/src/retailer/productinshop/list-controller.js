@@ -45,7 +45,8 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
             return $$ORM.repository('ProductInShopSegment').list({}, {
                 shortId: 'INCO',
                 type: ProductInShopSegment.TYPE_TECHNICAL.id,
-                shop_id: shopId
+                shop_id: shopId,
+                shop_shortId: shopId
             }).then(function (segments) {
                 if (segments.length != 1) {
                     $log.warn("Incoherent ProductInShopSegment for active products.");
@@ -133,19 +134,19 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
         };
 
         $scope.show = function (productInShop) {
-            var modalInstance = $modal.open({
-                templateUrl: '/src/retailer/productinshop/show-modal.html',
-                controller: 'ProductShowModalController',
-                size: 'lg',
-                resolve: {
-                    product: function () {
-                        return productInShop.instantiates;
+            $$ORM.repository('ProductInShop').method('ShowProduct')(productInShop.id).then(function (productInShop) {
+                var modalInstance = $modal.open({
+                    templateUrl: '/src/retailer/productinshop/show-modal.html',
+                    controller: 'ProductShowModalController',
+                    size: 'lg',
+                    resolve: {
+                        product: function () {
+                            return productInShop.instantiates[0];
+                        }
                     }
-                }
-            });
+                });
 
-            modalInstance.result.then(function () {
-            }, function () {
+                modalInstance.result.then(function () {}, function () {});
             });
         };
 
@@ -191,6 +192,10 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
             }
         };
 
+        $scope.isCertified = function (productInShop) {
+            return productInShop.instantiates.certified === Product.CERTIFICATION_STATUS_CERTIFIED.id;
+        };
+
         // ------------------------------------------------------------------------
         // Init
         // ------------------------------------------------------------------------
@@ -200,7 +205,12 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
                 return shop.id;
             })[0];
             $scope.request.shop.shortId = shopId;
-            getSegment(shopId).then(getStats);
+            getSegment(shopId).then(function (segment) {
+                getStats(segment);
+                // make a first refresh based on the INCO products
+                $scope.request.productInShopSegment = segment;
+                $scope.refresh();
+            });
         });
 
     }

@@ -58,10 +58,10 @@
             <br/>
             <br/>
             <div>
-                <span>Pour les fournisseurs GDSN, un document récapitulant la procédure est disponible <a href="http://download.alkemics.com/stream/brand/onboarding/Doc_GDSN_Industriels_Auchan.pdf" target="_blank">ici</a></span>
+                <span>Pour les fournisseurs utilisant un prestataire de catalogue électronique certifié GDSN, un document récapitulant la procédure est disponible <a href="http://download.alkemics.com/stream/brand/onboarding/Doc_GDSN_Industriels_Auchan.pdf" target="_blank">ici</a></span>
                 <br/>
                 <div class="text-center">
-                    <a class="btn btn-default" href="http://download.alkemics.com/stream/brand/onboarding/Doc_GDSN_Industriels_Auchan.pdf" target="_blank">
+                    <a class="btn btn-info" href="http://download.alkemics.com/stream/brand/onboarding/Doc_GDSN_Industriels_Auchan.pdf" target="_blank">
                         <i class="fa fa-file-pdf-o"></i> Procédure GDSN
                     </a>
                 </div>
@@ -85,6 +85,29 @@
             <br/><br/>
             <div class="text-center">
                 <span alk-button-brand-claim alk-button-class="btn-success"></span>
+            </div>
+        </div>
+
+        <div ng-switch-when="ProductClaimCreated">
+            Nous avons bien reçu votre demande pour le produit : <strong>{{ notification.event.productName }}</strong>. Nous étudions votre demande et revenons vers vous dans les plus brefs délais.
+        </div>
+
+        <div ng-switch-when="ProductClaimAccepted">
+            Votre demande pour le produit <strong>{{ notification.event.productName }}</strong> a été acceptée. Rendez-vous sur <a ng-href="/#/maker/product/{{ notification.event.productReference }}/data/general">la page du produit</a> pour le gérer !
+        </div>
+
+        <div ng-switch-when="ProductClaimRefused">
+            Votre demande pour le produit <strong>{{ notification.event.productName }}</strong> a été refusée. <a href="mailto:support@alkemics.com">Contactez-notre support</a> pour plus d'informations.
+        </div>
+
+        <div ng-switch-when="ProductClaimErrored">
+            Une erreur est survenue lors de votre demande pour le produit <strong>{{ notification.event.productName }}</strong>. Veuillez réessayer et <a href="mailto:support@alkemics.com">contactez-notre support</a> si le problème persiste.
+        </div>
+
+        <div ng-switch-when="PlatformDemoVideo">
+            <p>Retrouver notre démo de la plate-forme ci-dessous.</p>
+            <div class="tl-wide text-center">
+                <img class="preview-videowrapper" demo-video ng-click="openDemoVideo()" src="../images/home/demo-video-preview.png"/>
             </div>
         </div>
     </div>

@@ -26,6 +26,7 @@ describe('[Registration page]', function() {
       'getFirstNameField',
       'getLastNameField',
       'getEmailField',
+      'getConfirmEmailField',
       'getJobField',
       'getPhoneField',
       'getPasswordField'
