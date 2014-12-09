@@ -6,21 +6,32 @@
  * authenticate directive for that matter.
  */
 angular.module('jDashboardFluxApp').controller('LoginController', [
-    '$scope', 'permission', '$location',
-     function ($scope, permission, $location) {
+    '$scope', 'permission', '$location', '$window',
+     function ($scope, permission, $location, $window) {
 
-    $scope.login = null;
-    $scope.password = null;
+    $scope.login = $window.localStorage ? $window.localStorage.login : null;
+    $scope.password = null;// $window.localStorage ? $window.localStorage.password : null;
     $scope.message = null;
     $scope.displayActivationMessage = ($location.search()['activation'] === '1') ? true : false;
 
-    $scope.submit = function() {
+    $scope.submit = function () {
         permission.login(
             $scope.login,
             $scope.password
-        ).then(function(response){
-            // Choose which view to redirect to depending on user
-            permission.getUser().then(function(user){
+        ).then(function (response) {
+            // Save the login so the user does not need to type it again
+            if ($window.localStorage) {
+                $window.localStorage.login = $scope.login;
+                // $window.localStorage.password = $scope.password;
+            }
+
+            // If we are not on the login page, just hide the page
+            if ($location.path() !== '/login') {
+                return;
+            }
+
+            // Else, choose which view to redirect to depending on user
+            permission.getUser().then(function (user) {
                 // We first check whether I have multiple shops in case :
                 // - I am a Shop owner but I have also retailer Brands
                 if (user.managesShop.length > 0) {
@@ -31,7 +42,7 @@ angular.module('jDashboardFluxApp').controller('LoginController', [
                 // - I just registered and I have no Brands nor Shops
                 $location.path('/maker/activity');
             });
-        }, function(response, status, headers, config){
+        }, function (response, status, headers, config) {
             // Login failure : bad password, bad login...
             $scope.message = response.data.message
                           || response.data.error_description
