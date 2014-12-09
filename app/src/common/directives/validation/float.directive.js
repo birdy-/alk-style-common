@@ -6,6 +6,7 @@ angular.module('jDashboardFluxApp').directive('alkFloat', function() {
         require: 'ngModel',
         link: function(scope, elm, attrs, ctrl) {
             var validator = function(viewValue) {
+
                 if (typeof viewValue !== 'string') {
                     ctrl.$setValidity('float', true);
                     return viewValue;
@@ -20,6 +21,18 @@ angular.module('jDashboardFluxApp').directive('alkFloat', function() {
             };
             ctrl.$parsers.unshift(validator);
             ctrl.$formatters.unshift(validator);
+
+            ctrl.$parsers.unshift(function(viewValue) {
+                if (typeof (viewValue) == 'undefined') return '';
+                var transformedInput = ('' + viewValue).replace(/,/g,'.');
+
+                if (transformedInput != viewValue) {
+                    ctrl.$setViewValue(transformedInput);
+                    ctrl.$render();
+                }
+
+                return transformedInput;
+            });
         }
     };
 });
