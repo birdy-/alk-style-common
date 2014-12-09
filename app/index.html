@@ -72,28 +72,40 @@
     <!--[if lte IE 7]>
         <script type="text/javascript" src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
-    <!--[if lt IE 9]>
-        <script type="text/javascript" src="//cdn.rawgit.com/jpillora/xdomain/0.6.15/dist/0.6/xdomain.js"></script>
-        <script type="text/javascript" src="//cdn.rawgit.com/jpillora/xdomain/0.6.15/dist/0.6/xdomain.min.js"></script>
-        <script>
-          xdomain.slaves({
-            "http://localcore.alkemics.com": "/static/proxy.html",
-            "http://localauth.alkemics.com": "/static/proxy.html"
-          });
-        </script>
-        <script>xdomain.debug = true;</script>
-        <script type="text/javascript" src="bower_components/es5-shim/es5-shim.js"></script>
-    <![endif]-->
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
       <script type="text/javascript" src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js"></script>
-      <script type="text/javascript" src="//css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
       <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/json3/3.3.2/json3.min.js"></script>
       <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script>
-      <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/4.0.3/es5-shim.min.js"><
+      <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/4.0.3/es5-shim.min.js"></script>
+
+      <script type="text/javascript" src="//cdn.rawgit.com/jpillora/xdomain/0.6.15/dist/0.6/xdomain.js"></script>
+      <script>
+        xdomain.debud=true;
+        xdomain.slaves({
+          "http://localcore.alkemics.com": "/ie/proxy.html",
+          "http://localauth.alkemics.com": "/ie/proxy.html",
+          "https://localservice-media.alkemics.com": "/ie/proxy.html",
+          "https://localservice-timeline.alkemics.com": "/ie/proxy.html",
+
+          "http://preprod-core.alkemics.com": "/ie/proxy.html",
+          "https://preprod-core.alkemics.com": "/ie/proxy.html",
+          "http://preprod-api.alkemics.com": "/ie/proxy.html",
+          "https://preprod-api.alkemics.com": "/ie/proxy.html",
+          "http://preprod-auth.alkemics.com": "/ie/proxy.html",
+          "http://preprod-service-media.alkemics.com": "/ie/proxy.html",
+          "http://preprod-timeline.alkemics.com": "/ie/proxy.html",
+
+          "http://core.alkemics.com": "/ie/proxy.html",
+          "http://api.alkemics.com": "/ie/proxy.html",
+          "http://auth.alkemics.com": "/ie/proxy.html",
+          "https://service-media.alkemics.com": "/ie/proxy.html",
+          "https://service-timeline.alkemics.com": "/ie/proxy.html"
+        });
+      </script>
 
       <script>
         document.createElement('ng-include');
@@ -203,9 +215,12 @@
         <script type="text/javascript" src="bower_components/plupload/js/moxie.js"></script>
         <script type="text/javascript" src="bower_components/plupload/js/plupload.dev.js"></script>
 
-        <script type="text/javascript" src="bower_components/d3/d3.js"></script>
-        <script type="text/javascript" src="bower_components/nvd3/nv.d3.js"></script>
-        <script type="text/javascript" src="bower_components/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.js"></script>
+        <!--[if gt IE 8]>
+            <script type="text/javascript" src="bower_components/d3/d3.js"></script>
+            <script type="text/javascript" src="bower_components/nvd3/nv.d3.js"></script>
+            <script type="text/javascript" src="bower_components/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.js"></script>
+        <![endif]-->
+
         <script type="text/javascript" src='bower_components/textAngular/dist/textAngular-sanitize.min.js'></script>
         <script type="text/javascript" src='bower_components/textAngular/dist/textAngular.min.js'></script>
         <script type="text/javascript" src='bower_components/moment/moment.js'></script>
