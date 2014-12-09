@@ -39,7 +39,7 @@ var dependencies = [
 ];
 
 if (!isIE(8)) {
-    // dependencies.push('nvd3ChartDirectives');
+    dependencies.push('nvd3ChartDirectives');
 }
 
 var app = angular.module('jDashboardFluxApp', dependencies);
