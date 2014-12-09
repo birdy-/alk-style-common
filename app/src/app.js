@@ -16,7 +16,7 @@ var app = angular.module('jDashboardFluxApp', [
   'ui.sortable',
   'ui.tree',
   'ui.unique',
-  // 'nvd3ChartDirectives',
+  'nvd3ChartDirectives',
   'textAngular',
   'ngHandsontable'
 ]);
