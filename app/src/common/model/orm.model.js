@@ -102,7 +102,9 @@ angular.module('jDashboardFluxApp').service('$$ORM', [
             {id:  22, name: 'kg'},
             {id:   7, name: 'cl'},
             {id:   9, name: 'l'},
-            {id:   2, name: 'ml'}
+            {id:   2, name: 'ml'},
+            {id: 101, name: 'mg'},
+            {id: 102, name: 'µg'}
         ];
         var concepts = [
             { id: 19195, name: 'Valeur énergétique (kJ)',  isMeasuredBy: {id: 104, _type: 'CommonUnit' }, type: 'Nutrition', compulsory: true,  legend: "" },
