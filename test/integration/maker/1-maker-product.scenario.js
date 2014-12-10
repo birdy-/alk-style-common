@@ -23,6 +23,9 @@ describe('[Dashboard Maker] Product page', function () {
         .toEqual(9); //; Set to 9 while the retail tab is not functional
     });
 
+    ///////////////////////
+    // Media tab
+    ///////////////////////
     it('should have a media tab', function () {
         expect(productPage.getMediaTab().getText())
         .toBe('MÉDIAS');
@@ -40,13 +43,11 @@ describe('[Dashboard Maker] Product page', function () {
 
     it('should be able to add media on media tab', function () {
         productPage.getImageMedia().count().then(function (imageCount) {
-            console.log('imageCount', imageCount);
 
             productPage.getAddMediaBtn().click().then(function () {
                 var fileToUpload = '../../fixtures/image-test.png';
                 var absolutePath = path.resolve(__dirname, fileToUpload);
 
-                console.log('absolutePath', absolutePath);
                 productPage.getUploadMediaBtn().sendKeys(absolutePath);
                 // browser.pause();
 
@@ -57,5 +58,30 @@ describe('[Dashboard Maker] Product page', function () {
                 // });
             });
         })
+    });
+
+
+    ///////////////////////
+    // Nutrition tab
+    ///////////////////////
+    it('should have a nutrition tab', function () {
+        productPage.get();
+        expect(productPage.getNutritionTab().getText())
+        .toBe('NUTRITION');
+
+        productPage.getNutritionTab().click().then(function () {
+            expect(browser.getCurrentUrl())
+            .toEqual(browser.params.website.url + 'maker/product/' + browser.params.productId + '/data/nutrition');
+        });
+    });
+
+    it('should have a button to add a PSQ on nutrition tab', function () {
+        expect(productPage.getAddPSQBtn().isPresent())
+        .toBe(true);
+    });
+
+    it('should have a nutritial elements list on nutrition tab', function () {
+        expect(productPage.getProductNutritionList().count())
+        .toBeGreaterThan(10);
     });
 });

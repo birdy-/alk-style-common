@@ -102,7 +102,9 @@ angular.module('jDashboardFluxApp').service('$$ORM', [
             {id:  22, name: 'kg'},
             {id:   7, name: 'cl'},
             {id:   9, name: 'l'},
-            {id:   2, name: 'ml'}
+            {id:   2, name: 'ml'},
+            {id: 101, name: 'mg'},
+            {id: 102, name: 'µg'}
         ];
         var concepts = [
             { id: 19195, name: 'Valeur énergétique (kJ)',  isMeasuredBy: {id: 104, _type: 'CommonUnit' }, type: 'Nutrition', compulsory: true,  legend: "" },
@@ -285,7 +287,7 @@ angular.module('jDashboardFluxApp').service('$$ORM', [
             { id: 10431, name: "Label Sustainable Fisheries Partnership",                                 type: 'Label'}
         ];
 
-        // Duplicates a field in the text attribute of the object, so it can be used by the autocomplete lubrary
+        // Duplicates a field in the text attribute of the object, so it can be used by the autocomplete library
         var addTextFrom = function (field) {
             return function (entity, full) {
                 entity.text = entity[field];
