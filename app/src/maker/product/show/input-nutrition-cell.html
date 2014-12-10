@@ -3,9 +3,12 @@
     <span class="input-group-btn productnutritionalquantity-precision">
         <select class="form-control" ng-model="pnq.measurementPrecision" ng-options="precision.id as precision.name for precision in precisions" required>
         </select>
-      </span>
-    <input type="text" class="form-control productnutritionalquantity-value" ng-model="pnq.quantity" placeholder="ex : 100" alk-float="2" alk-focus ng-min="0" required/>
+    </span>
+    <input type="text" class="form-control productnutritionalquantity-value" ng-model="pnq.quantity" placeholder="ex : 100" alk-float="10" alk-focus ng-min="0" required/>
     <span class="input-group-addon">{{ pnq.isMeasuredBy.name }} / {{ psq.name }}</span>
+    <span class="input-group-btn productnutritionalquantity-precision" ng-hide="pnq.isMeasuredBy.name === 'kilo joule' || pnq.isMeasuredBy.name === 'kilo calorie'"><!-- Hide for kj and kcal items -->
+        <div alk-model-nutrimentunit-select name="isMeasuredBy" ng-model="pnq.isMeasuredBy"></div>
+    </span>
 </div>
 <span ng-show="false" class="help-block">La valeur entrée doit être un nombre décimal.</span>
 <span ng-show="false" class="help-block">La valeur entrée ne doit pas être inférieure à 0.</span>

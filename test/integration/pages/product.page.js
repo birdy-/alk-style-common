@@ -13,6 +13,10 @@ var ProductPage = function () {
     return element.all(by.css('.nav.nav-tabs li')).get(4);
   };
 
+  this.getNutritionTab = function () {
+    return element.all(by.css('.nav.nav-tabs li')).get(6);
+  };
+
   this.getAddMediaBtn = function () {
     return element(by.css('[ng-click=\"uploadNewPictures()\"]'));
   };
@@ -27,6 +31,14 @@ var ProductPage = function () {
 
   this.getImageMedia = function () {
     return element.all(by.repeater('picture in pictures'));
+  };
+
+  this.getAddPSQBtn = function () {
+    return element(by.css('form[name=productForm] .pull-right .btn.btn-success'));
+  };
+
+  this.getProductNutritionList = function () {
+    return element.all(by.css('[product-nutrition]'));
   };
 };
 

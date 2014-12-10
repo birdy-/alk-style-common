@@ -1,4 +1,4 @@
 <select class="form-control" required
         ng-model="localModel"
-        ng-options="choice as choice.name for choice in choices" >
+        ng-options="choice as choice.name for choice in choices track by choice.id" >
 </select>
