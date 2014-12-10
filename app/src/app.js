@@ -1,24 +1,6 @@
 'use strict';
 
-function isIE(version, comparison) {
-    var cc      = 'IE',
-        b       = document.createElement('B'),
-        docElem = document.documentElement,
-        isIE;
-
-    if(version){
-        cc += ' ' + version;
-        if(comparison){ cc = comparison + ' ' + cc; }
-    }
-
-    b.innerHTML = '<!--[if '+ cc +']><b id="iecctest"></b><![endif]-->';
-    docElem.appendChild(b);
-    isIE = !!document.getElementById('iecctest');
-    docElem.removeChild(b);
-    return isIE;
-}
-
-var dependencies = [
+var app = angular.module('jDashboardFluxApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
@@ -36,13 +18,7 @@ var dependencies = [
   'ui.unique',
   'textAngular',
   'ngHandsontable'
-];
-
-if (!isIE(8)) {
-    dependencies.push('nvd3ChartDirectives');
-}
-
-var app = angular.module('jDashboardFluxApp', dependencies);
+]);
 
 // Update on each deploy
 app.constant('version', '0.2');
@@ -362,6 +338,24 @@ app.config(function ($routeProvider) {
 // http://ng-learn.org/2013/12/Dealing-with-IE-family/
 // https://www.ng-book.com/p/AngularJS-and-Internet-Explorer/
 app.config(function($httpProvider) {
+    function isIE(version, comparison) {
+        var cc      = 'IE',
+            b       = document.createElement('B'),
+            docElem = document.documentElement,
+            isIE;
+
+        if(version){
+            cc += ' ' + version;
+            if(comparison){ cc = comparison + ' ' + cc; }
+        }
+
+        b.innerHTML = '<!--[if '+ cc +']><b id="iecctest"></b><![endif]-->';
+        docElem.appendChild(b);
+        isIE = !!document.getElementById('iecctest');
+        docElem.removeChild(b);
+        return isIE;
+    };
+
     if (isIE(8)) {
         if (!$httpProvider.defaults.headers.get) {
             $httpProvider.defaults.headers.get = {};
