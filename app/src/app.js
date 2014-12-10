@@ -1,6 +1,24 @@
 'use strict';
 
-var app = angular.module('jDashboardFluxApp', [
+function isIE(version, comparison) {
+    var cc      = 'IE',
+        b       = document.createElement('B'),
+        docElem = document.documentElement,
+        isIE;
+
+    if(version){
+        cc += ' ' + version;
+        if(comparison){ cc = comparison + ' ' + cc; }
+    }
+
+    b.innerHTML = '<!--[if '+ cc +']><b id="iecctest"></b><![endif]-->';
+    docElem.appendChild(b);
+    isIE = !!document.getElementById('iecctest');
+    docElem.removeChild(b);
+    return isIE;
+}
+
+var dependencies = [
   'ngCookies',
   'ngResource',
   'ngSanitize',
@@ -16,10 +34,15 @@ var app = angular.module('jDashboardFluxApp', [
   'ui.sortable',
   'ui.tree',
   'ui.unique',
-  'nvd3ChartDirectives',
   'textAngular',
   'ngHandsontable'
-]);
+];
+
+if (!isIE(8)) {
+    dependencies.push('nvd3ChartDirectives');
+}
+
+var app = angular.module('jDashboardFluxApp', dependencies);
 
 // Update on each deploy
 app.constant('version', '0.2');
@@ -40,6 +63,7 @@ app.factory('plupload', [
 
 
 var env = (window.location.hostname.indexOf('localhost') === 0) ? 'dev' : 'prod';
+var env = (window.location.hostname.indexOf('preprod-') === 0) ? 'preprod' : 'prod';
 
 // env = 'prod';
 // env = 'vagrant';
@@ -50,6 +74,13 @@ if (env === 'prod') {
     app.constant('URL_UI_BUTTON_PRODUCT', 'https://sassets.toc.io/ui/button/product/v1/index.html');
     app.constant('URL_UI_SHOPPINGLIST', 'https://sassets.toc.io/interfaces/banner/v3/index.html');
     app.constant('URL_UI_LANDINGPAGE', 'https://sassets.toc.io/interfaces/landing-page-product/v1/index.html');
+} else if (env === 'preprod') {
+    app.constant('URL_CDN_MEDIA', 'https://smedia.alkemics.com');
+    app.constant('URL_SERVICE_AUTH', 'http://preprod-auth.alkemics.com');
+    app.constant('URL_SERVICE_MEDIA', 'http://preprod-service-media.alkemics.com');
+    app.config(function($logProvider){
+        $logProvider.debugEnabled(true);
+    });
 } else if (env === 'dev') {
     app.constant('URL_CDN_MEDIA', 'https://smedia.alkemics.com');
     app.constant('URL_SERVICE_AUTH', 'http://localhost.alkemics.com:6545');
@@ -63,7 +94,7 @@ if (env === 'prod') {
     });
 } else if (env === 'vagrant') {
     app.constant('URL_CDN_MEDIA', 'https://s3-eu-west-1.amazonaws.com/pprd.media.alkemics.com');
-    app.constant('URL_SERVICE_AUTH', 'https://localauth.alkemics.com');
+    app.constant('URL_SERVICE_AUTH', 'http://localauth.alkemics.com');
     app.constant('URL_SERVICE_MEDIA', 'https://localservice-media.alkemics.com');
     app.constant('URL_UI_BUTTON_PRODUCT', 'http://localhost.alkemics.com:9010/');
     app.constant('URL_UI_SHOPPINGLIST', 'https://sassets.toc.io/interfaces/banner/v3/index.html');
@@ -331,6 +362,12 @@ app.config(function ($routeProvider) {
 // http://ng-learn.org/2013/12/Dealing-with-IE-family/
 // https://www.ng-book.com/p/AngularJS-and-Internet-Explorer/
 app.config(function($httpProvider) {
+    if (isIE(8)) {
+        if (!$httpProvider.defaults.headers.get) {
+            $httpProvider.defaults.headers.get = {};
+        }
+        $httpProvider.defaults.headers.get['If-Modified-Since'] = '0';
+    }
     $httpProvider.defaults.headers.common['Cache-Control'] = 'no-cache';
 });
 
