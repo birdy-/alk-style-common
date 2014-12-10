@@ -287,7 +287,7 @@ angular.module('jDashboardFluxApp').service('$$ORM', [
             { id: 10431, name: "Label Sustainable Fisheries Partnership",                                 type: 'Label'}
         ];
 
-        // Duplicates a field in the text attribute of the object, so it can be used by the autocomplete lubrary
+        // Duplicates a field in the text attribute of the object, so it can be used by the autocomplete library
         var addTextFrom = function (field) {
             return function (entity, full) {
                 entity.text = entity[field];

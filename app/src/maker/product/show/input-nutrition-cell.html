@@ -6,7 +6,7 @@
     </span>
     <input type="text" class="form-control productnutritionalquantity-value" ng-model="pnq.quantity" placeholder="ex : 100" alk-float="10" alk-focus ng-min="0" required/>
     <span class="input-group-addon">{{ pnq.isMeasuredBy.name }} / {{ psq.name }}</span>
-    <span class="input-group-btn productnutritionalquantity-precision">
+    <span class="input-group-btn productnutritionalquantity-precision" ng-hide="pnq.isMeasuredBy.name === 'kilo joule' || pnq.isMeasuredBy.name === 'kilo calorie'"><!-- Hide for kj and kcal items -->
         <div alk-model-nutrimentunit-select name="isMeasuredBy" ng-model="pnq.isMeasuredBy"></div>
     </span>
 </div>
