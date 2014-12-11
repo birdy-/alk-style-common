@@ -77,11 +77,18 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     };
 
     var findByReference = function () {
+        var brands = [];
+        for (var i = 0; i < $scope.allBrands.length; i++) {
+            brands.push($scope.allBrands[i].id);
+        }
+        brands = brands.join(',');
+
         var filters = {
+            isbrandedby_id: brands,
             isidentifiedby_reference: $scope.request.product.isIdentifiedBy.reference
         };
 
-        return findByBrand(filters);
+        return find({}, filters);
     };
 
     var findByBrand = function (filters) {
