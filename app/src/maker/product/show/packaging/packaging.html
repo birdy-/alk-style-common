@@ -23,14 +23,14 @@
     <div class="form-group has-feedback" ng-class="check('packaging')">
         <label for="packaging" class="col-sm-4 control-label">Packaging</label>
         <div class="col-sm-8">
-            <input ng-model="product.packaging" name="packaging" class="form-control" type="text" placeholder="ex : 3 sachets de 100 grammes" required alk-focus>
+            <input ng-model="product.packaging" name="packaging" class="form-control" type="text" placeholder="ex : 4x100g ou 4 sachets de 100 grammes" required alk-focus>
             <div input-block-help field="productForm.packaging">
                 An alphanumeric size factor the brand owner wishes to communicate to the consumer.
                 <br/>
                 Contient le contenu net tel que exprimé sur l'emballage : "24 x 33 cl". La quantité totale de produit (792 cl) continue d'être échangée dans la donnée netContent.
             </div>
             <div input-block-example field="productForm.packaging">
-                ex : 4x100g
+                4x100g ou 4 sachets de 100 grammes
             </div>
             <div input-block-gdsn field="productForm.packaging">
                 Correspond dans la GDSN a la balise <code>descriptiveSize</code>.
@@ -44,7 +44,7 @@
         </div>
     </div>-->
     <div class="form-group has-feedback" ng-class="check('isSplitable')">
-        <label for="isSplitable" class="col-sm-4 control-label">Ce {{ product.packagingName || 'produit' }} contient-il des {{ product.unitFridge || 'subdivision' }}(s) ?</label>
+        <label for="isSplitable" class="col-sm-4 control-label">Ce {{ product.packagingName || 'produit' }} contient-il des subdivision(s) ?</label>
         <div class="col-sm-8">
             <label class="radio-inline">
                 <input ng-model="product.isSplitable" name="isSplitable" type="radio" ng-value="true" > oui
@@ -52,26 +52,29 @@
             <label class="radio-inline">
                 <input ng-model="product.isSplitable" name="isSplitable" type="radio" ng-value="false"> non
             </label>
+            <p>{{ product.isSplitable }}</p>
         </div>
     </div>
 </fieldset>
 <fieldset ng-show="isSplitable()">
-    <div class="form-group has-feedback" ng-class="check('factorFUPA')">
-        <label for="factorFUPA" class="col-sm-4 control-label">Combien de {{ product.unitFridge || 'subdivision' }}(s) ?</label>
-        <div class="col-sm-8">
-            <input ng-model="product.factorFUPA" name="factorFUPA" type="text" class="form-control" placeholder="ex : 2" alk-integer ng-min="0">
-            <span ng-show="productForm.factorFUPA.$error.integer" class="help-block">Cette quantité doit être un nombre entier.</span>
-            <span ng-show="productForm.factorFUPA.$error.min" class="help-block">Cette quantité doit être plus grande que 0.</span>
-        </div>
-    </div>
     <div class="form-group has-feedback" ng-class="check('unitFridge')">
         <label for="unitFridge" class="col-sm-4 control-label">Comment s'appelle une subdivision ?</label>
         <div class="col-sm-8">
             <input ng-model="product.unitFridge" name="unitFridge" type="text" class="form-control" placeholder="ex : barquette">
         </div>
     </div>
+
+    <div class="form-group has-feedback" ng-class="check('factorFUPA')">
+        <label for="factorFUPA" class="col-sm-4 control-label">Combien ce {{ product.packagingName || 'produit' }} contient-il de {{ product.unitFridge || 'subdivision' }}(s) ?</label>
+        <div class="col-sm-8">
+            <input ng-model="product.factorFUPA" name="factorFUPA" type="text" class="form-control" placeholder="ex : 2" alk-integer ng-min="0">
+            <span ng-show="productForm.factorFUPA.$error.integer" class="help-block">Cette quantité doit être un nombre entier.</span>
+            <span ng-show="productForm.factorFUPA.$error.min" class="help-block">Cette quantité doit être plus grande que 0.</span>
+        </div>
+    </div>
+
     <div class="form-group has-feedback" ng-class="check('factorSIFU')">
-        <label for="factorSIFU" class="col-sm-4 control-label">Combien mesure une {{ product.unitFridge || 'subdivision' }}(s) ?</label>
+        <label for="factorSIFU" class="col-sm-4 control-label">Combien mesure un(e) {{ product.unitFridge || 'subdivision' }} ?</label>
         <div class="col-sm-4">
             <input ng-model="product.factorSIFU" name="factorSIFU" type="text" class="form-control" placeholder="ex : 200" alk-float/>
             <span ng-show="productForm.factorSIFU.$error.float" class="help-block">Cette quantité doit être un nombre décimal.</span>
