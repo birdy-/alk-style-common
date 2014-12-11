@@ -1,10 +1,10 @@
 'use_strict';
 
 angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreviewController', [
-    '$scope', '$$sdkCrud', '$modal', '$location', 'permission', '$window',
-    function ($scope, $$sdkCrud, $modal, $location, permission, $window) {
+    '$rootScope', '$scope', '$$sdkCrud', '$modal', '$location', 'permission', '$window',
+    function ($rootScope, $scope, $$sdkCrud, $modal, $location, permission, $window) {
 
-    var computeScore = function(product, productForm) {
+    var computeScore = function (product, productForm) {
         var total = 0, ok = 0;
         for (var key in productForm) {
             if (!productForm.hasOwnProperty(key)
@@ -21,7 +21,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreview
     };
 
     $scope.completeness = 0;
-    $scope.$watch('product', function() {
+    $scope.$watch('product', function () {
         if (!$scope.product
         || !$scope.product.id) {
             return;
@@ -33,15 +33,16 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreview
         }
     }, true);
 
-    $scope.submit = function() {
+    $scope.submit = function () {
+        $rootScope.$broadcast('PRODUCT_SAVING');
         $scope.productForm.$saving = true;
         $$sdkCrud.ProductUpdate(
             $scope.product, null
-        ).success(function(response) {
+        ).success(function (response) {
             $scope.productForm.$saving = false;
             $scope.load($scope.product.id);
             $scope.productForm.$setPristine();
-        }).error(function(response) {
+        }).error(function (response) {
             var message = '.';
             if (response && response.message) {
                 message = ' : ' + response.message;
@@ -55,9 +56,9 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreview
             templateUrl: '/src/maker/product/certify/certification.html',
             controller: 'ProductCertificationModalController',
             resolve: {
-                $$sdkCrud: function () {return $$sdkCrud; },
-                product: function () {return $scope.product; },
-                user: function () {return $scope.user; }
+                $$sdkCrud: function () { return $$sdkCrud; },
+                product: function () { return $scope.product; },
+                user: function () { return $scope.user; }
             }
         });
 
@@ -70,15 +71,15 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreview
             templateUrl: '/src/maker/product/certify/acceptation.html',
             controller: 'ProductAcceptationModalController',
             resolve: {
-                $$sdkCrud: function () {return $$sdkCrud; },
-                product: function () {return $scope.product; },
-                user: function () {return $scope.user; }
+                $$sdkCrud: function () { return $$sdkCrud; },
+                product: function () { return $scope.product; },
+                user: function () { return $scope.user; }
             }
         });
 
         modalInstance.result.then(function (selectedItem) {
         }, function () {
-            $location.path('/maker/brand/'+$scope.product.isBrandedBy.id+'/product');
+            $location.path('/maker/brand/' + $scope.product.isBrandedBy.id + '/product');
         });
     };
 }]);

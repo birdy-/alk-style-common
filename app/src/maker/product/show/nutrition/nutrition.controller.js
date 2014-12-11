@@ -11,6 +11,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowNutriti
     $scope.showVitamins = false;
     $scope.showMinerals = false;
     $scope.showNutrition = false;
+    $scope.nutritionLoading = true;
 
     $scope.pnqs = {};
     [
@@ -137,7 +138,9 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowNutriti
         || !$scope.product.id) {
             return;
         }
-        $$sdkCrud.ProductStandardQuantityList({}, {'partitions_id': $scope.product.id}).success(function (response){
+        $$sdkCrud.ProductStandardQuantityList({}, {'partitions_id': $scope.product.id}).success(function (response) {
+            $scope.nutritionLoading = false;
+
             if (response.data.length === 0) {
                 $scope.addPSQ();
             }
@@ -147,10 +150,15 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowNutriti
                 attachProductNutritionalQuantityToProductStandardQuantity(psq);
                 $scope.psqs[psq.id] = psq;
             }
+        }).error(function (error) {
+            $scope.nutritionLoading = false;
+            $window.alert('Erreur pendant le chargement des données (contactez notre support si le problème persiste) : ' + error);
         });
     }, true);
+
+    $scope.$on('PRODUCT_SAVING', function () {
+        for (var psqId in $scope.psqs) {
+            $scope.savePSQ($scope.psqs[psqId]);
+        }
+    });
 }]);
-
-
-
-
