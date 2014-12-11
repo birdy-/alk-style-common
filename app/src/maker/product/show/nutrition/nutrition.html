@@ -7,11 +7,13 @@
     Les valeurs ci-dessous doivent être remplies en valeur moyenne, c'est à dire avec la valeur qui représente le mieux la quantité d’un nutriment contenu dans une denrée alimentaire donnée et qui tient compte des tolérances dues aux variations saisonnières, aux habitudes de consommation et aux autres facteurs pouvant influencer la valeur effective.
 </p>
 
+<div class="bg-info loading text-center" ng-if="nutritionLoading">
+    <i class="fa fa-spinner fa-spin"></i> Chargement en cours
+</div>
 <div class="pull-right">
     <span class="btn btn-success" ng-click="addPSQ()"><i class="fa fa-plus"></i> Créer une quantité de référence</span>
 </div>
-
-<table class="table">
+<table class="table" ng-if="!nutritionLoading">
     <thead>
         <tr>
             <th class="col-lg-2 text-right">Taille de référence</th>
