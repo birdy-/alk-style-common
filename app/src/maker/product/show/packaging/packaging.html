@@ -3,7 +3,7 @@
 
 
 <!-- ================================================================================================================================== -->
-<!--                                                Packaging                                                              -->
+<!--                                                Packaging                                                                           -->
 <!-- ================================================================================================================================== -->
 
 <h3>Unité de consommation / lot</h3>
@@ -19,6 +19,85 @@
     </div>
 </div>
 
+<!-- ================================================================================================================================== -->
+<!--                                                        Quantité nette                                                              -->
+<!-- ================================================================================================================================== -->
+<br/>
+<br/>
+<div class="form-group has-feedback" ng-class="check('quantityNormalized')">
+    <label for="quantityNormalized" class="col-sm-4 control-label inco-field">Pour une quantité nette de :</label>
+    <div class="col-sm-4">
+        <input ng-model="product.quantityNormalized" name="quantityNormalized" type="text" class="form-control" placeholder="ex : 200" ng-min="0" alk-float alk-focus required/>
+        <span ng-show="productForm.quantityNormalized.$error.required" class="help-block">La quantité nette du produit est obligatoire.</span>
+        <span ng-show="productForm.quantityNormalized.$error.float" class="help-block">La quantité nette du produit doit être un nombre décimal.</span>
+        <span ng-show="productForm.quantityNormalized.$error.min" class="help-block">Cette quantité doit être plus grande que 0.</span>
+    </div>
+    <div class="col-sm-4">
+        <input ng-model="product.isMeasuredBy" name="isMeasuredBy" type="text" ui-select2="select2commonunitOptions" style="width: 100%" data-placeholder="ex : g"/>
+    </div>
+    <div input-block-help field="productForm.quantityNormalized" class="col-sm-offset-4 col-sm-8">
+        <strong id="art23">Quantité nette :</strong>
+        La quantité nette d'une denrée alimentaire est exprimée, en utilisant, selon le cas, le litre, le centilitre, le millilitre ou bien le kilogramme ou le gramme:
+        <ul>
+            <li>en unités de volume pour les produits liquides; </li>
+            <li>en unités de masse pour les autres produits. </li>
+        </ul>
+    </div>
+    <div input-block-help field="productForm.quantityNormalized" class="col-sm-offset-4 col-sm-8">
+        The amount of the trade item contained by a package, usually as claimed on the label. For  example, Water 750ml net content = "750 ML" ; 20 count pack of diapers, net content = "20 PC.". In case of multi-pack, indicates the net content of the total trade item. For fixed
+        alue trade items use the value claimed on the package, to avoid variable fill rate issue that  arises with some trade item which are sold by volume or weight, and whose actual content  may  vary  slightly  from  batch  to  batch.  In  case  of  variable  quantity trade items, indicates the average quantity.
+        <br/>
+        Doit  correspondre à la quantité nette telle que déclarée sur l'emballage de la denrée alimentaire. La quantité nette doit être échangée dans une des unités de mesure suivante :le litre, le centilitre, le millilitre, le kilogramme, le gramme. Le contenu net de certaines denrées alimentaires (ex : œufs) peut également être exprimé en pièce, code GS1 : PC.
+    </div>
+    <div input-block-help field="productForm.quantityNormalized" class="col-sm-offset-4 col-sm-8">
+        Correspond dans la GDSN a la balise <code>netContent</code>.
+    </div>
+</div>
+<fieldset ng-show="product.isTypePromotionalPromotional()">
+    <div class="form-group has-feedback" ng-class="check('quantityFree')">
+        <label for="quantityFree" class="col-sm-4 control-label">dont</label>
+        <div class="col-sm-2">
+            <input ng-model="product.quantityFree" name="quantityFree" type="text" class="form-control" placeholder="ex : 200" ng-min="0" alk-float alk-focus/>
+            <span ng-show="productForm.quantityFree.$error.float" class="help-block">La quantité offerte du produit doit être un nombre décimal.</span>
+            <span ng-show="productForm.quantityFree.$error.min" class="help-block">Cette quantité doit être plus grande que 0.</span>
+        </div>
+        <label for="quantityFree" class="col-sm-2 control-label text-left">{{ product.isMeasuredBy.name }} gratuit(s) + </label>
+        <div class="col-sm-2">
+            <input ng-model="product.quantityBase" name="quantityBase" type="text" class="form-control" placeholder="ex : 100" ng-min="0" alk-float alk-focus/>
+            <span ng-show="productForm.quantityBase.$error.float" class="help-block">La quantité de base du produit doit être un nombre décimal.</span>
+            <span ng-show="productForm.quantityBase.$error.min" class="help-block">Cette quantité doit être plus grande que 0.</span>
+        </div>
+        <label for="quantityFree" class="col-sm-2 control-label text-left">{{ product.isMeasuredBy.name }} payant(s)</label>
+    </div>
+</fieldset>
+<div class="form-group has-feedback" ng-class="check('drainedWeight')">
+    <label for="drainedWeight" class="col-sm-4 control-label">et un poids net égoutté</label>
+    <div class="col-sm-4">
+        <input ng-model="product.drainedWeight" name="drainedWeight" type="text" class="form-control" placeholder="ex : 200" ng-min="0" alk-float alk-focus/>
+        <span ng-show="productForm.drainedWeight.$error.float" class="help-block">Cette quantité  doit être un nombre décimal.</span>
+        <span ng-show="productForm.drainedWeight.$error.min" class="help-block">Cette quantité doit être plus grande que 0.</span>
+    </div>
+    <label class="col-sm-4 control-label text-left">
+        gramme
+        <!--
+        <input type="text" name="isMeasuredBy" ng-model="product.isMeasuredBy" type="text" select ui-select2="select2commonunitOptions" style="width: 100%" placeholder="ex : g"/>
+        -->
+    </label>
+    <div input-block-help field="productForm.drainedWeight" class="col-sm-offset-2 col-sm-10">
+        The weight of the trade item when drained of its liquid. For example 225 "GR", Jar of pickles in vinegar. Applies to defined bricks of GCI Global trade item Classification Mainly food trade item. Has to be associated with a valid UoM.
+        <br/>
+        La quantité nette doit être échangée dans une des unités de mesure suivante : le kilogramme, le gramme. La quantité nette décrite dans la fiche produit doit correspondre exactement à celle présente sur l'emballage du produit.
+    </div>
+    <div input-block-help field="productForm.drainedWeight">
+        Correspond dans la GDSN a la balise <code>drainedWeight</code>.
+    </div>
+</div>
+
+<!-- ================================================================================================================================== -->
+<!--                                                Packaging Details                                                                   -->
+<!-- ================================================================================================================================== -->
+<br/>
+<br/>
 <fieldset ng-show="product.isTypePackagingEach()">
     <div class="form-group has-feedback" ng-class="check('packaging')">
         <label for="packaging" class="col-sm-4 control-label">Packaging</label>
@@ -132,80 +211,6 @@
                 </tr>
             </tbody>
         </table>
-    </div>
-</div>
-
-<!-- ================================================================================================================================== -->
-<!--                                                        Quantité nette                                                              -->
-<!-- ================================================================================================================================== -->
-<br/>
-<br/>
-<div class="form-group has-feedback" ng-class="check('quantityNormalized')">
-    <label for="quantityNormalized" class="col-sm-4 control-label inco-field">Soit une quantité nette</label>
-    <div class="col-sm-4">
-        <input ng-model="product.quantityNormalized" name="quantityNormalized" type="text" class="form-control" placeholder="ex : 200" ng-min="0" alk-float alk-focus required/>
-        <span ng-show="productForm.quantityNormalized.$error.required" class="help-block">La quantité nette du produit est obligatoire.</span>
-        <span ng-show="productForm.quantityNormalized.$error.float" class="help-block">La quantité nette du produit doit être un nombre décimal.</span>
-        <span ng-show="productForm.quantityNormalized.$error.min" class="help-block">Cette quantité doit être plus grande que 0.</span>
-    </div>
-    <div class="col-sm-4">
-        <input ng-model="product.isMeasuredBy" name="isMeasuredBy" type="text" ui-select2="select2commonunitOptions" style="width: 100%" data-placeholder="ex : g"/>
-    </div>
-    <div input-block-help field="productForm.quantityNormalized" class="col-sm-offset-4 col-sm-8">
-        <strong id="art23">Quantité nette :</strong>
-        La quantité nette d'une denrée alimentaire est exprimée, en utilisant, selon le cas, le litre, le centilitre, le millilitre ou bien le kilogramme ou le gramme:
-        <ul>
-            <li>en unités de volume pour les produits liquides; </li>
-            <li>en unités de masse pour les autres produits. </li>
-        </ul>
-    </div>
-    <div input-block-help field="productForm.quantityNormalized" class="col-sm-offset-4 col-sm-8">
-        The amount of the trade item contained by a package, usually as claimed on the label. For  example, Water 750ml net content = "750 ML" ; 20 count pack of diapers, net content = "20 PC.". In case of multi-pack, indicates the net content of the total trade item. For fixed
-        alue trade items use the value claimed on the package, to avoid variable fill rate issue that  arises with some trade item which are sold by volume or weight, and whose actual content  may  vary  slightly  from  batch  to  batch.  In  case  of  variable  quantity trade items, indicates the average quantity.
-        <br/>
-        Doit  correspondre à la quantité nette telle que déclarée sur l'emballage de la denrée alimentaire. La quantité nette doit être échangée dans une des unités de mesure suivante :le litre, le centilitre, le millilitre, le kilogramme, le gramme. Le contenu net de certaines denrées alimentaires (ex : œufs) peut également être exprimé en pièce, code GS1 : PC.
-    </div>
-    <div input-block-help field="productForm.quantityNormalized" class="col-sm-offset-4 col-sm-8">
-        Correspond dans la GDSN a la balise <code>netContent</code>.
-    </div>
-</div>
-<fieldset ng-show="product.isTypePromotionalPromotional()">
-    <div class="form-group has-feedback" ng-class="check('quantityFree')">
-        <label for="quantityFree" class="col-sm-4 control-label">dont</label>
-        <div class="col-sm-2">
-            <input ng-model="product.quantityFree" name="quantityFree" type="text" class="form-control" placeholder="ex : 200" ng-min="0" alk-float alk-focus/>
-            <span ng-show="productForm.quantityFree.$error.float" class="help-block">La quantité offerte du produit doit être un nombre décimal.</span>
-            <span ng-show="productForm.quantityFree.$error.min" class="help-block">Cette quantité doit être plus grande que 0.</span>
-        </div>
-        <label for="quantityFree" class="col-sm-2 control-label text-left">{{ product.isMeasuredBy.name }} gratuit(s) + </label>
-        <div class="col-sm-2">
-            <input ng-model="product.quantityBase" name="quantityBase" type="text" class="form-control" placeholder="ex : 100" ng-min="0" alk-float alk-focus/>
-            <span ng-show="productForm.quantityBase.$error.float" class="help-block">La quantité de base du produit doit être un nombre décimal.</span>
-            <span ng-show="productForm.quantityBase.$error.min" class="help-block">Cette quantité doit être plus grande que 0.</span>
-        </div>
-        <label for="quantityFree" class="col-sm-2 control-label text-left">{{ product.isMeasuredBy.name }} payant(s)</label>
-    </div>
-</fieldset>
-<div class="form-group has-feedback" ng-class="check('drainedWeight')">
-    <label for="drainedWeight" class="col-sm-4 control-label">et un poids net égoutté</label>
-    <div class="col-sm-4">
-        <input ng-model="product.drainedWeight" name="drainedWeight" type="text" class="form-control" placeholder="ex : 200" ng-min="0" alk-float alk-focus/>
-        <span ng-show="productForm.drainedWeight.$error.float" class="help-block">Cette quantité  doit être un nombre décimal.</span>
-        <span ng-show="productForm.drainedWeight.$error.min" class="help-block">Cette quantité doit être plus grande que 0.</span>
-    </div>
-    <label class="col-sm-4 control-label text-left">
-        gramme
-        <!--
-        <input type="text" name="isMeasuredBy" ng-model="product.isMeasuredBy" type="text" select ui-select2="select2commonunitOptions" style="width: 100%" placeholder="ex : g"/>
-        -->
-    </label>
-    <div input-block-help field="productForm.drainedWeight" class="col-sm-offset-2 col-sm-10">
-        The weight of the trade item when drained of its liquid. For example 225 "GR", Jar of pickles in vinegar. Applies to defined bricks of GCI Global trade item Classification Mainly food trade item. Has to be associated with a valid UoM.
-        <br/>
-        La quantité nette doit être échangée dans une des unités de mesure suivante : le kilogramme, le gramme. La quantité nette décrite dans la fiche produit doit correspondre exactement à celle présente sur l'emballage du produit.
-    </div>
-    <div input-block-help field="productForm.drainedWeight">
-        Correspond dans la GDSN a la balise <code>drainedWeight</code>.
     </div>
 </div>
 
