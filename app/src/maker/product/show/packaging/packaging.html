@@ -47,12 +47,11 @@
         <label for="isSplitable" class="col-sm-4 control-label">Ce {{ product.packagingName || 'produit' }} contient-il des subdivision(s) ?</label>
         <div class="col-sm-8">
             <label class="radio-inline">
-                <input ng-model="product.isSplitable" name="isSplitable" type="radio" ng-value="true" > oui
+                <input ng-model="product.isSplitable" name="isSplitable" type="radio" ng-value="true"> oui
             </label>
             <label class="radio-inline">
-                <input ng-model="product.isSplitable" name="isSplitable" type="radio" ng-value="false"> non
+                <input ng-model="product.isSplitable" name="isSplitable" type="radio" ng-value="false" ng-click="checkDeactivateSplitable()"> non
             </label>
-            <p>{{ product.isSplitable }}</p>
         </div>
     </div>
 </fieldset>
@@ -212,7 +211,7 @@
 
 
 <!-- ================================================================================================================================== -->
-<!--                                                Promotions                                                              -->
+<!--                                                Promotions                                                                          -->
 <!-- ================================================================================================================================== -->
 
 <br/>

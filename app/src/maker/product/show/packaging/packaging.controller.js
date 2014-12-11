@@ -1,19 +1,19 @@
 'use_strict';
 
 angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPackagingController', [
-    '$scope', '$$sdkCrud', '$routeParams', '$$autocomplete', '$modal', '$location', 'permission',
-    function ($scope, $$sdkCrud, $routeParams, $$autocomplete, $modal, $location, permission) {
+    '$scope', '$$sdkCrud', '$routeParams', '$$autocomplete', '$modal', '$location', 'permission','$window',
+    function ($scope, $$sdkCrud, $routeParams, $$autocomplete, $modal, $location, permission, $window) {
 
     // ------------------------------------------------------------------------
     // Variables
     // ------------------------------------------------------------------------
     $scope.select2productOptions = $$autocomplete.getOptionAutocompletes('product', {
         maximumSelectionSize: 1, multiple: false,
-        initSelection: function(el, fn) {} // https://github.com/angular-ui/ui-select2/issues/186
+        initSelection: function (el, fn) {} // https://github.com/angular-ui/ui-select2/issues/186
     });
     $scope.select2commonunitOptions = $$autocomplete.getOptionAutocompletes('commonunit', {
         maximumSelectionSize: 1, multiple: false, allowClear: false,
-        initSelection: function(el, fn) {} // https://github.com/angular-ui/ui-select2/issues/186
+        initSelection: function (el, fn) {} // https://github.com/angular-ui/ui-select2/issues/186
     });
 
     $scope.typePackagings = [
@@ -25,7 +25,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPackagi
         Product.TYPEPACKAGING_PALLET_HOMO,
         Product.TYPEPACKAGING_PALLET_HETERO
     ];
-    $scope.typePromotionals = function() {
+    $scope.typePromotionals = function () {
         if (!$scope.product._type) {
             return [
                 Product.TYPEPROMOTIONAL_DEFAULT,
@@ -67,7 +67,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPackagi
     // Event binding
     // ------------------------------------------------------------------------
 
-    $scope.isSplitable = function() {
+    $scope.isSplitable = function () {
         if ($scope.product.factorFUPA > 1) {
             $scope.product.isSplitable = true;
             return true;
@@ -75,11 +75,11 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPackagi
         return $scope.product.isSplitable;
     };
 
-    $scope.addIsMadeOf = function() {
+    $scope.addIsMadeOf = function () {
         var pimop = new ProductIsMadeOfProduct();
         $scope.product.isMadeOf.push(pimop);
     };
-    $scope.deleteIsMadeOf = function(pimop) {
+    $scope.deleteIsMadeOf = function (pimop) {
         var index = -1;
         for (var i = 0; i < $scope.product.isMadeOf.length; i++) {
             if ($scope.product.isMadeOf[i] === pimop) {
@@ -92,12 +92,19 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPackagi
         }
     };
 
+    $scope.checkDeactivateSplitable = function () {
+        if ($scope.product.unitFridge) {
+            $window.alert('Veuillez effacer les champs de subdivisions ci-dessous pour sélectionner cette option');
+            $scope.product.isSplitable = true;
+        }
+    };
+
 
     // ------------------------------------------------------------------------
     // Init
     // ------------------------------------------------------------------------
 
-    $scope.$watch('product', function(){
+    $scope.$watch('product', function () {
         // Load the isMadeOf relations
         if ($scope.product.isMadeOf) {
             $scope.product.isMadeOf.forEach(function(isMadeOf){
