@@ -104,7 +104,7 @@ app.config(function ($routeProvider) {
         templateUrl: 'src/maker/product/list/index.html',
         controller: 'DashboardMakerProductListController'
     });
-    $routeProvider.when('/maker/brand/:productReference_reference/product', {
+    $routeProvider.when('/maker/brand/:id/product', {
         templateUrl: 'src/maker/product/list/index.html',
         controller: 'DashboardMakerProductListController',
         parameter: {id: 'integer'}
