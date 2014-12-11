@@ -16,7 +16,7 @@ angular.module('jDashboardFluxApp').controller('ProductAttributionModalControlle
             to: {
                 username: null
             },
-            subject: '[AUCHAN] ' + user.firstname + ' ' + user.lastname + ' vous invite à compléter vos fiches produit sur Alkemics',
+            subject: '[INCO] ' + user.firstname + ' ' + user.lastname + ' vous invite à compléter vos fiches produit sur Alkemics',
             data: {
                 productInShops: productInShops
             }
