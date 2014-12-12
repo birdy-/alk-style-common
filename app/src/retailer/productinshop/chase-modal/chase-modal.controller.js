@@ -16,7 +16,7 @@ angular.module('jDashboardFluxApp').controller('ProductChaseModalController', [
             to: {
                 username: null
             },
-            subject: '[INCO] ' + user.firstname + ' ' + user.lastname + ' vous invite à modifier vos fiches produit sur Alkemics',
+            subject: '[INCO] ' + user.firstname + ' ' + user.lastname + ' vous suggère une correction',
             data: {
                 productInShops: productInShops
             }
@@ -29,7 +29,7 @@ angular.module('jDashboardFluxApp').controller('ProductChaseModalController', [
             $$sdkMailer.RetailerProductDataCompletionInvitationPost($scope.message).success(function (response) {
                 $window.alert('Le message a bien été envoyé.');
                 $modalInstance.close();
-            }).error(function(){
+            }).error(function () {
                 $window.alert('Une erreur est survenue pendant l\'envoi de l\'email. Merci de réessayer ultérieurement ou de contacter notre support.');
             });
         };
