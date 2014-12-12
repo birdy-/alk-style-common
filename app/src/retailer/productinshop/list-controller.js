@@ -110,7 +110,7 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
             ].indexOf(productInShop.instantiates.certified) !== -1;
         };
 
-        $scope.attribute = function (productInShop) {
+        var filterSelectedProducts = function (productInShop) {
             // Check if we have selected multiple Products
             var selectedProductInShops = $scope.productInShops.filter(function (productInShop) {
                 return productInShop.selected;
@@ -118,13 +118,36 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
             if (selectedProductInShops.length === 0) {
                 selectedProductInShops = [productInShop];
             }
+            return selectedProductInShops;
+        };
+
+        $scope.attribute = function (productInShop) {
+            var selectedProductInShops = filterSelectedProducts(productInShop);
 
             var modalInstance = $modal.open({
-                templateUrl: '/src/retailer/productinshop/attribution-modal.html',
+                templateUrl: '/src/retailer/productinshop/attribution-modal/attribution-modal.html',
                 controller: 'ProductAttributionModalController',
                 resolve: {
                     productInShops: function () { return selectedProductInShops; },
-                    user: function () {return $scope.user; }
+                    user: function () { return $scope.user; }
+                }
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+            }, function () {
+            });
+        };
+
+        $scope.chase = function (productInShop) {
+            var selectedProductInShops = filterSelectedProducts(productInShop);
+            $log.warn("products", selectedProductInShops);
+
+            var modalInstance = $modal.open({
+                templateUrl: '/src/retailer/productinshop/chase-modal/chase-modal.html',
+                controller: 'ProductChaseModalController',
+                resolve: {
+                    productInShops: function () { return selectedProductInShops; },
+                    user: function () { return $scope.user; }
                 }
             });
 
@@ -136,7 +159,7 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
         $scope.show = function (productInShop) {
             $$ORM.repository('ProductInShop').method('ShowProduct')(productInShop.id).then(function (productInShop) {
                 var modalInstance = $modal.open({
-                    templateUrl: '/src/retailer/productinshop/show-modal.html',
+                    templateUrl: '/src/retailer/productinshop/show-modal/show-modal.html',
                     controller: 'ProductShowModalController',
                     size: 'lg',
                     resolve: {
