@@ -132,6 +132,9 @@
                             <a class="btn btn-primary" ng-click="show(productInShop)" ng-if="isCertified(productInShop)">
                                 <i class="fa fa-eye"></i> Aperçu
                             </a>
+                            <a class="btn btn-warning" ng-click="chase(productInShop)" ng-if="isCertified(productInShop)">
+                                <i class="fa fa-envelope"></i> Relancer
+                            </a>
                         </td>
                         <td class="text-center"><input type="checkbox" ng-model="productInShop.selected" ng-if="!isAttributed(productInShop)"></td>
                     </tr>

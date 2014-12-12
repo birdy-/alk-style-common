@@ -50,3 +50,7 @@ body {
     display: inline-block;
     vertical-align: baseline;
 }
+
+textarea.resize-vertical {
+    resize: vertical;
+}
