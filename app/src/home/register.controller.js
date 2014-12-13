@@ -16,23 +16,24 @@ angular.module('jDashboardFluxApp').controller('RegisterController', [
         };
 
         $scope.company = {
-            rcs: null,
             nameLegal: null,
             identifierLegal: null,
             identifierCity: null,
-            adress: null,
-            postcode: null,
+            address: null,
+            postCode: null,
             city: null,
-            country: null
+            country: null,
+            type: 'Organization'
         };
         $scope.user = {
             firstname: null,
             lastname: null,
-            job: null,
+            jobTitle: null,
             phonenumber: null,
             username: null,
             password: null,
-            accept: false
+            accept: false,
+            type: 'User'
         };
         $scope.ok = false;
         $scope.message = null;
@@ -40,7 +41,6 @@ angular.module('jDashboardFluxApp').controller('RegisterController', [
         // ------------------------------------------------------------------------
         // Event binding
         // ------------------------------------------------------------------------
-
 
         $scope.checkUserForm = function(field) {
             return checkForm($scope.userForm);

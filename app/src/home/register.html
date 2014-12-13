@@ -81,10 +81,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group" ng-class="checkUserFormField('job')">
+                    <div class="form-group" ng-class="checkUserFormField('jobTitle')">
                         <label class="col-sm-4 control-label">Mon poste</label>
                         <div class="col-sm-8">
-                            <input type="text" name="job" class="form-control" ng-model="user.job" placeholder="ex : Responsable qualité" alk-focus ng-minlength="1" required/>
+                            <input type="text" name="jobTitle" class="form-control" ng-model="user.jobTitle" placeholder="ex : Responsable qualité" alk-focus ng-minlength="1" required/>
                         </div>
                     </div>
                     <div class="form-group" ng-class="checkUserFormField('phonenumber')">
@@ -132,15 +132,15 @@
                     <div class="form-group">
                         <div>
                             <label class="col-sm-4 control-label">Son adresse</label>
-                            <div class="col-sm-8" ng-class="checkCompanyFormField('companyAdress')">
-                                <textarea name="companyAdress" class="form-control" ng-model="company.adress" placeholder="ex : 82 rue du Faubourg Saint-Martin" ng-minlength="1" required></textarea>
+                            <div class="col-sm-8" ng-class="checkCompanyFormField('companyAddress')">
+                                <textarea name="companyAddress" class="form-control" ng-model="company.address" placeholder="ex : 82 rue du Faubourg Saint-Martin" ng-minlength="1" required></textarea>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <div>
                             <div class="col-sm-2 col-sm-offset-4" ng-class="checkCompanyFormField('companyPostcode')">
-                                <input type="text" name="companyPostcode" class="form-control" ng-model="company.postcode" placeholder="ex : 75010" ng-minlength="1" required/>
+                                <input type="text" name="companyPostcode" class="form-control" ng-model="company.postCode" placeholder="ex : 75010" ng-minlength="1" required/>
                             </div>
                             <div class="col-sm-3" ng-class="checkCompanyFormField('companyCity')">
                                 <input type="text" name="companyCity" class="form-control" ng-model="company.city" placeholder="ex : Paris" ng-minlength="1" required/>
