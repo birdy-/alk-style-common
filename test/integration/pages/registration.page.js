@@ -37,7 +37,7 @@ var RegistrationPage = function() {
   };
 
   this.getJobField = function() {
-    return element(by.model('user.job'));
+    return element(by.model('user.jobTitle'));
   };
 
   this.getPhoneField = function() {
@@ -83,11 +83,11 @@ var RegistrationPage = function() {
   };
 
   this.getAddressField = function() {
-    return element(by.model('company.adress'));
+    return element(by.model('company.address'));
   };
 
   this.getPostcodeField = function() {
-    return element(by.model('company.postcode'));
+    return element(by.model('company.postCode'));
   };
 
   this.getCityField = function() {
