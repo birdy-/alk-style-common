@@ -16,23 +16,24 @@ angular.module('jDashboardFluxApp').controller('RegisterController', [
         };
 
         $scope.company = {
-            rcs: null,
             nameLegal: null,
             identifierLegal: null,
             identifierCity: null,
-            adress: null,
-            postcode: null,
+            address: null,
+            postCode: null,
             city: null,
-            country: null
+            country: null,
+            type: 'Organization'
         };
         $scope.user = {
             firstname: null,
             lastname: null,
-            job: null,
+            jobTitle: null,
             phonenumber: null,
             username: null,
             password: null,
-            accept: false
+            accept: false,
+            type: 'User'
         };
         $scope.ok = false;
         $scope.message = null;
@@ -40,7 +41,6 @@ angular.module('jDashboardFluxApp').controller('RegisterController', [
         // ------------------------------------------------------------------------
         // Event binding
         // ------------------------------------------------------------------------
-
 
         $scope.checkUserForm = function(field) {
             return checkForm($scope.userForm);
@@ -99,6 +99,15 @@ angular.module('jDashboardFluxApp').controller('RegisterController', [
                 return;
             }
             $scope.user.company = $scope.company.name;
+            $scope.user.belongsTo = $scope.company;
+
+            // Create user
+            $$sdkAuth.UserSignUp($scope.user).success(function(){
+                $scope.ok = true;
+            }).error(function(response){
+                $scope.ok = false;
+                $scope.message = "Une erreur a eu lieu pendant votre inscription : " + response.message;
+            });
 
             var recordUser = angular.copy($scope.user);
             // Remove password from the info that is sent for Mailinglist record
@@ -116,14 +125,6 @@ angular.module('jDashboardFluxApp').controller('RegisterController', [
                     company: $scope.company
                 }, true)
             };
-
-            // Create user
-            $$sdkAuth.UserSignUp($scope.user).success(function(){
-                $scope.ok = true;
-            }).error(function(response){
-                $scope.ok = false;
-                $scope.message = "Une erreur a eu lieu pendant votre inscription : " + response.message;
-            });
 
             $$sdkAuth.MailingListPost(record);
             // @todo : siltently register user so we will not have to re-ask the login

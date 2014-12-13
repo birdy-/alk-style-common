@@ -37,7 +37,7 @@ var RegistrationPage = function() {
   };
 
   this.getJobField = function() {
-    return element(by.model('user.job'));
+    return element(by.model('user.jobTitle'));
   };
 
   this.getPhoneField = function() {
@@ -83,11 +83,11 @@ var RegistrationPage = function() {
   };
 
   this.getAddressField = function() {
-    return element(by.model('company.adress'));
+    return element(by.model('company.address'));
   };
 
   this.getPostcodeField = function() {
-    return element(by.model('company.postcode'));
+    return element(by.model('company.postCode'));
   };
 
   this.getCityField = function() {
@@ -101,7 +101,7 @@ var RegistrationPage = function() {
   var fillCompanyFields = function() {
     var companyFields = [
       { method: 'getNameLegalField', input: 'Alkemics'},
-      { method: 'getIdentifierLegalField', input: 'Alkemics'},
+      { method: 'getIdentifierLegalField', input: '535078190A'},
       { method: 'getIdentifierCityField', input: 'Pontoise'},
       { method: 'getAddressField', input: '82 Rue du Faubourg Saint Martin'},
       { method: 'getPostcodeField', input: '75010'},
