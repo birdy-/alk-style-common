@@ -101,7 +101,7 @@ var RegistrationPage = function() {
   var fillCompanyFields = function() {
     var companyFields = [
       { method: 'getNameLegalField', input: 'Alkemics'},
-      { method: 'getIdentifierLegalField', input: 'Alkemics'},
+      { method: 'getIdentifierLegalField', input: '535078190A'},
       { method: 'getIdentifierCityField', input: 'Pontoise'},
       { method: 'getAddressField', input: '82 Rue du Faubourg Saint Martin'},
       { method: 'getPostcodeField', input: '75010'},
