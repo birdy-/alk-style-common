@@ -37,12 +37,13 @@ app.factory('plupload', [
     }
 ]);
 
+var env = 'prod';
+if (window.location.hostname.indexOf('localhost') === 0) {
+    env = 'dev';
+} else if (window.location.hostname.indexOf('preprod-') === 0) {
+    env = 'preprod';
+}
 
-var env = (window.location.hostname.indexOf('localhost') === 0) ? 'dev' : 'prod';
-var env = (window.location.hostname.indexOf('preprod-') === 0) ? 'preprod' : 'prod';
-
-// env = 'prod';
-// env = 'vagrant';
 if (env === 'prod') {
     app.constant('URL_CDN_MEDIA', 'https://smedia.alkemics.com');
     app.constant('URL_SERVICE_AUTH', 'https://auth.alkemics.com');
@@ -54,6 +55,9 @@ if (env === 'prod') {
     app.constant('URL_CDN_MEDIA', 'https://smedia.alkemics.com');
     app.constant('URL_SERVICE_AUTH', 'http://preprod-auth.alkemics.com');
     app.constant('URL_SERVICE_MEDIA', 'http://preprod-service-media.alkemics.com');
+    app.constant('URL_UI_BUTTON_PRODUCT', 'https://sassets.toc.io/ui/button/product/v1/index.html');
+    app.constant('URL_UI_SHOPPINGLIST', 'https://sassets.toc.io/interfaces/banner/v3/index.html');
+    app.constant('URL_UI_LANDINGPAGE', 'https://sassets.toc.io/interfaces/landing-page-product/v1/index.html');
     app.config(function($logProvider){
         $logProvider.debugEnabled(true);
     });
@@ -61,7 +65,6 @@ if (env === 'prod') {
     app.constant('URL_CDN_MEDIA', 'https://smedia.alkemics.com');
     app.constant('URL_SERVICE_AUTH', 'http://localhost.alkemics.com:6545');
     app.constant('URL_SERVICE_MEDIA', 'http://localhost.alkemics.com:6551');
-    //app.constant('URL_UI_BUTTON_PRODUCT', 'http://localhost.alkemics.com:9010/');
     app.constant('URL_UI_BUTTON_PRODUCT', 'https://sassets.toc.io/ui/button/product/v1/index.html');
     app.constant('URL_UI_SHOPPINGLIST', 'https://sassets.toc.io/interfaces/banner/v3/index.html');
     app.constant('URL_UI_LANDINGPAGE', 'https://sassets.toc.io/interfaces/landing-page-product/v1/index.html');
