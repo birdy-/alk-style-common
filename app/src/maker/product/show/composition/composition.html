@@ -15,7 +15,8 @@
              ng-model="product.composition"
              ta-toolbar="[['bold']]"
              alk-focus
-             ng-blur="check()">
+             ng-blur="check()"
+             ng-if="product.composition !== undefined">
         </div>
         <div input-block-help field="productForm.composition">
             <strong id="art18">Liste des ingrédients</strong>
