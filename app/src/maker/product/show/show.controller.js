@@ -64,7 +64,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowControl
         });
     };
 
-    $scope.$watch('product', function(){
+    $scope.$watch('product', function () {
         // Prevents errors when clearing values
         var nulls = [
             'tempConsomation',
@@ -89,7 +89,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowControl
         }
     }, true);
 
-    $scope.$on('$locationChangeStart', function(event) {
+    $scope.$on('$locationChangeStart', function (event) {
         if ($scope.productForm.$pristine) {
             return;
         }
@@ -101,7 +101,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowControl
     // ------------------------------------------------------------------------
     // Init
     // ------------------------------------------------------------------------
-    var loadProduct = function(productId) {
+    var loadProduct = function (productId) {
         $scope.productForm.$loading = true;
         // Decide which data to load with the call
         var withs = {};
@@ -125,10 +125,10 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowControl
             product.isBrandedBy.text = product.isBrandedBy.name;
             // Sort fields that requires to be ordered
             if (product.isSubstitutableWith) {
-                product.isSubstitutableWith.sort(function(a, b){return a.ranking > b.ranking; });
+                product.isSubstitutableWith.sort(function (a, b) { return a.ranking > b.ranking; });
             }
             if (product.isComplementaryWith) {
-                product.isComplementaryWith.sort(function(a, b){return a.ranking > b.ranking; });
+                product.isComplementaryWith.sort(function (a, b) { return a.ranking > b.ranking; });
             }
 
             $scope.product = product;
@@ -143,7 +143,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowControl
 
     var init = function () {
         $$sdkCrud.ProductReferenceList({}, {reference: $scope.productReference_reference}, undefined, undefined)
-            .success(function (response){
+        .success(function (response) {
             var productId = response.data[0].identifies.id;
             loadProduct(productId);
         });
