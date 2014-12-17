@@ -11,12 +11,12 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaCo
         $scope.availables = {
             1: true,
             2: false,
+            6: false,
             7: true,
             10: false,
+            19: false,
             67: false,
-            65: false,
-            74: false,
-            75: false
+            65: false
         };
 
         // --------------------------------------------------------------------------------
