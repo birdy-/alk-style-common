@@ -35,13 +35,13 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowGeneral
     // ------------------------------------------------------------------------
     // Event handling
     // ------------------------------------------------------------------------
-    $scope.suggestName = function() {
+    $scope.suggestName = function () {
         var modalInstance = $modal.open({
             templateUrl: '/src/maker/product/show/general/suggestname.html',
             controller: 'ProductMarketingNameSuggestModalController',
             resolve: {
-                $$sdkCrud: function() {return $$sdkCrud; },
-                product: function() {return $scope.product; }
+                $$sdkCrud: function () { return $$sdkCrud; },
+                product: function () { return $scope.product; }
             }
         });
 
@@ -49,13 +49,13 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowGeneral
         }, function () {
         });
     };
-    $scope.suggestSynonym = function() {
+    $scope.suggestSynonym = function () {
         var modalInstance = $modal.open({
             templateUrl: '/src/maker/product/show/general/suggestsynonym.html',
             controller: 'ProductMarketingSynonymSuggestModalController',
             resolve: {
-                $$sdkCrud: function() {return $$sdkCrud; },
-                product: function() {return $scope.product; }
+                $$sdkCrud: function () { return $$sdkCrud; },
+                product: function () { return $scope.product; }
             }
         });
 
@@ -67,11 +67,23 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowGeneral
     // ------------------------------------------------------------------------
     // Event listening
     // ------------------------------------------------------------------------
-    $scope.$watch('product', function(){
+    var updateProductServes = function () {
         if ($scope.product.serves) {
             $scope.servesExact = 1;
         } else if ($scope.product.servesText) {
             $scope.servesExact = 2;
         }
-    }, true);
+    }
+
+    $scope.$watch('product.serves', function (newVal, oldVal) {
+        if (newVal !== oldVal) {
+            updateProductServes();
+        }
+    });
+
+    $scope.$watch('product.servesText', function (newVal, oldVal) {
+        if (newVal !== oldVal) {
+            updateProductServes();
+        }
+    });
 }]);
