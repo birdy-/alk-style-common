@@ -96,6 +96,10 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPackagi
         if ($scope.product.unitFridge) {
             $window.alert('Veuillez effacer les champs de subdivisions ci-dessous pour sélectionner cette option');
             $scope.product.isSplitable = true;
+        } else {
+            $scope.product.isSplitable = false;
+            $scope.product.factorFUPA = 0;
+            $scope.product.factorSIFU = 0;
         }
     };
 
@@ -144,6 +148,9 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPackagi
         if($scope.product.factorFUPA > 1
         || $scope.product.unitFridge) {
             $scope.product.isSplitable = true;
+        } else if (typeof $scope.product.isSplitable === 'undefined') {
+            // Init the isSplitable value if we do not have the above at init
+            $scope.product.isSplitable = false;
         }
     }, true);
 }]);
