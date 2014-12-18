@@ -133,7 +133,8 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowNutriti
             legend.pnqs[psq.id] = pnq;
         }
     };
-    $scope.$watch('product', function (){
+
+    var psqsLoaderWatcher =  $scope.$watch('product', function () {
         if (!$scope.product
         || !$scope.product.id) {
             return;
@@ -150,8 +151,10 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowNutriti
                 attachProductNutritionalQuantityToProductStandardQuantity(psq);
                 $scope.psqs[psq.id] = psq;
             }
+            psqsLoaderWatcher(); // Stop the watcher
         }).error(function (error) {
             $scope.nutritionLoading = false;
+            psqsLoaderWatcher(); // Stop the watcher
             $window.alert('Erreur pendant le chargement des données (contactez notre support si le problème persiste) : ' + error);
         });
     }, true);

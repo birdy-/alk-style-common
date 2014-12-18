@@ -25,6 +25,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     };
     $scope.allBrands = [];
     $scope.brands = [];
+    $scope.segmentIds = [];
 
     // `$scope.request` is retrieved from the rootScope by inheritance
     if (!$scope.request.initialized) {
@@ -138,6 +139,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     };
 
     var find = function (queries, filters) {
+        filters.productsegment_id = $scope.segmentIds.join(',');
         $log.log("Product List Controller : listing [" + $scope.scroll.offset + "-" + ($scope.scroll.offset + $scope.scroll.limit) + "]" );
         $scope.scroll.busy = true;
         $$sdkCrud.ProductList(queries, filters, {},
@@ -279,6 +281,15 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
             if (!active) {
                 user.managesBrand[0].active = true;
             }
+
+            // For now, no filter on ProductSegments, just use them for permission
+            // The if clause can be removed, it's just for backward compatibility
+            if (user.managesProductSegment) {
+                $scope.segmentIds = user.managesProductSegment.map(function (segment) {
+                    return segment.id;
+                });
+            }
+
             list();
             return;
         });

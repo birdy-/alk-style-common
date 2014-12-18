@@ -206,7 +206,7 @@
 <div class="row" ng-if="product.composition">
     <div class="col-sm-12">
         <h3>Composition</h3>
-        <p>{{ product.composition }}</p>
+        <p ng-bind-html="product.composition"></p>
         <!-- allergens -->
         <!-- additives -->
         <!-- ratioAlcohol -->

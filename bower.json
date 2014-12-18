@@ -22,7 +22,7 @@
     "angular-md5": "~0.1.7",
     "angular-ui": "~0.4.0",
     "angular-ui-tree": "2.1.5",
-    "angular-ui-select2": "git://github.com/angular-ui/ui-select2#f81cbc8ff2b85eafd775e56344200affb31d56d1",
+    "angular-ui-select2": "git://github.com/angular-ui/ui-select2#afa6589a54cb72815fc70ae10f5320ffa782dfa9",
     "angular-ui-router": "~0.2.0",
     "angular-ui-sortable": "~0.12.8",
     "angular-http-auth": "*",
@@ -32,7 +32,7 @@
     "angularjs-nvd3-directives": "~0.0.7",
     "textAngular": "~1.2.2",
     "handsontable": "~0.11.4",
-    "nghandsontable": "~0.4.0",
+    "nghandsontable": "~0.5.0",
     "moment": "~2.8.3",
     "alk-style-common": "git@github.com:alkemics/alk-style-common",
     "sdk-dashboard": "git@github.com:alkemics/sdk-dashboard",
@@ -46,6 +46,7 @@
     "angular": "1.2.26",
     "d3": "~3.4.1",
     "bootstrap-sass-official": "~3.3.1",
-    "font-awesome": "~4.2.0"
+    "font-awesome": "~4.2.0",
+    "handsontable": "~0.12"
   }
 }
