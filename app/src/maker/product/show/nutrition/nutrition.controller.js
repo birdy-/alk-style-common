@@ -72,8 +72,10 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowNutriti
             if (!pnq) {
                 throw 'Missing ProductNutritionalQuantity for ProductStandardQuantity ' + pnq.id + ' and Concept ' + conceptId;
             }
-            if ((typeof(pnq.quantity) === 'undefined' || pnq.quantity === null)
-            && (typeof(pnq.percentageOfDailyValueIntake) === 'undefined' || pnq.percentageOfDailyValueIntake === null)) {
+            if ((typeof(pnq.quantity) === 'undefined' || pnq.quantity === null || pnq.quantity === '')
+            && (typeof(pnq.percentageOfDailyValueIntake) === 'undefined' || pnq.percentageOfDailyValueIntake === null || pnq.percentageOfDailyValueIntake === '')) {
+                if (psq.contains.indexOf(pnq) !== -1)
+                    psq.contains.splice(psq.contains.indexOf(pnq), 1);
                 continue;
             }
             if (psq.contains.indexOf(pnq) !== -1) {
