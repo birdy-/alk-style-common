@@ -1,9 +1,9 @@
 <div class="sheet">
     <div class="row" ng-hide="products.length == 0">
         <div class="col-sm-4 col-sm-offset-8 text-right pagination-block">
-            <span class="btn btn-success" ng-if="request.offset > 0" ng-click="prev()"><i class="fa fa-arrow-left"></i></span>
+            <span class="btn btn-success arrow-prev" ng-if="request.offset > 0" ng-click="prev()"><i class="fa fa-arrow-left"></i></span>
             <span class="pagination-text">{{ request.offset }} - {{ request.offset + products.length }}</span>
-            <span class="btn btn-success" ng-if="request.limit === products.length" ng-click="next()"><i class="fa fa-arrow-right"></i></span>
+            <span class="btn btn-success arrow-next" ng-if="request.limit === products.length" ng-click="next()"><i class="fa fa-arrow-right"></i></span>
         </div>
     </div>
     <div class="row products" ng-hide="request.busy">
@@ -68,9 +68,9 @@
     </div>
     <div class="row" ng-hide="products.length == 0">
         <div class="col-sm-4 col-sm-offset-8 text-right pagination-block">
-            <span class="btn btn-success" ng-if="request.offset > 0" ng-click="prev()"><i class="fa fa-arrow-left"></i></span>
+            <span class="btn btn-success arrow-prev" ng-if="request.offset > 0" ng-click="prev()"><i class="fa fa-arrow-left"></i></span>
             <span class="pagination-text">{{ request.offset }} - {{ request.offset + products.length }}</span>
-            <span class="btn btn-success" ng-if="request.limit === products.length" ng-click="next()"><i class="fa fa-arrow-right"></i></span>
+            <span class="btn btn-success arrow-next" ng-if="request.limit === products.length" ng-click="next()"><i class="fa fa-arrow-right"></i></span>
         </div>
     </div>
 </div>
