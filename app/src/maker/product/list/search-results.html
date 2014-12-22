@@ -1,5 +1,12 @@
 <div class="sheet">
-    <div class="row" infinite-scroll="more()">
+    <div class="row" ng-hide="products.length == 0">
+        <div class="col-sm-4 col-sm-offset-8 text-right pagination-block">
+            <span class="btn btn-success" ng-if="request.offset > 0" ng-click="prev()"><i class="fa fa-arrow-left"></i></span>
+            <span class="pagination-text">{{ request.offset }} - {{ request.offset + products.length }}</span>
+            <span class="btn btn-success" ng-if="request.limit === products.length" ng-click="next()"><i class="fa fa-arrow-right"></i></span>
+        </div>
+    </div>
+    <div class="row products" ng-hide="request.busy">
         <div ng-repeat="product in products | unique:'isIdentifiedBy.0.reference' track by product.isIdentifiedBy.0.reference" class="col-sm-2 product" id="product-{{ $index }}">
             <div class="picture missing-picture" ng-click="show(product, $index)">
                 <div class="ratio" ng-style="{'background-image': 'url(' + product.urlPictureOriginal + ')'}"  style="height: 100px;">
@@ -42,7 +49,7 @@
         </div>
         -->
     </div>
-    <div class="row" ng-if="scroll.busy">
+    <div class="row" ng-if="request.busy">
         <div class="col-sm-12 text-center">
             <br/>
             <br/>
@@ -50,13 +57,20 @@
             <i class="fa fa-spinner fa-spin fa-4x"></i>
         </div>
     </div>
-    <div class="row" ng-if="!scroll.busy && products.length == 0">
+    <div class="row" ng-if="!request.busy && products.length == 0">
         <div class="col-sm-12 text-center">
             <br/>
             <br/>
             <br/>
             <h3>Aucun produit trouvé.</h3>
             <small>Vos filtres sont peut-être trop spécifiques, ou vous n'êtes pas autorisé à accéder au produit demandé.</small>
+        </div>
+    </div>
+    <div class="row" ng-hide="products.length == 0">
+        <div class="col-sm-4 col-sm-offset-8 text-right pagination-block">
+            <span class="btn btn-success" ng-if="request.offset > 0" ng-click="prev()"><i class="fa fa-arrow-left"></i></span>
+            <span class="pagination-text">{{ request.offset }} - {{ request.offset + products.length }}</span>
+            <span class="btn btn-success" ng-if="request.limit === products.length" ng-click="next()"><i class="fa fa-arrow-right"></i></span>
         </div>
     </div>
 </div>
