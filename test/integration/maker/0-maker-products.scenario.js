@@ -34,13 +34,26 @@ describe('[Dashboard Maker] Products page', function () {
         .toBe(2);
     });
 
-    // it('should have a complete pagination block', function () {
-    //     expect(productsPage.getPrevArrow().get(1).isPresent())
-    //     .toBe(true);
+    it('should have a complete pagination block', function () {
+        expect(productsPage.getPrevArrow().count())
+        .toBe(0);
 
-    //     expect(productsPage.getNextArrow().get(1).isPresent())
-    //     .toBe(true);
-    // });
+        expect(productsPage.getNextArrow().count())
+        .toBe(2);
+
+        expect(productsPage.getNextArrow().get(1).isPresent())
+        .toBe(true);
+
+        productsPage.getNextArrow().get(1).click().then(function () {
+            expect(productsPage.getPrevArrow().get(1).isPresent())
+            .toBe(true);
+
+            productsPage.getPrevArrow().get(1).click().then(function () {
+                expect(productsPage.getPrevArrow().count())
+                .toBe(0);
+            })
+        });
+    });
 
     it('should have clickable products', function () {
         productsPage.getProduct(0).click().then(function () {
