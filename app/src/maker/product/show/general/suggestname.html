@@ -23,6 +23,9 @@
             <tr ng-repeat="productInShop in productInShops | filter:active">
                 <td class="text-center"><img entity-image entity="productInShop.isSoldBy" class="brand-logo"/></td>
                 <td>{{ productInShop.name }}</td>
+                <td>
+                    <button class="btn color-stream-inverse" ng-click="setName(productInShop.name)">Utiliser ce nom</button>
+                </td>
             </tr>
         </tbody>
     </table>
@@ -30,7 +33,7 @@
 <div class="modal-footer">
     <form class="form-inline" role="form">
         <div class="form-group">
-            <button class="btn btn-default" ng-click="ok()"><i class="fa fa-arrow-right"></i> Retour</button>
+            <button class="btn btn-default" ng-click="cancel()"><i class="fa fa-arrow-right"></i> Retour</button>
         </div>
     </form>
 </div>
