@@ -12,6 +12,7 @@ angular.module('jDashboardFluxApp').controller('ProductShowModalController', [
     // ------------------------------------------------------------------------
     $scope.product = product;
     $scope.activeTab = 'general';
+
     // Lists all the categories
     $scope.labels = {};
     [

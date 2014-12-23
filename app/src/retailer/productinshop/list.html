@@ -81,7 +81,7 @@
                        ng-change="refresh()"/>
             </div>
             <div class="form-group col-sm-2 text-right">
-                <span class="btn btn-success" ng-click="refresh()"><i class="fa fa-search"></i></span>
+                <span class="btn btn-success btn-search" ng-click="refresh()"><i class="fa fa-search"></i></span>
                 <span class="btn btn-success" ng-click="prev()"><i class="fa fa-arrow-left"></i></span>
                 {{ request.offset }} - {{ request.offset + request.limit }}
                 <span class="btn btn-success" ng-click="next()"><i class="fa fa-arrow-right"></i></span>
@@ -129,7 +129,7 @@
                             <a class="btn btn-warning" ng-if="!isAttributed(productInShop)" ng-click="attribute(productInShop)">
                                 <i class="fa fa-envelope"></i> Attribuer
                             </a>
-                            <a class="btn btn-primary" ng-click="show(productInShop)" ng-if="isCertified(productInShop)">
+                            <a class="btn btn-primary pish-preview" ng-click="show(productInShop)" ng-if="isCertified(productInShop)">
                                 <i class="fa fa-eye"></i> Aperçu
                             </a>
                             <a class="btn btn-warning" ng-click="chase(productInShop)" ng-if="isCertified(productInShop)">
