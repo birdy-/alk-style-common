@@ -45,7 +45,7 @@
     <label for="namePublicLong" class="col-sm-3 control-label">Libellé commercial long</label>
     <div class="col-sm-9">
         <div class="input-group">
-            <input ng-model="product.namePublicLong" name="namePublicLong" type="text" class="form-control" placeholder="Une proposition de libellé marketing." alk-validation-case="sentence" alk-focus ng-change="predict(product)"/>
+            <input ng-model="product.namePublicLong" name="namePublicLong" id="namePublicLong" type="text" class="form-control" placeholder="Une proposition de libellé marketing." alk-validation-case="sentence" alk-focus ng-change="predict(product)"/>
             <span class="input-group-btn">
                 <button class="btn btn-default" type="button" ng-click="suggestName()">
                     <i class="fa fa-lightbulb-o"></i> Suggérer
