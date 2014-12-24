@@ -1,0 +1,12 @@
+<div class="row" id="product-media-preview">
+    <div>
+        <div class="row text-center">
+            <p>Cliquez sur une image pour obtenir la résolution originale</p>
+            <div class="col-xs-4" ng-repeat="picture in pictures">
+                <a ng-href="{{ picture.uniformResourceIdentifier }}" target="_blank">
+                    <img ng-src="{{ picture.uniformResourceIdentifier }}" class="img-responsive"/>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

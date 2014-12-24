@@ -4,7 +4,27 @@
     </h3>
 </div>
 <div class="modal-body">
-    <div ng-include="'/src/maker/product/show/preview/preview.html'" ng-if="product"></div>
+    <!-- Tabs selector -->
+    <div class="row">
+        <div class="col-sm-12">
+            <ul class="nav nav-tabs">
+                <li role="preview" ng-click="activeTab = 'general'" ng-class="{active: activeTab === 'general'}">
+                    <a>Général</a>
+                </li>
+                <li role="preview" ng-click="activeTab = 'media'" ng-class="{active: activeTab === 'media'}">
+                    <a>Médias</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <br>
+
+    <!-- General Tab -->
+    <div ng-include="'/src/maker/product/show/preview/preview.html'" ng-if="product && activeTab === 'general'"></div>
+
+    <!-- Media Tab -->
+    <div ng-include="'/src/maker/product/show/preview/preview-media.html'" ng-if="product && activeTab === 'media'"></div>
     <div ng-if="!product && !loading">
         Vous n'avez pas les permissions nécessaires pour afficher ce produit.
     </div>
@@ -14,6 +34,6 @@
 </div>
 <div class="modal-footer">
     <div class="text-right">
-        <span class="btn btn-warning" ng-click="cancel()"><i class="fa fa-times"></i> Fermer</span>
+        <span class="btn btn-success" ng-click="ok()"><i class="fa fa-check"></i> OK</span>
     </div>
 </div>
