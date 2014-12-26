@@ -52,7 +52,7 @@ if (env === 'prod') {
     app.constant('URL_UI_SHOPPINGLIST', 'https://sassets.toc.io/interfaces/banner/v3/index.html');
     app.constant('URL_UI_LANDINGPAGE', 'https://sassets.toc.io/interfaces/landing-page-product/v1/index.html');
 } else if (env === 'preprod') {
-    app.constant('URL_CDN_MEDIA', 'https://smedia.alkemics.com');
+    app.constant('URL_CDN_MEDIA', 'http://pprd.media.alkemics.com');
     app.constant('URL_SERVICE_AUTH', 'http://preprod-auth.alkemics.com');
     app.constant('URL_SERVICE_MEDIA', 'http://preprod-service-media.alkemics.com');
     app.constant('URL_UI_BUTTON_PRODUCT', 'https://sassets.toc.io/ui/button/product/v1/index.html');
