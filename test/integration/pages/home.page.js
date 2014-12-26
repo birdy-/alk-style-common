@@ -1,75 +1,75 @@
 'use strict';
 
-var HomePage = function() {
-  this.get = function() {
+var HomePage = function () {
+  this.get = function () {
     browser.get(browser.params.website.url);
   };
 
   /** Header **/
-  this.getHeader = function() {
+  this.getHeader = function () {
     return element.all(by.css('.navbar.navbar-inverse')).first();
   };
 
-  this.getHeaderTabs = function() {
+  this.getHeaderTabs = function () {
     return element.all(by.css('.navbar.navbar-inverse .navbar-collapse .nav li'));
   };
 
-  this.getHeaderActiveTab = function() {
+  this.getHeaderActiveTab = function () {
     return element(by.css('.navbar.navbar-inverse .navbar-collapse .nav .active'));
   };
 
-  this.getContactTab = function() {
+  this.getContactTab = function () {
     return element(by.css('.navbar.navbar-inverse .navbar-collapse .nav li:nth-child(2)'));
   };
 
   /** Contact Modal **/
-  this.getContactModal = function() {
+  this.getContactModal = function () {
     return element(by.css('.modal'));
   };
 
-  this.getContactModalHeader = function() {
+  this.getContactModalHeader = function () {
     return element(by.css('.modal .modal-header'));
   };
 
-  this.getContactModalOriginField = function() {
+  this.getContactModalOriginField = function () {
     return element(by.model('record.origin'));
   };
 
-  this.getContactModalFirstnameField = function() {
+  this.getContactModalFirstnameField = function () {
     return element(by.model('record.firstname'));
   };
 
-  this.getContactModalLastnameField = function() {
+  this.getContactModalLastnameField = function () {
     return element(by.model('record.lastname'));
   };
 
-  this.getContactModalUsernameField = function() {
+  this.getContactModalUsernameField = function () {
     return element(by.model('record.username'));
   };
 
-  this.getContactModalPhonenumberField = function() {
+  this.getContactModalPhonenumberField = function () {
     return element(by.model('record.phonenumber'));
   };
 
-  this.getContactModalMessageField = function() {
+  this.getContactModalMessageField = function () {
     return element(by.model('record.message'));
   };
 
-  this.getContactModalSubmit = function() {
+  this.getContactModalSubmit = function () {
     return element(by.css('.modal .modal-footer .btn-success'));
   };
 
   /** Page content **/
-  this.getRegistrationPageButton = function() {
+  this.getRegistrationPageButton = function () {
     return element.all(by.css('.sign-up-btn')).first();
   };
 
-  this.getLoginPageButton = function() {
+  this.getLoginPageButton = function () {
     return element(by.css('.ptor-signin'));
   };
 
   /** Footer **/
-  this.getFooter = function() {
+  this.getFooter = function () {
     return element.all(by.css('.navbar.navbar-inverse')).last();
   };
 };
