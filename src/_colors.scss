@@ -154,12 +154,12 @@ $alk-yellow-darker: rgba(241, 201, 0, 1);
 }
 
 .color-analytics-transparent {
-    color: $alk-purple;
+    color: $alk-purple !important;
 }
 
 .color-analytics-inverse {
-    background-color: $alk-purple;
-    color: white;
+    background-color: $alk-purple !important;
+    color: white !important;
 }
 
 .color-advertising {
