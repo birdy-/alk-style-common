@@ -5,7 +5,8 @@ angular.module('jDashboardFluxApp').directive('alkModelProductCertifiedSelect', 
     return {
         restrict: 'AEC',
         scope: {
-            localModel: '=ngModel'
+            localModel: '=ngModel',
+            placeholder: '@'
         },
         require: 'ngModel',
         templateUrl: '/src/common/directives/input/select-id.html',

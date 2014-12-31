@@ -1,0 +1,15 @@
+.product-in-shop {
+    [alk-model-product-certified-select] {
+        margin-right: 1em;
+
+        select {
+            padding: 0;
+        }
+    }
+
+    .help-icon {
+        cursor: pointer;
+        font-size: 1em;
+        line-height: 2em;
+    }
+}

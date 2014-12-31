@@ -2,4 +2,5 @@
         ng-model="localModel"
         ng-options="choice.id as choice.name for choice in choices"
         placeholder="{{ placeholder }}">
+        <option value="">{{ placeholder }}</option>
 </select>
