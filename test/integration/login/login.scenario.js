@@ -5,6 +5,7 @@ var LoginPage = require('../pages/login.page.js');
 var Utils = require('../utils/utils.js');
 
 describe('[Login page]', function() {
+    browser.driver.manage().window().maximize();
     var homePage = new HomePage();
     var loginPage = new LoginPage();
     var utils = new Utils();

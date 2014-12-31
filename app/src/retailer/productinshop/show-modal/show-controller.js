@@ -11,6 +11,8 @@ angular.module('jDashboardFluxApp').controller('ProductShowModalController', [
     // Variables
     // ------------------------------------------------------------------------
     $scope.product = product;
+    $scope.activeTab = 'general';
+
     // Lists all the categories
     $scope.labels = {};
     [
@@ -53,8 +55,8 @@ angular.module('jDashboardFluxApp').controller('ProductShowModalController', [
     // ------------------------------------------------------------------------
     // Event binding
     // ------------------------------------------------------------------------
-    $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
+    $scope.ok = function () {
+        $modalInstance.close();
     };
 
     // ------------------------------------------------------------------------

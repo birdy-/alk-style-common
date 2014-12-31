@@ -21,10 +21,14 @@ angular.module('jDashboardFluxApp').controller('ProductMarketingNameSuggestModal
         return [1, 2, 7, 10, 65, 66, 67].indexOf(productInShop.isSoldBy.id) !== -1;
     };
 
-    $scope.ok = function () {
-        $modalInstance.close($scope.product);
+    $scope.ok = function (name) {
+        $modalInstance.close(name);
     };
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
     };
+
+    $scope.setName = function (name) {
+        $scope.ok(name);
+    }
 }]);

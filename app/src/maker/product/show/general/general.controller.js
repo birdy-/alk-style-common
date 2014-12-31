@@ -45,7 +45,10 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowGeneral
             }
         });
 
-        modalInstance.result.then(function () {
+        modalInstance.result.then(function (name) {
+            $scope['productForm']['namePublicLong'].$setViewValue(name);
+            // Ensure the validator apply (and so you get the orange save button)
+            angular.element('#namePublicLong').controller('ngModel').$render();
         }, function () {
         });
     };

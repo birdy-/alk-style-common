@@ -16,7 +16,7 @@ describe('[Dashboard Maker] Products page', function () {
         productsPage.get();
 
         expect(browser.getCurrentUrl())
-        .toEqual(browser.params.website.url + 'maker/brand/all/product');
+        .toEqual(browser.params.website.url + 'maker/brand/all/product?offset=0');
     });
 
     it('should have a filter sidebar', function () {
@@ -27,6 +27,32 @@ describe('[Dashboard Maker] Products page', function () {
     it('should have some products', function () {
         expect(productsPage.getProducts().count())
         .toBeGreaterThan(5);
+    });
+
+    it('should have pagination blocks', function () {
+        expect(productsPage.getPaginationBlocks().count())
+        .toBe(2);
+    });
+
+    it('should have a complete pagination block', function () {
+        expect(productsPage.getPrevArrow().count())
+        .toBe(0);
+
+        expect(productsPage.getNextArrow().count())
+        .toBe(2);
+
+        expect(productsPage.getNextArrow().get(1).isPresent())
+        .toBe(true);
+
+        productsPage.getNextArrow().get(1).click().then(function () {
+            expect(productsPage.getPrevArrow().get(1).isPresent())
+            .toBe(true);
+
+            productsPage.getPrevArrow().get(1).click().then(function () {
+                expect(productsPage.getPrevArrow().count())
+                .toBe(0);
+            })
+        });
     });
 
     it('should have clickable products', function () {
