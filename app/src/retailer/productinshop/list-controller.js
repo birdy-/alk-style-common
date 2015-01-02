@@ -8,17 +8,6 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
         // Variables
         // ------------------------------------------------------------------------
         $scope.request = {
-            productInShop: {
-                name: null,
-                shortIdOut: null
-            },
-            productInShopSegment: null,
-            productReference: {
-                reference: null
-            },
-            product: {
-                certifed: null
-            },
             shop: {
                 shortId: null
             },
@@ -76,6 +65,12 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
                 $scope.stats.show = true;
             });
         };
+
+        $scope.clearFilters = function () {
+            initFilters();
+
+            $scope.refresh();
+        }
 
         $scope.refresh = function () {
             $$ORM.repository('ProductInShop').list({
@@ -234,7 +229,22 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
         // ------------------------------------------------------------------------
         // Init
         // ------------------------------------------------------------------------
+        var initFilters = function () {
+            $scope.request.productInShop = {
+                name: null,
+                shortIdOut: null
+            };
+            $scope.request.productInShopSegment = null;
+            $scope.request.productReference = {
+                reference: null
+            };
+            $scope.request.product = {
+                certifed: null
+            };
+        };
+
         permission.getUser().then(function (user) {
+            initFilters();
             $scope.user = user;
             var shopId = user.managesShop.map(function (shop) {
                 return shop.id;
