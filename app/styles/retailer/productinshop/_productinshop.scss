@@ -1,9 +1,11 @@
 .product-in-shop {
     [alk-model-product-certified-select] {
-        margin-right: 1em;
+        padding-right: 0;
+        margin-right: 0.5em;
 
         select {
             padding: 0;
+            width: 100%;
         }
     }
 
