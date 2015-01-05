@@ -16,7 +16,7 @@ describe('[Dashboard Maker] Products page', function () {
         productsPage.get();
 
         expect(browser.getCurrentUrl())
-        .toEqual(browser.params.website.url + 'maker/brand/all/product?offset=0');
+        .toEqual(browser.params.website.url + 'maker/brand/all/product');
     });
 
     it('should have a filter sidebar', function () {
@@ -24,9 +24,16 @@ describe('[Dashboard Maker] Products page', function () {
         .toBe(true);
     });
 
-    it('should have some products', function () {
-        expect(productsPage.getProducts().count())
+    it('should have some brands', function () {
+        expect(productsPage.getBrands().count())
         .toBeGreaterThan(5);
+    });
+
+    it('should have some products', function () {
+        productsPage.getBrand(0).click().then(function () {
+            expect(productsPage.getProducts().count())
+            .toBeGreaterThan(5);
+        });
     });
 
     it('should have pagination blocks', function () {

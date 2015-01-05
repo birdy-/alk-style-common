@@ -7,7 +7,7 @@
         </div>
     </div>
     <div class="row products" ng-hide="request.busy">
-        <div ng-repeat="product in products | unique:'isIdentifiedBy.0.reference' track by product.isIdentifiedBy.0.reference" class="col-sm-2 product" id="product-{{ $index }}">
+        <div ng-repeat="product in products | unique:'isIdentifiedBy.0.reference' track by product.isIdentifiedBy.0.reference" class="col-sm-2 product">
             <div class="picture missing-picture" ng-click="show(product, $index)">
                 <div class="ratio" ng-style="{'background-image': 'url(' + product.urlPictureOriginal + ')'}"  style="height: 100px;">
                 </div>
