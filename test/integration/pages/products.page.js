@@ -27,6 +27,14 @@ var ProductsPage = function () {
     return element.all(by.css('.arrow-next'));
   };
 
+  this.getBrands = function () {
+    return element.all(by.repeater('brand in brands'));
+  };
+
+  this.getBrand = function (index) {
+    return element(by.repeater('brand in brands').row(index)).element(by.css('label.checkbox-inline'));
+  };
+
   this.getProducts = function () {
     return element.all(by.repeater('product in products'));
   };
