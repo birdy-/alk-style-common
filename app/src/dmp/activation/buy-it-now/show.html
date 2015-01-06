@@ -18,33 +18,80 @@
                     <input type="text" class="form-control" ng-model="campaign.name" placeholder="ex : Opération spéciale Noël" id="name"/>
                 </div>
 
+                <div>
+                    <label for="type">La campagne sera basée sur ?</label>
+                </div>
                 <div class="form-group">
-                    <label for="_runsOnProduct">Quel produit doit-être affiché ?</label>
-                    <div alk-autocomplete-my
-                         alk-autocomplete-type="Product"
-                         alk-autocomplete-multiple="false"
-                         alk-autocomplete-restrict="restrict"
-                         placeholder="Choisir un produit"
-                         ng-model="campaign._runsOnProduct"
-                         id="_runsOnProduct">
+                    <label class="radio-inline">
+                        <input type="radio" ng-model="campaign.basedOn" value="product"/>
+                        Un ou des produits
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" ng-model="campaign.basedOn" value="brand"/>
+                        Une marque
+                    </label>
+                </div>
+
+                <div ng-if="campaign.basedOn === 'product'">
+                    <div class="form-group">
+                        <label for="_runsOnProduct">Quel produits doivent-être affiché ?</label>
+                        <div alk-autocomplete-my
+                             alk-autocomplete-type="Product"
+                             alk-autocomplete-multiple="true"
+                             alk-autocomplete-restrict="restrict"
+                             placeholder="Entrez un EAN"
+                             ng-model="campaign._runsOnProduct"
+                             id="_runsOnProduct">
+                        </div>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="_runsIn">A quel emplacement ce module doit-il apparaître ?</label>
-                    <div alk-autocomplete-my
-                         alk-autocomplete-type="Placement"
-                         alk-autocomplete-multiple="false"
-                         placeholder="Choisir un emplacement"
-                         ng-model="campaign._runsIn"
-                         id="_runsIn">
+                <div ng-if="campaign.basedOn === 'brand'">
+                    <div class="form-group">
+                        <label for="_runsOnBrand">Quelle marque doit-être mise en avant ?</label>
+                        <div alk-autocomplete-my
+                             alk-autocomplete-type="Brand"
+                             alk-autocomplete-multiple="false"
+                             alk-autocomplete-restrict="restrict"
+                             placeholder="Entrez une marque"
+                             ng-model="campaign._runsOnBrand"
+                             id="_runsOnBrand">
+                        </div>
                     </div>
                 </div>
 
-                <div class="text-right">
-                    <button type="submit" class="btn btn-success" ng-click="persist()">
-                        <i class="fa fa-save"></i> Enregistrer
-                    </button>
+                <div ng-show="campaign.basedOn">
+
+                    <div class="form-group">
+                        <label for="_runsIn">Quelles enseignes doivent apparaître ?</label>
+                        <div alk-autocomplete
+                             alk-autocomplete-type="shop"
+                             alk-autocomplete-multiple="true"
+                             placeholder="Choisir les enseignes"
+                             ng-model="campaign.stores"
+                             id="_runsIn">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="campaign-effective-start-date-time" class="col-sm-6">Date de début de la campagne</label>
+                        <label for="campaign-effective-end-date-time" class="col-sm-6">Date de fin de la campagne</label>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <div datepicker show-weeks="false" ng-model="campaign.startsAt" min-date="minDate" id="campaign-effective-start-date-time"></div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div datepicker show-weeks="false" ng-model="campaign.endsAt" id="campaign-effective-end-date-time"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group text-right">
+                        <button type="submit" class="btn btn-success" ng-click="persist()">
+                            <i class="fa fa-save"></i> Enregistrer
+                        </button>
+                    </div>
                 </div>
             </form>
 
