@@ -1,6 +1,5 @@
 'use strict';
 
-
 angular.module('jDashboardFluxApp').controller('HeaderController', [
     '$scope', 'permission', '$location', '$modal',
     function ($scope, permission, $location, $modal) {
@@ -15,7 +14,7 @@ angular.module('jDashboardFluxApp').controller('HeaderController', [
     // ------------------------------------------------------------------------
     // Event handling
     // ------------------------------------------------------------------------
-    $scope.logout = function() {
+    $scope.logout = function () {
         permission.logout();
         $scope.logged = false;
         $scope.user = null;
@@ -23,7 +22,7 @@ angular.module('jDashboardFluxApp').controller('HeaderController', [
         $location.path('/');
     };
 
-    $scope.subscribe = function(message){
+    $scope.subscribe = function (message) {
         var modalInstance = $modal.open({
             templateUrl: '/src/home/contact.html',
             controller: 'ContactController',
@@ -31,7 +30,7 @@ angular.module('jDashboardFluxApp').controller('HeaderController', [
                 user: function () {
                     return $scope.user;
                 },
-                message: function() {
+                message: function () {
                     return message;
                 }
             }
@@ -45,14 +44,10 @@ angular.module('jDashboardFluxApp').controller('HeaderController', [
     // ------------------------------------------------------------------------
     // Init
     // ------------------------------------------------------------------------
-    var init = function() {
+    var init = function () {
         permission.getUser().then(function (user) {
             $scope.logged = true;
             $scope.user = user;
-            $scope.brand = user.managesBrand[0];
-            $scope.brand.picture = {
-                logo: 'https://smedia.alkemics.com/brand/' + $scope.brand.id + '/picture/logo/original.png'
-            };
         });
     };
     init();

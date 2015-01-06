@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').directive('alkSdkUiButtonProduct', [
-    'URL_UI_BUTTON_PRODUCT', '$sce', 'md5',
-    function (URL_UI_BUTTON_PRODUCT, $sce, md5) {
+    'URL_UI_BUTTON_PRODUCT', '$sce', 'md5', '$log',
+    function (URL_UI_BUTTON_PRODUCT, $sce, md5, $log) {
     return {
         restrict: 'AEC',
         scope: {
@@ -26,17 +26,20 @@ angular.module('jDashboardFluxApp').directive('alkSdkUiButtonProduct', [
                 if (!scope.product
                 || !scope.product.isIdentifiedBy
                 || !scope.product.isIdentifiedBy.length) {
+                    $log.warn("Missing Product.isIdentifiedBy");
                     return '';
                 }
                 src += '&productreference_reference=' + scope.product.isIdentifiedBy[0].reference;
                 src += '&productreference_type=' + scope.product.isIdentifiedBy[0].type;
                 if (!scope.placement
                 || !scope.placement.id) {
+                    $log.warn("Missing Placement");
                     return '';
                 }
                 src += '&placement_id=' + scope.placement.id;
                 if (scope.campaign
                 && scope.campaign.id) {
+                    $log.warn("Missing Campaign");
                     src += '&campaign_id=' + scope.campaign.id;
                 }
                 src += '&app_id=' + scope.applicationId();
@@ -47,10 +50,12 @@ angular.module('jDashboardFluxApp').directive('alkSdkUiButtonProduct', [
             scope.clientId = function() {
                 if (!scope.placement
                 || !scope.placement.id) {
+                    $log.warn("Missing Placement");
                     return '';
                 }
                 if (!scope.organization
                 || !scope.organization.id) {
+                    $log.warn("Missing Organization");
                     return '';
                 }
                 return md5.createHash('alk-' + scope.placement.id +'-' + scope.organization.id);

@@ -11,6 +11,7 @@ angular.module('jDashboardFluxApp').controller('DmpActivationButtonShowControlle
     $scope.product = null;
     $scope.user = null;
     $scope.preview = false;
+    $scope.restrict = {with_isidentifiedby: 1};
 
     // ------------------------------------------------------------------------
     // Event binding
@@ -26,11 +27,13 @@ angular.module('jDashboardFluxApp').controller('DmpActivationButtonShowControlle
         };
         // Save
         if ($scope.campaign.id) {
-            $$ORM.repository('Campaign').update($scope.campaign).then(function () {
+            $$ORM.repository('Campaign').update($scope.campaign).then(function (campaign) {
+                $scope.campaign = campaign;
                 $scope.preview = true;
             }, error);
         } else {
-            $$ORM.repository('Campaign').create($scope.campaign).then(function () {
+            $$ORM.repository('Campaign').create($scope.campaign).then(function (campaign) {
+                $scope.campaign = campaign;
                 $scope.preview = true;
             }, error);
         }
@@ -76,7 +79,8 @@ angular.module('jDashboardFluxApp').controller('DmpActivationButtonShowControlle
 
     var loadProduct = function (reference) {
         $$ORM.repository('Product').list({}, {
-            isidentifiedby_reference: $routeParams.productReference_reference
+            isidentifiedby_reference: $routeParams.productReference_reference,
+            with_isidentifiedby: 1
         }).then(function (entitys){
             if (entitys.length === 1) {
                 $scope.campaign._runsOnProduct = entitys[0];
