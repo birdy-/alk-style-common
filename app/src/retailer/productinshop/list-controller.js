@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').controller('RetailerProductInShopListController', [
-    'permission', '$scope', '$$sdkCrud', '$modal', '$log', '$$ORM',
-    function (permission, $scope, $$sdkCrud, $modal, $log, $$ORM) {
+    'permission', '$scope', '$$sdkCrud', '$modal', '$log', '$$ORM', '$routeParams',
+    function (permission, $scope, $$sdkCrud, $modal, $log, $$ORM, $routeParams) {
 
         // ------------------------------------------------------------------------
         // Variables
@@ -68,11 +68,11 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
 
         $scope.clearFilters = function () {
             initFilters();
-
             $scope.refresh();
-        }
+        };
 
         $scope.refresh = function () {
+            console.log($scope.request.productInShopSegment);
             $$ORM.repository('ProductInShop').list({
                 name: $scope.request.productInShop.name
             }, {
@@ -252,10 +252,18 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
             $scope.request.shop.shortId = shopId;
             getSegment(shopId).then(function (segment) {
                 getStats(segment);
-                // make a first refresh based on the INCO products
-                $scope.request.productInShopSegment = segment;
-                $scope.refresh();
+                // Make a first refresh based on the INCO products
+                 if (!$routeParams.segment_id) {
+                    $scope.request.productInShopSegment = segment;
+                    $scope.refresh();
+                }
             });
+            if ($routeParams.segment_id) {
+                $$ORM.repository('ProductInShopSegment').get($routeParams.segment_id).then(function (segment) {
+                    $scope.request.productInShopSegment = segment;
+                    $scope.refresh();
+                });
+            }
         });
 
     }

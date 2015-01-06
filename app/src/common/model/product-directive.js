@@ -13,13 +13,13 @@ angular.module('jDashboardFluxApp').directive('alkModelProductCertifiedSelect', 
         link: function (scope, elem, attrs) {
             scope.placeholder = attrs.placeholder;
             scope.choices = [
-                Product.CERTIFICATION_STATUS_DEFAULT,
-                Product.CERTIFICATION_STATUS_REVIEWING,
-                Product.CERTIFICATION_STATUS_ATTRIBUTED,
-                Product.CERTIFICATION_STATUS_ACCEPTED,
-                Product.CERTIFICATION_STATUS_CERTIFIED,
-                Product.CERTIFICATION_STATUS_PUBLISHED,
-                Product.CERTIFICATION_STATUS_DISCONTINUED
+                { id: Product.CERTIFICATION_STATUS_DEFAULT, name: "Le produit n'a pas encore été attribué"},
+                { id: Product.CERTIFICATION_STATUS_REVIEWING, name: "Le produit est en cours de vérification"},
+                { id: Product.CERTIFICATION_STATUS_ATTRIBUTED, name: "Le produit a été attribué à son fabriquant"},
+                { id: Product.CERTIFICATION_STATUS_ACCEPTED, name: "Le fabriquant a accepté de remplir ce produit"},
+                { id: Product.CERTIFICATION_STATUS_CERTIFIED, name: "Le fabriquant a certifié le produit"},
+                { id: Product.CERTIFICATION_STATUS_PUBLISHED, name: "Le fabriquant a envoyé ce produit par la GDSN"},
+                { id: Product.CERTIFICATION_STATUS_DISCONTINUED, name: "Le produit n'est plus fabriqué"}
             ];
         }
     };
