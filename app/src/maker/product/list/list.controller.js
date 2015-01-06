@@ -84,9 +84,9 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     var findByBrand = function (filters) {
         var filters = filters || {};
         var brands = [];
-        for (var i = 0; i < $scope.brands.length; i++) {
-            if ($scope.brands[i].active === true) {
-                brands.push($scope.brands[i].id);
+        for (var i = 0; i < $scope.allBrands.length; i++) {
+            if ($scope.allBrands[i].active === true) {
+                brands.push($scope.allBrands[i].id);
             }
         }
         if (brands.length === 0) {
