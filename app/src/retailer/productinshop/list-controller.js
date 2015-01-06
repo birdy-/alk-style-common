@@ -214,18 +214,6 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
             return productInShop.instantiates.certified === Product.CERTIFICATION_STATUS_CERTIFIED.id;
         };
 
-        $scope.openHelp = function () {
-            var helpModal = $modal.open({
-                templateUrl: 'src/retailer/productinshop/help-modal/help-modal.html',
-                backdrop : 'static',
-                controller: 'RetailerProductInShopHelpModalController'
-            });
-
-            helpModal.result.then(function () {
-            }, function () {
-            });
-        };
-
         // ------------------------------------------------------------------------
         // Init
         // ------------------------------------------------------------------------
