@@ -1,6 +1,8 @@
 Alkemics Stream Dashboard
 =========================
 
+[![Build Status](https://ci.alkemics.com:443/buildStatus/icon?job=dashboard-flux)](https://ci.alkemics.com:443/job/dashboard-flux/)
+
 ## Setup
 
 ```
