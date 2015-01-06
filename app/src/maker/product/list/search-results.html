@@ -1,5 +1,5 @@
 <div class="sheet">
-    <div class="row" ng-hide="products.length == 0">
+    <div class="row" ng-hide="products.length == 0 || request.busy">
         <div class="col-sm-4 col-sm-offset-8 text-right pagination-block">
             <span class="btn btn-success arrow-prev" ng-if="request.offset > 0" ng-click="prev()"><i class="fa fa-arrow-left"></i></span>
             <span class="pagination-text">{{ request.offset }} - {{ request.offset + products.length }}</span>
@@ -7,7 +7,7 @@
         </div>
     </div>
     <div class="row products" ng-hide="request.busy">
-        <div ng-repeat="product in products | unique:'isIdentifiedBy.0.reference' track by product.isIdentifiedBy.0.reference" class="col-sm-2 product" id="product-{{ $index }}">
+        <div ng-repeat="product in products | unique:'isIdentifiedBy.0.reference' track by product.isIdentifiedBy.0.reference" class="col-sm-2 product">
             <div class="picture missing-picture" ng-click="show(product, $index)">
                 <div class="ratio" ng-style="{'background-image': 'url(' + product.urlPictureOriginal + ')'}"  style="height: 100px;">
                 </div>
@@ -66,7 +66,7 @@
             <small>Vos filtres sont peut-être trop spécifiques, ou vous n'êtes pas autorisé à accéder au produit demandé.</small>
         </div>
     </div>
-    <div class="row" ng-hide="products.length == 0">
+    <div class="row" ng-hide="products.length == 0 || request.busy">
         <div class="col-sm-4 col-sm-offset-8 text-right pagination-block">
             <span class="btn btn-success arrow-prev" ng-if="request.offset > 0" ng-click="prev()"><i class="fa fa-arrow-left"></i></span>
             <span class="pagination-text">{{ request.offset }} - {{ request.offset + products.length }}</span>
