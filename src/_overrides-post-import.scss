@@ -1,0 +1,12 @@
+[datepicker] {
+    .glyphicon {
+        @extend .fa;
+
+        &.glyphicon-chevron-right {
+            @extend .fa-angle-right;
+        }
+        &.glyphicon-chevron-left {
+            @extend .fa-angle-left;
+        }
+    }
+}
