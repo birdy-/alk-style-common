@@ -48,7 +48,8 @@ var Campaign = function () {
             Campaign.TYPE_QRCODE,
             Campaign.TYPE_SHOPPINGLIST,
             Campaign.TYPE_BUTTON,
-            Campaign.TYPE_LANDINGPAGE
+            Campaign.TYPE_LANDINGPAGE,
+            Campaign.TYPE_BUYITNOW
         ];
     };
     this.fromJson = function (json) {
@@ -70,6 +71,4 @@ Campaign.TYPE_QRCODE = new Constant(4, 'QR-code', '');
 Campaign.TYPE_SHOPPINGLIST = new Constant(5, 'Liste de courses', '');
 Campaign.TYPE_BUTTON = new Constant(6, 'Bouton', '');
 Campaign.TYPE_LANDINGPAGE = new Constant(7, 'Landing page', '');
-
-
-
+Campaign.TYPE_BUYITNOW = new Constant(8, 'Buy it now', '');
