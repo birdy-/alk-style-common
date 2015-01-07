@@ -17,25 +17,14 @@ angular.module('jDashboardFluxApp').controller('DmpActivationBuyItNowShowControl
     // ------------------------------------------------------------------------
     $scope.persist = function () {
         // Compute campaign parameters
-        $scope.campaign.runsIn = [$scope.campaign._runsIn];
-        $scope.campaign.runsOnProduct = [$scope.campaign._runsOnProduct];
-
-        // Error callback
-        var error = function (response) {
-            $window.alert('Une erreur est survenue pendant la mise à jour de la campagne.');
-        };
-        // Save
-        if ($scope.campaign.id) {
-            $$ORM.repository('Campaign').update($scope.campaign).then(function (campaign) {
-                $scope.campaign = campaign;
-                $scope.preview = true;
-            }, error);
-        } else {
-            $$ORM.repository('Campaign').create($scope.campaign).then(function (campaign) {
-                $scope.campaign = campaign;
-                $scope.preview = true;
-            }, error);
+        if ($scope.campaign.basedOn === 'product') {
+            delete $scope.campaign.runsOnBrand;
+        } else if ($scope.campaign.basedOn === 'brand') {
+            delete $scope.campaign.runsOnBrand;
         }
+
+        $scope.campaign.id = Math.random().toString(36).substring(7);
+        $scope.preview = true;
     };
 
     // ------------------------------------------------------------------------
@@ -46,6 +35,7 @@ angular.module('jDashboardFluxApp').controller('DmpActivationBuyItNowShowControl
         $scope.campaign.billedBy = $scope.user.belongsTo[0];
         $scope.campaign._runsIn = null;
         $scope.campaign._runsOnProduct = null;
+        $scope.campaign._runsOnBrand = null;
         $scope.campaign.type = Campaign.TYPE_BUYITNOW.id;
     };
 
