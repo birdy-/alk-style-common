@@ -238,6 +238,10 @@ app.config(function ($routeProvider) {
         templateUrl: 'src/dmp/activation/landingpage/show.html',
         controller: 'DmpActivationButtonShowController'
     });
+    $routeProvider.when('/dmp/activation/buy-it-now', {
+        templateUrl: 'src/dmp/activation/buy-it-now/show.html',
+        controller: 'DmpActivationBuyItNowShowController'
+    });
 
     // Analytics views
 
