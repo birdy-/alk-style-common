@@ -72,13 +72,12 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
         };
 
         $scope.refresh = function () {
-            console.log($scope.request.productInShopSegment);
             $$ORM.repository('ProductInShop').list({
                 name: $scope.request.productInShop.name
             }, {
                 productInShopSegment_id: $scope.request.productInShopSegment ? $scope.request.productInShopSegment.id : null,
                 productReference_reference: $scope.request.productReference.reference,
-                product_certified: $scope.request.product.certified,
+                product_certified: $scope.request.product.certified ? $scope.request.product.certified.id : null,
                 shortIdOut: $scope.request.productInShop.shortIdOut,
                 shop_shortId: $scope.request.shop.shortId
             }, {}, $scope.request.offset, $scope.request.limit, {
