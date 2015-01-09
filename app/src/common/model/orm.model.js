@@ -18,6 +18,9 @@ var abstractRepository = function (Model, $$sdk, $$cacheManager, $q, cache, hydr
         hydrate = function (data, full) {
             return hydrateCustom($$cacheManager.hydrate(data, full), full);
         };
+        hydrateResponse = function (response) {
+            return hydrate(response.data.data, true);
+        };
     }
 
     // Public methods
@@ -305,10 +308,10 @@ angular.module('jDashboardFluxApp').service('$$ORM', [
             Product: abstractRepository(Product, $$sdkCrud, $$cacheManager, $q, [], addTextFrom('nameLegal')),
             ProductNutritionalQuantity: abstractRepository(ProductNutritionalQuantity, $$sdkCrud, $$cacheManager, $q, [], null),
             ProductStandardQuantity: abstractRepository(ProductStandardQuantity, $$sdkCrud, $$cacheManager, $q, [], null),
-            ProductInShopSegment: abstractRepository(ProductInShopSegment, $$sdkCrud, $$cacheManager, $q, [], null),
+            ProductInShopSegment: abstractRepository(ProductInShopSegment, $$sdkCrud, $$cacheManager, $q, [], addTextFrom('name')),
             ProductInShop: abstractRepository(ProductInShop, $$sdkCrud, $$cacheManager, $q, [], null),
             Shop: abstractRepository(Shop, $$sdkCrud, $$cacheManager, $q, [], addTextFrom('name')),
-            User: abstractRepository(User, $$sdkAuth, $$cacheManager, $q, [], null),
+            User: abstractRepository(User, $$sdkAuth, $$cacheManager, $q, [], addTextFrom('username')),
             Website: abstractRepository(Website, $$sdkCrud, $$cacheManager, $q, [], addTextFrom('name'))
         };
 

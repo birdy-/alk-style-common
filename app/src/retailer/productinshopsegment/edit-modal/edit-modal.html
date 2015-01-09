@@ -1,0 +1,76 @@
+<div class="modal-header">
+    <h3>
+        {{ segment.name || 'Nouveau fournisseur' }}
+    </h3>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-12">
+            <form role="form" name="productinshopsegment">
+                <div class="form-group">
+                    <label for="name">Nom du fournisseur :</label>
+                    <input type="text" class="form-control" id="name"
+                           ng-model="segment.name"
+                           placeholder="Nom du fournisseur"/>
+                </div>
+                <div class="form-group">
+                    <label for="shortId">Identifiant interne :</label>
+                    <input type="text" class="form-control" id="shortId"
+                           ng-model="segment.shortId"
+                           placeholder="Nom du fournisseur"/>
+                </div>
+                <div class="form-group">
+                    <label for="address">Adresse</label>
+                    <textarea class="form-control" name="address" ng-model="segment.extra.address" placeholder="N° et rue"></textarea>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" name="postCode" ng-model="segment.extra.postCode" placeholder="Code postal"/>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" name="city" ng-model="segment.extra.city" placeholder="Ville"/>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" name="country" ng-model="segment.extra.country" placeholder="Pays"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Contact</label>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" name="email" ng-model="segment.extra.email" placeholder="Email"/>
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" name="phonenumber" ng-model="segment.extra.phonenumber" placeholder="Téléphone"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="belongings">Produits</label>
+                    <div hot-table
+                         id="claim-table"
+                         datarows="belongings"
+                         settings="{
+                            colHeaders: colHeaders,
+                            contextMenu: ['row_above', 'row_below', 'remove_row'],
+                            stretchH: 'last',
+                            rowHeaders: true,
+                            minSpareRows: '12'
+                         }"
+                        >
+                        <hot-column data="reference" title="'EAN*'"></hot-column>
+                        <hot-column data="name" title="'Nom du produit*'"></hot-column>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="text-right">
+        <span ng-click="cancel()" class="btn btn-warning"><i class="fa fa-times"></i> Annuler</span>
+        <span ng-click="save()" class="btn btn-success"><i class="fa fa-save"></i> Enregistrer</span>
+    </div>
+</div>
