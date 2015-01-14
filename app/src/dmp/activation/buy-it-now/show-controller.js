@@ -16,12 +16,7 @@ angular.module('jDashboardFluxApp').controller('DmpActivationBuyItNowShowControl
     // Event binding
     // ------------------------------------------------------------------------
     $scope.persist = function () {
-        // Compute campaign parameters
-        if ($scope.campaign.basedOn === 'product') {
-            delete $scope.campaign.runsOnBrand;
-        } else if ($scope.campaign.basedOn === 'brand') {
-            delete $scope.campaign.runsOnBrand;
-        }
+        $scope.campaign.basedOn = 'product';
 
         $scope.campaign.id = Math.random().toString(36).substring(7);
         $scope.preview = true;

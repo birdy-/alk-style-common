@@ -2,7 +2,7 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-12 col-md-8 col-md-offset-2">
             <br/>
             <a class="btn btn-default" href="/#/dmp/activation/campaign">
                 <i class="fa fa-arrow-left"></i> Retour
@@ -21,20 +21,6 @@
                 </div>
 
                 <div>
-                    <label for="type">La campagne sera basée sur ?</label>
-                </div>
-                <div class="form-group">
-                    <label class="radio-inline">
-                        <input type="radio" ng-model="campaign.basedOn" value="product"/>
-                        Un ou des produits
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" ng-model="campaign.basedOn" value="brand"/>
-                        Une marque
-                    </label>
-                </div>
-
-                <div ng-if="campaign.basedOn === 'product'">
                     <div class="form-group">
                         <label for="_runsOnProduct">Quel produits doivent-être affiché ?</label>
                         <div alk-autocomplete-my
@@ -49,53 +35,43 @@
                     </div>
                 </div>
 
-                <div ng-if="campaign.basedOn === 'brand'">
-                    <div class="form-group">
-                        <label for="_runsOnBrand">Quelle marque doit-être mise en avant ?</label>
-                        <div alk-autocomplete-my
-                             alk-autocomplete-type="Brand"
-                             alk-autocomplete-multiple="false"
-                             alk-autocomplete-restrict="restrict"
-                             placeholder="Entrez une marque"
-                             ng-model="campaign._runsOnBrand"
-                             id="_runsOnBrand"
-                             required>
-                        </div>
+                <div class="form-group">
+                    <label for="_runsIn">Quelles enseignes doivent apparaître ?</label>
+                    <div alk-autocomplete
+                         alk-autocomplete-type="shop"
+                         alk-autocomplete-multiple="true"
+                         placeholder="Choisir les enseignes"
+                         ng-model="campaign.stores"
+                         id="_runsIn"
+                         required>
                     </div>
                 </div>
 
-                <div ng-show="campaign.basedOn">
-
-                    <div class="form-group">
-                        <label for="_runsIn">Quelles enseignes doivent apparaître ?</label>
-                        <div alk-autocomplete
-                             alk-autocomplete-type="shop"
-                             alk-autocomplete-multiple="true"
-                             placeholder="Choisir les enseignes"
-                             ng-model="campaign.stores"
-                             id="_runsIn"
-                             required>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-8 col-xs-offset-2 col-sm-5 col-sm-offset-1">
+                            <label for="campaign-effective-start-date-time">Date de début de la campagne</label>
+                            <div datepicker show-weeks="false" ng-model="campaign.startsAt" min-date="minDate" id="campaign-effective-start-date-time" required></div>
+                        </div>
+                        <div class="col-xs-8 col-xs-offset-2 col-sm-5 col-sm-offset-0">
+                            <label for="campaign-effective-end-date-time">Date de fin de la campagne</label>
+                            <div datepicker show-weeks="false" ng-model="campaign.endsAt" id="campaign-effective-end-date-time" required></div>
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-sm-5 col-sm-offset-1">
-                                <label for="campaign-effective-start-date-time">Date de début de la campagne</label>
-                                <div datepicker show-weeks="false" ng-model="campaign.startsAt" min-date="minDate" id="campaign-effective-start-date-time" required></div>
-                            </div>
-                            <div class="col-sm-5">
-                                <label for="campaign-effective-end-date-time">Date de fin de la campagne</label>
-                                <div datepicker show-weeks="false" ng-model="campaign.endsAt" id="campaign-effective-end-date-time" required></div>
-                            </div>
-                        </div>
-                    </div>
-                    <br/>
-                    <div class="form-group text-right">
-                        <button type="submit" class="btn btn-success" ng-click="persist()">
-                            <i class="fa fa-save"></i> Enregistrer
-                        </button>
-                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="comment">Commentaires</label>
+                    <textarea class="form-control resize-vertical"
+                              ng-model="campaign.comment"
+                              placeholder="Commentaires"
+                              id="comment"
+                              required></textarea>
+                </div>
+                <br/>
+                <div class="form-group text-right">
+                    <button type="submit" class="btn btn-success" ng-click="persist()">
+                        <i class="fa fa-save"></i> Enregistrer
+                    </button>
                 </div>
             </form>
 
@@ -111,18 +87,6 @@
                     Pour toute question, vous pouvez également contacter notre support : <a href="mailto:support@alkemics.com">support@alkemics.com</a>
                 </p>
                 <br/><br/>
-            </div>
-        </div>
-
-        <div class="col-sm-6" ng-if="preview">
-            <div class="screen-bottom-container">
-                <div class="screen-bottom-border">
-                    <div class="screen-bottom-content">
-                        <iframe height="100%" width="100%"
-                                src="//assets.toc.io/interfaces/landing-page-product-simple/v1/index.html#/">
-                        </iframe>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
