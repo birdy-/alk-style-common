@@ -38,17 +38,17 @@ angular.module('jDashboardFluxApp').controller('DmpActivationBuyItNowShowControl
         };
         $log.info('Campaign:', $scope.campaign);
         // Save
-        // if ($scope.campaign.id) {
-        //     $$ORM.repository('Campaign').update($scope.campaign).then(function (campaign) {
-        //         $scope.campaign = campaign;
-        //         $scope.preview = true;
-        //     }, error);
-        // } else {
-        //     $$ORM.repository('Campaign').create($scope.campaign).then(function (campaign) {
-        //         $scope.campaign = campaign;
-        //         $scope.preview = true;
-        //     }, error);
-        // }
+        if ($scope.campaign.id) {
+            $$ORM.repository('Campaign').update($scope.campaign).then(function (campaign) {
+                $scope.campaign = campaign;
+                $scope.preview = true;
+            }, error);
+        } else {
+            $$ORM.repository('Campaign').create($scope.campaign).then(function (campaign) {
+                $scope.campaign = campaign;
+                $scope.preview = true;
+            }, error);
+        }
     };
 
     // ------------------------------------------------------------------------
