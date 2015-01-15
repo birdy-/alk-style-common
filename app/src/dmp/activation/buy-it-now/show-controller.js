@@ -25,27 +25,25 @@ angular.module('jDashboardFluxApp').controller('DmpActivationBuyItNowShowControl
     // ------------------------------------------------------------------------
     $scope.persist = function () {
         // Compute campaign parameters
-        $scope.campaign.runsOnProduct = [$scope.campaign._runsOnProduct];
-        $scope.campaign.parameters = {
-            comment: $scope.campaign.comments,
-            availableShops: computeAvailableShops($scope.campaign.stores)
-        };
+        $scope.campaign.runsOnProduct = $scope.campaign._runsOnProduct;
+        $scope.campaign.runsIn = [$scope.campaign._runsIn];
 
-        // $scope.campaign.id = Math.random().toString(36).substring(7);
         // Error callback
         var error = function (response) {
             $window.alert('Une erreur est survenue pendant la mise à jour de la campagne.');
         };
-        $log.info('Campaign:', $scope.campaign);
+        $log.info('Campaign sent:', $scope.campaign);
         // Save
         if ($scope.campaign.id) {
             $$ORM.repository('Campaign').update($scope.campaign).then(function (campaign) {
+                $log.info('Campaign recived:', angular.copy(campaign));
                 $scope.campaign = campaign;
                 $scope.preview = true;
             }, error);
         } else {
             $$ORM.repository('Campaign').create($scope.campaign).then(function (campaign) {
                 $scope.campaign = campaign;
+                $log.info('Campaign recived:', campaign);
                 $scope.preview = true;
             }, error);
         }
@@ -64,6 +62,13 @@ angular.module('jDashboardFluxApp').controller('DmpActivationBuyItNowShowControl
     var show = function (id) {
         $$ORM.repository('Campaign').get(id).then(function (campaign) {
             // Load attributes
+            if (campaign.runsIn.length) {
+                campaign._runsIn = campaign.runsIn[0];
+                $$ORM.repository('Placement').get(campaign._runsIn.id);
+            } else {
+                campaign.runsIn = null;
+            }
+
             if (campaign.runsOnProduct.length) {
                 campaign._runsOnProduct = campaign.runsOnProduct;
                 for (var i=0; i<campaign.runsOnProduct.length; i++) {
@@ -72,6 +77,7 @@ angular.module('jDashboardFluxApp').controller('DmpActivationBuyItNowShowControl
             }
 
             $scope.campaign = campaign;
+            $scope.preview = true;
         }, function (response) {
             $window.alert('Une erreur est survenue pendant le chargement de la campagne.');
         });

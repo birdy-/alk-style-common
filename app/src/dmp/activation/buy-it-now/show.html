@@ -41,9 +41,20 @@
                          alk-autocomplete-type="shop"
                          alk-autocomplete-multiple="true"
                          placeholder="Choisir les enseignes"
-                         ng-model="campaign.stores"
+                         ng-model="campaign.parameters.availableShops"
                          id="_runsIn"
                          required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="_runsIn">A quel emplacement ce module doit-il apparaître ?</label>
+                    <div alk-autocomplete-my
+                         alk-autocomplete-type="Placement"
+                         alk-autocomplete-multiple="false"
+                         placeholder="Choisir un emplacement"
+                         ng-model="campaign._runsIn"
+                         id="_runsIn">
                     </div>
                 </div>
 
@@ -62,7 +73,7 @@
                 <div class="form-group">
                     <label for="comments">Commentaires</label>
                     <textarea class="form-control resize-vertical"
-                              ng-model="campaign.comments"
+                              ng-model="campaign.parameters.comments"
                               placeholder="Commentaires"
                               id="comments"
                               required></textarea>
