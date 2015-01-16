@@ -4,7 +4,7 @@
         <label>Marque commerciale :</label>
         <div ui-tree="options" data-drag-enabled="false" class="brand-tree">
             <ol ui-tree-nodes ng-model="brands">
-                <li ng-repeat="brand in brands | filter:root:true" ui-tree-node ng-include="'/src/maker/product/list/node.html'"></li>
+                <li ng-repeat="brand in brands | filter:root:true | orderBy:'name':false" ui-tree-node ng-include="'/src/maker/product/list/node.html'"></li>
             </ol>
         </div>
     </div>
