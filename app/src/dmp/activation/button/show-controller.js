@@ -20,7 +20,7 @@ angular.module('jDashboardFluxApp').controller('DmpActivationButtonShowControlle
         // Compute campaign parameters
         $scope.campaign.runsIn = [$scope.campaign._runsIn];
         $scope.campaign.runsOnProduct = [$scope.campaign._runsOnProduct];
-        console.log($scope.campaign);
+
         // Error callback
         var error = function (response) {
             $window.alert('Une erreur est survenue pendant la mise à jour de la campagne.');
