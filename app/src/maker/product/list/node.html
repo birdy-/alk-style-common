@@ -9,6 +9,6 @@
     </label>
 </div>
 <ol ui-tree-nodes="options" ng-model="brand._subBrands" ng-class="{hidden: collapsed}">
-    <li ng-repeat="brand in brand._subBrands" ui-tree-node ng-include="'/src/maker/product/list/node.html'">
+    <li ng-repeat="brand in brand._subBrands | orderBy:'name':false" ui-tree-node ng-include="'/src/maker/product/list/node.html'">
     </li>
 </ol>
