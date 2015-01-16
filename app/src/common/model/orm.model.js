@@ -51,14 +51,22 @@ var abstractRepository = function (Model, $$sdk, $$cacheManager, $q, cache, hydr
         return $$sdk[modelName + 'Update'](
             entity
         ).then(function (response) {
-            entity.fromJson(response.data.data);
+            if (typeof(response.data.data) !== 'undefined') {
+                return entity.fromJson(response.data.data);
+            } else {
+                return entity.fromJson(response.data);
+            }
         });
     };
     var create = function (entity) {
         return $$sdk[modelName + 'Create'](
             entity
         ).then(function (response) {
-            entity.fromJson(response.data.data);
+            if (typeof(response.data.data) !== 'undefined') {
+                return entity.fromJson(response.data.data);
+            } else {
+                return entity.fromJson(response.data);
+            }
         });
     };
     var del = function (id) {

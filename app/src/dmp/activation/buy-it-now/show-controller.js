@@ -36,14 +36,12 @@ angular.module('jDashboardFluxApp').controller('DmpActivationBuyItNowShowControl
         // Save
         if ($scope.campaign.id) {
             $$ORM.repository('Campaign').update($scope.campaign).then(function (campaign) {
-                $log.info('Campaign recived:', angular.copy(campaign));
                 $scope.campaign = campaign;
                 $scope.preview = true;
             }, error);
         } else {
             $$ORM.repository('Campaign').create($scope.campaign).then(function (campaign) {
                 $scope.campaign = campaign;
-                $log.info('Campaign recived:', campaign);
                 $scope.preview = true;
             }, error);
         }
