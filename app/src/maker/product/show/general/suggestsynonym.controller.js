@@ -33,7 +33,7 @@ angular.module('jDashboardFluxApp').controller('ProductMarketingSynonymSuggestMo
     // ------------------------------------------------------------------------
     // Init
     // ------------------------------------------------------------------------
-    var init = function() {
+    var init = function () {
         if (product.status !== Product.STATUS_VALIDATED.id) {
             return;
         }
@@ -42,16 +42,16 @@ angular.module('jDashboardFluxApp').controller('ProductMarketingSynonymSuggestMo
         }
         $$sdkCrud.ConceptShow(
             product.isConceptualizedBy.id
-        ).success(function(response){
+        ).success(function (response) {
             $scope.synonyms = [];
-            response.data.aliases.forEach(function(synonym){
+            response.data.aliases.forEach(function (synonym) {
                 $scope.synonyms.push({
                     name: synonym,
                     selected: false
                 });
             });
-        }).error(function(response){
-            $window.alert("Erreur pendant la récupération des synonymes : "+response.data.data.message);
+        }).error(function (response) {
+            $window.alert("Erreur pendant la récupération des synonymes : " + response.data.data.message);
         });
     };
     init();

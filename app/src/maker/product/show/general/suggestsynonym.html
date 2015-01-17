@@ -9,8 +9,9 @@
     </div>
     <div ng-if="synonyms.length > 0">
         <div class="checkbox" ng-repeat="synonym in synonyms">
-            <label ng-form="synonym">
-                <input name="selected" type="checkbox" ng-model="synonym.selected"> {{ synonym.name }}
+            <label>
+                <input name="selected" type="checkbox" ng-model="synonym.selected">
+                {{ synonym.name }}
             </label>
         </div>
     </div>
