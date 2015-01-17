@@ -62,8 +62,12 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowGeneral
             }
         });
 
-        modalInstance.result.then(function() {
-        }, function() {
+        modalInstance.result.then(function (synonyms) {
+            var allSynonyms = $scope.product.synonyms || [];
+            allSynonyms = allSynonyms.concat(synonyms);
+            $scope['productForm']['synonyms'].$setViewValue(allSynonyms);
+            angular.element('#synonyms').controller('ngModel').$render();
+        }, function () {
         });
     };
 

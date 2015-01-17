@@ -11,20 +11,19 @@ angular.module('jDashboardFluxApp').controller('ProductMarketingSynonymSuggestMo
     // Variables
     // ------------------------------------------------------------------------
     $scope.synonyms = [];
-    $scope.product = product;
 
     // ------------------------------------------------------------------------
     // Event handling
     // ------------------------------------------------------------------------
     $scope.ok = function () {
-        var synonym;
+        var synonyms = [];
         for (var i = 0; i < $scope.synonyms.length; i++) {
-            synonym = $scope.synonyms[i];
+            var synonym = $scope.synonyms[i];
             if (synonym.selected) {
-                $scope.product.synonyms.push(synonym.name);
+                synonyms.push(synonym.name);
             }
         }
-        $modalInstance.close($scope.product);
+        $modalInstance.close(synonyms);
     };
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
