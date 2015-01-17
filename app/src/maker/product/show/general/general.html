@@ -104,7 +104,7 @@
 <div class="form-group has-feedback" ng-class="check('description')">
     <label for="description" class="col-sm-3 control-label">Description</label>
     <div class="col-sm-9">
-        <textarea ng-model="product.description" name="description" class="form-control" rows="3" placeholder="ex : Ce produit contient un sachet ainsi qu'une capsule de sauce..." alk-focus></textarea>
+        <textarea ng-model="product.description" name="description" class="form-control resize-vertical" rows="3" placeholder="ex : Ce produit contient un sachet ainsi qu'une capsule de sauce..." alk-focus></textarea>
         <div input-block-help field="productForm.description">
             Une description générale du produit, de son contenu.
         </div>
@@ -113,7 +113,7 @@
 <div class="form-group has-feedback" ng-class="check('advices')">
     <label for="advices" class="col-sm-3 control-label inco-field">Mode d'emploi</label>
     <div class="col-sm-9">
-        <textarea type="text" ng-model="product.advices" name="advices" class="form-control" rows="3" placeholder="Conseils d'utilisation du produit." alk-focus required></textarea>
+        <textarea type="text" ng-model="product.advices" name="advices" class="form-control resize-vertical" rows="3" placeholder="Conseils d'utilisation du produit." alk-focus required></textarea>
         <span ng-show="productForm.advices.$error.required" class="help-block">Un mode d'emploi du produit est obligatoire.</span>
         <div input-block-help field="productForm.advices">
 
@@ -183,7 +183,7 @@
 <div class="form-group has-feedback" ng-class="check('appearanceOlfactory')">
     <label for="appearanceOlfactory" class="col-sm-3 control-label">Description de l'odeur</label>
     <div class="col-sm-9">
-        <textarea ng-model="product.appearanceOlfactory" name="appearanceOlfactory" class="form-control" rows="2" placeholder="ex : Une purée aux bonnes odeurs de romarin." alk-focus></textarea>
+        <textarea ng-model="product.appearanceOlfactory" name="appearanceOlfactory" class="form-control resize-vertical" rows="2" placeholder="ex : Une purée aux bonnes odeurs de romarin." alk-focus></textarea>
         <div input-block-help field="productForm.appearanceOlfactory">
             Détails de dégustation olfactifs (arômes, odeurs...).
         </div>
@@ -192,7 +192,7 @@
 <div class="form-group has-feedback" ng-class="check('appearanceTaste')">
     <label for="appearanceTaste" class="col-sm-3 control-label">Description du goût</label>
     <div class="col-sm-9">
-        <textarea ng-model="product.appearanceTaste" name="appearanceTaste" class="form-control" rows="2" placeholder="ex : Onctueuse et légère, c'est un délice en bouche." alk-focus></textarea>
+        <textarea ng-model="product.appearanceTaste" name="appearanceTaste" class="form-control resize-vertical" rows="2" placeholder="ex : Onctueuse et légère, c'est un délice en bouche." alk-focus></textarea>
         <div input-block-help field="productForm.appearanceTaste">
             Détails de dégustation gustatifs (sensation en bouche, texture...).
         </div>
@@ -201,7 +201,7 @@
 <div class="form-group has-feedback" ng-class="check('appearanceVisual')">
     <label for="appearanceVisual" class="col-sm-3 control-label">Description visuelle</label>
     <div class="col-sm-9">
-        <textarea ng-model="product.appearanceVisual" name="appearanceVisual" class="form-control" rows="2" placeholder="ex : Robe jaune très clair, à reflets verts." alk-focus></textarea>
+        <textarea ng-model="product.appearanceVisual" name="appearanceVisual" class="form-control resize-vertical" rows="2" placeholder="ex : Robe jaune très clair, à reflets verts." alk-focus></textarea>
         <div input-block-help field="productForm.appearanceVisual">
             Détails de dégustation visuels (couleur, robe...).
         </div>
@@ -210,7 +210,7 @@
 <div class="form-group has-feedback" ng-class="check('pairings')">
     <label for="pairings" class="col-sm-3 control-label">Accords suggérés</label>
     <div class="col-sm-9">
-        <textarea ng-model="product.pairings" name="pairings" class="form-control" rows="2" placeholder="ex : Parfait avec un camembert." alk-focus></textarea>
+        <textarea ng-model="product.pairings" name="pairings" class="form-control resize-vertical" rows="2" placeholder="ex : Parfait avec un camembert." alk-focus></textarea>
         <div input-block-help field="productForm.pairings">
             Accords suggérés (vins, fromages...).
         </div>
@@ -246,7 +246,7 @@
 <div class="form-group has-feedback" ng-class="check('consumerBenefits')">
     <label for="consumerBenefits" class="col-sm-3 control-label">Avantages consommateur</label>
     <div class="col-sm-9">
-        <textarea ng-model="product.consumerBenefits" name="consumerBenefits" class="form-control" rows="2" placeholder="Les bénéfices pour le consommateur quant à la consommation de ce produit." alk-focus></textarea>
+        <textarea ng-model="product.consumerBenefits" name="consumerBenefits" class="form-control resize-vertical" rows="2" placeholder="Les bénéfices pour le consommateur quant à la consommation de ce produit." alk-focus></textarea>
         <div input-block-help field="productForm.consumerBenefits">
             Les bénéfices pour le consommateur quant à la consommation de ce produit.
         </div>
@@ -255,7 +255,7 @@
 <div class="form-group has-feedback" ng-class="check('productBenefits')">
     <label for="productBenefits" class="col-sm-3 control-label">Avantages produit</label>
     <div class="col-sm-9">
-        <textarea ng-model="product.productBenefits" name="productBenefits" class="form-control" rows="2" placeholder="Les avantages du produit quant à ses concurrents." alk-focus></textarea>
+        <textarea ng-model="product.productBenefits" name="productBenefits" class="form-control resize-vertical" rows="2" placeholder="Les avantages du produit quant à ses concurrents." alk-focus></textarea>
         <div input-block-help field="productForm.productBenefits">
             Les avantages du produit quant à ses concurrents.
         </div>
@@ -264,7 +264,7 @@
 <div class="form-group has-feedback" ng-class="check('allegations')">
     <label for="allegations" class="col-sm-3 control-label">Allégations</label>
     <div class="col-sm-9">
-        <textarea ng-model="product.allegations" name="allegations" class="form-control" rows="2" placeholder="Allégations marketing." alk-focus></textarea>
+        <textarea ng-model="product.allegations" name="allegations" class="form-control resize-vertical" rows="2" placeholder="Allégations marketing." alk-focus></textarea>
         <div input-block-help field="productForm.allegations">
             Allégations marketing :
             <ul>
@@ -278,7 +278,7 @@
 <div class="form-group has-feedback" ng-class="check('packagingMentions')">
     <label for="packagingMentions" class="col-sm-3 control-label">Marquages du packaging</label>
     <div class="col-sm-9">
-        <textarea ng-model="product.packagingMentions" name="packagingMentions" class="form-control" rows="2" placeholder="Marquages sur le conditionnement." alk-focus></textarea>
+        <textarea ng-model="product.packagingMentions" name="packagingMentions" class="form-control resize-vertical" rows="2" placeholder="Marquages sur le conditionnement." alk-focus></textarea>
         <div input-block-help field="productForm.packagingMentions">
             Marquages sur le conditionnement.
         </div>
@@ -287,7 +287,7 @@
 <div class="form-group has-feedback" ng-class="check('advertisedInformations')">
     <label for="advertisedInformations" class="col-sm-3 control-label">Informations mises en avant</label>
     <div class="col-sm-9">
-        <textarea ng-model="product.advertisedInformations" name="advertisedInformations" class="form-control" rows="2" placeholder="Informations mises en avant par le packaging." alk-focus></textarea>
+        <textarea ng-model="product.advertisedInformations" name="advertisedInformations" class="form-control resize-vertical" rows="2" placeholder="Informations mises en avant par le packaging." alk-focus></textarea>
         <div input-block-help field="productForm.advertisedInformations">
             Informations mises en avant par le packaging.
         </div>
@@ -300,7 +300,7 @@
 <div class="form-group has-feedback" ng-class="check('history')">
     <label for="history" class="col-sm-3 control-label">Histoire du produit</label>
     <div class="col-sm-9">
-        <textarea ng-model="product.history" name="history" class="form-control" rows="2" placeholder="ex : Ce café a été découvert par..." alk-focus></textarea>
+        <textarea ng-model="product.history" name="history" class="form-control resize-vertical" rows="2" placeholder="ex : Ce café a été découvert par..." alk-focus></textarea>
         <div input-block-help field="productForm.history">
             L'histoire de ce produit.
         </div>
@@ -309,7 +309,7 @@
 <div class="form-group has-feedback" ng-class="check('fabrication')">
     <label for="fabrication" class="col-sm-3 control-label">Fabrication du produit</label>
     <div class="col-sm-9">
-        <textarea ng-model="product.fabrication" name="fabrication" class="form-control" rows="2" placeholder="ex : La production de cette purée commence par..." alk-focus></textarea>
+        <textarea ng-model="product.fabrication" name="fabrication" class="form-control resize-vertical" rows="2" placeholder="ex : La production de cette purée commence par..." alk-focus></textarea>
         <div input-block-help field="productForm.fabrication">
             Le procédé de fabrication de ce produit.
         </div>
@@ -322,7 +322,7 @@
 <div class="form-group has-feedback" ng-class="check('warnings')">
     <label for="warnings" class="col-sm-3 control-label">Avertissements</label>
     <div class="col-sm-9">
-        <textarea ng-model="product.warnings" name="warnings" class="form-control" rows="2" placeholder="Les avertissements relatifs à l'usage de ce produit." alk-focus></textarea>
+        <textarea ng-model="product.warnings" name="warnings" class="form-control resize-vertical" rows="2" placeholder="Les avertissements relatifs à l'usage de ce produit." alk-focus></textarea>
         <div input-block-help field="productForm.warnings">
             Les avertissements relatifs à l'usage de ce produit.
         </div>
@@ -331,7 +331,7 @@
 <div class="form-group has-feedback" ng-class="check('compulsoryStatements')">
     <label for="compulsoryStatements" class="col-sm-3 control-label">Mentions légales obligatoires</label>
     <div class="col-sm-9">
-        <textarea ng-model="product.compulsoryStatements" name="compulsoryStatements" class="form-control" rows="2" placeholder="Les mentions légales obligatoires." alk-focus></textarea>
+        <textarea ng-model="product.compulsoryStatements" name="compulsoryStatements" class="form-control resize-vertical" rows="2" placeholder="Les mentions légales obligatoires." alk-focus></textarea>
         <div input-block-help field="productForm.compulsoryStatements">
             A description of any compulsory label information on the product for the serving counter, for example the German additives regulation (ZzulV), for products such as meats and sausages, meat products, bread and bread products.
             <br/>
