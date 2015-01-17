@@ -9,12 +9,37 @@ var ProductPage = function () {
     return element.all(by.css('.nav.nav-tabs li'));
   };
 
+  this.getGeneralTab = function () {
+    return element.all(by.css('.nav.nav-tabs li')).get(0);
+  };
+
   this.getMediaTab = function () {
     return element.all(by.css('.nav.nav-tabs li')).get(4);
   };
 
   this.getNutritionTab = function () {
     return element.all(by.css('.nav.nav-tabs li')).get(6);
+  };
+
+
+  this.getSynonymsField = function () {
+    return element(by.css('#s2id_synonyms'));
+  };
+
+  this.getSynonymsSuggestionsBtn = function () {
+    return element(by.css('.synonyms .input-group-btn button'));
+  };
+
+  this.getSynonymsSuggestions = function () {
+    return element.all(by.repeater('synonym in synonyms'));
+  };
+
+  this.getSynonymsOkBtn = function () {
+    return element(by.css('.modal-footer .btn.color-stream-inverse'));
+  };
+
+  this.getSynonymsCancelBtn = function () {
+    return element(by.css('.modal-footer .btn-default'));
   };
 
   this.getAddMediaBtn = function () {
