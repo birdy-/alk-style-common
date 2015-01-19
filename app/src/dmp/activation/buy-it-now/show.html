@@ -36,15 +36,16 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="_runsIn">Quelles enseignes doivent apparaître ?</label>
-                    <div alk-autocomplete
-                         alk-autocomplete-type="shop"
-                         alk-autocomplete-multiple="true"
-                         placeholder="Choisir les enseignes"
-                         ng-model="campaign.parameters.availableShops"
-                         id="_runsIn"
-                         required>
-                    </div>
+                  <label>Quelles enseignes doivent apparaître ?</label>
+                  <br>
+                  <label ng-repeat="shop in authorizedShops | orderBy:'name'" class="campaign shop">
+                    <input type="checkbox"
+                           name="selectedShops[]"
+                           ng-checked="selectedShops.indexOf(shop.id) > -1"
+                           value="{{ shop.id }}"
+                           ng-click="toggleSelection(shop.id)">
+                    <img entity-image entity="shop" class=""/> {{ shop.name }}
+                  </label>
                 </div>
 
                 <div class="form-group">
