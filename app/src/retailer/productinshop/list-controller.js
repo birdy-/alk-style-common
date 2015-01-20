@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').controller('RetailerProductInShopListController', [
-    'permission', '$scope', '$$sdkCrud', '$modal', '$log', '$$ORM',
-    function (permission, $scope, $$sdkCrud, $modal, $log, $$ORM) {
+    'permission', '$scope', '$$sdkCrud', '$modal', '$log', '$$ORM', '$routeParams',
+    function (permission, $scope, $$sdkCrud, $modal, $log, $$ORM, $routeParams) {
 
         // ------------------------------------------------------------------------
         // Variables
@@ -68,9 +68,8 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
 
         $scope.clearFilters = function () {
             initFilters();
-
             $scope.refresh();
-        }
+        };
 
         $scope.refresh = function () {
             $$ORM.repository('ProductInShop').list({
@@ -78,7 +77,7 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
             }, {
                 productInShopSegment_id: $scope.request.productInShopSegment ? $scope.request.productInShopSegment.id : null,
                 productReference_reference: $scope.request.productReference.reference,
-                product_certified: $scope.request.product.certified,
+                product_certified: $scope.request.product.certified ? $scope.request.product.certified.id : null,
                 shortIdOut: $scope.request.productInShop.shortIdOut,
                 shop_shortId: $scope.request.shop.shortId
             }, {}, $scope.request.offset, $scope.request.limit, {
@@ -214,18 +213,6 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
             return productInShop.instantiates.certified === Product.CERTIFICATION_STATUS_CERTIFIED.id;
         };
 
-        $scope.openHelp = function () {
-            var helpModal = $modal.open({
-                templateUrl: 'src/retailer/productinshop/help-modal/help-modal.html',
-                backdrop : 'static',
-                controller: 'RetailerProductInShopHelpModalController'
-            });
-
-            helpModal.result.then(function () {
-            }, function () {
-            });
-        };
-
         // ------------------------------------------------------------------------
         // Init
         // ------------------------------------------------------------------------
@@ -252,10 +239,18 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
             $scope.request.shop.shortId = shopId;
             getSegment(shopId).then(function (segment) {
                 getStats(segment);
-                // make a first refresh based on the INCO products
-                $scope.request.productInShopSegment = segment;
-                $scope.refresh();
+                // Make a first refresh based on the INCO products
+                 if (!$routeParams.segment_id) {
+                    $scope.request.productInShopSegment = segment;
+                    $scope.refresh();
+                }
             });
+            if ($routeParams.segment_id) {
+                $$ORM.repository('ProductInShopSegment').get($routeParams.segment_id).then(function (segment) {
+                    $scope.request.productInShopSegment = segment;
+                    $scope.refresh();
+                });
+            }
         });
 
     }

@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').controller('RetailerProductInShopSegmentListController', [
-    '$scope', '$$ORM', '$log', 'permission', '$$sdkCrud',
-    function ($scope, $$ORM, $log, permission, $$sdkCrud) {
+    '$scope', '$$ORM', '$log', 'permission', '$$sdkCrud', '$modal',
+    function ($scope, $$ORM, $log, permission, $$sdkCrud, $modal) {
 
         // ------------------------------------------------------------------------
         // Variables
@@ -46,9 +46,9 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopSegmentList
                         var segment = $$ORM.repository('ProductInShopSegment').lazy(stat.about.id);
                         segment.statistics = {};
                         segment.statistics.inProgress = stat.counts[Product.CERTIFICATION_STATUS_ATTRIBUTED.id]
-                                                      + stat.counts[Product.CERTIFICATION_STATUS_PUBLISHED.id]
                                                       + stat.counts[Product.CERTIFICATION_STATUS_ACCEPTED.id];
-                        segment.statistics.certified = stat.counts[Product.CERTIFICATION_STATUS_CERTIFIED.id];
+                        segment.statistics.certified = stat.counts[Product.CERTIFICATION_STATUS_CERTIFIED.id]
+                                                     + stat.counts[Product.CERTIFICATION_STATUS_PUBLISHED.id]
                                                      + stat.counts[Product.CERTIFICATION_STATUS_DISCONTINUED.id];
                         segment.statistics.total = segment.statistics.inProgress
                                                  + segment.statistics.certified;
@@ -71,6 +71,20 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopSegmentList
         $scope.next = function () {
             $scope.request.offset = $scope.request.offset + $scope.request.limit;
             list();
+        };
+        $scope.edit = function (segment) {
+            var modalInstance = $modal.open({
+                templateUrl: '/src/retailer/productinshopsegment/edit-modal/edit-modal.html',
+                controller: 'ProductInShopSegmentEditModalController',
+                resolve: {
+                    productInShopSegment: function () { return segment; }
+                }
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+            }, function () {
+                list();
+            });
         };
 
         // ------------------------------------------------------------------------

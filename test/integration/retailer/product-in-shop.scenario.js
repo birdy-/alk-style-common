@@ -14,8 +14,10 @@ describe('[Dashboard Retailer] PISHs page', function () {
     });
 
     it('should have a list of pish', function () {
-        expect(productInShopPage.getPishsList().count())
-        .toEqual(50);
+        productInShopPage.getSearchBtn().click().then(function () {
+            expect(productInShopPage.getPishsList().count())
+            .toEqual(50);
+        });
     });
 
     it('should have a filter by reference', function () {

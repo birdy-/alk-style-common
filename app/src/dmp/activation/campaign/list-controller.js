@@ -35,6 +35,8 @@ angular.module('jDashboardFluxApp').controller('DmpActivationCampaignListControl
             return 'button';
         } else if (campaign.type === Campaign.TYPE_SHOPPINGLIST.id) {
             return 'shoppinglist';
+        } else if (campaign.type === Campaign.TYPE_BUYITNOW.id) {
+            return 'buy-it-now';
         } else {
             return '';
         }
@@ -49,7 +51,8 @@ angular.module('jDashboardFluxApp').controller('DmpActivationCampaignListControl
             Campaign.TYPE_QRCODE.id,
             Campaign.TYPE_SHOPPINGLIST.id,
             Campaign.TYPE_BUTTON.id,
-            Campaign.TYPE_LANDINGPAGE.id
+            Campaign.TYPE_LANDINGPAGE.id,
+            Campaign.TYPE_BUYITNOW.id
         ].join(',');
         $$ORM.repository('Campaign').list({}, {
             runsIn_id: placementIds,
