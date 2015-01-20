@@ -24,6 +24,36 @@ describe('[Dashboard Maker] Product page', function () {
     });
 
     ///////////////////////
+    // General tab
+    ///////////////////////
+    it('should have a general tab', function () {
+        expect(productPage.getGeneralTab().getText())
+        .toBe('GENERAL');
+    });
+
+    it('should have a synonyms field on general tab', function () {
+        expect(productPage.getSynonymsField().isPresent())
+        .toBe(true);
+    });
+
+    it('should have a synonyms suggestion button on general tab', function () {
+        expect(productPage.getSynonymsSuggestionsBtn().isPresent())
+        .toBe(true);
+    });
+
+    it('should have a popup for synonyms suggestion on click', function () {
+        productPage.getSynonymsSuggestionsBtn().click().then(function () {
+            expect(productPage.getSynonymsSuggestions().count())
+            .toBeGreaterThan(0);
+
+            expect(productPage.getSynonymsOkBtn().isPresent())
+            .toBe(true);
+
+            productPage.getSynonymsCancelBtn().click().then(function () {});
+        })
+    });
+
+    ///////////////////////
     // Media tab
     ///////////////////////
     it('should have a media tab', function () {
