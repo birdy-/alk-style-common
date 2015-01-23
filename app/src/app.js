@@ -17,7 +17,8 @@ var app = angular.module('jDashboardFluxApp', [
   'ui.tree',
   'ui.unique',
   'textAngular',
-  'ngHandsontable'
+  'ngHandsontable',
+  'nvd3ChartDirectives'
 ]);
 
 // Update on each deploy
@@ -42,6 +43,8 @@ if (window.location.hostname.indexOf('localhost') === 0) {
     env = 'dev';
 } else if (window.location.hostname.indexOf('preprod-') === 0) {
     env = 'preprod';
+} else if (window.location.hostname.indexOf('localstream') === 0) {
+    env = 'vagrant';
 }
 
 if (env === 'prod') {

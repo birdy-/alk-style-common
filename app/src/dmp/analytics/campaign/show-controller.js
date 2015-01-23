@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').controller('DmpAnalyticsCampaignShowController', [
-    '$scope', '$$ORM', '$$sdkAnalytics', '$routeParams', '$$graphTools',
-    function ($scope, $$ORM, $$sdkAnalytics, $routeParams, $$graphTools) {
+    '$scope', '$$ORM', '$$sdkAnalytics', '$routeParams', '$$graphTools', '$window',
+    function ($scope, $$ORM, $$sdkAnalytics, $routeParams, $$graphTools, $window) {
 
         // -----------------------------------------------------------------------------------
         // Variables
