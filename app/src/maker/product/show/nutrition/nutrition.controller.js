@@ -20,7 +20,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowNutriti
         18739, 18740, 18741, 18744, 18983, 18743, 18742, 18985, 18982, 18979,
         18980, 18981, 19075, 19076, 19077, 18989, 18988, 18998, 19078, 18994,
         18992, 18996, 19000, 18991, 18999, 19079, 18990, 19080, 18987, 19081,
-        19082, 19083, 18997, 19084, 18993 // duplicates , 18986, 18984
+        19082, 19083, 18997, 19084, 18993, 18995 // duplicates , 18986, 18984
     ].map(function (id) {
         return $$ORM.repository('Concept').lazy(id);
     }).map(function (concept) {

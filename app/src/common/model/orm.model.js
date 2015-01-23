@@ -166,6 +166,7 @@ angular.module('jDashboardFluxApp').service('$$ORM', [
             { id: 18996, name: 'Fluor',                    isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Mineral',   compulsory: false, legend: "" },
             { id: 19000, name: 'Iode',                     isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Mineral',   compulsory: false, legend: "" },
             { id: 18991, name: 'Magnésium',                isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Mineral',   compulsory: false, legend: "" },
+            { id: 18995, name: 'Manganèse',                isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Mineral',   compulsory: false, legend: "" },
             { id: 18999, name: 'Molybdène',                isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Mineral',   compulsory: false, legend: "" },
             { id: 19079, name: 'Nickel',                   isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Mineral',   compulsory: false, legend: "" },
             { id: 18990, name: 'Phosphore',                isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Mineral',   compulsory: false, legend: "" },
