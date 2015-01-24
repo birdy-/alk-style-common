@@ -10,6 +10,7 @@ angular.module('jDashboardFluxApp').controller('DmpAnalyticsCampaignShowControll
 
         // Data
         $scope.campaign = null;
+        $scope.refreshInProgress = true;
 
         // Form formatting
         $scope.dateOptions = {
@@ -37,30 +38,30 @@ angular.module('jDashboardFluxApp').controller('DmpAnalyticsCampaignShowControll
 
         // Field name helpers (variables which name is readable)
         var displaysTotal = 0;
-        var displaysUnknown = 1;
-        var displaysRetargeted = 2;
-        var leads = 3;
+        // var displaysUnknown = 1;
+        // var displaysRetargeted = 2;
+        var clicks = 1;
         var date = 0;
         var value = 1;
 
         // Day by day data
         $scope.linechartVolumes = [];
         $scope.linechartVolumes[displaysTotal] = { key: "Impressions", values: [] };
-        $scope.linechartVolumes[displaysUnknown] = { key: "Impressions Anonymes", values: [] };
-        $scope.linechartVolumes[displaysRetargeted] = { key: "Impressions Reconnues", values: [] };
-        $scope.linechartVolumes[leads] = { key: "Leads", values: [], "bar": true };
+        // $scope.linechartVolumes[displaysUnknown] = { key: "Impressions Anonymes", values: [] };
+        // $scope.linechartVolumes[displaysRetargeted] = { key: "Impressions Reconnues", values: [] };
+        $scope.linechartVolumes[clicks] = { key: "Clicks", values: []};
 
         // Total data
         $scope.totalViews = 0;
         $scope.totalClicks = 0;
-        $scope.totalRetargeted = 0;
+        // $scope.totalRetargeted = 0;
         $scope.totalLeads = 0;
         $scope.cartItems = [];
 
         // Ratio data
-        $scope.txRetargeted = { key: "% reconnus", values: [] };
-        $scope.txLead = { key: "% leads", values: [] };
-        $scope.txLeadRetargeted = { key: "% leads reconnus", values: [] };
+        // $scope.txRetargeted = { key: "% reconnus", values: [] };
+        $scope.txClick = { key: "% clicks", values: [] };
+        // $scope.txLeadRetargeted = { key: "% leads reconnus", values: [] };
 
         // -----------------------------------------------------------------------------------
         // Data retrievers
@@ -71,7 +72,11 @@ angular.module('jDashboardFluxApp').controller('DmpAnalyticsCampaignShowControll
                 ['clicks', 'leads', 'pageviews', 'rpageviews', 'urpageviews'],
                 dateStart,
                 dateEnd
-            ).then(format);
+            ).then(format, function (error) {
+                console.log(error);
+                $scope.refreshInProgress = false;
+                $scope.noData = true;
+            });
         };
 
         var format = function (response) {
@@ -91,26 +96,29 @@ angular.module('jDashboardFluxApp').controller('DmpAnalyticsCampaignShowControll
 
             // Day by day data
             $scope.linechartVolumes[displaysTotal].values = response.data.pageviews.map(dateValuePair).sort(byDate);
-            $scope.linechartVolumes[displaysUnknown].values = response.data.urpageviews.map(dateValuePair).sort(byDate);
-            $scope.linechartVolumes[displaysRetargeted].values = response.data.rpageviews.map(dateValuePair).sort(byDate);
-            $scope.linechartVolumes[leads].values = response.data.leads.map(dateValuePair).sort(byDate);
+            // $scope.linechartVolumes[displaysUnknown].values = response.data.urpageviews.map(dateValuePair).sort(byDate);
+            // $scope.linechartVolumes[displaysRetargeted].values = response.data.rpageviews.map(dateValuePair).sort(byDate);
+            $scope.linechartVolumes[clicks].values = response.data.clicks.map(dateValuePair).sort(byDate);
 
             // Totals data
             $scope.totalClicks = response.data.clicks.reduce(sumValue, 0);
             $scope.totalViews = response.data.pageviews.reduce(sumValue, 0);
-            $scope.totalRetargeted = response.data.rpageviews.reduce(sumValue, 0);
-            $scope.totalLeads = response.data.leads.reduce(sumValue, 0);
+            // $scope.totalRetargeted = response.data.rpageviews.reduce(sumValue, 0);
+            // $scope.totalLeads = response.data.leads.reduce(sumValue, 0);
 
             // Ratios data
-            $scope.txRetargeted.values = $scope.linechartVolumes[displaysRetargeted].values.map(computeRatio(2, displaysTotal));
-            $scope.txLead.values = $scope.linechartVolumes[leads].values.map(computeRatio(4, displaysTotal));
-            $scope.txLeadRetargeted.values = $scope.linechartVolumes[leads].values.map(computeRatio(2, displaysRetargeted));
+            // $scope.txRetargeted.values = $scope.linechartVolumes[displaysRetargeted].values.map(computeRatio(2, displaysTotal));
+            $scope.txClick.values = $scope.linechartVolumes[clicks].values.map(computeRatio(2, displaysTotal));
+            // $scope.txLeadRetargeted.values = $scope.linechartVolumes[leads].values.map(computeRatio(2, displaysRetargeted));
+
+            $scope.refreshInProgress = false;
         };
 
         // -----------------------------------------------------------------------------------
         // Event listenning
         // -----------------------------------------------------------------------------------
         $scope.refresh = function () {
+            $scope.refreshInProgress = true;
             // @todo : for now, the analytics are by placement, not by campaign
             var placementId = $scope.campaign.runsIn[0].id;
             load(placementId, $scope.request.dateStart, $scope.request.dateEnd);

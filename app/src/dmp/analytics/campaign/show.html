@@ -1,7 +1,15 @@
 <div ng-include="'/src/maker/home/header.html'"></div>
 
 <div class="container-fluid">
-    <div class="row breadcrumb">
+    <br/>
+    <div class="row">
+        <div class="col-sm-12">
+            <a class="btn btn-default" href="/#/dmp/activation/campaign">
+                <i class="fa fa-arrow-left"></i> Retour
+            </a>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-lg-6 col-sm-12">
             <h1>
                 {{ campaign.name }}
@@ -60,97 +68,78 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row" ng-hide="refreshInProgress || noData">
         <div class="col-lg-9 col-sm-12">
-            <portlet color="orange" title="Volumes d'affichages &amp; taux de clic">
-                <div nvd3-line-plus-bar-chart
+            <portlet color="green" title="Volumes d'affichages &amp; taux de clic">
+                <div nvd3-multi-bar-chart
                     data="linechartVolumes"
                     objectequality="true"
                     xAxisTickFormat="graph.dateFilter()"
-                    y1AxisTickFormat="graph.floatFilter()"
-                    y2AxisTickFormat="graph.floatFilter()"
+                    yAxisTickFormat="graph.floatFilter()"
                     barinteractive="true"
-                    height="350"
+                    height="400"
                     forceY="0"
                     showXAxis="true"
                     showYAxis="true"
-                    legendcolor="graph.colorIterator()"
                     tooltipcontent="true"
                     lineinteractive="true"
-                    color="graph.colorIterator()"
                     objectequality="true"
                     margin="{left:60, right:60}"
                     showLegend="true">
                 </div>
             </portlet>
+            <!-- <pre>{{ linechartVolumes | json }}</pre> -->
         </div>
 
         <div class="col-lg-3 col-sm-12">
-            <metric color="orange-inverse" title="Totaux"></metric>
-            <metric color="orange" title="Imp.">
+            <metric color="green-inverse" title="Totaux"></metric>
+            <metric color="green" title="Imp.">
                 {{ totalViews | alkPowerOfThousands }}
             </metric>
-            <metric color="orange" title="Clicks">
+            <metric color="green" title="Clicks">
                 {{ totalClicks | alkPowerOfThousands }}
             </metric>
-            <metric color="orange" title="Retargeted">
-                {{ totalRetargeted / totalViews * 100 | number:2 }} %
-            </metric>
-            <metric color="orange" title="Click rate">
+            <metric color="green" title="Click rate">
                 {{ totalClicks / totalViews * 100 | number:2 }} %
-            </metric>
-            <metric color="orange" title="Leads">
-                {{ totalLeads | alkPowerOfThousands }}
-            </metric>
-            <metric color="orange" title="CTR">
-                {{ totalLeads / totalClicks * 100 | number:2 }} %
             </metric>
         </div>
     </div>
 
 
-    <div class="row">
-        <div class="col-lg-12 col-sm-12">
-            <portlet color="orange" title="Évolution des performances">
-                <table class="table table-condensed table-bordered">
-                    <thead>
-                        <tr class="color-advertising-inverse">
-                            <th>Date</th>
-                            <th ng-repeat="display in linechartVolumes[0].values">{{display[0] | date:'MM-dd'}}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th class="color-advertising">Impressions</th>
-                            <td ng-repeat="display in linechartVolumes[0].values">{{display[1]}}</td>
-                        </tr>
-                        <tr>
-                            <th class="color-advertising">Impressions Anonymes</th>
-                            <td ng-repeat="display in linechartVolumes[1].values">{{display[1]}}</td>
-                        </tr>
-                        <tr>
-                            <th class="color-advertising">Impressions Reconnu</th>
-                            <td ng-repeat="display in linechartVolumes[2].values">{{display[1]}}</td>
-                        </tr>
-                        <tr>
-                            <th class="color-advertising">Taux Reconnu %</th>
-                            <td ng-repeat="tx in txRetargeted.values">{{tx[1]}}</td>
-                        </tr>
-                        <tr>
-                            <th class="color-advertising">Leads</th>
-                            <td ng-repeat="lead in linechartVolumes[3].values">{{lead[1]}}</td>
-                        </tr>
-                        <tr>
-                            <th class="color-advertising">Taux Lead %</th>
-                            <td ng-repeat="tx in txLead.values">{{tx[1]}}</td>
-                        </tr>
-                        <tr>
-                            <th class="color-advertising">Taux Lead Reconnu %</th>
-                            <td ng-repeat="tx in txLeadRetargeted.values">{{tx[1]}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </portlet>
+    <div class="row" ng-hide="refreshInProgress || noData">
+        <div class="col-sm-12">
+            <table class="table table-condensed table-bordered">
+                <thead>
+                    <tr class="color-stream-inverse">
+                        <th>Date</th>
+                        <th ng-repeat="display in linechartVolumes[0].values">{{display[0] | date:'dd-MM'}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th class="color-stream">Impressions</th>
+                        <td ng-repeat="display in linechartVolumes[0].values">{{display[1]}}</td>
+                    </tr>
+                    <tr>
+                        <th class="color-stream">Clicks</th>
+                        <td ng-repeat="click in linechartVolumes[1].values">{{click[1]}}</td>
+                    </tr>
+                    <tr>
+                        <th class="color-stream">Taux Click %</th>
+                        <td ng-repeat="tx in txClick.values">{{tx[1]}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row" ng-if="refreshInProgress">
+        <div class="col-sm-12 text-center">
+            <i class="fa fa-spinner fa-spin fa-5x"></i>
+        </div>
+    </div>
+    <div class="row" ng-if="noData">
+        <div class="col-sm-12 text-center">
+            Aucune donnée n'a été trouvé pour cette campagne.
         </div>
     </div>
 </div>
