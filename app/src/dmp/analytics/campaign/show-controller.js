@@ -40,16 +40,19 @@ angular.module('jDashboardFluxApp').controller('DmpAnalyticsCampaignShowControll
         var displaysTotal = 0;
         // var displaysUnknown = 1;
         // var displaysRetargeted = 2;
-        var clicks = 1;
+        // var clicks = 3;
+        var txClicks = 1;
+        var clicks = 2;
         var date = 0;
         var value = 1;
 
         // Day by day data
         $scope.linechartVolumes = [];
-        $scope.linechartVolumes[displaysTotal] = { key: "Impressions", values: [] };
+        $scope.linechartVolumes[displaysTotal] = { key: "Impressions", values: [], bar: true };
         // $scope.linechartVolumes[displaysUnknown] = { key: "Impressions Anonymes", values: [] };
         // $scope.linechartVolumes[displaysRetargeted] = { key: "Impressions Reconnues", values: [] };
-        $scope.linechartVolumes[clicks] = { key: "Clicks", values: []};
+        // $scope.linechartVolumes[clicks] = { key: "Clicks", values: []};
+        $scope.linechartVolumes[txClicks] = { key: "Taux de clics (%)", values: []};
 
         // Total data
         $scope.totalViews = 0;
@@ -60,7 +63,8 @@ angular.module('jDashboardFluxApp').controller('DmpAnalyticsCampaignShowControll
 
         // Ratio data
         // $scope.txRetargeted = { key: "% reconnus", values: [] };
-        $scope.txClick = { key: "% clicks", values: [] };
+        $scope.clicks = { key: "clics", values: [] };
+        $scope.txClick = { key: "% clics", values: [] };
         // $scope.txLeadRetargeted = { key: "% leads reconnus", values: [] };
 
         // -----------------------------------------------------------------------------------
@@ -82,8 +86,10 @@ angular.module('jDashboardFluxApp').controller('DmpAnalyticsCampaignShowControll
         var format = function (response) {
             // Helpers
             var byDate = function (a, b) {return a[date] - b[date]; };
-            var dateValuePair = function (point) {return [(new Date(point.date)).getTime(), point.value]; };
+            var dateValuePair = function (point) {
+                return [(new Date(point.date)).getTime(), point.value]; };
             var sumValue = function (prev, current) {return current.value + prev; };
+            var convertToPoint = function (point) { return {date: point[0], value: parseFloat(point[1])}; };
             var computeRatio = function (precision, compareTo) {
                 return function (values, i) {
                     if (values[date] !== $scope.linechartVolumes[compareTo].values[i][date]) {
@@ -98,7 +104,8 @@ angular.module('jDashboardFluxApp').controller('DmpAnalyticsCampaignShowControll
             $scope.linechartVolumes[displaysTotal].values = response.data.pageviews.map(dateValuePair).sort(byDate);
             // $scope.linechartVolumes[displaysUnknown].values = response.data.urpageviews.map(dateValuePair).sort(byDate);
             // $scope.linechartVolumes[displaysRetargeted].values = response.data.rpageviews.map(dateValuePair).sort(byDate);
-            $scope.linechartVolumes[clicks].values = response.data.clicks.map(dateValuePair).sort(byDate);
+            // $scope.linechartVolumes[clicks].values = response.data.clicks.map(dateValuePair).sort(byDate);
+            $scope.linechartVolumes[txClicks].values = response.data.clicks.map(dateValuePair).sort(byDate);
 
             // Totals data
             $scope.totalClicks = response.data.clicks.reduce(sumValue, 0);
@@ -108,10 +115,13 @@ angular.module('jDashboardFluxApp').controller('DmpAnalyticsCampaignShowControll
 
             // Ratios data
             // $scope.txRetargeted.values = $scope.linechartVolumes[displaysRetargeted].values.map(computeRatio(2, displaysTotal));
-            $scope.txClick.values = $scope.linechartVolumes[clicks].values.map(computeRatio(2, displaysTotal));
+            $scope.clicks.values = response.data.clicks.map(dateValuePair).sort(byDate);
+            $scope.txClick.values = $scope.clicks.values.map(computeRatio(2, displaysTotal));
+            $scope.linechartVolumes[txClicks].values = $scope.txClick.values.map(convertToPoint).map(dateValuePair).sort(byDate);
             // $scope.txLeadRetargeted.values = $scope.linechartVolumes[leads].values.map(computeRatio(2, displaysRetargeted));
 
             $scope.refreshInProgress = false;
+            $scope.noData = false;
         };
 
         // -----------------------------------------------------------------------------------

@@ -71,11 +71,12 @@
     <div class="row" ng-hide="refreshInProgress || noData">
         <div class="col-lg-9 col-sm-12">
             <portlet color="green" title="Volumes d'affichages &amp; taux de clic">
-                <div nvd3-multi-bar-chart
+                <div nvd3-line-plus-bar-chart
                     data="linechartVolumes"
                     objectequality="true"
                     xAxisTickFormat="graph.dateFilter()"
-                    yAxisTickFormat="graph.floatFilter()"
+                    y1AxisTickFormat="graph.floatFilter()"
+                    y2AxisTickFormat="graph.floatFilter()"
                     barinteractive="true"
                     height="400"
                     forceY="0"
