@@ -94,13 +94,13 @@
 
         <div class="col-lg-3 col-sm-12">
             <metric color="green-inverse" title="Totaux"></metric>
-            <metric color="green" title="Imp.">
+            <metric color="green" title="Affichage">
                 {{ totalViews | alkPowerOfThousands }}
             </metric>
-            <metric color="green" title="Clicks">
+            <metric color="green" title="Clics">
                 {{ totalClicks | alkPowerOfThousands }}
             </metric>
-            <metric color="green" title="Click rate">
+            <metric color="green" title="Taux de Clic">
                 {{ totalClicks / totalViews * 100 | number:2 }} %
             </metric>
         </div>
@@ -122,11 +122,11 @@
                         <td ng-repeat="display in linechartVolumes[0].values">{{display[1]}}</td>
                     </tr>
                     <tr>
-                        <th class="color-stream">Clicks</th>
+                        <th class="color-stream">Clics</th>
                         <td ng-repeat="click in linechartVolumes[1].values">{{click[1]}}</td>
                     </tr>
                     <tr>
-                        <th class="color-stream">Taux Click %</th>
+                        <th class="color-stream">Taux Clic %</th>
                         <td ng-repeat="tx in txClick.values">{{tx[1]}}</td>
                     </tr>
                 </tbody>
