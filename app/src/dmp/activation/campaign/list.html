@@ -11,22 +11,22 @@
     </div>
     <div class="row text-center">
         <div class="col-sm-2 col-sm-offset-1">
-            <a class="btn btn-success" href="/#/dmp/activation/button">
+            <a class="btn btn-success" href="/#/dmp/activation/button" disabled>
                 <i class="fa fa-plus"></i> Créer
             </a>
         </div>
         <div class="col-sm-2">
-            <a class="btn btn-success" href="/#/dmp/activation/shoppinglist">
+            <a class="btn btn-success" href="/#/dmp/activation/shoppinglist" disabled>
                 <i class="fa fa-plus"></i> Créer
             </a>
         </div>
         <div class="col-sm-2">
-            <a class="btn btn-success" href="/#/dmp/activation/landingpage">
+            <a class="btn btn-success" href="/#/dmp/activation/landingpage" disabled>
                 <i class="fa fa-plus"></i> Créer
             </a>
         </div>
         <div class="col-sm-2">
-            <a class="btn btn-success" href="/#/dmp/activation/landingpage">
+            <a class="btn btn-success" href="/#/dmp/activation/landingpage" disabled>
                 <i class="fa fa-plus"></i> Créer
             </a>
         </div>
@@ -63,10 +63,10 @@
                         <td class="text-center">{{ campaign.typeName() }}</td>
                         <td class="text-center">{{ campaign.createdAt | date:'dd/MM/yyyy' }}</td>
                         <td class="text-center">
-                            <a class="btn btn-warning" ng-href="/#/dmp/activation/{{ link(campaign) }}/{{ campaign.id }}">
-                                <fa class="fa fa-edit"></i> Modifier
+                            <a class="btn btn-default" ng-href="/#/dmp/activation/{{ link(campaign) }}/{{ campaign.id }}">
+                                <i class="fa fa-edit"></i> Modifier
                             </a>
-                            <a class="btn color-purple-inverse" ng-href="/#/dmp/analytics/campaign/{{ campaign.id }}">
+                            <a class="btn btn-primary" ng-href="/#/dmp/analytics/campaign/{{ campaign.id }}">
                                 <i class="fa fa-bar-chart-o"></i> Suivi
                             </a>
                         </td>
