@@ -109,28 +109,30 @@
 
     <div class="row" ng-hide="refreshInProgress || noData">
         <div class="col-sm-12">
-            <table class="table table-condensed table-bordered">
-                <thead>
-                    <tr class="color-stream-inverse">
-                        <th>Date</th>
-                        <th ng-repeat="display in linechartVolumes[0].values">{{display[0] | date:'dd-MM'}}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th class="color-stream">Impressions</th>
-                        <td ng-repeat="display in linechartVolumes[0].values">{{display[1]}}</td>
-                    </tr>
-                    <tr>
-                        <th class="color-stream">Clics</th>
-                        <td ng-repeat="click in clicks.values">{{click[1]}}</td>
-                    </tr>
-                    <tr>
-                        <th class="color-stream">Taux Clic %</th>
-                        <td ng-repeat="tx in txClick.values">{{tx[1]}}%</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table table-condensed table-bordered">
+                    <thead>
+                        <tr class="color-stream-inverse">
+                            <th>Date</th>
+                            <th ng-repeat="display in linechartVolumes[0].values">{{display[0] | date:'dd-MM'}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th class="color-stream">Impressions</th>
+                            <td ng-repeat="display in linechartVolumes[0].values">{{display[1]}}</td>
+                        </tr>
+                        <tr>
+                            <th class="color-stream">Clics</th>
+                            <td ng-repeat="click in clicks.values">{{click[1]}}</td>
+                        </tr>
+                        <tr>
+                            <th class="color-stream">Taux Clic %</th>
+                            <td ng-repeat="tx in txClick.values">{{tx[1]}}%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     <div class="row" ng-if="refreshInProgress">
