@@ -14,7 +14,7 @@ angular.module('jDashboardFluxApp').controller('ProductChaseModalController', [
         $scope.message = {
             from: user,
             to: {
-                username: null
+                username: productInShops[0].isProducedBy.name
             },
             subject: '[INCO] ' + user.firstname + ' ' + user.lastname + ' vous suggère une correction',
             data: {
