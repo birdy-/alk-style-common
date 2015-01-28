@@ -12,15 +12,17 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowComposi
     // ------------------------------------------------------------------------
     // Event binding
     // ------------------------------------------------------------------------
-    var checkComposition = function(value) {
+    var checkComposition = function (value) {
         if (!value) {
             return;
         }
-        $$sdkMl.ProductCompositionParse(value).then(function(response){
+        // Sanitize HTML input for ML to work
+        value = String(value).replace(/<[^>]+>/gm, '');
+        $$sdkMl.ProductCompositionParse(value).then(function (response) {
             $scope.suggest = response.data.data;
         });
     };
-    $scope.check = function(){
+    $scope.check = function () {
         checkComposition($scope.product.composition);
     };
 
