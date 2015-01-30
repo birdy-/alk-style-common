@@ -30,7 +30,7 @@ angular.module('jDashboardFluxApp').controller('DmpAnalyticsCampaignShowControll
         var now = new Date();
         $scope.request = {
             dateEnd: (new Date()).setDate(now.getDate() - 1),
-            dateStart: (new Date()).setDate(now.getDate() - 31)
+            dateStart: (new Date()).setDate(now.getDate() - 2)
         };
 
         // Graph formatting
@@ -129,6 +129,14 @@ angular.module('jDashboardFluxApp').controller('DmpAnalyticsCampaignShowControll
         // -----------------------------------------------------------------------------------
         $scope.refresh = function () {
             $scope.refreshInProgress = true;
+            $scope.request.dateStart = moment.max(
+                moment($scope.request.dateStart),
+                $scope.campaign.startsAt
+            ).valueOf();
+            $scope.request.dateEnd = moment.min(
+                moment($scope.request.dateEnd),
+                $scope.campaign.endsAt
+            ).valueOf();
             // @todo : for now, the analytics are by placement, not by campaign
             var placementId = $scope.campaign.runsIn[0].id;
             load(placementId, $scope.request.dateStart, $scope.request.dateEnd);
@@ -140,6 +148,12 @@ angular.module('jDashboardFluxApp').controller('DmpAnalyticsCampaignShowControll
         var init = function () {
             $$ORM.repository('Campaign').get($routeParams.id).then(function (campaign) {
                 $scope.campaign = campaign;
+                $scope.campaign.startsAt = moment($scope.campaign.startsAt);
+                $scope.campaign.endsAt = moment($scope.campaign.endsAt);
+                $scope.request = {
+                    dateEnd: $scope.campaign.endsAt.valueOf(),
+                    dateStart: $scope.campaign.startsAt.valueOf()
+                };
                 $scope.refresh();
             });
         };
