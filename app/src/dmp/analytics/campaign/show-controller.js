@@ -30,7 +30,7 @@ angular.module('jDashboardFluxApp').controller('DmpAnalyticsCampaignShowControll
         var now = new Date();
         $scope.request = {
             dateEnd: (new Date()).setDate(now.getDate() - 1),
-            dateStart: (new Date()).setDate(now.getDate() - 2)
+            dateStart: (new Date()).setDate(now.getDate() - 31)
         };
 
         // Graph formatting
