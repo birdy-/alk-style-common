@@ -151,7 +151,10 @@ angular.module('jDashboardFluxApp').controller('DmpAnalyticsCampaignShowControll
                 $scope.campaign.startsAt = moment($scope.campaign.startsAt);
                 $scope.campaign.endsAt = moment($scope.campaign.endsAt);
                 $scope.request = {
-                    dateEnd: $scope.campaign.endsAt.valueOf(),
+                    dateEnd: moment.min(
+                        $scope.campaign.endsAt,
+                        moment().subtract(1, 'days')
+                    ).valueOf(),
                     dateStart: $scope.campaign.startsAt.valueOf()
                 };
                 $scope.refresh();
