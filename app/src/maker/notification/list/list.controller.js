@@ -63,7 +63,10 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerNotificationsContr
                 });
 
                 user.managesBrand.forEach(function (brand) {
-                    $$sdkAuth.UserClaimProductReferenceList(brand.id).then(function (response) {
+                    var filters = {
+                        'brandId': brand.id
+                    };
+                    $$sdkAuth.UserClaimProductReferenceList({}, filters).then(function (response) {
                         var productClaimEvents = response.data.data;
 
                         productClaimEvents.forEach(function (claimEvent) {
