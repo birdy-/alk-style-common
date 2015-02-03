@@ -87,7 +87,13 @@ if (env === 'prod') {
 }
 angular.module('sdk-dashboard').constant('APPLICATION_ID', 'UA-0000-3');
 
+// ==========================================================================================
+//                                          TRACKING
+// ==========================================================================================
 
+app.config(['$analyticsProvider', function($analyticsProvider){
+    $analyticsProvider.firstPageview(false);
+}]);
 
 // ==========================================================================================
 //                                          ROUTING
