@@ -28,6 +28,8 @@ module.exports = function(config) {
       'app/bower_components/angular-resource/angular-resource.js',
       'app/bower_components/angular-route/angular-route.js',
       'app/bower_components/angular-sanitize/angular-sanitize.js',
+      'app/bower_components/angulartics/dist/angulartics.min.js',
+      'app/bower_components/angulartics/dist/angulartics-ga.min.js',
       //'app/bower_components/angular-scenario/angular-scenario.js',
       //'app/bower_components/angular-slider/slider.js',
       //'app/bower_components/angular-ui/build/angular-ui.js',
