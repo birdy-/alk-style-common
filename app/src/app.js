@@ -18,7 +18,9 @@ var app = angular.module('jDashboardFluxApp', [
   'ui.unique',
   'textAngular',
   'ngHandsontable',
-  'nvd3ChartDirectives'
+  'nvd3ChartDirectives',
+  'angulartics',
+  'angulartics.google.analytics'
 ]);
 
 // Update on each deploy
@@ -85,7 +87,13 @@ if (env === 'prod') {
 }
 angular.module('sdk-dashboard').constant('APPLICATION_ID', 'UA-0000-3');
 
+// ==========================================================================================
+//                                          TRACKING
+// ==========================================================================================
 
+app.config(['$analyticsProvider', function($analyticsProvider){
+    $analyticsProvider.firstPageview(false);
+}]);
 
 // ==========================================================================================
 //                                          ROUTING
