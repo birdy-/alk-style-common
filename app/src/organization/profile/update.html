@@ -24,6 +24,10 @@
                             <input type="text" class="form-control" ng-model="organization.nameLegal" placeholder="Raison sociale de votre entreprise" name="nameLegal" id="nameLegal"/>
                         </div>
                         <div class="form-group">
+                            <label for="nameLegal">Description</label>
+                            <textarea class="form-control" ng-model="organization.description" placeholder="Description de l'activité de l'entreprise" name="description" id="description"/>
+                        </div>
+                        <div class="form-group">
                             <div class="row">
                                 <label class="col-sm-6" for="identifierLegal">RCS</label>
                                 <label class="col-sm-6" for="identifierCity">&nbsp;</label>
@@ -57,6 +61,7 @@
                         <div class="form-group">
                             <div class="text-right">
                                 <div button-save type="submit" ng-click="updateOrganization()" form="organizationForm"></div>
+                                <span ng-if="missingRcs">Erreur: Identifiant RCS Obligatoire</span>
                             </div>
                         </div>
                     </div>
