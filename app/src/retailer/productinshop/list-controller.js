@@ -95,6 +95,10 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
             $scope.refresh();
         };
 
+        $scope.isDeprecated = function (productInShop) {
+            return productInShop.instantiates.certified === Product.CERTIFICATION_STATUS_DISCONTINUED.id;
+        };
+
         $scope.isAttributed = function (productInShop) {
             return [
                 Product.CERTIFICATION_STATUS_ATTRIBUTED.id,
