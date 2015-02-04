@@ -4,13 +4,14 @@
  * Modal that allows the user to register on the mailing list
  */
 angular.module('jDashboardFluxApp').controller('OrganizationUserAddController', [
-    '$scope', '$modalInstance', '$$sdkAuth', '$$ORM', '$$autocomplete', '$window', 'permission', 'organization',
-    function ($scope, $modalInstance, $$sdkAuth, $$ORM, $$autocomplete, $window, permission, organization) {
+    '$scope', '$modalInstance', '$$sdkAuth', '$$ORM', '$$autocomplete', '$window', 'permission', 'organization', 'brands',
+    function ($scope, $modalInstance, $$sdkAuth, $$ORM, $$autocomplete, $window, permission, organization, brands) {
 
     // ------------------------------------------------------------------------
     // Variables
     // ------------------------------------------------------------------------
     organization.text = organization.nameLegal;
+    $scope.brands = brands;
     $scope.select2organizationOptions = $$autocomplete.getOptionAutocompletes(null, {
         data:[], multiple:false, maximumSelectionSize:1, minimumInputLength:0
     });
@@ -47,12 +48,5 @@ angular.module('jDashboardFluxApp').controller('OrganizationUserAddController', 
     // ------------------------------------------------------------------------
     // Init
     // ------------------------------------------------------------------------
-    $$sdkAuth.OrganizationBrands(organization.id).then(function (response) {
-        response.data.data.forEach(function (brand) {
-            $$ORM.repository('Brand').get(brand.id).then(function (entity) {
-                $scope.select2brandOptions.data.push(entity);
-            });
-        });
-    });
 
 }]);
