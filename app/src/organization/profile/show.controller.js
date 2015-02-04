@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').controller('OrganizationProfileShowController', [
-    '$scope', '$routeParams', '$modal', '$$ORM',
-    function ($scope, $routeParams, $modal, $$ORM) {
+    '$scope', '$routeParams', '$modal', '$$ORM', '$window',
+    function ($scope, $routeParams, $modal, $$ORM, $window) {
 
     $scope.organization = {};
     $scope.brands = [];
@@ -19,9 +19,12 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
 
     $scope.updateOrganization = function () {
         $scope.organizationForm.$saving = true;
-        $$ORM.repo('Organization').update($scope.organization).then(function (organization) {
+        $$ORM.repository('Organization').update($scope.organization).then(function (organization) {
             $scope.organizationForm.$saving = false;
             $scope.organizationForm.$setPristine();
+        }, function (response) {
+            $scope.organizationForm.$saving = false;
+            $window.alert(response.data || 'Une erreur est survenue, merci de vous rapprocher de notre support.');
         });
     };
 
@@ -32,6 +35,9 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
             resolve: {
                 organization: function () {
                     return $scope.organization;
+                },
+                brands: function () {
+                    return $scope.brands;
                 }
             }
         });
@@ -70,6 +76,5 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
         });
     };
     loadBrands();
-
 
 }]);
