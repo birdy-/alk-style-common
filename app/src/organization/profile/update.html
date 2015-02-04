@@ -34,12 +34,15 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" name="identifierLegal" ng-model="organization.identifierLegal" placeholder="Votre numéro RCS" id="identifierLegal" name="identifierLegal"/>
+                                    <input type="text" class="form-control" name="identifierLegal" ng-model="organization.identifierLegal" placeholder="Votre numéro RCS" id="identifierLegal" name="identifierLegal" ng-minlength="1" required/>
                                 </div>
                                 <div class="col-sm-6">
                                     <input type="text" class="form-control" name="identifierCity" ng-model="organization.identifierCity" placeholder="Ville d'inscription au RCS" id="identifierCity" name="identifierCity"/>
                                 </div>
                             </div>
+                        </div>
+                        <div ng-show="organizationForm.identifierLegal.$invalid">
+                            Veuillez entrer un RCS valide.
                         </div>
                         <div class="form-group">
                             <label for="url">Adresse</label>
@@ -61,7 +64,6 @@
                         <div class="form-group">
                             <div class="text-right">
                                 <div button-save type="submit" ng-click="updateOrganization()" form="organizationForm"></div>
-                                <span ng-if="missingRcs">Erreur: Identifiant RCS Obligatoire</span>
                             </div>
                         </div>
                     </div>

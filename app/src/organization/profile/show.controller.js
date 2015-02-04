@@ -4,7 +4,6 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
     '$scope', '$routeParams', '$modal', '$$ORM', '$window',
     function ($scope, $routeParams, $modal, $$ORM, $window) {
 
-    $scope.missingRcs = false;
     $scope.organization = {};
     $scope.brands = [];
     $scope.organizationForm = {};
@@ -24,11 +23,8 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
 
 
     $scope.updateOrganization = function () {
-        if (isEmpty($scope.organization.identifierLegal)) {
-            $scope.missingRcs = true;
+        if (isEmpty($scope.organization.identifierLegal))
             return;
-        }
-        $scope.missingRcs = false;
         $scope.organizationForm.$saving = true;
         $$ORM.repository('Organization').update($scope.organization).then(function (organization) {
             $scope.organizationForm.$saving = false;
