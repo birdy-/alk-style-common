@@ -24,18 +24,25 @@
                             <input type="text" class="form-control" ng-model="organization.nameLegal" placeholder="Raison sociale de votre entreprise" name="nameLegal" id="nameLegal"/>
                         </div>
                         <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea class="form-control" ng-model="organization.description" placeholder="Description de l'activité de l'entreprise" name="description" id="description"/>
+                        </div>
+                        <div class="form-group">
                             <div class="row">
                                 <label class="col-sm-6" for="identifierLegal">RCS</label>
                                 <label class="col-sm-6" for="identifierCity">&nbsp;</label>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" name="identifierLegal" ng-model="organization.identifierLegal" placeholder="Votre numéro RCS" id="identifierLegal" name="identifierLegal"/>
+                                    <input type="text" class="form-control" name="identifierLegal" ng-model="organization.identifierLegal" placeholder="Votre numéro RCS" id="identifierLegal" name="identifierLegal" ng-minlength="1" required/>
                                 </div>
                                 <div class="col-sm-6">
                                     <input type="text" class="form-control" name="identifierCity" ng-model="organization.identifierCity" placeholder="Ville d'inscription au RCS" id="identifierCity" name="identifierCity"/>
                                 </div>
                             </div>
+                        </div>
+                        <div ng-show="organizationForm.identifierLegal.$invalid">
+                            Veuillez entrer un RCS valide.
                         </div>
                         <div class="form-group">
                             <label for="url">Adresse</label>

@@ -17,7 +17,14 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
     // Event binding
     // --------------------------------------------------------------------------------
 
+    var isEmpty = function(value) {
+        return (typeof(value) === 'undefined' || value == null || value == '' || value.length == 0);
+    };
+
+
     $scope.updateOrganization = function () {
+        if (isEmpty($scope.organization.identifierLegal))
+            return;
         $scope.organizationForm.$saving = true;
         $$ORM.repository('Organization').update($scope.organization).then(function (organization) {
             $scope.organizationForm.$saving = false;
