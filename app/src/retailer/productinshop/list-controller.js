@@ -23,6 +23,7 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
         };
         $scope.productInShops = [];
         $scope.segment = null;
+        $scope.allSelected = null;
 
         // ------------------------------------------------------------------------
         // Event handling
@@ -72,6 +73,8 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
         };
 
         $scope.refresh = function () {
+            $scope.allSelected = false;
+
             $$ORM.repository('ProductInShop').list({
                 name: $scope.request.productInShop.name
             }, {
@@ -220,6 +223,12 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
         // ------------------------------------------------------------------------
         // Init
         // ------------------------------------------------------------------------
+        $scope.$watch('allSelected', function () {
+            $scope.productInShops.map(function (pish) {
+                pish.selected = !!$scope.allSelected;
+            })
+        });
+
         var initFilters = function () {
             $scope.request.productInShop = {
                 name: null,
