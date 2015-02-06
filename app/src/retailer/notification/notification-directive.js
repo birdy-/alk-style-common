@@ -25,7 +25,8 @@ angular.module('jDashboardFluxApp').directive('alkNotification', [
             'PlatformNewFeature': 'fa-info-circle',
             'PlatformBrandWelcome': 'fa-star',
             'ProductFillReminder': 'fa-check-square-o',
-            'ProductErrorReported': 'fa-warning'
+            'ProductErrorReported': 'fa-warning',
+            'Discution': 'fa-star'
         };
         var color = {
              'BrandClaimAccepted': 'color-green-inverse',
@@ -45,12 +46,48 @@ angular.module('jDashboardFluxApp').directive('alkNotification', [
              'PlatformNewFeature': 'color-purple-inverse',
              'PlatformBrandWelcome': 'color-purple-inverse',
              'ProductFillReminder': 'color-yellow-inverse',
-             'ProductErrorReported': 'color-red-inverse'
+             'ProductErrorReported': 'color-red-inverse',
+             'Discution': 'color-green-inverse',
         };
         return {
             restrict: 'AEC',
             scope: {
                 notification: '=alkNotification'
+            },
+            controller: function ($scope, $$sdkTimeline, permission) {
+                $scope.sendAnswer = function(notification) {
+                    permission.getUser().then(function (user) {
+                        var new_event = {
+                            'entity_id': notification.event.entity_id,
+                            'timestamp': Math.floor(Date.now() / 1000),
+                            'type': 'Discution',
+                            'user_id': user.id,
+                            'allow_response': true,
+                            'data': {
+                                'message': notification.event.answer,
+                                'subject': '',
+                                'timestamp': Math.floor(Date.now() / 1000),
+                                'entity_id': notification.event.entity_id,
+                                'type': 'Discution',
+                                'user': {
+                                    'firstname': user.firstname,
+                                    'id': user.id,
+                                    'lastname': user.lastname,
+                                    'username': user.username
+                                }
+                            }
+                        };
+                        $$sdkTimeline.SendEvent({
+                            'entity_type': 'Discution',
+                            'entity_id': notification.event.entity_id,
+                            'event': new_event,
+                            'user_id': 7,
+                        }).then(function (response) {
+                            notification.event.displayAnswer = false;
+                            location.reload();
+                        });
+                    });
+                };
             },
             templateUrl: '/src/retailer/notification/notification-directive.html',
             link: function(scope, elem, attrs) {

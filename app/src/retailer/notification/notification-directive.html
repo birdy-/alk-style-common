@@ -110,6 +110,40 @@
                 <img class="preview-videowrapper" demo-video ng-click="openDemoVideo()" src="../images/home/demo-video-preview.png"/>
             </div>
         </div>
+
+        <div ng-switch-when="Discution" >
+            <h4 class="pull-right">{{ notification.event.data.subject }}</h4>
+            <a href="mailto:{{ notification.event.data.user.username }}">
+                {{ notification.event.data.user.firstname }} {{ notification.event.data.user.lastname }}
+            </a>:
+            <span ng-bind-html="notification.event.data.message">{{ notification.event.data.message }}</span>
+            <div ng-if="notification.event.allow_response === true">
+                <div class="row" ng-if="notification.event.displayAnswer === true">
+                    <div class="col-md-8 col-md-offset-2">
+                        <div class="row">
+                            <i class="fa fa-close pull-right" ng-click="notification.event.displayAnswer = !notification.event.displayAnswer"></i>
+                            <text-angular ng-model="notification.event.answer"></text-angular>
+                        </div>
+                        <br/>
+                        <div class="row">
+                             <div class="btn btn-success pull-right " ng-click="sendAnswer(notification)">
+                                    Envoyer
+                                <i class="fa fa-check"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" ng-if="notification.event.displayAnswer === false">
+                    <div class="col-md-12">
+                        <div class="btn pull-right color-blue-inverse btn-xs" ng-click="notification.event.displayAnswer = !notification.event.displayAnswer">
+                            Répondre
+                            <i class="fa fa-plus-square"></i>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>
