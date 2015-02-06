@@ -55,9 +55,9 @@ angular.module('jDashboardFluxApp').controller('BrandClaimModalController', [
     $scope.sendRequestBrand = function () {
         for (var index in $scope.request.selectedBrand) {
             $$sdkAuth.UserClaimProductBrandCreate(
-                $scope.request.selectedBrand[i].name,
+                $scope.request.selectedBrand[index].name,
                 claimRequestType.manageBrand,
-                $scope.request.selectedBrand[i].id).then(function (response) {
+                $scope.request.selectedBrand[index].id).then(function (response) {
                     $scope.errors.ok = false;
             });
         };
