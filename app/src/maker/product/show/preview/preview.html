@@ -218,6 +218,18 @@
             <!-- levelPH -->
         </div>
     </div>
+    <div class="row" ng-if="product.conservation">
+        <div class="col-sm-12">
+            <h3>Conservation</h3>
+            <p>{{ product.conservation }}</p>
+        </div>
+    </div>
+    <div class="row" ng-if="product.quantityNormalized">
+        <div class="col-sm-12">
+            <h3>Quantité nette</h3>
+            <p>{{ product.quantityNormalized }}</p>
+        </div>
+    </div>
     <div class="row" ng-if="product.consumerBenefits || product.productBenefits">
         <div class="col-sm-12">
             <h3>Avantages</h3>

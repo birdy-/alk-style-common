@@ -11,7 +11,12 @@
         <div class="form-group" ng-if="errors.unknown === false">
                 <div class="form-group">
                     <label for="isBrandedBy">Rechercher une marque</label>
-                    <input type="text" select ui-select2="select2BrandOptions" ng-model="request.selectedBrand" style="width:100%" placeholder="ex : Nestlé"/>
+                    <div alk-autocomplete
+                         alk-autocomplete-type="Brand"
+                         alk-autocomplete-multiple="true"
+                         placeholder="Chercher une marque"
+                         ng-model="request.selectedBrand"
+                         id="_runsOnProduct">
                 </div>
         </div>
         <div>

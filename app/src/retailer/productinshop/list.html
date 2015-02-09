@@ -140,7 +140,9 @@
                         <th class="text-center">Image</th>
                         <th>Nom</th>
                         <th class="text-center">Action</th>
-                        <th></th>
+                        <th class="text-center">
+                            <input type="checkbox" ng-model="allSelected">
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -164,7 +166,7 @@
                             <!--<a class="pointer-link" ng-click="show(productInShop)">{{ productInShop.name }}</a>-->
                         </td>
                         <td class="text-center">
-                            <a class="btn btn-warning" ng-if="!isAttributed(productInShop)" ng-click="attribute(productInShop)">
+                            <a class="btn btn-warning" ng-if="!isAttributed(productInShop) && !isDeprecated(productInShop)" ng-click="attribute(productInShop)">
                                 <i class="fa fa-envelope"></i> Attribuer
                             </a>
                             <a class="btn btn-primary pish-preview" ng-click="show(productInShop)" ng-if="isCertified(productInShop)">
@@ -174,7 +176,9 @@
                                 <i class="fa fa-envelope"></i> Relancer
                             </a>
                         </td>
-                        <td class="text-center"><input type="checkbox" ng-model="productInShop.selected" ng-if="!isAttributed(productInShop)"></td>
+                        <td class="text-center">
+                            <input type="checkbox" ng-model="productInShop.selected" ng-if="!isDeprecated(productInShop)">
+                        </td>
                     </tr>
                     <tr ng-if="productInShops.length === 0;">
                         <td colspan="7" class="text-center">Aucun produit</td>
