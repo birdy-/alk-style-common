@@ -1,17 +1,20 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').controller('OrganizationProfileShowController', [
-    '$scope', '$routeParams', '$modal', '$$ORM', '$window',
-    function ($scope, $routeParams, $modal, $$ORM, $window) {
+    '$scope', 'permission','$routeParams', '$modal', '$$ORM', '$window',
+    function ($scope, permission, $routeParams, $modal, $$ORM, $window) {
 
     $scope.organization = {};
     $scope.brands = [];
     $scope.organizationForm = {};
+    $scope.administrators = [];
+    $scope.isAdmin = false;
     $scope.organizationFormInit = function (form) {
         form.$loading = true;
         form.$saving = false;
         $scope.organizationForm = form;
     };
+
 
     // --------------------------------------------------------------------------------
     // Event binding
@@ -20,6 +23,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
     var isEmpty = function(value) {
         return (typeof(value) === 'undefined' || value == null || value == '' || value.length == 0);
     };
+
 
 
     $scope.updateOrganization = function () {
@@ -35,7 +39,31 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
         });
     };
 
+
+    $scope.contactAdmin = function() {
+        var modalInstance = $modal.open({
+            templateUrl: '/src/organization/user/forbidden.html',
+            controller: 'OrganizationUserForbiddenController',
+            resolve: {
+                administrators: function() {
+                    return $scope.administrators;
+                },
+                title: function() {
+                    return "Inviter un nouvel utilisateur";
+                },
+                action: function() {
+                    return "inviter un nouvel utilisateur";
+                }
+
+            }
+        });
+    }; 
+
     $scope.addUser = function () {
+        if ($scope.isAdmin == false) {
+            $scope.contactAdmin();
+            return;
+        }
         var modalInstance = $modal.open({
             templateUrl: '/src/organization/user/add.html',
             controller: 'OrganizationUserAddController',
@@ -45,7 +73,11 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
                 },
                 brands: function () {
                     return $scope.brands;
+                },
+                administrators: function() {
+                    return $scope.administrators;
                 }
+
             }
         });
 
@@ -68,6 +100,14 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
     var loadUsers = function () {
         $$ORM.repository('Organization').method('Users')(organizationId).then(function (users) {
             $scope.users = users;
+            $scope.users.map(function (user) {
+                for (var i = 0, len = user.permission.length; i < len; i++) {
+                    if (user.permission[i] == 'admin') {
+                        $scope.administrators.push(user);
+                        return;
+                    }
+                }
+            });
         });
     };
     loadUsers();
@@ -83,5 +123,19 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
         });
     };
     loadBrands();
+
+    permission.getUser().then(function(user) {
+    $scope.currentUser = user;
+    $scope.currentUser.belongsTo.map(function (organization) {
+        if (organization.id == $scope.organization.id) {
+            for (var i = 0, len = organization.permissions.length; i < len; i++)
+                if (organization.permissions[i] == 'admin') {
+                    $scope.isAdmin = true;
+                    return;
+                }
+            }
+        });
+    });
+
 
 }]);
