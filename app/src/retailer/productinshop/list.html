@@ -5,6 +5,36 @@
     <br/>
     <div ng-if="segment">
         <h3>Total</h3>
+        <div class="well">
+            <div class="row">
+                <div class="col-sm-3 col-sm-offset-7">
+                    <label for="statsProductInShopSegment">Fournisseur ou catégorie</label>
+                </div>
+                <div class="col-sm-2 text-center">
+                    <a class="true-link btn-clear-filters" ng-click="clearFilters()">
+                        <i class="fa fa-times"></i>
+                        Reset
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <form class="form-inline" role="form">
+                    <div class="col-sm-3 col-sm-offset-7">
+                        <div alk-autocomplete-my
+                             alk-autocomplete-type="ProductInShopSegment"
+                             alk-autocomplete-multiple="false"
+                             alk-autocomplete-restrict="restrict"
+                             placeholder="Fournisseur ou catégorie"
+                             ng-model="request.stats.productInShopSegment"
+                             id="statsProductInShopSegment">
+                        </div>
+                    </div>
+                    <div class="col-sm-2 text-right">
+                        <span class="btn btn-success btn-block btn-search" ng-click="refreshStats()"><i class="fa fa-search"></i></span>
+                    </div>
+                </form>
+            </div>
+        </div>
         <div class="row text-center">
             <div class="col-sm-3">
                 <h3>
