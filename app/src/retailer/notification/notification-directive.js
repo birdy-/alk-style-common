@@ -81,7 +81,7 @@ angular.module('jDashboardFluxApp').directive('alkNotification', [
                             'entity_type': 'Discution',
                             'entity_id': notification.event.entity_id,
                             'event': new_event,
-                            'user_id': 7,
+                            'user_id': user.id,
                         }).then(function (response) {
                             notification.event.displayAnswer = false;
                             location.reload();
