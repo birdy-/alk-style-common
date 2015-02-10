@@ -14,7 +14,7 @@ describe('[Dashboard Retailer] PISHs page', function () {
     });
 
     it('should have a list of pish', function () {
-        productInShopPage.getSearchBtn().click().then(function () {
+        productInShopPage.getDetailsSearchBtn().click().then(function () {
             expect(productInShopPage.getPishsList().count())
             .toEqual(50);
         });
@@ -42,7 +42,7 @@ describe('[Dashboard Retailer] PISHs page', function () {
 
     it('should be able to filter on certified products', function () {
         productInShopPage.getStatusCertified().click().then(function () {
-            productInShopPage.getSearchBtn().click().then(function () {
+            productInShopPage.getDetailsSearchBtn().click().then(function () {
                 expect(productInShopPage.getPishsList().count())
                 .toEqual(50);
 
