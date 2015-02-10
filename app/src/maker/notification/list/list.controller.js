@@ -21,7 +21,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerNotificationsContr
     // Event handling
     // ------------------------------------------------------------------------
 
-
     // ------------------------------------------------------------------------
     // Init
     // ------------------------------------------------------------------------
@@ -31,6 +30,13 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerNotificationsContr
 
         $$sdkTimeline.TimelineGet(user.id).then(function (response) {
             $scope.notifications = response.data.data;
+
+            $scope.notifications.map(function (notification) {
+                if (notification.event.type == 'Discussion') {
+                    notification.event.answer = '';
+                    notification.event.displayAnswer = false;
+                }
+            });
 
             // Temporary fix for new subscribers, will be moved in the registraiton process
             $$sdkAuth.UserClaimProductBrandList().then(function (response) {
