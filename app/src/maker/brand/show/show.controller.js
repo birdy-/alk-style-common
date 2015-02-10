@@ -18,6 +18,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerBrandShowControlle
     // ------------------------------------------------------------------------
     $scope.brand = {};
     $scope.brandForm;
+    $scope.cachebuster = parseInt(Math.random() * 1000000);
 
 
     // ------------------------------------------------------------------------
