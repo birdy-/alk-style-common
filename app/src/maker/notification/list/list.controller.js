@@ -97,7 +97,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerNotificationsContr
                     }
                 });
 
-                Temporary fix, will be moved in the timeline process
+                // Temporary fix, will be moved in the timeline process
                 $scope.notifications.push({
                     'event': {
                         'timestamp': moment().unix(),
