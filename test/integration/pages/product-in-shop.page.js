@@ -31,8 +31,8 @@ var ProductInShopPage = function () {
     return that.getStatusOptions().get(5);
   };
 
-  this.getSearchBtn = function () {
-    return element(by.css('.btn-search'));
+  this.getDetailsSearchBtn = function () {
+    return element(by.css('.details .btn-search'));
   };
 
   this.getPishPreview = function () {

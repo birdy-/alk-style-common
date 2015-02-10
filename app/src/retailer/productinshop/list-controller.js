@@ -52,6 +52,7 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
          */
         var getStats = function (segment) {
             $scope.segment = segment;
+            if (!segment.id) { return; }
             return $$ORM.repository('ProductInShopSegment').method('Statistics')([segment.id]).then(function (stats) {
                 stats = stats[0].counts;
                 $scope.stats.attributed = stats[Product.CERTIFICATION_STATUS_ATTRIBUTED.id]
