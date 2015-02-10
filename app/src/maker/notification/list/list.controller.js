@@ -32,12 +32,9 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerNotificationsContr
             $scope.notifications = response.data.data;
 
             $scope.notifications.map(function (notification) {
-                                    console.log(notification);
-
-                if (notification.event.type == 'Discution') {
+                if (notification.event.type == 'Discussion') {
                     notification.event.answer = '';
                     notification.event.displayAnswer = false;
-                    console.log(notification);
                 }
             });
 

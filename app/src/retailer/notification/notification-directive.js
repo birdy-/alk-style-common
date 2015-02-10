@@ -26,7 +26,7 @@ angular.module('jDashboardFluxApp').directive('alkNotification', [
             'PlatformBrandWelcome': 'fa-star',
             'ProductFillReminder': 'fa-check-square-o',
             'ProductErrorReported': 'fa-warning',
-            'Discution': 'fa-star'
+            'Discussion': 'fa-star'
         };
         var color = {
              'BrandClaimAccepted': 'color-green-inverse',
@@ -47,7 +47,7 @@ angular.module('jDashboardFluxApp').directive('alkNotification', [
              'PlatformBrandWelcome': 'color-purple-inverse',
              'ProductFillReminder': 'color-yellow-inverse',
              'ProductErrorReported': 'color-red-inverse',
-             'Discution': 'color-green-inverse',
+             'Discussion': 'color-green-inverse',
         };
         return {
             restrict: 'AEC',
@@ -59,8 +59,8 @@ angular.module('jDashboardFluxApp').directive('alkNotification', [
                     permission.getUser().then(function (user) {
                         var new_event = {
                             'entity_id': notification.event.entity_id,
-                            'timestamp': Math.floor(Date.now() / 1000),
-                            'type': 'Discution',
+                            'timestamp': moment().unix(),
+                            'type': 'Discussion',
                             'user_id': user.id,
                             'allow_response': true,
                             'data': {
@@ -68,7 +68,7 @@ angular.module('jDashboardFluxApp').directive('alkNotification', [
                                 'subject': '',
                                 'timestamp': Math.floor(Date.now() / 1000),
                                 'entity_id': notification.event.entity_id,
-                                'type': 'Discution',
+                                'type': 'Discussion',
                                 'user': {
                                     'firstname': user.firstname,
                                     'id': user.id,
@@ -78,7 +78,7 @@ angular.module('jDashboardFluxApp').directive('alkNotification', [
                             }
                         };
                         $$sdkTimeline.SendEvent({
-                            'entity_type': 'Discution',
+                            'entity_type': 'Discussion',
                             'entity_id': notification.event.entity_id,
                             'event': new_event,
                             'user_id': user.id,

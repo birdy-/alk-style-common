@@ -111,7 +111,7 @@
             </div>
         </div>
 
-        <div ng-switch-when="Discution" >
+        <div ng-switch-when="Discussion" >
             <h4 class="pull-right">{{ notification.event.data.subject }}</h4>
             <a href="mailto:{{ notification.event.data.user.username }}">
                 {{ notification.event.data.user.firstname }} {{ notification.event.data.user.lastname }}
@@ -122,7 +122,7 @@
                     <div class="col-md-8 col-md-offset-2">
                         <div class="row">
                             <i class="fa fa-close pull-right" ng-click="notification.event.displayAnswer = !notification.event.displayAnswer"></i>
-                            <text-angular ng-model="notification.event.answer"></text-angular>
+                            <div text-angular ng-model="notification.event.answer"></div>
                         </div>
                         <br/>
                         <div class="row">
