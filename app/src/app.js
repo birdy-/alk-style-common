@@ -66,7 +66,7 @@ if (env === 'prod') {
     });
 } else if (env === 'dev') {
     app.constant('URL_CDN_MEDIA', 'https://smedia.alkemics.com');
-    app.constant('URL_SERVICE_AUTH', 'http://localauth.alkemics.com');
+    app.constant('URL_SERVICE_AUTH', 'http://localhost.alkemics.com:6545');
     app.constant('URL_SERVICE_MEDIA', 'http://localhost.alkemics.com:6551');
     app.constant('URL_UI_BUTTON_PRODUCT', 'https://sassets.toc.io/ui/button/product/v1/index.html');
     app.constant('URL_UI_SHOPPINGLIST', 'https://sassets.toc.io/interfaces/banner/v3/index.html');

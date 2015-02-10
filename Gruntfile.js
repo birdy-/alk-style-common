@@ -83,7 +83,7 @@ module.exports = function (grunt) {
       options: {
         port: 9005,
         // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localhost.alkemics.com'
+        hostname: 'localstream.alkemics.com'
       },
       livereload: {
         options: {
@@ -416,25 +416,25 @@ module.exports = function (grunt) {
             }
         }
     },
-    // aws: grunt.file.readJSON('grunt-aws.json'),
-    // aws_s3: {
-    //     options: {
-    //       accessKeyId: '<%= aws.key %>',
-    //       secretAccessKey: '<%= aws.secret %>',
-    //       bucket: 'water.alkemics.com',
-    //       region: 'eu-west-1',
-    //       access: 'public-read'
-    //     },
-    //     prod: {
-    //           files: [
-    //             {expand: true, cwd: '<%= yeoman.app %>/views', src: ['**'], dest: 'views'},
-    //             {expand: true, cwd: '<%= yeoman.dist %>', src: ['*'], dest: ''},
-    //             {expand: true, cwd: '<%= yeoman.dist %>/scripts', src: ['**'], dest: 'scripts'},
-    //             {expand: true, cwd: '<%= yeoman.dist %>/styles', src: ['**'], dest: 'styles'},
-    //             {expand: true, cwd: '<%= yeoman.dist %>/images', src: ['**'], dest: 'images'}
-    //           ]
-    //     }
-    // },
+    aws: grunt.file.readJSON('grunt-aws.json'),
+    aws_s3: {
+        options: {
+          accessKeyId: '<%= aws.key %>',
+          secretAccessKey: '<%= aws.secret %>',
+          bucket: 'water.alkemics.com',
+          region: 'eu-west-1',
+          access: 'public-read'
+        },
+        prod: {
+              files: [
+                {expand: true, cwd: '<%= yeoman.app %>/views', src: ['**'], dest: 'views'},
+                {expand: true, cwd: '<%= yeoman.dist %>', src: ['*'], dest: ''},
+                {expand: true, cwd: '<%= yeoman.dist %>/scripts', src: ['**'], dest: 'scripts'},
+                {expand: true, cwd: '<%= yeoman.dist %>/styles', src: ['**'], dest: 'styles'},
+                {expand: true, cwd: '<%= yeoman.dist %>/images', src: ['**'], dest: 'images'}
+              ]
+        }
+    },
     shell: {
         compress: {
             command: 'tar -czf app.tar.gz <%= yeoman.dist %>/*'
