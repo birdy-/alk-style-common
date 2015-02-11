@@ -21,7 +21,7 @@ angular.module('jDashboardFluxApp').controller('NoticationSenderModalController'
         message: '',
         subject: 'notification',
         to_timeline: true,
-        to_mail: true,
+        to_mail: false, //Pass to true | options ?
         allow_response: false,
     }
 
