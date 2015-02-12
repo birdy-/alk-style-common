@@ -46,12 +46,10 @@ angular.module('jDashboardFluxApp').controller('NoticationSenderModalController'
      * Called when the Product is new and is created
      */
     $scope.sendNotification = function () {
-        if ($scope.notification.to_timeline == false && $scope.notification.to_mail == false)
-            return alert("You must select at least timeline or email");
         if ($scope.notification.subject == '')
-            return alert("One must provide a subject");
+            return alert("Veuillez entrer un sujet");
         if ($scope.notification.message == '')
-            return alert("One must provide a message");
+            return alert("Veuillez entrer un message");
         var user_id_in = [];
         $scope.mail_status = 0;
         $scope.notification.organization.users.map(function(user) {
