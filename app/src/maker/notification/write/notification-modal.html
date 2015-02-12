@@ -1,0 +1,30 @@
+<div class="modal-header">
+    <div class="row">
+        <h3 class="col-xs-12">
+            Envoyer une notification
+        </h3>
+    </div>
+</div>
+<div class="modal-body">
+    <form role="form" name="claimForm">
+        <div class="form-group">
+                <div class="form-group">
+                    <label for="organizations">Destinataire:</label>
+                    <input type="text" select ui-select2="select2OrganizationOptions" ng-model="notification.organization" style="width:100%" placeholder="ex : Alkemics"/>
+                </div>
+        </div>
+        <div>
+            <span ng-if="notification.organization.users !== undefined">{{ notification.organization.users.length }} destinataires</span>
+            <div text-angular ng-model="notification.message"></div>
+        </div>
+    </form>
+    <div ng-if="errors.ok === false" class="alert alert-success">
+        Votre message à bien été envoyé.
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="text-right">
+        <span class="btn btn-success" ng-click="sendNotification()"><i class="fa fa-check"></i> Envoyer</span>
+        <span class="btn btn-link" ng-click="cancel()"><i class="fa fa-times"></i> Annuler</span>
+    </div>
+</div>
