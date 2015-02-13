@@ -102,7 +102,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
             $scope.users = users;
             $scope.users.map(function (user) {
                 for (var i = 0, len = user.permission.length; i < len; i++) {
-                    if (user.permission[i] == 'admin') {
+                    if (user.permission[i] === 'admin') {
                         $scope.administrators.push(user);
                         return;
                     }
@@ -125,13 +125,14 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
     loadBrands();
 
     permission.getUser().then(function(user) {
-    $scope.currentUser = user;
-    $scope.currentUser.belongsTo.map(function (organization) {
-        if (organization.id == $scope.organization.id) {
-            for (var i = 0, len = organization.permissions.length; i < len; i++)
-                if (organization.permissions[i] == 'admin') {
-                    $scope.isAdmin = true;
-                    return;
+        $scope.currentUser = user;
+        $scope.currentUser.belongsTo.map(function (organization) {
+            if (organization.id == $scope.organization.id) {
+                for (var i = 0, len = organization.permissions.length; i < len; i++) {
+                    if (organization.permissions[i] == 'admin') {
+                        $scope.isAdmin = true;
+                        return;
+                    }
                 }
             }
         });
