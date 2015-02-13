@@ -17,6 +17,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerBrandListControlle
     // ------------------------------------------------------------------------
     $scope.brands = [];
     $scope.claims = [];
+    $scope.cachebuster = parseInt(Math.random() * 1000000);
 
     // ------------------------------------------------------------------------
     // Event binding

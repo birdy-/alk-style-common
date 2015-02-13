@@ -1,4 +1,10 @@
 .product-in-shop {
+    .stats-segment {
+        div {
+            display: inline;
+        }
+    }
+
     [alk-model-product-certified-select] {
         padding-right: 0;
         margin-right: 0.5em;

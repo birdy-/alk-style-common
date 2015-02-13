@@ -11,6 +11,7 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
             shop: {
                 shortId: null
             },
+            stats: {},
             offset: 0,
             limit: 50
         };
@@ -51,6 +52,7 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
          */
         var getStats = function (segment) {
             $scope.segment = segment;
+            if (!segment.id) { return; }
             return $$ORM.repository('ProductInShopSegment').method('Statistics')([segment.id]).then(function (stats) {
                 stats = stats[0].counts;
                 $scope.stats.attributed = stats[Product.CERTIFICATION_STATUS_ATTRIBUTED.id]
@@ -66,6 +68,10 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
                 $scope.stats.show = true;
             });
         };
+
+        $scope.refreshStats = function () {
+            getStats($scope.request.stats.productInShopSegment);
+        }
 
         $scope.clearFilters = function () {
             initFilters();
@@ -235,6 +241,7 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
                 shortIdOut: null
             };
             $scope.request.productInShopSegment = null;
+            $scope.request.stats.productInShopSegment = null;
             $scope.request.productReference = {
                 reference: null
             };
@@ -251,17 +258,20 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
             })[0];
             $scope.request.shop.shortId = shopId;
             getSegment(shopId).then(function (segment) {
-                getStats(segment);
                 // Make a first refresh based on the INCO products
                  if (!$routeParams.segment_id) {
                     $scope.request.productInShopSegment = segment;
+                    $scope.request.stats.productInShopSegment = segment;
                     $scope.refresh();
+                    $scope.refreshStats();
                 }
             });
             if ($routeParams.segment_id) {
                 $$ORM.repository('ProductInShopSegment').get($routeParams.segment_id).then(function (segment) {
                     $scope.request.productInShopSegment = segment;
+                    $scope.request.stats.productInShopSegment = segment;
                     $scope.refresh();
+                    $scope.refreshStats();
                 });
             }
         });
