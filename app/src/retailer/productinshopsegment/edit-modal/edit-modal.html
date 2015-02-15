@@ -37,13 +37,13 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="email">Contact</label>
-                    <div class="row">
+                    <label for="email">Contacts</label>
+                    <div class="row" ng-repeat="user in segment.extra.users">
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" name="email" ng-model="segment.extra.email" placeholder="Email"/>
+                            <input type="text" class="form-control" name="email" ng-model="user.email" placeholder="Email"/>
                         </div>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" name="phonenumber" ng-model="segment.extra.phonenumber" placeholder="Téléphone"/>
+                            <input type="text" class="form-control" name="phonenumber" ng-model="user.phonenumber" placeholder="Téléphone"/>
                         </div>
                     </div>
                 </div>
