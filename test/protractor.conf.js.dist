@@ -6,7 +6,7 @@ exports.config = {
     registration: 'integration/registration/*.scenario.js',
     login: 'integration/login/*.scenario.js',
     maker: 'integration/maker/*.scenario.js',
-    maker: 'integration/retailer/*.scenario.js'
+    retailer: 'integration/retailer/*.scenario.js'
   },
 
   baseUrl: 'http://localstream.alkemics.com:9005/#/',
