@@ -10,26 +10,60 @@ angular.module('jDashboardFluxApp').controller('OrganizationUserAddController', 
     // ------------------------------------------------------------------------
     // Variables
     // ------------------------------------------------------------------------
+    
+    $scope.isHelpOpened = false;
+    $scope.isBrandsOpened = false;
     $scope.administrators = administrators;
-    organization.text = organization.nameLegal;
     $scope.brands = brands;
+    $scope.selectedBrands = {};
+    
+    organization.text = organization.nameLegal;
     $scope.select2organizationOptions = $$autocomplete.getOptionAutocompletes(null, {
         data:[], multiple:false, maximumSelectionSize:1, minimumInputLength:0
     });
     $scope.invitation = {
-        username: null,
         organization: organization,
+        lastname: null,
+        firstname: null,
+        username: null,
+        jobTitle: null,
+        phoneNumber: null,
+        brands: [],
+        isAdmin: false,
         permission: 'user'
     };
+    $scope.confirmation = null;
+
+    var initSelectedBrands = function() {
+        $scope.brands.map(function (brand) {
+            $scope.selectedBrands[brand.id] = true;
+        });
+    };
+
 
     // ------------------------------------------------------------------------
     // Event binding
     // ------------------------------------------------------------------------
     $scope.submit = function () {
-        if (!$scope.invitation.username) {
-            $window.alert("Merci de préciser un email.");
+        var alertMessage = "Ces champs sont manquants ou invalides:";
+        if (!$scope.invitation.lastname || !$scope.invitation.firstname 
+                || !$scope.invitation.username || !$scope.invitation.jobTitle 
+                || !$scope.invitation.phoneNumber) {
+            alertMessage += (!$scope.invitation.lastname ? "\n+ Nom" : ""); 
+            alertMessage += (!$scope.invitation.firstname ? "\n+ Prénom" : ""); 
+            alertMessage += (!$scope.invitation.username ? "\n+ Email" : ""); 
+            alertMessage += (!$scope.invitation.jobTitle ? "\n+ Poste" : ""); 
+            alertMessage += (!$scope.invitation.phoneNumber ? "\n+ Numéro de Téléphone" : ""); 
+            $window.alert(alertMessage);
             return;
         }
+        if ($scope.confirmation !== $scope.invitation.username) {
+            $window.alert("Confirmation d'email invalide");
+            return;
+        }
+
+        if ($scope.invitation.isAdmin)
+            $scope.invitation.permission = 'admin';
 
         $$sdkAuth.UserInvite($scope.invitation, {
         }).then(function(){
@@ -49,5 +83,5 @@ angular.module('jDashboardFluxApp').controller('OrganizationUserAddController', 
     // ------------------------------------------------------------------------
     // Init
     // ------------------------------------------------------------------------
-
+    initSelectedBrands();
 }]);

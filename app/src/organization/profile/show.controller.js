@@ -64,6 +64,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
             $scope.contactAdmin();
             return;
         }
+
         var modalInstance = $modal.open({
             templateUrl: '/src/organization/user/add.html',
             controller: 'OrganizationUserAddController',
@@ -91,14 +92,14 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
     // Init
     // --------------------------------------------------------------------------------
 
-    var organizationId = $routeParams.id;
-    $$ORM.repository('Organization').get(organizationId).then(function (entity) {
+    $scope.organizationId = $routeParams.id;
+    $$ORM.repository('Organization').get($scope.organizationId).then(function (entity) {
         $scope.organization = entity;
         $scope.organizationForm.$loading = false;
     });
 
     var loadUsers = function () {
-        $$ORM.repository('Organization').method('Users')(organizationId).then(function (users) {
+        $$ORM.repository('Organization').method('Users')($scope.organizationId).then(function (users) {
             $scope.users = users;
             $scope.users.map(function (user) {
                 for (var i = 0, len = user.permission.length; i < len; i++) {
@@ -113,7 +114,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
     loadUsers();
 
     var loadBrands = function () {
-        $$ORM.repository('Organization').method('Brands')(organizationId).then(function (brands) {
+        $$ORM.repository('Organization').method('Brands')($scope.organizationId).then(function (brands) {
             var brandIds = brands.map(function (brand) {
                 return brand.id;
             });
@@ -127,11 +128,10 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
     permission.getUser().then(function(user) {
         $scope.currentUser = user;
         $scope.currentUser.belongsTo.map(function (organization) {
-            if (organization.id == $scope.organization.id) {
+            if (organization.id == $scope.organizationId) {
                 for (var i = 0, len = organization.permissions.length; i < len; i++) {
                     if (organization.permissions[i] == 'admin') {
                         $scope.isAdmin = true;
-                        return;
                     }
                 }
             }

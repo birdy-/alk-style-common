@@ -34,7 +34,7 @@ angular.module('jDashboardFluxApp').directive('alkPlUpload', [
                     browse_button : iAttrs.id + "-browse-button",
                     drop_element : iAttrs.id + "-drop-target",
                     multi_selection: specifiedMultiSelection ? (scope.multiSelection === "true") : true,
-                    max_file_size : "15mb",
+                    max_file_size : "100mb",
                     url : URL_SERVICE_MEDIA + '/media/v2/picture/upload',
                     flash_swf_url : 'bower_components/plupload/js/Moxie.swf',
                     filters : {
