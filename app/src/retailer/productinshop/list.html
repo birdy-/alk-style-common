@@ -3,9 +3,9 @@
 <div class="container product-in-shop">
     <h1>Produits</h1>
     <br/>
-    <div ng-if="segment">
+    <div class="statistics">
         <h3>Total</h3>
-        <div class="row text-center">
+        <div ng-if="segment" class="row text-center">
             <div class="col-sm-3">
                 <h3>
                     {{ stats.total }}
@@ -39,14 +39,29 @@
            </div>
         </div>
         <div>
-            * Calcul effectué sur le segment {{ segment.name }} {{ segment.id }}
+            <div class="col-sm-4">
+            * Calcul effectué sur le segment :
+            </div>
+            <div class="col-sm-4">
+                <div alk-autocomplete-my
+                     alk-autocomplete-type="ProductInShopSegment"
+                     alk-autocomplete-multiple="false"
+                     alk-autocomplete-restrict="restrict"
+                     placeholder="Fournisseur ou catégorie"
+                     ng-model="request.stats.productInShopSegment"
+                     id="statsProductInShopSegment">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <span class="btn btn-success btn-search" ng-click="refreshStats()"><i class="fa fa-search"></i></span>
+            </div>
         </div>
     </div>
     <br/>
     <br/>
     <br/>
 
-
+    <div class="details">
     <h3>Détails des produits</h3>
     <br/>
 
@@ -198,5 +213,6 @@
                 <i class="fa fa-arrow-right"></i>
             </span>
         </div>
+    </div>
     </div>
 </div>
