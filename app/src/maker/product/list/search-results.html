@@ -69,8 +69,10 @@
                             {{ reference.reference }}
                         </span>
                         </td>
-                        <td class="text-center" ng-click="show(product, $index)">
-                            {{ product.namePublicLong || product.nameLegal }}
+                        <td class="text-center">
+                            <a  ng-click="show(product, $index)">
+                                {{ product.namePublicLong || product.nameLegal }}
+                            </a>
                         </td>
                         <td class="text-center">{{ product.packaging }}</td>
                         <td class="text-center">
