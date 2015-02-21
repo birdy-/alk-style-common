@@ -21,7 +21,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     $scope.brands = [];
     $scope.segmentIds = [];
     $scope.display = {
-        type: 'list',
+        type: 'preview',
         allSelected: false
     };
 
