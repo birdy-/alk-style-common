@@ -1,12 +1,12 @@
 <div class="sheet">
     <br>
-    <div class="row" ng-hide="products.length == 0 || request.busy">
-        <div class="col-sm-4 pagination-block">
+    <div class="row" class="pagination-block" ng-hide="products.length == 0 || request.busy">
+        <div class="col-sm-4">
             <div class="btn btn-success" ng-if="display.type === 'list'" ng-click="certificate()">
                     <i class="fa fa-certificate"></i> Certifier
             </div>
         </div>
-        <div class="col-sm-4 col-sm-offset-4 text-right pagination-block">
+        <div class="col-sm-4 col-sm-offset-4 text-right ">
             <div class="btn-group">
                 <label class="btn btn-success" ng-model="display.type" btn-radio="'preview'">
                     <i class="fa fa-th-large"></i>
