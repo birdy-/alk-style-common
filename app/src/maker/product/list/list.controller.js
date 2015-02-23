@@ -210,19 +210,21 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     // Multiple selection
     // ------------------------------------------------------------------------
 
-    var filterSelectedProducts = function (product) {
+    var filterSelectedProducts = function () {
         // Check if we have selected multiple Products
         var selectedProducts = $scope.products.filter(function (product) {
             return product.selected;
         });
-        if (selectedProducts.length === 0) {
-            selectedProducts = [product];
-        }
         return selectedProducts;
     };
 
-    $scope.certificate = function (product) {
-        var selectedProducts = filterSelectedProducts(product);
+    $scope.certificate = function () {
+        var selectedProducts = filterSelectedProducts();
+
+        if (selectedProducts.length === 0) {
+            $window.alert('Veuillez selectionner au moins un produit.');
+            return;
+        }
 
         var modalInstance = $modal.open({
             templateUrl: '/src/maker/product/certify/certification.html',

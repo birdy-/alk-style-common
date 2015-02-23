@@ -46,4 +46,20 @@
             </label>
         </div>
     </div>
+    <br/>
 </form>
+<div class="actions-container" ng-if="display.type === 'list'">
+    <div class="actions">
+        <h3 class="title">
+            <i class="fa fa-edit"></i> Actions
+        </h3>
+        <div class="form-group">
+            <div class="btn btn-success btn-block" ng-click="certificate()">
+                <i class="fa fa-certificate"></i> Certifier
+            </div>
+            <!-- <div class="btn btn-success" ng-click="archive()">
+                <i class="fa fa-archive"></i> Archiver
+            </div> -->
+        </div>
+    </div>
+</div>

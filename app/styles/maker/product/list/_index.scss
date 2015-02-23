@@ -1,3 +1,21 @@
+.maker {
+    .sidebar {
+        bottom: 0;
+
+        &.short {
+            bottom: 100px;
+        }
+
+        .actions-container {
+            @extend .color-stream;
+
+            .title {
+                margin-top: 0;
+            }
+        }
+    }
+}
+
 .products {
     border-top: 1px solid lightgray;
 }
