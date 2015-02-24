@@ -1,12 +1,30 @@
 <div class="sheet">
-    <div class="row" ng-hide="products.length == 0 || request.busy">
-        <div class="col-sm-4 col-sm-offset-8 text-right pagination-block">
-            <span class="btn btn-success arrow-prev" ng-if="request.offset > 0" ng-click="prev()"><i class="fa fa-arrow-left"></i></span>
+    <br>
+    <div class="row" class="pagination-block" ng-hide="products.length == 0 || request.busy">
+        <div class="col-sm-4">
+            <div class="btn btn-success" ng-if="display.type === 'list'" ng-click="certificate()">
+                    <i class="fa fa-certificate"></i> Certifier
+            </div>
+        </div>
+        <div class="col-sm-4 col-sm-offset-4 text-right ">
+            <div class="btn-group">
+                <label class="btn btn-success" ng-model="display.type" btn-radio="'preview'">
+                    <i class="fa fa-th-large"></i>
+                </label>
+                <label class="btn btn-success" ng-model="display.type" btn-radio="'list'">
+                    <i class="fa fa-th-list"></i>
+                </label>
+            </div>
+            <span class="btn btn-success arrow-prev" ng-class="{'disabled': request.offset <= 0}" ng-click="prev()"><i class="fa fa-arrow-left"></i></span>
             <span class="pagination-text">{{ request.offset }} - {{ request.offset + products.length }}</span>
-            <span class="btn btn-success arrow-next" ng-if="request.limit === products.length" ng-click="next()"><i class="fa fa-arrow-right"></i></span>
+            <span class="btn btn-success arrow-next" ng-class="{'disabled': request.limit !== products.length}" ng-click="next()">
+                <i class="fa fa-arrow-right"></i>
+            </span>
         </div>
     </div>
-    <div class="row products" ng-hide="request.busy">
+
+    <!-- Preview view -->
+    <div class="row products" ng-hide="request.busy || display.type !== 'preview'">
         <div ng-repeat="product in products | unique:'isIdentifiedBy.0.reference' track by product.isIdentifiedBy.0.reference" class="col-sm-2 product">
             <div class="picture missing-picture" ng-click="show(product, $index)">
                 <div class="ratio" ng-style="{'background-image': 'url(' + product.urlPictureOriginal + ')'}"  style="height: 100px;">
@@ -32,23 +50,55 @@
                 </span>
             </div>
         </div>
-        <!--
-        <div class="col-sm-2 product new">
-            <div class="picture">
-                <div class="ratio">+</div>
-            </div>
-            <div class="name">
-                <a href="/#/maker/product/create">
-                    Nouveau produit
-                </a>
-            </div>
-            <div class="packaging">
-            </div>
-            <div class="product-icons">
-            </div>
-        </div>
-        -->
     </div>
+
+    <!-- List view -->
+    <div class="row products" ng-hide="request.busy || display.type !== 'list'">
+            <table class="table table-bordered">
+                <thead class="color-stream-inverse">
+                    <tr>
+                        <th class="text-center">
+                            <input type="checkbox" ng-model="display.allSelected"/>
+                        </th>
+                        <th class="text-center">EAN</th>
+                        <th class="text-center">Nom</th>
+                        <th class="text-center">Packaging</th>
+                        <th class="text-center">Certifié</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="product in products | unique:'isIdentifiedBy.0.reference' track by product.isIdentifiedBy.0.reference">
+                        <td class="text-center">
+                            <input type="checkbox" ng-model="product.selected">
+                        </td>
+                        <td class="text-center">
+                            <span class="badge" ng-repeat="reference in product.isIdentifiedBy | limitTo:1" >
+                            {{ reference.reference }}
+                        </span>
+                        </td>
+                        <td class="pointer-link" ng-click="show(product, $index)">
+                            <a>
+                                <div class="picture missing-picture text-center">
+                                    <img entity-image entity="product" height="60" width="60">
+                                </div>
+                                <div class="name">
+                                    {{ product.namePublicLong || product.nameLegal }}
+                                </div>
+                            </a>
+                        </td>
+                        <td class="text-center">{{ product.packaging }}</td>
+                        <td class="text-center">
+                            <span class="label label-success" ng-show="product.isCertified()">
+                                <i class="fa fa-check"></i> Certifié
+                            </span>
+                        </td>
+                    </tr>
+                <tbody>
+            </table>
+        </div>
+    </div>
+
+
     <div class="row" ng-if="request.busy">
         <div class="col-sm-12 text-center">
             <br/>
@@ -68,9 +118,11 @@
     </div>
     <div class="row" ng-hide="products.length == 0 || request.busy">
         <div class="col-sm-4 col-sm-offset-8 text-right pagination-block">
-            <span class="btn btn-success arrow-prev" ng-if="request.offset > 0" ng-click="prev()"><i class="fa fa-arrow-left"></i></span>
+            <span class="btn btn-success arrow-prev" ng-class="{'disabled': request.offset <= 0}" ng-click="prev()"><i class="fa fa-arrow-left"></i></span>
             <span class="pagination-text">{{ request.offset }} - {{ request.offset + products.length }}</span>
-            <span class="btn btn-success arrow-next" ng-if="request.limit === products.length" ng-click="next()"><i class="fa fa-arrow-right"></i></span>
+            <span class="btn btn-success arrow-next" ng-class="{'disabled': request.limit !== products.length}" ng-click="next()">
+                <i class="fa fa-arrow-right"></i>
+            </span>
         </div>
     </div>
 </div>

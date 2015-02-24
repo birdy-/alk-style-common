@@ -38,12 +38,12 @@ describe('[Dashboard Maker] Products page', function () {
 
     it('should have pagination blocks', function () {
         expect(productsPage.getPaginationBlocks().count())
-        .toBe(2);
+        .toBe(1);
     });
 
     it('should have a complete pagination block', function () {
         expect(productsPage.getPrevArrow().count())
-        .toBe(0);
+        .toBe(2);
 
         expect(productsPage.getNextArrow().count())
         .toBe(2);
@@ -57,7 +57,7 @@ describe('[Dashboard Maker] Products page', function () {
 
             productsPage.getPrevArrow().get(1).click().then(function () {
                 expect(productsPage.getPrevArrow().count())
-                .toBe(0);
+                .toBe(2);
             })
         });
     });
