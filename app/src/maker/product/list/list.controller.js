@@ -9,8 +9,8 @@
  * @return {[type]}               [description]
  */
 angular.module('jDashboardFluxApp').controller('DashboardMakerProductListController', [
-    '$rootScope', '$scope', '$$sdkCrud', 'permission', '$routeParams', '$$ORM', '$log', '$location', '$window', 'URL_CDN_MEDIA',
-    function ($rootScope, $scope, $$sdkCrud, permission, $routeParams, $$ORM, $log, $location, $window, URL_CDN_MEDIA) {
+    '$rootScope', '$scope', '$$sdkCrud', 'permission', '$routeParams', '$$ORM', '$log', '$location', '$window', 'URL_CDN_MEDIA', '$modal',
+    function ($rootScope, $scope, $$sdkCrud, permission, $routeParams, $$ORM, $log, $location, $window, URL_CDN_MEDIA, $modal) {
 
     // ------------------------------------------------------------------------
     // Variables
@@ -20,6 +20,10 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     $scope.allBrands = [];
     $scope.brands = [];
     $scope.segmentIds = [];
+    $scope.display = {
+        type: 'preview',
+        allSelected: false
+    };
 
     // `$scope.request` is retrieved from the rootScope by inheritance
     if (!$scope.request.initialized) {
@@ -143,7 +147,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
                 $scope.products.push(product);
             }
 
-            $location.search('offset', $scope.request.offset);
+            // $location.search('offset', $scope.request.offset);
             $scope.request.products = $scope.products;
             $scope.request.busy = false;
 
@@ -154,7 +158,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
 
     $scope.prev = function () {
         $scope.request.busy = true;
-        $scope.request.offset = $scope.request.offset - $scope.request.limit;
+        $scope.request.offset = Math.max($scope.request.offset - $scope.request.limit, 0);
         list();
     };
 
@@ -201,6 +205,50 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     $scope.$watch('request.product.certifieds', function(newVal, oldVal) {
         if (oldVal !== newVal) refresh();
     }, true);
+
+    // ------------------------------------------------------------------------
+    // Multiple selection
+    // ------------------------------------------------------------------------
+
+    var filterSelectedProducts = function () {
+        // Check if we have selected multiple Products
+        var selectedProducts = $scope.products.filter(function (product) {
+            return product.selected;
+        });
+        return selectedProducts;
+    };
+
+    $scope.certificate = function () {
+        var selectedProducts = filterSelectedProducts();
+
+        if (selectedProducts.length === 0) {
+            $window.alert('Veuillez selectionner au moins un produit.');
+            return;
+        }
+
+        var modalInstance = $modal.open({
+            templateUrl: '/src/maker/product/certify/certification.html',
+            controller: 'ProductCertificationModalController',
+            resolve: {
+                products: function () { return selectedProducts; },
+                user: function () { return $scope.user; }
+            }
+        });
+
+        modalInstance.result.then(function (selectedItem) {
+        }, function () {
+        });
+    };
+
+    $scope.$watch('display.allSelected', function() {
+        $scope.products.map(function (product) {
+            product.selected = !!$scope.display.allSelected;
+        });
+    });
+
+    $scope.$watch('display.type', function() {
+        $scope.request.limit = $scope.display.type === 'preview' ? 24 : 50;
+    });
 
     // ------------------------------------------------------------------------
     // Init
