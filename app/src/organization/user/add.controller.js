@@ -34,12 +34,6 @@ angular.module('jDashboardFluxApp').controller('OrganizationUserAddController', 
     };
     $scope.confirmation = null;
 
-    var initSelectedBrands = function() {
-        $scope.brands.map(function (brand) {
-            $scope.selectedBrands[brand.id] = true;
-        });
-    };
-
 
     // ------------------------------------------------------------------------
     // Event binding
@@ -83,5 +77,4 @@ angular.module('jDashboardFluxApp').controller('OrganizationUserAddController', 
     // ------------------------------------------------------------------------
     // Init
     // ------------------------------------------------------------------------
-    initSelectedBrands();
 }]);
