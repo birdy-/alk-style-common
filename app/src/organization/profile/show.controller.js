@@ -24,11 +24,21 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
         return (typeof(value) === 'undefined' || value == null || value == '' || value.length == 0);
     };
 
+    $scope.addGLN = function () {
+        $scope.organization.ownsGLN.push({
+            'gln': '',
+            'permission': 'added'
+        });
+        return;
+    };
 
+    $scope.removeGLN = function (glnIndex) {
+        $scope.organization.ownsGLN.splice(glnIndex, 1);
+        return;
+    };
 
     $scope.updateOrganization = function () {
-        if (isEmpty($scope.organization.identifierLegal))
-            return;
+        if (isEmpty($scope.organization.identifierLegal)) { return; }
         $scope.organizationForm.$saving = true;
         $$ORM.repository('Organization').update($scope.organization).then(function (organization) {
             $scope.organizationForm.$saving = false;
@@ -57,7 +67,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
 
             }
         });
-    }; 
+    };
 
     $scope.addUser = function () {
         if ($scope.isAdmin == false) {
@@ -137,6 +147,4 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
             }
         });
     });
-
-
 }]);
