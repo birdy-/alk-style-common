@@ -105,13 +105,21 @@ angular.module('jDashboardFluxApp').controller('RegisterController', [
             return;
         };
 
+        var formatCompany = function (company) {
+            company = angular.copy(company);
+            company.glns = company.glns.map(function (gln) {
+                return gln.value;
+            }).join(',');
+            return company;
+        };
+
         $scope.submit = function () {
             if (!$scope.userForm.$valid) {
                 $window.alert("Le formulaire est invalide, merci de le compléter.");
                 return;
             }
             $scope.user.company = $scope.company.name;
-            $scope.user.belongsTo = $scope.company;
+            $scope.user.belongsTo = formatCompany($scope.company);
 
             // Create user
             $$sdkAuth.UserSignUp($scope.user).success(function(){
