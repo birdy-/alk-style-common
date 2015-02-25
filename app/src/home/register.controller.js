@@ -23,8 +23,10 @@ angular.module('jDashboardFluxApp').controller('RegisterController', [
             postCode: null,
             city: null,
             country: null,
+            glns: [{}],
             type: 'Organization'
         };
+
         $scope.user = {
             firstname: null,
             lastname: null,
@@ -93,7 +95,17 @@ angular.module('jDashboardFluxApp').controller('RegisterController', [
             return classes;
         };
 
-        $scope.submit = function() {
+        $scope.addGLN = function () {
+            $scope.company.glns.push({});
+            return;
+        };
+
+        $scope.removeGLN = function (glnIndex) {
+            $scope.company.glns.splice(glnIndex, 1);
+            return;
+        };
+
+        $scope.submit = function () {
             if (!$scope.userForm.$valid) {
                 $window.alert("Le formulaire est invalide, merci de le compléter.");
                 return;

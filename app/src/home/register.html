@@ -130,6 +130,25 @@
                             <span ng-show="companyForm.companyIdentifierLegal.$error.pattern" class="help-block">Ce champ doit contenir au moins 9 caractères. Seuls les nombres et lettres majuscules sont autorisées (pas d'espaces ni de symboles).</span>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Ses GLNs</label>
+                        <div class="col-sm-8">
+                            <div class="input-group" ng-repeat="gln in company.glns track by $index" ng-class="checkCompanyFormField('companyGLN' + $index)">
+                                <input type="text" dynamic-name="'companyGLN' + $index" class="form-control" ng-model="gln.value" placeholder="ex : 3663215000011" ng-minlength="1" required/>
+                                <span class="input-group-btn">
+                                    <div class="btn btn-default" ng-click="removeGLN($index)">
+                                        <i class="fa fa-trash"></i>
+                                    </div>
+                                </span>
+                            </div>
+                            <br>
+                            <div>
+                                <div class="btn btn-default" ng-click="addGLN()">
+                                    <i class="fa fa-plus"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="form-group" ng-class="checkCompanyFormField('companyNameLegal')">
                         <label class="col-sm-4 control-label">Mon entreprise</label>
                         <div class="col-sm-8">
