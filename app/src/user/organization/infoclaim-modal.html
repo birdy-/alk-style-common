@@ -1,0 +1,30 @@
+<div class="modal-header">
+    <div class="row">
+        <h3 class="col-xs-12">
+            Veuillez préciser des informations pour: {{ organization.nameLegal }}
+        </h3>
+    </div>
+</div>
+<div class="modal-body">
+    <div class="row" ng-if="verify.rcs">
+        <div class="col-sm-10 col-md-offset-1">
+            <input ng-model="organization.identifierLegal" type="text" class="form-control" placeholder="Registre du Commerce et des Sociétés (RCS)" />    
+        </div>
+
+    </div>
+    <br/>
+    <div class="row" ng-if="verify.gln">
+        <div class="col-sm-10 col-md-offset-1">
+            <input ng-model="organization.ownsGLN[0].gln" type="text" class="form-control" placeholder="Global Location Number (GLN)" />
+        </div>
+    </div>
+    <div ng-if="errors.ok === false" class="alert alert-success">
+        Vos informations ont bien été enregistrés
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="text-right">
+        <span class="btn btn-success" ng-click="sendInformation()"><i class="fa fa-check"></i> Enregistrer</span>
+        <span class="btn btn-link" ng-click="cancel()"><i class="fa fa-times"></i> Passer cette étape</span>
+    </div>
+</div>
