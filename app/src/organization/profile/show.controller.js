@@ -77,6 +77,9 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
                 },
                 administrators: function() {
                     return $scope.administrators;
+                },
+                currentUser: function() {
+                    return $scope.currentUser;
                 }
 
             }
@@ -96,6 +99,8 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
     $$ORM.repository('Organization').get($scope.organizationId).then(function (entity) {
         $scope.organization = entity;
         $scope.organizationForm.$loading = false;
+        loadUsers();
+        loadBrands();
     });
 
     var loadUsers = function () {
@@ -111,7 +116,6 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
             });
         });
     };
-    loadUsers();
 
     var loadBrands = function () {
         $$ORM.repository('Organization').method('Brands')($scope.organizationId).then(function (brands) {
@@ -123,7 +127,6 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
             });
         });
     };
-    loadBrands();
 
     permission.getUser().then(function(user) {
         $scope.currentUser = user;
