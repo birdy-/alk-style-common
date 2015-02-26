@@ -6,13 +6,48 @@
  * authenticate directive for that matter.
  */
 angular.module('jDashboardFluxApp').controller('LoginController', [
-    '$scope', 'permission', '$location', '$window',
-     function ($scope, permission, $location, $window) {
+    '$scope', 'permission', '$location', '$window', '$modal', '$$sdkAuth',
+     function ($scope, permission, $location, $window, $modal, $$sdkAuth) {
 
     $scope.login = $window.localStorage ? $window.localStorage.login : null;
     $scope.password = null;// $window.localStorage ? $window.localStorage.password : null;
     $scope.message = null;
     $scope.displayActivationMessage = ($location.search()['activation'] === '1') ? true : false;
+    $scope.pendingRedirection = false;
+
+
+    $scope.suggestInfo = function (user, organization) {
+        var modalInstance = $modal.open({
+            templateUrl: '/src/user/organization/infoclaim-modal.html',
+            controller: 'InfoClaimModalController',
+            resolve: {
+                user: function () { return user; },
+                organization: function () { return organization; },
+                redirect: function () { return $scope.redirect; }
+            },
+            backdrop: 'static'
+        });
+
+        modalInstance.result.then(
+            function () {
+            $scope.redirect();
+        },  function () {
+            $scope.redirect();
+        });
+    };
+
+
+    $scope.redirect = function () {
+        // We first check whether I have multiple shops in case :
+        // - I am a Shop owner but I have also retailer Brands
+        if ($scope.user.managesShop.length > 0) {
+            $location.path('/retailer/activity');
+            return;
+        }
+        // The default behaviour is showing the brand view for multiple cases :
+        // - I just registered and I have no Brands nor Shops
+        $location.path('/maker/activity');   
+    }
 
     $scope.submit = function () {
         permission.login(
@@ -32,15 +67,22 @@ angular.module('jDashboardFluxApp').controller('LoginController', [
 
             // Else, choose which view to redirect to depending on user
             permission.getUser().then(function (user) {
-                // We first check whether I have multiple shops in case :
-                // - I am a Shop owner but I have also retailer Brands
-                if (user.managesShop.length > 0) {
-                    $location.path('/retailer/activity');
-                    return;
-                }
-                // The default behaviour is showing the brand view for multiple cases :
-                // - I just registered and I have no Brands nor Shops
-                $location.path('/maker/activity');
+                $scope.user = user;
+                if ($scope.user.belongsTo.length === 0)
+                    $scope.redirect();
+                $$sdkAuth.OrganizationShow($scope.user.belongsTo[0].id).then(function (response) {
+                    $scope.organization = response.data.data;
+                    //Show Popup if User organization RCS is not filled
+                    if ($scope.organization.identifierLegal === null
+                        || $scope.organization.identifierLegal === ''
+                        || $scope.organization.ownsGLN == undefined
+                        || $scope.organization.ownsGLN[0].gln === '') {
+                        $scope.pendingRedirection = true;
+                        $scope.suggestInfo($scope.user, $scope.organization);
+                    }
+                    else {$scope.redirect();}
+                });
+
             });
         }, function (response, status, headers, config) {
             // Login failure : bad password, bad login...
