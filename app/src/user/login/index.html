@@ -1,5 +1,5 @@
 <div class="full-screen color-green-inverse" id="login-holder">
-    <div class="center">
+    <div class="center" ng-show="!pendingRedirection">
         <form class="form-horizontal" ng-submit="submit()" ng-hide="isReset">
             <div ng-show="displayActivationMessage">
                 <div class="form-group">
