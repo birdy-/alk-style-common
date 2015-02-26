@@ -4,8 +4,8 @@
  * Modal that allows the user to certify a given product.
  */
 angular.module('jDashboardFluxApp').controller('InfoClaimModalController', [
-    '$scope', '$modalInstance', '$$sdkAuth', '$$autocomplete', 'permission', '$route', '$timeout', 'user', 'organization', 'redirect',
-    function ($scope, $modalInstance, $$sdkAuth, $$autocomplete, permission, $route, $timeout, user, organization, redirect) {
+    '$scope', '$modalInstance', '$$sdkAuth', 'user', 'organization', 'redirect',
+    function ($scope, $modalInstance, $$sdkAuth, user, organization, redirect) {
 
     // ------------------------------------------------------------------------
     // Variables
