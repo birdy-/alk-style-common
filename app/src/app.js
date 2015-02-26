@@ -297,6 +297,13 @@ app.config(function ($routeProvider) {
         isPublic: true
     });
 
+    $routeProvider.when('/welcome', {
+        templateUrl: 'src/home/welcome.html',
+        controller: 'WelcomeController',
+        isPublic: true
+    });
+
+
     $routeProvider.when('/faq', {
         templateUrl: 'src/home/faq.html',
         controller: 'FaqController',
