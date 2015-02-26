@@ -25,10 +25,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
     };
 
     $scope.addGLN = function () {
-        $scope.organization.ownsGLN.push({
-            'gln': '',
-            'permission': 'added'
-        });
+        $scope.organization.ownsGLN.push(new GLN());
         return;
     };
 

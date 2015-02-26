@@ -23,7 +23,7 @@ angular.module('jDashboardFluxApp').controller('RegisterController', [
             postCode: null,
             city: null,
             country: null,
-            glns: [{}],
+            ownsGLN: [new GLN()],
             type: 'Organization'
         };
 
@@ -96,22 +96,16 @@ angular.module('jDashboardFluxApp').controller('RegisterController', [
         };
 
         $scope.addGLN = function () {
-            $scope.company.glns.push({});
+            $scope.company.ownsGLN.push(new GLN());
             return;
         };
 
         $scope.removeGLN = function (glnIndex) {
-            $scope.company.glns.splice(glnIndex, 1);
+            $scope.company.ownsGLN.splice(glnIndex, 1);
             return;
         };
 
-        var formatCompany = function (company) {
-            company = angular.copy(company);
-            company.glns = company.glns.map(function (gln) {
-                return gln.value;
-            }).join(',');
-            return company;
-        };
+        $scope.$watch('company', function () {console.log($scope.company)}, true);
 
         $scope.submit = function () {
             if (!$scope.userForm.$valid) {
@@ -119,7 +113,7 @@ angular.module('jDashboardFluxApp').controller('RegisterController', [
                 return;
             }
             $scope.user.company = $scope.company.name;
-            $scope.user.belongsTo = formatCompany($scope.company);
+            $scope.user.belongsTo = $scope.company;
 
             // Create user
             $$sdkAuth.UserSignUp($scope.user).success(function(){

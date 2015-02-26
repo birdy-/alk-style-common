@@ -133,8 +133,8 @@
                     <div class="form-group">
                         <label class="col-sm-4 control-label">Ses GLNs</label>
                         <div class="col-sm-8">
-                            <div class="input-group" ng-repeat="gln in company.glns track by $index" ng-class="checkCompanyFormField('companyGLN' + $index)">
-                                <input type="text" dynamic-name="'companyGLN' + $index" class="form-control" ng-model="gln.value" placeholder="ex : 3663215000011" ng-minlength="1" required/>
+                            <div class="input-group" ng-repeat="gln in company.ownsGLN track by $index" ng-class="checkCompanyFormField('companyGLN' + $index)">
+                                <input type="text" dynamic-name="'companyGLN' + $index" class="form-control" ng-model="gln.gln" placeholder="ex : 3663215000011" ng-minlength="1" required/>
                                 <span class="input-group-btn">
                                     <div class="btn btn-default" ng-click="removeGLN($index)">
                                         <i class="fa fa-trash"></i>
