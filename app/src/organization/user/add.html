@@ -14,25 +14,23 @@
                 Remplissez tous les champs ci-dessous. Ils sont tous nécessaires à la création de votre invitation personalisée.<br/>
                 <strong>Je ne veux pas que l'utilisateur invité ait accès à tous les marques de mon organisation</strong><br/>
                 Il vous suffit de cliquer sur <strong>"Ses marques"</strong>.
-                La liste des marques associées à votre organisation apparait. Par défaut, le nouvel utilisateur a accès à l'ensemble d'entre elles.<br/>
+                La liste des marques associées à votre organisation apparait. Par défaut, le nouvel utilisateur n'a accès à aucune d'entre elles.<br/>
                 Il vous suffit de supprimer (décocher) ou d'ajouter (cocher) l'accès aux marques de votre choix.
                 <strong>Qu'est ce que le statut 'Administrateur'?</strong><br/>
                 En cochant la case concernée, l'utilisateur deviendra automatiquement 'administrateur' de votre organisation lors de l'activation de son compte.
                 Cela signifie qu'il aura les mêmes droits que vous, et pourra notamment inviter d'autres utilisateurs à son tour.
                 <br/><strong>Et ensuite?</strong><br/>
                 L'utilisateur reçevra une invitation par e-mail à l'adresse precisée. Il lui suffira alors de cliquer sur le lien d'activation du compte
-                présent dans le corps du mail: il lui sera proposé de définir un mot de passe personnel. Il pourra ensuite immédiatement utiliser la plateforme Alkemics.
-                <strong>Attention: le lien d'activation ne sera valide que 7 jours après réception du mail!</strong>                
+                présent dans le corps du mail: il lui sera proposé de définir un mot de passe personnel. Il pourra ensuite <strong>immédiatement utiliser la plateforme Alkemics!</strong>
         </accordion-group>
     </accordion>
 </div>
 
 <div class="modal-body">
     <form invitation="form">
-        <input type="text" name="invitation" ng-model="invitation.permission" hidden/>
         <div class="form-group">
             <label for="organisation">Organisation</label>
-            <input type="text" ng-model="invitation.organization" name="organization" id="organization" select ui-select2="select2organizationOptions" style="width: 100%" required disabled/>
+            <input type="text" class="form-control" ng-model="invitation.organization.nameLegal" name="organization" id="organization" style="width: 100%" required disabled/>
         </div>
         <div class="form-group">
             <label for="lastname">Son nom</label>
@@ -75,6 +73,11 @@
                 <label for="admin">Souhaitez vous lui conférer les droits 'Administrateur'?</label>
                 <input style="margin-left:8px" id="admin" type="checkbox" ng-model="invitation.isAdmin"></input>
         </div>
+        <div class="form-group">
+                <label for="admin">Souhaitez vous recevoir un email de confirmation?</label>
+                <input style="margin-left:8px" id="mailConfirmation" type="checkbox" ng-model="invitation.confirmation"></input>
+        </div>
+
 
     </form>
 </div>

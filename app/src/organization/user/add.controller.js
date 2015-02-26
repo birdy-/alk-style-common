@@ -4,8 +4,8 @@
  * Modal that allows the user to register on the mailing list
  */
 angular.module('jDashboardFluxApp').controller('OrganizationUserAddController', [
-    '$scope', '$modalInstance', '$$sdkAuth', '$$ORM', '$$autocomplete', '$window', 'permission', 'organization', 'brands', 'administrators',
-    function ($scope, $modalInstance, $$sdkAuth, $$ORM, $$autocomplete, $window, permission, organization, brands, administrators) {
+    '$scope', '$modalInstance', '$$sdkAuth', '$$ORM', '$$autocomplete', '$window', 'permission', 'organization', 'brands', 'administrators', 'currentUser',
+    function ($scope, $modalInstance, $$sdkAuth, $$ORM, $$autocomplete, $window, permission, organization, brands, administrators, currentUser) {
 
     // ------------------------------------------------------------------------
     // Variables
@@ -18,9 +18,6 @@ angular.module('jDashboardFluxApp').controller('OrganizationUserAddController', 
     $scope.selectedBrands = {};
     
     organization.text = organization.nameLegal;
-    $scope.select2organizationOptions = $$autocomplete.getOptionAutocompletes(null, {
-        data:[], multiple:false, maximumSelectionSize:1, minimumInputLength:0
-    });
     $scope.invitation = {
         organization: organization,
         lastname: null,
@@ -30,7 +27,8 @@ angular.module('jDashboardFluxApp').controller('OrganizationUserAddController', 
         phoneNumber: null,
         brands: [],
         isAdmin: false,
-        permission: 'user'
+        permissions: ['user'],
+        confirmation: false
     };
     $scope.confirmation = null;
 
@@ -56,11 +54,31 @@ angular.module('jDashboardFluxApp').controller('OrganizationUserAddController', 
             return;
         }
 
-        if ($scope.invitation.isAdmin)
-            $scope.invitation.permission = 'admin';
+       if ($scope.invitation.isAdmin)
+           $scope.invitation.permissions.push('admin');
 
-        $$sdkAuth.UserInvite($scope.invitation, {
+       console.log('here');
+       console.log($scope.invitation);
+
+       var payload = {
+            organization: {
+                id:  $scope.invitation.organization.id
+            },
+            username: $scope.invitation.username,
+            lastname: $scope.invitation.lastname,
+            firstname: $scope.invitation.firstname,
+            jobTitle: $scope.invitation.jobTitle,
+            phonenumber: $scope.invitation.phoneNumber,
+            permissions: $scope.invitation.permissions.join(','),
+            confirmation: $scope.invitation.confirmation,
+            user_id: currentUser.id
+       };
+       if ($scope.invitation.brands.length > 0)
+            payload.brands = $scope.invitation.brands.join(',');
+
+        $$sdkAuth.UserInvite(payload, {
         }).then(function(){
+            console.log('then');
             $modalInstance.close($scope.invitation);
         }, function(response){
             var message = '.';
