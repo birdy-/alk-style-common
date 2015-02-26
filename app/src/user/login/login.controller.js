@@ -46,7 +46,7 @@ angular.module('jDashboardFluxApp').controller('LoginController', [
         }
         // The default behaviour is showing the brand view for multiple cases :
         // - I just registered and I have no Brands nor Shops
-        $location.path('/maker/activity');   
+        $location.path('/maker/activity');
     }
 
     $scope.submit = function () {
@@ -75,7 +75,7 @@ angular.module('jDashboardFluxApp').controller('LoginController', [
                     //Show Popup if User organization RCS is not filled
                     if ($scope.organization.identifierLegal === null
                         || $scope.organization.identifierLegal === ''
-                        || $scope.organization.ownsGLN == undefined
+                        || $scope.organization.ownsGLN[0] == undefined
                         || $scope.organization.ownsGLN[0].gln === '') {
                         $scope.pendingRedirection = true;
                         $scope.suggestInfo($scope.user, $scope.organization);
