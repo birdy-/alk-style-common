@@ -25,7 +25,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
     };
 
     $scope.addGLN = function () {
-        $scope.organization.ownsGLN.push(new GLN());
+        $scope.organization.ownsGLN.push(new GLN('added'));
         return;
     };
 
