@@ -9,17 +9,21 @@
 <div class="modal-body">
     <form role="form" name="claimForm">
         <div class="form-group" ng-if="errors.unknown === false">
-                <div class="form-group">
-                    <label for="isBrandedBy">Rechercher une marque</label>
-                    <input type="text" select ui-select2="select2BrandOptions" ng-model="request.selectedBrand" style="width:100%" placeholder="ex : Nestlé"/>
+            <div class="form-group">
+                <label for="isBrandedBy">Rechercher une marque</label>
+                <div alk-autocomplete
+                     alk-autocomplete-type="Brand"
+                     alk-autocomplete-multiple="true"
+                     placeholder="Chercher une marque"
+                     ng-model="request.selectedBrand"
+                     id="_runsOnProduct">
                 </div>
+            </div>
         </div>
-        <div>
-            <div ng-if="errors.unknown">
-                <div class="form-group">
-                    <label for="nameLegal">Dénomination légale de la marque</label>
-                    <input type="text" class="form-control" name="nameLegal" ng-model="request.createdBrand" placeholder="ex: Ma marque" required/>
-                </div>
+        <div ng-if="errors.unknown">
+            <div class="form-group">
+                <label for="nameLegal">Dénomination légale de la marque</label>
+                <input type="text" class="form-control" name="nameLegal" ng-model="request.createdBrand" placeholder="ex: Ma marque" required/>
             </div>
         </div>
         <div class="form-group text-right">

@@ -82,6 +82,11 @@ var RegistrationPage = function() {
     return element(by.model('company.identifierCity'));
   };
 
+  this.getGLNField = function (index) {
+    index = index ? index : 0;
+    return element(by.repeater('gln in company.ownsGLN').row(index)).element(by.model('gln.gln'));
+  };
+
   this.getAddressField = function() {
     return element(by.model('company.address'));
   };
@@ -100,9 +105,10 @@ var RegistrationPage = function() {
 
   var fillCompanyFields = function() {
     var companyFields = [
-      { method: 'getNameLegalField', input: 'Alkemics'},
       { method: 'getIdentifierLegalField', input: '535078190A'},
       { method: 'getIdentifierCityField', input: 'Pontoise'},
+      { method: 'getGLNField', input: '3663215000011'},
+      { method: 'getNameLegalField', input: 'Alkemics'},
       { method: 'getAddressField', input: '82 Rue du Faubourg Saint Martin'},
       { method: 'getPostcodeField', input: '75010'},
       { method: 'getCityField', input: 'Paris'},

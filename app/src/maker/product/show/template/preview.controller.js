@@ -57,7 +57,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreview
             controller: 'ProductCertificationModalController',
             resolve: {
                 $$sdkCrud: function () { return $$sdkCrud; },
-                product: function () { return $scope.product; },
+                products: function () { return [$scope.product]; },
                 user: function () { return $scope.user; }
             }
         });
