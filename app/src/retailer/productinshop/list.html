@@ -3,9 +3,9 @@
 <div class="container product-in-shop">
     <h1>Produits</h1>
     <br/>
-    <div ng-if="segment">
+    <div class="statistics">
         <h3>Total</h3>
-        <div class="row text-center">
+        <div ng-if="segment" class="row text-center">
             <div class="col-sm-3">
                 <h3>
                     {{ stats.total }}
@@ -39,14 +39,29 @@
            </div>
         </div>
         <div>
-            * Calcul effectué sur le segment {{ segment.name }} {{ segment.id }}
+            <div class="col-sm-4">
+            * Calcul effectué sur le segment :
+            </div>
+            <div class="col-sm-4">
+                <div alk-autocomplete-my
+                     alk-autocomplete-type="ProductInShopSegment"
+                     alk-autocomplete-multiple="false"
+                     alk-autocomplete-restrict="restrict"
+                     placeholder="Fournisseur ou catégorie"
+                     ng-model="request.stats.productInShopSegment"
+                     id="statsProductInShopSegment">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <span class="btn btn-success btn-search" ng-click="refreshStats()"><i class="fa fa-search"></i></span>
+            </div>
         </div>
     </div>
     <br/>
     <br/>
     <br/>
 
-
+    <div class="details">
     <h3>Détails des produits</h3>
     <br/>
 
@@ -140,7 +155,9 @@
                         <th class="text-center">Image</th>
                         <th>Nom</th>
                         <th class="text-center">Action</th>
-                        <th></th>
+                        <th class="text-center">
+                            <input type="checkbox" ng-model="allSelected">
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -164,7 +181,7 @@
                             <!--<a class="pointer-link" ng-click="show(productInShop)">{{ productInShop.name }}</a>-->
                         </td>
                         <td class="text-center">
-                            <a class="btn btn-warning" ng-if="!isAttributed(productInShop)" ng-click="attribute(productInShop)">
+                            <a class="btn btn-warning" ng-if="!isAttributed(productInShop) && !isDeprecated(productInShop)" ng-click="attribute(productInShop)">
                                 <i class="fa fa-envelope"></i> Attribuer
                             </a>
                             <a class="btn btn-primary pish-preview" ng-click="show(productInShop)" ng-if="isCertified(productInShop)">
@@ -174,7 +191,9 @@
                                 <i class="fa fa-envelope"></i> Relancer
                             </a>
                         </td>
-                        <td class="text-center"><input type="checkbox" ng-model="productInShop.selected" ng-if="!isAttributed(productInShop)"></td>
+                        <td class="text-center">
+                            <input type="checkbox" ng-model="productInShop.selected" ng-if="!isDeprecated(productInShop)">
+                        </td>
                     </tr>
                     <tr ng-if="productInShops.length === 0;">
                         <td colspan="7" class="text-center">Aucun produit</td>
@@ -194,5 +213,6 @@
                 <i class="fa fa-arrow-right"></i>
             </span>
         </div>
+    </div>
     </div>
 </div>

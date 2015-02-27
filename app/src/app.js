@@ -18,7 +18,7 @@ var app = angular.module('jDashboardFluxApp', [
   'ui.unique',
   'textAngular',
   'ngHandsontable',
-  'nvd3ChartDirectives',
+  // 'nvd3ChartDirectives',
   'angulartics',
   'angulartics.google.analytics'
 ]);

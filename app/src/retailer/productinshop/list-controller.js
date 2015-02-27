@@ -11,6 +11,7 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
             shop: {
                 shortId: null
             },
+            stats: {},
             offset: 0,
             limit: 50
         };
@@ -23,6 +24,7 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
         };
         $scope.productInShops = [];
         $scope.segment = null;
+        $scope.allSelected = null;
 
         // ------------------------------------------------------------------------
         // Event handling
@@ -50,6 +52,7 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
          */
         var getStats = function (segment) {
             $scope.segment = segment;
+            if (!segment.id) { return; }
             return $$ORM.repository('ProductInShopSegment').method('Statistics')([segment.id]).then(function (stats) {
                 stats = stats[0].counts;
                 $scope.stats.attributed = stats[Product.CERTIFICATION_STATUS_ATTRIBUTED.id]
@@ -66,12 +69,18 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
             });
         };
 
+        $scope.refreshStats = function () {
+            getStats($scope.request.stats.productInShopSegment);
+        }
+
         $scope.clearFilters = function () {
             initFilters();
             $scope.refresh();
         };
 
         $scope.refresh = function () {
+            $scope.allSelected = false;
+
             $$ORM.repository('ProductInShop').list({
                 name: $scope.request.productInShop.name
             }, {
@@ -93,6 +102,10 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
         $scope.next = function () {
             $scope.request.offset = $scope.request.offset + $scope.request.limit;
             $scope.refresh();
+        };
+
+        $scope.isDeprecated = function (productInShop) {
+            return productInShop.instantiates.certified === Product.CERTIFICATION_STATUS_DISCONTINUED.id;
         };
 
         $scope.isAttributed = function (productInShop) {
@@ -216,12 +229,19 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
         // ------------------------------------------------------------------------
         // Init
         // ------------------------------------------------------------------------
+        $scope.$watch('allSelected', function () {
+            $scope.productInShops.map(function (pish) {
+                pish.selected = !!$scope.allSelected;
+            })
+        });
+
         var initFilters = function () {
             $scope.request.productInShop = {
                 name: null,
                 shortIdOut: null
             };
             $scope.request.productInShopSegment = null;
+            $scope.request.stats.productInShopSegment = null;
             $scope.request.productReference = {
                 reference: null
             };
@@ -238,17 +258,20 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
             })[0];
             $scope.request.shop.shortId = shopId;
             getSegment(shopId).then(function (segment) {
-                getStats(segment);
                 // Make a first refresh based on the INCO products
                  if (!$routeParams.segment_id) {
                     $scope.request.productInShopSegment = segment;
+                    $scope.request.stats.productInShopSegment = segment;
                     $scope.refresh();
+                    $scope.refreshStats();
                 }
             });
             if ($routeParams.segment_id) {
                 $$ORM.repository('ProductInShopSegment').get($routeParams.segment_id).then(function (segment) {
                     $scope.request.productInShopSegment = segment;
+                    $scope.request.stats.productInShopSegment = segment;
                     $scope.refresh();
+                    $scope.refreshStats();
                 });
             }
         });
