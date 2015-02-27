@@ -16,6 +16,10 @@ angular.module('jDashboardFluxApp').controller('InfoClaimModalController', [
     $scope.errors = [];
     $scope.errors.unknown = false;
     $scope.errors.ok = true;
+    $scope.helper = {
+        'rcs': false,
+        'gln': false
+    }
 
     $scope.verify = {
         'rcs': (organization.identifierLegal === undefined || organization.identifierLegal === '') ? true : false,
@@ -25,6 +29,11 @@ angular.module('jDashboardFluxApp').controller('InfoClaimModalController', [
     // ------------------------------------------------------------------------
     // Event binding
     // ------------------------------------------------------------------------
+
+
+    $scope.toogleHelper = function (helper) {
+        $scope.helper[helper] = !$scope.helper[helper];
+    };
 
     $scope.cancel = function () {
         // The claim request was sent above.
