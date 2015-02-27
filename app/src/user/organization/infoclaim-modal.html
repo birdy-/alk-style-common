@@ -8,14 +8,27 @@
 <div class="modal-body">
     <div class="row" ng-if="verify.rcs">
         <div class="col-sm-10 col-md-offset-1">
-            <input ng-model="organization.identifierLegal" type="text" class="form-control" placeholder="Registre du Commerce et des Sociétés (RCS)" />    
+            <div class="input-group">
+                <input ng-model="organization.identifierLegal" type="text" class="form-control" placeholder="Registre du Commerce et des Sociétés (RCS)" />
+                <div class="input-group-addon btn" ng-click="toogleHelper('rcs')"> <i class="fa fa-question-circle"></i></div>
+            </div>
+            <i ng-if="helper.rcs">
+                <br>
+                Le Registre de commerce des sociétés dit RCS, est une base de données des personnes physiques ou morales dont l’activité ou la structure est commerciale. <a target="__blank" href="https://www.infogreffe.fr/societes/informations-et-dossiers-entreprises/dossiers-thematiques/creation-entreprise/dossier-immatriculation-au-rcs.html">(Plus d'informations)</a>
+            </i>
         </div>
-
     </div>
     <br/>
     <div class="row" ng-if="verify.gln">
         <div class="col-sm-10 col-md-offset-1">
-            <input ng-model="organization.ownsGLN[0].gln" type="text" class="form-control" placeholder="Global Location Number (GLN)" />
+            <div class="input-group">
+                <input ng-model="organization.ownsGLN[0].gln" type="text" class="form-control" placeholder="Global Location Number (GLN)" />
+                <div class="input-group-addon btn" ng-click="toogleHelper('gln')"> <i class="fa fa-question-circle"></i></div>
+            </div>
+            <i ng-if="helper.gln">
+                <br>
+                Le GLN (Global Location Number) identifie l'adresse d'une société ou d'un lieu physique/fonctionnel, typiquement un siège administratif, une filiale, un département comptable, un quai de déchargement, ... Les GLN sont surtout utilisés dans les messages EDI et GDSN pour identifier de manière unique les fournisseurs, centres de distribution, ... <a target="__blank" href="http://www.publications.gs1.fr/ressources/telecharger/3041/">(Plus d'informations)</a>
+            </i>
         </div>
     </div>
     <div ng-if="errors.ok === false" class="alert alert-success">
