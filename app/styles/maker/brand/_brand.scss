@@ -1,0 +1,12 @@
+.brands-page {
+  background-color: $background-color-grey;
+}
+
+.brand {
+  margin-bottom: 1em;
+
+  .brand-logo {
+    height: 80px;
+    max-width: 100%;
+  }
+}

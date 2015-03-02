@@ -1,13 +1,6 @@
 <div ng-include="'/src/maker/home/header.html'"></div>
 
-<style>
-.brand-logo {
-    max-height: 40px;
-    max-width: 40px;
-}
-</style>
-
-<div class="container">
+<div class="container-fluid brands-page">
     <div class="row">
         <div class="col-sm-6">
             <h2>Mes marques</h2>
@@ -18,36 +11,6 @@
         </div>
     </div>
     <br/>
-    <div class="row">
-        <div class="col-sm-12">
-            <table class="table table-bordered">
-                <thead class="color-stream-inverse">
-                    <tr>
-                        <td>Logo</td>
-                        <td>Nom</td>
-                        <td></td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="brand in brands | orderBy:'name':false">
-                        <td>
-                            <img class="brand-logo" ng-src="https://smedia.alkemics.com/brand/{{ brand.id }}/picture/logo/original.png?cachebuster={{ cachebuster }}" fallback-src="https://stream.alkemics.com/images/5078aa32.missing.png"/>
-                        </td>
-                        <td>
-                            <a href="/#/maker/brand/{{ brand.id }}">{{ brand.name }}</a>
-                        </td>
-                        <td>
-                            <a class="btn btn-warning" href="/#/maker/brand/{{ brand.id }}">
-                                <i class="fa fa-edit"></i> Éditer
-                            </a>
-                            <a class="btn btn-success" href="/#/maker/brand/{{ brand.id }}/product">
-                                <i class="fa fa-barcode"></i> Produits
-                            </a>
-                            <span alk-button-product-claim data-brand="brand"></span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    <div class="row brand box-tile" brand-row="" brand="brand" ng-repeat="brand in brands | orderBy:'name':false">
     </div>
 </div>
