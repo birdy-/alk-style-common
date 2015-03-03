@@ -4,7 +4,7 @@ angular.module('jDashboardFluxApp').directive('brandRow', [
     '$rootScope', '$location',
     function ($rootScope, $location) {
         return {
-            restrict: 'AEC',
+            restrict: 'A',
             scope: {
               brand: '='
             },

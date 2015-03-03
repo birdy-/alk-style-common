@@ -4,7 +4,7 @@ angular.module('jDashboardFluxApp').directive('entityImage', [
     'URL_CDN_MEDIA',
     function (URL_CDN_MEDIA) {
         return {
-            restrict: 'A',
+            restrict: 'AEC',
             scope: {
                 entity: '='
             },
