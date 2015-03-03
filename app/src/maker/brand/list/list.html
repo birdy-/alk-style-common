@@ -1,16 +1,18 @@
 <div ng-include="'/src/maker/home/header.html'"></div>
 
 <div class="container-fluid brands-page">
-    <div class="row">
-        <div class="col-sm-6">
-            <h2>Mes marques</h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h2>Mes marques</h2>
+            </div>
+            <div class="col-sm-6 text-right">
+                <br/>
+                <span alk-button-brand-claim></span>
+            </div>
         </div>
-        <div class="col-sm-6 text-right">
-            <br/>
-            <span alk-button-brand-claim></span>
+        <br/>
+        <div class="brand-row" brand-row="" brand="brand" ng-repeat="brand in brands | orderBy:'name':false">
         </div>
-    </div>
-    <br/>
-    <div class="row brand box-tile" brand-row="" brand="brand" ng-repeat="brand in brands | orderBy:'name':false">
     </div>
 </div>
