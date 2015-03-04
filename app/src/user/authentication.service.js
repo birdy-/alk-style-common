@@ -9,8 +9,8 @@
  * the rest of the application.
  */
 angular.module('jDashboardFluxApp').service('permission', [
-    "URL_SERVICE_AUTH", "$http", "$rootScope", "authService", "$window", "$log", "$$ORM",
-    function init(URL_SERVICE_AUTH, $http, $rootScope, authService, $window, $log, $$ORM) {
+    "URL_SERVICE_AUTH", "$http", "$rootScope", "authService", "$window", "$log", "$$ORM", "$cookieStore",
+    function init(URL_SERVICE_AUTH, $http, $rootScope, authService, $window, $log, $$ORM, $cookieStore) {
 
     var userPromise = null;
     var user = null;
@@ -59,6 +59,7 @@ angular.module('jDashboardFluxApp').service('permission', [
         }).success(function (response) {
             authService.loginConfirmed();
             $window.sessionStorage.token = response.access_token;
+            $cookieStore.put("authtoken", response.access_token);
         }).error(function () {
             delete $window.sessionStorage.token;
         });
@@ -74,13 +75,20 @@ angular.module('jDashboardFluxApp').service('permission', [
         delete $window.sessionStorage.token;
         $log.debug('Logged out, authentication token erased');
 
+        $cookieStore.remove("authtoken");
+        $log.debug('Logged out, authentication cookie erased');
+
         // do not want to display login form when user
         // manually logs out.
         //$rootScope.$broadcast('event:auth-loginRequired');
     };
 
     var getAccessToken = function () {
-        return $window.sessionStorage.token;
+        var token = $window.sessionStorage.token;
+        if (!token && $cookieStore.get("authtoken")) {
+            token = $cookieStore.get("authtoken");
+        }
+        return token;
     };
 
     return {
