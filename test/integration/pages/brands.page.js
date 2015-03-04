@@ -23,6 +23,18 @@ var BrandsPage = function () {
     return that.getBrand(index).element(by.binding('brand.name'));
   };
 
+  this.getStats = function (index) {
+    return that.getBrand(index).element(by.css('.brand-colum .stats'));
+  };
+
+  this.getNotCertifiedBtn = function (index) {
+    return that.getBrand(index).element(by.css('.brand-colum .stats .clickable')).get(0);
+  };
+
+  this.getCertifiedBtn = function (index) {
+    return that.getBrand(index).element(by.css('.brand-colum .stats .clickable')).get(1);
+  };
+
   this.getBrandEditBtn = function (index) {
     return that.getBrand(index).element(by.css('a i.fa.fa-edit'));
   };

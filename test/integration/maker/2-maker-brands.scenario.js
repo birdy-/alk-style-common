@@ -48,12 +48,25 @@ describe('[Dashboard Maker] Brands page', function () {
     });
 
     it('should display brands with a clickable products button', function () {
-            expect(brandsPage.getBrandAddProductBtn(1).isPresent())
-            .toBe(true);
-        });
+        expect(brandsPage.getBrandAddProductBtn(1).isPresent())
+        .toBe(true);
+    });
 
     it('should have a button to claim brands', function () {
         expect(brandsPage.getClaimBrandsBtn().isPresent())
+        .toBe(true);
+    });
+
+    it('should have product stats by brand', function () {
+        expect(brandsPage.getStats(1).isPresent())
+        .toBe(true);
+    });
+
+    it('should have 2 clickable stats btn by brand', function () {
+        expect(brandsPage.getNotCertifiedBtn(1).isPresent())
+        .toBe(true);
+
+        expect(brandsPage.getCertifiedBtn(1).isPresent())
         .toBe(true);
     });
 });

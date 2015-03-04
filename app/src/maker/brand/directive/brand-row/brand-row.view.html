@@ -6,7 +6,7 @@
         <!-- <a href="/#/maker/brand/{{ brand.id }}"> -->
         <h3>{{ brand.name }}</h3>
         <!-- </a> -->
-        <div ng-if="brand.stats" ng-class="{'text-danger': notCertified > 0, 'text-success': notCertified === 0 }">
+        <div ng-if="brand.stats" class="stats" ng-class="{'text-danger': notCertified > 0, 'text-success': notCertified === 0 }">
             <div class="clickable" ng-click="goToProducts(brand.id, false)">
                 <strong>Non certifiés : {{ notCertified }}</strong>
             </div>
