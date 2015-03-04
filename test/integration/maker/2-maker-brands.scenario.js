@@ -24,17 +24,6 @@ describe('[Dashboard Maker] Brands page', function () {
         .toBe(true);
     });
 
-    it('should display brands with a clickable name', function () {
-        expect(brandsPage.getBrandName(1).isPresent())
-        .toBe(true);
-
-        brandsPage.getBrandName(1).click().then(function () {
-            expect(browser.getCurrentUrl())
-            .toMatch(/maker\/brand\/\d+/);
-            brandsPage.get();
-        });
-    });
-
     it('should display brands with a clickable edit button', function () {
         expect(brandsPage.getBrandEditBtn(1).isPresent())
         .toBe(true);
