@@ -57,8 +57,6 @@ angular.module('jDashboardFluxApp').controller('OrganizationUserAddController', 
        if ($scope.invitation.isAdmin)
            $scope.invitation.permissions.push('admin');
 
-       console.log('here');
-       console.log($scope.invitation);
 
        var payload = {
             organization: {
@@ -78,7 +76,6 @@ angular.module('jDashboardFluxApp').controller('OrganizationUserAddController', 
 
         $$sdkAuth.UserInvite(payload, {
         }).then(function(){
-            console.log('then');
             $modalInstance.close($scope.invitation);
         }, function(response){
             var message = '.';
