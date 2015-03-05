@@ -24,17 +24,6 @@ describe('[Dashboard Maker] Brands page', function () {
         .toBe(true);
     });
 
-    it('should display brands with a clickable name', function () {
-        expect(brandsPage.getBrandName(1).isPresent())
-        .toBe(true);
-
-        brandsPage.getBrandName(1).click().then(function () {
-            expect(browser.getCurrentUrl())
-            .toMatch(/maker\/brand\/\d+/);
-            brandsPage.get();
-        });
-    });
-
     it('should display brands with a clickable edit button', function () {
         expect(brandsPage.getBrandEditBtn(1).isPresent())
         .toBe(true);
@@ -59,12 +48,25 @@ describe('[Dashboard Maker] Brands page', function () {
     });
 
     it('should display brands with a clickable products button', function () {
-            expect(brandsPage.getBrandAddProductBtn(1).isPresent())
-            .toBe(true);
-        });
+        expect(brandsPage.getBrandAddProductBtn(1).isPresent())
+        .toBe(true);
+    });
 
     it('should have a button to claim brands', function () {
         expect(brandsPage.getClaimBrandsBtn().isPresent())
+        .toBe(true);
+    });
+
+    it('should have product stats by brand', function () {
+        expect(brandsPage.getStats(1).isPresent())
+        .toBe(true);
+    });
+
+    it('should have 2 clickable stats btn by brand', function () {
+        expect(brandsPage.getNotCertifiedBtn(1).isPresent())
+        .toBe(true);
+
+        expect(brandsPage.getCertifiedBtn(1).isPresent())
         .toBe(true);
     });
 });

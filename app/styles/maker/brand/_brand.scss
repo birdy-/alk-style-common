@@ -1,0 +1,56 @@
+.brands-page {
+  background-color: $background-color-grey;
+}
+
+.brand-row {
+  font-size: 1.3em;
+
+  .brand {
+    @include make-xs-column(12);
+    @extend .box-tile;
+    display: table;
+    padding: 0.5em;
+
+    h3 {
+      margin-top: 0.5em;
+    }
+
+    .brand-column, .brand-actions {
+      display: table-cell;
+      float: none !important;
+      position: relative;
+    }
+
+    .logo-container {
+      text-align: center;
+      vertical-align: middle;
+
+      .brand-logo {
+        height: 80px;
+        margin: 0 auto;
+        max-width: 100%;
+        vertical-align: middle;
+      }
+    }
+
+    .clickable {
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .brand-actions {
+      @include make-xs-column(6);
+      height: 100%;
+      vertical-align: middle;
+
+      a {
+        color: $text-color;
+        cursor: pointer;
+        font-size: 1em;
+      }
+    }
+  }
+}
