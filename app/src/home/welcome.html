@@ -1,0 +1,130 @@
+<div ng-include="'/src/home/header.html'"></div>
+
+
+<br/>
+<br/>
+<div class="container" ng-show="ok">
+    <br/> <br/> <br/> <br/> <br/> <br/>
+    <div class="alert alert-success text-center">
+        Votre demande a bien été prise en compte. Vous recevrez sous peu un email de confirmation. Mais vous pouvez d’ores et déjà vous connecter avec vos identifiants sur <a href="/#/login">notre page de connexion</a>.
+        <br/>
+        <br/>
+        <p>
+            Vous pouvez nous suivre sur les réseaux sociaux :
+            <br/>
+            <br/>
+            <iframe allowtransparency="true" frameborder="0" scrolling="no" src="//platform.twitter.com/widgets/follow_button.html?screen_name=alkemics&lang=fr&show_count=false" style="width:150px; height:20px;"></iframe>
+        </p>
+    </div>
+    <br/> <br/> <br/> <br/> <br/> <br/>
+</div>
+
+
+
+<div class="container" ng-show="!ok">
+    <div class="row">
+        <nav class="sidemenu navbar navbar-default" role="navigation">
+            <ul class="nav navbar-nav">
+                <div alk-register-step="checkUserForm()">
+                    1. Je vérifie mes informations
+                </div>
+                <div alk-register-step="checkPasswordForm()">
+                    2. Je choisis un mot de passe
+                </div>
+                <div alk-register-step="checkAccountForm()">
+                    3. J'active mon compte
+                </div>
+                <img class="preview-videowrapper" demo-video ng-click="openDemoVideo()" src="../images/home/demo-video-preview.png"/>
+            </ul>
+        </nav>
+
+        <div class="col-sm-9 col-sm-offset-3">
+            <h1>
+                Bienvenue sur la plateforme Alkemics
+            </h1>
+            <h4>
+                Je m'inscris en 3 étapes: facile !
+            </h4>
+            <form class="form-horizontal" ng-hide="isReset" name="userForm">
+                <div ng-init="formInit(userForm)">
+                    <h3>1. Quelques détails sur moi...</h3><br/>
+                    <div class="form-group" ng-class="checkUserFormField('lastname')">
+                        <label class="col-sm-4 control-label">Je m'appelle...</label>
+                        <div class="col-sm-4">
+                            <input type="text" name="firstname" class="form-control" ng-model="user.firstname" placeholder="Prénom" alk-focus ng-minlength="1" required/>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" name="lastname" class="form-control" ng-model="user.lastname" placeholder="Nom" alk-focus ng-minlength="1" required/>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="checkUserFormField('jobTitle')">
+                        <label class="col-sm-4 control-label">Mon poste</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="jobTitle" class="form-control" ng-model="user.jobTitle" placeholder="ex : Responsable qualité" alk-focus ng-minlength="1" required/>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="checkUserFormField('phonenumber')">
+                        <label class="col-sm-4 control-label">Mon numéro de téléphone</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="phonenumber" class="form-control" ng-model="user.phonenumber" placeholder="ex : 0 800 943 859" alk-focus ng-minlength="5" required ng-pattern="/^[0-9 \+\.\-]+$/"/>
+                            <div ng-show="userForm.phonenumber.$invalid && userForm.phonenumber.$focus">
+                                Veuillez entrer un numéro de téléphone valide.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <br/>
+            <form class="form-horizontal" name="passwordForm" ng-show="userForm.$valid">
+                <div ng-init="formInit(passwordForm)">
+                    <h3>2. Je choisis mon mot de passe</h3><br/>
+                    <div class="form-group" ng-class="checkPasswordFormField('password')">
+                        <label class="col-sm-4 control-label">Mon mot de passe</label>
+                        <div class="col-sm-8">
+                            <input type="password" name="password" class="form-control" ng-model="user.password" placeholder="Mot de passe" alk-focus ng-minlength="8" required/>
+                            <div ng-show="passwordForm.password.$error.minlength" class="help-block">
+                                Votre mot de passe doit contenir au moins 8 caractères.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="checkPasswordFormField('passwordConfirm')">
+                        <label class="col-sm-4 control-label">Je confirme mon mot de passe</label>
+                        <div class="col-sm-8">
+                            <input type="password" name="passwordConfirm" class="form-control" ng-model="user.passwordConfirm" placeholder="Confirmation de mon mot de passe" alk-focus ng-minlength="8" required input-match="user.password" no-paste/>
+                            <div ng-show="userForm.usernameConfirm.$error.inputMatch">
+                                Les mots de passe ne correspondent pas.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+
+            <br/>
+            <form class="form-horizontal" name="accountForm" ng-show="passwordForm.$valid">
+                <h3>3. Je finalise mon inscription</h3><br/>
+                <div class="form-group">
+                    <div class="col-sm-4 col-sm-offset-4">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-model="user.accept" required> J'accepte les <a href="http://media.alkemics.com/corporate/stream/contract/cgu.pdf" target="_blank">CGU</a>
+                            </label>
+                        </div>
+                        <br/>
+                        <button type="button" ng-click="submit(); waitingForEmail = true" class="btn color-success-inverse">&gt; Valider</button>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="alert alert-danger" ng-if="message">
+                            {{ message }}
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center" ng-show="waitingForEmail">
+                    Je vérifie ma messagerie pour valider mon email mais je peux d’ores et déjà me connecter avec les identifiants que j'ai choisi.
+                </div>
+            </form>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>

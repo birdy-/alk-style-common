@@ -9,8 +9,8 @@
  * @return {[type]}              [description]
  */
 angular.module('jDashboardFluxApp').controller('DashboardMakerBrandListController', [
-    '$scope', '$$ORM', 'permission', '$$sdkAuth',
-    function ($scope, $$ORM, permission, $$sdkAuth) {
+    '$scope', '$$ORM', 'permission', '$$sdkAuth', '$$sdkCrud',
+    function ($scope, $$ORM, permission, $$sdkAuth, $$sdkCrud) {
 
     // ------------------------------------------------------------------------
     // Variables
@@ -32,7 +32,18 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerBrandListControlle
                 return brand.id
             });
             $$ORM.repository('Brand').list({}, {id: brandIds}).then(function (brands) {
-                $scope.brands = brands;
+                // Retrieve stats on brands
+                var brandIds = brands.map(function (brand) { return brand.id })
+                $$sdkCrud.BrandProductCertifiedStatistics(brandIds).then(function (response) {
+                    var stats = response.data.data;
+                    var statsByBrand = _.indexBy(stats, function(stat) {
+                        return stat.about.id;
+                    });
+                    $scope.brands = _.map(brands, function (brand) {
+                        brand.stats = statsByBrand[brand.id];
+                        return brand;
+                    });
+                });
             });
         });
         $$sdkAuth.UserClaimProductBrandList().then(function (response) {
