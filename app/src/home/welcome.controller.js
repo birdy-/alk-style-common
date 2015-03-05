@@ -15,7 +15,6 @@ angular.module('jDashboardFluxApp').controller('WelcomeController', [
         // Variables
         // ------------------------------------------------------------------------
         $scope.user = null;
-        $scope.brands = null;
 
         $scope.userForm = null;
         $scope.passwordForm = null;
@@ -79,6 +78,7 @@ angular.module('jDashboardFluxApp').controller('WelcomeController', [
 
             // Activate User
             var payload = {
+                username: $scope.user.username,
                 firstname: $scope.user.firstname,
                 lastname: $scope.user.lastname,
                 jobTitle: $scope.user.jobTitle,
@@ -112,20 +112,6 @@ angular.module('jDashboardFluxApp').controller('WelcomeController', [
                 if (typeof(response.data) === 'undefined' || typeof(response.data.data) === 'undefined')
                     $scope.goHome();
                 $scope.user = response.data.data;
-                if (typeof($scope.user.managesBrand) === 'undefined' || $scope.user.managesBrand.length == 0)
-                    $scope.brands = null;
-                else {
-                    var brandIds = $scope.user.managesBrand.map(function (brand) {
-                      return brand.id;
-                    });
-                    $scope.loadUserBrands(brandIds);
-                }
-            });
-        };
-
-        $scope.loadUserBrands = function(brandIds) {
-            $$ORM.repository('Brand').list({}, {id: brandIds}, {}, 0, 100).then(function (brands) {
-                $scope.brands = brands;
             });
         };
 
