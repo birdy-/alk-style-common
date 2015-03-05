@@ -16,19 +16,31 @@ var BrandsPage = function () {
   };
 
   this.getBrandLogo = function (index) {
-    return that.getBrand(index).element(by.css('td img'));
+    return that.getBrand(index).element(by.css('.brand-logo'));
   };
 
   this.getBrandName = function (index) {
     return that.getBrand(index).element(by.binding('brand.name'));
   };
 
+  this.getStats = function (index) {
+    return that.getBrand(index).element(by.css('.brand-colum .stats'));
+  };
+
+  this.getNotCertifiedBtn = function (index) {
+    return that.getBrand(index).element(by.css('.brand-colum .stats .clickable')).get(0);
+  };
+
+  this.getCertifiedBtn = function (index) {
+    return that.getBrand(index).element(by.css('.brand-colum .stats .clickable')).get(1);
+  };
+
   this.getBrandEditBtn = function (index) {
-    return that.getBrand(index).element(by.css('a.btn-warning .fa.fa-edit'));
+    return that.getBrand(index).element(by.css('a i.fa.fa-edit'));
   };
 
   this.getBrandProductBtn = function (index) {
-    return that.getBrand(index).element(by.css('a.btn-success .fa.fa-barcode'));
+    return that.getBrand(index).element(by.css('a .fa.fa-barcode'));
   };
 
   this.getBrandAddProductBtn = function (index) {
