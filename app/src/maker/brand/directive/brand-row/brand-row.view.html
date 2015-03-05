@@ -7,10 +7,10 @@
         <h3>{{ brand.name }}</h3>
         <!-- </a> -->
         <div ng-if="brand.stats" class="stats" ng-class="{'text-danger': notCertified > 0, 'text-success': notCertified === 0 }">
-            <div class="clickable" ng-click="goToProducts(brand.id, false)">
+            <div class="clickable not-certified" ng-click="goToProducts(brand.id, false)">
                 <strong>Non certifiés : {{ notCertified }}</strong>
             </div>
-            <div class="clickable" ng-click="goToProducts(brand.id, true)">
+            <div class="clickable certified" ng-click="goToProducts(brand.id, true)">
                 <strong>Certifiés : {{ certified }}</strong>
             </div>
         </div>
