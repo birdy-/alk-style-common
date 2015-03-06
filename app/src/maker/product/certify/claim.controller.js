@@ -4,8 +4,8 @@
  * Modal that allows the user to certify a given product.
  */
 angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
-    '$scope', '$modalInstance', '$$sdkCrud', '$window', '$log', 'permission', '$routeParams', '$$sdkAuth', 'brand', '$location',
-    function ($scope, $modalInstance, $$sdkCrud, $window, $log, permission, $routeParams, $$sdkAuth, brand, $location) {
+    '$scope', '$modalInstance', '$$sdkCrud', '$$ORM', '$window', '$log', 'permission', '$routeParams', '$$sdkAuth', 'brand', '$location',
+    function ($scope, $modalInstance, $$sdkCrud, $$ORM, $window, $log, permission, $routeParams, $$sdkAuth, brand, $location) {
 
     // ------------------------------------------------------------------------
     // Variables
@@ -16,9 +16,11 @@ angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
     if (typeof(brand) !== 'undefined') {
         $scope.brand = brand;
     }
-    $scope.multiple = false;
+    $scope.claim = {};
+    $scope.multiple = true;
     $scope.switchMultiple = function() {
         $scope.multiple = !$scope.multiple;
+
         initErrors();
     };
 
@@ -29,6 +31,8 @@ angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
             coherency: null,
             unknown: null,
             confirmBrand: null,
+            badGLN: null,
+            noProducts: null,
             ok: null
         };
     };
@@ -116,6 +120,15 @@ angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
         });
     };
 
+    var isGLNOk = function () {
+        if (!$scope.claim.gln || !GLN._ok($scope.claim.gln)) {
+            $scope.errors.badGLN = true;
+            return false;
+        }
+        $scope.errors.badGLN = false;
+        return true;
+    };
+
     // ------------------------------------------------------------------------
     // Event binding
     // ------------------------------------------------------------------------
@@ -123,7 +136,7 @@ angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
         var brand_id = $scope.brand ? $scope.brand.id : $scope.product.isBrandedBy.id;
         $$sdkAuth.UserClaimProductReferenceCreate($scope.product.nameLegal,
             $scope.productReference.reference,
-            brand_id).then(function (response) {
+            brand_id, $scope.claim.gln).then(function (response) {
                 $scope.errors.noError = ($scope.errors.confirmBrand === true) ? false : true;
                 $scope.errors.unknown = false;
                 $scope.errors.ok = false;
@@ -134,13 +147,13 @@ angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
         var brand_id = $scope.brand ? $scope.brand.id : $scope.product.isBrandedBy.id;
         var products = $scope.products;
         for (var index in products) {
-            if (!products[index].reference.length) {
+            if (!products[index].reference || !products[index].reference.length) {
                 continue;
             }
             $$sdkAuth.UserClaimProductReferenceCreate(
                 products[index].nameLegal,
                 products[index].reference,
-                brand_id).then(function (response) {
+                brand_id, $scope.claim.gln).then(function (response) {
                     $scope.errors.noError = ($scope.errors.confirmBrand === true) ? false : true;
                     $scope.errors.unknown = false;
                     $scope.errors.ok = false;
@@ -149,6 +162,9 @@ angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
     };
 
     $scope.search = function() {
+        if (!isGLNOk()) {
+            return;
+        }
         // @todo : adapt with Claim call
         $$sdkCrud.ProductReferenceList({}, {
             reference: $scope.productReference.reference,
@@ -174,8 +190,10 @@ angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
     };
 
     $scope.fillMultiple = function () {
+        if (!isGLNOk()) {
+            return;
+        }
         sendClaimMultiple();
-        $modalInstance.close($scope.product);
     };
 
     /**
@@ -199,6 +217,10 @@ angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
     // ------------------------------------------------------------------------
     permission.getUser().then(function (user) {
         $scope.user = user;
+        var organizationId = user.belongsTo[0].id;
+        $$ORM.repository('Organization').get(organizationId).then(function (entity) {
+            $scope.organization = entity;
+        });
     });
 
 }]);
