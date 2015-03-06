@@ -14,7 +14,7 @@
 <!-- ng-if is necessary here to let the DOM reload and the JS compute the size -->
 <div class="modal-body" ng-if="multiple">
     <form role="form" name="claimForm">
-        <div class="form-group">
+        <div class="form-group" ng-if="organization.ownsGLN.length">
             <label for="gln">GLN :</label>
             <div ng-repeat="gln in organization.ownsGLN">
                 <label>
@@ -26,6 +26,9 @@
                 </label>
             </div>
         </div>
+        <a class="btn btn-default" ng-click="cancel()" ng-href="#/organization/{{ organization.id }}/profile">
+            <i class="fa fa-plus">Ajouter un GLN</i>
+        </a>
         <div class="text-warning">*Les deux colonnes sont obligatoires</div>
         <div class="form-group">
             <div hot-table
