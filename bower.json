@@ -49,6 +49,7 @@
     "d3": "~3.4.1",
     "bootstrap-sass-official": "~3.3.1",
     "font-awesome": "~4.2.0",
-    "handsontable": "~0.12"
+    "handsontable": "~0.12",
+    "angular-cookies": "~1.2.0"
   }
 }
