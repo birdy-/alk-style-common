@@ -121,7 +121,7 @@ angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
     };
 
     var isGLNOk = function () {
-        if (!$scope.claim.gln || GLN._check($scope.claim.gln)) {
+        if (!$scope.claim.gln || !GLN._ok($scope.claim.gln)) {
             $scope.errors.badGLN = true;
             return false;
         }
