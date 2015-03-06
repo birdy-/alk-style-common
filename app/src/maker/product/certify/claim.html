@@ -14,6 +14,18 @@
 <!-- ng-if is necessary here to let the DOM reload and the JS compute the size -->
 <div class="modal-body" ng-if="multiple">
     <form role="form" name="claimForm">
+        <div class="form-group">
+            <label for="gln">GLN :</label>
+            <div ng-repeat="gln in organization.ownsGLN">
+                <label>
+                    <input type="radio"
+                           name="gln"
+                           ng-model="claim.gln"
+                           ng-value="gln.gln"
+                           required/> {{ gln.gln }}
+                </label>
+            </div>
+        </div>
         <div class="text-warning">*Les deux colonnes sont obligatoires</div>
         <div class="form-group">
             <div hot-table
@@ -32,8 +44,8 @@
             </div>
         </div>
         <div>
-            <div ng-if="errors.coherency" class="alert alert-warning">
-                Notre support examine votre demande et reviendra vers vous sous peu.
+            <div ng-if="errors.badGLN" class="alert alert-danger">
+                Veuillez sélectionner un GLN.
             </div>
             <div ng-if="errors.noError" class="alert alert-success">
                 Votre demande a bien été enregistrée.
@@ -45,6 +57,18 @@
 <div class="modal-body" ng-hide="multiple">
     <form role="form" name="claimForm">
         <div class="form-group">
+            <label for="gln">GLN :</label>
+            <div ng-repeat="gln in organization.ownsGLN">
+                <label>
+                    <input type="radio"
+                           name="gln"
+                           ng-model="claim.gln"
+                           ng-value="gln.gln"
+                           required/> {{ gln.gln }}
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
             <label for="name">EAN</label>
             <div class="input-group">
                 <input type="text" class="form-control" name="name" ng-model="productReference.reference" placeholder="ex: 3760019702101" required/>
@@ -54,6 +78,9 @@
             </div>
         </div>
         <div>
+            <div ng-if="errors.badGLN" class="alert alert-danger">
+                Veuillez sélectionner un GLN.
+            </div>
             <div ng-if="errors.badReference" class="alert alert-danger">
                 L'EAN demandé n'est pas valide.
             </div>
