@@ -3,9 +3,9 @@
 /**
  * Modal that allows the user to certify a given product.
  */
-angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
-    '$scope', '$modalInstance', '$$sdkCrud', '$$ORM', '$window', '$log', 'permission', '$routeParams', '$$sdkAuth', 'brand', '$location',
-    function ($scope, $modalInstance, $$sdkCrud, $$ORM, $window, $log, permission, $routeParams, $$sdkAuth, brand, $location) {
+angular.module('jDashboardFluxApp').controller('ProductClaimController', [
+    '$scope', '$$sdkCrud', '$$ORM', '$window', '$log', 'permission', '$routeParams', '$$sdkAuth', '$location',
+    function ($scope, $$sdkCrud, $$ORM, $window, $log, permission, $routeParams, $$sdkAuth, $location) {
 
     // ------------------------------------------------------------------------
     // Variables
@@ -13,16 +13,8 @@ angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
     $scope.productReference = {};
     $scope.product = null;
     $scope.user = null;
-    if (typeof(brand) !== 'undefined') {
-        $scope.brand = brand;
-    }
     $scope.claim = {};
     $scope.multiple = true;
-    $scope.switchMultiple = function() {
-        $scope.multiple = !$scope.multiple;
-
-        initErrors();
-    };
 
     var initErrors = function () {
         $scope.errors = {
@@ -48,11 +40,11 @@ angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
     /**
      * Verifies whether I have rights over the given brand
      */
-    var checkIfProductIsBrandedByOneOfMyBrands = function(brandId) {
+    var checkIfProductIsBrandedByOneOfMyBrands = function (brandId) {
         if (brandId === 1) {
             return true;
         }
-        var brandIds = $scope.user.managesBrand.map(function(brand){
+        var brandIds = $scope.user.managesBrand.map(function (brand) {
             return brand.id;
         });
         return brandIds.indexOf(brandId) !== -1;
@@ -61,32 +53,12 @@ angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
     /**
      * Performs a set of tests against the claim request.
      */
-    var checkClaim = function(response) {
+    var checkClaim = function (response) {
         // If the GTIN is incoherent (too few digits, incoherent verification digit)
         if (response.data.message && response.data.message.indexOf("is not valid") !== -1) {
             $log.error('Bad reference.');
             $scope.errors.badReference = true;
             $scope.errors.ok = false;
-            return;
-        }
-
-        // If the Product was already claimed by someone else, we will have to
-        // review the claim manually
-        if (false /* @todo */) {
-            $log.warn('Already claimed.');
-            $scope.errors.alreadyClaimed = true;
-            $scope.errors.ok = false;
-            sendClaim();
-            return;
-        }
-
-        // If there are various Products that correspond to the ProductReference,
-        // we will have to review the claim manually
-        if (false /* @todo */) {
-            $log.warn('Product coherency.');
-            $scope.errors.coherency = true;
-            $scope.errors.ok = false;
-            sendClaim();
             return;
         }
 
@@ -100,7 +72,7 @@ angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
 
         // Retrieve more info about the Product
         var productId = response.data.data[0].identifies.id;
-        $$sdkCrud.ProductShow(productId).then(function(response){
+        $$sdkCrud.ProductShow(productId).then(function (response){
             $scope.product = response.data.data;
             // Check if the Brand of the Product is coherent
             var brandId = $scope.product.isBrandedBy.id;
@@ -132,7 +104,7 @@ angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
     // ------------------------------------------------------------------------
     // Event binding
     // ------------------------------------------------------------------------
-    var sendClaim = function() {
+    var sendClaim = function () {
         var brand_id = $scope.brand ? $scope.brand.id : $scope.product.isBrandedBy.id;
         $$sdkAuth.UserClaimProductReferenceCreate($scope.product.nameLegal,
             $scope.productReference.reference,
@@ -143,7 +115,7 @@ angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
             }, checkClaim);
     };
 
-    var sendClaimMultiple = function() {
+    var sendClaimMultiple = function () {
         var brand_id = $scope.brand ? $scope.brand.id : $scope.product.isBrandedBy.id;
         var products = $scope.products;
         for (var index in products) {
@@ -157,11 +129,13 @@ angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
                     $scope.errors.noError = ($scope.errors.confirmBrand === true) ? false : true;
                     $scope.errors.unknown = false;
                     $scope.errors.ok = false;
+                }, function (response) {
+                    $window.alert('Erreur pendant l\'envoi de la demande : ' + response.data.message);
                 });
         }
     };
 
-    $scope.search = function() {
+    $scope.search = function () {
         if (!isGLNOk()) {
             return;
         }
@@ -177,7 +151,7 @@ angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
     /**
      * Called when the Product is new and is created
      */
-    $scope.create = function() {
+    $scope.create = function () {
         sendClaim();
     };
     /**
@@ -186,7 +160,6 @@ angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
     $scope.fill = function () {
         sendClaim();
         $location.path('/maker/product/' + $scope.productReference.reference + '/data/general');
-        $modalInstance.close($scope.product);
     };
 
     $scope.fillMultiple = function () {
@@ -196,20 +169,11 @@ angular.module('jDashboardFluxApp').controller('ProductClaimModalController', [
         sendClaimMultiple();
     };
 
-    /**
-     * Called when something went wrong
-     */
-    $scope.cancel = function () {
-        // The claim request was sent above.
-        $modalInstance.dismiss('cancel');
+    $scope.renewClaim = function () {
     };
 
-    /**
-     *
-     */
-    $scope.renewClaim = function () {
-        // The claim request was sent above.
-        $modalInstance.close();
+    $scope.cancel = function () {
+        $scope.display.allProducts = false;
     };
 
     // ------------------------------------------------------------------------
