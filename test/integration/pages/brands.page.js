@@ -44,7 +44,7 @@ var BrandsPage = function () {
   };
 
   this.getBrandAddProductBtn = function (index) {
-    return that.getBrand(index).element(by.css('[alk-button-product-claim]'));
+    return that.getBrand(index).element(by.css('.brand-actions .claim-products'));
   };
 
   this.getClaimBrandsBtn = function () {
