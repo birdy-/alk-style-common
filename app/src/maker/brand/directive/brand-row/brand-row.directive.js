@@ -10,8 +10,13 @@ angular.module('jDashboardFluxApp').directive('brandRow', [
             },
             templateUrl: '/src/maker/brand/directive/brand-row/brand-row.view.html',
             link: function($scope, $elem, $attrs) {
-                $scope.notCertified = parseInt($scope.brand.stats.counts['5'], 10) + parseInt($scope.brand.stats.counts['1'], 10) || 0;
-                $scope.certified = parseInt($scope.brand.stats.counts['2']) || 0
+                $scope.display = {
+                    allProducts: false
+                };
+                if ($scope.brand.stats) {
+                    $scope.notCertified = parseInt($scope.brand.stats.counts['5'], 10) + parseInt($scope.brand.stats.counts['1'], 10) || 0;
+                    $scope.certified = parseInt($scope.brand.stats.counts['2']) || 0
+                }
 
                 $scope.goToProducts = function (brandId, certified) {
                     $rootScope.navigation.maker.request = {
