@@ -47,7 +47,10 @@
   "resolutions": {
     "angular": "~1.2.26",
     "d3": "~3.4.1",
+    "bootstrap-sass-official": "~3.3.1",
+    "font-awesome": "~4.2.0",
     "handsontable": "~0.13.0",
-    "angular-cookies": "~1.2.0"
+    "angular-cookies": "~1.2.0",
+    "moment": "2.9.0"
   }
 }
