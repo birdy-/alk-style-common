@@ -1,13 +1,16 @@
 'use_strict';
 
 angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowController', [
-    '$scope', '$$sdkCrud', '$routeParams', '$$autocomplete', '$location', '$window', 'URL_CDN_MEDIA',
-    function ($scope, $$sdkCrud, $routeParams, $$autocomplete, $location, $window, URL_CDN_MEDIA) {
+    '$scope', '$$sdkCrud', '$routeParams', '$$autocomplete', '$location', '$window', 'URL_CDN_MEDIA', 'permission',
+    function ($scope, $$sdkCrud, $routeParams, $$autocomplete, $location, $window, URL_CDN_MEDIA, permission) {
 
     // ------------------------------------------------------------------------
     // Variables
     // ------------------------------------------------------------------------
     $scope.user = {};
+    permission.getUser().then(function (user) {
+        $scope.user = user;
+    });
     $scope.product = {};
     $scope.productId = null;
     $scope.productReference_reference = $routeParams.productReference_reference;
