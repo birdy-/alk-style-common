@@ -67,7 +67,7 @@ if (env === 'prod') {
 } else if (env === 'dev') {
     app.constant('URL_CDN_MEDIA', 'https://smedia.alkemics.com');
     app.constant('URL_SERVICE_AUTH', 'http://localauth.alkemics.com');
-    app.constant('URL_SERVICE_MEDIA', 'http://localhost.alkemics.com:6551');
+    app.constant('URL_SERVICE_MEDIA', 'http://localservice-media.alkemics.com');
     app.constant('URL_UI_BUTTON_PRODUCT', 'https://sassets.toc.io/ui/button/product/v1/index.html');
     app.constant('URL_UI_SHOPPINGLIST', 'https://sassets.toc.io/interfaces/banner/v3/index.html');
     app.constant('URL_UI_LANDINGPAGE', 'https://sassets.toc.io/interfaces/landing-page-product/v1/index.html');
@@ -77,7 +77,7 @@ if (env === 'prod') {
 } else if (env === 'vagrant') {
     app.constant('URL_CDN_MEDIA', 'https://s3-eu-west-1.amazonaws.com/pprd.media.alkemics.com');
     app.constant('URL_SERVICE_AUTH', 'http://localauth.alkemics.com');
-    app.constant('URL_SERVICE_MEDIA', 'https://localservice-media.alkemics.com');
+    app.constant('URL_SERVICE_MEDIA', 'http://localservice-media.alkemics.com');
     app.constant('URL_UI_BUTTON_PRODUCT', 'http://localhost.alkemics.com:9010/');
     app.constant('URL_UI_SHOPPINGLIST', 'https://sassets.toc.io/interfaces/banner/v3/index.html');
     app.constant('URL_UI_LANDINGPAGE', 'https://sassets.toc.io/interfaces/landing-page-product/v1/index.html');
@@ -296,6 +296,13 @@ app.config(function ($routeProvider) {
         controller: 'RegisterController',
         isPublic: true
     });
+
+    $routeProvider.when('/welcome', {
+        templateUrl: 'src/home/welcome.html',
+        controller: 'WelcomeController',
+        isPublic: true
+    });
+
 
     $routeProvider.when('/faq', {
         templateUrl: 'src/home/faq.html',

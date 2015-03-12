@@ -15,6 +15,10 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     // ------------------------------------------------------------------------
     // Variables
     // ------------------------------------------------------------------------
+    $scope.user = {};
+    permission.getUser().then(function (user) {
+        $scope.user = user;
+    });
     $scope.request = $rootScope.navigation.maker.request;
     $scope.products = $scope.request.products || [];
     $scope.allBrands = [];
@@ -191,8 +195,28 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         refresh();
     };
 
+    /**
+     * Redirects to the Product details page
+     * Check if a redirection to a specific tab
+     * should be performed based on User permissions.
+     * Defaults to the general tab.
+     */
     $scope.show = function (product, index) {
         $scope.request.scrollAnchor = index;
+
+        // Hot Feature - Specific tabs according to user permissions
+        // Heineken
+        var brandId = product.isBrandedBy.id;
+        var brand = _.find($scope.user.managesBrand, function (brand) {
+            return brand.id == brandId;
+        });
+        var mediaTabPermission = _.find(brand.permissions, function (permission) {
+            return permission === 'product.show.media';
+        });
+        if (mediaTabPermission) {
+            $location.path('/maker/product/' + product.isIdentifiedBy[0].reference + '/data/media');
+            return;
+        }
         $location.path('/maker/product/' + product.isIdentifiedBy[0].reference + '/data/general');
     };
 

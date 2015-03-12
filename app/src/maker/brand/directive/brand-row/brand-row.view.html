@@ -1,0 +1,36 @@
+<div class="brand">
+    <div class="col-xs-3 logo-container text-center brand-column">
+        <img entity-image entity="brand" class="brand-logo"/>
+    </div>
+    <div class="col-xs-3 brand-column">
+        <h3>{{ brand.name }}</h3>
+        <div ng-if="brand.stats" class="stats" ng-class="{'text-danger': notCertified > 0, 'text-success': notCertified === 0 }">
+            <div class="clickable not-certified" ng-click="goToProducts(brand.id, false)">
+                <strong>Non certifiés : {{ notCertified }}</strong>
+            </div>
+            <div class="clickable certified" ng-click="goToProducts(brand.id, true)">
+                <strong>Certifiés : {{ certified }}</strong>
+            </div>
+        </div>
+    </div>
+    <div class="brand-actions brand-column">
+        <div>
+            <a class="" href="/#/maker/brand/{{ brand.id }}">
+                <i class="fa fa-edit"></i> Éditer la marque
+            </a>
+        </div>
+        <div>
+            <a class="" href="/#/maker/brand/{{ brand.id }}/product">
+                <i class="fa fa-barcode"></i> Voir les produits
+            </a>
+        </div>
+        <div class="claim-products clickable" ng-click="display.allProducts = !display.allProducts">
+            <i class="fa fa-plus"></i> Ajouter un produit
+        </div>
+    </div>
+</div>
+<div class="col-xs-12 box-tile" ng-if="display.allProducts">
+    <div alk-products-claim="" class="products-claim"></div>
+</div>
+<!-- Mandatory to have a filled span to fill the space -->
+<span>&nbsp;</span>

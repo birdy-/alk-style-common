@@ -11,3 +11,7 @@ var GLN = function (permission) {
     if (typeof permission !== 'undefined') { this.permission = permission; }
 };
 GLN._type = 'GLN';
+
+GLN._ok = function (gln) {
+    return gln.length === 13;
+};

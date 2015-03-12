@@ -114,11 +114,6 @@ angular.module('jDashboardFluxApp').controller('UserProfileShowController', [
         user.managesWebsite.forEach(function(entity){
             $$ORM.repository('Website').get(entity.id);
         });
-        /*user.managesShop.forEach(function(entity){
-            $$ORM.repository('Shop').get(entity.id);
-        });*/
-        /*user.configures.forEach(function(configures){
-        });*/
         $scope.user = user;
     };
     var refresh = function() {
@@ -136,6 +131,6 @@ angular.module('jDashboardFluxApp').controller('UserProfileShowController', [
             permission.getUser().then(hydrate);
         }
     };
-    init();
+    refresh();
 }]);
 
