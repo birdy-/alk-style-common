@@ -22,7 +22,7 @@ angular.module('jDashboardFluxApp').controller('InfoClaimModalController', [
     }
 
     $scope.verify = {
-        'rcs': (typeof organization.identifierLegal === 'undefined' || organization.identifierLegal === '') ? true : false,
+        'rcs': (!organization.identifierLegal || typeof organization.identifierLegal === 'undefined' || organization.identifierLegal === '') ? true : false,
         'gln': (typeof organization.ownsGLN[0] === 'undefined' || organization.ownsGLN[0].gln === '') ? true : false,
     }
 
