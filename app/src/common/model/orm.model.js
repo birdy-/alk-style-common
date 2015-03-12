@@ -317,6 +317,7 @@ angular.module('jDashboardFluxApp').service('$$ORM', [
             Product: abstractRepository(Product, $$sdkCrud, $$cacheManager, $q, [], addTextFrom('nameLegal')),
             ProductNutritionalQuantity: abstractRepository(ProductNutritionalQuantity, $$sdkCrud, $$cacheManager, $q, [], null),
             ProductStandardQuantity: abstractRepository(ProductStandardQuantity, $$sdkCrud, $$cacheManager, $q, [], null),
+            ProductSegment: abstractRepository(ProductSegment, $$sdkCrud, $$cacheManager, $q, [], null),
             ProductInShopSegment: abstractRepository(ProductInShopSegment, $$sdkCrud, $$cacheManager, $q, [], addTextFrom('name')),
             ProductInShop: abstractRepository(ProductInShop, $$sdkCrud, $$cacheManager, $q, [], null),
             Shop: abstractRepository(Shop, $$sdkCrud, $$cacheManager, $q, [], addTextFrom('name')),
