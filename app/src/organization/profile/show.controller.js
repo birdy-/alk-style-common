@@ -108,6 +108,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
         $scope.organizationForm.$loading = false;
         loadUsers();
         loadBrands();
+        loadSegments();
     });
 
     var loadUsers = function () {
@@ -132,6 +133,17 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
             $$ORM.repository('Brand').list({}, {id: brandIds}, {}, 0, 100).then(function (brands) {
                 $scope.brands = brands;
             });
+        });
+    };
+
+    var loadSegments = function () {
+        console.log('segments loading');
+        var productSegmentIds = $scope.organization.ownsProductSegment.map(function (productSegment) {
+            return productSegment.id;
+        });
+        $$ORM.repository('ProductSegment').list({organization_id: $scope.organizationId}, {filter_id_in: productSegmentIds}, {}, 0, 100).then(function (segments) {
+            $scope.productSegments = segments;
+            console.log('segments', segments);
         });
     };
 
