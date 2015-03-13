@@ -141,7 +141,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
         var productSegmentIds = $scope.organization.ownsProductSegment.map(function (productSegment) {
             return productSegment.id;
         });
-        $$ORM.repository('ProductSegment').list({organization_id: $scope. organizationId}, {filter_id_in: productSegmentIds}, {}, 0, 100).then(function (segments) {
+        $$ORM.repository('ProductSegment').list({organization_id: $scope.organizationId}, {filter_id_in: productSegmentIds}, {}, 0, 100).then(function (segments) {
             $scope.productSegments = segments;
         });
     };
