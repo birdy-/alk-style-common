@@ -32,11 +32,11 @@
                     </button>
                 </div>
             </div>
-            <progressbar ng-if="progressValue > 0" class="progress-striped active" max="100" value="progressValue">
+            <div progressbar="" ng-if="progressValue > 0" class="progress-striped active" max="100" value="progressValue">
                 <b ng-if="progressValue < 80">{{progressValue}} %</b>
                 <!-- plupload slows down around the end of the upload -->
                 <b ng-if="progressValue >= 80">Finalisation du chargement du visuel...</b>
-            </progressbar>
+            </div>
             <div class="alert alert-danger" ng-show="uploadError !== null">
                 {{ uploadError }}
             </div>
