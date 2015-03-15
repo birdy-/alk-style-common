@@ -14,7 +14,8 @@ angular.module('jDashboardFluxApp').directive('alkPlUpload', [
                 entityId: '@',
                 mediaType: '@',
                 multiSelection: '=',
-                uploadError: '='
+                uploadError: '=',
+                progressValue: '='
             },
             link: function (scope, iElement, iAttrs) {
 
@@ -24,6 +25,7 @@ angular.module('jDashboardFluxApp').directive('alkPlUpload', [
                 $log.debug('Uploader configured for entity / id / type: ' + entity + ' / ' + entityId + ' / ' + mediaType);
 
                 scope.uploadError = null;
+                scope.progressValue = 0;
 
                 $('#' + iAttrs.id + ' .browse-button').attr("id", iAttrs.id + "-browse-button");
                 $('#' + iAttrs.id + ' .drop-target').attr("id", iAttrs.id + "-drop-target");
@@ -60,6 +62,12 @@ angular.module('jDashboardFluxApp').directive('alkPlUpload', [
                     scope.uploadError = err.message;
                     scope.$apply();
                     $log.error('Error :', err);
+                });
+
+
+                uploader.bind('UploadProgress', function(up, file) {
+                    scope.progressValue = up.total.percent;
+                    scope.$apply();
                 });
 
                 uploader.bind('Init', function(up, params) {
