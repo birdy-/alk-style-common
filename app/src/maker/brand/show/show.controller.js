@@ -120,6 +120,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerBrandShowMediaUplo
         $scope.brandId = $routeParams.id;
         $scope.message = 'Glisser / Déposer les fichiers ici.';
         $scope.total = null;
+        $scope.progressValue = 0;
 
         // for the page
         $scope.newPictures = [];
