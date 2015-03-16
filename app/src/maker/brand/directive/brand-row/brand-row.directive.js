@@ -14,8 +14,10 @@ angular.module('jDashboardFluxApp').directive('brandRow', [
                     allProducts: false
                 };
                 if ($scope.brand.stats) {
-                    $scope.notCertified = parseInt($scope.brand.stats.counts['5'], 10) + parseInt($scope.brand.stats.counts['1'], 10) || 0;
-                    $scope.certified = parseInt($scope.brand.stats.counts['2']) || 0
+                    var accepted = parseInt($scope.brand.stats.counts['5'], 10) || 0;
+                    var attributed = parseInt($scope.brand.stats.counts['1'], 10) || 0;
+                    $scope.notCertified = accepted + attributed;
+                    $scope.certified = parseInt($scope.brand.stats.counts['2']) || 0;
                 }
 
                 $scope.goToProducts = function (brandId, certified) {
