@@ -123,7 +123,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
         $scope.organizationForm.$loading = false;
         loadUsers();
         loadBrands();
-        //loadSegments();
+        loadSegments();
         loadGlnClaims();
     });
 
