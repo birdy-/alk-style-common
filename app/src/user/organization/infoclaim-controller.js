@@ -23,11 +23,11 @@ angular.module('jDashboardFluxApp').controller('InfoClaimModalController', [
 
     $scope.verify = {
         'rcs': (!organization.identifierLegal || typeof organization.identifierLegal === 'undefined' || organization.identifierLegal === '') ? true : false,
-        'gln': (!organization.ownsGLN || typeof organization.ownsGLN[0] === 'undefined' || organization.ownsGLN[0].gln === '') ? true : false,
+        'gln': (!organization.ownsGLN || typeo  f organization.ownsGLN[0] === 'undefined' || organization.ownsGLN[0].gln === '') ? true : false,
     }
 
     if ($scope.verify.gln) {
-        $scope.organization.claimGLN =[];
+        $scope.organization.claimGLN = [];
         $scope.organization.claimGLN.push(new GLN('added'));
     }
 
@@ -50,7 +50,6 @@ angular.module('jDashboardFluxApp').controller('InfoClaimModalController', [
      */
     $scope.sendInformation = function () {
         if ($scope.organization.claimGLN && $scope.organization.claimGLN[0].gln != '') {
-            console.log($scope.organization.claimGLN[0].gln);
             $$sdkAuth.UserClaimGlnCreate({'gln': $scope.organization.claimGLN[0].gln, 'organization_id': $scope.organization.id}).then(function (response) {});
         }
         console.log($scope.organization);

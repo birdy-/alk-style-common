@@ -167,7 +167,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
             'organization_id': $scope.organizationId,
             'status': 0
         }
-        $$sdkAuth.UserClaimGlnList({}, filters, {}, 0, 50)
+        $$sdkAuth.UserClaimGlnList({}, filters, {})
         .then(function (entities) {
             $scope.organization.pendingclaimGLNs = [];
             $scope.organization.pendingclaimGLNs = entities.data.data;
