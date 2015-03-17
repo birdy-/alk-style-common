@@ -15,6 +15,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaUp
         $scope.message = 'Glissez / déposez les fichiers ici';
         $scope.total = null;
         $scope.uploadError = null;
+        $scope.progressValue = 0;
 
         // Form
         $scope.form = {

@@ -171,6 +171,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
         .then(function (entities) {
             $scope.organization.pendingclaimGLNs = [];
             $scope.organization.pendingclaimGLNs = entities.data.data;
+
         });
     };
 
