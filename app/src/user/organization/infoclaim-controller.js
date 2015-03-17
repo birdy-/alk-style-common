@@ -23,11 +23,12 @@ angular.module('jDashboardFluxApp').controller('InfoClaimModalController', [
 
     $scope.verify = {
         'rcs': (!organization.identifierLegal || typeof organization.identifierLegal === 'undefined' || organization.identifierLegal === '') ? true : false,
-        'gln': (typeof organization.ownsGLN[0] === 'undefined' || organization.ownsGLN[0].gln === '') ? true : false,
+        'gln': (!organization.ownsGLN || typeof organization.ownsGLN[0] === 'undefined' || organization.ownsGLN[0].gln === '') ? true : false,
     }
 
     if ($scope.verify.gln) {
-        $scope.organization.ownsGLN.push(new GLN('added'));
+        $scope.organization.claimGLN =[];
+        $scope.organization.claimGLN.push(new GLN('added'));
     }
 
     // ------------------------------------------------------------------------
@@ -48,6 +49,10 @@ angular.module('jDashboardFluxApp').controller('InfoClaimModalController', [
      * Called when the Product is new and is created
      */
     $scope.sendInformation = function () {
+        if ($scope.organization.claimGLN && $scope.organization.claimGLN[0].gln != '') {
+            console.log($scope.organization.claimGLN[0].gln);
+            $$sdkAuth.UserClaimGlnCreate({'gln': $scope.organization.claimGLN[0].gln, 'organization_id': $scope.organization.id}).then(function (response) {});
+        }
         console.log($scope.organization);
         $$sdkAuth.OrganizationUpdate($scope.organization).then(function (response) {
             // console.log('Organization updated');
