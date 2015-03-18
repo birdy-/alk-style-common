@@ -45,8 +45,8 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaUp
                 picture.angleVertical = ProductPicture.ANGLE_VERTICAL_PLONGEANTE.id;
                 picture.angleHorizontal = ProductPicture.ANGLE_HORIZONTAL_LEFT.id;
                 picture.productFace = ProductPicture.PRODUCT_FACE_DISPLAYED_FRONT.id;
-                picture.fileEffectiveStartDateTime = new Date().getTime();
-                picture.fileEffectiveEndDateTime = new Date().getTime();
+                // picture.fileEffectiveStartDateTime = new Date().getTime();
+                // picture.fileEffectiveEndDateTime = new Date().getTime();
                 $scope.newPictures.push(picture);
             }
         });
