@@ -305,7 +305,7 @@ app.config(function ($routeProvider) {
 
 
     $routeProvider.when('/faq', {
-        templateUrl: 'src/home/faq.html',
+        templateUrl: 'src/home/faq/faq.html',
         controller: 'FaqController',
         isPublic: true
     });
