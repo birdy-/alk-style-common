@@ -306,8 +306,7 @@ app.config(function ($routeProvider) {
 
     $routeProvider.when('/faq', {
         templateUrl: 'src/home/faq/faq.html',
-        controller: 'FaqController',
-        isPublic: true
+        controller: 'FaqController'
     });
 
     $routeProvider.when('/account/send_password_reset', {
