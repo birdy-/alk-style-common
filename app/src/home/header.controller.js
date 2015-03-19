@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').controller('HeaderController', [
-    '$scope', 'permission', '$location', '$modal',
-    function ($scope, permission, $location, $modal) {
+    '$scope', 'permission', '$location',
+    function ($scope, permission, $location) {
 
     // ------------------------------------------------------------------------
     // Variables
@@ -20,25 +20,6 @@ angular.module('jDashboardFluxApp').controller('HeaderController', [
         $scope.user = null;
         $scope.brand = {};
         $location.path('/');
-    };
-
-    $scope.subscribe = function (message) {
-        var modalInstance = $modal.open({
-            templateUrl: '/src/home/contact.html',
-            controller: 'ContactController',
-            resolve: {
-                user: function () {
-                    return $scope.user;
-                },
-                message: function () {
-                    return message;
-                }
-            }
-        });
-
-        modalInstance.result.then(function () {
-        }, function () {
-        });
     };
 
     // ------------------------------------------------------------------------

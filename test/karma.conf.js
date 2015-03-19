@@ -47,7 +47,7 @@ module.exports = function(config) {
       'app/bower_components/jquery/jquery.js',
       //'app/bower_components/jquery-ui/jquery-ui.js',
       //'app/bower_components/json3/lib/json3.js',
-      'app/bower_components/handsontable/dist/jquery.handsontable.full.js',
+      'app/bower_components/handsontable/dist/handsontable.full.js',
       'app/bower_components/nghandsontable/dist/ngHandsontable.js',
       //'app/bower_components/nvd3/nv.d3.js',
       //'app/bower_components/plupload/js/plupload.full.min.js',

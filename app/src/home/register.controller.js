@@ -23,7 +23,7 @@ angular.module('jDashboardFluxApp').controller('RegisterController', [
             postCode: null,
             city: null,
             country: null,
-            ownsGLN: [new GLN()],
+            claimGLNs: [new GLN()],
             type: 'Organization'
         };
 
@@ -96,12 +96,12 @@ angular.module('jDashboardFluxApp').controller('RegisterController', [
         };
 
         $scope.addGLN = function () {
-            $scope.company.ownsGLN.push(new GLN());
+            $scope.company.claimGLNs.push(new GLN());
             return;
         };
 
         $scope.removeGLN = function (glnIndex) {
-            $scope.company.ownsGLN.splice(glnIndex, 1);
+            $scope.company.claimGLNs.splice(glnIndex, 1);
             return;
         };
 
