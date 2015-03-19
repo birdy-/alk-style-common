@@ -62,22 +62,47 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>GLNs</label>
-                            <div class="input-group" ng-repeat="gln in organization.ownsGLN track by $index">
+                            <table class="table table-condensed table-bordered">
+                                <thead class="color-stream-inverse">
+                                    <tr>
+                                        <th>GLN</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="gln in organization.ownsGLN track by $index">
+                                        <td>{{ gln.gln }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <br>
+                            <table class="table table-condensed table-bordered">
+                                <thead class="color-stream-inverse">
+                                    <tr>
+                                        <th>GLN en attente de validation</th>
+                                        <th>Utilisateur</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="gln in organization.pendingclaimGLNs track by $index">
+                                        <td>{{ gln.value }}</td><td>{{ gln.user.username }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <br>
+                            <div class="input-group" ng-repeat="gln in organization.claimGLNs track by $index">
                                 <input type="text" class="form-control" ng-model="gln.gln" placeholder="ex : 3663215000011" ng-minlength="1" required/>
                                 <span class="input-group-btn">
-                                    <div class="btn btn-default" ng-click="removeGLN($index)">
+                                    <div class="btn btn-default" ng-click="removeGLNClaim($index)">
                                         <i class="fa fa-trash"></i>
                                     </div>
                                 </span>
                             </div>
                             <br>
                             <div>
-                                <div class="btn btn-default" ng-click="addGLN()">
+                                <div class="btn btn-default" ng-click="addGLNClaim()">
                                     <i class="fa fa-plus"></i>
                                 </div>
                             </div>
-
                         </div>
                         <div class="form-group">
                             <div class="text-right">

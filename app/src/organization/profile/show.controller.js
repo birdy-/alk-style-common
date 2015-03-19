@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').controller('OrganizationProfileShowController', [
-    '$scope', 'permission','$routeParams', '$modal', '$$ORM', '$window',
-    function ($scope, permission, $routeParams, $modal, $$ORM, $window) {
+    '$scope', 'permission','$routeParams', '$modal', '$$ORM', '$window', '$$sdkAuth',
+    function ($scope, permission, $routeParams, $modal, $$ORM, $window, $$sdkAuth) {
 
     $scope.organization = {};
     $scope.brands = [];
@@ -24,8 +24,15 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
         return (typeof(value) === 'undefined' || value == null || value == '' || value.length == 0);
     };
 
-    $scope.addGLN = function () {
-        $scope.organization.ownsGLN.push(new GLN('added'));
+    $scope.addGLNClaim = function () {
+        if (!$scope.organization.claimGLNs)
+            $scope.organization.claimGLNs = [];
+        $scope.organization.claimGLNs.push(new GLN('added'));
+        return;
+    };
+
+    $scope.removeGLNClaim = function (glnIndex) {
+        $scope.organization.claimGLNs.splice(glnIndex, 1);
         return;
     };
 
@@ -35,6 +42,14 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
     };
 
     $scope.updateOrganization = function () {
+        if ($scope.organization.claimGLNs) {
+            for (var gln in $scope.organization.claimGLNs) {
+                gln = $scope.organization.claimGLNs[gln];
+                $$sdkAuth.UserClaimGlnCreate({'gln': gln.gln, 'organization_id': $scope.organizationId}).then(function (response) {});
+            }
+            loadGlnClaims();
+            $scope.organization.claimGLNs = [];
+        }
         if (isEmpty($scope.organization.identifierLegal)) { return; }
         $scope.organizationForm.$saving = true;
         $$ORM.repository('Organization').update($scope.organization).then(function (organization) {
@@ -109,6 +124,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
         loadUsers();
         loadBrands();
         loadSegments();
+        loadGlnClaims();
     });
 
     var loadUsers = function () {
@@ -143,6 +159,19 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
         });
         $$ORM.repository('ProductSegment').list({organization_id: $scope.organizationId}, {filter_id_in: productSegmentIds}, {}, 0, 100).then(function (segments) {
             $scope.productSegments = segments;
+        });
+    };
+
+    var loadGlnClaims = function () {
+        var filters = {
+            'organization_id': $scope.organizationId,
+            'status': 0
+        }
+        $$sdkAuth.UserClaimGlnList({}, filters, {})
+        .then(function (entities) {
+            $scope.organization.pendingclaimGLNs = [];
+            $scope.organization.pendingclaimGLNs = entities.data.data;
+
         });
     };
 

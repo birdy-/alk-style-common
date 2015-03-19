@@ -84,7 +84,7 @@ var RegistrationPage = function() {
 
   this.getGLNField = function (index) {
     index = index ? index : 0;
-    return element(by.repeater('gln in company.ownsGLN').row(index)).element(by.model('gln.gln'));
+    return element(by.repeater('gln in company.claimGLNs').row(index)).element(by.model('gln.gln'));
   };
 
   this.getAddressField = function() {
