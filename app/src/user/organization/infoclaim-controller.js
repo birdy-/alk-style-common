@@ -23,8 +23,8 @@ angular.module('jDashboardFluxApp').controller('InfoClaimModalController', [
 
     $scope.verify = {
         'rcs': (!organization.identifierLegal || typeof organization.identifierLegal === 'undefined' || organization.identifierLegal === '') ? true : false,
-        'gln': (!organization.ownsGLN || typeo  f organization.ownsGLN[0] === 'undefined' || organization.ownsGLN[0].gln === '') ? true : false,
-    }
+        'gln': (!organization.ownsGLN || typeof organization.ownsGLN[0] === 'undefined' || organization.ownsGLN[0].gln === '') ? true : false,
+    };
 
     if ($scope.verify.gln) {
         $scope.organization.claimGLN = [];
@@ -57,5 +57,5 @@ angular.module('jDashboardFluxApp').controller('InfoClaimModalController', [
             // console.log('Organization updated');
             $scope.cancel();
         });
-    }
+    };
 }]);
