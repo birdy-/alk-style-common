@@ -271,6 +271,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     });
 
     $scope.$watch('display.type', function() {
+        $scope.request.offset = 0;
         $scope.request.limit = $scope.display.type === 'preview' ? 24 : 50;
     });
 

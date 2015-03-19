@@ -4,10 +4,14 @@ describe('[Controller] FaqController', function () {
 
   beforeEach(module('jDashboardFluxApp'));
 
-  var FaqController;
+  var FaqController, scope;
 
-  beforeEach(inject(function ($controller) {
-    FaqController = $controller('FaqController', {});
+  beforeEach(inject(function ($controller, $rootScope) {
+    scope = $rootScope.$new();
+
+    FaqController = $controller('FaqController', {
+        $scope: scope
+    });
   }));
 
   it('should exist', function () {
