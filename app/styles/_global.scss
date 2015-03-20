@@ -8,9 +8,25 @@ html, body, [ng-view] {
     }
 }
 
+#stream {
+    .page-grey {
+        @extend .container-fluid;
+        background-color: $background-color-grey;
+        min-height: 100%;
+        top: $navbar-height;
+        bottom: 0;
+        right: 0;
+        left: 0;
+
+        h1 {
+            background-color: $background-color-grey;
+        }
+    }
+}
+
 // Legacy
 #stream h1 {
-    @extend .color-stream,;
+    @extend .color-stream;
 }
 
 .browserhappy-top {
