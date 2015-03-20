@@ -214,6 +214,20 @@ app.config(function ($routeProvider) {
         controller: 'DashboardMakerBrandListController'
     });
 
+    // Resources views
+    $routeProvider.when('/maker/resources/faq', {
+        templateUrl: 'src/maker/resources/faq/faq.html',
+        controller: 'MakerFaqController'
+    });
+    $routeProvider.when('/maker/resources/tutorial', {
+        templateUrl: 'src/maker/resources/tutorial/tutorial.html',
+        controller: 'MakerTutorialController'
+    });
+    $routeProvider.when('/maker/resources/procedures', {
+        templateUrl: 'src/maker/resources/procedures/procedures.html',
+        controller: 'MakerProceduresController'
+    });
+
     // Activation views
     $routeProvider.when('/dmp/activation/campaign', {
         templateUrl: 'src/dmp/activation/campaign/list.html',
