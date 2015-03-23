@@ -83,6 +83,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
 
         var filters = {
             isbrandedby_id: brands,
+            certified: $scope.request.product.certified,
             isidentifiedby_reference: $scope.request.product.isIdentifiedBy.reference
         };
 
@@ -264,15 +265,16 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         });
     };
 
-    $scope.$watch('display.allSelected', function() {
+    $scope.$watch('display.allSelected', function () {
         $scope.products.map(function (product) {
             product.selected = !!$scope.display.allSelected;
         });
     });
 
-    $scope.$watch('display.type', function() {
+    $scope.$watch('display.type', function () {
         $scope.request.offset = 0;
         $scope.request.limit = $scope.display.type === 'preview' ? 24 : 50;
+        list();
     });
 
     // ------------------------------------------------------------------------
