@@ -25,6 +25,30 @@ angular.module('jDashboardFluxApp')
         }
     ];
 
+    // ------------------------------------------------------------------------
+    // Helpers
+    // ------------------------------------------------------------------------
+
+    var isSameField = function (products, field) {
+        var baseValue = products[0][field.name];
+        return _.reduce(products, function (isSame, product) {
+            return isSame && (baseValue === product[field.name]);
+        }, true);
+    }
+
+    var prefillCommonFields = function () {
+        _.map($scope.fields, function (field) {
+            if (isSameField($scope.products, field)) {
+                field.value = $scope.products[0][field.name];
+                console.log(field)
+            }
+        });
+    };
+
+    // ------------------------------------------------------------------------
+    // Event handling
+    // ------------------------------------------------------------------------
+
     $scope.ok = function () {
         for (var i=0 in products) {
             var product = products[i];
@@ -53,4 +77,13 @@ angular.module('jDashboardFluxApp')
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
     };
+
+    // ------------------------------------------------------------------------
+    // Init
+    // ------------------------------------------------------------------------
+    var init = function () {
+        prefillCommonFields();
+    };
+
+    init();
 }]);
