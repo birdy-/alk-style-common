@@ -17,7 +17,12 @@
     <thead>
         <tr>
             <th class="col-lg-2 text-right">Taille de référence</th>
-            <th ng-repeat="(psqId, psq) in psqs" class="text-center psq-col">{{ psq.name }}</th>
+            <th ng-repeat="(psqId, psq) in psqs" class="text-center psq-col">
+                {{ psq.name }} 
+                <span class="badge pull-right" ng-click="changePreparationState(psq)">
+                    <i class="fa fa-refresh"></i> {{ preparationState[psq.preparationState] }}
+                </span>
+            </th>
         </tr>
     </thead>
     <thead>

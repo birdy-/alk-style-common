@@ -1,8 +1,8 @@
 "use strict";
 
 angular.module('jDashboardFluxApp').controller('RegisterController', [
-    '$scope', '$$sdkAuth', '$location', '$http', '$window',
-    function ($scope, $$sdkAuth, $location, $http, $window) {
+    '$scope', '$$sdkAuth', '$location', '$http', '$window', '$$autocomplete',
+    function ($scope, $$sdkAuth, $location, $http, $window, $$autocomplete) {
 
         // ------------------------------------------------------------------------
         // Variables
@@ -16,7 +16,7 @@ angular.module('jDashboardFluxApp').controller('RegisterController', [
         };
 
         $scope.company = {
-            nameLegal: null,
+            nameLegal: '',
             identifierLegal: null,
             identifierCity: null,
             address: null,
@@ -40,9 +40,17 @@ angular.module('jDashboardFluxApp').controller('RegisterController', [
         $scope.ok = false;
         $scope.message = null;
 
+        $scope.select2OrganizationOptions = $$autocomplete.getOptions('organization', {multiple: false});
+
         // ------------------------------------------------------------------------
         // Event binding
         // ------------------------------------------------------------------------
+
+        $scope.$watch('existingCompany', function () {
+            if ($scope.existingCompany) {
+                $scope.company = $scope.existingCompany;
+            }
+        }, true);
 
         $scope.checkUserForm = function(field) {
             return checkForm($scope.userForm);

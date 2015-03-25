@@ -13,6 +13,11 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowNutriti
     $scope.showNutrition = false;
     $scope.nutritionLoading = true;
 
+    $scope.preparationState = [
+        ProductStandardQuantity.PREPARATIONSTATE_UNPREPARED.name,
+        ProductStandardQuantity.PREPARATIONSTATE_PREPARED.name,
+    ]
+
     $scope.pnqs = {};
     [
         19195, 19196, 19058, 19059, 19060, 19061, 19062, 19063, 19064, 19065,
@@ -35,6 +40,17 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowNutriti
     // ------------------------------------------------------------------------
     // Event handling
     // ------------------------------------------------------------------------
+
+    $scope.changePreparationState = function (psq) {
+        if (psq.preparationState == ProductStandardQuantity.PREPARATIONSTATE_PREPARED.id) {
+            psq.preparationState = ProductStandardQuantity.PREPARATIONSTATE_UNPREPARED.id;
+        }
+        else {
+            psq.preparationState = ProductStandardQuantity.PREPARATIONSTATE_PREPARED.id
+        }
+    }
+
+
     $scope.addPSQ = function () {
         var modalInstance = $modal.open({
             templateUrl: '/src/maker/product/show/nutrition/productstandardquantity.html',
