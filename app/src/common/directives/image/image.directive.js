@@ -65,7 +65,7 @@ angular.module('jDashboardFluxApp').directive('fallbackImages', function () {
         scope: {
             fallbackImages: '='
         },
-        controller: function postController ($scope) {
+        controller: ['$scope', function postController ($scope) {
             $scope.badImages = [];
             $scope.imageFailed = function (image) {
                 $scope.badImages.push(image);
@@ -78,7 +78,7 @@ angular.module('jDashboardFluxApp').directive('fallbackImages', function () {
                     return potentialNextImages[0];
                 }
             };
-        },
+        }],
         link: function postLink (scope, element, attrs) {
             var loadElement = angular.element(document.createElement('img'));
             scope.$watch('image()', function (newImage, oldImage) {
@@ -96,4 +96,4 @@ angular.module('jDashboardFluxApp').directive('fallbackImages', function () {
             });
         }
     };
-}); 
+});
