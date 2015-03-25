@@ -59,19 +59,19 @@ angular.module('jDashboardFluxApp').directive('fallbackSrc', function () {
    };
 });
 
-angular.module('jDashboardFluxApp').directive('fallbackImages', function() {
+angular.module('jDashboardFluxApp').directive('fallbackImages', function () {
     return {
-        restrict: 'AEC',
+        restrict: 'AC',
         scope: {
             fallbackImages: '='
         },
         controller: function postController ($scope) {
             $scope.badImages = [];
-            $scope.imageFailed = function(image) {
+            $scope.imageFailed = function (image) {
                 $scope.badImages.push(image);
             };
-            $scope.image = function() {
-                var potentialNextImages = $scope.fallbackImages.filter(function(image) {
+            $scope.image = function () {
+                var potentialNextImages = $scope.fallbackImages.filter(function (image) {
                     return $scope.badImages.indexOf(image) === -1;
                 });
                 if(potentialNextImages.length > 0) {
@@ -81,17 +81,17 @@ angular.module('jDashboardFluxApp').directive('fallbackImages', function() {
         },
         link: function postLink (scope, element, attrs) {
             var loadElement = angular.element(document.createElement('img'));
-            scope.$watch('image()', function(newImage, oldImage) {
+            scope.$watch('image()', function (newImage, oldImage) {
                 if(newImage) {
                     loadElement.attr('src', newImage);
                 }
             });
 
-            loadElement.bind('error', function() {
-                scope.$apply(function() { scope.imageFailed(loadElement.attr('src')); });
+            loadElement.bind('error', function () {
+                scope.$apply(function () { scope.imageFailed(loadElement.attr('src')); });
             });
 
-            loadElement.bind('load', function() {
+            loadElement.bind('load', function () {
                 element.attr('src', loadElement.attr('src'));
             });
         }
