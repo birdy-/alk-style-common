@@ -1,9 +1,9 @@
 
 angular.module('jDashboardFluxApp').controller('DashboardMakerBrandShowMediaUploadController', [
     '$scope', '$modalInstance', '$document', '$log', 'URL_CDN_MEDIA', '$$sdkMedia', '$routeParams',
-    function($scope, $modalInstance, $document, $log, URL_CDN_MEDIA, $$sdkMedia, $routeParams) {
+    function ($scope, $modalInstance, $document, $log, URL_CDN_MEDIA, $$sdkMedia, $routeParams) {
 
-        $log.debug('Init UploadAdController');
+        $log.debug('Init DashboardMakerBrandShowMediaUploadController');
 
         // for the directive mics-pl-upload
         $scope.uploadedFiles = [];
@@ -32,7 +32,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerBrandShowMediaUplo
         });
 
 
-        $scope.saveBrandPicture = function(newPicture, callback) {
+        $scope.saveBrandPicture = function (newPicture, callback) {
             $log.debug('Saving picture for <Brand ' + newPicture.entity_id + '>', newPicture);
 
             var payload = {
@@ -46,12 +46,12 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerBrandShowMediaUplo
             $$sdkMedia.EntityPicturePost(payload).then(callback);
         };
 
-        $scope.done = function() {
+        $scope.done = function () {
             // Add logic to select the packshot one
             // Add logic to select the face one
             var wrapper = $scope.newPictures;
 
-            var callback = function(){
+            var callback = function (){
                 $modalInstance.close();
             };
 
@@ -60,11 +60,11 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerBrandShowMediaUplo
             }
         };
 
-        $scope.cancel = function() {
+        $scope.cancel = function () {
             $modalInstance.close();
         };
 
-        $modalInstance.opened.then(function(){
+        $modalInstance.opened.then(function (){
         });
     }
 ]);
