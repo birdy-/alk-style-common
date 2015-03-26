@@ -95,14 +95,14 @@ angular.module('jDashboardFluxApp')
     }
 
     // Need to load the selected products, the list view is not enough
-    var prefillCommonFields = function () {
-        var fields = $scope.manufacturerFields.concat($scope.consumerSupportFields);
-        _.map(fields, function (field) {
-            if (isSameField($scope.products, field)) {
-                field.value = $scope.products[0][field.name];
-            }
-        });
-    };
+    // var prefillCommonFields = function () {
+    //     var fields = $scope.manufacturerFields.concat($scope.consumerSupportFields);
+    //     _.map(fields, function (field) {
+    //         if (isSameField($scope.products, field)) {
+    //             field.value = $scope.products[0][field.name];
+    //         }
+    //     });
+    // };
 
     // ------------------------------------------------------------------------
     // Event handling

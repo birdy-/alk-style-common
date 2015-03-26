@@ -11,6 +11,10 @@ var ProductsPage = function () {
     return element(by.css('.sidebar'));
   };
 
+  // ------------------------------------------------------------------------
+  // Pagination
+  // ------------------------------------------------------------------------
+
   this.getPaginationBlocks = function () {
     return element.all(by.css('.pagination-block'));
   };
@@ -26,6 +30,62 @@ var ProductsPage = function () {
   this.getNextArrow = function () {
     return element.all(by.css('.arrow-next'));
   };
+
+  // ------------------------------------------------------------------------
+  // Display
+  // ------------------------------------------------------------------------
+
+  this.getChangeDisplay = function () {
+    return element.all(by.css('.change-display label[btn-radio]'));
+  };
+
+  this.getChangeDisplayToList = function () {
+    return element.all(by.css('.change-display label[btn-radio]')).get(1);
+  };
+
+  this.getChangeDisplayToMosaic = function () {
+    return element.all(by.css('.change-display label[btn-radio]')).get(0);
+  };
+
+  this.getSelectAllProducts = function () {
+    return element(by.model('display.allSelected'));
+  };
+
+  this.getBulkCertify = function () {
+    return element(by.css('.btn.certify'));
+  };
+
+  this.getBulkCertifyUserEmail = function () {
+    return element(by.model('user.email'));
+  };
+
+  this.getBulkCancelBtn = function () {
+    return element(by.css('.modal-footer .btn-warning'));
+  };
+
+  this.getBulkEdit = function () {
+    return element(by.css('.btn.edit'));
+  };
+
+  this.getBulkEditWarning = function () {
+    return element(by.css('.modal-body .bg-warning'));
+  };
+
+  this.getBulkEditOk = function () {
+    return element(by.css('.modal-footer .btn-success'));
+  };
+
+  this.getBulkEditManufacturerFields = function () {
+    return element.all(by.repeater('field in manufacturerFields'));
+  };
+
+  this.getBulkEditConsumerSupportFields = function () {
+    return element.all(by.repeater('field in consumerSupportFields'));
+  };
+
+  // ------------------------------------------------------------------------
+  // Brands & Products
+  // ------------------------------------------------------------------------
 
   this.getBrands = function () {
     return element.all(by.repeater('brand in brands'));
