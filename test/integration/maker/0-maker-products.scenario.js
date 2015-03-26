@@ -105,8 +105,6 @@ describe('[Dashboard Maker] Products page', function () {
 
     it('should go back to a mosaic of products', function () {
         productsPage.getChangeDisplayToMosaic().click().then(function () {
-            expect(productsPage.getSelectAllProducts().isPresent())
-            .toBe(false);
             expect(productsPage.getBulkCertify().isPresent())
             .toBe(false);
             expect(productsPage.getBulkEdit().isPresent())
