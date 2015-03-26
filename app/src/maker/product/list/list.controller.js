@@ -265,6 +265,36 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         });
     };
 
+    $scope.bulkEdit = function () {
+        var selectedProducts = filterSelectedProducts();
+
+        if (selectedProducts.length === 0) {
+            $window.alert('Veuillez selectionner au moins un produit.');
+            return;
+        }
+
+        var modalInstance = $modal.open({
+            templateUrl: '/src/maker/product/edit/bulk-edit-warning.html',
+            controller: 'ProductBulkEditWarningModalController',
+            resolve: {
+                products: function () { return selectedProducts; },
+                user: function () { return $scope.user; }
+            }
+        });
+
+        modalInstance.result.then(function (selectedProducts) {
+            var modalInstance = $modal.open({
+                templateUrl: '/src/maker/product/edit/bulk-edit.html',
+                controller: 'ProductBulkEditModalController',
+                resolve: {
+                    products: function () { return selectedProducts; },
+                    user: function () { return $scope.user; }
+                }
+            });
+        }, function () {
+        });
+    };
+
     $scope.$watch('display.allSelected', function () {
         $scope.products.map(function (product) {
             product.selected = !!$scope.display.allSelected;

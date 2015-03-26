@@ -3,7 +3,8 @@
 /**
  * Modal that allows the user to certify a given product.
  */
-angular.module('jDashboardFluxApp').controller('ProductCertificationModalController', [
+angular.module('jDashboardFluxApp')
+.controller('ProductCertificationModalController', [
     '$scope', '$modalInstance', '$$sdkCrud', '$window', 'products', 'user',
     function ($scope, $modalInstance, $$sdkCrud, $window, products, user) {
 
@@ -21,9 +22,9 @@ angular.module('jDashboardFluxApp').controller('ProductCertificationModalControl
                 product,
                 Product.CERTIFICATION_STATUS_CERTIFIED.id,
                 "1169"
-            ).success(function(response){
+            ).success(function (response) {
                 product.certified = response.data.certified;
-            }).error(function(response){
+            }).error(function (response) {
                 $window.alert("Erreur pendant la certification du produit : " + response.data.message);
             });
         }

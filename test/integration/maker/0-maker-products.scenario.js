@@ -38,7 +38,7 @@ describe('[Dashboard Maker] Products page', function () {
 
     it('should have pagination blocks', function () {
         expect(productsPage.getPaginationBlocks().count())
-        .toBe(1);
+        .toBe(2);
     });
 
     it('should have a complete pagination block', function () {
@@ -58,7 +58,57 @@ describe('[Dashboard Maker] Products page', function () {
             productsPage.getPrevArrow().get(1).click().then(function () {
                 expect(productsPage.getPrevArrow().count())
                 .toBe(2);
-            })
+            });
+        });
+    });
+
+    it('should have change display button blocks', function () {
+        expect(productsPage.getChangeDisplay().count())
+        .toBe(2);
+    });
+
+    it('should display a list of products', function () {
+        productsPage.getChangeDisplayToList().click().then(function () {
+            expect(productsPage.getProducts().count())
+            .toBeGreaterThan(25);
+
+            expect(productsPage.getSelectAllProducts().isPresent())
+            .toBe(true);
+        });
+    });
+
+    it('should display a popup to certify products', function () {
+        productsPage.getSelectAllProducts().click().then(function () {
+            productsPage.getBulkCertify().click().then(function () {
+                expect(productsPage.getBulkCertifyUserEmail().isPresent())
+                .toBe(true);
+
+                productsPage.getBulkCancelBtn().click();
+            });
+        });
+    });
+
+    it('should display a popup to bulk edit products', function () {
+        productsPage.getBulkEdit().click().then(function () {
+            expect(productsPage.getBulkEditWarning().isPresent())
+            .toBe(true);
+
+            productsPage.getBulkEditOk().click().then(function () {
+                expect(productsPage.getBulkEditManufacturerFields().count())
+                .toBe(5);
+                expect(productsPage.getBulkEditConsumerSupportFields().count())
+                .toBe(8);
+                productsPage.getBulkCancelBtn().click();
+            });
+        });
+    });
+
+    it('should go back to a mosaic of products', function () {
+        productsPage.getChangeDisplayToMosaic().click().then(function () {
+            expect(productsPage.getBulkCertify().isPresent())
+            .toBe(false);
+            expect(productsPage.getBulkEdit().isPresent())
+            .toBe(false);
         });
     });
 

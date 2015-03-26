@@ -1,13 +1,16 @@
 <div class="sheet">
     <br>
-    <div class="row" class="pagination-block" ng-hide="products.length == 0 || request.busy">
+    <div class="row well pagination-block" ng-hide="products.length == 0 || request.busy">
         <div class="col-sm-4">
-            <div class="btn btn-success" ng-if="display.type === 'list'" ng-click="certificate()">
+            <div class="btn btn-success certify" ng-if="display.type === 'list'" ng-click="certificate()">
                     <i class="fa fa-certificate"></i> Certifier
             </div>
+            <div class="btn btn-success edit" ng-if="display.type === 'list'" ng-click="bulkEdit()">
+                    <i class="fa fa-edit"></i> Modifier
+            </div>
         </div>
-        <div class="col-sm-4 col-sm-offset-4 text-right ">
-            <div class="btn-group">
+        <div class="col-sm-4 col-sm-offset-4 text-right">
+            <div class="btn-group change-display">
                 <label class="btn btn-success" ng-model="display.type" btn-radio="'preview'">
                     <i class="fa fa-th-large"></i>
                 </label>
