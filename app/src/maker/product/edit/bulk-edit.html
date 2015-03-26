@@ -1,0 +1,40 @@
+<div class="modal-header">
+    <h2>
+        Edition multiple
+    </h2>
+</div>
+<div class="modal-body">
+
+    <div class="row">
+        <div class="col-xs-12">
+            <h3>Exploitant</h3>
+        </div>
+        <div class="col-xs-12 from-group" ng-repeat="field in manufacturerFields">
+            <label class="control-label">{{ field.label }}</label>
+            <input ng-model="field.value" class="form-control" placeholder="Non modifié">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <h3>Service consommateur</h3>
+        </div>
+        <div class="col-xs-12 from-group" ng-repeat="field in consumerSupportFields">
+            <label class="control-label">{{ field.label }}</label>
+            <input ng-model="field.value" class="form-control" placeholder="Non modifié">
+        </div>
+    </div>
+
+</div>
+<div class="modal-footer">
+    <form class="form-inline" role="form">
+        <div class="form-group">
+            <button class="btn btn-success" ng-click="ok()">
+                <i class="fa fa-edit"></i> Modifier tous les produits
+            </button>
+            <button class="btn btn-warning" ng-click="cancel()">
+                <i class="fa fa-ban"></i> Annuler
+            </button>
+        </div>
+    </form>
+</div>

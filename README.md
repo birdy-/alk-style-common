@@ -58,30 +58,30 @@ That's it! You've got your working dev package.
 
 For preproduction:
 
-```
-grunt build-preprod
-cd capistrano && bundle exec cap preprod alk:deploy
-```
+Merge staging in master and ensure build pass on Jenkins, it will be automagically deploy on preprod-stream.alkemics.com
 
 For production:
 
 ```
-grunt build
+ssh avalon
+cd /home/excalibur/preproduction/frontend/dashboard-flux
 cd capistrano && bundle exec cap production alk:deploy
 ```
 
 ## Tests!!
 
-### Unit tests
-
-Shut down your grunt serve or adapt the port
-
+Run all tests (Shut down your grunt serve or adapt the port)
 ```
 grunt test
 ```
 
-~~### End-to-end (E2E) tests~~
-Grunt test will launch all tests now
+### Unit tests
+
+```
+npm run test:unit
+```
+
+### End-to-end (E2E) tests
 
 Be sure to have a JDK and protractor installed as described in [documentation](http://angular.github.io/protractor/#/)
 
@@ -103,6 +103,10 @@ Make sure to have selenium running in the background
 The first time, you will need to copy protractor dist configuration file
 ```
 cp test/protractor.conf.js.dist test/protractor.conf.js
+```
+
+```
+npm run test:integration
 ```
 
 
