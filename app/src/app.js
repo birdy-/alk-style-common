@@ -432,7 +432,7 @@ app.run([
     }
 ]);
 
-// Mock for development
+//Mock for development
 if (env === 'dev') {
     app.config(function($provide) {
         $provide.decorator('$httpBackend', angular.mock.e2e.$httpBackendDecorator);
@@ -462,6 +462,7 @@ if (env === 'dev') {
         });
         $httpBackend.whenJSONP().passThrough();
         $httpBackend.whenGET().passThrough();
+        $httpBackend.whenDELETE().passThrough();
         $httpBackend.whenPOST().passThrough();
         $httpBackend.whenPUT().passThrough();
         $httpBackend.whenGET().passThrough();

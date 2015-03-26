@@ -112,6 +112,36 @@
                         </a>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Mes Logos</label>
+                    <div ng-if="!pictures.length" class="col-sm-10 alert alert-warning text-center">
+                        <i class="fa fa-warning"></i> Vous n'avez pas encore ajouté de logo.
+                    </div>
+                    <div ng-repeat="picture in pictures" ng-class="{'col-sm-offset-2': !$first}" class="col-sm-10">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <a ng-href="{{ picture.uniformResourceIdentifier }}" target="_blank">
+                                    <img ng-src="{{ picture.uniformResourceIdentifier }}" class="img-responsive img-thumbnail">
+                                </a>
+                            </div>
+                            <div class="col-sm-7">
+                                <div class="col-sm-10">
+                                    <br/>Ajouté le {{ picture.updatedAt | date:'dd/MM/yyyy' }}<br/>
+                                </div>
+                            </div>
+                            <div class="col-sm-7">
+                                <div ng-click="selectAsLogo(picture)" class="btn btn-success btn-block">
+                                   <i class="fa fa-picture-o hidden-md"></i> Définir comme logo principal
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div alk-confirm-action confirm-action="deletePicture" item="picture" class="btn btn-danger btn-block">
+                                    <i class="fa fa-trash-o"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="col-lg-2">
                 <label for="logo" class="control-label">Logo</label>
@@ -120,13 +150,11 @@
                 <div>
                     <img ng-src="https://smedia.alkemics.com/brand/{{ brand.id }}/picture/logo/original.png?cachebuster={{ cachebuster }}" fallback-src="https://stream.alkemics.com/images/5078aa32.missing.png" style="width: 100%; padding-bottom: 20px;"/>
                 </div>
-                <div class="well" ng-click="uploadNewPictures('logo', false)" style="cursor:pointer;">
-                    <i class="fa fa-picture-o" name="logo"></i> Déposer ici votre logo
+                <div class="btn btn-success col-lg-12" ng-click="uploadNewPictures('logo', false)" style="cursor:pointer;">
+                    <i class="fa fa-picture-o" name="logo"></i> Ajouter un logo
                 </div>
             </div>
         </div>
-        <br/>
-        <br/>
         <div class="row">
             <div class="col-lg-10">
                 <div button-save class="pull-right" ng-click="save()" form="brandForm"></div>
