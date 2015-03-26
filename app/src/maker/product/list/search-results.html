@@ -26,8 +26,8 @@
     <!-- Preview view -->
     <div class="row products" ng-hide="request.busy || display.type !== 'preview'">
         <div ng-repeat="product in products | unique:'isIdentifiedBy.0.reference' track by product.isIdentifiedBy.0.reference" class="col-sm-2 product">
-            <div class="picture missing-picture" ng-click="show(product, $index)">
-                <div class="ratio" ng-style="{'background-image': 'url(' + product.urlPictureOriginal + ')'}"  style="height: 100px;">
+            <div class="picture" ng-click="show(product, $index)">
+                <div class="ratio" style="height: 120px;" entity-image entity="product">
                 </div>
             </div>
             <div class="name">
