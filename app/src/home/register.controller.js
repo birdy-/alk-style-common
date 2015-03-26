@@ -104,6 +104,9 @@ angular.module('jDashboardFluxApp').controller('RegisterController', [
         };
 
         $scope.addGLN = function () {
+            if (typeof $scope.company.claimGLNs === 'undefined') {
+                $scope.company.claimGLNs = [];
+            }
             $scope.company.claimGLNs.push(new GLN());
             return;
         };
