@@ -8,7 +8,7 @@ angular.module('jDashboardFluxApp').directive('selectProductpicturecontenttype',
             localModel: '=ngModel'
         },
         require: 'ngModel',
-        templateUrl: '/src/common/directives/input/select-id.html',
+        templateUrl: '/src/common/directives/input/select-id-not-null.html',
         link: function(scope, elem, attrs) {
             scope.choices = [
                 ProductPicture.TYPE_OF_CONTENT_UNPACKAGED,

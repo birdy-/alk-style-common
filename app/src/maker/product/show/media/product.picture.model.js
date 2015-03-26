@@ -198,4 +198,8 @@ ProductPicture.PRODUCT_FACE_DISPLAYED_NA = new Constant(6, "Non applicable", "0"
 ProductPicture.TRANSPARENT = new Constant(0, "Transparent");
 ProductPicture.TRANSPARENT_NOT = new Constant(1, "Non Transparent");
 
+ProductPicture.ORIGIN_UNKNOWN      = new Constant(0, "ORIGIN_UNKNOWN",         "Origin is not traceable");
+ProductPicture.ORIGIN_STREAM_USER  = new Constant(1, "ORIGIN_STREAM_USER",     "Image comes from a stream user");
+ProductPicture.ORIGIN_GDSN         = new Constant(2, "ORIGIN_GDSN",            "Image comes from a GDSN import");
+ProductPicture.ORIGIN_BRANDBANK    = new Constant(3, "ORIGIN_BRANDBANK",       "Image comes from a BrandBank import");
 

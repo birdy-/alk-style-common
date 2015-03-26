@@ -10,8 +10,8 @@
  * @return {[type]}              [description]
  */
 angular.module('jDashboardFluxApp').controller('DashboardMakerBrandShowController', [
-    '$scope', '$$sdkCrud', '$routeParams', 'permission', '$location', '$modal', '$window', '$log',
-    function ($scope, $$sdkCrud, $routeParams, permission, $location, $modal, $window, $log) {
+    '$scope', '$$sdkCrud', '$routeParams', 'permission', '$$sdkMedia', '$location', '$modal', '$window', '$log',
+    function ($scope, $$sdkCrud, $routeParams, permission, $$sdkMedia, $location, $modal, $window, $log) {
 
     // ------------------------------------------------------------------------
     // Variables
@@ -19,7 +19,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerBrandShowControlle
     $scope.brand = {};
     $scope.brandForm;
     $scope.cachebuster = parseInt(Math.random() * 1000000);
-
+    $scope.pictures = [];
 
     // ------------------------------------------------------------------------
     // Event handling
@@ -65,28 +65,45 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerBrandShowControlle
         });
     }
 
-    // ------------------------------------------------------------------------
-    // Init
-    // ------------------------------------------------------------------------
-    var load = function() {
-        $$sdkCrud.BrandShow($routeParams.id, {with_subbrands: 1}).success(function(response){
-            $scope.brand = response.data;
-            $scope.brandForm.$loading = false;
+    var loadPictures = function() {
+        $$sdkMedia.EntityPictureGet('brand', $scope.brand.id).then(function (response) {
+            $scope.pictures = response.data.data.map(function(json) {
+                var picture = new BrandPicture();
+                picture.fromJson(json);
+                return picture;
+            });
         });
-    };
-    var init = function() {
-        permission.getUser().then(function(user){
-            if (!user.isAllowed('Brand', parseInt($routeParams.id, 10))) {
-                $window.alert("Vous n'êtes pas autorisé à consulter cette page.");
-                $location.path('/maker/brand');
-                return;
-            }
-            load();
-        });
-    };
-    init();
+    }
 
-    // upload new pictures
+    $scope.selectAsLogo = function (picture) {
+        $$sdkMedia.EntityStandardPost({
+            entity_type: 'brand',
+            entity_id: picture.brand_id,
+            entityPicture_id: picture.id,
+            picture_standard_type: 'logo'
+        }).then(function(response){
+            $window.alert('Nous avons bien pris en compte votre demande. Le visuel va être mis à jour. Cette opération peut prendre quelque temps, merci pour votre patience.');
+        });
+    };
+
+
+    $scope.deletePicture = function (picture) {
+        $$sdkMedia.EntityPictureDelete(
+            'brand',
+            picture.brand_id,
+            picture.id
+        ).success(function (response) {
+            loadPictures();
+        }).error(function (error) {
+            if (error.status === 403) {
+                $window.alert('Vous n\'avez pas les permissions nécessaires pour cette opération');
+            } else {
+                $window.alert('Une erreur est survenue : ' + error.message);
+            }
+        });
+    };
+
+
     $scope.uploadNewPictures = function(mediaType, multiSelection) {
 
         $scope.mediaType = mediaType;
@@ -100,58 +117,36 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerBrandShowControlle
         });
 
         uploadModal.result.then(function () {
-
+            loadPictures();
         }, function () {
           $log.info('Modal dismissed at: ' + new Date());
         });
     };
+
+    // ------------------------------------------------------------------------
+    // Init
+    // ------------------------------------------------------------------------
+    var load = function() {
+        $$sdkCrud.BrandShow($routeParams.id, {with_subbrands: 1}).success(function(response){
+            $scope.brand = response.data;
+            $scope.brandForm.$loading = false;
+            loadPictures();
+        });
+    };
+
+    var init = function() {
+        permission.getUser().then(function(user){
+            if (!user.isAllowed('Brand', parseInt($routeParams.id, 10))) {
+                $window.alert("Vous n'êtes pas autorisé à consulter cette page.");
+                $location.path('/maker/brand');
+                return;
+            }
+            load();
+        });
+    };
+    init();
+
+
 }]);
 
 
-
-angular.module('jDashboardFluxApp').controller('DashboardMakerBrandShowMediaUploadController', [
-    '$scope', '$modalInstance', '$document', '$log', '$routeParams',
-    function($scope, $modalInstance, $document, $log, $routeParams) {
-
-        $log.debug('Init UploadAdController');
-
-        // for the directive mics-pl-upload
-        $scope.uploadedFiles = [];
-        $scope.brandId = $routeParams.id;
-        $scope.message = 'Glisser / Déposer les fichiers ici.';
-        $scope.total = null;
-        $scope.progressValue = 0;
-
-        // for the page
-        $scope.newPictures = [];
-
-        $scope.$watchCollection("uploadedFiles", function (newFiles) {
-            while(newFiles.length) {
-                var file = newFiles.pop();
-                $log.info("got new uploaded file, pushing as asset", file);
-                $scope.newPictures.push({});
-                // Make the picture visible
-                // Don't know how to do that cleanly without additional network
-                file.file.appendTo($('#uploaded-pictures'));
-            }
-        });
-
-        $scope.done = function() {
-            // Add logic to select the packshot one
-            // Add logic to select the face one
-            var wrapper = $scope.newPictures;
-            for (var i = 0; i < wrapper.length; i++) {
-                // saveCreativeWrapper(wrapper[i]);
-                // do nothing
-            }
-            $modalInstance.close();
-        };
-
-        $scope.cancel = function() {
-            $modalInstance.close();
-        };
-
-        $modalInstance.opened.then(function(){
-        });
-    }
-]);
