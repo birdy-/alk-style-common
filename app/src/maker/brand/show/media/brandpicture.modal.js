@@ -1,4 +1,4 @@
-
+'use strict';
 angular.module('jDashboardFluxApp').controller('DashboardMakerBrandShowMediaUploadController', [
     '$scope', '$modalInstance', '$document', '$log', 'URL_CDN_MEDIA', '$$sdkMedia', '$routeParams',
     function ($scope, $modalInstance, $document, $log, URL_CDN_MEDIA, $$sdkMedia, $routeParams) {
@@ -21,7 +21,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerBrandShowMediaUplo
                 file.data.path = URL_CDN_MEDIA + file.data.path;
 
                 $log.info("got new uploaded file, pushing as asset", file);
-                picture = new BrandPicture();
+                var picture = new BrandPicture();
                 picture.fromJson(file.data);
 
                 $scope.newPictures.push(picture);
