@@ -12,15 +12,73 @@ angular.module('jDashboardFluxApp')
     $scope.products = products;
     $scope.user = user;
 
-    $scope.fields = [
+    $scope.manufacturerFields = [
         {
             name: 'manufacturerName',
-            placeholder: 'Nom de l\'exploitant',
+            label: 'Nom',
             value: ''
         },
         {
             name: 'manufacturerText',
-            placeholder: 'Adresse de l\'exploitant',
+            label: 'Adresse',
+            value: ''
+        },
+        {
+            name: 'manufacturerEmail',
+            label: 'Email',
+            value: ''
+        },
+        {
+            name: 'manufacturerPhonenumber',
+            label: 'Numéro de téléphone',
+            value: ''
+        },
+        {
+            name: 'manufacturerWebsite',
+            label: 'Site internet',
+            value: ''
+        }
+    ];
+
+    $scope.consumerSupportFields = [
+        {
+            name: 'consumerSupportName',
+            label: 'Nom',
+            value: ''
+        },
+        {
+            name: 'consumerSupportAddress',
+            label: 'Adresse',
+            value: ''
+        },
+        {
+            name: 'consumerSupportPostcode',
+            label: 'Code postal',
+            value: ''
+        },
+        {
+            name: 'consumerSupportCity',
+            label: 'Ville',
+            value: ''
+        },
+        {
+            name: 'consumerSupportCountry',
+            label: 'Pays',
+            value: ''
+        },
+        {
+            name: 'consumerSupportEmail',
+            label: 'Email',
+            value: ''
+        },
+        {
+            name: 'consumerSupportPhonenumber',
+            label: 'Numéro de téléphone',
+            value: ''
+        },
+        {
+            name: 'consumerSupportWebsite',
+            label: 'Site internet',
             value: ''
         }
     ];
@@ -36,11 +94,12 @@ angular.module('jDashboardFluxApp')
         }, true);
     }
 
+    // Need to load the selected products, the list view is not enough
     var prefillCommonFields = function () {
-        _.map($scope.fields, function (field) {
+        var fields = $scope.manufacturerFields.concat($scope.consumerSupportFields);
+        _.map(fields, function (field) {
             if (isSameField($scope.products, field)) {
                 field.value = $scope.products[0][field.name];
-                console.log(field)
             }
         });
     };
@@ -50,11 +109,12 @@ angular.module('jDashboardFluxApp')
     // ------------------------------------------------------------------------
 
     $scope.ok = function () {
+        var fields = $scope.manufacturerFields.concat($scope.consumerSupportFields);
         for (var i=0 in products) {
             var product = products[i];
 
-            for (var fieldIndex in $scope.fields) {
-                var field = $scope.fields[fieldIndex];
+            for (var fieldIndex in fields) {
+                var field = fields[fieldIndex];
                 if (field.value) {
                     product[field.name] = field.value;
                 }
@@ -82,7 +142,7 @@ angular.module('jDashboardFluxApp')
     // Init
     // ------------------------------------------------------------------------
     var init = function () {
-        prefillCommonFields();
+        // prefillCommonFields();
     };
 
     init();
