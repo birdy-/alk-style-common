@@ -137,7 +137,8 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     };
 
     var find = function (queries, filters) {
-        filters.productsegment_id = $scope.segmentIds.join(',');
+        // to activate later
+        //filters.productsegment_id = $scope.segmentIds.join(',');
         $log.log("Product List Controller : listing [" + $scope.request.offset + "-" + ($scope.request.offset + $scope.request.limit) + "]" );
         $scope.request.busy = true;
         $$sdkCrud.ProductList(queries, filters, {},
