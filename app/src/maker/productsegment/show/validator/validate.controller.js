@@ -134,8 +134,6 @@ angular.module('jDashboardFluxApp').controller('ProductSegmentValidatorControlle
         });
 
         modalInstance.result.then(function (result) {
-            console.log(result);
-
             $scope.picked = result;
             if (type === 'brand')
                 $scope.batch($scope.pickBrand);
@@ -172,7 +170,7 @@ angular.module('jDashboardFluxApp').controller('ProductSegmentValidatorControlle
             'filter_type': '9'
         };
         $$sdkGdsn.GdsnGLNList({}, filters, {}, null, null).then(function (response) {
-            result = response.data.data;
+            var result = response.data.data;
             result.map(function (gln) {
                 if (product.glns.indexOf(gln.gln) == -1)
                     product.glns.push(gln.gln);
