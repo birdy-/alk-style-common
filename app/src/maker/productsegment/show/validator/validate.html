@@ -1,0 +1,168 @@
+<div ng-include="'/src/maker/home/header.html'"></div>
+<div class="container-fluid maker">
+
+	<!-- Title -->
+    <div class="row">
+    	<h1>
+    		{{ productSegment.name }}
+    		<small>Produits en attente de validation</small>
+    	</h1>
+    </div>
+
+    <!-- Help -->
+	<div>
+	    <accordion close-others="false">
+	        <accordion-group is-open="display.help">
+	            <accordion-heading>
+	                <i class="fa fa-question-circle" ng-click="display.help = !display.help"></i> Guide Utilisateur
+	            </accordion-heading>
+	                <strong>A quoi correspondent ces produits?</strong><br/>
+	                Alkemics vous propose une liste de produits encore non réclamés pour compléter votre segment de produits
+	                <strong>{{ productSegment.name }}</strong><br/>
+   	                <strong>D'où viennent-ils?</strong><br/>
+	                Ces produits en attente de validation peuvent provenir de différents flux externes.
+	                Par exemple, si vous nous avez communiqué un ou plusieurs GLN pour votre organisation, nous sommes en mesure de vous proposer des produits
+	                que nous recevons via la GDSN encore non disponibles pour vous.<br/>
+	                <strong>Que dois je faire?</strong><br/>
+	                Si vous voulez voir apparaître un produit sur la plateforme pour pouvoir l'éditer ou le certifier, assurez vous d'abord que celui ci
+	                appartient à la marque suggérée et que son GLN soit correct.
+                    Alkemics vous propose par défaut une marque et un GLN pertinents, mais il vous est possible de les modifier.
+	                Une fois que la marque du produit et son GLN vous satfisfont, il ne reste plus qu'à cliquer sur 
+	                <div class="btn btn-success btn-xs"><i class="fa fa-check"/> Valider</div>:
+	                <i> le procesus de validation du produit est alors lancé. Notez que cela peut prendre jusqu'à 24 heures.</i> !<br/>
+	                <strong>Ma marque ne m'est pas proposée!</strong><br/>
+	                Rendez-vous sur la page <a href='http://localhost.alkemics.com:9005/#/maker/brand'>Mes Marques</a> pour
+	                <div class="btn btn-success btn-xs"><i class="fa fa-cog"/> Demander l'accès à mes marques</div>.
+	             	Après validation, votre marque sera disponible dans les choix possibles.<br/>
+	                Notez que la procédure de validation d'accès à une marque peut prendre jusqu'à 24 heures.
+	        </accordion-group>
+	    </accordion>
+	</div>
+
+	<!-- Multiple action -->
+	<div class="row well" ng-show="products.length > 0 && display.selection">
+        <div class="text-center">
+        	Selection<br/> 
+        	<div class="btn btn-success" ng-click="batch(validate)">
+                <i class="fa fa-check"></i>
+        	</div>
+            <div class="btn btn-default" ng-click="picker('brand', null)">
+                <i class="fa fa-wrench"></i> Marque
+            </div>
+            <div class="btn btn-default" ng-click="picker('gln', glns)">
+                <i class="fa fa-barcode"></i> GLN
+            </div>
+            <div ng-if="dev" class="btn btn-warning" ng-click="batch(evict)">
+                <i class="fa fa-trash"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="row pagination-block">
+	    <div class="text-right">
+	     	<span class="btn btn-success arrow-prev" ng-class="{'disabled': request.offset <= 0}" ng-click="prev()"><i class="fa fa-arrow-left"></i></span>
+	        <span class="pagination-text">{{ request.offset }} - {{ request.offset + products.length }}</span>
+	        <span class="btn btn-success arrow-next" ng-class="{'disabled': request.limit !== products.length}" ng-click="next()">
+	            <i class="fa fa-arrow-right"></i>
+	        </span>
+	    </div>
+    </div>
+
+    <!-- Table -->
+    <div class="row" style="margin-left:5px">
+    	    <div class="row products">
+            <table class="table table-bordered" >
+                <thead class="color-stream-inverse">
+                    <tr>
+                        <th class="text-center">
+                            <input type="checkbox" ng-model="display.allSelected" ng-change="refreshSelection(true)"/>
+                        </th>
+                        <th class="text-center">EAN</th>
+                        <th class="text-center">Nom</th>
+                        <th class="text-center">Packaging</th>
+                        <th class="text-center">Marque</th>
+                        <th class="text-center">GLN</th>
+                        <th class="text-center"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="product in products">
+                        <td class="text-center">
+                            <input type="checkbox" ng-model="product.selected" ng-change="refreshSelection(false)">
+                        </td>
+                        <td class="text-center">
+                            <span class="badge">
+                            {{ product.isIdentifiedBy[0].reference }}
+                        </span> 
+                        </td>
+                        <td class="text-left">
+                            <a>
+                                <div class="picture missing-picture text-center">
+                                    <img entity-image entity="product" height="60" width="60">
+                                </div>
+                                <div class="name">
+                                    {{ product.namePublicLong || product.nameLegal }}
+                                </div>
+                            </a>
+                        </td>
+                        <td class="text-center">{{ product.packaging }}</td>
+                        <td class="text-center col-sm-2">
+                        	<!-- Marque -->
+                        	<div  
+                        		alk-autocomplete
+                     			alk-autocomplete-type="Brand"
+                     			alk-autocomplete-multiple="false"
+                     			placeholder="Chercher une marque"
+                     			ng-model="product.isBrandedBy">
+                			</div>
+                        </td>
+                        <td class="text-center col-sm-2">
+                            <!-- GLN -->
+                            <select class="form-control" ng-init="product.gln = product.glns[0]" ng-model="product.gln" ng-options="gln for gln in product.glns"/>
+                        </td>
+                        <td class="text-center" ng-if="product.isActivated === true">
+                            Validation en cours
+                        </td>
+                        <td class="text-center" ng-if="product.isActivated !== true">
+                        	<button class="btn btn-success" ng-click="validate(product)"><i class="fa fa-check"/> Valider</button>
+                        	<button ng-if="dev" class="btn btn-warning" ng-click="evict(product)"><i class="fa fa-trash"/></button>
+                        </td>
+                    </tr>
+                <tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="row pagination-block">
+	    <div class="text-right">
+	     	<span class="btn btn-success arrow-prev" ng-class="{'disabled': request.offset <= 0}" ng-click="prev()"><i class="fa fa-arrow-left"></i></span>
+	        <span class="pagination-text">{{ request.offset }} - {{ request.offset + products.length }}</span>
+	        <span class="btn btn-success arrow-next" ng-class="{'disabled': request.limit !== products.length}" ng-click="next()">
+	            <i class="fa fa-arrow-right"></i>
+	        </span>
+	    </div>
+    </div>
+
+    <!-- Multiple action -->
+    <div class="row well" ng-show="products.length > 0 && display.selection">
+        <div class="text-center">
+            Selection<br/> 
+            <div class="btn btn-success" ng-click="batch(validate)">
+                <i class="fa fa-check"></i>
+            </div>
+            <div class="btn btn-default" ng-click="picker('brand', null)">
+                <i class="fa fa-wrench"></i> Marque
+            </div>
+            <div class="btn btn-default" ng-click="picker('gln', glns)">
+                <i class="fa fa-barcode"></i> GLN
+            </div>
+            <div ng-if="dev" class="btn btn-warning" ng-click="batch(evict)">
+                <i class="fa fa-trash"></i>
+            </div>
+        </div>
+    </div>
+    <br/>
+
+</div>
