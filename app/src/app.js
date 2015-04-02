@@ -277,6 +277,12 @@ app.config(function ($routeProvider) {
         controller: 'DmpAnalyticsCampaignShowController'
     });
 
+    // ProductSegment views
+    $routeProvider.when('/maker/productsegment/:id/validate', {
+        templateUrl: 'src/maker/productsegment/show/validator/validate.html',
+        controller: 'ProductSegmentValidatorController'
+    });
+
 
     // ------------------------------------------------------------------------------------------
     // Retailer views
