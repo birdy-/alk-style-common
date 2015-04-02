@@ -15,7 +15,9 @@ angular.module('jDashboardFluxApp').controller('OrganizationUserAddController', 
     $scope.isBrandsOpened = false;
     $scope.administrators = administrators;
     $scope.brands = brands;
-    $scope.selectedBrands = {};
+
+    $scope.selectedBrands = [];
+
     
     organization.text = organization.nameLegal;
     $scope.invitation = {
@@ -36,6 +38,18 @@ angular.module('jDashboardFluxApp').controller('OrganizationUserAddController', 
     // ------------------------------------------------------------------------
     // Event binding
     // ------------------------------------------------------------------------
+    $scope.syncBrand = function (state, brand) {
+        if (state)
+            // add brand id
+            $scope.selectedBrands.push(brand.id);
+        else
+            // remove brand id
+            for (var i = 0, len = $scope.selectedBrands.length; i < len; i++) {
+                if ($scope.selectedBrands[i] == brand.id)
+                    $scope.selectedBrands.splice(i, 1);
+            }
+    };
+
     $scope.submit = function () {
         var alertMessage = "Ces champs sont manquants ou invalides:";
         if (!$scope.invitation.lastname || !$scope.invitation.firstname 
@@ -71,8 +85,8 @@ angular.module('jDashboardFluxApp').controller('OrganizationUserAddController', 
             confirmation: $scope.invitation.confirmation,
             user_id: currentUser.id
        };
-       if ($scope.invitation.brands.length > 0)
-            payload.brands = $scope.invitation.brands.join(',');
+       if ($scope.selectedBrands.length > 0)
+            payload.brands = $scope.selectedBrands.join(',');
 
         $$sdkAuth.UserInvite(payload, {
         }).then(function(){
