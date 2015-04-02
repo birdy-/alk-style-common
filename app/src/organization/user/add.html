@@ -65,7 +65,7 @@
             <table ng-if="isBrandsOpened">
                 <tr ng-repeat="brand in brands" class="ng-scope">
                     <td>{{ brand.name }}</td><td/>
-                    <td><input type="checkbox" ng-model="selectedBrands[brand.id]"/></td>
+                    <td><input type="checkbox" ng-model="state" ng-change="syncBrand(state, brand)"/></td>
                 </tr>
             </table>
         </div>
