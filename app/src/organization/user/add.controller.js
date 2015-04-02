@@ -38,8 +38,8 @@ angular.module('jDashboardFluxApp').controller('OrganizationUserAddController', 
     // ------------------------------------------------------------------------
     // Event binding
     // ------------------------------------------------------------------------
-    $scope.syncBrand = function (bool, brand) {
-        if (bool)
+    $scope.syncBrand = function (state, brand) {
+        if (state)
             // add brand id
             $scope.selectedBrands.push(brand.id);
         else
