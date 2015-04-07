@@ -51,7 +51,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreview
         });
     };
 
-    $scope.decertify = function () {
+    $scope.uncertify = function () {
         if (confirm('Êtes vous sur de vouloir décertifier ce produit ?') != true) {
             return
         }
