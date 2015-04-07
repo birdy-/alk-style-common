@@ -52,7 +52,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreview
     };
 
     $scope.decertify = function () {
-        if (alert('Êtes vous sur de vouloir décertifier ce produit ?') == false) {
+        if (confirm('Êtes vous sur de vouloir décertifier ce produit ?') != true) {
             return
         }
         $$sdkCrud.ProductCertify(
@@ -65,7 +65,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreview
     }
 
     $scope.certify = function () {
-        
         var modalInstance = $modal.open({
             templateUrl: '/src/maker/product/certify/certification.html',
             controller: 'ProductCertificationModalController',
