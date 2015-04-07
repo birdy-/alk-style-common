@@ -51,7 +51,21 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreview
         });
     };
 
+    $scope.decertify = function () {
+        if (alert('Êtes vous sur de vouloir décertifier ce produit ?') == false) {
+            return
+        }
+        $$sdkCrud.ProductCertify(
+            $scope.product,
+            Product.CERTIFICATION_STATUS_ACCEPTED.id,
+            '1169'
+        ).then(function(response) {
+            $scope.product.certified = response.data.certified;
+        });
+    }
+
     $scope.certify = function () {
+        
         var modalInstance = $modal.open({
             templateUrl: '/src/maker/product/certify/certification.html',
             controller: 'ProductCertificationModalController',
