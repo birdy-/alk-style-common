@@ -66,6 +66,18 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreview
         }, function () {
         });
     };
+
+    $scope.duplicate = function (product) {
+        var modalInstance = $modal.open({
+            templateUrl: '/src/maker/product/create/duplicate.html',
+            controller: 'ProductDuplicationModalController',
+            resolve: {
+                products: function () { return [product]; },
+                user: function () { return $scope.user; }
+            }
+        });
+    };
+
     $scope.accept = function () {
         var modalInstance = $modal.open({
             templateUrl: '/src/maker/product/certify/acceptation.html',

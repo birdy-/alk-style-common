@@ -1,0 +1,24 @@
+<div class="modal-header">
+    <h3>
+        Duplication
+    </h3>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <h4 class="col-xs-12">Produits</h4>
+        <div class="col-xs-12" ng-repeat="product in products">
+            <img entity-image entity="product" height="60" width="60">
+            <span>{{ product.nameLegal }}</span>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="well">Vous allez créer une copie des produits ci-dessus.</div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-warning" ng-click="cancel()"><i class="fa fa-times"></i> Annuler</button>
+    <button class="btn btn-success" ng-click="ok()"><i class="fa fa-plus"></i> Dupliquer</button>
+</div>
