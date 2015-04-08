@@ -72,7 +72,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreview
             templateUrl: '/src/maker/product/create/duplicate.html',
             controller: 'ProductDuplicationModalController',
             resolve: {
-                products: function () { return [product]; },
+                product: function () { return product; },
                 user: function () { return $scope.user; }
             }
         });
