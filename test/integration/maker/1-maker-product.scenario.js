@@ -23,9 +23,45 @@ describe('[Dashboard Maker] Product page', function () {
         .toEqual(9); //; Set to 9 while the retail tab is not functional
     });
 
-    ///////////////////////
+    // -------------------------
+    // Action buttons
+    // -------------------------
+
+    it('should have a save btn', function () {
+        expect(productPage.getSaveBtn().isPresent())
+        .toBe(true);
+    });
+
+    it('should have a certify btn', function () {
+        expect(productPage.getCertifyBtn().isPresent())
+        .toBe(true);
+    });
+
+    it('should have a duplicate btn', function () {
+        expect(productPage.getDuplicateBtn().isPresent())
+        .toBe(true);
+    });
+
+    it('should have a popup on click on duplicate btn', function () {
+        productPage.getDuplicateBtn().click().then(function () {
+            expect(productPage.getDuplicatePopupHeader().getText())
+            .toBe('Duplication');
+            expect(productPage.getDuplicatePopupReference().isPresent())
+            .toBe(true);
+            expect(productPage.getDuplicatePopupConfirmBtn().isPresent())
+            .toBe(true);
+            productPage.getDuplicatePopupCancelBtn().click();
+        });
+    });
+
+    it('should have an archive btn', function () {
+        expect(productPage.getArchiveBtn().isPresent())
+        .toBe(true);
+    });
+
+    // -------------------------
     // General tab
-    ///////////////////////
+    // -------------------------
     it('should have a general tab', function () {
         expect(productPage.getGeneralTab().getText())
         .toBe('GENERAL');
@@ -53,9 +89,9 @@ describe('[Dashboard Maker] Product page', function () {
         })
     });
 
-    ///////////////////////
+    // -------------------------
     // Media tab
-    ///////////////////////
+    // -------------------------
     it('should have a media tab', function () {
         expect(productPage.getMediaTab().getText())
         .toBe('MÉDIAS');
@@ -91,9 +127,9 @@ describe('[Dashboard Maker] Product page', function () {
     });
 
 
-    ///////////////////////
+    // -------------------------
     // Nutrition tab
-    ///////////////////////
+    // -------------------------
     it('should have a nutrition tab', function () {
         productPage.get();
         expect(productPage.getNutritionTab().getText())
