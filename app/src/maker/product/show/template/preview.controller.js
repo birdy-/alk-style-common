@@ -51,6 +51,19 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreview
         });
     };
 
+    $scope.uncertify = function () {
+        if (confirm('Êtes vous sur de vouloir décertifier ce produit ?') != true) {
+            return
+        }
+        $$sdkCrud.ProductCertify(
+            $scope.product,
+            Product.CERTIFICATION_STATUS_ACCEPTED.id,
+            '1169'
+        ).then(function(response) {
+            $scope.product.certified = response.data.certified;
+        });
+    }
+
     $scope.certify = function () {
         var modalInstance = $modal.open({
             templateUrl: '/src/maker/product/certify/certification.html',
@@ -66,6 +79,18 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreview
         }, function () {
         });
     };
+
+    $scope.duplicate = function (product) {
+        var modalInstance = $modal.open({
+            templateUrl: '/src/maker/product/create/duplicate.html',
+            controller: 'ProductDuplicationModalController',
+            resolve: {
+                product: function () { return product; },
+                user: function () { return $scope.user; }
+            }
+        });
+    };
+
     $scope.accept = function () {
         var modalInstance = $modal.open({
             templateUrl: '/src/maker/product/certify/acceptation.html',

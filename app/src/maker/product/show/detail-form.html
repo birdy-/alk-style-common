@@ -46,8 +46,28 @@
             </div>
             <br/>
             <br/>
-            <button ng-click="certify()" class="btn color-stream-inverse col-sm-12">
+            <button ng-click="certify()" class="btn certify color-stream-inverse col-sm-12" ng-if="product.certified !== 2">
                 <i class="fa fa-certificate"></i> Certifier
+            </button>
+            <button ng-click="uncertify()" class="btn certify color-stream-inverse col-sm-12" ng-if="product.certified === 2">
+                <i class="fa fa-ban"></i> Décertifier
+            </button>
+            <br/>
+            <br/>
+            <button ng-click="duplicate(product)" class="btn duplicate color-stream-inverse col-sm-12">
+                <i class="fa fa-plus"></i> Dupliquer
+            </button>
+            <br/>
+            <br/>
+            <button ng-if="!product.isDiscontinued()"
+                    ng-click="discontinue(true)"
+                    class="btn label-default archive col-sm-12">
+                <i class="fa fa-archive"></i> Archiver
+            </button>
+            <button ng-if="product.isDiscontinued()"
+                    ng-click="discontinue(false)"
+                    class="btn color-stream-inverse archive col-sm-12">
+                <i class="fa fa-archive"></i> Ré-activer
             </button>
         </div>
     </div>
