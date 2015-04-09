@@ -112,9 +112,9 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
     	$$sdkAuth.OrganizationShow($scope.organizationId).then(function (response) {
     		$scope.organization = response.data.data;
     		$$sdkAuth.OrganizationUsers($scope.organizationId).then(function (response) {
-    			$scope.users = response.data.data;
+                $scope.users = response.data.data;
                 loadProducSegments();
-    		});
+            });
     	});
 	}; 
 
