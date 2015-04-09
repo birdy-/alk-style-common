@@ -46,11 +46,15 @@ describe('[Dashboard Retailer] PISHs page', function () {
                 expect(productInShopPage.getPishsList().count())
                 .toEqual(50);
 
-                productInShopPage.getPishsList().first()
-                .element(by.css('.pish-preview')).click().then(function () {
-                    expect(productInShopPage.getPishPreview().isPresent())
-                    .toBe(true);
-                })
+                productInShopPage.getEanFilter().sendKeys('7613032458737').then(function () {
+                    productInShopPage.getDetailsSearchBtn().click().then(function () {
+                        productInShopPage.getPishsList().first()
+                        .element(by.css('.pish-preview')).click().then(function () {
+                            expect(productInShopPage.getPishPreview().isPresent())
+                            .toBe(true);
+                        });
+                    });
+                });
             })
         });
     });
