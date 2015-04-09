@@ -49,6 +49,7 @@ module.exports = function(config) {
       //'app/bower_components/json3/lib/json3.js',
       'app/bower_components/handsontable/dist/handsontable.full.js',
       'app/bower_components/nghandsontable/dist/ngHandsontable.js',
+      'app/bower_components/ngtoast/dist/ngToast.min.js',
       //'app/bower_components/nvd3/nv.d3.js',
       //'app/bower_components/plupload/js/plupload.full.min.js',
       //'app/bower_components/select2/select2.js',
