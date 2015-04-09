@@ -93,7 +93,6 @@ angular.module('jDashboardFluxApp').controller('ProductSegmentCreateModalControl
     var loadOrganization = function () {
         $$sdkAuth.OrganizationShow(organization_id).then(function (response) {
             $scope.organization = response.data.data;
-            console.log($scope.organization);
             $scope.organization.ownsGLN.map(function (gln) {
                 $scope.possibleGLNS.push(gln.gln);
             });

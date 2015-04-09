@@ -86,7 +86,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
                             permissions.push(permission);   
                     }
                     $$sdkAuth.UserManagesProductSegmentUpdate($scope.organizationId, psId, userId, permissions).then(function (response) {
-                        console.log(response);
+                        console.log('Permissions mises a jour');
                     });
                 }
             }
