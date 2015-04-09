@@ -347,6 +347,7 @@ app.config(function ($routeProvider) {
         isPublic: true
     });
 
+
     // ------------------------------------------------------------------------------------------
     // Settings views
     // ------------------------------------------------------------------------------------------
@@ -363,6 +364,11 @@ app.config(function ($routeProvider) {
     $routeProvider.when('/organization/:id/profile', {
         templateUrl: 'src/organization/profile/index.html',
         controller: 'OrganizationProfileShowController'
+    });
+
+    $routeProvider.when('/organization/:id/admin/users', {
+        templateUrl: 'src/organization/admin/productsegment/permissions/edit.html',
+        controller: 'OrganizationAdminProductSegmentPermissionsController'
     });
 
     // ------------------------------------------------------------------------------------------
