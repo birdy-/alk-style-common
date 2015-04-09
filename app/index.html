@@ -61,6 +61,7 @@
     <link rel="stylesheet" href="bower_components/angular-ui-tree/dist/angular-ui-tree.min.css">
     <link rel="stylesheet" href="bower_components/nvd3/nv.d3.css"/>
     <link rel="stylesheet" href="bower_components/handsontable/dist/handsontable.full.css" media="screen"/>
+    <link rel="stylesheet" href="bower_components/ngtoast/dist/ngToast.min.css"/>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -158,6 +159,7 @@
     </div>
 
     <div ng-view="" id="view"></div>
+    <div toast=""></div>
 
 
     <script type="text/javascript" id="google-analytics">
@@ -195,6 +197,7 @@
         <script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
         <script type="text/javascript" src="bower_components/handsontable/dist/handsontable.full.min.js"></script>
         <script type="text/javascript" src="bower_components/nghandsontable/dist/ngHandsontable.js"></script>
+        <script type="text/javascript" src="bower_components/ngtoast/dist/ngToast.min.js"></script>
 
         <script type="text/javascript" src="bower_components/angular-ui-sortable/sortable.js"></script>
         <script type="text/javascript" src="bower_components/angular-i18n/angular-locale_fr-fr.js"></script>
@@ -236,6 +239,7 @@
         <script type="text/javascript" src="bower_components/sdk-dashboard/src/sdk-campaign.js"></script>
         <script type="text/javascript" src="bower_components/sdk-dashboard/src/sdk-analytics.js"></script>
         <script type="text/javascript" src="bower_components/sdk-dashboard/src/sdk-crud.js"></script>
+        <script type="text/javascript" src="bower_components/sdk-dashboard/src/sdk-etl.js"></script>
         <script type="text/javascript" src="bower_components/sdk-dashboard/src/sdk-gdsn.js"></script>
         <script type="text/javascript" src="bower_components/sdk-dashboard/src/sdk-mailer.js"></script>
         <script type="text/javascript" src="bower_components/sdk-dashboard/src/sdk-media.js"></script>
@@ -262,6 +266,7 @@
         <script type="text/javascript" src="src/common/model/productinshop.model.js"></script>
         <script type="text/javascript" src="src/common/model/productinshopsegment.model.js"></script>
         <script type="text/javascript" src="src/common/model/productinshopsegment-directive.js"></script>
+        <script type="text/javascript" src="src/common/model/productreference.model.js"></script>
         <script type="text/javascript" src="src/common/model/productsegment.model.js"></script>
         <script type="text/javascript" src="src/common/model/shop.model.js"></script>
         <script type="text/javascript" src="src/common/model/website.model.js"></script>
@@ -371,6 +376,8 @@
         <script type="text/javascript" src="src/maker/product/certify/claim.controller.js"></script>
         <script type="text/javascript" src="src/maker/product/certify/claim-directive.js"></script>
         <script type="text/javascript" src="src/maker/product/certify/directive/alk-products-claim/alk-products-claim.js"></script>
+
+        <script type="text/javascript" src="src/maker/product/create/duplicate.controller.js"></script>
 
         <!-- ProductSegment -->
         <script type="text/javascript" src="src/maker/productsegment/create/create.controller.js"></script>
