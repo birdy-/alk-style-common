@@ -5,11 +5,10 @@
  */
 angular.module('jDashboardFluxApp')
 .controller('ProductDuplicationModalController', [
-    '$scope', '$log', '$modalInstance', '$$sdkCrud', '$$sdkEtl', '$window', 'product', 'user',
-    function ($scope, $log, $modalInstance, $$sdkCrud, $$sdkEtl, $window, product, user) {
+    '$scope', '$log', '$modalInstance', '$$sdkEtl', 'product', 'ngToast',
+    function ($scope, $log, $modalInstance, $$sdkEtl, product, ngToast) {
 
     $scope.product = product;
-    $scope.user = user;
 
     $scope.ok = function (product, reference) {
         var payload = {
@@ -18,9 +17,26 @@ angular.module('jDashboardFluxApp')
         };
         $$sdkEtl.ProductDuplicate(product.id, payload)
         .success(function (response) {
-            $log.info(response);
+            ngToast.create({
+              className: 'success',
+              content: 'Le produit a correctement été dupliqué. <a href="#/maker/product/' + reference + '/data/general">Aller vers le nouveau produit.</a>',
+              dismissOnTimeout: false,
+              dismissButton: true
+            });
         }).error(function (response) {
-            $window.alert("Erreur pendant la duplication du produit : " + response.data.message);
+            var message = response.message || '';
+            var content = 'Une erreur est survenue.';
+            if (response.status === 403) {
+                content = content + ' La référence demandée est déjà utilisée. Veuillez vous rapprocher de notre support.';
+            } else {
+                content = content + message;
+            }
+            ngToast.create({
+                className: 'danger',
+                content: content,
+                dismissOnTimeout: false,
+                dismissButton: true
+            });
         });
         $modalInstance.close(product);
     };
