@@ -1,0 +1,79 @@
+<div class="modal-header">
+    <h3>
+    	Créer un nouveau Segment de Produits
+    </h3>
+</div>
+
+<!-- Help -->
+<div>
+    <div accordion="" close-others="false">
+        <div accordion-group="" is-open="display.help">
+            <div accordion-heading="">
+                <i class="fa fa-question-circle" ng-click="display.help = !display.help"></i> Guide Utilisateur
+            </div>
+                <strong>Qu'est ce qu'un segment de produits?</strong><br/>
+                Un segment de produits est un ensemble de produits qui peut être caractérisé par des propriétés communes, ou non.
+                Les segments sont la clé de la souplesse d'utilisation de la plateforme Alkemics.<br/>
+                Créez vos segments puis affectez y des équipes avec des 
+                membres ayant chacun des rôles et capacités précises: cela vous permettra de mieux structurer vos processus de qualification et de certification !<br/>
+                <strong>Quels sont les étapes de création?</strong><br/>
+                Choisissez d'abord un nom pour votre nouveau segment de produits, puis précisez au moins un GLN qui sera commun à tous les produits du segment.<br/>
+                Il vous est également possible de préciser une ou plusieurs marques pour un filtrage supplémentaire.
+                <strong>Et ensuite?</strong>
+                Une fois le segment créé, il est lié à votre organisation. Vous y avez accès, mais n'oubliez pas de donner les droits nécessaires à vos collègues si vous 
+                voulez que ce soit le cas pour eux également!<br/>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal-body">
+    <div>
+        Nom de votre nouveau segment de produits:<br/>
+        <input class="form-control" ng-model="productSegmentName" placeholder="Ex: Yaourts frais"></input>
+    </div>
+    
+    <br/>
+    Précisez au moins un GLN (<strong>requis</strong>)
+    <div class="input-group" ng-repeat="gln in glns track by $index">
+        <input class="form-control text-center" disabled ng-model="gln"/>
+        <span class="input-group-btn">
+            <div class="btn btn-default" ng-click="removeGLN($index)">
+                <i class="fa fa-trash"></i>
+            </div>
+        </span>
+    </div>
+    <div class="input-group" ng-if="possibleGLNS.length > 0 && pendingGLN">
+        <select class="form-control" 
+            ng-model="pendingGLN" 
+            ng-options="pgln for pgln in possibleGLNS"/>
+          <span class="input-group-btn">
+            <div class="btn btn-default" ng-click="addGLN()">
+                <i class="fa fa-check"></i>
+            </div>
+        </span>
+    </div>
+    <div ng-if="possibleGLNS.length > 0">
+        <div class="btn btn-default" ng-click="addGLN()">
+            <i class="fa fa-plus"></i>
+        </div>
+    </div>
+    
+    <br/>
+    <div> Précisez une ou plusieurs marques <l>(facultatif)</l>:
+        <div alk-autocomplete
+             alk-autocomplete-type="Brand"
+             alk-autocomplete-multiple="true"
+             placeholder="Rechercher parmi les marques"
+             ng-model="brands">
+        </div>
+    </div>
+    <!-- TODO : Add Products -->
+</div>
+
+<div class="modal-footer">
+    <div class="text-right">
+        <button class="btn btn-danger" ng-click="cancel()"><i class="fa fa-ban"></i> Annuler</button>
+        <button class="btn btn-success" ng-click="submit()"><i class="fa fa-check"></i> Valider</button>
+    </div>
+</div>

@@ -56,7 +56,7 @@
             <label for="confirmation">Confirmation d'adresse email</label>
             <input type="email" ng-model="confirmation" name="username" id="confirmation" class="form-control" placeholder="ex : paul.dupont@acme.com" required/>
         </div>
-        <div class="form-group">
+        <div class="form-group" ng-if="brands">
             <div ng-click="isBrandsOpened = !isBrandsOpened">
                 <label for="isBrandedBy">Ses marques</label> 
                 <i ng-if="!isBrandsOpened" class="fa fa-plus"></i>
