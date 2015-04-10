@@ -2,10 +2,14 @@
     <br>
     <div class="row well pagination-block" ng-hide="products.length == 0 || request.busy">
         <div class="col-sm-4">
-            <div class="btn btn-success certify" ng-if="display.type === 'list'" ng-click="certificate()">
+            <label ng-if="display.type === 'preview'">
+                <input type="checkbox" ng-model="display.allSelected"/>
+                Tout sélectionner &nbsp;
+            </label>
+            <div class="btn btn-success certify" ng-click="certificate()">
                     <i class="fa fa-certificate"></i> Certifier
             </div>
-            <div class="btn btn-success edit" ng-if="display.type === 'list'" ng-click="bulkEdit()">
+            <div class="btn btn-success edit" ng-click="bulkEdit()">
                     <i class="fa fa-edit"></i> Modifier
             </div>
         </div>
@@ -33,6 +37,7 @@
                 <div class="ratio" style="height: 120px;" entity-image entity="product">
                 </div>
             </div>
+            <input type="checkbox" class="product-select" ng-model="product.selected">
             <div class="name">
                 <!-- Use the first ProductReference linked to identify the product -->
                 <a ng-click="show(product, $index)">
