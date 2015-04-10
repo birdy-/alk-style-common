@@ -16,8 +16,11 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     // Variables
     // ------------------------------------------------------------------------
     $scope.user = {};
+    $scope.productModel = Product;
     permission.getUser().then(function (user) {
         $scope.user = user;
+        $scope.isAdmin = permission.isAdmin(user.belongsTo[0].id);
+        $scope.rootProductSegment = {};
     });
     $scope.request = $rootScope.navigation.maker.request;
     $scope.products = $scope.request.products || [];
@@ -48,22 +51,52 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     };
 
     // ------------------------------------------------------------------------
-    // Event handling
+    // Helpers
     // ------------------------------------------------------------------------
 
-    var list = function () {
+    var getCertifiedStatus = function (certifiedObject) {
         // Collect parameters
         var certifieds = [];
-        for (var key in $scope.request.product.certifieds) {
+        for (var key in certifiedObject) {
             if ($scope.request.product.certifieds[key] === true) {
                 certifieds.push(key);
             }
-        }
+        };
+
         // If no option is selected do not make any call
         if (certifieds.length === 0) {
             return;
         }
-        $scope.request.product.certified = certifieds.join(',');
+        return certifieds.join(',');
+    };
+
+    var accept = function (product) {
+        var modalInstance = $modal.open({
+            templateUrl: '/src/maker/product/certify/acceptation.html',
+            controller: 'ProductAcceptationModalController',
+            resolve: {
+                product: function () { return product; },
+                productSegment: function () { return {glns: ['3663215000011']}; },
+                user: function () { return $scope.user; }
+            }
+        });
+
+        modalInstance.result.then(function (selectedItem) {
+        }, function () {
+            $location.path('/maker/brand/' + $scope.product.isBrandedBy.id + '/product');
+        });
+    };
+
+
+    // ------------------------------------------------------------------------
+    // Event handling
+    // ------------------------------------------------------------------------
+
+    var list = function () {
+        if ($scope.request.productsPending) {
+            return findPendingProducts();
+        }
+        $scope.request.product.certified = getCertifiedStatus($scope.request.product.certifieds);
 
         if ($scope.request.product.isIdentifiedBy.reference) {
             return findByReference();
@@ -72,6 +105,24 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         } else {
             return findByBrand();
         }
+    };
+
+    var findPendingProducts = function () {
+        $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_DEFAULT.id] = true;
+        $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_ACCEPTED.id] = false;
+        $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_CERTIFIED.id] = false;
+        $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_PUBLISHED.id] = true;
+        $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_REVIEWING.id] = true;
+        $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_ATTRIBUTED.id] = false;
+        $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_DISCONTINUED.id] = true;
+        $scope.request.product.certified = getCertifiedStatus($scope.request.product.certifieds);
+
+        var filters = {
+            productsegment_id: 500000000,
+            certified: $scope.request.product.certified,
+        };
+
+        return find({}, filters);
     };
 
     var findByReference = function () {
@@ -141,6 +192,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         //filters.productsegment_id = $scope.segmentIds.join(',');
         $log.log("Product List Controller : listing [" + $scope.request.offset + "-" + ($scope.request.offset + $scope.request.limit) + "]" );
         $scope.request.busy = true;
+
         $$sdkCrud.ProductList(queries, filters, {},
             $scope.request.offset,
             $scope.request.limit,
@@ -204,7 +256,10 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
      * Defaults to the general tab.
      */
     $scope.show = function (product, index) {
-        $scope.request.scrollAnchor = index;
+        if (!product.isAccepted()) {
+            accept(product);
+            return;
+        }
 
         // Hot Feature - Specific tabs according to user permissions
         // Heineken
@@ -226,6 +281,9 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         if (oldVal !== newVal) refresh();
     });
     $scope.$watch('request.product.nameLegal', function(newVal, oldVal) {
+        if (oldVal !== newVal) refresh();
+    });
+    $scope.$watch('request.productsPending', function(newVal, oldVal) {
         if (oldVal !== newVal) refresh();
     });
     $scope.$watch('request.product.certifieds', function(newVal, oldVal) {

@@ -1,5 +1,11 @@
 <form role="form">
-    <h4><i class="fa fa-filter"></i> Filtrer par...</h4>
+    <h3>Je veux voir...</h3>
+    <div ng-if="isAdmin" class="form-group">
+        <label>
+            <input type="checkbox" name="non-atributed" ng-model="request.productsPending"/>
+            Nouveaux produits
+        </label>
+    </div>
     <div class="form-group">
         <label>Marque commerciale :</label>
         <div ui-tree="options" data-drag-enabled="false" class="brand-tree">
@@ -23,25 +29,25 @@
         <label>Afficher les produits :</label>
         <div class="checkbox">
             <label>
-                <input type="checkbox" name="certified" ng-model="request.product.certifieds[5]"/>
+                <input type="checkbox" name="certified" ng-model="request.product.certifieds[Product.CERTIFICATION_STATUS_ATTRIBUTED.id]"/>
                 demandés par le distribueur
             </label>
         </div>
         <div class="checkbox">
             <label>
-                <input type="checkbox" name="certified" ng-model="request.product.certifieds[1]"/>
+                <input type="checkbox" name="certified" ng-model="request.product.certifieds[Product.CERTIFICATION_STATUS_ACCEPTED.id]"/>
                 que j'ai acceptés de remplir
             </label>
         </div>
         <div class="checkbox">
             <label>
-                <input type="checkbox" name="certified" ng-model="request.product.certifieds[2]"/>
+                <input type="checkbox" name="certified" ng-model="request.product.certifieds[Product.CERTIFICATION_STATUS_CERTIFIED.id]"/>
                 que j'ai certifiés
             </label>
         </div>
         <div class="checkbox">
             <label>
-                <input type="checkbox" name="certified" ng-model="request.product.certifieds[6]"/>
+                <input type="checkbox" name="certified" ng-model="request.product.certifieds[Product.CERTIFICATION_STATUS_DISCONTINUED.id]"/>
                 que j'ai archivés
             </label>
         </div>

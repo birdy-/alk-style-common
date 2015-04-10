@@ -21,7 +21,8 @@ angular.module('jDashboardFluxApp').service('permission', [
      */
     var getUser = function () {
         if (userPromise === null) {
-            userPromise = $$ORM.repository('User').method('Me')().then(function (user) {
+            userPromise = $$ORM.repository('User').method('Me')().then(function (user_) {
+                user = user_;
                 // Load relations
                 user.managesBrand.forEach(function (relation) { relation.allowed = true; });
                 user.managesWebsite.forEach(function (relation) { relation.allowed = true; });
@@ -91,11 +92,26 @@ angular.module('jDashboardFluxApp').service('permission', [
         return token;
     };
 
+    var isAdmin = function (organizationId) {
+        var isAdmin = false;
+        if (!user) { return isAdmin; }
+        _.map(user.belongsTo, function (organization) {
+            if (organization.id === organizationId) {
+                if(_.indexOf(organization.permissions, 'admin') > -1) {
+                    isAdmin = true;
+                }
+            }
+        })
+
+        return isAdmin;
+    };
+
     return {
         reset: reset,
         getUser: getUser,
         login: login,
         logout: logout,
+        isAdmin: isAdmin,
         getAccessToken: getAccessToken
     };
 }]);
