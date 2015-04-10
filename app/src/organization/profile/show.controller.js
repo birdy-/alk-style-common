@@ -97,9 +97,6 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
                 brands: function () {
                     return $scope.brands;
                 },
-                administrators: function() {
-                    return $scope.administrators;
-                },
                 currentUser: function() {
                     return $scope.currentUser;
                 }
