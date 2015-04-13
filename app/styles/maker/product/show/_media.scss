@@ -1,3 +1,31 @@
+$picture-container-height: 16em;
+
+.picture {
+    padding-bottom: $padding-base-vertical;
+
+    .img-container {
+        height: $picture-container-height;
+        position: relative;
+        vertical-align: middle;
+
+        a {
+            height: $picture-container-height;
+            width: 100%;
+
+            img {
+                max-height: $picture-container-height;
+                max-width: 100%;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                vertical-align: middle;
+            }
+        }
+
+    }
+}
+
 .partner-shop {
     line-height: 40px;
     height: 40px;

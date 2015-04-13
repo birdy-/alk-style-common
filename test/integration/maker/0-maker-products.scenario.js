@@ -103,27 +103,20 @@ describe('[Dashboard Maker] Products page', function () {
         });
     });
 
-    it('should go back to a mosaic of products', function () {
-        productsPage.getChangeDisplayToMosaic().click().then(function () {
-            expect(productsPage.getBulkCertify().isPresent())
-            .toBe(false);
-            expect(productsPage.getBulkEdit().isPresent())
-            .toBe(false);
-        });
-    });
-
     it('should have clickable products', function () {
-        productsPage.getProduct(0).click().then(function () {
-            var productsPageRegex = new RegExp('maker\/product\/(\\d+)\/data\/general', 'g');
+        productsPage.getChangeDisplayToPreview().click().then(function () {
+            productsPage.getProduct(0).click().then(function () {
+                var productsPageRegex = new RegExp('maker\/product\/(\\d+)\/data\/general', 'g');
 
-            browser.getCurrentUrl().then(function (browserUrl) {
-                expect(browserUrl)
-                .toMatch(productsPageRegex);
+                browser.getCurrentUrl().then(function (browserUrl) {
+                    expect(browserUrl)
+                    .toMatch(productsPageRegex);
 
-                // Save the productId for future use (in product.scenario.js for instance)
-                var match = productsPageRegex.exec(browserUrl);
-                browser.params.productId = match[1];
-            })
-        })
+                    // Save the productId for future use (in product.scenario.js for instance)
+                    var match = productsPageRegex.exec(browserUrl);
+                    browser.params.productId = match[1];
+                })
+            });
+        });
     });
 });
