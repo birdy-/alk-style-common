@@ -37,13 +37,14 @@ angular.module('jDashboardFluxApp').controller('MakerHeaderController', [
         }, function () {
         });
     };
-
     // ------------------------------------------------------------------------
     // Init
     // ------------------------------------------------------------------------
     var init = function() {
         permission.getUser().then(function (user) {
             $scope.user = user;
+            //asume that a user has only one organisation
+            $scope.isAdmin = permission.isAdmin(user.belongsTo[0].id);
         });
     };
     init();
