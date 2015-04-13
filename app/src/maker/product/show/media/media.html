@@ -29,8 +29,8 @@
             <div ng-if="!pictures.length" class="col-sm-12 alert alert-warning text-center">
                 <i class="fa fa-warning"></i> Vous n'avez pas encore ajouté de photo.
             </div>
-            <div ng-repeat="picture in pictures" class="col-sm-4">
-                <div class="col-sm-12">
+            <div ng-repeat="picture in pictures" class="col-sm-4 picture text-center">
+                <div class="col-sm-12 img-container">
                     <a ng-href="{{ picture.uniformResourceIdentifier }}" target="_blank">
                         <img ng-src="{{ picture.uniformResourceIdentifier }}" class="img-responsive img-thumbnail">
                     </a>
