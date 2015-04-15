@@ -43,7 +43,7 @@ var ProductsPage = function () {
     return element.all(by.css('.change-display label[btn-radio]')).get(1);
   };
 
-  this.getChangeDisplayToMosaic = function () {
+  this.getChangeDisplayToPreview = function () {
     return element.all(by.css('.change-display label[btn-radio]')).get(0);
   };
 

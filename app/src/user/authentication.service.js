@@ -111,7 +111,7 @@ angular.module('jDashboardFluxApp').service('permission', [
         getUser: getUser,
         login: login,
         logout: logout,
-        isAdmin: isAdmin,
-        getAccessToken: getAccessToken
+        getAccessToken: getAccessToken,
+        isAdmin: isAdmin
     };
 }]);

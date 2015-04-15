@@ -2,11 +2,18 @@
     <br>
     <div class="row well pagination-block" ng-hide="products.length == 0 || request.busy">
         <div class="col-sm-4">
-            <div class="btn btn-success certify" ng-if="display.type === 'list'" ng-click="certificate()">
+            <!-- We will add the multiple acceptation in the future -->
+            <div ng-if="!displayNewProducts">
+                <label ng-if="display.type === 'preview'">
+                    <input type="checkbox" ng-model="display.allSelected"/>
+                    Tout sélectionner &nbsp;
+                </label>
+                <div class="btn btn-success certify" ng-click="certificate()">
                     <i class="fa fa-certificate"></i> Certifier
-            </div>
-            <div class="btn btn-success edit" ng-if="display.type === 'list'" ng-click="bulkEdit()">
+                </div>
+                <div class="btn btn-success edit" ng-click="bulkEdit()">
                     <i class="fa fa-edit"></i> Modifier
+                </div>
             </div>
         </div>
         <div class="col-sm-4 col-sm-offset-4 text-right">
@@ -34,6 +41,7 @@
                     <span class="claim-text">Demande en cours</span>
                 </div>
             </div>
+            <input ng-if="!displayNewProducts" type="checkbox" class="product-select" ng-model="product.selected">
             <span class="product-information">
                 <div class="picture" ng-click="show(product, $index)">
                     <div class="ratio" style="height: 120px;" entity-image entity="product">
@@ -68,7 +76,7 @@
                 <thead class="color-stream-inverse">
                     <tr>
                         <th class="text-center">
-                            <input type="checkbox" ng-model="display.allSelected"/>
+                            <input ng-if="!displayNewProducts" type="checkbox" ng-model="display.allSelected"/>
                         </th>
                         <th class="text-center">EAN</th>
                         <th class="text-center">Nom</th>
@@ -79,7 +87,7 @@
                 <tbody>
                     <tr ng-repeat="product in products | unique:'isIdentifiedBy.0.reference' track by product.isIdentifiedBy.0.reference" ng-class="{'inactive': product.claimInProgress}">
                         <td class="text-center">
-                            <input type="checkbox" ng-model="product.selected">
+                            <input ng-if="!displayNewProducts" type="checkbox" ng-model="product.selected">
                         </td>
                         <td class="text-center">
                             <span class="badge" ng-repeat="reference in product.isIdentifiedBy | limitTo:1" >
