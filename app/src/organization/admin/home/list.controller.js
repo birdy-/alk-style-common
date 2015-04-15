@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListController', [
-    '$scope', 'permission','$$ORM', '$$sdkAuth', '$routeParams', '$location', 'ngToast',
-    function ($scope, permission, $$ORM, $$sdkAuth, $routeParams, $location, ngToast) {
+    '$scope', 'permission','$$ORM', '$$sdkAuth', '$routeParams', '$location', 'ngToast', '$modal',
+    function ($scope, permission, $$ORM, $$sdkAuth, $routeParams, $location, ngToast, $modal) {
 
     $scope.organization = {};
 
@@ -10,14 +10,59 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
     // Event binding
     // --------------------------------------------------------------------------------
 
+    $scope.addUser = function () {
+        if ($scope.isAdmin == false) {
+            $scope.contactAdmin();
+            return;
+        }
 
+        var modalInstance = $modal.open({
+            templateUrl: '/src/organization/user/add.html',
+            controller: 'OrganizationUserAddController',
+            resolve: {
+                organization: function () {
+                    return $scope.organization;
+                },
+                brands: function () {
+                    return $scope.brands;
+                },
+                currentUser: function() {
+                    return $scope.currentUser;
+                }
 
+            }
+        });
+
+        modalInstance.result.then(function () {
+            //loadUsers();
+        }, function () {
+        });
+    };
+    $scope.addSegment = function () {
+        if ($scope.isAdmin == false) {
+            $scope.contactAdmin();
+            return;
+        }
+        var modalInstance = $modal.open({
+            templateUrl: '/src/maker/productsegment/create/create-modal.html',
+            controller: 'ProductSegmentCreateModalController',
+            resolve: {
+                organization_id: function() { return $scope.organizationId; }
+            }
+        });
+
+        modalInstance.result.then(function () {
+            loadSegments();
+        }, function () {
+        });
+    }
     // --------------------------------------------------------------------------------
     // Init
     // --------------------------------------------------------------------------------
     $scope.organizationId = Number($routeParams.id);
     $$ORM.repository('Organization').get($scope.organizationId).then(function (entity) {
         $scope.organization = entity;
+        console.log($scope.organization);
         loadSegments();
     });
 
@@ -28,7 +73,9 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
         $$ORM.repository('ProductSegment').list({organization_id: $scope.organizationId}, {filter_id_in: productSegmentIds}, {}, 0, 100).then(function (segments) {
             $scope.productSegments = segments;
         });
+        console.log($scope.productSegments);
     };
+
     var init = function () {
         permission.getUser().then(function(user) {
             $scope.currentUser = user;
