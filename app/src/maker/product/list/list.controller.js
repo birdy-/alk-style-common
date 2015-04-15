@@ -84,10 +84,13 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         var filters = {
             isbrandedby_id: brands,
             certified: $scope.request.product.certified,
-            isidentifiedby_reference: $scope.request.product.isIdentifiedBy.reference
         };
 
-        return find({}, filters);
+        var queries = {
+            isidentifiedby_reference: $scope.request.product.isIdentifiedBy.reference
+        }
+
+        return find(queries, filters);
     };
 
     var findByBrand = function (filters) {
