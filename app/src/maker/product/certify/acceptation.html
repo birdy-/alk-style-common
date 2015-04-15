@@ -25,7 +25,8 @@
         </div>
         <div class="form-group">
             <label>GLN</label>
-            <select class="form-control" ng-init="gln = glns[0]" ng-model="gln" ng-options="gln for gln in glns"/>
+            <label>{{ product.gln }}</label>
+            <select class="form-control" ng-model="product.gln" ng-options="gln for gln in glns"/>
         </div>
     </div>
     </form>
