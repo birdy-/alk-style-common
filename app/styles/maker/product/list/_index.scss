@@ -29,6 +29,12 @@
         background-color: white;
         margin-top: 10px;
         text-align: center;
+
+    }
+    input[type="checkbox"].product-select {
+        position: absolute;
+        top: 0;
+        right: $padding-base-horizontal;
     }
     .progress {
         height: 20px;
