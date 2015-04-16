@@ -46,7 +46,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
 
     // `$scope.request` is retrieved from the rootScope by inheritance
     if (!$scope.request.initialized) {
-        $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_ATTRIBUTED.id] = true;
+        $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_ATTRIBUTED.id] = false;
         $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_ACCEPTED.id] = true;
         $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_CERTIFIED.id] = true;
         $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_PUBLISHED.id] = true;
@@ -72,6 +72,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         count += stats.counts[Product.CERTIFICATION_STATUS_DEFAULT.id]
         count += stats.counts[Product.CERTIFICATION_STATUS_PUBLISHED.id]
         count += stats.counts[Product.CERTIFICATION_STATUS_REVIEWING.id]
+        count += stats.counts[Product.CERTIFICATION_STATUS_ATTRIBUTED.id]
 
         return count;
     };
@@ -107,6 +108,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         });
 
         modalInstance.result.then(function (selectedItem) {
+            selectedItem.claimInProgress = true;
         }, function () {
             $location.path('/maker/brand/' + $scope.product.isBrandedBy.id + '/product');
         });
@@ -129,6 +131,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     };
 
     $scope.toggleNewProducts = function () {
+        if (!$scope.newProductsLoaded) { return; }
         $scope.displayNewProducts = !$scope.displayNewProducts;
 
         $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_DEFAULT.id] = $scope.displayNewProducts;
@@ -136,7 +139,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_CERTIFIED.id] = !$scope.displayNewProducts;
         $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_PUBLISHED.id] = $scope.displayNewProducts;
         $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_REVIEWING.id] = $scope.displayNewProducts;
-        $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_ATTRIBUTED.id] = !$scope.displayNewProducts;
+        $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_ATTRIBUTED.id] = $scope.displayNewProducts;
         $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_DISCONTINUED.id] = false;
 
         refresh($scope.displayNewProducts);

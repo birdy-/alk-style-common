@@ -21,6 +21,10 @@
             @extend .color-stream;
         }
 
+        &.inactive {
+            cursor: default;
+        }
+
         .badge {
             background-color: $alk-red;
         }
