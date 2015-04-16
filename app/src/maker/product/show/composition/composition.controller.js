@@ -26,9 +26,17 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowComposi
         checkComposition($scope.product.composition);
     };
 
+    var initComposition = $scope.$watch('product.composition', function(newValue, oldValue){
+        if (newValue !== undefined) {
+            $scope.productForm.$setPristine();
+            initComposition();
+        }
+    });
+
     // ------------------------------------------------------------------------
     // Init
     // ------------------------------------------------------------------------
+
 
 
 }]);
