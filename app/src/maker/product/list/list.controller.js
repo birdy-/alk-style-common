@@ -155,7 +155,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         $scope.request.product.certified = getCertifiedStatus($scope.request.product.certifieds);
         if ($scope.request.product.isIdentifiedBy.reference) {
             return findByReference();
-        } else if ($scope.request.product.nameLegal) {
+        } else if ($scope.request.product.nameSmooth) {
             return findByName();
         } else {
             return findByBrand();
@@ -232,12 +232,12 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
             certified: $scope.request.product.certified
         };
         var queries = {
-            namesmooth: $scope.request.product.nameLegal
+            namesmooth: $scope.request.product.nameSmooth
         };
         $scope.request.busy = true;
         //Setting delay before effective search
         var timeout = $timeout(function(){
-            $log.log("Product List Controller : listing by name '" + queries.nameLegal + "' in " + brands);
+            $log.log("Product List Controller : listing by name '" + queries.namesmooth + "' in " + brands);
             find(queries,filters);
             currentFindByNameRequest=null
         },500);
@@ -348,10 +348,9 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
             refresh();
         }
     });
-    $scope.$watch('request.product.nameLegal', function(newVal, oldVal) {
-        if (oldVal !== newVal) {
-            refresh();
-        }
+
+      $scope.$watch('request.product.nameSmooth', function(newVal, oldVal) {
+        if (oldVal !== newVal) refresh();
     });
 
     $scope.$watch('request.product.certifieds', function(newVal, oldVal) {
