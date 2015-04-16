@@ -36,7 +36,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaCo
 
         $scope.downloadAllPictures = function () {
             $scope.downloadInProgress = true;
-            var zip = new JSZip();
+            var zip = new $window.JSZip();
             var allPicturesUrl = [];
             var allPicturesPromises = [];
 
@@ -45,7 +45,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaCo
                 allPicturesUrl.push(picture.uniformResourceIdentifier);
                 var picturePromise = $q.defer();
 
-                JSZipUtils.getBinaryContent(picture.uniformResourceIdentifier, function (err, data) {
+                $window.JSZipUtils.getBinaryContent(picture.uniformResourceIdentifier, function (err, data) {
                     if(err) {
                         $scope.$apply( function() {
                             picturePromise.reject(err);
@@ -63,7 +63,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaCo
             $q.all(allPicturesPromises)
             .then(function (results) {
                 var blob = zip.generate({type:"blob"});
-                var filename = $scope.product.isIdentifiedBy[0].reference + '.zip';
+                var filename = moment().format('YYYY-MM-DD') + '-' + $scope.product.isIdentifiedBy[0].reference + '.zip';
                 saveAs(blob, filename);
                 $scope.downloadInProgress = false;
             });
