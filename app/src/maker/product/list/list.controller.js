@@ -9,8 +9,8 @@
  * @return {[type]}               [description]
  */
 angular.module('jDashboardFluxApp').controller('DashboardMakerProductListController', [
-    '$rootScope', '$scope', '$$sdkCrud', '$$sdkAuth', 'permission', '$routeParams', '$$ORM', '$log', '$location', '$window', 'URL_CDN_MEDIA', '$modal',
-    function ($rootScope, $scope, $$sdkCrud, $$sdkAuth, permission, $routeParams, $$ORM, $log, $location, $window, URL_CDN_MEDIA, $modal) {
+    '$rootScope', '$scope', '$$sdkCrud', '$$sdkAuth', 'permission', '$routeParams', '$$ORM', '$log', '$location', '$window', 'URL_CDN_MEDIA', '$modal','$timeout',
+    function ($rootScope, $scope, $$sdkCrud, $$sdkAuth, permission, $routeParams, $$ORM, $log, $location, $window, URL_CDN_MEDIA, $modal,$timeout) {
 
     // ------------------------------------------------------------------------
     // Variables
@@ -34,6 +34,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     });
     $scope.request = $rootScope.navigation.maker.request;
     $scope.products = $scope.request.products || [];
+    $scope.totalProducts = 0;
     $scope.allBrands = [];
     $scope.brands = [];
     $scope.segmentIds = [];
@@ -43,6 +44,8 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         type: 'preview',
         allSelected: false
     };
+
+    var currentFindByNameRequest = null;
 
     // `$scope.request` is retrieved from the rootScope by inheritance
     if (!$scope.request.initialized) {
@@ -150,7 +153,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
             return findPendingProducts();
         }
         $scope.request.product.certified = getCertifiedStatus($scope.request.product.certifieds);
-
         if ($scope.request.product.isIdentifiedBy.reference) {
             return findByReference();
         } else if ($scope.request.product.nameLegal) {
@@ -165,7 +167,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
 
         var filters = {
             productsegment_id: $scope.rootProductSegment.id,
-            certified: $scope.request.product.certified,
+            certified: $scope.request.product.certified
         };
 
         return find({}, filters);
@@ -230,10 +232,21 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
             certified: $scope.request.product.certified
         };
         var queries = {
-            namelegal: $scope.request.product.nameLegal
+            namesmooth: $scope.request.product.nameLegal
         };
-        $log.log("Product List Controller : listing by name '" + queries.nameLegal + "' in " + brands);
-        return find(queries, filters);
+        $scope.request.busy = true;
+        //Setting delay before effective search
+        var timeout = $timeout(function(){
+            $log.log("Product List Controller : listing by name '" + queries.nameLegal + "' in " + brands);
+            find(queries,filters);
+            currentFindByNameRequest=null
+        },500);
+        //If another search was pending, cancel it
+        if(currentFindByNameRequest != null){
+            $timeout.cancel(currentFindByNameRequest);
+        }
+        currentFindByNameRequest = timeout;
+        return timeout;
     };
 
     var find = function (queries, filters) {
@@ -255,10 +268,11 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
                 }
                 $scope.products.push(product);
             }
-
+            $scope.totalProducts = response.totalResults;
             // $location.search('offset', $scope.request.offset);
             $scope.request.products = $scope.products;
             $scope.request.busy = false;
+
 
         }).error(function (response) {
             $window.alert("Erreur pendant la récupération des Produits.");
