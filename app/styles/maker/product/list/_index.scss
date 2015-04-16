@@ -1,12 +1,58 @@
 .products {
     border-top: 1px solid lightgray;
 
+    .product {
+        overflow: hidden;
+
+        .claim-wrapper {
+            position: relative;
+
+            .claim-information {
+                @extend .color-stream-inverse;
+
+                position: absolute;
+                top: 35px;
+                right: -50px;
+                z-index: 500;
+                @include rotate(45deg);
+
+                .claim-text {
+                    padding: 0 2*$padding-base-horizontal;
+                }
+            }
+        }
+
+        &.inactive {
+            .product-information * {
+                opacity: 0.6;
+                cursor: default;
+            }
+        }
+    }
+
     table {
         .picture, .name {
             display: inline;
         }
         .name {
             padding-left: 1em;
+        }
+
+        tr.inactive {
+            * {
+                cursor: default;
+            }
+
+            td {
+                &:not(.claim-in-progress) {
+                    opacity: 0.6;
+                }
+            }
+
+            .claim-text {
+                @extend .color-stream-inverse;
+                opacity: 1;
+            }
         }
     }
 }
@@ -15,6 +61,7 @@
     cursor: pointer;
     border-right: 1px solid lightgray;
     border-bottom: 1px solid lightgray;
+
     .name {
         height: 3em;
         overflow: hidden;

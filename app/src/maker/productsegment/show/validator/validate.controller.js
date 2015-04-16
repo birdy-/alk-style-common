@@ -58,7 +58,7 @@ angular.module('jDashboardFluxApp').controller('ProductSegmentValidatorControlle
     	}
     	$scope.display.selection = false;
     };
-    
+
     // Navigation
     $scope.prev = function () {
         $scope.request.offset = Math.max($scope.request.offset - $scope.request.limit, 0);
@@ -80,8 +80,8 @@ angular.module('jDashboardFluxApp').controller('ProductSegmentValidatorControlle
         });
     };
 
-    $scope.check = function (product) { 
-        if (typeof(product.isBrandedBy) === 'undefined' 
+    $scope.check = function (product) {
+        if (typeof(product.isBrandedBy) === 'undefined'
                 || product.isBrandedBy === null
                 || product.isBrandedBy === {}
                 || typeof(product.isBrandedBy.id) === 'undefined') {
@@ -107,7 +107,7 @@ angular.module('jDashboardFluxApp').controller('ProductSegmentValidatorControlle
             },
             function (response ) {
                 $window.alert('Product activation failed.');
-            });        
+            });
     };
 
     $scope.evict = function (product) {

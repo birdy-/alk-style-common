@@ -31,7 +31,7 @@ angular.module('jDashboardFluxApp').directive('brandRow', [
                     if (certified) {
                         $rootScope.navigation.maker.request.product.certifieds[Product.CERTIFICATION_STATUS_CERTIFIED.id] = true;
                     } else {
-                        $rootScope.navigation.maker.request.product.certifieds[Product.CERTIFICATION_STATUS_ATTRIBUTED.id] = true;
+                        $rootScope.navigation.maker.request.product.certifieds[Product.CERTIFICATION_STATUS_ATTRIBUTED.id] = false;
                         $rootScope.navigation.maker.request.product.certifieds[Product.CERTIFICATION_STATUS_ACCEPTED.id] = true;
                     }
 

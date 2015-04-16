@@ -10,6 +10,26 @@
 }
 
 .sidebar {
+    .new-products {
+        margin: 2*$padding-base-vertical 0;
+    }
+
+    .btn {
+        border: 1px solid white;
+
+        &.highlight, &:hover {
+            @extend .color-stream;
+        }
+
+        &.inactive {
+            cursor: default;
+        }
+
+        .badge {
+            background-color: $alk-red;
+        }
+    }
+
     .ratio {
         position: relative;
         width: 100%;
