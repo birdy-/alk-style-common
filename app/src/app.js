@@ -367,6 +367,11 @@ app.config(function ($routeProvider) {
         controller: 'OrganizationProfileShowController'
     });
 
+    $routeProvider.when('/organization/:id/admin/home', {
+        templateUrl: 'src/organization/admin/home/list.html',
+        controller: 'OrganizationAdminHomeListController'
+    });
+
     $routeProvider.when('/organization/:id/admin/users', {
         templateUrl: 'src/organization/admin/productsegment/permissions/edit.html',
         controller: 'OrganizationAdminProductSegmentPermissionsController'

@@ -1,0 +1,58 @@
+<div ng-include="'/src/maker/home/header.html'"></div>
+<div class="container-fluid admin">
+    <div class="row">
+    	<h1>
+    		Administration
+    		<small>Organisation</small>
+    	</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-6 box-tile">
+            <h2>{{ organization.nameLegal }}</h2>
+            <br/>
+            <p>{{ organization.description }}</p>
+            <h4>RCS</h4>
+            <p>{{  organization.identifierLegal }}</p>
+            <h4>Adresse: </h4>
+            <p>
+                 {{  organization.address }},
+                 {{  organization.postCode }}
+                 {{  organization.identifierCity }}
+            </p>
+            <div class="col-md-3"><a class="btn btn-default" ng-click="addUser()" role="button"><i class="fa fa-plus">Ajouter un utilisateur</i></a></div>
+            <div class="col-md-3"><a class="btn btn-default" ng-click="addSegment()" role="button"><i class="fa fa-plus">Ajouter un segment</i></a></div>
+            <div class="col-md-3"><a class="btn btn-default" ng-href="/#/organization/{{organizationId}}/admin/users" role="button">Gestion des segments</a></div>
+        </div>
+    </div>
+    <div class="col-md-6">
+    <section class="row" ng-show="productSegments.length">
+        <div class="col-md-4">
+            <h2>Segments</h2>
+            <p>
+                La liste des segments gérés par cette organisation.
+            </p>
+        </div>
+        <div class="col-md-8">
+            <div class="row">
+                <div ng-repeat="segment in productSegments">
+                    <div class="col-md-6 box-tile">
+                        <h3>{{ segment.name }}</h3>
+                        <div ng-repeat="query in segment.query track by $index">
+                            <p ng-if="query.filter_glns.length">GLN :
+                                <div ng-repeat="gln in query.filter_glns track by $index">
+                                    {{ gln }}
+                                </div>
+                            </p>
+                            <p ng-if="query.filter_brand_ids.length">Marques :
+                                <div ng-repeat="brandId in query.filter_brand_ids track by $index">
+                                    {{ brandid }}
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </div>
+</div>
