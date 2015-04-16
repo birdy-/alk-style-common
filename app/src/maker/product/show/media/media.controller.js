@@ -8,6 +8,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaCo
         // Variables
         // --------------------------------------------------------------------------------
         $scope.pictures = [];
+        $scope.downloadInProgress = false;
         $scope.availables = {
             1: true,
             2: false,
@@ -34,6 +35,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaCo
         };
 
         $scope.downloadAllPictures = function () {
+            $scope.downloadInProgress = true;
             var zip = new JSZip();
             var allPicturesUrl = [];
             var allPicturesPromises = [];
@@ -63,7 +65,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaCo
                 var blob = zip.generate({type:"blob"});
                 var filename = $scope.product.isIdentifiedBy[0].reference + '.zip';
                 saveAs(blob, filename);
-                // $window.location = "data:application/zip;base64," + zip.generate({type:"base64"});
+                $scope.downloadInProgress = false;
             });
         };
 
