@@ -26,7 +26,8 @@
                 </label>
             </div>
             <span class="btn btn-success arrow-prev" ng-class="{'disabled': request.offset <= 0}" ng-click="prev()"><i class="fa fa-arrow-left"></i></span>
-            <span class="pagination-text">{{ request.offset }} - {{ request.offset + products.length }} ({{ totalProducts }})</span>
+            <span class="pagination-text">{{request.currentPage}}/{{request.totalPages}} ({{request.totalProducts}} produits)</span>
+
             <span class="btn btn-success arrow-next" ng-class="{'disabled': request.limit !== products.length}" ng-click="next()">
                 <i class="fa fa-arrow-right"></i>
             </span>

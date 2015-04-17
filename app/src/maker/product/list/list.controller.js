@@ -34,7 +34,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     });
     $scope.request = $rootScope.navigation.maker.request;
     $scope.products = $scope.request.products || [];
-    $scope.totalProducts = 0;
     $scope.allBrands = [];
     $scope.brands = [];
     $scope.segmentIds = [];
@@ -268,10 +267,12 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
                 }
                 $scope.products.push(product);
             }
-            $scope.totalProducts = response.totalResults;
             // $location.search('offset', $scope.request.offset);
             $scope.request.products = $scope.products;
             $scope.request.busy = false;
+            $scope.request.totalProducts = response.totalResults;
+            $scope.request.currentPage = 1+($scope.request.offset/$scope.request.limit);
+            $scope.request.totalPages = Math.floor(1+(response.totalResults/$scope.request.limit));
 
 
         }).error(function (response) {
