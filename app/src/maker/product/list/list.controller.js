@@ -239,7 +239,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         var timeout = $timeout(function(){
             $log.log("Product List Controller : listing by name '" + queries.namesmooth + "' in " + brands);
             find(queries,filters);
-            currentFindByNameRequest=null
+            currentFindByNameRequest=null;
         },500);
         //If another search was pending, cancel it
         if(currentFindByNameRequest != null){
