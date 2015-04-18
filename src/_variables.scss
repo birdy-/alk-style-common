@@ -7,23 +7,7 @@
 // Global values
 // --------------------------------------------------
 
-// Grays
-// -------------------------
-
-$gray-darker:            lighten(#000, 13.5%) !default; // #222
-$gray-dark:              lighten(#000, 20%) !default;   // #333
-$gray:                   lighten(#000, 33.5%) !default; // #555
-$gray-light:             lighten(#000, 60%) !default;   // #999
-$gray-lighter:           lighten(#000, 93.5%) !default; // #eee
-
-// Brand colors
-// -------------------------
-
-$brand-primary:         #428bca !default;
-$brand-success:         #5cb85c !default;
-$brand-warning:         #f0ad4e !default;
-$brand-danger:          #d9534f !default;
-$brand-info:            #5bc0de !default;
+// See _colors for gray and brand variables
 
 // Scaffolding
 // -------------------------
@@ -351,9 +335,9 @@ $pagination-color:                     #000 !default;
 
 $pagination-hover-bg:                  $gray-lighter !default;
 
-$pagination-active-bg:                 #5eac25 !default;
+$pagination-active-bg:                 $alk-green !default;
 $pagination-active-color:              #fff !default;
-$pagination-active-border:             #5eac25 !default;
+$pagination-active-border:             $alk-green !default;
 
 $pagination-disabled-color:            $gray-light !default;
 

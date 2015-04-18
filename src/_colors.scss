@@ -2,9 +2,31 @@
 //                                         VARIABLES
 // =================================================================================================
 
-$brand-brillant: rgb(255, 255, 0);
-$brand-deprecated: rgb(165, 154, 103);
-$brand-stream: rgb(147, 122, 178);
+// Grays
+// -------------------------
+
+$gray-darker:            lighten(#000, 13.5%) !default; // #222
+$gray-dark:              lighten(#000, 20%) !default;   // #333
+$gray:                   lighten(#000, 33.5%) !default; // #555
+$gray-light:             lighten(#000, 60%) !default;   // #999
+$gray-lighter:           lighten(#000, 93.5%) !default; // #eee
+
+// Brand colors
+// -------------------------
+$brand-primary:         #428bca !default;
+$brand-success:         #5cb85c !default;
+$brand-warning:         #f0ad4e !default;
+$brand-danger:          #d9534f !default;
+$brand-info:            #5bc0de !default;
+$brand-brillant:        rgb(255, 255, 0);
+$brand-deprecated:      rgb(165, 154, 103);
+$brand-stream:          rgb(147, 122, 178);
+
+$brand-primary:         #428bca !default;
+$brand-success:         #5cb85c !default;
+$brand-warning:         #f0ad4e !default;
+$brand-danger:          #d9534f !default;
+$brand-info:            #5bc0de !default;
 
 $alk-red: rgb(227, 37, 34);
 $alk-green: rgb(94, 172, 37);
