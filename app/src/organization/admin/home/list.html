@@ -10,7 +10,18 @@
         <div class="row">
             <div class="col-sm-12 box-tile">
                 <div class="col-sm-12">
-                    <h2>{{ organization.nameLegal }}</h2>
+                    <h2>
+                        {{ organization.nameLegal }}
+
+                        <div class="pull-right">
+                            <a class="btn btn-default" ng-href="#/organization/{{ organizationId }}/profile">
+                                <i class="fa fa-edit"></i> Modifier
+                            </a>
+                        </div>
+                    </h2>
+
+                </div>
+                <div class="col-sm-12">
                     <br/>
                     <p>{{ organization.description }}</p>
                     <h4>RCS</h4>
