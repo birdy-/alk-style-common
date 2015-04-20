@@ -21,7 +21,7 @@
             <div alk-sdk-pagination
                     boundary-links="true"
                     direction-links="false"
-                    total-items="display.itemCount"
+                    total-items="request.totalProducts"
                     ng-model="display.page"
                     items-per-page="request.limit"
                     max-size="7"
@@ -32,7 +32,7 @@
                     first-text="&laquo;"
                     last-text="&raquo;">
             </div>
-            <span class="pagination-text">{{ request.offset }} - {{ request.offset + products.length }}</span>
+            <span class="pagination-text">({{request.totalProducts}} {{request.totalProducts > 1 ? 'produits' : 'produit'}} / {{request.totalPages}} {{ request.totalPages > 1 ? 'pages' : 'page'}})</span>
 
             <div class="btn-group change-display">
                 <label class="btn btn-success" ng-model="display.type" btn-radio="'preview'">
@@ -42,7 +42,6 @@
                     <i class="fa fa-th-list"></i>
                 </label>
             </div>
-
         </div>
     </div>
 
@@ -153,7 +152,7 @@
             <div alk-sdk-pagination
                     boundary-links="true"
                     direction-links="false"
-                    total-items="display.itemCount"
+                    total-items="request.totalProducts"
                     ng-model="display.page"
                     items-per-page="request.limit"
                     max-size="7"
@@ -164,7 +163,7 @@
                     first-text="&laquo;"
                     last-text="&raquo;">
             </div>
-            <span class="pagination-text">{{ request.offset }} - {{ request.offset + products.length }}</span>
+            <span class="pagination-text">({{request.totalProducts}} {{request.totalProducts > 1 ? 'produits' : 'produit'}} / {{request.totalPages}} {{ request.totalPages > 1 ? 'pages' : 'page'}})</span>
         </div>
     </div>
 </div>
