@@ -45,6 +45,8 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaCo
                 allPicturesUrl.push(picture.uniformResourceIdentifier);
                 var picturePromise = $q.defer();
 
+                picture.uniformResourceIdentifier = picture.uniformResourceIdentifier.replace(/https:\/\/smedia/, 'http://media');
+
                 $window.JSZipUtils.getBinaryContent(picture.uniformResourceIdentifier, function (err, data) {
                     if(err) {
                         $scope.$apply( function() {
