@@ -9,8 +9,8 @@
  * @return {[type]}               [description]
  */
 angular.module('jDashboardFluxApp').controller('DashboardMakerProductListController', [
-    '$rootScope', '$scope', '$$sdkCrud', '$$sdkAuth', 'permission', '$routeParams', '$$ORM', '$log', '$location', '$window', 'URL_CDN_MEDIA', '$modal',
-    function ($rootScope, $scope, $$sdkCrud, $$sdkAuth, permission, $routeParams, $$ORM, $log, $location, $window, URL_CDN_MEDIA, $modal) {
+    '$rootScope', '$scope', '$$sdkCrud', '$$sdkAuth', 'permission', '$routeParams', '$$ORM', '$log', '$location', '$window', 'URL_CDN_MEDIA', '$modal','$timeout',
+    function ($rootScope, $scope, $$sdkCrud, $$sdkAuth, permission, $routeParams, $$ORM, $log, $location, $window, URL_CDN_MEDIA, $modal,$timeout) {
 
     // ------------------------------------------------------------------------
     // Variables
@@ -43,6 +43,8 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         type: 'preview',
         allSelected: false
     };
+
+    var currentFindByNameRequest = null;
 
     // `$scope.request` is retrieved from the rootScope by inheritance
     if (!$scope.request.initialized) {
@@ -150,10 +152,9 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
             return findPendingProducts();
         }
         $scope.request.product.certified = getCertifiedStatus($scope.request.product.certifieds);
-
         if ($scope.request.product.isIdentifiedBy.reference) {
             return findByReference();
-        } else if ($scope.request.product.nameLegal) {
+        } else if ($scope.request.product.nameSmooth) {
             return findByName();
         } else {
             return findByBrand();
@@ -165,7 +166,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
 
         var filters = {
             productsegment_id: $scope.rootProductSegment.id,
-            certified: $scope.request.product.certified,
+            certified: $scope.request.product.certified
         };
 
         return find({}, filters);
@@ -230,10 +231,21 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
             certified: $scope.request.product.certified
         };
         var queries = {
-            namelegal: $scope.request.product.nameLegal
+            namesmooth: $scope.request.product.nameSmooth
         };
-        $log.log("Product List Controller : listing by name '" + queries.nameLegal + "' in " + brands);
-        return find(queries, filters);
+        $scope.request.busy = true;
+        //Setting delay before effective search
+        var timeout = $timeout(function(){
+            $log.log("Product List Controller : listing by name '" + queries.namesmooth + "' in " + brands);
+            find(queries,filters);
+            currentFindByNameRequest=null;
+        },500);
+        //If another search was pending, cancel it
+        if(currentFindByNameRequest != null){
+            $timeout.cancel(currentFindByNameRequest);
+        }
+        currentFindByNameRequest = timeout;
+        return timeout;
     };
 
     var find = function (queries, filters) {
@@ -255,10 +267,13 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
                 }
                 $scope.products.push(product);
             }
-
             // $location.search('offset', $scope.request.offset);
             $scope.request.products = $scope.products;
             $scope.request.busy = false;
+            $scope.request.totalProducts = response.totalResults;
+            $scope.request.currentPage = 1+($scope.request.offset/$scope.request.limit);
+            $scope.request.totalPages = Math.floor(1+(response.totalResults/$scope.request.limit));
+
 
         }).error(function (response) {
             $window.alert("Erreur pendant la récupération des Produits.");
@@ -334,10 +349,9 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
             refresh();
         }
     });
-    $scope.$watch('request.product.nameLegal', function(newVal, oldVal) {
-        if (oldVal !== newVal) {
-            refresh();
-        }
+
+      $scope.$watch('request.product.nameSmooth', function(newVal, oldVal) {
+        if (oldVal !== newVal) refresh();
     });
 
     $scope.$watch('request.product.certifieds', function(newVal, oldVal) {
