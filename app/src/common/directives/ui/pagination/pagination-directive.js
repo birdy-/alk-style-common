@@ -121,4 +121,4 @@ angular.module('jDashboardFluxApp')
   nextText: 'Next',
   lastText: 'Last',
   rotate: true
-})
+});
