@@ -93,6 +93,9 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
                 isIdentifiedBy: true
             }).then(function (entitys) {
                 $scope.productInShops = entitys;
+                $scope.request.totalProducts = entitys.totalResults;
+                $scope.request.currentPage = 1+($scope.request.offset/$scope.request.limit);
+                $scope.request.totalPages = Math.floor(1+(entitys.totalResults/$scope.request.limit));
             });
         };
         $scope.prev = function () {
