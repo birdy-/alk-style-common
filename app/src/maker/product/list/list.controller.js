@@ -289,13 +289,13 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     $scope.prev = function () {
         $scope.display.page = Math.max($scope.display.page - 1, 0);
         $scope.request.busy = true;
-        list()
+        list();
     };
 
     $scope.next = function () {
         $scope.display.page += 1;
         $scope.request.busy = true;
-        list()
+        list();
     };
 
     var refresh = function (displayNewProducts) {
@@ -304,7 +304,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         $scope.products = [];
         $scope.request.products = $scope.products;
         $scope.display.page = 1;
-        list()
+        list();
     };
 
     var propagate = function (brand, value) {
