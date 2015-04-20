@@ -103,6 +103,10 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
             $scope.request.offset = $scope.request.offset + $scope.request.limit;
             $scope.refresh();
         };
+        $scope.list = function () {
+            $scope.request.offset = 0;
+            $scope.refresh();
+        };
 
         $scope.isDeprecated = function (productInShop) {
             return productInShop.instantiates.certified === Product.CERTIFICATION_STATUS_DISCONTINUED.id;
