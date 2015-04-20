@@ -278,7 +278,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         ).success(function (response) {
             $scope.products = [];
             var product;
-            $scope.display.itemCount = response.totalResults;
             for (var i = 0; i < response.data.length; i ++) {
                 product = hydrateProduct(response.data[i]);
                 if ($scope.displayNewProducts) {
