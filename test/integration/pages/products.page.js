@@ -23,13 +23,33 @@ var ProductsPage = function () {
     return that.getPaginationBlocks().get(index);
   };
 
-  this.getPrevArrow = function () {
-    return element.all(by.css('.arrow-prev'));
-  };
+  this.getPaginators = function() {
+    return element.all(by.css('.pagination'));
+  }
 
-  this.getNextArrow = function () {
-    return element.all(by.css('.arrow-next'));
-  };
+  this.getPaginator = function(index) {
+    return element.all(by.css('.pagination')).get(index);
+  }
+
+  this.getPaginatorFirstPageArrow = function(paginatorIndex) {
+    return that.getPaginator(paginatorIndex).all(by.css('li')).first();
+  }
+
+  this.getPaginatorFirstPageArrowLink = function(paginatorIndex) {
+    return that.getPaginatorFirstPageArrow(paginatorIndex).element(by.css('a'));
+  }
+
+  this.getPaginatorLastPageArrow = function(paginatorIndex) {
+    return that.getPaginator(paginatorIndex).all(by.css('li')).last();
+  }
+
+  this.getPaginatorLastPageArrowLink = function(paginatorIndex) {
+    return that.getPaginatorLastPageArrow(paginatorIndex).element(by.css('a'));
+  }
+
+  this.getPaginatorPages = function(paginatorIndex) {
+    return that.getPaginator(paginatorIndex).all(by.repeater('page in pages'));
+  }
 
   // ------------------------------------------------------------------------
   // Display

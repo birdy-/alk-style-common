@@ -33,16 +33,13 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         });
     });
     $scope.request = $rootScope.navigation.maker.request;
+    $scope.display = $rootScope.navigation.maker.display;
     $scope.products = $scope.request.products || [];
     $scope.allBrands = [];
     $scope.brands = [];
     $scope.segmentIds = [];
     $scope.displayNewProducts = false;
     $scope.newProductsLoaded = false;
-    $scope.display = {
-        type: 'preview',
-        allSelected: false
-    };
 
     var currentFindByNameRequest = null;
 
@@ -58,8 +55,14 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         $scope.request.limit = 24;
         $scope.request.busy = false;
 
-        $scope.request.initialized = true;
+        $scope.request.initialized  = true;
+        $scope.display.type         = 'preview';
+        $scope.display.allSelected  = false;
+   } else {
+        // Check if the previous location was the product page
+        $scope.display.allSelected = false;
     }
+
     $scope.options = {
         'data-drag-enabled': false
     };
@@ -67,6 +70,16 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     // ------------------------------------------------------------------------
     // Helpers
     // ------------------------------------------------------------------------
+
+    var setPageFromUrl = function() {
+        var pageInRoute = Number($routeParams.page);
+        if ($routeParams.page !== undefined && pageInRoute > 1) {
+            $scope.display.page = pageInRoute;
+        } else {
+            $scope.display.page = 1;
+        }
+    }
+
 
     var getNewProductsCount = function (stats) {
         var count = null;
@@ -131,6 +144,10 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
             }
         });
     };
+
+    $scope.onPageChangeFromPaginator = function() {
+        list();
+    }
 
     $scope.toggleNewProducts = function () {
         if (!$scope.newProductsLoaded) { return; }
@@ -250,6 +267,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
 
     var find = function (queries, filters) {
         filters.productsegment_id = $scope.segmentIds.join(',');
+        $scope.request.offset = $scope.request.limit * ($scope.display.page - 1);
         $log.log("Product List Controller : listing [" + $scope.request.offset + "-" + ($scope.request.offset + $scope.request.limit) + "]" );
         $scope.request.busy = true;
 
@@ -267,28 +285,29 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
                 }
                 $scope.products.push(product);
             }
-            // $location.search('offset', $scope.request.offset);
-            $scope.request.products = $scope.products;
-            $scope.request.busy = false;
-            $scope.request.totalProducts = response.totalResults;
-            $scope.request.currentPage = 1+($scope.request.offset/$scope.request.limit);
-            $scope.request.totalPages = Math.floor(1+(response.totalResults/$scope.request.limit));
-
-
+            if ($scope.display.page > 1 && $scope.products.length == 0) {
+                $scope.display.page = 1;
+                find(queries,filters);
+            } else {
+                $scope.request.products = $scope.products;
+                $scope.request.busy = false;
+                $scope.request.totalProducts = response.totalResults;
+                $scope.request.totalPages = Math.floor(1+(response.totalResults/$scope.request.limit));
+            }
         }).error(function (response) {
             $window.alert("Erreur pendant la récupération des Produits.");
         });
     };
 
     $scope.prev = function () {
+        $scope.display.page = Math.max($scope.display.page - 1, 0);
         $scope.request.busy = true;
-        $scope.request.offset = Math.max($scope.request.offset - $scope.request.limit, 0);
         list();
     };
 
     $scope.next = function () {
+        $scope.display.page += 1;
         $scope.request.busy = true;
-        $scope.request.offset = $scope.request.offset + $scope.request.limit;
         list();
     };
 
@@ -297,7 +316,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         $log.log("Product List Controller : refresh <Products>.");
         $scope.products = [];
         $scope.request.products = $scope.products;
-        $scope.request.offset = 0;
+        $scope.display.page = 1;
         list();
     };
 
@@ -342,6 +361,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
             return;
         }
         $location.path('/maker/product/' + product.isIdentifiedBy[0].reference + '/data/general');
+        $location.search('page', null)
     };
 
     $scope.$watch('request.product.isIdentifiedBy.reference', function(newVal, oldVal) {
@@ -430,10 +450,26 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         });
     });
 
-    $scope.$watch('display.type', function () {
-        $scope.request.offset = 0;
-        $scope.request.limit = $scope.display.type === 'preview' ? 24 : 50;
-        list();
+    $scope.$watch('display.type', function (newVal, oldVal) {
+        if (oldVal != newVal) {
+            $scope.display.page = 1;
+            $scope.request.limit = $scope.display.type === 'preview' ? 24 : 50;
+            list();
+        }
+    });
+
+    $scope.$watch('display.page', function(newVal, oldVal) {
+        if (oldVal != newVal) {
+            $location.search("page", newVal);
+        }
+    });
+
+    $scope.$on('$routeUpdate',function(e) {
+        var oldPage = $scope.display.page;
+        setPageFromUrl();
+        if (oldPage != $scope.display.page) {
+            list();
+        }
     });
 
     // ------------------------------------------------------------------------
@@ -499,12 +535,12 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
                     return segment.id;
                 });
             }
-
+            setPageFromUrl();
             list();
             return;
         });
     };
-
+    
     var hydrateProduct = function (data) {
         var product = new Product().fromJson(data);
         product.urlPictureOriginal = URL_CDN_MEDIA + '/product/' + product.id + '/picture/packshot/256x256.png?' + Math.random() * 100000000;

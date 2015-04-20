@@ -16,7 +16,24 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-4 col-sm-offset-4 text-right">
+        <div class="col-sm-6 col-sm-offset-2 text-right">
+
+            <div alk-sdk-pagination
+                    boundary-links="true"
+                    direction-links="false"
+                    total-items="request.totalProducts"
+                    ng-model="display.page"
+                    items-per-page="request.limit"
+                    max-size="7"
+                    ng-change="onPageChangeFromPaginator()"
+                    rotate="true"
+                    previous-text="&lsaquo;"
+                    next-text="&rsaquo;"
+                    first-text="&laquo;"
+                    last-text="&raquo;">
+            </div>
+            <span class="pagination-text">({{request.totalProducts}} {{request.totalProducts > 1 ? 'produits' : 'produit'}} / {{request.totalPages}} {{ request.totalPages > 1 ? 'pages' : 'page'}})</span>
+
             <div class="btn-group change-display">
                 <label class="btn btn-success" ng-model="display.type" btn-radio="'preview'">
                     <i class="fa fa-th-large"></i>
@@ -25,12 +42,6 @@
                     <i class="fa fa-th-list"></i>
                 </label>
             </div>
-            <span class="btn btn-success arrow-prev" ng-class="{'disabled': request.offset <= 0}" ng-click="prev()"><i class="fa fa-arrow-left"></i></span>
-            <span class="pagination-text">{{request.currentPage}}/{{request.totalPages}} ({{request.totalProducts}} produits)</span>
-
-            <span class="btn btn-success arrow-next" ng-class="{'disabled': request.limit !== products.length}" ng-click="next()">
-                <i class="fa fa-arrow-right"></i>
-            </span>
         </div>
     </div>
 
@@ -138,12 +149,21 @@
     </div>
     <div class="row" ng-hide="products.length == 0 || request.busy">
         <div class="col-sm-4 col-sm-offset-8 text-right pagination-block">
-            <span class="btn btn-success arrow-prev" ng-class="{'disabled': request.offset <= 0}" ng-click="prev()"><i class="fa fa-arrow-left"></i></span>
-            <span class="pagination-text">{{request.currentPage}}/{{request.totalPages}} ({{request.totalProducts}} produits)</span>
-            <span class="btn btn-success arrow-next" ng-class="{'disabled': request.limit !== products.length}" ng-click="next()">
-                <i class="fa fa-arrow-right"></i>
-            </span>
+            <div alk-sdk-pagination
+                    boundary-links="true"
+                    direction-links="false"
+                    total-items="request.totalProducts"
+                    ng-model="display.page"
+                    items-per-page="request.limit"
+                    max-size="7"
+                    ng-change="onPageChangeFromPaginator()"
+                    rotate="true"
+                    previous-text="&lsaquo;"
+                    next-text="&rsaquo;"
+                    first-text="&laquo;"
+                    last-text="&raquo;">
+            </div>
+            <span class="pagination-text">({{request.totalProducts}} {{request.totalProducts > 1 ? 'produits' : 'produit'}} / {{request.totalPages}} {{ request.totalPages > 1 ? 'pages' : 'page'}})</span>
         </div>
     </div>
 </div>
-
