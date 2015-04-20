@@ -137,7 +137,7 @@
             <span class="btn btn-success" ng-click="prev()" ng-if="request.offset > 0">
                 <i class="fa fa-arrow-left"></i>
             </span>
-            {{ request.offset }} - {{ request.offset + productInShops.length }}
+            {{request.currentPage}}/{{request.totalPages}} ({{request.totalProducts}} produits)
             <span class="btn btn-success" ng-click="next()" ng-if="request.limit === productInShops.length">
                 <i class="fa fa-arrow-right"></i>
             </span>
@@ -208,7 +208,7 @@
             <span class="btn btn-success" ng-click="prev()" ng-if="request.offset > 0">
                 <i class="fa fa-arrow-left"></i>
             </span>
-            {{ request.offset }} - {{ request.offset + productInShops.length }}
+          {{request.currentPage}}/{{request.totalPages}} ({{request.totalProducts}} produits)
             <span class="btn btn-success" ng-click="next()" ng-if="request.limit === productInShops.length">
                 <i class="fa fa-arrow-right"></i>
             </span>
