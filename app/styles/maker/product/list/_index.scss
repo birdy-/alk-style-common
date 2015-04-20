@@ -107,6 +107,11 @@
 .pagination-block {
     padding: 1em 0;
 
+    .pagination {
+        margin:0;
+        vertical-align: middle;
+    }
+
     .pagination-text {
         padding: 0 1em;
     }
