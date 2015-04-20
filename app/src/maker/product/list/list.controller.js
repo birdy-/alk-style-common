@@ -78,7 +78,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         } else {
             $scope.display.page = 1;
         }
-    }
+    };
 
 
     var getNewProductsCount = function (stats) {
@@ -147,7 +147,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
 
     $scope.onPageChangeFromPaginator = function() {
         list();
-    }
+    };
 
     $scope.toggleNewProducts = function () {
         if (!$scope.newProductsLoaded) { return; }
@@ -278,7 +278,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         ).success(function (response) {
             $scope.products = [];
             var product;
-            for (var i = 0; i < response.data.length; i ++) {
+            for (var i = 0; i < response.data.length; i++) {
                 product = hydrateProduct(response.data[i]);
                 if ($scope.displayNewProducts) {
                     $$sdkAuth.UserClaimProductReferenceList({}, {reference: product.isIdentifiedBy[0].reference}).then(attachClaimStatus);
