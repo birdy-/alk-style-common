@@ -94,18 +94,18 @@
                 <div class="col-sm-2">
                     <input style="width: 100%;" type="text" class="form-control" placeholder="ex : 483674" id="shortIdOut"
                            ng-model="request.productInShop.shortIdOut"
-                           ng-change="refresh()"/>
+                           ng-change="list()"/>
                 </div>
                 <div class="col-sm-2">
                     <input style="width: 100%;" type="text" class="form-control" placeholder="ex : 3779000283272" id="reference"
                            ng-model="request.productReference.reference"
-                           ng-change="refresh()"/>
+                           ng-change="list()"/>
                 </div>
                 <div class="col-sm-2">
                     <span alk-model-product-certified-select
                           placeholder="Tous" id="certified"
                           ng-model="request.product.certified"
-                          ng-change="refresh()">
+                          ng-change="list()">
                     </span>
                 </div>
                 <div class="col-sm-3">
@@ -121,10 +121,10 @@
                 <div class="col-sm-2">
                     <input style="width: 100%;" type="text" class="form-control" placeholder="Nom du produit"
                            ng-model="request.productInShop.name"
-                           ng-change="refresh()"/>
+                           ng-change="list()"/>
                 </div>
                 <div class="col-sm-1 text-right">
-                    <span class="btn btn-success btn-block btn-search" ng-click="refresh()"><i class="fa fa-search"></i></span>
+                    <span class="btn btn-success btn-block btn-search" ng-click="list()"><i class="fa fa-search"></i></span>
                 </div>
             </form>
         </div>
