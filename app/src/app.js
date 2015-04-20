@@ -115,12 +115,14 @@ app.config(function ($routeProvider) {
     // Product views
     $routeProvider.when('/maker/brand/all/product', {
         templateUrl: 'src/maker/product/list/index.html',
-        controller: 'DashboardMakerProductListController'
+        controller: 'DashboardMakerProductListController',
+        reloadOnSearch: false
     });
     $routeProvider.when('/maker/brand/:id/product', {
         templateUrl: 'src/maker/product/list/index.html',
         controller: 'DashboardMakerProductListController',
-        parameter: {id: 'integer'}
+        parameter: {id: 'integer'},
+        reloadOnSearch: false
     });
     $routeProvider.when('/maker/product/:productReference_reference/data', {
         templateUrl: 'src/maker/product/show/general/general.html',
@@ -444,6 +446,10 @@ app.run([
                         }
                     },
                     initialized: false
+                },
+                display: {
+                    type: 'preview',
+                    allSelected: false
                 }
             }
         };

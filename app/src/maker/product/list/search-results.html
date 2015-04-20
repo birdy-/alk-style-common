@@ -16,7 +16,24 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-4 col-sm-offset-4 text-right">
+        <div class="col-sm-6 col-sm-offset-2 text-right">
+
+            <div alk-sdk-pagination
+                    boundary-links="true"
+                    direction-links="false"
+                    total-items="display.itemCount"
+                    ng-model="display.page"
+                    items-per-page="request.limit"
+                    max-size="7"
+                    ng-change="onPageChangeFromPaginator()"
+                    rotate="true"
+                    previous-text="&lsaquo;"
+                    next-text="&rsaquo;"
+                    first-text="&laquo;"
+                    last-text="&raquo;">
+            </div>
+            <span class="pagination-text">{{ request.offset }} - {{ request.offset + products.length }}</span>
+
             <div class="btn-group change-display">
                 <label class="btn btn-success" ng-model="display.type" btn-radio="'preview'">
                     <i class="fa fa-th-large"></i>
@@ -25,11 +42,7 @@
                     <i class="fa fa-th-list"></i>
                 </label>
             </div>
-            <span class="btn btn-success arrow-prev" ng-class="{'disabled': request.offset <= 0}" ng-click="prev()"><i class="fa fa-arrow-left"></i></span>
-            <span class="pagination-text">{{ request.offset }} - {{ request.offset + products.length }}</span>
-            <span class="btn btn-success arrow-next" ng-class="{'disabled': request.limit !== products.length}" ng-click="next()">
-                <i class="fa fa-arrow-right"></i>
-            </span>
+
         </div>
     </div>
 
@@ -137,12 +150,21 @@
     </div>
     <div class="row" ng-hide="products.length == 0 || request.busy">
         <div class="col-sm-4 col-sm-offset-8 text-right pagination-block">
-            <span class="btn btn-success arrow-prev" ng-class="{'disabled': request.offset <= 0}" ng-click="prev()"><i class="fa fa-arrow-left"></i></span>
+            <div alk-sdk-pagination
+                    boundary-links="true"
+                    direction-links="false"
+                    total-items="display.itemCount"
+                    ng-model="display.page"
+                    items-per-page="request.limit"
+                    max-size="7"
+                    ng-change="onPageChangeFromPaginator()"
+                    rotate="true"
+                    previous-text="&lsaquo;"
+                    next-text="&rsaquo;"
+                    first-text="&laquo;"
+                    last-text="&raquo;">
+            </div>
             <span class="pagination-text">{{ request.offset }} - {{ request.offset + products.length }}</span>
-            <span class="btn btn-success arrow-next" ng-class="{'disabled': request.limit !== products.length}" ng-click="next()">
-                <i class="fa fa-arrow-right"></i>
-            </span>
         </div>
     </div>
 </div>
-
