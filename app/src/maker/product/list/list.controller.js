@@ -40,6 +40,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     $scope.segmentIds = [];
     $scope.displayNewProducts = false;
     $scope.newProductsLoaded = false;
+    $scope.currentPage  = 1;
 
     var currentFindByNameRequest = null;
 
@@ -292,23 +293,11 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
                 $scope.request.products = $scope.products;
                 $scope.request.busy = false;
                 $scope.request.totalProducts = response.totalResults;
-                $scope.request.totalPages = Math.floor(1+(response.totalResults/$scope.request.limit));
+                $scope.request.totalPages = Math.floor(1 + (response.totalResults / $scope.request.limit));
             }
         }).error(function (response) {
             $window.alert("Erreur pendant la récupération des Produits.");
         });
-    };
-
-    $scope.prev = function () {
-        $scope.display.page = Math.max($scope.display.page - 1, 0);
-        $scope.request.busy = true;
-        list();
-    };
-
-    $scope.next = function () {
-        $scope.display.page += 1;
-        $scope.request.busy = true;
-        list();
     };
 
     var refresh = function (displayNewProducts) {
