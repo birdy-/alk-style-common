@@ -27,12 +27,10 @@
                     max-size="7"
                     ng-change="onPageChangeFromPaginator()"
                     rotate="true"
-                    previous-text="&lsaquo;"
-                    next-text="&rsaquo;"
                     first-text="&laquo;"
                     last-text="&raquo;">
             </div>
-            <span class="pagination-text">({{request.totalProducts}} {{request.totalProducts > 1 ? 'produits' : 'produit'}} / {{request.totalPages}} {{ request.totalPages > 1 ? 'pages' : 'page'}})</span>
+            <span class="pagination-text">{{request.totalProducts}} {{request.totalProducts > 1 ? 'produits' : 'produit'}} / {{request.totalPages}} {{ request.totalPages > 1 ? 'pages' : 'page'}}</span>
 
             <div class="btn-group change-display">
                 <label class="btn btn-success" ng-model="display.type" btn-radio="'preview'">
@@ -158,12 +156,10 @@
                     max-size="7"
                     ng-change="onPageChangeFromPaginator()"
                     rotate="true"
-                    previous-text="&lsaquo;"
-                    next-text="&rsaquo;"
                     first-text="&laquo;"
                     last-text="&raquo;">
             </div>
-            <span class="pagination-text">({{request.totalProducts}} {{request.totalProducts > 1 ? 'produits' : 'produit'}} / {{request.totalPages}} {{ request.totalPages > 1 ? 'pages' : 'page'}})</span>
+            <span class="pagination-text">{{request.totalProducts}} {{request.totalProducts > 1 ? 'produits' : 'produit'}} / {{request.totalPages}} {{ request.totalPages > 1 ? 'pages' : 'page'}}</span>
         </div>
     </div>
 </div>

@@ -1,6 +1,6 @@
 <div ng-include="'/src/retailer/home/header.html'"></div>
 
-<div class="container">
+<div class="container product-in-shop-segment">
     <h1>Mes fournisseurs</h1>
 
     <br/>
@@ -37,21 +37,29 @@
         </div>
     </div>
 
-
     <br/>
     <div class="row">
-        <div class="col-sm-4 col-sm-offset-8 text-right">
-            <span class="btn btn-success" ng-click="prev()" ng-if="request.offset > 0">
-                <i class="fa fa-arrow-left"></i>
-            </span>
-            {{ request.offset }} - {{ request.offset + productInShopSegments.length }}
-            <span class="btn btn-success" ng-click="next()" ng-if="request.limit === productInShopSegments.length">
-                <i class="fa fa-arrow-right"></i>
+        <div class="col-sm-offset-3 col-sm-6 text-center pagination-block">
+            <div alk-sdk-pagination
+                boundary-links="true"
+                direction-links="false"
+                total-items="request.totalProductSegments"
+                ng-model="currentPage"
+                items-per-page="request.limit"
+                max-size="10"
+                ng-change="onPageChangeFromPaginator()"
+                rotate="true"
+                first-text="&laquo;"
+                last-text="&raquo;">
+            </div>
+        </div>
+        <div class="col-sm-3 text-right pagination-block">
+            <span class="pagination-text ">
+                {{ request.totalProductSegments }} {{ request.totalProductSegments > 1 ? 'segments' : 'segment' }} / {{ request.totalPages }} {{ request.totalPages > 1 ? 'pages' : 'page' }}
             </span>
         </div>
     </div>
 
-    <br/>
     <div class="row">
         <div class="col-sm-12">
             <table class="table table-bordered">
@@ -87,13 +95,23 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-2 col-sm-offset-10 text-right">
-            <span class="btn btn-success" ng-click="prev()" ng-if="request.offset > 0">
-                <i class="fa fa-arrow-left"></i>
-            </span>
-            {{ request.offset }} - {{ request.offset + productInShopSegments.length }}
-            <span class="btn btn-success" ng-click="next()" ng-if="request.limit === productInShopSegments.length">
-                <i class="fa fa-arrow-right"></i>
+        <div class="col-sm-offset-3 col-sm-6 text-center pagination-block">
+            <div alk-sdk-pagination
+                boundary-links="true"
+                direction-links="false"
+                total-items="request.totalProductSegments"
+                ng-model="currentPage"
+                items-per-page="request.limit"
+                max-size="10"
+                ng-change="onPageChangeFromPaginator()"
+                rotate="true"
+                first-text="&laquo;"
+                last-text="&raquo;">
+            </div>
+        </div>
+        <div class="col-sm-3 text-right pagination-block">
+            <span class="pagination-text ">
+                {{ request.totalProductSegments }} {{ request.totalProductSegments > 1 ? 'segments' : 'segment' }} / {{ request.totalPages }} {{ request.totalPages > 1 ? 'pages' : 'page' }}
             </span>
         </div>
     </div>

@@ -42,9 +42,14 @@ var abstractRepository = function (Model, $$sdk, $$cacheManager, $q, cache, hydr
         return $$sdk[modelName + 'List'](
             queries, filters, sorts, offset, limit, withs
         ).then(function (response) {
-            return response.data.data.map(function (json){
+            var toReturn = response.data.data.map(function (json){
                 return hydrate(json);
             });
+            //If field available in JSON, adding totalResults as a property to the array. Everything is fine, don't worry.
+            if(typeof response.data.totalResults !== 'undefined') {
+              toReturn.totalResults = response.data.totalResults;
+            }
+            return toReturn;
         });
     };
     var update = function (entity) {

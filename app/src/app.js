@@ -297,11 +297,13 @@ app.config(function ($routeProvider) {
     });
     $routeProvider.when('/retailer/productinshop', {
         templateUrl: 'src/retailer/productinshop/list.html',
-        controller: 'RetailerProductInShopListController'
+        controller: 'RetailerProductInShopListController',
+        reloadOnSearch: false
     });
     $routeProvider.when('/retailer/productinshopsegment', {
         templateUrl: 'src/retailer/productinshopsegment/list.html',
-        controller: 'RetailerProductInShopSegmentListController'
+        controller: 'RetailerProductInShopSegmentListController',
+        reloadOnSearch: false
     });
 
 
