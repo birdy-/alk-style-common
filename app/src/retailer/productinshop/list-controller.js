@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').controller('RetailerProductInShopListController', [
-    'permission', '$scope', '$$sdkCrud', '$modal', '$log', '$$ORM', '$routeParams',
-    function (permission, $scope, $$sdkCrud, $modal, $log, $$ORM, $routeParams) {
+    'permission', '$scope', '$rootScope', '$$sdkCrud', '$location', '$modal', '$log', '$$ORM', '$routeParams',
+    function (permission, $scope, $rootScope, $$sdkCrud, $location, $modal, $log, $$ORM, $routeParams) {
 
         // ------------------------------------------------------------------------
         // Variables
@@ -13,7 +13,9 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
             },
             stats: {},
             offset: 0,
-            limit: 50
+            limit: 50,
+            totalProducts: 0,
+            totalPages: 0
         };
         $scope.restrict = {};
         $scope.stats = {
@@ -24,11 +26,24 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
         };
         $scope.productInShops = [];
         $scope.segment = null;
+
         $scope.allSelected = null;
+
+        $scope.currentPage  = 1;
 
         // ------------------------------------------------------------------------
         // Event handling
         // ------------------------------------------------------------------------
+
+        var setPageFromUrl = function() {
+            var pageInRoute = Number($routeParams.page);
+            if ($routeParams.page !== undefined && pageInRoute > 1) {
+                $scope.currentPage = pageInRoute;
+            } else {
+                $scope.currentPage = 1;
+            }
+        };
+
         /**
          * Find the ProductInShopSegment that is used for active products
          */
@@ -80,6 +95,7 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
 
         $scope.refresh = function () {
             $scope.allSelected = false;
+            $scope.request.offset = ($scope.currentPage - 1) * $scope.request.limit;
 
             $$ORM.repository('ProductInShop').list({
                 name: $scope.request.productInShop.name
@@ -91,21 +107,27 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
                 shop_shortId: $scope.request.shop.shortId
             }, {}, $scope.request.offset, $scope.request.limit, {
                 isIdentifiedBy: true
-            }).then(function (entitys) {
-                $scope.productInShops = entitys;
-                $scope.request.totalProducts = entitys.totalResults;
-                $scope.request.currentPage = 1+($scope.request.offset/$scope.request.limit);
-                $scope.request.totalPages = Math.floor(1+(entitys.totalResults/$scope.request.limit));
+            }).then(function (entities) {
+                if (entities.length == 0 && $scope.currentPage > 1) {
+                    $scope.currentPage = 1;
+                    $scope.refresh();
+                } else {
+                    $scope.request.totalProducts = entities.totalResults;
+                    $scope.request.totalPages = Math.floor(1 + (entities.totalResults / $scope.request.limit));
+                    $scope.productInShops = entities;
+                }
             });
         };
-        $scope.prev = function () {
-            $scope.request.offset = Math.max(0, $scope.request.offset - $scope.request.limit);
+
+        /**
+         * Triggered when the user change the page from the paginator
+         */
+
+        $scope.onPageChangeFromPaginator = function() {
             $scope.refresh();
         };
-        $scope.next = function () {
-            $scope.request.offset = $scope.request.offset + $scope.request.limit;
-            $scope.refresh();
-        };
+
+
         $scope.list = function () {
             $scope.request.offset = 0;
             $scope.refresh();
@@ -242,6 +264,27 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
             })
         });
 
+        /* Automatically update route params if the current page change */
+        $scope.$watch('currentPage', function(newVal, oldVal) {
+            if (oldVal != newVal) {
+                $location.search("page", newVal);
+            }
+        });
+
+        /*
+         * Handle browser back/next calls
+         * reloadOnSearch on this page have been set to false involving
+         * that it won't reload the page, that's why we have to check
+         * manually the new route parameters
+         */
+        $scope.$on('$routeUpdate',function(e) {
+            var oldPage = $scope.currentPage;
+            setPageFromUrl();
+            if (oldPage != $scope.currentPage) {
+                $scope.list();
+            }
+        });
+
         var initFilters = function () {
             $scope.request.productInShop = {
                 name: null,
@@ -259,6 +302,7 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
 
         permission.getUser().then(function (user) {
             initFilters();
+            setPageFromUrl();
             $scope.user = user;
             var shopId = user.managesShop.map(function (shop) {
                 return shop.id;
