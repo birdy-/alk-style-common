@@ -15,7 +15,7 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
             offset: 0,
             limit: 50,
             totalProducts: 0,
-            totalPages: 12
+            totalPages: 0
         };
         $scope.restrict = {};
         $scope.stats = {
