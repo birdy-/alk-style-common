@@ -106,12 +106,17 @@ angular.module('jDashboardFluxApp').service('permission', [
         return isAdmin;
     };
 
+    var isRetailer = function () {
+        return !!user && user.managesShop.length > 0;
+    };
+
     return {
         reset: reset,
         getUser: getUser,
         login: login,
         logout: logout,
         getAccessToken: getAccessToken,
-        isAdmin: isAdmin
+        isAdmin: isAdmin,
+        isRetailer: isRetailer
     };
 }]);

@@ -115,6 +115,7 @@ angular.module('jDashboardFluxApp').controller('UserProfileShowController', [
             $$ORM.repository('Website').get(entity.id);
         });
         $scope.user = user;
+        $scope.isRetailer = permission.isRetailer();
     };
     var refresh = function() {
         if ($routeParams.id) {
