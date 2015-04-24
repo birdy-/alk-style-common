@@ -122,7 +122,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowControl
             withs.isSubstitutableWith = true;
             withs.isComplementaryWith = true;
         } else if ($location.path().indexOf('preview-retailer') !== -1) {
-            withs.productinshops = true;
+            withs.isInstantiatedBy = true;
         }
         // Actually perform the call
         $$sdkCrud.ProductShow(productId, withs).then(function(response){
