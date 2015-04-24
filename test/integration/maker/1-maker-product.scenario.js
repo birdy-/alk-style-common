@@ -18,9 +18,9 @@ describe('[Dashboard Maker] Product page', function () {
         .toEqual(browser.params.website.url + 'maker/product/' + browser.params.productId + '/data/general');
     });
 
-    it('should have 9 navigation tabs', function () {
+    it('should have 10 navigation tabs', function () {
         expect(productPage.getNavTabs().count())
-        .toEqual(9); //; Set to 9 while the retail tab is not functional
+        .toEqual(10); //; Set to 10 while the retail tab is not functional
     });
 
     // -------------------------
