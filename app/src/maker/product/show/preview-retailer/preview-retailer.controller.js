@@ -11,8 +11,6 @@ angular.module('jDashboardFluxApp')
 
         var extractShortIdOut = function (shopsMap) {
             _.map($scope.product.isInstantiatedBy, function (pish) {
-                console.log(pish);
-                console.log(pish.isSoldBy.id);
                 if (typeof shopsMap[pish.isSoldBy.id] !== 'undefined') {
                     shopsMap[pish.isSoldBy.id] = pish;
                 }
