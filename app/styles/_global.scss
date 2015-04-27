@@ -46,8 +46,10 @@ body {
     padding-top: $navbar-height;
     padding-bottom: 0px;
 
-    .badge {
-        background-color: white;
+    .sidebar {
+        .badge {
+            background-color: white;
+        }
     }
 }
 
