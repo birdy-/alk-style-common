@@ -12,8 +12,11 @@
         <h4>Auchan Drive</h4>
     </div>
     <div class="col-xs-12">
-        <div class="product-preview-auchandrive-wrapper">
+        <div ng-show="shopsMap[1]" class="product-preview-auchandrive-wrapper">
             <div class="product-preview-auchandrive"></div>
+        </div>
+        <div ng-show="!shopsMap[1]" class="product-preview-auchandrive-wrapper">
+            <div class="product-preview-auchandrive">Ce produit n'est pas référencé chez Auchandrive.</div>
         </div>
     </div>
 </div>
