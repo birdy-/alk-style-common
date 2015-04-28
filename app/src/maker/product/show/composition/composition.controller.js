@@ -33,6 +33,12 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowComposi
         }
     });
 
+    var initCompositionBr = $scope.$watch('product.composition', function(newValue, oldValue){
+        if (newValue !== undefined && typeof oldValue === 'string') {
+            $scope.product.composition = $scope.product.composition.replace(/#/g, '<br/>');
+            initCompositionBr();
+        }
+    });
     // ------------------------------------------------------------------------
     // Init
     // ------------------------------------------------------------------------
