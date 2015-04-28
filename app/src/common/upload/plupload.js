@@ -41,7 +41,7 @@ angular.module('jDashboardFluxApp').directive('alkPlUpload', [
                     flash_swf_url : 'bower_components/plupload/js/Moxie.swf',
                     filters : {
                       mime_types: [
-                        {title : "Image files", extensions : "jpg,jpeg,png,gif,tif"},
+                        {title : "Image files", extensions : "jpg,jpeg,png,gif,tif,tiff"},
                         {title : "Flash files", extensions : "swf"}
                       ]
                     },
