@@ -62,17 +62,11 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
     $scope.organizationId = Number($routeParams.id);
     $$ORM.repository('Organization').get($scope.organizationId).then(function (entity) {
         $scope.organization = entity;
-        loadSegments();
+    });
+    $$ORM.repository('ProductSegment').list({organization_id: $scope.organizationId}, {}, {}, 0, 100).then(function (segments) {
+        $scope.productSegments = segments;
     });
 
-    var loadSegments = function () {
-        var productSegmentIds = $scope.organization.ownsProductSegment.map(function (productSegment) {
-            return productSegment.id;
-        });
-        $$ORM.repository('ProductSegment').list({organization_id: $scope.organizationId}, {filter_id_in: productSegmentIds}, {}, 0, 100).then(function (segments) {
-            $scope.productSegments = segments;
-        });
-    };
 
     var init = function () {
         permission.getUser().then(function(user) {
@@ -82,7 +76,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
                     className: 'danger',
                     content: "Vous n'êtes pas administrateur pour cette organisation !",
                     timeout: 3000
-                    });
+                });
                 $location.path("/user/me/profile");
             }
         });

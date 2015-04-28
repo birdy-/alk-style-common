@@ -17,30 +17,18 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     // ------------------------------------------------------------------------
     $scope.user = {};
     $scope.productModel = Product;
-    permission.getUser().then(function (user) {
-        var organizationId = user.belongsTo[0].id;
-        $scope.user = user;
-        $scope.isAdmin = permission.isAdmin(organizationId);
-        $$ORM.repository('Organization').get(organizationId).then(function (organization) {
-            var productSegmentRoot = Organization.getProductSegmentRoot(organization);
-            $$ORM.repository('ProductSegment').get(productSegmentRoot.id).then(function (segment) {
-                $$ORM.repository('ProductSegment').method('Stats')(productSegmentRoot.id).then(function (stats) {
-                    $scope.rootProductSegment = segment;
-                    $scope.newProductsCount = getNewProductsCount(stats[0]);
-                    $scope.newProductsLoaded = true;
-                });
-            });
-        });
-    });
     $scope.request = $rootScope.navigation.maker.request;
     $scope.display = $rootScope.navigation.maker.display;
     $scope.products = $scope.request.products || [];
     $scope.allBrands = [];
     $scope.brands = [];
     $scope.segmentIds = [];
+    $scope.newProductsCount = 0;
     $scope.displayNewProducts = false;
     $scope.newProductsLoaded = false;
     $scope.currentPage  = 1;
+    $scope.rootProductSegment = null;
+
 
     var currentFindByNameRequest = null;
 
@@ -467,11 +455,36 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
 
     var init = function () {
         $scope.request.busy = true;
-        permission.getUser().then(function (user) {
+        permission.refreshUser().then(function (user) {
+            $scope.user = user;
+            $scope.isAdmin = permission.isAdmin(organizationId);
+
+            var organizationId = user.belongsTo[0].id;
+            $$ORM.repository('Organization').get(organizationId).then(function (organization) {
+                var productSegmentRoot = Organization.getProductSegmentRoot(organization);
+                var userManageProductSegmentRoot = false;
+                for (var i in user.managesProductSegment) {
+                    if (user.managesProductSegment[i].id == productSegmentRoot) {
+                        userManageProductSegmentRoot = true;
+                        break;
+                    }
+                }
+                if (userManageProductSegmentRoot) {
+                    $$ORM.repository('ProductSegment').get(productSegmentRoot.id).then(function (segment) {
+                        $$ORM.repository('ProductSegment').method('Stats')(productSegmentRoot.id).then(function (stats) {
+                            $scope.rootProductSegment = segment;
+                            $scope.newProductsCount = getNewProductsCount(stats[0]);
+                            $scope.newProductsLoaded = true;
+                        });
+                    });
+                }
+            });
+
             // Load all available brands
             var brandIds = user.managesBrand.map(function (brand) {
                 return brand.id;
             }).join(',');
+
             $$ORM.repository('Brand').list({}, {id: brandIds}, {}, 0, 100, {subbrands: 1}).then(function (brands) {
                 brands.forEach(function (brand) {
                     brand._subBrands = [];
@@ -524,6 +537,8 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
                     return segment.id;
                 });
             }
+
+
             setPageFromUrl();
             list();
             return;

@@ -46,6 +46,14 @@ angular.module('jDashboardFluxApp').service('permission', [
         user = null;
     };
 
+    /**
+     * Refresh user informations
+     */
+    var refreshUser = function() {
+        userPromise = null;
+        return getUser();
+    }
+
 
     /**
      * Requests Authentication Token from authentication server
@@ -108,6 +116,7 @@ angular.module('jDashboardFluxApp').service('permission', [
 
     return {
         reset: reset,
+        refreshUser: refreshUser,
         getUser: getUser,
         login: login,
         logout: logout,
