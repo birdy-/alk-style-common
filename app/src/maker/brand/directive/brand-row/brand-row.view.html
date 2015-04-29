@@ -1,9 +1,9 @@
 <div class="brand">
-    <div class="col-xs-3 logo-container text-center brand-column">
+    <div class="col-xs-3 logo-container text-center brand-column clickable" ng-click="goToProducts(brand.id, 'all')">
         <img entity-image entity="brand" class="brand-logo"/>
     </div>
     <div class="col-xs-3 brand-column">
-        <h3>{{ brand.name }}</h3>
+        <h3 ng-click="goToProducts(brand.id, 'all')" class="name clickable">{{ brand.name }}</h3>
         <div ng-if="brand.stats" class="stats">
             <div class="clickable not-certified" ng-click="goToProducts(brand.id, false)" ng-class="{'text-danger': notCertified > 0, 'text-success': notCertified === 0 }">
                 <strong>Non certifiés : {{ notCertified }}</strong>

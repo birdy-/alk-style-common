@@ -36,8 +36,25 @@
     .clickable {
       cursor: pointer;
 
-      &:hover {
-        text-decoration: underline;
+      &.name {
+        &:hover {
+          color: $gray-light;
+          text-decoration: none;
+        }
+      }
+
+      &.text-success {
+        &:hover {
+          color: $brand-success-light;
+          text-decoration: none;
+        }
+      }
+
+      &.text-danger {
+        &:hover {
+          color: $brand-danger-light;
+          text-decoration: none;
+        }
       }
     }
 
