@@ -9,6 +9,9 @@
 
 // See _colors for gray and brand variables
 
+$brand-success-light:   lighten($brand-success, 5%) !default;
+$brand-danger-light:    lighten($brand-danger, 5%) !default;
+
 // Scaffolding
 // -------------------------
 

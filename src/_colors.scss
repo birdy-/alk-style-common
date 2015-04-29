@@ -43,7 +43,7 @@ $alk-green-lighter: rgba(127, 201, 49, 1);
 $alk-yellow-lighter: rgba(246, 220, 0, 1);
 $alk-yellow-darker: rgba(241, 201, 0, 1);
 
-$background-color-grey: #e5e5e5;
+$background-color-grey: #f6f6f6;
 
 // =================================================================================================
 //                                          BASE COLORS
@@ -207,7 +207,7 @@ $background-color-grey: #e5e5e5;
 
 .color-stream {
     @extend .color-green;
-    background-color: white !important;
+    background-color: white;
 }
 
 .color-stream-transparent {
