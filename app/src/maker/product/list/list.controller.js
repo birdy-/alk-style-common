@@ -530,14 +530,8 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
                 }
             }
 
-            // For now, no filter on ProductSegments, just use them for permission
-            // The if clause can be removed, it's just for backward compatibility
-            if (user.managesProductSegment) {
-                $scope.segmentIds = user.managesProductSegment.map(function (segment) {
-                    return segment.id;
-                });
-            }
-
+            $scope.segmentIds = user.allowedProductSegments("product.show");
+            console
 
             setPageFromUrl();
             list();
