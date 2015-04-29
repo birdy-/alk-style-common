@@ -4,27 +4,27 @@
     </div>
     <div class="col-xs-3 brand-column">
         <h3>{{ brand.name }}</h3>
-        <div ng-if="brand.stats" class="stats" ng-class="{'text-danger': notCertified > 0, 'text-success': notCertified === 0 }">
-            <div class="clickable not-certified" ng-click="goToProducts(brand.id, false)">
+        <div ng-if="brand.stats" class="stats">
+            <div class="clickable not-certified" ng-click="goToProducts(brand.id, false)" ng-class="{'text-danger': notCertified > 0, 'text-success': notCertified === 0 }">
                 <strong>Non certifiés : {{ notCertified }}</strong>
             </div>
-            <div class="clickable certified" ng-click="goToProducts(brand.id, true)">
+            <div class="clickable certified" ng-click="goToProducts(brand.id, true)" ng-class="{'text-danger': certified === 0, 'text-success': certified  > 0 }">
                 <strong>Certifiés : {{ certified }}</strong>
             </div>
         </div>
     </div>
     <div class="brand-actions brand-column">
-        <div>
+        <div class="btn btn-default action">
             <a class="" href="/#/maker/brand/{{ brand.id }}">
                 <i class="fa fa-edit"></i> Éditer la marque
             </a>
         </div>
-        <div>
+        <div class="btn btn-default action">
             <a class="" href="/#/maker/brand/{{ brand.id }}/product">
                 <i class="fa fa-barcode"></i> Voir les produits
             </a>
         </div>
-        <div class="claim-products clickable" ng-click="display.allProducts = !display.allProducts">
+        <div class="btn btn-default claim-products action" ng-click="display.allProducts = !display.allProducts">
             <i class="fa fa-plus"></i> Ajouter un produit
         </div>
     </div>

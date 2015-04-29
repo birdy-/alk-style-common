@@ -46,10 +46,35 @@
       height: 100%;
       vertical-align: middle;
 
+      .action {
+        // border: 1px solid $text-color;
+        display: inline;
+
+        + .action {
+          margin-left: $padding-base-horizontal;
+        }
+
+        &:hover, &:active {
+          @include transition(background-color 0.3s 0 ease);
+
+          background-color: $brand-success;
+          border-color: $brand-success;
+          color: white;
+
+          a {
+            color: white;
+          }
+        }
+      }
+
       a {
         color: $text-color;
         cursor: pointer;
         font-size: 1em;
+
+        &:hover, &:active {
+          text-decoration: none;
+        }
       }
     }
   }
