@@ -9,29 +9,44 @@
  * @return {[type]}               [description]
  */
 angular.module('jDashboardFluxApp').controller('DashboardMakerProductListController', [
-    '$rootScope', '$scope', '$$sdkCrud', 'permission', '$routeParams', '$$ORM', '$log', '$location', '$window', 'URL_CDN_MEDIA', '$modal',
-    function ($rootScope, $scope, $$sdkCrud, permission, $routeParams, $$ORM, $log, $location, $window, URL_CDN_MEDIA, $modal) {
+    '$rootScope', '$scope', '$$sdkCrud', '$$sdkAuth', 'permission', '$routeParams', '$$ORM', '$log', '$location', '$window', 'URL_CDN_MEDIA', '$modal','$timeout',
+    function ($rootScope, $scope, $$sdkCrud, $$sdkAuth, permission, $routeParams, $$ORM, $log, $location, $window, URL_CDN_MEDIA, $modal,$timeout) {
 
     // ------------------------------------------------------------------------
     // Variables
     // ------------------------------------------------------------------------
     $scope.user = {};
+    $scope.productModel = Product;
     permission.getUser().then(function (user) {
+        var organizationId = user.belongsTo[0].id;
         $scope.user = user;
+        $scope.isAdmin = permission.isAdmin(organizationId);
+        $$ORM.repository('Organization').get(organizationId).then(function (organization) {
+            var productSegmentRoot = Organization.getProductSegmentRoot(organization);
+            $$ORM.repository('ProductSegment').get(productSegmentRoot.id).then(function (segment) {
+                $$ORM.repository('ProductSegment').method('Stats')(productSegmentRoot.id).then(function (stats) {
+                    $scope.rootProductSegment = segment;
+                    $scope.newProductsCount = getNewProductsCount(stats[0]);
+                    $scope.newProductsLoaded = true;
+                });
+            });
+        });
     });
     $scope.request = $rootScope.navigation.maker.request;
+    $scope.display = $rootScope.navigation.maker.display;
     $scope.products = $scope.request.products || [];
     $scope.allBrands = [];
     $scope.brands = [];
     $scope.segmentIds = [];
-    $scope.display = {
-        type: 'preview',
-        allSelected: false
-    };
+    $scope.displayNewProducts = false;
+    $scope.newProductsLoaded = false;
+    $scope.currentPage  = 1;
+
+    var currentFindByNameRequest = null;
 
     // `$scope.request` is retrieved from the rootScope by inheritance
     if (!$scope.request.initialized) {
-        $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_ATTRIBUTED.id] = true;
+        $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_ATTRIBUTED.id] = false;
         $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_ACCEPTED.id] = true;
         $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_CERTIFIED.id] = true;
         $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_PUBLISHED.id] = true;
@@ -41,37 +56,138 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         $scope.request.limit = 24;
         $scope.request.busy = false;
 
-        $scope.request.initialized = true;
+        $scope.request.initialized  = true;
+        $scope.display.type         = 'preview';
+        $scope.display.allSelected  = false;
+   } else {
+        // Check if the previous location was the product page
+        $scope.display.allSelected = false;
     }
+
     $scope.options = {
         'data-drag-enabled': false
     };
 
     // ------------------------------------------------------------------------
-    // Event handling
+    // Helpers
     // ------------------------------------------------------------------------
 
-    var list = function () {
+    var setPageFromUrl = function() {
+        var pageInRoute = Number($routeParams.page);
+        if ($routeParams.page !== undefined && pageInRoute > 1) {
+            $scope.display.page = pageInRoute;
+        } else {
+            $scope.display.page = 1;
+        }
+    };
+
+
+    var getNewProductsCount = function (stats) {
+        var count = null;
+
+        count += stats.counts[Product.CERTIFICATION_STATUS_DEFAULT.id]
+        count += stats.counts[Product.CERTIFICATION_STATUS_PUBLISHED.id]
+        count += stats.counts[Product.CERTIFICATION_STATUS_REVIEWING.id]
+        count += stats.counts[Product.CERTIFICATION_STATUS_ATTRIBUTED.id]
+
+        return count;
+    };
+
+    var getCertifiedStatus = function (certifiedObject) {
         // Collect parameters
         var certifieds = [];
-        for (var key in $scope.request.product.certifieds) {
+        for (var key in certifiedObject) {
             if ($scope.request.product.certifieds[key] === true) {
                 certifieds.push(key);
             }
-        }
+        };
+
         // If no option is selected do not make any call
         if (certifieds.length === 0) {
             return;
         }
-        $scope.request.product.certified = certifieds.join(',');
+        return certifieds.join(',');
+    };
 
+    var accept = function (product) {
+        if(product.claimInProgress) {
+            return;
+        }
+        var modalInstance = $modal.open({
+            templateUrl: '/src/maker/product/certify/acceptation.html',
+            controller: 'ProductAcceptationModalController',
+            resolve: {
+                product: function () { return product; },
+                productSegment: function () { return $scope.rootProductSegment; },
+                user: function () { return $scope.user; }
+            }
+        });
+
+        modalInstance.result.then(function (selectedItem) {
+            selectedItem.claimInProgress = true;
+        }, function () {
+            $location.path('/maker/brand/' + $scope.product.isBrandedBy.id + '/product');
+        });
+    };
+
+
+    // ------------------------------------------------------------------------
+    // Event handling
+    // ------------------------------------------------------------------------
+
+    var attachClaimStatus = function (response) {
+        if(!response.data.data.length) { return; }
+        var lastClaim = response.data.data[0];
+
+        _.map($scope.products, function (product) {
+            if(product.isIdentifiedBy[0].reference === lastClaim.reference) {
+                product.claimInProgress = lastClaim.status === UserClaimProductReference.TYPE_CREATED.id;
+            }
+        });
+    };
+
+    $scope.onPageChangeFromPaginator = function() {
+        list();
+    };
+
+    $scope.toggleNewProducts = function () {
+        if (!$scope.newProductsLoaded) { return; }
+        $scope.displayNewProducts = !$scope.displayNewProducts;
+
+        $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_DEFAULT.id] = $scope.displayNewProducts;
+        $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_ACCEPTED.id] = !$scope.displayNewProducts;
+        $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_CERTIFIED.id] = !$scope.displayNewProducts;
+        $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_PUBLISHED.id] = $scope.displayNewProducts;
+        $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_REVIEWING.id] = $scope.displayNewProducts;
+        $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_ATTRIBUTED.id] = $scope.displayNewProducts;
+        $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_DISCONTINUED.id] = false;
+
+        refresh($scope.displayNewProducts);
+    };
+
+    var list = function () {
+        if ($scope.displayNewProducts) {
+            return findPendingProducts();
+        }
+        $scope.request.product.certified = getCertifiedStatus($scope.request.product.certifieds);
         if ($scope.request.product.isIdentifiedBy.reference) {
             return findByReference();
-        } else if ($scope.request.product.nameLegal) {
+        } else if ($scope.request.product.nameSmooth) {
             return findByName();
         } else {
             return findByBrand();
         }
+    };
+
+    var findPendingProducts = function () {
+        $scope.request.product.certified = getCertifiedStatus($scope.request.product.certifieds);
+
+        var filters = {
+            productsegment_id: $scope.rootProductSegment.id,
+            certified: $scope.request.product.certified
+        };
+
+        return find({}, filters);
     };
 
     var findByReference = function () {
@@ -83,11 +199,14 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
 
         var filters = {
             isbrandedby_id: brands,
-            certified: $scope.request.product.certified,
-            isidentifiedby_reference: $scope.request.product.isIdentifiedBy.reference
+            certified: $scope.request.product.certified
         };
 
-        return find({}, filters);
+        var queries = {
+            isidentifiedby_reference: $scope.request.product.isIdentifiedBy.reference
+        }
+
+        return find(queries, filters);
     };
 
     var findByBrand = function (filters) {
@@ -130,17 +249,29 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
             certified: $scope.request.product.certified
         };
         var queries = {
-            namelegal: $scope.request.product.nameLegal
+            namesmooth: $scope.request.product.nameSmooth
         };
-        $log.log("Product List Controller : listing by name '" + queries.nameLegal + "' in " + brands);
-        return find(queries, filters);
+        $scope.request.busy = true;
+        //Setting delay before effective search
+        var timeout = $timeout(function(){
+            $log.log("Product List Controller : listing by name '" + queries.namesmooth + "' in " + brands);
+            find(queries,filters);
+            currentFindByNameRequest=null;
+        },500);
+        //If another search was pending, cancel it
+        if(currentFindByNameRequest != null){
+            $timeout.cancel(currentFindByNameRequest);
+        }
+        currentFindByNameRequest = timeout;
+        return timeout;
     };
 
     var find = function (queries, filters) {
-        // to activate later
-        //filters.productsegment_id = $scope.segmentIds.join(',');
+        filters.productsegment_id = $scope.segmentIds.join(',');
+        $scope.request.offset = $scope.request.limit * ($scope.display.page - 1);
         $log.log("Product List Controller : listing [" + $scope.request.offset + "-" + ($scope.request.offset + $scope.request.limit) + "]" );
         $scope.request.busy = true;
+
         $$sdkCrud.ProductList(queries, filters, {},
             $scope.request.offset,
             $scope.request.limit,
@@ -148,37 +279,33 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         ).success(function (response) {
             $scope.products = [];
             var product;
-            for (var i = 0; i < response.data.length; i ++) {
+            for (var i = 0; i < response.data.length; i++) {
                 product = hydrateProduct(response.data[i]);
+                if ($scope.displayNewProducts) {
+                    $$sdkAuth.UserClaimProductReferenceList({}, {reference: product.isIdentifiedBy[0].reference}).then(attachClaimStatus);
+                }
                 $scope.products.push(product);
             }
-
-            // $location.search('offset', $scope.request.offset);
-            $scope.request.products = $scope.products;
-            $scope.request.busy = false;
-
+            if ($scope.display.page > 1 && $scope.products.length == 0) {
+                $scope.display.page = 1;
+                find(queries,filters);
+            } else {
+                $scope.request.products = $scope.products;
+                $scope.request.busy = false;
+                $scope.request.totalProducts = response.totalResults;
+                $scope.request.totalPages = Math.floor(1 + (response.totalResults / $scope.request.limit));
+            }
         }).error(function (response) {
             $window.alert("Erreur pendant la récupération des Produits.");
         });
     };
 
-    $scope.prev = function () {
-        $scope.request.busy = true;
-        $scope.request.offset = Math.max($scope.request.offset - $scope.request.limit, 0);
-        list();
-    };
-
-    $scope.next = function () {
-        $scope.request.busy = true;
-        $scope.request.offset = $scope.request.offset + $scope.request.limit;
-        list();
-    };
-
-    var refresh = function () {
+    var refresh = function (displayNewProducts) {
+        if (!displayNewProducts) { $scope.displayNewProducts = false; }
         $log.log("Product List Controller : refresh <Products>.");
         $scope.products = [];
         $scope.request.products = $scope.products;
-        $scope.request.offset = 0;
+        $scope.display.page = 1;
         list();
     };
 
@@ -204,7 +331,10 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
      * Defaults to the general tab.
      */
     $scope.show = function (product, index) {
-        $scope.request.scrollAnchor = index;
+        if (!product.isAccepted()) {
+            accept(product);
+            return;
+        }
 
         // Hot Feature - Specific tabs according to user permissions
         // Heineken
@@ -220,16 +350,23 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
             return;
         }
         $location.path('/maker/product/' + product.isIdentifiedBy[0].reference + '/data/general');
+        $location.search('page', null)
     };
 
     $scope.$watch('request.product.isIdentifiedBy.reference', function(newVal, oldVal) {
+        if (oldVal !== newVal) {
+            refresh();
+        }
+    });
+
+      $scope.$watch('request.product.nameSmooth', function(newVal, oldVal) {
         if (oldVal !== newVal) refresh();
     });
-    $scope.$watch('request.product.nameLegal', function(newVal, oldVal) {
-        if (oldVal !== newVal) refresh();
-    });
+
     $scope.$watch('request.product.certifieds', function(newVal, oldVal) {
-        if (oldVal !== newVal) refresh();
+        if (oldVal !== newVal && !$scope.displayNewProducts) {
+            refresh(true);
+        }
     }, true);
 
     // ------------------------------------------------------------------------
@@ -302,10 +439,26 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         });
     });
 
-    $scope.$watch('display.type', function () {
-        $scope.request.offset = 0;
-        $scope.request.limit = $scope.display.type === 'preview' ? 24 : 50;
-        list();
+    $scope.$watch('display.type', function (newVal, oldVal) {
+        if (oldVal != newVal) {
+            $scope.display.page = 1;
+            $scope.request.limit = $scope.display.type === 'preview' ? 24 : 50;
+            list();
+        }
+    });
+
+    $scope.$watch('display.page', function(newVal, oldVal) {
+        if (oldVal != newVal) {
+            $location.search("page", newVal);
+        }
+    });
+
+    $scope.$on('$routeUpdate',function(e) {
+        var oldPage = $scope.display.page;
+        setPageFromUrl();
+        if (oldPage != $scope.display.page) {
+            list();
+        }
     });
 
     // ------------------------------------------------------------------------
@@ -371,12 +524,12 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
                     return segment.id;
                 });
             }
-
+            setPageFromUrl();
             list();
             return;
         });
     };
-
+    
     var hydrateProduct = function (data) {
         var product = new Product().fromJson(data);
         product.urlPictureOriginal = URL_CDN_MEDIA + '/product/' + product.id + '/picture/packshot/256x256.png?' + Math.random() * 100000000;

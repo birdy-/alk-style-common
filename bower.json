@@ -39,7 +39,9 @@
     "angular-ui-utils": "~0.1.1",
     "angulartics": "~0.17.2",
     "lodash": "~3.3.1",
-    "ngtoast": "~1.5.0"
+    "ngtoast": "~1.5.0",
+    "jszip": "Stuk/jszip#~2.5.0",
+    "jszip-utils": "~0.0.2"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.0",
@@ -52,6 +54,7 @@
     "font-awesome": "~4.2.0",
     "handsontable": "~0.13.0",
     "angular-cookies": "~1.2.0",
-    "moment": "2.9.0"
+    "moment": "2.9.0",
+    "angular-ui-select2": "afa6589a54cb72815fc70ae10f5320ffa782dfa9"
   }
 }

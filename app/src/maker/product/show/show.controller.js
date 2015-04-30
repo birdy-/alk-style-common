@@ -1,12 +1,15 @@
 'use_strict';
 
 angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowController', [
-    '$scope', '$$sdkCrud', '$routeParams', '$$autocomplete', '$location', '$window', 'URL_CDN_MEDIA', 'permission',
-    function ($scope, $$sdkCrud, $routeParams, $$autocomplete, $location, $window, URL_CDN_MEDIA, permission) {
+    '$rootScope', '$scope', '$$sdkCrud', '$routeParams', '$$autocomplete', '$location', '$window', 'URL_CDN_MEDIA', 'permission',
+    function ($rootScope, $scope, $$sdkCrud, $routeParams, $$autocomplete, $location, $window, URL_CDN_MEDIA, permission) {
 
     // ------------------------------------------------------------------------
     // Variables
     // ------------------------------------------------------------------------
+
+
+    $scope.productListPage = $rootScope.navigation.maker.display.page || 1;
     $scope.user = {};
     permission.getUser().then(function (user) {
         $scope.user = user;
@@ -118,6 +121,8 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowControl
             withs.isRequiredIn = true;
             withs.isSubstitutableWith = true;
             withs.isComplementaryWith = true;
+        } else if ($location.path().indexOf('preview-retailer') !== -1) {
+            withs.isInstantiatedBy = true;
         }
         // Actually perform the call
         $$sdkCrud.ProductShow(productId, withs).then(function(response){

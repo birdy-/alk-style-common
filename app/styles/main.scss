@@ -19,9 +19,11 @@
 @import "maker/product/show/label";
 @import "maker/product/show/media";
 @import "maker/product/show/preview";
+@import "maker/product/show/preview-retailer";
 @import "maker/notification/timeline";
 @import "maker/header";
 @import "organization/admin/edit";
+@import "organization/admin/home";
 
 @import "user/role/index";
 @import "user/login";
@@ -32,3 +34,4 @@
 @import "demo-video/demo-video";
 
 @import "retailer/productinshop/productinshop";
+@import "retailer/productinshopsegment/productinshopsegment";

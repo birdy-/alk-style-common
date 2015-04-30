@@ -1,13 +1,14 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaController', [
-    '$scope', '$modal', '$log', '$$sdkMedia', '$window',
-    function($scope, $modal, $log, $$sdkMedia, $window) {
+    '$scope', '$modal', '$log', '$$sdkMedia', '$window', '$q',
+    function($scope, $modal, $log, $$sdkMedia, $window, $q) {
 
         // --------------------------------------------------------------------------------
         // Variables
         // --------------------------------------------------------------------------------
         $scope.pictures = [];
+        $scope.downloadInProgress = false;
         $scope.availables = {
             1: true,
             2: false,
@@ -30,6 +31,43 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaCo
                 picture_standard_type: 'packshot'
             }).then(function(response){
                 $window.alert('Nous avons bien pris en compte votre demande. Le visuel va être mis à jour. Cette opération peut prendre quelque temps, merci pour votre patience.');
+            });
+        };
+
+        $scope.downloadAllPictures = function () {
+            $scope.downloadInProgress = true;
+            var zip = new $window.JSZip();
+            var allPicturesUrl = [];
+            var allPicturesPromises = [];
+
+
+            _.map($scope.pictures, function (picture) {
+                allPicturesUrl.push(picture.uniformResourceIdentifier);
+                var picturePromise = $q.defer();
+
+                picture.uniformResourceIdentifier = picture.uniformResourceIdentifier.replace(/https:\/\/smedia/, 'http://media');
+
+                $window.JSZipUtils.getBinaryContent(picture.uniformResourceIdentifier, function (err, data) {
+                    if(err) {
+                        $scope.$apply( function() {
+                            picturePromise.reject(err);
+                        });
+                    } else {
+                        $scope.$apply( function() {
+                            zip.file("picture"+Math.random()+".png", data, {binary:true});
+                            picturePromise.resolve(data);
+                        });
+                    }
+                });
+                allPicturesPromises.push(picturePromise.promise);
+            });
+
+            $q.all(allPicturesPromises)
+            .then(function (results) {
+                var blob = zip.generate({type:"blob"});
+                var filename = moment().format('YYYY-MM-DD') + '-' + $scope.product.isIdentifiedBy[0].reference + '.zip';
+                saveAs(blob, filename);
+                $scope.downloadInProgress = false;
             });
         };
 

@@ -115,12 +115,14 @@ app.config(function ($routeProvider) {
     // Product views
     $routeProvider.when('/maker/brand/all/product', {
         templateUrl: 'src/maker/product/list/index.html',
-        controller: 'DashboardMakerProductListController'
+        controller: 'DashboardMakerProductListController',
+        reloadOnSearch: false
     });
     $routeProvider.when('/maker/brand/:id/product', {
         templateUrl: 'src/maker/product/list/index.html',
         controller: 'DashboardMakerProductListController',
-        parameter: {id: 'integer'}
+        parameter: {id: 'integer'},
+        reloadOnSearch: false
     });
     $routeProvider.when('/maker/product/:productReference_reference/data', {
         templateUrl: 'src/maker/product/show/general/general.html',
@@ -169,6 +171,11 @@ app.config(function ($routeProvider) {
     });
     $routeProvider.when('/maker/product/:productReference_reference/data/conservation', {
         templateUrl: 'src/maker/product/show/conservation/conservation.html',
+        controller: 'DashboardMakerProductShowController',
+        parameter: {id: 'integer'}
+    });
+    $routeProvider.when('/maker/product/:productReference_reference/data/preview-retailer', {
+        templateUrl: 'src/maker/product/show/preview-retailer/preview-retailer.html',
         controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
@@ -295,11 +302,13 @@ app.config(function ($routeProvider) {
     });
     $routeProvider.when('/retailer/productinshop', {
         templateUrl: 'src/retailer/productinshop/list.html',
-        controller: 'RetailerProductInShopListController'
+        controller: 'RetailerProductInShopListController',
+        reloadOnSearch: false
     });
     $routeProvider.when('/retailer/productinshopsegment', {
         templateUrl: 'src/retailer/productinshopsegment/list.html',
-        controller: 'RetailerProductInShopSegmentListController'
+        controller: 'RetailerProductInShopSegmentListController',
+        reloadOnSearch: false
     });
 
 
@@ -444,6 +453,10 @@ app.run([
                         }
                     },
                     initialized: false
+                },
+                display: {
+                    type: 'preview',
+                    allSelected: false
                 }
             }
         };

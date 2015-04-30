@@ -42,9 +42,14 @@ var abstractRepository = function (Model, $$sdk, $$cacheManager, $q, cache, hydr
         return $$sdk[modelName + 'List'](
             queries, filters, sorts, offset, limit, withs
         ).then(function (response) {
-            return response.data.data.map(function (json){
+            var toReturn = response.data.data.map(function (json){
                 return hydrate(json);
             });
+            //If field available in JSON, adding totalResults as a property to the array. Everything is fine, don't worry.
+            if(typeof response.data.totalResults !== 'undefined') {
+              toReturn.totalResults = response.data.totalResults;
+            }
+            return toReturn;
         });
     };
     var update = function (entity) {
@@ -296,7 +301,10 @@ angular.module('jDashboardFluxApp').service('$$ORM', [
             { id: 19114, name: "Label Eco-Label",                                                         type: 'Label'},
             { id: 10347, name: "Œuf pondu en France",                                                     type: 'Label'},
             { id: 10419, name: "Label IFFO RS assured",                                                   type: 'Label'},
-            { id: 10431, name: "Label Sustainable Fisheries Partnership",                                 type: 'Label'}
+            { id: 10447, name: "Label manger bouger - 5 fruits et légumes par jour",                      type: 'Label'},
+            { id: 10448, name: "Label manger bouger - activité physique régulière",                       type: 'Label'},
+            { id: 10449, name: "Label manger bouger - manger trop gras, trop sucré, trop salé",           type: 'Label'},
+            { id: 10450, name: "Label manger bouger - éviter de grignoter",                               type: 'Label'}
         ];
 
         // Duplicates a field in the text attribute of the object, so it can be used by the autocomplete library

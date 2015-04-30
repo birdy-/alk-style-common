@@ -8,6 +8,27 @@
     </h3>
 </div>
 <div class="modal-body">
+    <form>
+        <div class="form-group">
+            <label>EAN</label>
+            <input class="form-control" disabled ng-model="product.isIdentifiedBy.0.reference"/>
+        </div>
+        <div class="form-group">
+            <label>Marque</label>
+            <div
+                alk-autocomplete
+                alk-autocomplete-type="Brand"
+                alk-autocomplete-multiple="false"
+                placeholder="Chercher une marque"
+                ng-model="product.isBrandedBy">
+            </div>
+        </div>
+        <div class="form-group">
+            <label>GLN</label>
+            <select class="form-control" ng-model="product.gln" ng-options="gln for gln in glns"/>
+        </div>
+    </div>
+    </form>
     <div class="well">
         En signant électroniquement ce document, j'atteste que je suis le responsable de la certification de ce produit.
     </div>

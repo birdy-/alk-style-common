@@ -45,6 +45,12 @@ body {
     margin: 0px;
     padding-top: $navbar-height;
     padding-bottom: 0px;
+
+    .sidebar {
+        .badge {
+            background-color: white;
+        }
+    }
 }
 
 .form-horizontal .control-label.text-left {

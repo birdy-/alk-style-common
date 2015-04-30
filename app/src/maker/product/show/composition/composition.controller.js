@@ -26,9 +26,23 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowComposi
         checkComposition($scope.product.composition);
     };
 
+    var initComposition = $scope.$watch('product.composition', function(newValue, oldValue){
+        if (newValue !== undefined) {
+            $scope.productForm.$setPristine();
+            initComposition();
+        }
+    });
+
+    var initCompositionBr = $scope.$watch('product.composition', function(newValue, oldValue){
+        if (newValue !== undefined && typeof oldValue === 'string') {
+            $scope.product.composition = $scope.product.composition.replace(/#/g, '<br/>');
+            initCompositionBr();
+        }
+    });
     // ------------------------------------------------------------------------
     // Init
     // ------------------------------------------------------------------------
+
 
 
 }]);

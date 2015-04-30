@@ -1,0 +1,25 @@
+<div template-product>
+<div ng-controller="DashboardMakerProductShowRetailerPreviewController">
+
+<div class="row">
+    <div class="col-xs-12">
+        <h3>Aperçu de la fiche produit Retailer</h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <h4>Auchan Drive</h4>
+    </div>
+    <div class="col-xs-12">
+        <div ng-show="shopsMap[1]" class="product-preview-auchandrive-wrapper">
+            <div class="product-preview-auchandrive"></div>
+        </div>
+        <div ng-show="!shopsMap[1]" class="product-preview-auchandrive-wrapper">
+            <div class="product-preview-auchandrive">Ce produit n'est pas référencé chez Auchandrive.</div>
+        </div>
+    </div>
+</div>
+
+</div>
+</div>

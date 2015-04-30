@@ -16,7 +16,7 @@ describe('[Dashboard Maker] Products page', function () {
         productsPage.get();
 
         expect(browser.getCurrentUrl())
-        .toEqual(browser.params.website.url + 'maker/brand/all/product');
+        .toEqual(browser.params.website.url + 'maker/brand/all/product?page=1');
     });
 
     it('should have a filter sidebar', function () {
@@ -42,33 +42,51 @@ describe('[Dashboard Maker] Products page', function () {
     });
 
     it('should have a complete pagination block', function () {
-        expect(productsPage.getPrevArrow().count())
-        .toBe(2);
+        expect(productsPage.getPaginators().count()).toBe(2);
 
-        expect(productsPage.getNextArrow().count())
-        .toBe(2);
+        expect(productsPage.getPaginatorPages(0).count()).toBe(2);
+        expect(productsPage.getPaginatorPages(1).count()).toBe(2);
 
-        expect(productsPage.getNextArrow().get(1).isPresent())
-        .toBe(true);
+        expect(productsPage.getPaginatorPages(0).get(0).getAttribute('class')).toContain('active');
+        expect(productsPage.getPaginatorPages(0).get(1).getAttribute('class')).not.toContain('active');
+        expect(productsPage.getPaginatorPages(1).get(0).getAttribute('class')).toContain('active');
+        expect(productsPage.getPaginatorPages(1).get(1).getAttribute('class')).not.toContain('active');
 
-        productsPage.getNextArrow().get(1).click().then(function () {
-            expect(productsPage.getPrevArrow().get(1).isPresent())
-            .toBe(true);
+        expect(productsPage.getPaginatorFirstPageArrow(0).getAttribute('class')).toContain('disabled');
+        expect(productsPage.getPaginatorFirstPageArrow(1).getAttribute('class')).toContain('disabled');
+        expect(productsPage.getPaginatorLastPageArrow(0).getAttribute('class')).not.toContain('disabled');
+        expect(productsPage.getPaginatorLastPageArrow(1).getAttribute('class')).not.toContain('disabled');
 
-            productsPage.getPrevArrow().get(1).click().then(function () {
-                expect(productsPage.getPrevArrow().count())
-                .toBe(2);
-            });
+        productsPage.getPaginatorLastPageArrowLink(0).click().then(function() {
+
+            expect(browser.getCurrentUrl())
+            .toEqual(browser.params.website.url + 'maker/brand/all/product?page=2');
+
+            expect(productsPage.getPaginatorPages(0).get(0).getAttribute('class')).not.toContain('active');
+            expect(productsPage.getPaginatorPages(0).get(1).getAttribute('class')).toContain('active');
+            expect(productsPage.getPaginatorPages(1).get(0).getAttribute('class')).not.toContain('active');
+            expect(productsPage.getPaginatorPages(1).get(1).getAttribute('class')).toContain('active');
+
+            expect(productsPage.getPaginatorFirstPageArrow(0).getAttribute('class')).not.toContain('disabled');
+            expect(productsPage.getPaginatorFirstPageArrow(1).getAttribute('class')).not.toContain('disabled');
+            expect(productsPage.getPaginatorLastPageArrow(0).getAttribute('class')).toContain('disabled');
+            expect(productsPage.getPaginatorLastPageArrow(1).getAttribute('class')).toContain('disabled');
+
         });
+
     });
 
     it('should have change display button blocks', function () {
         expect(productsPage.getChangeDisplay().count())
         .toBe(2);
+
     });
 
     it('should display a list of products', function () {
         productsPage.getChangeDisplayToList().click().then(function () {
+            expect(browser.getCurrentUrl())
+            .toEqual(browser.params.website.url + 'maker/brand/all/product?page=1');
+
             expect(productsPage.getProducts().count())
             .toBeGreaterThan(25);
 

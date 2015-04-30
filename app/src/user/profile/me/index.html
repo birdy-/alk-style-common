@@ -1,4 +1,5 @@
-<div ng-include="'/src/maker/home/header.html'"></div>
+<div ng-if="isRetailer" ng-include="'/src/retailer/home/header.html'"></div>
+<div ng-if="!isRetailer" ng-include="'/src/maker/home/header.html'"></div>
 <div class="container-fluid">
     <div class="col-md-2 color-stream-inverse sidebar">
         <!--<div ng-include="'/src/settings/sidebar.html'"></div>-->

@@ -171,6 +171,28 @@
         ga('create', 'UA-47074386-5', 'auto');
     </script>
 
+    <script type="text/javascript" charset="utf-8" id="alkemicscom_sdk_shop">
+        //<![CDATA[
+        window.alkAsyncInit = function() {
+            // init the Alkemics Javascript SDK
+            ALK.init({
+                appId: "UA-0000-0",     // Write here your APPLICATION ID (for analytics)
+                clientId: "YOUR40CHARACTERCLIENTID",        // Write here your CLIENT_ID (for accounting)
+                Shop_shortId: 13,       // Write here your Shop ID
+                auto : true             // Parse tags on this page
+            });
+        };
+
+        // Load the SDK's source Asynchronously
+        (function(a,l,k,e,m,i,c,s){
+            m=l.createElement(k),i=l.getElementsByTagName(k)[0];
+            m.defer=1;m.async=1;m.src=(document.location.protocol === 'https:' ? 'https://ssl' : 'http://') + e;
+            i.parentNode.insertBefore(m,i);
+        })(window, document, 'script', 'cdn.alkemics.com/shop/sdk.js');
+
+        //]]>
+    </script>
+
     <script type="text/javascript" id="tocio_tck">
       //<![CDATA[
         window._taq = _taq = [];
@@ -188,6 +210,8 @@
         <script type="text/javascript" src="bower_components/jquery/jquery.js"></script>
         <script type="text/javascript" src="bower_components/jquery-ui/jquery-ui.js"></script>
         <script type="text/javascript" src="bower_components/select2/select2.js"></script>
+        <script type="text/javascript" src='bower_components/jszip/dist/jszip.min.js'></script>
+        <script type="text/javascript" src='bower_components/jszip-utils/dist/jszip-utils.min.js'></script>
         <script type="text/javascript" src="bower_components/angular/angular.js"></script>
         <script type="text/javascript" src="bower_components/angular-animate/angular-animate.js"></script>
         <script type="text/javascript" src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
@@ -250,6 +274,7 @@
 
         <script type="text/javascript" src="src/app.js"></script>
 
+
         <script type="text/javascript" src="src/common/model/alk-nutriment-unit/nutriment-unit.directive.js"></script>
         <script type="text/javascript" src="src/common/model/common.model.js"></script>
         <script type="text/javascript" src="src/common/model/orm.model.js"></script>
@@ -280,8 +305,11 @@
         <script type="text/javascript" src="src/common/directives/design/metric-directive.js"></script>
         <script type="text/javascript" src="src/common/directives/demo-video/demo-video-directive.js"></script>
         <script type="text/javascript" src="src/common/directives/demo-video/demo-video-modal.controller.js"></script>
+        <script type="text/javascript" src="src/common/directives/ui/pagination/pagination.controller.js"></script>
+        <script type="text/javascript" src="src/common/directives/ui/pagination/pagination-directive.js"></script>
 
         <script type="text/javascript" src="src/common/upload/plupload.js"></script>
+        <script type="text/javascript" src="src/common/fileSaver.min.js"></script>
 
         <script type="text/javascript" src="src/home/faq/faq.controller.js"></script>
         <script type="text/javascript" src="src/home/home.controller.js"></script>
@@ -349,10 +377,10 @@
         <script type="text/javascript" src="src/maker/product/show/media/product.picture.directive.js"></script>
         <script type="text/javascript" src="src/maker/product/show/media/product.picture.model.js"></script>
 
+        <script type="text/javascript" src="src/maker/product/show/composition/composition.controller.js"></script>
         <script type="text/javascript" src="src/maker/product/show/preview/productNutrition-directive.js"></script>
         <script type="text/javascript" src="src/maker/product/show/preview/productLabel-directive.js"></script>
         <script type="text/javascript" src="src/maker/product/show/preview/productAllergen-directive.js"></script>
-        <script type="text/javascript" src="src/maker/product/show/composition/composition.controller.js"></script>
         <script type="text/javascript" src="src/maker/product/show/nutrition/nutrition.controller.js"></script>
         <script type="text/javascript" src="src/maker/product/show/label/label-group.directive.js"></script>
         <script type="text/javascript" src="src/maker/product/show/label/label.controller.js"></script>
@@ -367,6 +395,8 @@
         <script type="text/javascript" src="src/maker/product/show/block.directive.js"></script>
         <script type="text/javascript" src="src/maker/product/show/input.directive.js"></script>
         <script type="text/javascript" src="src/maker/product/show/specific/wine.controller.js"></script>
+        <script type="text/javascript" src="src/maker/product/show/preview-retailer/preview-retailer.controller.js"></script>
+
         <script type="text/javascript" src="src/maker/product/list/list.controller.js"></script>
 
         <script type="text/javascript" src="src/maker/product/edit/bulk-edit.controller.js"></script>

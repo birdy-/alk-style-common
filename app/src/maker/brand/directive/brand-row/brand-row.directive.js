@@ -14,10 +14,10 @@ angular.module('jDashboardFluxApp').directive('brandRow', [
                     allProducts: false
                 };
                 if ($scope.brand.stats) {
-                    var accepted = parseInt($scope.brand.stats.counts['5'], 10) || 0;
-                    var attributed = parseInt($scope.brand.stats.counts['1'], 10) || 0;
-                    $scope.notCertified = accepted + attributed;
-                    $scope.certified = parseInt($scope.brand.stats.counts['2']) || 0;
+                    var accepted = parseInt($scope.brand.stats.counts[Product.CERTIFICATION_STATUS_ACCEPTED.id], 10) || 0;
+                    var attributed = parseInt($scope.brand.stats.counts[Product.CERTIFICATION_STATUS_ATTRIBUTED.id], 10) || 0;
+                    $scope.notCertified = accepted;
+                    $scope.certified = parseInt($scope.brand.stats.counts[Product.CERTIFICATION_STATUS_CERTIFIED.id]) || 0;
                 }
 
                 $scope.goToProducts = function (brandId, certified) {
@@ -28,10 +28,13 @@ angular.module('jDashboardFluxApp').directive('brandRow', [
                         }
                     };
 
-                    if (certified) {
+                    if (certified === 'all') {
+                        $rootScope.navigation.maker.request.product.certifieds[Product.CERTIFICATION_STATUS_CERTIFIED.id] = true;
+                        $rootScope.navigation.maker.request.product.certifieds[Product.CERTIFICATION_STATUS_ACCEPTED.id] = true;
+                    } else if (certified) {
                         $rootScope.navigation.maker.request.product.certifieds[Product.CERTIFICATION_STATUS_CERTIFIED.id] = true;
                     } else {
-                        $rootScope.navigation.maker.request.product.certifieds[Product.CERTIFICATION_STATUS_ATTRIBUTED.id] = true;
+                        $rootScope.navigation.maker.request.product.certifieds[Product.CERTIFICATION_STATUS_ATTRIBUTED.id] = false;
                         $rootScope.navigation.maker.request.product.certifieds[Product.CERTIFICATION_STATUS_ACCEPTED.id] = true;
                     }
 
