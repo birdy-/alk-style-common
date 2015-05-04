@@ -3,8 +3,8 @@
 angular.module('jDashboardFluxApp')
 
 .controller('DashboardMakerProductShowRetailerPreviewController', [
-    '$scope',
-    function ($scope) {
+    '$scope', '$log', '$sce',
+    function ($scope, $log, $sce) {
         var shopsMap = {
             1: null
         };
@@ -20,12 +20,10 @@ angular.module('jDashboardFluxApp')
         };
 
         var createIFrame = function (shopsMap) {
+            $log.debug('Creating iframe for the following map:', shopsMap);
             _.forEach(shopsMap, function (pish, shopId) {
-                ALK.ui({
-                    name: 'productpage',
-                    productInShopShortIdOut: pish.shortIdOut,
-                    shopId: shopId,
-                    container: window.$('.product-preview-auchandrive')[0]});
+                if (!pish) { return; }
+                pish.previewUrl = $sce.trustAsResourceUrl('https://sassets.toc.io/interfaces/product/v2/index.html#/?productinshop_shortidout=' + pish.shortIdOut + '&shop_id=1&jrmac=UA-0000-0&app_id=UA-0000-0&client_id=dashboard_stream&no_cache=1');
             });
         };
 
