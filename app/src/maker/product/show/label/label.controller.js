@@ -19,12 +19,22 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowLabelCo
         19161, 19162, 19163, 19164, 19165, 19166, 19167, 19168, 19169, 19170, 19171,
         10055, 10064, 10262, 10265, 10321, 10326, 10327, 10328, 10329, 10330, 10331,
         10332, 10333, 10334, 10335, 10336, 10337, 10338, 10339, 10340, 10341, 10342,
-        10343, 10344, 10345, 18935, 19114, 10347, 10419, 10431
+        10343, 10344, 10345, 18935, 19114, 10347, 10419, 10431, 10447, 10448, 10449,
+        10450
     ].map(function (labelId) {
         $scope.labels[labelId] = $$ORM.repository('Concept').lazy(labelId);
     });
 
     $scope.labelGroups = [
+        {
+            title: 'Mentions légales',
+            labels: [
+                $scope.labels[10447],
+                $scope.labels[10448],
+                $scope.labels[10449],
+                $scope.labels[10450]
+            ]
+        },
         {
             title: 'Agriculture biologique',
             labels: [

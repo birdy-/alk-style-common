@@ -174,6 +174,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
 
     permission.getUser().then(function(user) {
         $scope.currentUser = user;
+        $scope.isRetailer = permission.isRetailer();
         $scope.currentUser.belongsTo.map(function (organization) {
             if (organization.id == $scope.organizationId) {
                 for (var i = 0, len = organization.permissions.length; i < len; i++) {

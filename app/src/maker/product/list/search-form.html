@@ -1,5 +1,5 @@
 <form role="form" class="col-xs-12">
-    <h3>Je veux voir...</h3>
+    <h3>Je recherche</h3>
     <div ng-if="isAdmin" class="form-group btn btn-block new-products" ng-class="{'highlight': displayNewProducts, 'inactive': !newProductsLoaded}" ng-click="toggleNewProducts()">
         Nouveaux produits
         <span ng-if="newProductsLoaded" class="badge">{{ newProductsCount }}</span>
@@ -8,22 +8,12 @@
         </span>
     </div>
     <div class="form-group">
-        <label>Marque commerciale :</label>
-        <div ui-tree="options" data-drag-enabled="false" class="brand-tree">
-            <ol ui-tree-nodes ng-model="brands">
-                <li ng-repeat="brand in brands | filter:root:true | orderBy:'name':false" ui-tree-node ng-include="'/src/maker/product/list/node.html'"></li>
-            </ol>
-        </div>
-    </div>
-    <br/>
-    <div class="form-group">
-        <label>Dénomination légale</label>
-        <input type="text" class="form-control" ng-model="request.product.nameSmooth"/>
-    </div>
-    <br/>
-    <div class="form-group">
         <label>EAN</label>
         <input type="text" class="form-control" ng-model="request.product.isIdentifiedBy.reference"/>
+    </div>
+    <div class="form-group">
+        <label>Libellé</label>
+        <input type="text" class="form-control" ng-model="request.product.nameSmooth"/>
     </div>
     <br/>
     <div class="form-group">
@@ -51,6 +41,15 @@
                 <input type="checkbox" name="certified" ng-model="request.product.certifieds[productModel.CERTIFICATION_STATUS_DISCONTINUED.id]"/>
                 que j'ai archivés
             </label>
+        </div>
+    </div>
+    <br/>
+    <div class="form-group">
+        <label>Marque commerciale :</label>
+        <div ui-tree="options" data-drag-enabled="false" class="brand-tree">
+            <ol ui-tree-nodes ng-model="brands">
+                <li ng-repeat="brand in brands | filter:root:true | orderBy:'name':false" ui-tree-node ng-include="'/src/maker/product/list/node.html'"></li>
+            </ol>
         </div>
     </div>
     <br/>

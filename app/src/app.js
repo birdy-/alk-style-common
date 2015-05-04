@@ -174,6 +174,11 @@ app.config(function ($routeProvider) {
         controller: 'DashboardMakerProductShowController',
         parameter: {id: 'integer'}
     });
+    $routeProvider.when('/maker/product/:productReference_reference/data/preview-retailer', {
+        templateUrl: 'src/maker/product/show/preview-retailer/preview-retailer.html',
+        controller: 'DashboardMakerProductShowController',
+        parameter: {id: 'integer'}
+    });
     $routeProvider.when('/maker/product/:productReference_reference/data/productinshop', {
         templateUrl: 'src/maker/product/show/productinshop/productinshop.html',
         controller: 'DashboardMakerProductShowController',
