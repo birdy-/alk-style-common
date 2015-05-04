@@ -10,7 +10,8 @@ angular.module('jDashboardFluxApp').controller('ProductSegmentCreateModalControl
     $scope.possibleGLNS = [];
     $scope.pendingGLN = null;
     $scope.display = {
-        help: false
+        help: false,
+        advanced: false
     };
 
 
@@ -94,7 +95,7 @@ angular.module('jDashboardFluxApp').controller('ProductSegmentCreateModalControl
         $$sdkAuth.OrganizationShow(organization_id).then(function (response) {
             $scope.organization = response.data.data;
             $scope.organization.ownsGLN.map(function (gln) {
-                $scope.possibleGLNS.push(gln.gln);
+                $scope.glns.push(gln.gln);
             });
         });
     };

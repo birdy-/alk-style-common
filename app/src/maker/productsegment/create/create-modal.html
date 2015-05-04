@@ -32,33 +32,7 @@
         Nom de votre nouveau segment de produits:<br/>
         <input class="form-control" ng-model="productSegmentName" placeholder="Ex: Yaourts frais"></input>
     </div>
-    
-    <br/>
-    Précisez au moins un GLN (<strong>requis</strong>)
-    <div class="input-group" ng-repeat="gln in glns track by $index">
-        <input class="form-control text-center" disabled ng-model="gln"/>
-        <span class="input-group-btn">
-            <div class="btn btn-default" ng-click="removeGLN($index)">
-                <i class="fa fa-trash"></i>
-            </div>
-        </span>
-    </div>
-    <div class="input-group" ng-if="possibleGLNS.length > 0 && pendingGLN">
-        <select class="form-control" 
-            ng-model="pendingGLN" 
-            ng-options="pgln for pgln in possibleGLNS"/>
-          <span class="input-group-btn">
-            <div class="btn btn-default" ng-click="addGLN()">
-                <i class="fa fa-check"></i>
-            </div>
-        </span>
-    </div>
-    <div ng-if="possibleGLNS.length > 0">
-        <div class="btn btn-default" ng-click="addGLN()">
-            <i class="fa fa-plus"></i>
-        </div>
-    </div>
-    
+
     <br/>
     <div> Précisez une ou plusieurs marques <l>(facultatif)</l>:
         <div alk-autocomplete
@@ -69,6 +43,43 @@
         </div>
     </div>
     <!-- TODO : Add Products -->
+
+
+    <br/>
+    <div ng-click="display.advanced = !display.advanced">
+        <i class="fa fa-plus" ng-if="!display.advanced"/>
+        <i class="fa fa-minus" ng-if="display.advanced"/>
+        <strong> Avancé</strong>
+    </div>
+    <br/>
+    <div ng-if="display.advanced">
+        GLNs:
+        <div class="input-group" ng-repeat="gln in glns track by $index">
+            <input class="form-control text-center" disabled ng-model="gln"/>
+            <span class="input-group-btn">
+                <div class="btn btn-default" ng-click="removeGLN($index)">
+                    <i class="fa fa-trash"></i>
+                </div>
+            </span>
+        </div>
+        <div class="input-group" ng-if="possibleGLNS.length > 0 && pendingGLN">
+            <select class="form-control"
+                ng-model="pendingGLN"
+                ng-options="pgln for pgln in possibleGLNS"/>
+              <span class="input-group-btn">
+                <div class="btn btn-default" ng-click="addGLN()">
+                    <i class="fa fa-check"></i>
+                </div>
+            </span>
+        </div>
+        <div ng-if="possibleGLNS.length > 0">
+            <div class="btn btn-default" ng-click="addGLN()">
+                <i class="fa fa-plus"></i>
+            </div>
+        </div>
+    </div>
+
+
 </div>
 
 <div class="modal-footer">
