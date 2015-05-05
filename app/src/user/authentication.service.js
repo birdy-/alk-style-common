@@ -104,7 +104,7 @@ angular.module('jDashboardFluxApp').service('permission', [
         var isAdmin = false;
         if (!user) { return isAdmin; }
         _.map(user.belongsTo, function (organization) {
-            if (organization.id === organizationId) {
+            if (organization.id === Number(organizationId)) {
                 if(_.indexOf(organization.permissions, 'admin') > -1) {
                     isAdmin = true;
                 }

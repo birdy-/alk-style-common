@@ -7,7 +7,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
    	// --------------------------------------------------------------------------------
     // Variables
  	// --------------------------------------------------------------------------------
-    $scope.organizationId = Number($routeParams.id);
+    $scope.organizationId = $routeParams.id;
  	$scope.currentUser = null;
    	$scope.productSegmentIds = [];
    	$scope.users = [];
