@@ -23,14 +23,13 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     $scope.allBrands = [];
     $scope.brands = [];
     $scope.segmentIds = [];
-    $scope.newProductsCount = 0;
     $scope.displayNewProducts = false;
     $scope.newProductsLoaded = false;
     $scope.currentPage  = 1;
-    $scope.rootProductSegment = null;
-
-
+    $scope.newProductsCount = 0;
+    
     var currentFindByNameRequest = null;
+    var rootProductSegment = null;
 
     // `$scope.request` is retrieved from the rootScope by inheritance
     if (!$scope.request.initialized) {
@@ -106,7 +105,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
             controller: 'ProductAcceptationModalController',
             resolve: {
                 product: function () { return product; },
-                productSegment: function () { return $scope.rootProductSegment; },
+                productSegment: function () { return rootProductSegment; },
                 user: function () { return $scope.user; }
             }
         });
@@ -171,7 +170,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         $scope.request.product.certified = getCertifiedStatus($scope.request.product.certifieds);
 
         var filters = {
-            productsegment_id: $scope.rootProductSegment.id,
+            productsegment_id: rootProductSegment.id,
             certified: $scope.request.product.certified
         };
 
@@ -472,7 +471,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
                 if (userManageProductSegmentRoot) {
                     $$ORM.repository('ProductSegment').get(productSegmentRoot.id).then(function (segment) {
                         $$ORM.repository('ProductSegment').method('Stats')(productSegmentRoot.id).then(function (stats) {
-                            $scope.rootProductSegment = segment;
+                            rootProductSegment = segment;
                             $scope.newProductsCount = getNewProductsCount(stats[0]);
                             $scope.newProductsLoaded = true;
                         });
@@ -531,7 +530,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
             }
 
             $scope.segmentIds = user.allowedProductSegments("product.show");
-            console
 
             setPageFromUrl();
             list();
