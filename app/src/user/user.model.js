@@ -36,7 +36,6 @@ var User = function(){
         var returns = [];
         for (var i = 0; i < this.managesProductSegment.length; i++) {
             for (var j = 0; j < this.managesProductSegment[i].permissions.length; j++) {
-                console.log("this.managesProductSegment[i].permissions[j]", this.managesProductSegment[i].permissions[j])
                 if (this.managesProductSegment[i].permissions[j] === permission) {
                     returns.push(this.managesProductSegment[i].id);
                 }
