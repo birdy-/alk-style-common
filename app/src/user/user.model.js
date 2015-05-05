@@ -30,6 +30,20 @@ var User = function(){
         return false;
     };
 
+    // For now, no filter on ProductSegments, just use them for permission
+    // The if clause can be removed, it's just for backward compatibility
+    this.allowedProductSegments = function(permission) {
+        var returns = [];
+        for (var i = 0; i < this.managesProductSegment.length; i++) {
+            for (var j = 0; j < this.managesProductSegment[i].permissions.length; j++) {
+                if (this.managesProductSegment[i].permissions[j] === permission) {
+                    returns.push(this.managesProductSegment[i].id);
+                }
+            }
+        }
+        return returns;
+    }
+
     this.allowedWebsites = function(permission) {
         var returns = [];
         for (var i = 0; i < this.managesWebsite.length; i++) {
