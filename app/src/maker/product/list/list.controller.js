@@ -39,6 +39,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     $scope.brands = [];
     $scope.segmentIds = [];
     $scope.displayNewProducts = false;
+    $scope.gdsnOnly = false;
     $scope.newProductsLoaded = false;
     $scope.currentPage  = 1;
 
@@ -165,6 +166,13 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         refresh($scope.displayNewProducts);
     };
 
+    $scope.toggleGdsnOnly = function (only){
+      if(only != $scope.gdsnOnly){
+        $scope.gdsnOnly = only;
+        refresh(true);
+      }
+    }
+
     var list = function () {
         if ($scope.displayNewProducts) {
             return findPendingProducts();
@@ -184,9 +192,11 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
 
         var filters = {
             productsegment_id: $scope.rootProductSegment.id,
-            certified: $scope.request.product.certified
+            certified: $scope.request.product.certified,
         };
-
+        if($scope.gdsnOnly){
+            filters.product_origin = 9;
+        }
         return find({}, filters);
     };
 
@@ -529,7 +539,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
             return;
         });
     };
-    
+
     var hydrateProduct = function (data) {
         var product = new Product().fromJson(data);
         product.urlPictureOriginal = URL_CDN_MEDIA + '/product/' + product.id + '/picture/packshot/256x256.png?' + Math.random() * 100000000;
