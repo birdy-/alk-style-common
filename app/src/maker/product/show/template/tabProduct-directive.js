@@ -29,7 +29,7 @@ angular.module('jDashboardFluxApp').directive('tabProduct', [
                             productReference: function () { return scope.product(); }
                         }
                     });
-                }
+                };
 
                 scope.classes = function () {
                     var classes = {};
