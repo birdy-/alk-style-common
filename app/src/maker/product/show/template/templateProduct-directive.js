@@ -2,19 +2,19 @@
 
 angular.module('jDashboardFluxApp').directive('templateProduct', [
 	'$location',
-    function($location) {
+    function ($location) {
     return {
         restrict: 'AEC',
         transclude: true,
         templateUrl: '/src/maker/product/show/template/templateProduct.html',
-        link: function(scope, element, attrs, ctrl) {
+        link: function (scope, element, attrs, ctrl) {
 
             /**
              * Decide whether to display a product tab or not.
              * Current check is based on the permissions
              * of the User on the Brand of the given Product.
              */
-            scope.displayTab = function(tabName) {
+            scope.displayTab = function (tabName) {
                 if (scope.user === {} || typeof(scope.product.isBrandedBy) === 'undefined') {
                     return false;
                 }
@@ -36,7 +36,7 @@ angular.module('jDashboardFluxApp').directive('templateProduct', [
                 return true;
             };
 
-		    scope.active = function() {
+		    scope.active = function () {
 		        return $location.path().indexOf('data') !== -1;
 		    };
 
