@@ -1,83 +1,106 @@
 <div ng-include="'/src/maker/home/header.html'"></div>
 <div class="container-fluid admin admin-page">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-        	<h1>
-        		Administration
-        		<small>Organisation</small>
-        	</h1>
-        </div>
-        <div class="row">
-            <div class="col-sm-12 box-tile">
-                <div class="col-sm-12">
-                    <h2>
-                        {{ organization.nameLegal }}
-
+            <div class="col-sm-5">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h2>
+                            {{ organization.nameLegal }}
+                        </h2>
+                    </div>
+                    <div class="col-xs-12">
                         <div class="pull-right">
                             <a class="btn btn-default" ng-href="#/organization/{{ organizationId }}/profile">
                                 <i class="fa fa-edit"></i> Modifier
                             </a>
                         </div>
-                    </h2>
-
-                </div>
-                <div class="col-sm-12">
-                    <br/>
-                    <p>{{ organization.description }}</p>
-                    <h4>RCS</h4>
-                    <p>{{  organization.identifierLegal }}</p>
-                    <h4>Adresse: </h4>
-                    <p>
-                         {{  organization.address }},
-                         {{  organization.postCode }}
-                         {{  organization.identifierCity }}
-                    </p>
-                </div>
-                <div class="col-sm-12 text-center">
-                    <div class="col-sm-4">
-                        <a class="btn btn-default" ng-click="addUser()" role="button">
-                            <i class="fa fa-plus"></i> Ajouter un utilisateur
-                        </a>
                     </div>
-<!--                     <div class="col-sm-4">
-                        <a class="btn btn-default" ng-click="addSegment()" role="button">
-                            <i class="fa fa-plus"></i> Ajouter un segment
-                        </a>
+                    <div class="col-sm-12">
+                        <p>{{ organization.description }}</p>
+                        <h4>RCS</h4>
+                        <p>{{  organization.identifierLegal }}</p>
+                        <h4>Adresse: </h4>
+                        <p>
+                             {{  organization.address }},
+                             {{  organization.postCode }}
+                             {{  organization.identifierCity }}
+                        </p>
                     </div>
-                    <div class="col-sm-4">
-                        <a class="btn btn-default" ng-href="/#/organization/{{organizationId}}/admin/users" role="button">
-                            <i class="fa fa-user"></i> Gestion des segments
-                        </a>
-                    </div> -->
+                </div>
+            </div>
+            <div class="col-sm-7">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h3>Bienvenue {{ currentUser.firstname }} {{ currentUser.lastname }}</h3>
+                    </div>
+                    <div class="col-xs-12">
+                        <p>Vous avez XX nouveaux produits</p>
+                    </div>
+                    <div class="col-xs-12">
+                        <p>
+                            Vous pouvez
+                            <a class="btn btn-default" ng-click="addUser()" role="button">
+                                <i class="fa fa-plus"></i> Ajouter un nouvel utilisateur
+                            </a>
+                            <span alk-button-brand-claim="" label="'Ajouter une marque à votre organisation'"></span>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
         <br>
         <div class="row" ng-show="productSegments.length">
-            <div class="col-sm-12 box-tile">
-                <h2>Segments</h2>
-                <p>
-                    La liste des segments gérés par cette organisation.
-                </p>
-            </div>
-            <div class="col-md-12">
+            <div class="col-xs-6 box-tile">
+                <h2>Mes gammes de produits</h2>
                 <div class="row">
                     <div ng-repeat="segment in productSegments">
-                        <div class="col-md-12 box-tile">
+                        <div class="col-md-12 box-tile" ng-click="selectSegment(segment)">
                             <h3>{{ segment.name }}</h3>
                             <div ng-repeat="query in segment.query track by $index">
-                                <p ng-if="query.filter_glns.length">GLN :
-                                    <div ng-repeat="gln in query.filter_glns track by $index">
-                                        {{ gln }}
-                                    </div>
+                                <p>
+                                    {{ query.filter_glns.length || 0}} GLN
                                 </p>
-                                <p ng-if="query.filter_brand_ids.length">Marques :
-                                    <div ng-repeat="brandId in query.filter_brand_ids track by $index">
-                                        {{ brandid }}
-                                    </div>
+                                <p>
+                                    {{ query.filter_brand_ids.length || 0 }} Marques
                                 </p>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="selectedSegment" class="col-xs-6 box-tile">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="pull-right">
+                            <i class="fa fa-2x fa-user"></i>
+                            <i class="fa fa-2x fa-trash"></i>
+                            <i class="fa fa-2x fa-edit"></i>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <h2>{{ selectedSegment.name}}</h2>
+                        <p>Édité le {{ selectedSegment.updatedAt }}</p>
+                        <pre>{{ selectedSegment | json }}</pre>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h4>Contenu</h4>
+                        <p>Non Certifiés : {{ selectedSegment.stats.notCertifieds }}</p>
+                        <p>Certifiés : {{ selectedSegment.stats.certifieds }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h4>Informations</h4>
+                        <p>ID: {{ selectedSegment.shortId }}</p>
+                        <p>Créé le {{ selectedSegment.createdAt }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h4>Permisions</h4>
                     </div>
                 </div>
             </div>

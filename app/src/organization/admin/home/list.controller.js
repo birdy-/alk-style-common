@@ -5,10 +5,23 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
     function ($scope, permission, $$ORM, $$sdkAuth, $routeParams, $location, ngToast, $modal) {
 
     $scope.organization = {};
+    $scope.selectedSegment = null;
 
     // --------------------------------------------------------------------------------
     // Event binding
     // --------------------------------------------------------------------------------
+
+    $scope.selectSegment = function (segment) {
+        $$ORM.repository('ProductSegment').get(segment.id).then(function (segment) {
+            $scope.selectedSegment = segment;
+            $$ORM.repository('ProductSegment').method('Stats')(segment.id).then(function (stats) {
+                $scope.selectedSegment.stats = stats[0];
+                $scope.selectedSegment.stats.certifieds = stats[0].counts[Product.CERTIFICATION_STATUS_CERTIFIED.id];
+                $scope.selectedSegment.stats.notCertifieds = stats[0].counts[Product.CERTIFICATION_STATUS_ACCEPTED.id];
+                $scope.selectedSegment.stats.archived = stats[0].counts[Product.CERTIFICATION_STATUS_DISCONTINUED.id];
+            });
+        });
+    };
 
     $scope.addUser = function () {
         if ($scope.isAdmin == false) {
