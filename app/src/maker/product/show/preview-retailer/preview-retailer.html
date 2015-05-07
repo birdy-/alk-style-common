@@ -1,25 +1,15 @@
-<div template-product>
-<div ng-controller="DashboardMakerProductShowRetailerPreviewController">
-
-<div class="row">
+<div class="modal-header">
+    <h3>
+        Aperçu de la fiche produit
+    </h3>
+</div>
+<div class="modal-body product-preview-wrapper">
+    <div class="row">
     <div class="col-xs-12">
-        <h3>Aperçu de la fiche produit Retailer</h3>
+        <iframe width="100%" marginwidth="0" height="800px" marginheight="0" frameborder="0" scrolling="No" align="top" hspace="0" vspace="0" id="alk_product_page" ng-src="{{ previewUrl }}" style="overflow: hidden; margin-bottom: 10px;"></iframe>
     </div>
 </div>
-
-<div class="row">
-    <div class="col-xs-12">
-        <h4>Auchan Drive</h4>
-    </div>
-    <div class="col-xs-12">
-        <div ng-show="shopsMap[1]" class="product-preview-auchandrive-wrapper">
-            <iframe width="100%" marginwidth="0" height="800px" marginheight="0" frameborder="0" scrolling="No" align="top" hspace="0" vspace="0" id="alk_product_page" ng-src="{{ shopsMap[1].previewUrl }}" style="overflow: hidden; margin-bottom: 10px;"></iframe>
-        </div>
-        <div ng-show="!shopsMap[1]" class="product-preview-auchandrive-wrapper">
-            <div class="product-preview-auchandrive">Ce produit n'est pas référencé chez Auchandrive.</div>
-        </div>
-    </div>
 </div>
-
-</div>
+<div class="modal-footer">
+    <button class="btn btn-success" ng-click="ok()"><i class="fa fa-certificate"></i> Ok</button>
 </div>
