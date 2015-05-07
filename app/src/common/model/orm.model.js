@@ -107,8 +107,8 @@ var abstractRepository = function (Model, $$sdk, $$cacheManager, $q, cache, hydr
 
 
 angular.module('jDashboardFluxApp').service('$$ORM', [
-    '$$cacheManager', '$q', '$$sdkCrud', '$$sdkCampaign', '$$sdkAuth',
-    function service($$cacheManager, $q, $$sdkCrud, $$sdkCampaign, $$sdkAuth) {
+    '$$cacheManager', '$q', '$$sdkCrud', '$$sdkCampaign', '$$sdkGdsn', '$$sdkAuth',
+    function service($$cacheManager, $q, $$sdkCrud, $$sdkCampaign, $$sdkGdsn, $$sdkAuth) {
 
         // Items that need to be lazily loaded in order to avoid calls on the APIs
         var commonUnits = [
@@ -324,6 +324,7 @@ angular.module('jDashboardFluxApp').service('$$ORM', [
             Campaign: abstractRepository(Campaign, $$sdkCampaign, $$cacheManager, $q, [], null),
             CommonUnit: abstractRepository(CommonUnit, $$sdkCrud, $$cacheManager, $q, commonUnits, addTextFrom('name')),
             Concept: abstractRepository(Concept, $$sdkCrud, $$cacheManager, $q, concepts, addTextFrom('name')),
+	    GLN: abstractRepository(GLN, $$sdkGdsn, $$cacheManager, $q, [], addTextFrom('name')),
             Organization: abstractRepository(Organization, $$sdkAuth, $$cacheManager, $q, [], addTextFrom('name')),
             Placement: abstractRepository(Placement, $$sdkCampaign, $$cacheManager, $q, [], addTextFrom('name')),
             Product: abstractRepository(Product, $$sdkCrud, $$cacheManager, $q, [], addTextFrom('nameLegal')),
