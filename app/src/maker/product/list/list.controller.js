@@ -136,6 +136,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     // Event handling
     // ------------------------------------------------------------------------
 
+    // Add claim status to products that have been claimed by users
     var attachClaimStatus = function (response) {
         if(!response.data.data.length) { return; }
         var mapProducts = _.indexBy($scope.products,function(product){

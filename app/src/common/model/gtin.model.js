@@ -4,7 +4,6 @@ var Gtin = function(){
   this._type = 'Gtin';
 
   this.fromJson = function (json) {
-    console.log(' test');
     for (var key in json) {
       this[key] = json[key];
     }
