@@ -5,7 +5,6 @@ angular.module('jDashboardFluxApp')
 .controller('DashboardMakerProductShowRetailerPreviewController', [
     '$scope', '$sce', 'productReference', '$modalInstance',
     function ($scope, $sce, productReference, $modalInstance) {
-        console.log(productReference);
         // NB to create specific preview for retailers code has already been created
         // Check https://github.com/alkemics/dashboard-flux/blob/f808b4af1666d517ff6e662f63210f23c8767378/app/src/maker/product/show/preview-retailer/preview-retailer.controller.js
         var init = function () {
