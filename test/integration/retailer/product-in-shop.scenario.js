@@ -58,16 +58,4 @@ describe('[Dashboard Retailer] PISHs page', function () {
             })
         });
     });
-
-    it('should have 2 tabs on preview', function () {
-        expect(productInShopPage.getPishPreviewTabs().count())
-        .toEqual(2);
-    });
-
-    it('should have pictures on media tab', function () {
-        productInShopPage.getPishPreviewMediaTab().click().then(function () {
-            expect(productInShopPage.getPishPreviewPictures().count())
-            .toBeGreaterThan(3);
-        });
-    });
 });
