@@ -138,13 +138,15 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
 
     var attachClaimStatus = function (response) {
         if(!response.data.data.length) { return; }
-        var mapProducts = _.indexBy($scope.products,function(product){return product.isIdentifiedBy[0].reference;});
-
+        var mapProducts = _.indexBy($scope.products,function(product){
+          return product.isIdentifiedBy[0].reference;
+        });
+        // Filter to get only the latest claim for each product, and put everything into an object {ref:claim}
         var claims =  _.map(
                         _.values(
                           _.groupBy(response.data.data,function(claim){return claim.reference})),function(array){
                               return _.max(array,function(claim){return new Date(claim.updatedAt)})});
-
+        // Attach each claim to good product
         _.each(claims,function(claim){
           mapProducts[claim.reference].claimInProgress = claim.status === UserClaimProductReference.TYPE_CREATED.id;
         });
@@ -170,12 +172,12 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         refresh($scope.displayNewProducts);
     };
 
-    $scope.toggleGdsnOnly = function (only){
+    $scope.toggleGdsnOnly = function (only) {
       if(only != $scope.gdsnOnly){
         $scope.gdsnOnly = only;
         refresh(true);
       }
-    }
+    };
 
     var list = function () {
         if ($scope.displayNewProducts) {
@@ -196,10 +198,10 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
 
         var filters = {
             productsegment_id: $scope.rootProductSegment.id,
-            certified: $scope.request.product.certified,
+            certified: $scope.request.product.certified
         };
-        if($scope.gdsnOnly){
-            filters.product_origin = 9;
+        if ($scope.gdsnOnly) {
+            filters.product_origin = Gtin.TYPE_GDSN.id;
         }
         return find({}, filters);
     };
@@ -298,7 +300,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
                 $scope.products.push(product);
             }
             if ($scope.displayNewProducts) {
-              var references = _.map($scope.products, function(product){
+              var references = _.map($scope.products, function(product) {
                 return product.isIdentifiedBy[0].reference;
               });
               $$sdkAuth.UserClaimProductReferenceList({}, {reference: references}).then(attachClaimStatus);
