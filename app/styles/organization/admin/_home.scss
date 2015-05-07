@@ -1,9 +1,22 @@
 #stream {
     .admin-page {
-      background-color: $background-color-grey;
+        background-color: $background-color-grey;
+        margin-top: 2*$padding-base-horizontal;
 
-      h1 {
-        background-color: $background-color-grey !important;
-      }
+        h1 {
+            background-color: $background-color-grey !important;
+        }
+
+        .box-tile {
+            .row + .row {
+                margin-top: $padding-base-horizontal;
+            }
+        }
+
+        .segment-summary {
+            h3, .details {
+                display: inline-block;
+            }
+        }
     }
 }

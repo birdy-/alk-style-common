@@ -84,6 +84,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
         });
         $$ORM.repository('ProductSegment').list({organization_id: $scope.organizationId}, {filter_id_in: productSegmentIds}, {}, 0, 100).then(function (segments) {
             $scope.productSegments = segments;
+            $scope.selectedSegment = $scope.selectSegment($scope.productSegments[1]);
         });
     };
 

@@ -188,23 +188,7 @@
             </div>
             <div class="col-md-8">
                 <div class="row">
-                    <div ng-repeat="segment in productSegments">
-                        <div class="col-md-6 box-tile">
-                            <h3>{{ segment.name }}</h3>
-                            <div ng-repeat="query in segment.query track by $index">
-                                <p ng-if="query.filter_glns.length">GLN :
-                                    <div ng-repeat="gln in query.filter_glns track by $index">
-                                        {{ gln }}
-                                    </div>
-                                </p>
-                                <p ng-if="query.filter_brand_ids.length">Marques :
-                                    <div ng-repeat="brandId in query.filter_brand_ids track by $index">
-                                        {{ brandid }}
-                                    </div>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                    <a ng-href="/#/organization/{{ organization.id }}/admin/home">Voir les {{ productSegments.length }} segments</a>
                 </div>
             </div>
         </section>
