@@ -39,7 +39,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
                 brands: function () {
                     return [];
                 },
-                currentUser: function() {
+                currentUser: function () {
                     return $scope.currentUser;
                 }
 
@@ -60,7 +60,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
             templateUrl: '/src/maker/productsegment/create/create-modal.html',
             controller: 'ProductSegmentCreateModalController',
             resolve: {
-                organization_id: function() { return $scope.organizationId; }
+                organization_id: function () { return $scope.organizationId; }
             }
         });
 
@@ -75,7 +75,9 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
     $scope.organizationId = Number($routeParams.id);
     $$ORM.repository('Organization').get($scope.organizationId).then(function (entity) {
         $scope.organization = entity;
-        loadSegments();
+    });
+    $$ORM.repository('ProductSegment').list({organization_id: $scope.organizationId}, {}, {}, 0, 100).then(function (segments) {
+        $scope.productSegments = segments;
     });
 
     var loadSegments = function () {
@@ -89,14 +91,14 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
     };
 
     var init = function () {
-        permission.getUser().then(function(user) {
+        permission.getUser().then(function (user) {
             $scope.currentUser = user;
             if (!permission.isAdmin($scope.organizationId)) {
                 ngToast.create({
                     className: 'danger',
                     content: "Vous n'êtes pas administrateur pour cette organisation !",
                     timeout: 3000
-                    });
+                });
                 $location.path("/user/me/profile");
             }
         });

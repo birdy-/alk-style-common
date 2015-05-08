@@ -71,9 +71,16 @@
                     <div ng-repeat="segment in productSegments">
                         <div class="col-md-12 box-tile segment-summary" ng-click="selectSegment(segment)">
                             <h3>{{ segment.name }}</h3>
-                            <div class="details" ng-repeat="query in segment.query track by $index">
-                                <p>
-                                    {{ query.filter_glns.length || 0}} GLN - {{ query.filter_brand_ids.length || 0 }} Marques
+                            <div ng-repeat="query in segment.query track by $index">
+                                <p ng-if="query.filter_glns.length">GLN :
+                                    <div ng-repeat="gln in query.filter_glns track by $index">
+                                        {{ gln }}
+                                    </div>
+                                </p>
+                                <p ng-if="query.filter_brand_ids.length">Marques :
+                                    <div ng-repeat="brandId in query.filter_brand_ids track by $index">
+                                        {{ brandId }}
+                                    </div>
                                 </p>
                             </div>
                         </div>
@@ -115,7 +122,11 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <h4>Permisions</h4>
-                            <a class="btn btn-default"> Voir toutes permissions</a>
+                            <div class="col-sm-4">
+                                <a class="btn btn-default" ng-href="/#/organization/{{ organizationId }}/admin/users" role="button">
+                                    <i class="fa fa-user"></i> Voir toutes les permissions
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

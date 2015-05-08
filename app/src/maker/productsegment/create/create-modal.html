@@ -1,6 +1,11 @@
 <div class="modal-header">
     <h3>
-    	Créer un nouveau Segment de Produits
+        <span ng-hide="editMode">
+            Créer un nouveau Segment de Produits
+        </span>
+        <span ng-show="editMode">
+            Edition du segment : {{ productSegment.name }}
+        </span>
     </h3>
 </div>
 
@@ -50,10 +55,15 @@
     <div ng-click="display.advanced = !display.advanced">
         <i class="fa fa-plus" ng-if="!display.advanced"/>
         <i class="fa fa-minus" ng-if="display.advanced"/>
-        <strong> Avancé</strong>
+        <span ng-hide="display.advanced">
+            <strong> Voir les GLNs</strong>
+        </span>
+        <span ng-show="display.advanced">
+            <strong> Cacher les GLNs</strong>
+        </span>
     </div>
     <br/>
-    <div ng-if="display.advanced">
+    <div ng-show="display.advanced">
         GLNs:
         <div class="input-group" ng-repeat="gln in glns track by $index">
             <input class="form-control text-center" disabled ng-model="gln"/>
@@ -63,7 +73,7 @@
                 </div>
             </span>
         </div>
-        <div class="input-group" ng-if="possibleGLNS.length > 0 && pendingGLN">
+        <div class="input-group" ng-show="possibleGLNS.length > 0 && pendingGLN">
             <select class="form-control"
                 ng-model="pendingGLN"
                 ng-options="pgln for pgln in possibleGLNS"/>
@@ -73,9 +83,10 @@
                 </div>
             </span>
         </div>
-        <div ng-if="possibleGLNS.length > 0">
+        <br/>
+        <div class="text-right" ng-if="possibleGLNS.length > 0">
             <div class="btn btn-default" ng-click="addGLN()">
-                <i class="fa fa-plus"></i>
+               Ajouter un GLN
             </div>
         </div>
     </div>
