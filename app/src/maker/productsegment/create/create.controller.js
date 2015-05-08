@@ -100,7 +100,7 @@ angular.module('jDashboardFluxApp').controller('ProductSegmentCreateModalControl
     // Init
     // ------------------------------------------------------------------------
 
-    var loadProductSegment = function() {
+    var loadProductSegment = function () {
         $$sdkCrud.ProductSegmentShow(productsegment_id).then(function (response) {
 
             $scope.productSegment = response.data.data;
