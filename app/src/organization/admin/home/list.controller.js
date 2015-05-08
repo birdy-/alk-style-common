@@ -12,6 +12,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
     // --------------------------------------------------------------------------------
 
     $scope.selectSegment = function (segment) {
+        $scope.segmentDetailsLoading = true;
         $$ORM.repository('ProductSegment').get(segment.id).then(function (segment) {
             $scope.selectedSegment = segment;
             $$ORM.repository('ProductSegment').method('Stats')(segment.id).then(function (stats) {
@@ -19,6 +20,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
                 $scope.selectedSegment.stats.certifieds = stats[0].counts[Product.CERTIFICATION_STATUS_CERTIFIED.id];
                 $scope.selectedSegment.stats.notCertifieds = stats[0].counts[Product.CERTIFICATION_STATUS_ACCEPTED.id];
                 $scope.selectedSegment.stats.archived = stats[0].counts[Product.CERTIFICATION_STATUS_DISCONTINUED.id];
+                $scope.segmentDetailsLoading = false;
             });
         });
     };
@@ -60,6 +62,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
             templateUrl: '/src/maker/productsegment/create/create-modal.html',
             controller: 'ProductSegmentCreateModalController',
             resolve: {
+                productsegment_id: function () { return null; },
                 organization_id: function () { return $scope.organizationId; }
             }
         });
@@ -75,9 +78,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
     $scope.organizationId = Number($routeParams.id);
     $$ORM.repository('Organization').get($scope.organizationId).then(function (entity) {
         $scope.organization = entity;
-    });
-    $$ORM.repository('ProductSegment').list({organization_id: $scope.organizationId}, {}, {}, 0, 100).then(function (segments) {
-        $scope.productSegments = segments;
+        loadSegments();
     });
 
     var loadSegments = function () {
