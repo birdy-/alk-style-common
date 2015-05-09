@@ -14,28 +14,8 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
     // --------------------------------------------------------------------------------
     // Event binding
     // --------------------------------------------------------------------------------
-	$scope.goHome = function() {
+    $scope.goHome = function() {
         $location.path($location.url($location.path('/')));
-    };
-
-
-    $scope.initMatrix = function () {
-        $scope.users.map(function (user) {
-            $scope.matrix[user.id] = {};
-            user.managesProductSegment.map(function (productSegment) {
-                $scope.matrix[user.id][productSegment.id] = {};
-                $scope.matrix[user.id][productSegment.id].permissions = {};
-                $scope.matrix[user.id][productSegment.id].permissions[ProductSegment.PERMISSION_PS_SHOW]         = false;
-                $scope.matrix[user.id][productSegment.id].permissions[ProductSegment.PERMISSION_PRODUCT_SHOW]    = false;
-                $scope.matrix[user.id][productSegment.id].permissions[ProductSegment.PERMISSION_PRODUCT_UPDATE]  = false;
-                $scope.matrix[user.id][productSegment.id].permissions[ProductSegment.PERMISSION_PRODUCT_DELETE]  = false;
-                $scope.matrix[user.id][productSegment.id].permissions[ProductSegment.PERMISSION_PRODUCT_CERTIFY] = false;
-                productSegment.permissions.map(function (permission) {
-                    $scope.matrix[user.id][productSegment.id].permissions[permission] = true;
-                });
-                $scope.matrix[user.id][productSegment.id].hasChanged = false;
-            });
-        });
     };
 
     $scope.change = function (userId, productSegmentId) {
@@ -65,8 +45,6 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
         });
     };
 
-
-
     $scope.inviteUser = function () {
         var modalInstance = $modal.open({
             templateUrl: '/src/organization/user/add.html',
@@ -78,29 +56,24 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
             }
         });
     };
-    	
 
-    $scope.save = function () {
-        for (var userId in $scope.matrix) {
-            for (var psId in $scope.matrix[userId]) {
-                if ($scope.matrix[userId][psId].hasChanged === true) {
-                    var permissions = [];
-                    for (var permission in $scope.matrix[userId][psId].permissions) {
-                        if (( permission == ProductSegment.PERMISSION_PRODUCT_SHOW 
-                            || permission == ProductSegment.PERMISSION_PRODUCT_UPDATE
-                            || permission == ProductSegment.PERMISSION_PRODUCT_DELETE
-                            || permission == ProductSegment.PERMISSION_PRODUCT_CERTIFY) 
-                            && $scope.matrix[userId][psId].permissions[permission] === true)
-                            permissions.push(permission);   
-                    }
-                    $$sdkAuth.UserManagesProductSegmentUpdate($scope.organizationId, psId, userId, permissions).then(function (response) {
-                        console.log('Permissions mises a jour');
-                    });
-                }
-            }
-        }
+    $scope.selectSegment = function (segment) {
+        $scope.segmentDetailsLoading = true;
+        $$ORM.repository('ProductSegment').get(segment.id).then(function (segment) {
+            $scope.selectedSegment = segment;
+            console.log(segment);
+
+            $$ORM.repository('ProductSegment').method('Stats')(segment.id).then(function (stats) {
+                $scope.segmentDetailsLoading = false;
+
+                if (!stats.length) { return; }
+                $scope.selectedSegment.stats = stats[0];
+                $scope.selectedSegment.stats.certifieds = stats[0].counts[Product.CERTIFICATION_STATUS_CERTIFIED.id];
+                $scope.selectedSegment.stats.notCertifieds = stats[0].counts[Product.CERTIFICATION_STATUS_ACCEPTED.id];
+                $scope.selectedSegment.stats.archived = stats[0].counts[Product.CERTIFICATION_STATUS_DISCONTINUED.id];
+            });
+        });
     };
-
 
     // --------------------------------------------------------------------------------
     // Initialization
@@ -109,7 +82,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
     var loadProductSegments = function() {
         $$sdkCrud.ProductSegmentList({'organization_id':$scope.organizationId}, {}, {}, null, null).then(function (response) {
             $scope.segments = response.data.data;
-            $scope.initMatrix();
+            $scope.selectedSegment = $scope.segments[0];
         });
     }
 
@@ -123,31 +96,30 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
         });
     };
 
-    $scope.selectedSegment = {
-    	name: 'test',
-    	stats: { counts: 42 },
-    	users: [
-    		{name: 'user1'},
-    		{name: 'user2'}
-    	]
-    };
+    // $scope.selectedSegment = {
+    //     name: 'test',
+    //     stats: { counts: 42 },
+    //     users: [
+    //         {
+    //             name: 'user1',
+    //             username: 'a@aa.com',
+    //             permissions: ['product.show', 'product.edit']
+    //         },
+    //         {name: 'user2'}
+    //     ]
+    // };
 
-    $scope.segments = [
-    	{name: 'segment1'},
-    	{name: 'segment2'},
-    	{name: 'segment3'}
-    ];
+    // $scope.segments = [
+    //     {name: 'segment1'},
+    //     {name: 'segment2'},
+    //     {name: 'segment3'}
+    // ];
 
     var init = function () {
 
-	    permission.getUser().then(function (user) {
+        permission.getUser().then(function (user) {
             $scope.currentUser = user;
-            // if (permission.isAdmin($scope.organizationId)) {
-                loadOrganization();
-            // }
-            // else {
-            //     $scope.goHome();
-            // }
+            loadOrganization();
         });
     };
 

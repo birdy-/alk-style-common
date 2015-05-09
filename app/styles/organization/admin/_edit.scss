@@ -3,11 +3,25 @@
             background: $background-color-grey;
     }
 
+    .permissions-users {
+        height: 700px;
+
+        .segments-list {
+            min-height: 700px;
+        }
+    }
+
     .segment-details {
+        height: 100%;
+
     	.header {
     		p {
     			color: $gray-light;
     		}
     	}
     }
+}
+
+.admin-user-permissions {
+    height: 100%;
 }

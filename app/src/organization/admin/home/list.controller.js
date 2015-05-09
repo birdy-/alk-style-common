@@ -17,11 +17,12 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
         $$ORM.repository('ProductSegment').get(segment.id).then(function (segment) {
             $scope.selectedSegment = segment;
             $$ORM.repository('ProductSegment').method('Stats')(segment.id).then(function (stats) {
+                $scope.segmentDetailsLoading = false;
+
                 $scope.selectedSegment.stats = stats[0];
                 $scope.selectedSegment.stats.certifieds = stats[0].counts[Product.CERTIFICATION_STATUS_CERTIFIED.id];
                 $scope.selectedSegment.stats.notCertifieds = stats[0].counts[Product.CERTIFICATION_STATUS_ACCEPTED.id];
                 $scope.selectedSegment.stats.archived = stats[0].counts[Product.CERTIFICATION_STATUS_DISCONTINUED.id];
-                $scope.segmentDetailsLoading = false;
             });
         });
     };
