@@ -9,6 +9,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
     $scope.segments = [];
     $scope.users = [];
     $scope.organization = null;
+    $scope.isLoading = false;
 
 
     // --------------------------------------------------------------------------------
@@ -83,6 +84,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
         $$sdkCrud.ProductSegmentList({'organization_id':$scope.organizationId}, {}, {}, null, null).then(function (response) {
             $scope.segments = response.data.data;
             $scope.selectedSegment = $scope.segments[0];
+            $scope.isLoading = false;
         });
     }
 
@@ -119,6 +121,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
 
         permission.getUser().then(function (user) {
             $scope.currentUser = user;
+            $scope.isLoading = true;
             loadOrganization();
         });
     };
