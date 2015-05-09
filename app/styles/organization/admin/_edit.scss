@@ -1,27 +1,94 @@
-.admin {
-    tr.even {
-            background: $background-color-grey;
-    }
+#stream {
 
-    .permissions-users {
-        height: 700px;
+    .admin {
 
-        .segments-list {
-            min-height: 700px;
+        h1 {
+            color: $brand-success !important;
         }
+
+        tr.even {
+                background: $background-color-grey;
+        }
+
+        .segment {
+            padding: $padding-base-vertical*1.7 0;
+            cursor: pointer;
+            @include transition(background-color 0.3s 0 ease);
+            &:hover, &.active {
+                color: white;
+                background-color: $brand-success;
+            }
+        }
+
+        .permissions-users {
+            height: 700px;
+
+            .segments-list {
+                min-height: 700px;
+            }
+        }
+
+        .segment-details {
+            height: 100%;
+            // border-left: 1px solid $gray-light;
+
+            i.fa-spin {
+                line-height: 700px;
+                vertical-align: middle;
+            }
+
+            .header {
+                p {
+                    color: $gray-light;
+                }
+                border-bottom: 1px solid $gray-light;
+            }
+        }
+
+        i {
+            &:hover {
+                @include transition(color 0.2s 0 ease);
+                color: $brand-success;
+                cursor: pointer;
+            }
+
+
+            + i {
+                padding-left: 4px;
+            }
+        }
+
+        .search {
+            padding: $padding-base-vertical 0;
+            border-bottom: 1px solid $gray-light;
+
+            .form-group {
+                width: 100%;
+            }
+
+            i {
+                text-align: center;
+                + i {
+                    padding-left: 4px;
+                    padding-right: $padding-base-horizontal;
+                }
+            }
+
+            .form-control {
+                font-size: 16px;
+                border: 0;
+                border-radius: 0;
+                background-color: transparent;
+                box-shadow: none;
+            }
+        }
+
     }
 
-    .segment-details {
+
+
+    .admin-user-permissions {
         height: 100%;
-
-    	.header {
-    		p {
-    			color: $gray-light;
-    		}
-    	}
     }
-}
 
-.admin-user-permissions {
-    height: 100%;
 }
