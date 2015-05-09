@@ -5,6 +5,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
     function ($scope, permission, $$ORM, $$sdkAuth, $routeParams, $location, ngToast, $modal) {
 
     $scope.organization = {};
+    $scope.organizationId = Number($routeParams.id);
     $scope.selectedSegment = null;
 
     // --------------------------------------------------------------------------------
@@ -75,11 +76,23 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
     // --------------------------------------------------------------------------------
     // Init
     // --------------------------------------------------------------------------------
-    $scope.organizationId = Number($routeParams.id);
-    $$ORM.repository('Organization').get($scope.organizationId).then(function (entity) {
-        $scope.organization = entity;
-        loadSegments();
-    });
+
+    var loadOrganization = function () {
+        $$ORM.repository('Organization').get($scope.organizationId).then(function (organization) {
+            $scope.organization = organization;
+            loadSegments();
+
+            var productSegmentRoot = Organization.getProductSegmentRoot(organization);
+            $$ORM.repository('ProductSegment').get(productSegmentRoot.id).then(function (segment) {
+                $$ORM.repository('ProductSegment').method('Stats')(productSegmentRoot.id).then(function (stats) {
+                    $scope.rootProductSegment = segment;
+                    $scope.newProductsCount = stats[0].counts[Product.CERTIFICATION_STATUS_ATTRIBUTED.id];
+                    $scope.newProductsLoaded = true;
+                });
+            });
+        });
+    };
+
 
     var loadSegments = function () {
         var productSegmentIds = $scope.organization.ownsProductSegment.map(function (productSegment) {
@@ -94,6 +107,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
     var init = function () {
         permission.getUser().then(function (user) {
             $scope.currentUser = user;
+            loadOrganization();
             if (!permission.isAdmin($scope.organizationId)) {
                 ngToast.create({
                     className: 'danger',
