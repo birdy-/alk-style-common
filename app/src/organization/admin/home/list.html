@@ -26,19 +26,19 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-7 col-full-height box-tile">
+        <div class="col-xs-12 col-sm-7 col-full-height box-tile col-top">
             <div class="col-xs-12">
                 <h3>Bienvenue {{ currentUser.firstname }} {{ currentUser.lastname }}</h3>
             </div>
             <div class="col-xs-12">
                 <p class="new-products">
-                    Vous avez &nbsp;
-                    <a class="btn btn-default" ng-href="#/maker/brand/all/product" ng-click="$root.navigation.maker.displayNewProducts = true;">
-                        {{ newProductsCount }}
-                        <i ng-if="!newProductsLoaded" class="fa fa-spin fa-spinner"></i>
-                        nouveaux produits
-                    </a>
-                    &nbsp;&nbsp;en attente d'attribution
+                    <span ng-show="newProductsLoaded">
+                        Vous avez &nbsp;
+                        <a class="btn btn-default" ng-href="#/maker/brand/all/product" ng-click="$root.navigation.maker.displayNewProducts = true;">
+                            {{ newProductsCount }} nouveaux produits
+                        </a>
+                        &nbsp;&nbsp;en attente d'attribution
+                    </span>
                 </p>
             </div>
             <div class="col-xs-12">
@@ -75,7 +75,9 @@
                     </div>
                 </div>
             </div>
-            <div ng-repeat="segment in productSegments | filter:search" class="col-xs-12 box-tile">
+            <div ng-repeat="segment in productSegments | filter:search"
+                 class="col-xs-12 box-tile segment"
+                 ng-class="{'active': segment.id === selectedSegment.id }">
                 <div class="segment-summary" ng-click="selectSegment(segment)">
                     <h3>{{ segment.name }}</h3>
                     <div ng-repeat="query in segment.query track by $index">

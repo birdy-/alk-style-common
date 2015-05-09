@@ -20,6 +20,15 @@
             .header {
                 height: 120px;
             }
+
+            .segment {
+                @include transition(background-color 0.3s 0 ease);
+
+                &:hover, &.active {
+                    background-color: $brand-success;
+                    color: white;
+                }
+            }
         }
 
         .segment-summary {

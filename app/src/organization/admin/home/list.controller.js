@@ -7,6 +7,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
     $scope.organization = {};
     $scope.organizationId = Number($routeParams.id);
     $scope.selectedSegment = null;
+    $scope.newProductsLoaded = false;
 
     // --------------------------------------------------------------------------------
     // Event binding
@@ -19,6 +20,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
             $$ORM.repository('ProductSegment').method('Stats')(segment.id).then(function (stats) {
                 $scope.segmentDetailsLoading = false;
 
+                if (stats.length) { return; }
                 $scope.selectedSegment.stats = stats[0];
                 $scope.selectedSegment.stats.certifieds = stats[0].counts[Product.CERTIFICATION_STATUS_CERTIFIED.id];
                 $scope.selectedSegment.stats.notCertifieds = stats[0].counts[Product.CERTIFICATION_STATUS_ACCEPTED.id];
@@ -74,6 +76,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
         }, function () {
         });
     }
+
     // --------------------------------------------------------------------------------
     // Init
     // --------------------------------------------------------------------------------
@@ -82,15 +85,6 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
         $$ORM.repository('Organization').get($scope.organizationId).then(function (organization) {
             $scope.organization = organization;
             loadSegments();
-
-            var productSegmentRoot = Organization.getProductSegmentRoot(organization);
-            $$ORM.repository('ProductSegment').get(productSegmentRoot.id).then(function (segment) {
-                $$ORM.repository('ProductSegment').method('Stats')(productSegmentRoot.id).then(function (stats) {
-                    $scope.rootProductSegment = segment;
-                    $scope.newProductsCount = stats[0].counts[Product.CERTIFICATION_STATUS_ATTRIBUTED.id];
-                    $scope.newProductsLoaded = true;
-                });
-            });
         });
     };
 
@@ -101,7 +95,15 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
         });
         $$ORM.repository('ProductSegment').list({organization_id: $scope.organizationId}, {filter_id_in: productSegmentIds}, {}, 0, 100).then(function (segments) {
             $scope.productSegments = segments;
-            $scope.selectedSegment = $scope.selectSegment($scope.productSegments[1]);
+            $scope.selectedSegment = $scope.selectSegment($scope.productSegments[0]);
+
+            var productSegmentRoot = Organization.getProductSegmentRoot($scope.organization);
+            $$ORM.repository('ProductSegment').get(productSegmentRoot.id).then(function (segment) {
+                $$ORM.repository('ProductSegment').method('Stats')(productSegmentRoot.id).then(function (stats) {
+                    $scope.newProductsLoaded = true;
+                    $scope.newProductsCount = stats[0].counts[Product.CERTIFICATION_STATUS_ATTRIBUTED.id];
+                });
+            });
         });
     };
 
