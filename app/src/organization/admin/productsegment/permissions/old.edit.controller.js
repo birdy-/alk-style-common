@@ -4,12 +4,17 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
     '$scope', 'permission','$routeParams', '$location', '$modal', '$$ORM', '$window', '$$sdkAuth', '$$sdkCrud',
     function ($scope, permission, $routeParams, $location, $modal, $$ORM, $window, $$sdkAuth, $$sdkCrud) {
 
-    $scope.currentUser = null;
+   	// --------------------------------------------------------------------------------
+    // Variables
+ 	// --------------------------------------------------------------------------------
     $scope.organizationId = $routeParams.id;
-    $scope.segments = [];
-    $scope.users = [];
-    $scope.organization = null;
-
+ 	$scope.currentUser = null;
+   	$scope.productSegmentIds = [];
+   	$scope.users = [];
+   	$scope.productSegments = [];
+    $scope.matrix = {};
+    $scope.ProductSegmentModel = ProductSegment;
+    $scope.hasModifications = false;
 
     // --------------------------------------------------------------------------------
     // Event binding
@@ -48,24 +53,10 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
             templateUrl: 'src/maker/productsegment/create/create-modal.html',
             controller: 'ProductSegmentCreateModalController',
             resolve: {
-                organization_id: function() { return $scope.organizationId; },
-                productsegment_id: function() { return null; }
+                organization_id: function() { return $scope.organizationId; }
             }
         });
     };
-
-    $scope.editProductSegment = function (productsegment_id) {
-        var modalInstance = $modal.open({
-            templateUrl: 'src/maker/productsegment/create/create-modal.html',
-            controller: 'ProductSegmentCreateModalController',
-            resolve: {
-                organization_id: function() { return $scope.organizationId; },
-                productsegment_id: function() { return productsegment_id; }
-            }
-        });
-    };
-
-
 
     $scope.inviteUser = function () {
         var modalInstance = $modal.open({
@@ -105,10 +96,10 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
     // --------------------------------------------------------------------------------
     // Initialization
     // --------------------------------------------------------------------------------
-
+    
     var loadProductSegments = function() {
         $$sdkCrud.ProductSegmentList({'organization_id':$scope.organizationId}, {}, {}, null, null).then(function (response) {
-            $scope.segments = response.data.data;
+            $scope.productSegments = response.data.data;
             $scope.initMatrix();
         });
     }
@@ -123,31 +114,15 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
         });
     };
 
-    $scope.selectedSegment = {
-    	name: 'test',
-    	stats: { counts: 42 },
-    	users: [
-    		{name: 'user1'},
-    		{name: 'user2'}
-    	]
-    };
-
-    $scope.segments = [
-    	{name: 'segment1'},
-    	{name: 'segment2'},
-    	{name: 'segment3'}
-    ];
-
     var init = function () {
-
-	    permission.getUser().then(function (user) {
+        permission.getUser().then(function (user) {
             $scope.currentUser = user;
-            // if (permission.isAdmin($scope.organizationId)) {
+            if (permission.isAdmin($scope.organizationId)) {
                 loadOrganization();
-            // }
-            // else {
-            //     $scope.goHome();
-            // }
+            }
+            else {
+                $scope.goHome();
+            }
         });
     };
 
