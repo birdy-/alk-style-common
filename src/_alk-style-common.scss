@@ -10,9 +10,12 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 // Bootstrap
 @import "bootstrap-sass-official/assets/stylesheets/bootstrap";
 
+@import "bootstrap-enrichment/row-colums";
+
 // File import
 @import "navbar";
 @import "home";
+@import "buttons";
 @import "sidebar";
 @import "footer";
 @import "cgu";

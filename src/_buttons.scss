@@ -1,0 +1,13 @@
+.btn-default {
+  &:hover, &:active {
+    @include transition(background-color 0.3s 0 ease);
+
+    background-color: $brand-success;
+    border-color: $brand-success;
+    color: white;
+
+    a {
+      color: white;
+    }
+  }
+}
