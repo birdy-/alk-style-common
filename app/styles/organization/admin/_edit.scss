@@ -2,4 +2,12 @@
     tr.even {
             background: $background-color-grey;
     }
+
+    .segment-details {
+    	.header {
+    		p {
+    			color: $gray-light;
+    		}
+    	}
+    }
 }
