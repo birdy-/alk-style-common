@@ -1,8 +1,8 @@
 'use_strict';
 
 angular.module('jDashboardFluxApp').controller('ProductSegmentCreateModalController', [
-    '$scope', '$window', '$modalInstance', 'permission', 'organization_id', '$$sdkAuth', '$$sdkCrud', 
-    function ($scope, $window, $modalInstance, permission, organization_id, $$sdkAuth, $$sdkCrud) {
+    '$scope', '$window', '$modalInstance', 'permission', 'organization_id', 'productsegment_id', '$$sdkAuth', '$$sdkCrud', 
+    function ($scope, $window, $modalInstance, permission, organization_id, productsegment_id, $$sdkAuth, $$sdkCrud) {
 
     // ------------------------------------------------------------------------
     // Variables
@@ -14,6 +14,8 @@ angular.module('jDashboardFluxApp').controller('ProductSegmentCreateModalControl
         advanced: false
     };
 
+    $scope.editMode = (productsegment_id !== null)
+    $scope.productSegment = null;
 
     $scope.user = null;
     $scope.organization = null;
@@ -82,21 +84,63 @@ angular.module('jDashboardFluxApp').controller('ProductSegmentCreateModalControl
         var shortId = "PS_" + organization_id + "_" + $scope.user['id'] + "_" + $scope.productSegmentName.substring(0, 3);
 
         // Create Productsegment
-        $$sdkCrud.ProductSegmentCreate($scope.productSegmentName, shortId, query, organization_id).then(function (response) {
-            $modalInstance.close('OK');
-        });
+        if ($scope.editMode) {
+            $$sdkCrud.ProductSegmentUpdate(productsegment_id, $scope.productSegmentName, query).then(function (response) {
+                $modalInstance.close('OK');
+            });
+        } else {
+            $$sdkCrud.ProductSegmentCreate($scope.productSegmentName, shortId, query, organization_id).then(function (response) {
+                $modalInstance.close('OK');
+            });
+        }
     };
 
 
     // ------------------------------------------------------------------------
     // Init
     // ------------------------------------------------------------------------
+
+    var loadProductSegment = function () {
+        $$sdkCrud.ProductSegmentShow(productsegment_id).then(function (response) {
+
+            $scope.productSegment = response.data.data;
+            $scope.productSegmentName = $scope.productSegment.name;
+
+            $scope.glns = $scope.productSegment.query[0].filter_glns;
+            for (i in $scope.glns) {
+                if ($scope.possibleGLNS.indexOf($scope.glns[i]) >= 0)
+                    $scope.possibleGLNS.splice(i, 1);
+            }
+
+            // Retrieve brands
+            if ($scope.productSegment.query[0].filter_brand_ids.length > 0) {
+                $$sdkCrud.BrandList({}, { 'id':$scope.productSegment.query[0].filter_brand_ids })
+                .then(function(brandResponse) {
+                    $scope.brands = brandResponse.data.data;
+                    for (i in $scope.brands)
+                        $scope.brands[i].text = $scope.brands[i].name;
+                });
+            }
+        });
+    }
+
     var loadOrganization = function () {
         $$sdkAuth.OrganizationShow(organization_id).then(function (response) {
             $scope.organization = response.data.data;
+
             $scope.organization.ownsGLN.map(function (gln) {
-                $scope.glns.push(gln.gln);
+                $scope.possibleGLNS.push(gln.gln);
             });
+
+            if ($scope.editMode) {
+                loadProductSegment();
+            } else {
+                // On create, all the GLN are selected by default
+                $scope.glns = $scope.possibleGLNS;
+                $scope.possibleGLNS = []
+            }
+
+
         });
     };
 

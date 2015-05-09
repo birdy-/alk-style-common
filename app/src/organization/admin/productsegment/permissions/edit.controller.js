@@ -53,10 +53,24 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
             templateUrl: 'src/maker/productsegment/create/create-modal.html',
             controller: 'ProductSegmentCreateModalController',
             resolve: {
-                organization_id: function() { return $scope.organizationId; }
+                organization_id: function() { return $scope.organizationId; },
+                productsegment_id: function() { return null; }
             }
         });
     };
+
+    $scope.editProductSegment = function (productsegment_id) {
+        var modalInstance = $modal.open({
+            templateUrl: 'src/maker/productsegment/create/create-modal.html',
+            controller: 'ProductSegmentCreateModalController',
+            resolve: {
+                organization_id: function() { return $scope.organizationId; },
+                productsegment_id: function() { return productsegment_id; }
+            }
+        });
+    };
+
+
 
     $scope.inviteUser = function () {
         var modalInstance = $modal.open({
