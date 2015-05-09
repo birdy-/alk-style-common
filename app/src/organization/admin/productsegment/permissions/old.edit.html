@@ -1,0 +1,93 @@
+<div ng-include="'/src/maker/home/header.html'"></div>
+<div class="container-fluid admin">
+
+	<!-- Title -->
+    <div class="row">
+    	<h1>
+    		Administration
+    		<small> Utilisateurs</small>
+    	</h1>
+    </div>
+
+
+	<div class="row well">
+        <div class="text-center">
+        	<div class="btn btn-success" ng-if="hasModifications == false" ng-click="">
+                <i class="fa fa-check"> Enregistré</i>
+        	</div>
+        	<div class="btn btn-warning" ng-if="hasModifications" ng-click="save()">
+                <i class="fa fa-save"> Enregistrer</i>
+        	</div>
+        	<div class="btn btn-default" ng-click="createProductSegment()">
+                <i class="fa fa-plus"> Ajouter un Segment</i>
+        	</div>
+        	<div class="btn btn-default" ng-click="inviteUser()">
+                <i class="fa fa-user"> Inviter un utilisateur</i>
+        	</div>
+        </div>
+    </div>
+    <div class="form-group form-inline"> 
+        Filtrer par :
+        <input type="text" ng-model="search.user" class="form-control" id="user" placeholder="Nom, Prénom, Addresse email..."/>
+        <input type="text" ng-model="search.productSegment" class="form-control" id="segment" placeholder="Nom de Segment"/>
+    </div>    
+
+    <div class="row">
+	    <table class="table-bordered" >
+	    	<thead>
+	    		<tr>
+	    			<td style="width:300px;background:#5eac25"></td>
+	    			<th style="width:100px" class="text-center" ng-repeat="productSegment in productSegments | filter:{name:search.productSegment}">{{ productSegment.name }}</th>
+	    		</tr>
+	    	</thead>
+	    	<tbody>
+	    		<tr ng-repeat="user in users | filter:{ $: search.user } " ng-class="{'even':$even}">
+		    		<th class="text-center" style="width:300px" >{{ user.username }}</th>
+		    		<td style="width:100px" ng-repeat="productSegment in productSegments | filter:{name:search.productSegment}">
+                        <input type="checkbox"
+                             ng-model="matrix[user.id][productSegment.id].permissions[ProductSegmentModel.PERMISSION_PRODUCT_SHOW]"
+                             ng-change="change(user.id, productSegment.id)">
+                             Voir
+                        </input><br/>
+		    		    <input type="checkbox"
+                             ng-model="matrix[user.id][productSegment.id].permissions[ProductSegmentModel.PERMISSION_PRODUCT_UPDATE]"
+                             ng-change="change(user.id, productSegment.id)">
+                             Modifier
+                         </input><br/>
+		    		    <input type="checkbox"
+                             ng-model="matrix[user.id][productSegment.id].permissions[ProductSegmentModel.PERMISSION_PRODUCT_DELETE]"
+                             ng-change="change(user.id, productSegment.id)">
+                             Supprimer
+                         </input><br/>
+		    		    <input type="checkbox"
+                             ng-model="matrix[user.id][productSegment.id].permissions[ProductSegmentModel.PERMISSION_PRODUCT_CERTIFY]"
+                             ng-change="change(user.id, productSegment.id)">
+                             Certifier
+                         </input><br/>
+		    		</td>
+		    	</tr>
+		    </tbody>
+	    </table>
+	</div>
+
+    <br/>
+	<div class="row well">
+        <div class="text-center">
+        	<div class="btn btn-success" ng-if="hasModifications == false" ng-click="">
+                <i class="fa fa-check"> Enregistré</i>
+        	</div>
+        	<div class="btn btn-warning" ng-if="hasModifications" ng-click="save()">
+                <i class="fa fa-save"> Enregistrer</i>
+        	</div>
+        	<div class="btn btn-default" ng-click="createProductSegment()">
+                <i class="fa fa-plus"> Ajouter un Segment</i>
+        	</div>
+        	<div class="btn btn-default" ng-click="inviteUser()">
+                <i class="fa fa-user"> Inviter un utilisateur</i>
+        	</div>
+        </div>
+    </div>
+
+
+
+ </div>

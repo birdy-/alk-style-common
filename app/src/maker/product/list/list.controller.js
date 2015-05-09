@@ -27,7 +27,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     $scope.newProductsLoaded = false;
     $scope.currentPage  = 1;
     $scope.newProductsCount = 0;
-    
+
     var currentFindByNameRequest = null;
     var rootProductSegment = null;
 
@@ -456,14 +456,14 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         $scope.request.busy = true;
         permission.refreshUser().then(function (user) {
             $scope.user = user;
+            var organizationId = user.belongsTo[0].id;
             $scope.isAdmin = permission.isAdmin(organizationId);
 
-            var organizationId = user.belongsTo[0].id;
             $$ORM.repository('Organization').get(organizationId).then(function (organization) {
                 var productSegmentRoot = Organization.getProductSegmentRoot(organization);
                 var userManageProductSegmentRoot = false;
                 for (var i in user.managesProductSegment) {
-                    if (user.managesProductSegment[i].id == productSegmentRoot) {
+                    if (user.managesProductSegment[i].id === productSegmentRoot.id) {
                         userManageProductSegmentRoot = true;
                         break;
                     }
@@ -474,6 +474,10 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
                             rootProductSegment = segment;
                             $scope.newProductsCount = getNewProductsCount(stats[0]);
                             $scope.newProductsLoaded = true;
+
+                            if ($rootScope.navigation.maker.displayNewProducts) {
+                                $scope.toggleNewProducts();
+                            }
                         });
                     });
                 }
@@ -536,7 +540,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
             return;
         });
     };
-    
+
     var hydrateProduct = function (data) {
         var product = new Product().fromJson(data);
         product.urlPictureOriginal = URL_CDN_MEDIA + '/product/' + product.id + '/picture/packshot/256x256.png?' + Math.random() * 100000000;

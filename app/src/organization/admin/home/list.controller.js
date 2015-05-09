@@ -5,10 +5,29 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
     function ($scope, permission, $$ORM, $$sdkAuth, $routeParams, $location, ngToast, $modal) {
 
     $scope.organization = {};
+    $scope.organizationId = Number($routeParams.id);
+    $scope.selectedSegment = null;
+    $scope.newProductsLoaded = false;
 
     // --------------------------------------------------------------------------------
     // Event binding
     // --------------------------------------------------------------------------------
+
+    $scope.selectSegment = function (segment) {
+        $scope.segmentDetailsLoading = true;
+        $$ORM.repository('ProductSegment').get(segment.id).then(function (segment) {
+            $scope.selectedSegment = segment;
+            $$ORM.repository('ProductSegment').method('Stats')(segment.id).then(function (stats) {
+                $scope.segmentDetailsLoading = false;
+
+                if (stats.length) { return; }
+                $scope.selectedSegment.stats = stats[0];
+                $scope.selectedSegment.stats.certifieds = stats[0].counts[Product.CERTIFICATION_STATUS_CERTIFIED.id];
+                $scope.selectedSegment.stats.notCertifieds = stats[0].counts[Product.CERTIFICATION_STATUS_ACCEPTED.id];
+                $scope.selectedSegment.stats.archived = stats[0].counts[Product.CERTIFICATION_STATUS_DISCONTINUED.id];
+            });
+        });
+    };
 
     $scope.addUser = function () {
         if ($scope.isAdmin == false) {
@@ -26,7 +45,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
                 brands: function () {
                     return [];
                 },
-                currentUser: function() {
+                currentUser: function () {
                     return $scope.currentUser;
                 }
 
@@ -47,7 +66,8 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
             templateUrl: '/src/maker/productsegment/create/create-modal.html',
             controller: 'ProductSegmentCreateModalController',
             resolve: {
-                organization_id: function() { return $scope.organizationId; }
+                productsegment_id: function () { return null; },
+                organization_id: function () { return $scope.organizationId; }
             }
         });
 
@@ -56,21 +76,41 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
         }, function () {
         });
     }
+
     // --------------------------------------------------------------------------------
     // Init
     // --------------------------------------------------------------------------------
-    $scope.organizationId = Number($routeParams.id);
-    $$ORM.repository('Organization').get($scope.organizationId).then(function (entity) {
-        $scope.organization = entity;
-    });
-    $$ORM.repository('ProductSegment').list({organization_id: $scope.organizationId}, {}, {}, 0, 100).then(function (segments) {
-        $scope.productSegments = segments;
-    });
 
+    var loadOrganization = function () {
+        $$ORM.repository('Organization').get($scope.organizationId).then(function (organization) {
+            $scope.organization = organization;
+            loadSegments();
+        });
+    };
+
+
+    var loadSegments = function () {
+        var productSegmentIds = $scope.organization.ownsProductSegment.map(function (productSegment) {
+            return productSegment.id;
+        });
+        $$ORM.repository('ProductSegment').list({organization_id: $scope.organizationId}, {filter_id_in: productSegmentIds}, {}, 0, 100).then(function (segments) {
+            $scope.productSegments = segments;
+            $scope.selectedSegment = $scope.selectSegment($scope.productSegments[0]);
+
+            var productSegmentRoot = Organization.getProductSegmentRoot($scope.organization);
+            $$ORM.repository('ProductSegment').get(productSegmentRoot.id).then(function (segment) {
+                $$ORM.repository('ProductSegment').method('Stats')(productSegmentRoot.id).then(function (stats) {
+                    $scope.newProductsLoaded = true;
+                    $scope.newProductsCount = stats[0].counts[Product.CERTIFICATION_STATUS_ATTRIBUTED.id];
+                });
+            });
+        });
+    };
 
     var init = function () {
-        permission.getUser().then(function(user) {
+        permission.getUser().then(function (user) {
             $scope.currentUser = user;
+            loadOrganization();
             if (!permission.isAdmin($scope.organizationId)) {
                 ngToast.create({
                     className: 'danger',
