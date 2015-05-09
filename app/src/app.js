@@ -43,7 +43,7 @@ app.factory('plupload', [
 
 var env = 'prod';
 if (window.location.hostname.indexOf('localhost') === 0) {
-    env = 'dev';
+    env = 'vagrant';
 } else if (window.location.hostname.indexOf('preprod-') === 0) {
     env = 'preprod';
 }
