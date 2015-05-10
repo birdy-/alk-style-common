@@ -51,21 +51,24 @@
                         <div ng-if="selectedSegment && !isLoading && !segmentDetailsLoading" class="col-xs-12 col-top header">
                             <div class="pull-right">
                                 <i class="fa fa-2x fa-user-plus"></i>
-                                <i class="fa fa-2x fa-copy"></i>
+                                <!-- <i class="fa fa-2x fa-copy"></i> -->
                                 <i class="fa fa-2x fa-edit"></i>
-                                <i class="fa fa-2x fa-trash"></i>
+                                <!-- <i class="fa fa-2x fa-trash"></i> -->
                             </div>
-                            <h2>Utilisateurs de {{ selectedSegment.name }}</h2>
+                            <h2>{{ selectedSegment.name }}</h2>
                             <p>
-                                {{ selectedSegment.users.length || 0 }} utilisateurs - {{ selectedSegment.stats.counts || 0 }} produits
+                                {{ selectedSegment.users.length || 0 }} utilisateurs - {{ selectedSegment.stats.total || 0 }} produits
                             </p>
                         </div>
 
                         <div ng-show="selectedSegment.users.length" class="col-xs-12">
                             <div class="row" ng-repeat="user in selectedSegment.users">
                                 <div class="col-xs-12">
-                                {{ user | json }}
-                                <div user-permission="" user="user" segment="selectedSegment"></div>
+                                    <div user-permissions-row 
+                                         organization="organization"
+                                         user="user"
+                                         productsegment="selectedSegment">
+                                     </div>
                                 </div>
                             </div>
                         </div>

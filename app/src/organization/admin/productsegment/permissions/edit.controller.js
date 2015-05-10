@@ -4,8 +4,8 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
     '$scope', 'permission','$routeParams', '$location', '$modal', '$$ORM', '$window', '$$sdkAuth', '$$sdkCrud',
     function ($scope, permission, $routeParams, $location, $modal, $$ORM, $window, $$sdkAuth, $$sdkCrud) {
 
-    $scope.currentUser = null;
     $scope.organizationId = $routeParams.id;
+    $scope.currentUser = null;
     $scope.segments = [];
     $scope.users = [];
     $scope.organization = null;
@@ -19,44 +19,44 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
         $location.path($location.url($location.path('/')));
     };
 
-    $scope.change = function (userId, productSegmentId) {
-        $scope.matrix[userId][productSegmentId].hasChanged = true;
-        $scope.hasModifications = true;
-    };
+    // $scope.change = function (userId, productSegmentId) {
+    //     $scope.matrix[userId][productSegmentId].hasChanged = true;
+    //     $scope.hasModifications = true;
+    // };
 
-    $scope.createProductSegment = function () {
-        var modalInstance = $modal.open({
-            templateUrl: 'src/maker/productsegment/create/create-modal.html',
-            controller: 'ProductSegmentCreateModalController',
-            resolve: {
-                organization_id: function() { return $scope.organizationId; },
-                productsegment_id: function() { return null; }
-            }
-        });
-    };
+    // $scope.createProductSegment = function () {
+    //     var modalInstance = $modal.open({
+    //         templateUrl: 'src/maker/productsegment/create/create-modal.html',
+    //         controller: 'ProductSegmentCreateModalController',
+    //         resolve: {
+    //             organization_id: function() { return $scope.organizationId; },
+    //             productsegment_id: function() { return null; }
+    //         }
+    //     });
+    // };
 
-    $scope.editProductSegment = function (productsegment_id) {
-        var modalInstance = $modal.open({
-            templateUrl: 'src/maker/productsegment/create/create-modal.html',
-            controller: 'ProductSegmentCreateModalController',
-            resolve: {
-                organization_id: function() { return $scope.organizationId; },
-                productsegment_id: function() { return productsegment_id; }
-            }
-        });
-    };
+    // $scope.editProductSegment = function (productsegment_id) {
+    //     var modalInstance = $modal.open({
+    //         templateUrl: 'src/maker/productsegment/create/create-modal.html',
+    //         controller: 'ProductSegmentCreateModalController',
+    //         resolve: {
+    //             organization_id: function() { return $scope.organizationId; },
+    //             productsegment_id: function() { return productsegment_id; }
+    //         }
+    //     });
+    // };
 
-    $scope.inviteUser = function () {
-        var modalInstance = $modal.open({
-            templateUrl: '/src/organization/user/add.html',
-            controller: 'OrganizationUserAddController',
-            resolve: {
-                organization:   function () { return $scope.organization; },
-                brands:         function () { return null; },
-                currentUser:    function () { return $scope.currentUser; }
-            }
-        });
-    };
+    // $scope.inviteUser = function () {
+    //     var modalInstance = $modal.open({
+    //         templateUrl: '/src/organization/user/add.html',
+    //         controller: 'OrganizationUserAddController',
+    //         resolve: {
+    //             organization:   function () { return $scope.organization; },
+    //             brands:         function () { return null; },
+    //             currentUser:    function () { return $scope.currentUser; }
+    //         }
+    //     });
+    // };
 
     $scope.selectSegment = function (segment) {
         $scope.segmentDetailsLoading = true;
@@ -71,6 +71,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
                 $scope.selectedSegment.stats.certifieds = stats[0].counts[Product.CERTIFICATION_STATUS_CERTIFIED.id];
                 $scope.selectedSegment.stats.notCertifieds = stats[0].counts[Product.CERTIFICATION_STATUS_ACCEPTED.id];
                 $scope.selectedSegment.stats.archived = stats[0].counts[Product.CERTIFICATION_STATUS_DISCONTINUED.id];
+                $scope.selectedSegment.stats.total = $scope.selectedSegment.stats.certifieds + $scope.selectedSegment.stats.notCertifieds;
             });
         });
     };

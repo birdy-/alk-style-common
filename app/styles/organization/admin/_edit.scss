@@ -3,7 +3,7 @@
     .admin {
 
         h1 {
-            color: $brand-success !important;
+            color: $alk-green !important;
         }
 
         tr.even {
@@ -16,7 +16,7 @@
             @include transition(background-color 0.3s 0 ease);
             &:hover, &.active {
                 color: white;
-                background-color: $brand-success;
+                background-color: $alk-green;
             }
         }
 
@@ -48,7 +48,7 @@
         i {
             &:hover {
                 @include transition(color 0.2s 0 ease);
-                color: $brand-success;
+                color: $alk-blue;
                 cursor: pointer;
             }
 
@@ -83,6 +83,74 @@
             }
         }
 
+    }
+
+    .user-permissions {
+        padding: $padding-base-horizontal 0;
+        height: 65px;
+
+
+        &:hover {
+            @include transition(background-color 0.3s 0 ease);
+            background-color: $gray-lighter;
+        }
+
+        .trash {
+            line-height: 65px - $padding-base-horizontal * 2;
+            vertical-align: middle;
+            text-align: center;
+            &:hover {
+                @include transition(color 0.2s 0 ease);
+                cursor: pointer;
+                color: $alk-red;
+            }
+        }
+
+        .user {
+
+            i {
+                &:hover {
+                    transition: none;
+                    color: $gray;
+                    cursor: default;
+                }
+            }
+
+            .identity {
+
+                .name {
+                    font-size: 16px;
+                }
+
+                .job {
+                    font-size: 12px;
+                    color: $gray-light;
+                }
+            }
+
+        }
+
+        .permissions {
+            line-height: 65px - $padding-base-horizontal * 2;
+            vertical-align: middle;
+            i {
+                color: $gray-light;
+
+                &:hover, &.active {
+                    @include transition(color 0.2s 0 ease);
+                    cursor: pointer;
+                    color: $alk-blue;
+                }
+
+                + i {
+                    padding-left: 6px;
+                }
+
+            }
+        }
+    }
+    + .user-permissions {
+        margin-top: 20px;
     }
 
 
