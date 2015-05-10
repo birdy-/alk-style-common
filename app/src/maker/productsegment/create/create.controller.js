@@ -1,7 +1,7 @@
 'use_strict';
 
 angular.module('jDashboardFluxApp').controller('ProductSegmentCreateModalController', [
-    '$scope', '$window', '$modalInstance', 'permission', 'organization_id', 'productsegment_id', '$$sdkAuth', '$$sdkCrud', 
+    '$scope', '$window', '$modalInstance', 'permission', 'organization_id', 'productsegment_id', '$$sdkAuth', '$$sdkCrud',
     function ($scope, $window, $modalInstance, permission, organization_id, productsegment_id, $$sdkAuth, $$sdkCrud) {
 
     // ------------------------------------------------------------------------
@@ -36,7 +36,7 @@ angular.module('jDashboardFluxApp').controller('ProductSegmentCreateModalControl
        if ($scope.pendingGLN != null)
             $scope.glns.push($scope.pendingGLN);
         $scope.glns.map(function (gln) {
-            var s = -1; 
+            var s = -1;
             if ((s = $scope.possibleGLNS.indexOf(gln)) !== -1)
                 $scope.possibleGLNS.splice(s, 1);
         });
@@ -44,7 +44,7 @@ angular.module('jDashboardFluxApp').controller('ProductSegmentCreateModalControl
     };
 
     $scope.validate = function () {
-        // Cleaning possible bad values of GLNS 
+        // Cleaning possible bad values of GLNS
         for (var i = 0, len = $scope.glns.length; i < len; i++) {
             if (typeof($scope.glns[i]) === 'undefined' || $scope.glns[i] == null || $scope.glns[i].length == 0) {
                 $scope.glns.splice(i, 1);
@@ -54,11 +54,11 @@ angular.module('jDashboardFluxApp').controller('ProductSegmentCreateModalControl
                 $scope.glns.splice(i, 1);
         }
         // Name and at least one GLN (for now) are mandatory
-        if (typeof($scope.productSegmentName) === 'undefined' 
+        if (typeof($scope.productSegmentName) === 'undefined'
             || $scope.productSegmentName == null
             || $scope.productSegmentName.length == 0
-            || typeof($scope.glns) === 'undefined' 
-            || $scope.glns == null 
+            || typeof($scope.glns) === 'undefined'
+            || $scope.glns == null
             || $scope.glns.length == 0) {
             $window.alert('Création du segment de produits impossible. Merci de consulter le guide utilisateur.'); // voluntarily generic
             return false;
@@ -107,7 +107,7 @@ angular.module('jDashboardFluxApp').controller('ProductSegmentCreateModalControl
             $scope.productSegmentName = $scope.productSegment.name;
 
             $scope.glns = $scope.productSegment.query[0].filter_glns;
-            for (i in $scope.glns) {
+            for (var i in $scope.glns) {
                 if ($scope.possibleGLNS.indexOf($scope.glns[i]) >= 0)
                     $scope.possibleGLNS.splice(i, 1);
             }
@@ -117,8 +117,10 @@ angular.module('jDashboardFluxApp').controller('ProductSegmentCreateModalControl
                 $$sdkCrud.BrandList({}, { 'id':$scope.productSegment.query[0].filter_brand_ids })
                 .then(function(brandResponse) {
                     $scope.brands = brandResponse.data.data;
-                    for (i in $scope.brands)
+                    for (i in $scope.brands) {
                         $scope.brands[i].text = $scope.brands[i].name;
+                    }
+                    $scope.segmentLoaded = true;
                 });
             }
         });
@@ -137,7 +139,7 @@ angular.module('jDashboardFluxApp').controller('ProductSegmentCreateModalControl
             } else {
                 // On create, all the GLN are selected by default
                 $scope.glns = $scope.possibleGLNS;
-                $scope.possibleGLNS = []
+                $scope.possibleGLNS = [];
             }
 
 

@@ -42,7 +42,7 @@
     </div>
 
     <br/>
-    <div> Précisez une ou plusieurs marques <l>(facultatif)</l>:
+    <div ng-if="segmentLoaded"> Précisez une ou plusieurs marques <l>(facultatif)</l>:
         <div alk-autocomplete-my
              alk-autocomplete-type="brand"
              alk-autocomplete-restrict="'organization-brand'"
@@ -50,6 +50,9 @@
              placeholder="Rechercher parmi les marques"
              ng-model="brands">
         </div>
+    </div>
+    <div ng-hide="segmentLoaded">
+        <i class="fa fa-spin fa-spinner"></i>
     </div>
     <!-- TODO : Add Products -->
 
