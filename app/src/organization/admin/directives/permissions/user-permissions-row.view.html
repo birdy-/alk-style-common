@@ -25,13 +25,25 @@
         <div class="permissions col-xs-2">
             <i class="fa fa-2x fa-eye"
                ng-class="{ 'active' : permissions[ProductSegment.PERMISSION_PRODUCT_SHOW] == true }"
-               ng-click="update(ProductSegment.PERMISSION_PRODUCT_SHOW)"></i>
+               ng-click="update(ProductSegment.PERMISSION_PRODUCT_SHOW)"
+               data-toggle="tooltip"
+               data-placement="top"
+               ng-attr-title="Voir les produits"
+               tooltip=""></i>
             <i class="fa fa-2x fa-edit" 
                ng-class="{ 'active' : permissions[ProductSegment.PERMISSION_PRODUCT_UPDATE] == true }"
-               ng-click="update(ProductSegment.PERMISSION_PRODUCT_UPDATE)"></i>
+               ng-click="update(ProductSegment.PERMISSION_PRODUCT_UPDATE)"
+               data-toggle="tooltip"
+               data-placement="top"
+               ng-attr-title="Modifier les produits"
+               tooltip=""></i>
             <i class="fa fa-2x fa-check" 
                ng-class="{ 'active' : permissions[ProductSegment.PERMISSION_PRODUCT_CERTIFY] == true }"
-               ng-click="update(ProductSegment.PERMISSION_PRODUCT_CERTIFY)"></i>
+               ng-click="update(ProductSegment.PERMISSION_PRODUCT_CERTIFY)"
+               data-toggle="tooltip"
+               data-placement="top"
+               ng-attr-title="Certifier les produits"
+               tooltip=""></i>
         </div>
     </div>
 </div>
