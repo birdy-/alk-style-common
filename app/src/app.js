@@ -77,7 +77,7 @@ if (env === 'prod') {
     });
 } else if (env === 'vagrant') {
     app.constant('URL_CDN_MEDIA', 'https://s3-eu-west-1.amazonaws.com/pprd.media.alkemics.com');
-    app.constant('URL_SERVICE_AUTH', 'http://192.168.50.2:6545');
+    app.constant('URL_SERVICE_AUTH', 'http://localauth.alkemics.com');
     app.constant('URL_SERVICE_MEDIA', 'http://localservice-media.alkemics.com');
     app.constant('URL_UI_BUTTON_PRODUCT', 'http://localhost.alkemics.com:9010/');
     app.constant('URL_UI_SHOPPINGLIST', 'https://sassets.toc.io/interfaces/banner/v3/index.html');
