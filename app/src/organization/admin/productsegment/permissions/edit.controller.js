@@ -9,6 +9,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
     $scope.segments = [];
     $scope.users = [];
     $scope.organization = null;
+    $scope.isLoading = false;
 
 
     // --------------------------------------------------------------------------------
@@ -61,6 +62,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
         $scope.segmentDetailsLoading = true;
         $$ORM.repository('ProductSegment').get(segment.id, { 'with_users':true }).then(function (segment) {
             $scope.selectedSegment = segment;
+
             $$ORM.repository('ProductSegment').method('Stats')(segment.id).then(function (stats) {
                 $scope.segmentDetailsLoading = false;
 
@@ -81,6 +83,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
         $$sdkCrud.ProductSegmentList({'organization_id':$scope.organizationId}, {}, {}, null, null).then(function (response) {
             $scope.segments = response.data.data;
             $scope.selectedSegment = $scope.segments[0];
+            $scope.isLoading = false;
         });
     }
 
@@ -94,29 +97,11 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
         });
     };
 
-    // $scope.selectedSegment = {
-    //     name: 'test',
-    //     stats: { counts: 42 },
-    //     users: [
-    //         {
-    //             name: 'user1',
-    //             username: 'a@aa.com',
-    //             permissions: ['product.show', 'product.edit']
-    //         },
-    //         {name: 'user2'}
-    //     ]
-    // };
-
-    // $scope.segments = [
-    //     {name: 'segment1'},
-    //     {name: 'segment2'},
-    //     {name: 'segment3'}
-    // ];
-
     var init = function () {
 
         permission.getUser().then(function (user) {
             $scope.currentUser = user;
+            $scope.isLoading = true;
             loadOrganization();
         });
     };

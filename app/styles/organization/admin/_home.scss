@@ -7,29 +7,26 @@
             background-color: $background-color-grey !important;
         }
 
-        .box-tile {
-            .row + .row {
-                margin-top: $padding-base-horizontal;
-            }
-        }
-
-        .segments {
-            height: 100%;
-            overflow-y: scroll;
-
+        .segments-information {
             .header {
                 height: 120px;
             }
 
-            .segment {
-                @include transition(background-color 0.3s 0 ease);
+            .segments {
+                height: 600px;
+                overflow-y: scroll;
 
-                &:hover, &.active {
-                    background-color: $brand-success;
-                    color: white;
+                .segment {
+                    @include transition(background-color 0.3s 0 ease);
+
+                    &:hover, &.active {
+                        background-color: $brand-success;
+                        color: white;
+                    }
                 }
             }
         }
+
 
         .segment-summary {
             cursor: pointer;
