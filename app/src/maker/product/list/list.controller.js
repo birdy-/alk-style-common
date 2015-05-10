@@ -37,6 +37,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_ACCEPTED.id] = true;
         $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_CERTIFIED.id] = true;
         $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_PUBLISHED.id] = true;
+        $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_REVIEWING.id] = false;
         $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_DISCONTINUED.id] = false;
 
         $scope.request.offset = 0;
@@ -74,7 +75,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
 
         count += stats.counts[Product.CERTIFICATION_STATUS_DEFAULT.id]
         count += stats.counts[Product.CERTIFICATION_STATUS_PUBLISHED.id]
-        count += stats.counts[Product.CERTIFICATION_STATUS_REVIEWING.id]
         count += stats.counts[Product.CERTIFICATION_STATUS_ATTRIBUTED.id]
 
         return count;
@@ -113,7 +113,8 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         modalInstance.result.then(function (selectedItem) {
             selectedItem.claimInProgress = true;
         }, function () {
-            $location.path('/maker/brand/' + $scope.product.isBrandedBy.id + '/product');
+            $scope.newProductsCount--;
+            list();
         });
     };
 
@@ -145,7 +146,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_ACCEPTED.id] = !$scope.displayNewProducts;
         $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_CERTIFIED.id] = !$scope.displayNewProducts;
         $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_PUBLISHED.id] = $scope.displayNewProducts;
-        $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_REVIEWING.id] = $scope.displayNewProducts;
+        $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_REVIEWING.id] = false;
         $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_ATTRIBUTED.id] = $scope.displayNewProducts;
         $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_DISCONTINUED.id] = false;
 

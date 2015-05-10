@@ -35,20 +35,16 @@ angular.module('jDashboardFluxApp')
     };
 
     $scope.cancel = function () {
-        // For now we shouldn't change the status
-        // when someone try to cancel
-
-        // $$sdkCrud.ProductCertify(
-        //     $scope.product,
-        //     Product.CERTIFICATION_STATUS_REVIEWING.id,
-        //     "1169"
-        // ).success(function(response){
-        //     $scope.product.certified = response.data.certified;
-        //     $modalInstance.dismiss('cancel');
-        // }).error(function(response){
-        //     $window.alert("Erreur pendant l'acceptation du produit : "+response.message);
-        //     $modalInstance.dismiss('cancel');
-        // });
+        $$sdkCrud.ProductCertify(
+            $scope.product,
+            Product.CERTIFICATION_STATUS_REVIEWING.id,
+            "1169"
+        ).success(function (response){
+            $scope.product.certified = response.data.certified;
+            $modalInstance.dismiss('cancel');
+        }).error(function (response){
+            $modalInstance.dismiss('cancel');
+        });
     };
 
     var getGLNs = function (productSegment) {
