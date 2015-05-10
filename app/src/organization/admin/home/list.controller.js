@@ -58,7 +58,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
         });
     };
 
-    $scope.addSegment = function () {
+    $scope.createProductSegment = function () {
         if ($scope.isAdmin == false) {
             $scope.contactAdmin();
             return;

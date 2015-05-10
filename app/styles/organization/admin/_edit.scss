@@ -1,6 +1,31 @@
 #stream {
 
     .admin {
+        .search {
+            border-bottom: 1px solid $gray-light;
+            padding: $padding-base-vertical 0;
+
+            .form-group {
+                width: 100%;
+            }
+
+            i {
+                text-align: center;
+                + i {
+                    padding-left: 4px;
+                    padding-right: $padding-base-horizontal;
+                }
+            }
+
+            .form-control {
+                background-color: transparent;
+                border: 0;
+                border-radius: 0;
+                box-shadow: none;
+                font-size: 16px;
+            }
+        }
+
         i {
             &:hover {
                 @include transition(color 0.2s 0 ease);
@@ -61,31 +86,6 @@
 
             .body {
                 border-top: 1px solid $gray-light;
-            }
-        }
-
-        .search {
-            border-bottom: 1px solid $gray-light;
-            padding: $padding-base-vertical 0;
-
-            .form-group {
-                width: 100%;
-            }
-
-            i {
-                text-align: center;
-                + i {
-                    padding-left: 4px;
-                    padding-right: $padding-base-horizontal;
-                }
-            }
-
-            .form-control {
-                background-color: transparent;
-                border: 0;
-                border-radius: 0;
-                box-shadow: none;
-                font-size: 16px;
             }
         }
 
