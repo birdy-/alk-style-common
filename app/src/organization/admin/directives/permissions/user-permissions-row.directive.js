@@ -51,11 +51,33 @@ angular.module('jDashboardFluxApp').controller('UserPermissionsRowController', [
 
         var grant = function (permissionType) {
             $scope.permissions[permissionType] = true;
+            // temporary hack
+            if (permissionType === ProductSegment.PERMISSION_PRODUCT_UPDATE) {
+                $scope.permissions[ProductSegment.PERMISSION_PRODUCT_UPDATE_TEXTUAL]    = true;
+                $scope.permissions[ProductSegment.PERMISSION_PRODUCT_UPDATE_SEMANTIC]   = true;
+                $scope.permissions[ProductSegment.PERMISSION_PRODUCT_UPDATE_NORMALIZED] = true;
+            }
+            else if (permissionType === ProductSegment.PERMISSION_PRODUCT_SHOW) {
+                $scope.permissions[ProductSegment.PERMISSION_PRODUCT_SHOW_TEXTUAL]      = true;
+                $scope.permissions[ProductSegment.PERMISSION_PRODUCT_SHOW_SEMANTIC]     = true;
+                $scope.permissions[ProductSegment.PERMISSION_PRODUCT_SHOW_NORMALIZED]   = true;
+            }
             updatePermissions();
         };
 
         var forbid = function (permissionType) {
             $scope.permissions[permissionType] = false;
+            // temporary hack
+            if (permissionType === ProductSegment.PERMISSION_PRODUCT_UPDATE) {
+                $scope.permissions[ProductSegment.PERMISSION_PRODUCT_UPDATE_TEXTUAL]    = false;
+                $scope.permissions[ProductSegment.PERMISSION_PRODUCT_UPDATE_SEMANTIC]   = false;
+                $scope.permissions[ProductSegment.PERMISSION_PRODUCT_UPDATE_NORMALIZED] = false;
+            }
+            else if (permissionType === ProductSegment.PERMISSION_PRODUCT_SHOW) {
+                $scope.permissions[ProductSegment.PERMISSION_PRODUCT_SHOW_TEXTUAL]      = false;
+                $scope.permissions[ProductSegment.PERMISSION_PRODUCT_SHOW_SEMANTIC]     = false;
+                $scope.permissions[ProductSegment.PERMISSION_PRODUCT_SHOW_NORMALIZED]   = false;
+            }
             updatePermissions();  
         };
 
@@ -76,18 +98,28 @@ angular.module('jDashboardFluxApp').controller('UserPermissionsRowController', [
         };
 
         var init = function() {
+
             $scope.permissions[ProductSegment.PERMISSION_PS_SHOW] = true;
-            $scope.permissions[ProductSegment.PERMISSION_PRODUCT_SHOW] = false;
-            $scope.permissions[ProductSegment.PERMISSION_PRODUCT_UPDATE] = false;
+            
+            // temporary : show means show.*
+            $scope.permissions[ProductSegment.PERMISSION_PRODUCT_SHOW]              = false;
+            $scope.permissions[ProductSegment.PERMISSION_PRODUCT_SHOW_TEXTUAL]      = false;
+            $scope.permissions[ProductSegment.PERMISSION_PRODUCT_SHOW_SEMANTIC]     = false;
+            $scope.permissions[ProductSegment.PERMISSION_PRODUCT_SHOW_NORMALIZED]   = false;
+
+
+            // temporary : update means updated.*    
+            $scope.permissions[ProductSegment.PERMISSION_PRODUCT_UPDATE]            = false;
+            $scope.permissions[ProductSegment.PERMISSION_PRODUCT_UPDATE_TEXTUAL]    = false;
+            $scope.permissions[ProductSegment.PERMISSION_PRODUCT_UPDATE_SEMANTIC]   = false;
+            $scope.permissions[ProductSegment.PERMISSION_PRODUCT_UPDATE_NORMALIZED] = false;
+
             $scope.permissions[ProductSegment.PERMISSION_PRODUCT_CERTIFY] = false;
-            $scope.user.permission.map(function (permission) {
-                if (permission === ProductSegment.PERMISSION_PRODUCT_SHOW)
-                    $scope.permissions[ProductSegment.PERMISSION_PRODUCT_SHOW] = true;
-                if (permission === ProductSegment.PERMISSION_PRODUCT_UPDATE)
-                    $scope.permissions[ProductSegment.PERMISSION_PRODUCT_UPDATE] = true;
-                if (permission === ProductSegment.PERMISSION_PRODUCT_CERTIFY)
-                    $scope.permissions[ProductSegment.PERMISSION_PRODUCT_CERTIFY] = true;
-            });
+
+            for (var k in $scope.permissions) {
+                if (_.indexOf($scope.user.permission, k) !== -1)
+                    $scope.permissions[k] = true;
+            }
         };
 
         init();
