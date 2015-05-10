@@ -193,19 +193,13 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
         };
 
         $scope.show = function (productInShop) {
-            $$ORM.repository('ProductInShop').method('ShowProduct')(productInShop.id).then(function (productInShop) {
-                var modalInstance = $modal.open({
-                    templateUrl: '/src/retailer/productinshop/show-modal/show-modal.html',
-                    controller: 'ProductShowModalController',
-                    size: 'lg',
-                    resolve: {
-                        product: function () {
-                            return productInShop.instantiates[0];
-                        }
-                    }
-                });
-
-                modalInstance.result.then(function () {}, function () {});
+            var modalInstance = $modal.open({
+                templateUrl: '/src/maker/product/show/preview-retailer/preview-retailer.html',
+                controller: 'DashboardMakerProductShowRetailerPreviewController',
+                size: 'lg',
+                resolve: {
+                    productReference: function () { return productInShop.isIdentifiedBy[0].reference; }
+                }
             });
         };
 

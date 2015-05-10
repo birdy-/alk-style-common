@@ -36,7 +36,7 @@ var ProductInShopPage = function () {
   };
 
   this.getPishPreview = function () {
-    return element(by.css('#product-preview'));
+    return element(by.css('.product-preview-wrapper'));
   };
 
   this.getPishPreviewTabs = function () {

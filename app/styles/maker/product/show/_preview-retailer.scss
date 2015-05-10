@@ -1,4 +1,12 @@
-.product-preview-auchandrive-wrapper {
+.modal-lg {
+    width: 720px;
+}
+
+.product-preview-wrapper {
     height: 800px;
     width: 720px;
+
+    .col-xs-12 {
+        padding: 0;
+    }
 }
