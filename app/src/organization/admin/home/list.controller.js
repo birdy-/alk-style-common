@@ -57,6 +57,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
         }, function () {
         });
     };
+
     $scope.addSegment = function () {
         if ($scope.isAdmin == false) {
             $scope.contactAdmin();
@@ -75,7 +76,18 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
             loadSegments();
         }, function () {
         });
-    }
+    };
+
+    $scope.editProductSegment = function (segmentId) {
+        var modalInstance = $modal.open({
+            templateUrl: 'src/maker/productsegment/create/create-modal.html',
+            controller: 'ProductSegmentCreateModalController',
+            resolve: {
+                organization_id: function() { return $scope.organizationId; },
+                productsegment_id: function() { return segmentId; }
+            }
+        });
+    };
 
     // --------------------------------------------------------------------------------
     // Init

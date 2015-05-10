@@ -1,5 +1,5 @@
 <div ng-include="'/src/maker/home/header.html'"></div>
-<div class="container-fluid admin admin-page">
+<div class="container-fluid admin admin-page admin-home">
     <div class="row row-full-height row-same-height">
         <div class="col-xs-12 col-sm-5 col-full-height">
             <div class="col-xs-12 box-tile">
@@ -110,11 +110,16 @@
             <div ng-show="!segmentDetailsLoading">
                 <div class="col-xs-12 box-tile header">
                     <div class="row">
-                        <div class="col-xs-12">
+                        <div ng-if="selectedSegment.id !== productSegmentRoot.id" class="col-xs-12">
                             <div class="pull-right">
                                 <i class="fa fa-2x fa-user-plus"></i>
                                 <!-- <i class="fa fa-2x fa-trash"></i> -->
-                                <i class="fa fa-2x fa-edit"></i>
+                                <i class="fa fa-2x fa-edit"
+                                   ng-click="editProductSegment(selectedSegment.id)"
+                                   data-toggle="tooltip"
+                                   data-placement="top"
+                                   ng-attr-title="Editer la gamme {{ selectedSegment.name }}"
+                                   tooltip=""></i>
                             </div>
                         </div>
                         <div class="col-xs-12">
