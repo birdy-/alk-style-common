@@ -1,10 +1,10 @@
 <div class="modal-header">
     <h3>
         <span ng-hide="editMode">
-            Créer un nouveau Segment de Produits
+            Créer une nouvelle gamme de produits
         </span>
         <span ng-show="editMode">
-            Edition du segment : {{ productSegment.name }}
+            Edition de la gamme {{ productSegment.name }}
         </span>
     </h3>
 </div>
@@ -16,17 +16,20 @@
             <div accordion-heading="">
                 <i class="fa fa-question-circle" ng-click="display.help = !display.help"></i> Guide Utilisateur
             </div>
-                <strong>Qu'est ce qu'un segment de produits?</strong><br/>
-                Un segment de produits est un ensemble de produits qui peut être caractérisé par des propriétés communes, ou non.
-                Les segments sont la clé de la souplesse d'utilisation de la plateforme Alkemics.<br/>
-                Créez vos segments puis affectez y des équipes avec des
-                membres ayant chacun des rôles et capacités précises: cela vous permettra de mieux structurer vos processus de qualification et de certification !<br/>
-                <strong>Quels sont les étapes de création?</strong><br/>
-                Choisissez d'abord un nom pour votre nouveau segment de produits, puis précisez au moins un GLN qui sera commun à tous les produits du segment.<br/>
-                Il vous est également possible de préciser une ou plusieurs marques pour un filtrage supplémentaire.
-                <strong>Et ensuite?</strong>
-                Une fois le segment créé, il est lié à votre organisation. Vous y avez accès, mais n'oubliez pas de donner les droits nécessaires à vos collègues si vous
+                <strong>Qu'est-ce qu'une gamme de produits ?</strong><br/>
+                Une gamme de produits est un ensemble de produits qui peut être caractérisé par des propriétés communes, ou non.
+                Les gammes sont la clé de la souplesse d'utilisation de la plateforme Alkemics.<br/>
+                Créez vos gammes puis affectez-y des équipes avec des
+                membres ayant chacun des rôles et capacités précises : cela vous permettra de mieux structurer vos processus de qualification et de certification !<br/>
+                <strong>Quels sont les étapes de création ?</strong><br/>
+                Choisissez d'abord un nom pour votre nouvelle gamme de produits.<br/>
+                À ce jour, il vous est également possible de préciser :<br/>
+                    - les GLNs concernés par cette gamme<br/>
+                    - une ou plusieurs marques pour un filtrage supplémentaire<br/>
+                <strong>Et ensuite ?</strong><br/>
+                Une fois la gamme de produits créée, elle est liée à votre organisation. Vous y avez accès, mais n'oubliez pas d'octroyer les droits nécessaires à vos collègues si vous
                 voulez que ce soit le cas pour eux également!<br/>
+                <i class="fa fa-heart"></i>
         </div>
     </div>
 </div>
