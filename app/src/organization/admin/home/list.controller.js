@@ -58,6 +58,17 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
         });
     };
 
+    $scope.addUserToProductSegment = function(segment) {
+        var modalInstance = $modal.open({
+            templateUrl: 'src/organization/admin/productsegment/permissions/add-user-modal.html',
+            controller: 'ProductSegmentAddUserModalController',
+            resolve: {
+                productsegment: function() { return $scope.selectedSegment; },
+                organization: function() { return $scope.organization; }
+            }
+        });        
+    }
+
     $scope.createProductSegment = function () {
         if ($scope.isAdmin == false) {
             $scope.contactAdmin();

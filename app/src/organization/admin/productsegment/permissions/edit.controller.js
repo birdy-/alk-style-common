@@ -72,6 +72,17 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
         });
     };
 
+    $scope.addUser = function(segment) {
+        var modalInstance = $modal.open({
+            templateUrl: 'src/organization/admin/productsegment/permissions/add-user-modal.html',
+            controller: 'ProductSegmentAddUserModalController',
+            resolve: {
+                productsegment: function() { return $scope.selectedSegment; },
+                organization: function() { return $scope.organization; }
+            }
+        });        
+    }
+
     // --------------------------------------------------------------------------------
     // Initialization
     // --------------------------------------------------------------------------------

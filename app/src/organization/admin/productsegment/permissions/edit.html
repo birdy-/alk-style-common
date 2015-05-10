@@ -48,14 +48,14 @@
         <!-- Segment Zoom -->
         <div class="col-xs-9 col-full-height">
             <div class="row segment-details">
-            <div class="row-same-height row-full-height">
+                <div class="row-same-height row-full-height">
 
-                <div class="col-xs-12 header box-tile col-full-height">
-                    <div class="row segment-details">
-                    <div class="row-same-height row-full-height">
-                        <div ng-if="segmentDetailsLoading || isLoading" class="col-xs-12 header text-center">
-                            <i class="fa fa-3x fa-spin fa-spinner"></i>
-                        </div>
+                    <div class="col-xs-12 header box-tile col-full-height">
+                        <div class="row segment-details">
+                            <div class="row-same-height row-full-height">
+                                <div ng-if="segmentDetailsLoading || isLoading" class="col-xs-12 header text-center">
+                                    <i class="fa fa-3x fa-spin fa-spinner"></i>
+                                </div>
 
                         <div ng-if="selectedSegment && !isLoading && !segmentDetailsLoading" class="col-xs-12 col-top header">
                             <div class="pull-right">
@@ -63,7 +63,8 @@
                                     data-toggle="tooltip"
                                     data-placement="top"
                                     ng-attr-title="Ajouter un utilisateur à {{ selectedSegment.name }}"
-                                    tooltip=""></i>
+                                    tooltip=""
+                                    ng-click="addUser()"></i>
                                 <!-- <i class="fa fa-2x fa-copy"></i> -->
                                 <i class="fa fa-2x fa-edit"
                                    ng-click="editProductSegment(selectedSegment.id)"
@@ -91,9 +92,7 @@
                             </div>
                         </div>
                     </div>
-                    </div>
                 </div>
-            </div>
             </div>
         </div>
     </div>

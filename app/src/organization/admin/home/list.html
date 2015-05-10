@@ -125,7 +125,7 @@
                     <div class="row">
                         <div ng-if="selectedSegment.id !== productSegmentRoot.id" class="col-xs-12">
                             <div class="pull-right">
-                                <i class="fa fa-2x fa-user-plus"></i>
+                                <i class="fa fa-2x fa-user-plus" ng-click="addUserToProductSegment()"></i>
                                 <!-- <i class="fa fa-2x fa-trash"></i> -->
                                 <i class="fa fa-2x fa-edit"
                                    ng-click="editProductSegment(selectedSegment.id)"
