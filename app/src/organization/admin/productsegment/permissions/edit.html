@@ -9,7 +9,6 @@
 
     <div class="row permissions-users">
     <div class="row-same-height row-full-height">
-    <!-- <div class="col-xs-12 col-full-height"> -->
 
         <!-- Segment List -->
         <div class="col-xs-3 col-full-height col-top segments-list box-tile">
@@ -33,10 +32,15 @@
             </div>
             <div class="row segment"
                  ng-class="{ 'active':selectedSegment.id==segment.id }"
-                 ng-repeat="segment in segments | filter:search | orderBy:'name'"
-                 ng-click="selectSegment(segment)">
+                 ng-repeat="segment in filteredSegments = (segments | filter:search | orderBy:'name')"
+                 ng-click="selectSegment(segment.id)">
                 <div class="col-xs-12">
                     {{ segment.name }}
+                </div>
+            </div>
+            <div class="row segment">
+                <div ng-hide="filteredSegments.length" class="col-xs-12">
+                    Aucune gamme trouvée
                 </div>
             </div>
         </div>
@@ -78,7 +82,7 @@
                         <div ng-show="selectedSegment.users.length && !isLoading && !segmentDetailsLoading" class="body col-xs-12">
                             <div class="row" ng-repeat="user in selectedSegment.users | orderBy:'firstname'">
                                 <div class="col-xs-12">
-                                    <div user-permissions-row 
+                                    <div user-permissions-row
                                          organization="organization"
                                          user="user"
                                          productsegment="selectedSegment">
@@ -92,7 +96,6 @@
             </div>
             </div>
         </div>
-    <!-- </div> -->
     </div>
     </div>
 

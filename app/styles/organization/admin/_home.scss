@@ -6,6 +6,12 @@
         h1 {
             background-color: $background-color-grey !important;
         }
+    }
+
+    .admin-home {
+        .row-header {
+            margin-right: 0;
+        }
 
         .segments-information {
             .header {
@@ -17,7 +23,7 @@
                 overflow-y: scroll;
 
                 .segment {
-                    @include transition(background-color 0.3s 0 ease);
+                    @include transition(background-color 0.3s ease);
 
                     &:hover, &.active {
                         background-color: $brand-success;

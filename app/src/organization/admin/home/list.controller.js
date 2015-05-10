@@ -13,14 +13,14 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
     // Event binding
     // --------------------------------------------------------------------------------
 
-    $scope.selectSegment = function (segment) {
+    $scope.selectSegment = function (segmentId) {
         $scope.segmentDetailsLoading = true;
-        $$ORM.repository('ProductSegment').get(segment.id).then(function (segment) {
+        $$ORM.repository('ProductSegment').get(segmentId).then(function (segment) {
             $scope.selectedSegment = segment;
             $$ORM.repository('ProductSegment').method('Stats')(segment.id).then(function (stats) {
                 $scope.segmentDetailsLoading = false;
 
-                if (stats.length) { return; }
+                if (!stats.length) { return; }
                 $scope.selectedSegment.stats = stats[0];
                 $scope.selectedSegment.stats.certifieds = stats[0].counts[Product.CERTIFICATION_STATUS_CERTIFIED.id];
                 $scope.selectedSegment.stats.notCertifieds = stats[0].counts[Product.CERTIFICATION_STATUS_ACCEPTED.id];
@@ -57,6 +57,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
         }, function () {
         });
     };
+
     $scope.addSegment = function () {
         if ($scope.isAdmin == false) {
             $scope.contactAdmin();
@@ -75,7 +76,18 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
             loadSegments();
         }, function () {
         });
-    }
+    };
+
+    $scope.editProductSegment = function (segmentId) {
+        var modalInstance = $modal.open({
+            templateUrl: 'src/maker/productsegment/create/create-modal.html',
+            controller: 'ProductSegmentCreateModalController',
+            resolve: {
+                organization_id: function() { return $scope.organizationId; },
+                productsegment_id: function() { return segmentId; }
+            }
+        });
+    };
 
     // --------------------------------------------------------------------------------
     // Init
@@ -92,12 +104,14 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
     var loadSegments = function () {
         $$ORM.repository('ProductSegment').list({organization_id: $scope.organizationId}, {}, {}, 0, 100).then(function (segments) {
             $scope.productSegments = segments;
-            $scope.selectedSegment = $scope.selectSegment($scope.productSegments[0]);
+            $scope.selectedSegment = $scope.selectSegment($scope.productSegments[0].id);
 
             var productSegmentRoot = Organization.getProductSegmentRoot($scope.organization);
+            $scope.productSegmentRoot = productSegmentRoot;
             $$ORM.repository('ProductSegment').get(productSegmentRoot.id).then(function (segment) {
                 $$ORM.repository('ProductSegment').method('Stats')(productSegmentRoot.id).then(function (stats) {
                     $scope.newProductsLoaded = true;
+                    if (!stats.length) { return; }
                     $scope.newProductsCount = stats[0].counts[Product.CERTIFICATION_STATUS_ATTRIBUTED.id];
                 });
             });

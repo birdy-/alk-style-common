@@ -1,19 +1,36 @@
 #stream {
 
     .admin {
+        i {
+            &:hover {
+                @include transition(color 0.2s 0 ease);
+                color: $alk-blue;
+                cursor: pointer;
+            }
+
+
+            + i {
+                padding-left: 4px;
+            }
+        }
+    }
+
+    .admin.admin-user-permissions {
+        height: 100%;
 
         h1 {
             color: $alk-green !important;
         }
 
         tr.even {
-                background: $background-color-grey;
+            background: $background-color-grey;
         }
 
         .segment {
-            padding: $padding-base-vertical*1.7 0;
-            cursor: pointer;
             @include transition(background-color 0.3s 0 ease);
+            cursor: pointer;
+            padding: $padding-base-vertical*1.7 0;
+
             &:hover, &.active {
                 color: white;
                 background-color: $alk-green;
@@ -30,7 +47,6 @@
 
         .segment-details {
             height: 100%;
-            // border-left: 1px solid $gray-light;
 
             i.fa-spin {
                 line-height: 700px;
@@ -48,22 +64,9 @@
             }
         }
 
-        i {
-            &:hover {
-                @include transition(color 0.2s 0 ease);
-                color: $alk-blue;
-                cursor: pointer;
-            }
-
-
-            + i {
-                padding-left: 4px;
-            }
-        }
-
         .search {
-            padding: $padding-base-vertical 0;
             border-bottom: 1px solid $gray-light;
+            padding: $padding-base-vertical 0;
 
             .form-group {
                 width: 100%;
@@ -78,20 +81,23 @@
             }
 
             .form-control {
-                font-size: 16px;
+                background-color: transparent;
                 border: 0;
                 border-radius: 0;
-                background-color: transparent;
                 box-shadow: none;
+                font-size: 16px;
             }
         }
 
+        .row {
+          margin-left: 0;
+          margin-right: 0;
+        }
     }
 
     .user-permissions {
         padding: $padding-base-horizontal 0;
         height: 65px;
-
 
         &:hover {
             @include transition(background-color 0.3s 0 ease);
@@ -102,6 +108,7 @@
             line-height: 65px - $padding-base-horizontal * 2;
             vertical-align: middle;
             text-align: center;
+
             &:hover {
                 @include transition(color 0.2s 0 ease);
                 cursor: pointer;
@@ -110,7 +117,6 @@
         }
 
         .user {
-
             i {
                 &:hover {
                     transition: none;
@@ -120,7 +126,6 @@
             }
 
             .identity {
-
                 .name {
                     font-size: 16px;
                 }
@@ -136,6 +141,7 @@
         .permissions {
             line-height: 65px - $padding-base-horizontal * 2;
             vertical-align: middle;
+
             i {
                 color: $gray-light;
 
@@ -148,18 +154,11 @@
                 + i {
                     padding-left: 6px;
                 }
-
             }
         }
     }
+
     + .user-permissions {
         margin-top: 20px;
     }
-
-
-
-    .admin-user-permissions {
-        height: 100%;
-    }
-
 }
