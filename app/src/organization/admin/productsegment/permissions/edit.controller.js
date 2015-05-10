@@ -60,7 +60,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
 
     $scope.selectSegment = function (segment) {
         $scope.segmentDetailsLoading = true;
-        $$ORM.repository('ProductSegment').get(segment.id).then(function (segment) {
+        $$ORM.repository('ProductSegment').get(segment.id, { 'with_users':true }).then(function (segment) {
             $scope.selectedSegment = segment;
 
             $$ORM.repository('ProductSegment').method('Stats')(segment.id).then(function (stats) {
