@@ -19,32 +19,27 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
         $location.path($location.url($location.path('/')));
     };
 
-    // $scope.change = function (userId, productSegmentId) {
-    //     $scope.matrix[userId][productSegmentId].hasChanged = true;
-    //     $scope.hasModifications = true;
-    // };
+    $scope.createProductSegment = function () {
+        var modalInstance = $modal.open({
+            templateUrl: 'src/maker/productsegment/create/create-modal.html',
+            controller: 'ProductSegmentCreateModalController',
+            resolve: {
+                organization_id: function() { return $scope.organizationId; },
+                productsegment_id: function() { return null; }
+            }
+        });
+    };
 
-    // $scope.createProductSegment = function () {
-    //     var modalInstance = $modal.open({
-    //         templateUrl: 'src/maker/productsegment/create/create-modal.html',
-    //         controller: 'ProductSegmentCreateModalController',
-    //         resolve: {
-    //             organization_id: function() { return $scope.organizationId; },
-    //             productsegment_id: function() { return null; }
-    //         }
-    //     });
-    // };
-
-    // $scope.editProductSegment = function (productsegment_id) {
-    //     var modalInstance = $modal.open({
-    //         templateUrl: 'src/maker/productsegment/create/create-modal.html',
-    //         controller: 'ProductSegmentCreateModalController',
-    //         resolve: {
-    //             organization_id: function() { return $scope.organizationId; },
-    //             productsegment_id: function() { return productsegment_id; }
-    //         }
-    //     });
-    // };
+    $scope.editProductSegment = function (productsegment_id) {
+        var modalInstance = $modal.open({
+            templateUrl: 'src/maker/productsegment/create/create-modal.html',
+            controller: 'ProductSegmentCreateModalController',
+            resolve: {
+                organization_id: function() { return $scope.organizationId; },
+                productsegment_id: function() { return productsegment_id; }
+            }
+        });
+    };
 
     // $scope.inviteUser = function () {
     //     var modalInstance = $modal.open({
@@ -62,6 +57,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
         $scope.segmentDetailsLoading = true;
         $$ORM.repository('ProductSegment').get(segment.id, { 'with_users':true }).then(function (segment) {
             $scope.selectedSegment = segment;
+
 
             $$ORM.repository('ProductSegment').method('Stats')(segment.id).then(function (stats) {
                 $scope.segmentDetailsLoading = false;
@@ -82,8 +78,11 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
 
     var loadProductSegments = function() {
         $$sdkCrud.ProductSegmentList({'organization_id':$scope.organizationId}, {}, {}, null, null).then(function (response) {
-            $scope.segments = response.data.data;
-            $scope.selectedSegment = $scope.segments[0];
+            var productSegmentRoot = Organization.getProductSegmentRoot($scope.organization);
+            $scope.segments = _.filter(response.data.data, function (segment) {
+                return segment.id !== productSegmentRoot.id;
+            });
+            $scope.selectSegment($scope.segments[0]);
             $scope.isLoading = false;
         });
     }
