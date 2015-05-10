@@ -34,7 +34,7 @@
             <div class="row segment"
                  ng-class="{ 'active':selectedSegment.id==segment.id }"
                  ng-repeat="segment in segments | filter:search | orderBy:'name'"
-                 ng-click="selectSegment(segment)">
+                 ng-click="selectSegment(segment.id)">
                 <div class="col-xs-12">
                     {{ segment.name }}
                 </div>
@@ -78,7 +78,7 @@
                         <div ng-show="selectedSegment.users.length && !isLoading && !segmentDetailsLoading" class="body col-xs-12">
                             <div class="row" ng-repeat="user in selectedSegment.users | orderBy:'firstname'">
                                 <div class="col-xs-12">
-                                    <div user-permissions-row 
+                                    <div user-permissions-row
                                          organization="organization"
                                          user="user"
                                          productsegment="selectedSegment">

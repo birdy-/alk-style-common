@@ -82,10 +82,10 @@
                 <div class="row-same-height row-full-height">
                     <div class="col-xs-12 col-full-height col-top">
                         <div class="row">
-                            <div ng-repeat="segment in productSegments | filter:search"
+                            <div ng-repeat="segment in filteredSegments = (productSegments | filter:search)"
                                  class="col-xs-12 box-tile segment"
                                  ng-class="{'active': segment.id === selectedSegment.id }">
-                                <div class="segment-summary" ng-click="selectSegment(segment)">
+                                <div class="segment-summary" ng-click="selectSegment(segment.id)">
                                     <h3>{{ segment.name }}</h3>
                                     <div ng-repeat="query in segment.query track by $index">
                                         <p>
@@ -93,6 +93,9 @@
                                         </p>
                                     </div>
                                 </div>
+                            </div>
+                            <div ng-hide="filteredSegments.length" class="box-tile">
+                                <h3>Aucune gamme trouvée</h3>
                             </div>
                         </div>
                     </div>
@@ -109,15 +112,14 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="pull-right">
-                                <i class="fa fa-2x fa-user"></i>
-                                <i class="fa fa-2x fa-trash"></i>
+                                <i class="fa fa-2x fa-user-plus"></i>
+                                <!-- <i class="fa fa-2x fa-trash"></i> -->
                                 <i class="fa fa-2x fa-edit"></i>
                             </div>
                         </div>
                         <div class="col-xs-12">
                             <h2>{{ selectedSegment.name}}</h2>
                             <p>Édité le {{ selectedSegment.updatedAt }}</p>
-                            <!-- <pre>{{ selectedSegment | json }}</pre> -->
                         </div>
                     </div>
                 </div>
@@ -139,12 +141,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-12 box-tile">
+                <div ng-if="selectedSegment.id !== productSegmentRoot.id" class="col-xs-12 box-tile">
                     <div class="row">
                         <div class="col-xs-12">
                             <h4>Permisions</h4>
                             <div class="col-sm-4">
-                                <a class="btn btn-default" ng-href="/#/organization/{{ organizationId }}/admin/users" role="button">
+                                <a class="btn btn-default" ng-href="/#/organization/{{ organizationId }}/admin/users?segment_id={{ selectedSegment.id }}" role="button">
                                     <i class="fa fa-user"></i> Voir toutes les permissions
                                 </a>
                             </div>
