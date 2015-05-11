@@ -72,7 +72,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
         });
     };
 
-    $scope.addUser = function(segment) {
+    $scope.addUser = function (segment) {
         $modal.open({
             templateUrl: 'src/organization/admin/productsegment/permissions/add-user-modal.html',
             controller: 'ProductSegmentAddUserModalController',
