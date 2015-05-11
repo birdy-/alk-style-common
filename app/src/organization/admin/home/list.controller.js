@@ -51,11 +51,6 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
 
             }
         });
-
-        modalInstance.result.then(function () {
-            //loadUsers();
-        }, function () {
-        });
     };
 
     $scope.addUserToProductSegment = function (segment) {

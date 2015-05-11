@@ -1,8 +1,8 @@
 'use_strict';
 
 angular.module('jDashboardFluxApp').controller('ProductSegmentAddUserModalController', [
-    '$scope', '$window', '$modalInstance', 'organization', 'productsegment', '$$sdkAuth', '$$sdkCrud', 
-    function ($scope, $window, $modalInstance, organization, productsegment, $$sdkAuth, $$sdkCrud) {
+    '$scope', '$window', '$q','$modalInstance', 'organization', 'productsegment', '$$sdkAuth', '$$sdkCrud', 
+    function ($scope, $window, $q, $modalInstance, organization, productsegment, $$sdkAuth, $$sdkCrud) {
     
     	$scope.productSegment = productsegment;
     	$scope.newUsers = [];
@@ -17,24 +17,22 @@ angular.module('jDashboardFluxApp').controller('ProductSegmentAddUserModalContro
             for (var i in $scope.productSegment.users)
                 psUserIds.push($scope.productSegment.users[i].id);
 
-            var i = 0;
-            while (i < $scope.newUsers.length) {
-                // If the user already have a permission on the PS, we remove him from the listr
-                if (psUserIds.indexOf($scope.newUsers[i]) >= 0) {
-                    $scope.newUsers.slice(i, 1);
-                    continue;
-                }
-                i++;
-            }
-
+            var promises = [];
             for (var i in $scope.newUsers) {
-                $$sdkAuth.UserManagesProductSegmentUpdate(organization.id,
+                // If the user already has permissions on the PS, skip him
+                if (psUserIds.indexOf($scope.newUsers[i].id) >= 0)
+                    continue;
+
+                promises.push($$sdkAuth.UserManagesProductSegmentUpdate(organization.id,
                                                   $scope.productSegment.id,
                                                   $scope.newUsers[i].id,
-                                                  [ProductSegment.PERMISSION_PS_SHOW])
+                                                  [ProductSegment.PERMISSION_PS_SHOW]));
+
             }
 
-            $modalInstance.close('OK');
+            $q.all(promises).then(function () {
+                $modalInstance.close('OK');
+            })
     	};
 
     	$scope.cancel = function () {
