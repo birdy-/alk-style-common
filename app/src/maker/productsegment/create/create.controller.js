@@ -14,7 +14,8 @@ angular.module('jDashboardFluxApp').controller('ProductSegmentCreateModalControl
         advanced: false
     };
 
-    $scope.editMode = (productsegment_id !== null)
+    $scope.editMode = (productsegment_id !== null);
+    $scope.segmentLoaded = !$scope.editMode;
     $scope.productSegment = null;
 
     $scope.user = null;

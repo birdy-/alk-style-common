@@ -473,7 +473,8 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
                     $$ORM.repository('ProductSegment').get(productSegmentRoot.id).then(function (segment) {
                         $$ORM.repository('ProductSegment').method('Stats')(productSegmentRoot.id).then(function (stats) {
                             rootProductSegment = segment;
-                            $scope.newProductsCount = getNewProductsCount(stats[0]);
+                            var p = new Product();
+                            $scope.newProductsCount = p.getNewProductsCount(stats);
                             $scope.newProductsLoaded = true;
 
                             if ($rootScope.navigation.maker.displayNewProducts) {

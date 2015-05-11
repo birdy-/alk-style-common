@@ -58,7 +58,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
         });
     };
 
-    $scope.addUserToProductSegment = function(segment) {
+    $scope.addUserToProductSegment = function (segment) {
         var modalInstance = $modal.open({
             templateUrl: 'src/organization/admin/productsegment/permissions/add-user-modal.html',
             controller: 'ProductSegmentAddUserModalController',
@@ -66,7 +66,11 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
                 productsegment: function() { return $scope.selectedSegment; },
                 organization: function() { return $scope.organization; }
             }
-        });        
+        });
+
+        modalInstance.result.then(function () {
+            $location.path("organization/" + $scope.organizationId + "/admin/users?segment_id=" + segment.id);
+        })
     }
 
     $scope.createProductSegment = function () {
@@ -123,7 +127,8 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
                 $$ORM.repository('ProductSegment').method('Stats')(productSegmentRoot.id).then(function (stats) {
                     $scope.newProductsLoaded = true;
                     if (!stats.length) { return; }
-                    $scope.newProductsCount = stats[0].counts[Product.CERTIFICATION_STATUS_ATTRIBUTED.id];
+                    var p = new Product();
+                    $scope.newProductsCount = p.getNewProductsCount(stats);;
                 });
             });
         });
