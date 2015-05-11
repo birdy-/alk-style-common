@@ -24,6 +24,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     $scope.brands = [];
     $scope.segmentIds = [];
     $scope.displayNewProducts = false;
+    $scope.gdsnOnly = false;
     $scope.newProductsLoaded = false;
     $scope.currentPage  = 1;
     $scope.newProductsCount = 0;
@@ -123,15 +124,22 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     // Event handling
     // ------------------------------------------------------------------------
 
+    // Add claim status to products that have been claimed by users
     var attachClaimStatus = function (response) {
         if(!response.data.data.length) { return; }
-        var lastClaim = response.data.data[0];
-
-        _.map($scope.products, function (product) {
-            if(product.isIdentifiedBy[0].reference === lastClaim.reference) {
-                product.claimInProgress = lastClaim.status === UserClaimProductReference.TYPE_CREATED.id;
-            }
+        var mapProducts = _.indexBy($scope.products,function(product){
+          return product.isIdentifiedBy[0].reference;
         });
+        // Filter to get only the latest claim for each product, and put everything into an object {ref:claim}
+        var claims =  _.map(
+                        _.values(
+                          _.groupBy(response.data.data,function(claim){return claim.reference})),function(array){
+                              return _.max(array,function(claim){return new Date(claim.updatedAt)})});
+        // Attach each claim to good product
+        _.each(claims,function(claim){
+          mapProducts[claim.reference].claimInProgress = claim.status === UserClaimProductReference.TYPE_CREATED.id;
+        });
+
     };
 
     $scope.onPageChangeFromPaginator = function() {
@@ -151,6 +159,13 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_DISCONTINUED.id] = false;
 
         refresh($scope.displayNewProducts);
+    };
+
+    $scope.toggleGdsnOnly = function (only) {
+      if(only != $scope.gdsnOnly){
+        $scope.gdsnOnly = only;
+        refresh(true);
+      }
     };
 
     var list = function () {
@@ -174,7 +189,9 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
             productsegment_id: rootProductSegment.id,
             certified: $scope.request.product.certified
         };
-
+        if ($scope.gdsnOnly) {
+            filters.product_origin = Gtin.TYPE_GDSN.id;
+        }
         return find({}, filters);
     };
 
@@ -269,10 +286,13 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
             var product;
             for (var i = 0; i < response.data.length; i++) {
                 product = hydrateProduct(response.data[i]);
-                if ($scope.displayNewProducts) {
-                    $$sdkAuth.UserClaimProductReferenceList({}, {reference: product.isIdentifiedBy[0].reference}).then(attachClaimStatus);
-                }
                 $scope.products.push(product);
+            }
+            if ($scope.displayNewProducts) {
+              var references = _.map($scope.products, function(product) {
+                return product.isIdentifiedBy[0].reference;
+              });
+              $$sdkAuth.UserClaimProductReferenceList({}, {reference: references}).then(attachClaimStatus);
             }
             if ($scope.display.page > 1 && $scope.products.length == 0) {
                 $scope.display.page = 1;
