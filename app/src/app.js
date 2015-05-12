@@ -377,8 +377,8 @@ app.config(function ($routeProvider) {
         controller: 'OrganizationAdminHomeListController'
     });
 
-    $routeProvider.when('/organization/:id/admin/users', {
-        templateUrl: 'src/organization/admin/productsegment/permissions/edit.html',
+    $routeProvider.when('/organization/:id/admin/permissions/organization', {
+        templateUrl: 'src/organization/admin/productsegment/permissions/organization.html',
         controller: 'OrganizationAdminProductSegmentPermissionsController'
     });
 
