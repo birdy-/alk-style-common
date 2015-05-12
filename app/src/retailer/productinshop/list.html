@@ -94,18 +94,21 @@
                 <div class="col-sm-2">
                     <input style="width: 100%;" type="text" class="form-control" placeholder="ex : 483674" id="shortIdOut"
                            ng-model="request.productInShop.shortIdOut"
-                           ng-change="list()"/>
+                           ng-change="list()"
+                           analytics-on="click" analytics-event="RET Products List Filter Ref"/>
                 </div>
                 <div class="col-sm-2">
                     <input style="width: 100%;" type="text" class="form-control" placeholder="ex : 3779000283272" id="reference"
                            ng-model="request.productReference.reference"
-                           ng-change="list()"/>
+                           ng-change="list()"
+                           analytics-on="click" analytics-event="RET Products List Filter EAN"/>
                 </div>
                 <div class="col-sm-2">
                     <span alk-model-product-certified-select
                           placeholder="Tous" id="certified"
                           ng-model="request.product.certified"
-                          ng-change="list()">
+                          ng-change="list()"
+                          analytics-on="click" analytics-event="RET Products List Filter Status">
                     </span>
                 </div>
                 <div class="col-sm-3">
@@ -115,16 +118,20 @@
                          alk-autocomplete-restrict="restrict"
                          placeholder="Fournisseur ou catégorie"
                          ng-model="request.productInShopSegment"
-                         id="productInShopSegment">
+                         id="productInShopSegment"
+                         analytics-on="click" analytics-event="RET Products List Filter PISHSegment">
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <input style="width: 100%;" type="text" class="form-control" placeholder="Nom du produit"
                            ng-model="request.productInShop.name"
-                           ng-change="list()"/>
+                           ng-change="list()"
+                           analytics-on="click" analytics-event="RET Products List Filter Name"/>
                 </div>
                 <div class="col-sm-1 text-right">
-                    <span class="btn btn-success btn-block btn-search" ng-click="list()"><i class="fa fa-search"></i></span>
+                    <span class="btn btn-success btn-block btn-search"
+                          ng-click="list()"
+                          analytics-on="click" analytics-event="RET Products List Button Search"><i class="fa fa-search"></i></span>
                 </div>
             </form>
         </div>
@@ -144,7 +151,8 @@
                 ng-change="onPageChangeFromPaginator()"
                 rotate="true"
                 first-text="&laquo;"
-                last-text="&raquo;">
+                last-text="&raquo;"
+                analytics-on="click" analytics-event="RET Products List Change Page">
             </div>
         </div>
         <div class="col-sm-3 text-right pagination-block">
@@ -190,18 +198,29 @@
                             <!--<a class="pointer-link" ng-click="show(productInShop)">{{ productInShop.name }}</a>-->
                         </td>
                         <td class="text-center">
-                            <a class="btn btn-warning" ng-if="!isAttributed(productInShop) && !isDeprecated(productInShop)" ng-click="attribute(productInShop)">
+                            <a ng-if="!isAttributed(productInShop) && !isDeprecated(productInShop)"
+                               class="btn btn-warning"
+                               ng-click="attribute(productInShop)"
+                               analytics-on="click" analytics-event="RET Products Item Button Attribute">
                                 <i class="fa fa-envelope"></i> Attribuer
                             </a>
-                            <a class="btn btn-primary pish-preview" ng-click="show(productInShop)" ng-if="isCertified(productInShop)">
+                            <a  ng-if="isCertified(productInShop)"
+                                class="btn btn-primary pish-preview"
+                                ng-click="show(productInShop)"
+                                analytics-on="click" analytics-event="RET Products Item Button Preview">
                                 <i class="fa fa-eye"></i> Aperçu
                             </a>
-                            <a class="btn btn-warning" ng-click="chase(productInShop)" ng-if="isAttributed(productInShop)">
+                            <a ng-if="isAttributed(productInShop)"
+                               class="btn btn-warning"
+                               ng-click="chase(productInShop)"
+                               analytics-on="click" analytics-event="RET Products Item Button Relance">
                                 <i class="fa fa-envelope"></i> Relancer
                             </a>
                         </td>
                         <td class="text-center">
-                            <input type="checkbox" ng-model="productInShop.selected" ng-if="!isDeprecated(productInShop)">
+                            <input type="checkbox" ng-model="productInShop.selected"
+                                   ng-if="!isDeprecated(productInShop)"
+                                   analytics-on="click" analytics-event="RET Products Item Button Select">
                         </td>
                     </tr>
                     <tr ng-if="productInShops.length === 0;">
@@ -224,7 +243,8 @@
                 ng-change="onPageChangeFromPaginator()"
                 rotate="true"
                 first-text="&laquo;"
-                last-text="&raquo;">
+                last-text="&raquo;"
+                analytics-on="click" analytics-event="RET Products List Change Page">
             </div>
         </div>
         <div class="col-sm-3 text-right pagination-block">

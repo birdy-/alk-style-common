@@ -1,6 +1,10 @@
 <form role="form" class="col-xs-12">
     <h3>Je recherche</h3>
-    <div ng-if="isAdmin" class="form-group btn btn-block new-products" ng-class="{'highlight': displayNewProducts, 'inactive': !newProductsLoaded}" ng-click="toggleNewProducts()">
+    <div ng-if="isAdmin"
+         class="form-group btn btn-block new-products"
+         ng-class="{'highlight': displayNewProducts, 'inactive': !newProductsLoaded}"
+         ng-click="toggleNewProducts()"
+         analytics-on="click" analytics-event="MAK Products NewProducts">
         Nouveaux produits
         <span ng-if="newProductsLoaded" class="badge">{{ newProductsCount }}</span>
         <span ng-if="!newProductsLoaded" class="badge">
@@ -9,11 +13,17 @@
     </div>
     <div class="form-group">
         <label>EAN</label>
-        <input type="text" class="form-control" ng-model="request.product.isIdentifiedBy.reference"/>
+        <input type="text"
+               class="form-control"
+               ng-model="request.product.isIdentifiedBy.reference"
+               analytics-on="click" analytics-event="MAK Products Search Field EAN"/>
     </div>
     <div class="form-group">
         <label>Libellé</label>
-        <input type="text" class="form-control" ng-model="request.product.nameSmooth"/>
+        <input type="text"
+               class="form-control"
+               ng-model="request.product.nameSmooth"
+               analytics-on="click" analytics-event="MAK Products Search Field Name"/>
     </div>
     <br/>
     <div class="form-group">
@@ -26,19 +36,28 @@
         </div> -->
         <div class="checkbox">
             <label>
-                <input type="checkbox" name="certified" ng-model="request.product.certifieds[productModel.CERTIFICATION_STATUS_ACCEPTED.id]"/>
+                <input type="checkbox"
+                       name="certified"
+                       ng-model="request.product.certifieds[productModel.CERTIFICATION_STATUS_ACCEPTED.id]"
+                       analytics-on="click" analytics-event="MAK Products Filters Accepted"/>
                 que j'ai acceptés de remplir
             </label>
         </div>
         <div class="checkbox">
             <label>
-                <input type="checkbox" name="certified" ng-model="request.product.certifieds[productModel.CERTIFICATION_STATUS_CERTIFIED.id]"/>
+                <input type="checkbox"
+                       name="certified"
+                       ng-model="request.product.certifieds[productModel.CERTIFICATION_STATUS_CERTIFIED.id]"
+                       analytics-on="click" analytics-event="MAK Products Filters Certified"/>
                 que j'ai certifiés
             </label>
         </div>
         <div class="checkbox">
             <label>
-                <input type="checkbox" name="certified" ng-model="request.product.certifieds[productModel.CERTIFICATION_STATUS_DISCONTINUED.id]"/>
+                <input type="checkbox"
+                       name="certified"
+                       ng-model="request.product.certifieds[productModel.CERTIFICATION_STATUS_DISCONTINUED.id]"
+                       analytics-on="click" analytics-event="MAK Products Filters Archived"/>
                 que j'ai archivés
             </label>
         </div>
@@ -48,7 +67,9 @@
         <label>Marque commerciale :</label>
         <div ui-tree="options" data-drag-enabled="false" class="brand-tree">
             <ol ui-tree-nodes ng-model="brands">
-                <li ng-repeat="brand in brands | filter:root:true | orderBy:'name':false" ui-tree-node ng-include="'/src/maker/product/list/node.html'"></li>
+                <li ng-repeat="brand in brands | filter:root:true | orderBy:'name':false"
+                    ui-tree-node
+                    ng-include="'/src/maker/product/list/node.html'"></li>
             </ol>
         </div>
     </div>
