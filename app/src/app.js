@@ -377,9 +377,14 @@ app.config(function ($routeProvider) {
         controller: 'OrganizationAdminHomeListController'
     });
 
-    $routeProvider.when('/organization/:id/admin/permissions/organization', {
-        templateUrl: 'src/organization/admin/productsegment/permissions/organization.html',
+    $routeProvider.when('/organization/:id/admin/permissions/productsegment', {
+        templateUrl: 'src/organization/admin/productsegment/permissions/productsegment.html',
         controller: 'OrganizationAdminProductSegmentPermissionsController'
+    });
+
+    $routeProvider.when('/organization/:id/admin/permissions/user', {
+        templateUrl: 'src/organization/admin/productsegment/permissions/user.html',
+        controller: 'OrganizationAdminUserPermissionsController'
     });
 
     // ------------------------------------------------------------------------------------------

@@ -71,7 +71,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
         });
 
         modalInstance.result.then(function () {
-            $location.path("organization/" + $scope.organizationId + "/admin/permissions/organization?segment_id=" + segment.id);
+            $location.path("organization/" + $scope.organizationId + "/admin/permissions/productsegment?segment_id=" + segment.id);
         })
     }
 

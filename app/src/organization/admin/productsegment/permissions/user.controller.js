@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentPermissionsController', [
+angular.module('jDashboardFluxApp').controller('OrganizationAdminUserPermissionsController', [
     '$scope', 'permission','$routeParams', '$location', '$modal', '$$ORM', '$window', '$$sdkAuth', '$$sdkCrud',
     function ($scope, permission, $routeParams, $location, $modal, $$ORM, $window, $$sdkAuth, $$sdkCrud) {
 
@@ -19,7 +19,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
         $location.path($location.url($location.path('/')));
     };
 
-    $scope.createProductSegment = function () {
+    $scope.createUser = function () {
         var modalInstance = $modal.open({
             templateUrl: 'src/maker/productsegment/create/create-modal.html',
             controller: 'ProductSegmentCreateModalController',
@@ -30,7 +30,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
         });
     };
 
-    $scope.editProductSegment = function (segmentId) {
+    $scope.editUser = function (segmentId) {
         var modalInstance = $modal.open({
             templateUrl: 'src/maker/productsegment/create/create-modal.html',
             controller: 'ProductSegmentCreateModalController',
@@ -53,26 +53,24 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
     //     });
     // };
 
-    $scope.selectSegment = function (segmentId) {
-        $scope.segmentDetailsLoading = true;
-        $$ORM.repository('ProductSegment').get(segmentId, { 'with_users':true }).then(function (segment) {
-            $scope.selectedSegment = segment;
+    $scope.selectUser = function (userId) {
+      var user = _.filter($scope.users, function(user) { return user.id === userId; });
+      if (user.length === 0) {
+        return;
+      }
 
-
-            $$ORM.repository('ProductSegment').method('Stats')(segment.id).then(function (stats) {
-                $scope.segmentDetailsLoading = false;
-
-                if (!stats.length) { return; }
-                $scope.selectedSegment.stats = stats[0];
-                $scope.selectedSegment.stats.certifieds = stats[0].counts[Product.CERTIFICATION_STATUS_CERTIFIED.id];
-                $scope.selectedSegment.stats.notCertifieds = stats[0].counts[Product.CERTIFICATION_STATUS_ACCEPTED.id];
-                $scope.selectedSegment.stats.archived = stats[0].counts[Product.CERTIFICATION_STATUS_DISCONTINUED.id];
-                $scope.selectedSegment.stats.total = $scope.selectedSegment.stats.certifieds + $scope.selectedSegment.stats.notCertifieds;
-            });
-        });
+      user = user[0];
+      user.productSegments = [];
+      for (var i = 0; i < user.managesProductSegment.length; i++) {
+        var segment = _.filter($scope.segments, function (segment) { return segment.id === user.managesProductSegment[i].id; });
+        if (segment.length) {
+          user.productSegments.push(segment[0]);
+        }
+      }
+      $scope.selectedUser = user;
     };
 
-    $scope.addUser = function (segment) {
+    $scope.addProductSegment = function (segment) {
         $modal.open({
             templateUrl: 'src/organization/admin/productsegment/permissions/add-user-modal.html',
             controller: 'ProductSegmentAddUserModalController',
@@ -96,18 +94,22 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
             $scope.segments = _.filter(response.data.data, function (segment) {
                 return segment.id !== productSegmentRoot.id;
             });
-            var defaultSegmentId = $routeParams.segment_id || $scope.segments[0].id;
 
-            $scope.selectSegment(defaultSegmentId);
+            var defaultUserId = $routeParams.user_id || $scope.users[0].id;
+
+            $scope.selectUser(defaultUserId);
+
             $scope.isLoading = false;
         });
-    }
+    };
+
 
     var loadOrganization = function () {
         $$sdkAuth.OrganizationShow($scope.organizationId).then(function (response) {
             $scope.organization = response.data.data;
             $$sdkAuth.OrganizationUsers($scope.organizationId).then(function (response) {
                 $scope.users = response.data.data;
+
                 loadProductSegments();
             });
         });
