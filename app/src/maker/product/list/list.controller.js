@@ -9,8 +9,8 @@
  * @return {[type]}               [description]
  */
 angular.module('jDashboardFluxApp').controller('DashboardMakerProductListController', [
-    '$rootScope', '$scope', '$$sdkCrud', '$$sdkAuth', 'permission', '$routeParams', '$$ORM', '$log', '$location', '$window', 'URL_CDN_MEDIA', '$modal','$timeout',
-    function ($rootScope, $scope, $$sdkCrud, $$sdkAuth, permission, $routeParams, $$ORM, $log, $location, $window, URL_CDN_MEDIA, $modal,$timeout) {
+    '$rootScope', '$scope', '$$sdkCrud', '$$sdkAuth', 'permission', '$routeParams', '$$ORM', '$log', '$location', '$window', 'URL_CDN_MEDIA', '$modal', '$timeout', '$analytics',
+    function ($rootScope, $scope, $$sdkCrud, $$sdkAuth, permission, $routeParams, $$ORM, $log, $location, $window, URL_CDN_MEDIA, $modal, $timeout, $analytics) {
 
     // ------------------------------------------------------------------------
     // Variables
@@ -320,6 +320,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     };
 
     $scope.refreshBrand = function (brand) {
+        $analytics.eventTrack('MAK Products Filters Brand');
         propagate(brand, brand.active);
         refresh();
     };
@@ -349,6 +350,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
             $location.path('/maker/product/' + product.isIdentifiedBy[0].reference + '/data/media');
             return;
         }
+        $analytics.eventTrack('MAK Products Click Item');
         $location.path('/maker/product/' + product.isIdentifiedBy[0].reference + '/data/general');
         $location.search('page', null)
     };
@@ -529,7 +531,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
             return;
         });
     };
-    
+
     var hydrateProduct = function (data) {
         var product = new Product().fromJson(data);
         product.urlPictureOriginal = URL_CDN_MEDIA + '/product/' + product.id + '/picture/packshot/256x256.png?' + Math.random() * 100000000;

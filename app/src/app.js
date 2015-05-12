@@ -21,7 +21,9 @@ var app = angular.module('jDashboardFluxApp', [
   'ngToast',
   // 'nvd3ChartDirectives',
   'angulartics',
-  'angulartics.google.analytics'
+  'angulartics.google.analytics',
+  'angulartics.mixpanel',
+  'angulartics.debug'
 ]);
 
 // Update on each deploy

@@ -15,7 +15,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                   <a class="dropdown-toggle" role="button" aria-expanded="false">Ressources <span class="caret"></span></a>
-                  <ul class="dropdown-menu" role="menu">
+                  <ul class="dropdown-menu" role="menu" analytics-on="click" analytics-event="MAK NAV Ressources Item Click">
                     <li><a href="/#/maker/resources/faq">FAQ</a></li>
                     <li><a href="/#/maker/resources/tutorial">Tutoriel</a></li>
                     <li><a href="/#/maker/resources/procedures">Procédures</a></li>
@@ -33,7 +33,7 @@
                     </a>
                 </li>
                 <li>
-                    <a ng-click="logout()" href="/#/logout">
+                    <a ng-click="logout()" href="/#/logout" analytics-on="click" analytics-event="MAK Button Logout">
                         <i class="fa fa-power-off"></i>
                     </a>
                 </li>
