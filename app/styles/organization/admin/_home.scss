@@ -1,9 +1,45 @@
 #stream {
     .admin-page {
-      background-color: $background-color-grey;
+        background-color: $background-color-grey;
+        padding-top: 2*$padding-base-horizontal;
 
-      h1 {
-        background-color: $background-color-grey !important;
-      }
+        h1 {
+            background-color: $background-color-grey !important;
+        }
+    }
+
+    .admin-home {
+        .row-header {
+            margin-right: 0;
+        }
+
+        .segments-information {
+            .header {
+                height: 140px;
+            }
+
+            .segments {
+                height: 600px;
+                overflow-y: scroll;
+
+                .segment {
+                    @include transition(background-color 0.3s ease);
+
+                    &:hover, &.active {
+                        background-color: $brand-success;
+                        color: white;
+                    }
+                }
+            }
+        }
+
+
+        .segment-summary {
+            cursor: pointer;
+
+            h3, .details {
+                display: inline-block;
+            }
+        }
     }
 }

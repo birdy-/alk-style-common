@@ -17,21 +17,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     // ------------------------------------------------------------------------
     $scope.user = {};
     $scope.productModel = Product;
-    permission.getUser().then(function (user) {
-        var organizationId = user.belongsTo[0].id;
-        $scope.user = user;
-        $scope.isAdmin = permission.isAdmin(organizationId);
-        $$ORM.repository('Organization').get(organizationId).then(function (organization) {
-            var productSegmentRoot = Organization.getProductSegmentRoot(organization);
-            $$ORM.repository('ProductSegment').get(productSegmentRoot.id).then(function (segment) {
-                $$ORM.repository('ProductSegment').method('Stats')(productSegmentRoot.id).then(function (stats) {
-                    $scope.rootProductSegment = segment;
-                    $scope.newProductsCount = getNewProductsCount(stats[0]);
-                    $scope.newProductsLoaded = true;
-                });
-            });
-        });
-    });
     $scope.request = $rootScope.navigation.maker.request;
     $scope.display = $rootScope.navigation.maker.display;
     $scope.products = $scope.request.products || [];
@@ -39,10 +24,13 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     $scope.brands = [];
     $scope.segmentIds = [];
     $scope.displayNewProducts = false;
+    $scope.gdsnOnly = false;
     $scope.newProductsLoaded = false;
     $scope.currentPage  = 1;
+    $scope.newProductsCount = 0;
 
     var currentFindByNameRequest = null;
+    var rootProductSegment = null;
 
     // `$scope.request` is retrieved from the rootScope by inheritance
     if (!$scope.request.initialized) {
@@ -50,6 +38,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_ACCEPTED.id] = true;
         $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_CERTIFIED.id] = true;
         $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_PUBLISHED.id] = true;
+        $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_REVIEWING.id] = false;
         $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_DISCONTINUED.id] = false;
 
         $scope.request.offset = 0;
@@ -87,7 +76,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
 
         count += stats.counts[Product.CERTIFICATION_STATUS_DEFAULT.id]
         count += stats.counts[Product.CERTIFICATION_STATUS_PUBLISHED.id]
-        count += stats.counts[Product.CERTIFICATION_STATUS_REVIEWING.id]
         count += stats.counts[Product.CERTIFICATION_STATUS_ATTRIBUTED.id]
 
         return count;
@@ -118,7 +106,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
             controller: 'ProductAcceptationModalController',
             resolve: {
                 product: function () { return product; },
-                productSegment: function () { return $scope.rootProductSegment; },
+                productSegment: function () { return rootProductSegment; },
                 user: function () { return $scope.user; }
             }
         });
@@ -126,7 +114,8 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         modalInstance.result.then(function (selectedItem) {
             selectedItem.claimInProgress = true;
         }, function () {
-            $location.path('/maker/brand/' + $scope.product.isBrandedBy.id + '/product');
+            $scope.newProductsCount--;
+            list();
         });
     };
 
@@ -135,15 +124,22 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     // Event handling
     // ------------------------------------------------------------------------
 
+    // Add claim status to products that have been claimed by users
     var attachClaimStatus = function (response) {
         if(!response.data.data.length) { return; }
-        var lastClaim = response.data.data[0];
-
-        _.map($scope.products, function (product) {
-            if(product.isIdentifiedBy[0].reference === lastClaim.reference) {
-                product.claimInProgress = lastClaim.status === UserClaimProductReference.TYPE_CREATED.id;
-            }
+        var mapProducts = _.indexBy($scope.products,function(product){
+          return product.isIdentifiedBy[0].reference;
         });
+        // Filter to get only the latest claim for each product, and put everything into an object {ref:claim}
+        var claims =  _.map(
+                        _.values(
+                          _.groupBy(response.data.data,function(claim){return claim.reference})),function(array){
+                              return _.max(array,function(claim){return new Date(claim.updatedAt)})});
+        // Attach each claim to good product
+        _.each(claims,function(claim){
+          mapProducts[claim.reference].claimInProgress = claim.status === UserClaimProductReference.TYPE_CREATED.id;
+        });
+
     };
 
     $scope.onPageChangeFromPaginator = function() {
@@ -158,11 +154,18 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_ACCEPTED.id] = !$scope.displayNewProducts;
         $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_CERTIFIED.id] = !$scope.displayNewProducts;
         $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_PUBLISHED.id] = $scope.displayNewProducts;
-        $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_REVIEWING.id] = $scope.displayNewProducts;
+        $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_REVIEWING.id] = false;
         $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_ATTRIBUTED.id] = $scope.displayNewProducts;
         $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_DISCONTINUED.id] = false;
 
         refresh($scope.displayNewProducts);
+    };
+
+    $scope.toggleGdsnOnly = function (only) {
+      if(only != $scope.gdsnOnly){
+        $scope.gdsnOnly = only;
+        refresh(true);
+      }
     };
 
     var list = function () {
@@ -183,10 +186,12 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         $scope.request.product.certified = getCertifiedStatus($scope.request.product.certifieds);
 
         var filters = {
-            productsegment_id: $scope.rootProductSegment.id,
+            productsegment_id: rootProductSegment.id,
             certified: $scope.request.product.certified
         };
-
+        if ($scope.gdsnOnly) {
+            filters.product_origin = Gtin.TYPE_GDSN.id;
+        }
         return find({}, filters);
     };
 
@@ -281,10 +286,13 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
             var product;
             for (var i = 0; i < response.data.length; i++) {
                 product = hydrateProduct(response.data[i]);
-                if ($scope.displayNewProducts) {
-                    $$sdkAuth.UserClaimProductReferenceList({}, {reference: product.isIdentifiedBy[0].reference}).then(attachClaimStatus);
-                }
                 $scope.products.push(product);
+            }
+            if ($scope.displayNewProducts) {
+              var references = _.map($scope.products, function(product) {
+                return product.isIdentifiedBy[0].reference;
+              });
+              $$sdkAuth.UserClaimProductReferenceList({}, {reference: references}).then(attachClaimStatus);
             }
             if ($scope.display.page > 1 && $scope.products.length == 0) {
                 $scope.display.page = 1;
@@ -467,11 +475,41 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
 
     var init = function () {
         $scope.request.busy = true;
-        permission.getUser().then(function (user) {
+        permission.refreshUser().then(function (user) {
+            $scope.user = user;
+            var organizationId = user.belongsTo[0].id;
+            $scope.isAdmin = permission.isAdmin(organizationId);
+
+            $$ORM.repository('Organization').get(organizationId).then(function (organization) {
+                var productSegmentRoot = Organization.getProductSegmentRoot(organization);
+                var userManageProductSegmentRoot = false;
+                for (var i in user.managesProductSegment) {
+                    if (user.managesProductSegment[i].id === productSegmentRoot.id) {
+                        userManageProductSegmentRoot = true;
+                        break;
+                    }
+                }
+                if (userManageProductSegmentRoot) {
+                    $$ORM.repository('ProductSegment').get(productSegmentRoot.id).then(function (segment) {
+                        $$ORM.repository('ProductSegment').method('Stats')(productSegmentRoot.id).then(function (stats) {
+                            rootProductSegment = segment;
+                            var p = new Product();
+                            $scope.newProductsCount = p.getNewProductsCount(stats);
+                            $scope.newProductsLoaded = true;
+
+                            if ($rootScope.navigation.maker.displayNewProducts) {
+                                $scope.toggleNewProducts();
+                            }
+                        });
+                    });
+                }
+            });
+
             // Load all available brands
             var brandIds = user.managesBrand.map(function (brand) {
                 return brand.id;
             }).join(',');
+
             $$ORM.repository('Brand').list({}, {id: brandIds}, {}, 0, 100, {subbrands: 1}).then(function (brands) {
                 brands.forEach(function (brand) {
                     brand._subBrands = [];
@@ -517,19 +555,14 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
                 }
             }
 
-            // For now, no filter on ProductSegments, just use them for permission
-            // The if clause can be removed, it's just for backward compatibility
-            if (user.managesProductSegment) {
-                $scope.segmentIds = user.managesProductSegment.map(function (segment) {
-                    return segment.id;
-                });
-            }
+            $scope.segmentIds = user.allowedProductSegments("product.show");
+
             setPageFromUrl();
             list();
             return;
         });
     };
-    
+
     var hydrateProduct = function (data) {
         var product = new Product().fromJson(data);
         product.urlPictureOriginal = URL_CDN_MEDIA + '/product/' + product.id + '/picture/packshot/256x256.png?' + Math.random() * 100000000;

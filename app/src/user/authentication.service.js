@@ -46,6 +46,14 @@ angular.module('jDashboardFluxApp').service('permission', [
         user = null;
     };
 
+    /**
+     * Refresh user informations
+     */
+    var refreshUser = function() {
+        userPromise = null;
+        return getUser();
+    }
+
 
     /**
      * Requests Authentication Token from authentication server
@@ -96,7 +104,7 @@ angular.module('jDashboardFluxApp').service('permission', [
         var isAdmin = false;
         if (!user) { return isAdmin; }
         _.map(user.belongsTo, function (organization) {
-            if (organization.id === organizationId) {
+            if (organization.id === Number(organizationId)) {
                 if(_.indexOf(organization.permissions, 'admin') > -1) {
                     isAdmin = true;
                 }
@@ -112,6 +120,7 @@ angular.module('jDashboardFluxApp').service('permission', [
 
     return {
         reset: reset,
+        refreshUser: refreshUser,
         getUser: getUser,
         login: login,
         logout: logout,

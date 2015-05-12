@@ -324,7 +324,7 @@ angular.module('jDashboardFluxApp').service('$$ORM', [
             Campaign: abstractRepository(Campaign, $$sdkCampaign, $$cacheManager, $q, [], null),
             CommonUnit: abstractRepository(CommonUnit, $$sdkCrud, $$cacheManager, $q, commonUnits, addTextFrom('name')),
             Concept: abstractRepository(Concept, $$sdkCrud, $$cacheManager, $q, concepts, addTextFrom('name')),
-	    GLN: abstractRepository(GLN, $$sdkGdsn, $$cacheManager, $q, [], addTextFrom('name')),
+            GLN: abstractRepository(GLN, $$sdkGdsn, $$cacheManager, $q, [], addTextFrom('name')),
             Organization: abstractRepository(Organization, $$sdkAuth, $$cacheManager, $q, [], addTextFrom('name')),
             Placement: abstractRepository(Placement, $$sdkCampaign, $$cacheManager, $q, [], addTextFrom('name')),
             Product: abstractRepository(Product, $$sdkCrud, $$cacheManager, $q, [], addTextFrom('nameLegal')),

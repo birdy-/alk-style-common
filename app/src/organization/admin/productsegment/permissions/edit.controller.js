@@ -4,49 +4,19 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
     '$scope', 'permission','$routeParams', '$location', '$modal', '$$ORM', '$window', '$$sdkAuth', '$$sdkCrud',
     function ($scope, permission, $routeParams, $location, $modal, $$ORM, $window, $$sdkAuth, $$sdkCrud) {
 
-   	// --------------------------------------------------------------------------------
-    // Variables
- 	// --------------------------------------------------------------------------------
     $scope.organizationId = $routeParams.id;
- 	$scope.currentUser = null;
- 	$scope.isAdmin = false;
-   	$scope.productSegmentIds = [];
-   	$scope.users = [];
-   	$scope.productSegments = [];
-    $scope.matrix = {};
-    $scope.ProductSegmentModel = ProductSegment;
-    $scope.hasModifications = false;
+    $scope.currentUser = null;
+    $scope.segments = [];
+    $scope.users = [];
+    $scope.organization = null;
+    $scope.isLoading = false;
+
 
     // --------------------------------------------------------------------------------
     // Event binding
     // --------------------------------------------------------------------------------
-	$scope.goHome = function() {
+    $scope.goHome = function() {
         $location.path($location.url($location.path('/')));
-    };
-
-
-    $scope.initMatrix = function () {
-        $scope.users.map(function (user) {
-            $scope.matrix[user.id] = {};
-            user.managesProductSegment.map(function (productSegment) {
-                $scope.matrix[user.id][productSegment.id] = {};
-                $scope.matrix[user.id][productSegment.id].permissions = {};
-                $scope.matrix[user.id][productSegment.id].permissions[ProductSegment.PERMISSION_PS_SHOW]         = false;
-                $scope.matrix[user.id][productSegment.id].permissions[ProductSegment.PERMISSION_PRODUCT_SHOW]    = false;
-                $scope.matrix[user.id][productSegment.id].permissions[ProductSegment.PERMISSION_PRODUCT_UPDATE]  = false;
-                $scope.matrix[user.id][productSegment.id].permissions[ProductSegment.PERMISSION_PRODUCT_DELETE]  = false;
-                $scope.matrix[user.id][productSegment.id].permissions[ProductSegment.PERMISSION_PRODUCT_CERTIFY] = false;
-                productSegment.permissions.map(function (permission) {
-                    $scope.matrix[user.id][productSegment.id].permissions[permission] = true;
-                });
-                $scope.matrix[user.id][productSegment.id].hasChanged = false;
-            });
-        });
-    };
-
-    $scope.change = function (userId, productSegmentId) {
-        $scope.matrix[userId][productSegmentId].hasChanged = true;
-        $scope.hasModifications = true;
     };
 
     $scope.createProductSegment = function () {
@@ -54,85 +24,102 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
             templateUrl: 'src/maker/productsegment/create/create-modal.html',
             controller: 'ProductSegmentCreateModalController',
             resolve: {
-                organization_id: function() { return $scope.organizationId; }
+                organization_id: function() { return $scope.organizationId; },
+                productsegment_id: function() { return null; }
             }
         });
     };
 
-    $scope.inviteUser = function () {
+    $scope.editProductSegment = function (segmentId) {
         var modalInstance = $modal.open({
-            templateUrl: '/src/organization/user/add.html',
-            controller: 'OrganizationUserAddController',
+            templateUrl: 'src/maker/productsegment/create/create-modal.html',
+            controller: 'ProductSegmentCreateModalController',
             resolve: {
-                organization:   function () { return $scope.organization; },
-                brands:         function () { return null; },
-                currentUser:    function () { return $scope.currentUser; }
+                organization_id: function () { return $scope.organizationId; },
+                productsegment_id: function () { return segmentId; }
             }
         });
     };
-    	
 
-    $scope.save = function () {
-        for (var userId in $scope.matrix) {
-            for (var psId in $scope.matrix[userId]) {
-                if ($scope.matrix[userId][psId].hasChanged === true) {
-                    var permissions = [];
-                    for (var permission in $scope.matrix[userId][psId].permissions) {
-                        if (( permission == ProductSegment.PERMISSION_PRODUCT_SHOW 
-                            || permission == ProductSegment.PERMISSION_PRODUCT_UPDATE
-                            || permission == ProductSegment.PERMISSION_PRODUCT_DELETE
-                            || permission == ProductSegment.PERMISSION_PRODUCT_CERTIFY) 
-                            && $scope.matrix[userId][psId].permissions[permission] === true)
-                            permissions.push(permission);   
-                    }
-                    $$sdkAuth.UserManagesProductSegmentUpdate($scope.organizationId, psId, userId, permissions).then(function (response) {
-                        console.log('Permissions mises a jour');
-                    });
-                }
-            }
-        }
+    // $scope.inviteUser = function () {
+    //     var modalInstance = $modal.open({
+    //         templateUrl: '/src/organization/user/add.html',
+    //         controller: 'OrganizationUserAddController',
+    //         resolve: {
+    //             organization:   function () { return $scope.organization; },
+    //             brands:         function () { return null; },
+    //             currentUser:    function () { return $scope.currentUser; }
+    //         }
+    //     });
+    // };
+
+    $scope.selectSegment = function (segmentId) {
+        $scope.segmentDetailsLoading = true;
+        $$ORM.repository('ProductSegment').get(segmentId, { 'with_users':true }).then(function (segment) {
+            $scope.selectedSegment = segment;
+
+
+            $$ORM.repository('ProductSegment').method('Stats')(segment.id).then(function (stats) {
+                $scope.segmentDetailsLoading = false;
+
+                if (!stats.length) { return; }
+                $scope.selectedSegment.stats = stats[0];
+                $scope.selectedSegment.stats.certifieds = stats[0].counts[Product.CERTIFICATION_STATUS_CERTIFIED.id];
+                $scope.selectedSegment.stats.notCertifieds = stats[0].counts[Product.CERTIFICATION_STATUS_ACCEPTED.id];
+                $scope.selectedSegment.stats.archived = stats[0].counts[Product.CERTIFICATION_STATUS_DISCONTINUED.id];
+                $scope.selectedSegment.stats.total = $scope.selectedSegment.stats.certifieds + $scope.selectedSegment.stats.notCertifieds;
+            });
+        });
     };
 
+    $scope.addUser = function (segment) {
+        $modal.open({
+            templateUrl: 'src/organization/admin/productsegment/permissions/add-user-modal.html',
+            controller: 'ProductSegmentAddUserModalController',
+            resolve: {
+                productsegment: function() { return $scope.selectedSegment; },
+                organization: function() { return $scope.organization; }
+            }
+        }).result.then(function () {
+            $scope.selectSegment($scope.selectedSegment.id);
+        });
+    }
 
     // --------------------------------------------------------------------------------
     // Initialization
     // --------------------------------------------------------------------------------
-    
-    var loadProducSegments = function () {
-    	$scope.organization.ownsProductSegment.map(function (productSegment) {
-    		$scope.productSegmentIds.push(productSegment.id);
-    	});
-    	$$sdkCrud.ProductSegmentList({}, {'filter_id_in': $scope.productSegmentIds.join(',')}, {}, null, null).then(function (response) {
-    		$scope.productSegments = response.data.data;
-            $scope.initMatrix();
-    	});
-    };
+
+    var loadProductSegments = function() {
+        $$sdkCrud.ProductSegmentList({'organization_id':$scope.organizationId}, {}, {}, null, null).then(function (response) {
+            var productSegmentRoot = Organization.getProductSegmentRoot($scope.organization);
+
+            $scope.segments = _.filter(response.data.data, function (segment) {
+                return segment.id !== productSegmentRoot.id;
+            });
+            var defaultSegmentId = $routeParams.segment_id || $scope.segments[0].id;
+
+            $scope.selectSegment(defaultSegmentId);
+            $scope.isLoading = false;
+        });
+    }
 
     var loadOrganization = function () {
-    	$$sdkAuth.OrganizationShow($scope.organizationId).then(function (response) {
-    		$scope.organization = response.data.data;
-    		$$sdkAuth.OrganizationUsers($scope.organizationId).then(function (response) {
+        $$sdkAuth.OrganizationShow($scope.organizationId).then(function (response) {
+            $scope.organization = response.data.data;
+            $$sdkAuth.OrganizationUsers($scope.organizationId).then(function (response) {
                 $scope.users = response.data.data;
-                loadProducSegments();
+                loadProductSegments();
             });
-    	});
-	}; 
+        });
+    };
 
     var init = function () {
-		permission.getUser().then(function (user) {
-    		$scope.currentUser = user;
-    		user.belongsTo.map(function (org) {
-    			if (org.id === $scope.organizationId) {
-    				org.permissions.map(function (perm) {
-    					if (perm === 'admin')
-    						$scope.isAdmin = true;
-    				});
-    				if ($scope.isAdmin === false)
-    					$scope.goHome();
-    			}
-    		});
-    	});
-    	loadOrganization();
+
+        permission.getUser().then(function (user) {
+            $scope.currentUser = user;
+            $scope.isLoading = true;
+            loadOrganization();
+        });
     };
 
     init();

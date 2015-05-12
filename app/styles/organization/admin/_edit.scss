@@ -1,5 +1,164 @@
-.admin {
-    tr.even {
+#stream {
+
+    .admin {
+        .search {
+            border-bottom: 1px solid $gray-light;
+            padding: $padding-base-vertical 0;
+
+            .form-group {
+                width: 100%;
+            }
+
+            i {
+                text-align: center;
+                + i {
+                    padding-left: 4px;
+                    padding-right: $padding-base-horizontal;
+                }
+            }
+
+            .form-control {
+                background-color: transparent;
+                border: 0;
+                border-radius: 0;
+                box-shadow: none;
+                font-size: 16px;
+            }
+        }
+
+        i {
+            &:hover {
+                @include transition(color 0.2s 0 ease);
+                color: $alk-blue;
+                cursor: pointer;
+            }
+
+
+            + i {
+                padding-left: 4px;
+            }
+        }
+    }
+
+    .admin.admin-user-permissions {
+        height: 100%;
+
+        h1 {
+            color: $alk-green !important;
+        }
+
+        tr.even {
             background: $background-color-grey;
+        }
+
+        .segment {
+            @include transition(background-color 0.3s 0 ease);
+            cursor: pointer;
+            padding: $padding-base-vertical*1.7 0;
+
+            &:hover, &.active {
+                color: white;
+                background-color: $alk-green;
+            }
+        }
+
+        .permissions-users {
+            height: 700px;
+
+            .segments-list {
+                min-height: 700px;
+            }
+        }
+
+        .segment-details {
+            height: 100%;
+
+            i.fa-spin {
+                line-height: 700px;
+                vertical-align: middle;
+            }
+
+            .header {
+                p {
+                    color: $gray-light;
+                }
+            }
+
+            .body {
+                border-top: 1px solid $gray-light;
+            }
+        }
+
+        .row {
+          margin-left: 0;
+          margin-right: 0;
+        }
+    }
+
+    .user-permissions {
+        padding: $padding-base-horizontal 0;
+        height: 65px;
+
+        &:hover {
+            @include transition(background-color 0.3s 0 ease);
+            background-color: $gray-lighter;
+        }
+
+        .trash {
+            line-height: 65px - $padding-base-horizontal * 2;
+            vertical-align: middle;
+            text-align: center;
+
+            &:hover {
+                @include transition(color 0.2s 0 ease);
+                cursor: pointer;
+                color: $alk-red;
+            }
+        }
+
+        .user {
+            i {
+                &:hover {
+                    transition: none;
+                    color: $gray;
+                    cursor: default;
+                }
+            }
+
+            .identity {
+                .name {
+                    font-size: 16px;
+                }
+
+                .job {
+                    font-size: 12px;
+                    color: $gray-light;
+                }
+            }
+
+        }
+
+        .permissions {
+            line-height: 65px - $padding-base-horizontal * 2;
+            vertical-align: middle;
+
+            i {
+                color: $gray-light;
+
+                &:hover, &.active {
+                    @include transition(color 0.2s 0 ease);
+                    cursor: pointer;
+                    color: $alk-blue;
+                }
+
+                + i {
+                    padding-left: 6px;
+                }
+            }
+        }
+    }
+
+    + .user-permissions {
+        margin-top: 20px;
     }
 }
