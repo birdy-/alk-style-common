@@ -42,36 +42,45 @@
                 </div>
             </div>
             -->
-            <div button-save button-class="col-sm-12" ng-click="submit()" form="productForm">
+            <div button-save
+                 button-class="col-sm-12"
+                 form="productForm"
+                 ng-click="submit()"
+                 analytics-on="click" analytics-event="Product Profile Button Save">
             </div>
             <br/>
             <br/>
             <button ng-if="product.certified !== 2"
                     class="btn certify color-stream-inverse col-sm-12"
                     ng-click="certify()"
-                    analytics-on="click" analytics-event="MAK Products Button Select All">
+                    analytics-on="click" analytics-event="Product Profile Button Certify">
                 <i class="fa fa-certificate"></i> Certifier
             </button>
             <button ng-if="product.certified === 2"
                     class="btn certify color-stream-inverse col-sm-12"
-                    ng-click="uncertify()">
+                    ng-click="uncertify()"
+                    analytics-on="click" analytics-event="Product Profile Button Uncertify">
                 <i class="fa fa-ban"></i> Décertifier
             </button>
             <br/>
             <br/>
-            <button ng-click="duplicate(product)" class="btn duplicate color-stream-inverse col-sm-12">
+            <button class="btn duplicate color-stream-inverse col-sm-12"
+                    ng-click="duplicate(product)"
+                    analytics-on="click" analytics-event="Product Profile Button Duplicate">
                 <i class="fa fa-plus"></i> Dupliquer
             </button>
             <br/>
             <br/>
             <button ng-if="!product.isDiscontinued()"
                     class="btn label-default archive col-sm-12"
-                    ng-click="discontinue(true)">
+                    ng-click="discontinue(true)"
+                    analytics-on="click" analytics-event="Product Profile Button Archive">
                 <i class="fa fa-archive"></i> Archiver
             </button>
             <button ng-if="product.isDiscontinued()"
                     class="btn color-stream-inverse archive col-sm-12"
-                    ng-click="discontinue(false)">
+                    ng-click="discontinue(false)"
+                    analytics-on="click" analytics-event="Product Profile Button Unarchive">
                 <i class="fa fa-archive"></i> Ré-activer
             </button>
         </div>
