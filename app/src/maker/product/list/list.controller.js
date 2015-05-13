@@ -70,17 +70,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         }
     };
 
-
-    var getNewProductsCount = function (stats) {
-        var count = null;
-
-        count += stats.counts[Product.CERTIFICATION_STATUS_DEFAULT.id]
-        count += stats.counts[Product.CERTIFICATION_STATUS_PUBLISHED.id]
-        count += stats.counts[Product.CERTIFICATION_STATUS_ATTRIBUTED.id]
-
-        return count;
-    };
-
     var getCertifiedStatus = function (certifiedObject) {
         // Collect parameters
         var certifieds = [];
@@ -187,7 +176,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
 
         var filters = {
             productsegment_id: rootProductSegment.id,
-            certified: $scope.request.product.certified
+            certified: Product.CERTIFICATION_STATUS_ATTRIBUTED.id
         };
         if ($scope.gdsnOnly) {
             filters.product_origin = Gtin.TYPE_GDSN.id;
@@ -491,16 +480,20 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
                 }
                 if (userManageProductSegmentRoot) {
                     $$ORM.repository('ProductSegment').get(productSegmentRoot.id).then(function (segment) {
-                        $$ORM.repository('ProductSegment').method('Stats')(productSegmentRoot.id).then(function (stats) {
-                            rootProductSegment = segment;
-                            var p = new Product();
-                            $scope.newProductsCount = p.getNewProductsCount(stats);
-                            $scope.newProductsLoaded = true;
-
-                            if ($rootScope.navigation.maker.displayNewProducts) {
-                                $scope.toggleNewProducts();
-                            }
-                        });
+                      var filters = {
+                        productsegment_id: productSegmentRoot.id,
+                        certified: Product.CERTIFICATION_STATUS_ATTRIBUTED.id
+                      };
+                      // Getting the product list with new product-style filters, and limit of 0 (need count only)
+                      // Done to enforce the consistency of the count and the actual product list
+                      $$sdkCrud.ProductList({}, filters, {}, 0, 0, {}).success(function (response) {
+                        $scope.newProductsCount = response.totalResults;
+                        $scope.newProductsLoaded = true;
+                        rootProductSegment = segment;
+                        if ($rootScope.navigation.maker.displayNewProducts) {
+                          $scope.toggleNewProducts();
+                        }
+                      });
                     });
                 }
             });
