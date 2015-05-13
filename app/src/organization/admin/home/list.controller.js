@@ -103,9 +103,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
 
     $scope.deleteProductSegment = function () {
         $$ORM.repository('ProductSegment').method('Delete')($scope.selectedSegment.id, $scope.organizationId).then(function (response) {
-            // alert('ok');
             loadSegments();
-            //REMOVE $scope.selectedSegment >>
         });
     };   
 
@@ -114,7 +112,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
     // --------------------------------------------------------------------------------
 
     var loadOrganization = function () {
-        $$ORM.repository('Organization').get($scope.organizationId).then(function (response) {
+        $$ORM.repository('Organization').get($scope.organizationId).then(function (organization) {
             $scope.organization = organization;
             loadSegments();
         });
