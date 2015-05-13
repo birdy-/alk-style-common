@@ -9,6 +9,35 @@
     }
 
     .admin-home {
+        .organization-summary {
+            @extend .color-stream-inverse;
+
+            a {
+                color: white;
+            }
+        }
+
+        .welcome-header {
+            h2 {
+                padding-bottom: 2*$padding-base-vertical;
+            }
+
+            .organization-actions {
+
+                .action {
+                    border: none;
+                    background-color: #f0ebee;
+                    color: $text-color;
+                    padding: 2*$padding-base-vertical $padding-base-horizontal;
+
+                    + .action {
+                        margin-left: $padding-base-horizontal;
+                    }
+                }
+            }
+        }
+
+
         .row-header {
             margin-right: 0;
         }
