@@ -159,10 +159,18 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <h4>Permisions</h4>
-                            <div class="col-sm-4">
+                            <div class="col-sm-12">
                                 <a class="btn btn-default" ng-href="/#/organization/{{ organizationId }}/admin/users?segment_id={{ selectedSegment.id }}" role="button">
                                     <i class="fa fa-user"></i> Voir toutes les permissions
                                 </a>
+
+                                <div alk-confirm-action
+                                     confirm-message="rmComfirmMsg"
+                                     confirm-action="deleteProductSegment"
+                                     item="picture"
+                                     class="btn btn-danger pull-right">
+                                    <i class="fa fa-remove"></i> Supprimer
+                                </div>
                             </div>
                         </div>
                     </div>

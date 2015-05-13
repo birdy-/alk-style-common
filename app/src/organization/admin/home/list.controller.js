@@ -9,6 +9,8 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
     $scope.selectedSegment = null;
     $scope.newProductsLoaded = false;
 
+    $scope.rmComfirmMsg = "Etes vous sûr de vouloir supprimer se segment ?"
+
     // --------------------------------------------------------------------------------
     // Event binding
     // --------------------------------------------------------------------------------
@@ -99,12 +101,20 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
         });
     };
 
+    $scope.deleteProductSegment = function () {
+        $$ORM.repository('ProductSegment').method('Delete')($scope.selectedSegment.id, $scope.organizationId).then(function (response) {
+            // alert('ok');
+            loadSegments();
+            //REMOVE $scope.selectedSegment >>
+        });
+    };   
+
     // --------------------------------------------------------------------------------
     // Init
     // --------------------------------------------------------------------------------
 
     var loadOrganization = function () {
-        $$ORM.repository('Organization').get($scope.organizationId).then(function (organization) {
+        $$ORM.repository('Organization').get($scope.organizationId).then(function (response) {
             $scope.organization = organization;
             loadSegments();
         });
