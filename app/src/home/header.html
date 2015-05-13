@@ -4,13 +4,13 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/#/">Accueil</a></li>
                 <!--<li><a href="/#/company/customers">Clients</a></li>-->
-                <li><a ng-click="subscribe()">Contact</a></li>
-                <li><a target="_blank" href="https://twitter.com/alkemics"><i class="fa fa-twitter"></i></a></li>
-                <li><a target="_blank" href="https://www.linkedin.com/company/j-r-me"><i class="fa fa-linkedin"></i></a></li>
-                <!--<li><a target="_blank" href="https://www.facebook.com/Alkemics"><i class="fa fa-facebook"></i></a></li>-->
+                <li><a ng-click="subscribe()" analytics-on="click" analytics-event="Home Button ContactUs">Contact</a></li>
+                <li><a target="_blank" href="https://twitter.com/alkemics" analytics-on="click" analytics-event="Home Button Twitter"><i class="fa fa-twitter"></i></a></li>
+                <li><a target="_blank" href="https://www.linkedin.com/company/j-r-me" analytics-on="click" analytics-event="Home Button Linkedin"><i class="fa fa-linkedin"></i></a></li>
+                <!--<li><a target="_blank" href="https://www.facebook.com/Alkemics" analytics-on="click" analytics-event="Home Button Facebook"><i class="fa fa-facebook"></i></a></li>-->
             </ul>
             <ul class="nav navbar-nav navbar-right ptor-signin" ng-show="!user.id">
-                <li><a href="/#/login">Me connecter</a></li>
+                <li><a href="/#/login" analytics-on="click" analytics-event="Home Button Login">Me connecter</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right" ng-show="user.id">
@@ -20,7 +20,7 @@
                     </a>
                 </li>
                 <li>
-                    <a ng-click="logout()" href="/#/logout">
+                    <a ng-click="logout()" href="/#/logout" analytics-on="click" analytics-event="Home Button Logout">
                         <i class="fa fa-power-off"></i>
                     </a>
                 </li>

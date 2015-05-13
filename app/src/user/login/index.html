@@ -25,11 +25,13 @@
             <div class="form-group">
                 <div class="col-lg-offset-2 col-lg-10 text-right">
                     <div class="pull-left">
-                        <a class="true-link" href="/#/account/send_password_reset">
+                        <a class="true-link" href="/#/account/send_password_reset" analytics-on="click" analytics-event="Login Button ForgotPassword">
                             Mot de passe oubli&eacute; ?
                         </a>
                     </div>
-                    <button class="btn color-action-inversed">Me connecter</button>
+                    <button class="btn color-action-inversed" analytics-on="click" analytics-event="Login Button Login">
+                        Me connecter
+                    </button>
                 </div>
                 <div>
                     <span>{{ message }}</span>
@@ -45,7 +47,9 @@
             </div>
             <div class="form-group">
                 <div class="col-lg-offset-2 col-lg-10">
-                    <button class="btn pull-right color-action-inversed">Reset my password</button>
+                    <button class="btn pull-right color-action-inversed" analytics-on="click" analytics-event="Login Button ResetPassword">
+                        Reset my password
+                    </button>
                 </div>
                 <div>
                     <span>{{ message }}</span>

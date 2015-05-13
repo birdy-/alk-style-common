@@ -5,13 +5,18 @@
             <!-- We will add the multiple acceptation in the future -->
             <div ng-if="!displayNewProducts">
                 <label ng-if="display.type === 'preview'">
-                    <input type="checkbox" ng-model="display.allSelected"/>
+                    <input type="checkbox" ng-model="display.allSelected" analytics-on="click" analytics-event="MAK Products Button Select All"/>
                     Tout sélectionner &nbsp;
                 </label>
-                <div class="btn btn-success certify" ng-click="certificate()">
+                <div class="btn btn-success certify"
+                     ng-click="certificate()"
+                     analytics-on="click" analytics-event="MAK Products Button Bulk Certify">
                     <i class="fa fa-certificate"></i> Certifier
                 </div>
-                <div class="btn btn-success edit" ng-click="bulkEdit()">
+                <div class="btn btn-success edit"
+                     ng-click="bulkEdit()"
+                     analytics-on="click"
+                     analytics-event="MAK Products Button Bulk Edit">
                     <i class="fa fa-edit"></i> Modifier
                 </div>
             </div>
@@ -34,15 +39,16 @@
                     ng-change="onPageChangeFromPaginator()"
                     rotate="true"
                     first-text="&laquo;"
-                    last-text="&raquo;">
+                    last-text="&raquo;"
+                    analytics-on="click" analytics-event="MAK Products Change Page">
             </div>
             <span class="pagination-text">{{request.totalProducts}} {{request.totalProducts > 1 ? 'produits' : 'produit'}} / {{request.totalPages}} {{ request.totalPages > 1 ? 'pages' : 'page'}}</span>
 
             <div class="btn-group change-display">
-                <label class="btn btn-success" ng-model="display.type" btn-radio="'preview'">
+                <label class="btn btn-success" ng-model="display.type" btn-radio="'preview'" analytics-on="click" analytics-event="MAK Products Change View ToPreview">
                     <i class="fa fa-th-large"></i>
                 </label>
-                <label class="btn btn-success" ng-model="display.type" btn-radio="'list'">
+                <label class="btn btn-success" ng-model="display.type" btn-radio="'list'" analytics-on="click" analytics-event="MAK Products Change View ToList">
                     <i class="fa fa-th-list"></i>
                 </label>
             </div>
@@ -57,7 +63,11 @@
                     <span class="claim-text">Demande en cours</span>
                 </div>
             </div>
-            <input ng-if="!displayNewProducts" type="checkbox" class="product-select" ng-model="product.selected">
+            <input ng-if="!displayNewProducts"
+                   type="checkbox"
+                   class="product-select"
+                   ng-model="product.selected"
+                   analytics-on="click" analytics-event="MAK Products Button Select Item"/>
             <span class="product-information">
                 <div class="picture" ng-click="show(product, $index)">
                     <div class="ratio" style="height: 120px;" entity-image entity="product">
@@ -92,7 +102,7 @@
                 <thead class="color-stream-inverse">
                     <tr>
                         <th class="text-center">
-                            <input ng-if="!displayNewProducts" type="checkbox" ng-model="display.allSelected"/>
+                            <input ng-if="!displayNewProducts" type="checkbox" ng-model="display.allSelected" analytics-on="click" analytics-event="MAK Products Button Select All"/>
                         </th>
                         <th class="text-center">EAN</th>
                         <th class="text-center">Nom</th>
@@ -103,7 +113,7 @@
                 <tbody>
                     <tr ng-repeat="product in products | unique:'isIdentifiedBy.0.reference' track by product.isIdentifiedBy.0.reference" ng-class="{'inactive': product.claimInProgress}" ng-hide="isInactive">
                         <td class="text-center">
-                            <input ng-if="!displayNewProducts" type="checkbox" ng-model="product.selected">
+                            <input ng-if="!displayNewProducts" type="checkbox" ng-model="product.selected" analytics-on="click" analytics-event="MAK Products Button Select Item">
                         </td>
                         <td class="text-center">
                             <span class="badge" ng-repeat="reference in product.isIdentifiedBy | limitTo:1" >
