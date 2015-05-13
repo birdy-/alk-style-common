@@ -18,7 +18,7 @@
         <tr>
             <th class="col-lg-2 text-right">Taille de référence</th>
             <th ng-repeat="(psqId, psq) in psqs" class="text-center psq-col">
-                {{ psq.name }} 
+                {{ psq.name }}
                 <span class="badge pull-right" ng-click="changePreparationState(psq)">
                     <i class="fa fa-refresh"></i> {{ preparationState[psq.preparationState] }}
                 </span>
@@ -70,6 +70,9 @@
     <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[19072]"></tbody>
     <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[19073]"></tbody>
     <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[19074]"></tbody>
+    <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[10453]"></tbody>
+    <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[10452]"></tbody>
+    <tbody ng-show="showNutrition" product-nutrition psqs="psqs" legend="pnqs[10455]"></tbody>
 
     <tbody>
         <tr>
@@ -114,6 +117,7 @@
     <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[19078]"></tbody>
     <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[18994]"></tbody>
     <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[18992]"></tbody>
+    <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[10454]"></tbody>
     <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[18996]"></tbody>
     <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[19000]"></tbody>
     <tbody ng-show="showMinerals" product-nutrition psqs="psqs" legend="pnqs[18991]"></tbody>
