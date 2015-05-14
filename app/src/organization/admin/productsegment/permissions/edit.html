@@ -31,15 +31,20 @@
                 </div>
             </div>
             <div class="row segment"
-                 ng-class="{ 'active':selectedSegment.id==segment.id }"
+                 ng-class="{ 'active': selectedSegment.id == segment.id }"
                  ng-repeat="segment in filteredSegments = (segments | filter:search | orderBy:'name')"
                  ng-click="selectSegment(segment.id)">
                 <div class="col-xs-12">
-                    {{ segment.name }}
+                    <div class="name">
+                        {{ segment.name }}
+                    </div>
+                    <div class="details">
+                        {{ segment.users.length }} utilisateurs - {{ segment.products.length }} produits
+                    </div>
                 </div>
             </div>
-            <div class="row segment">
-                <div ng-hide="filteredSegments.length" class="col-xs-12">
+            <div ng-hide="filteredSegments.length" class="row segment">
+                <div class="col-xs-12">
                     Aucune gamme trouvée
                 </div>
             </div>

@@ -2,7 +2,7 @@
 <div class="container-fluid admin admin-page admin-home">
     <div class="row row-header">
     <div class="row-full-height row-same-height">
-        <div class="col-xs-12 col-sm-5 col-full-height col-top">
+        <div class="col-xs-12 col-sm-4 col-full-height col-top">
             <div class="col-xs-12 organization-summary box-tile">
                 <div class="col-xs-12">
                     <h2>
@@ -16,17 +16,33 @@
                 </div>
                 <div class="col-xs-12">
                     <p>{{ organization.description }}</p>
-                    <p><strong>RCS :</strong> {{ organization.identifierLegal }}</p>
+                    <p>
+                        <strong>RCS :</strong>
+                        <span>
+                            {{ organization.identifierLegal || 'Non rempli' }}
+                        </span>
+                    </p>
+                    <p>
+                        <strong>GLNs :</strong>
+                        <span>
+                            {{ organization.ownsGLN.length || '0' }}
+                        </span>
+                    </p>
                     <p>
                         <strong>Adresse : </strong>
-                         {{  organization.address }},
-                         {{  organization.postCode }}
-                         {{  organization.identifierCity }}
+                        <span ng-hide="!organization.address && !organization.postCode && !organization.identifierCity">
+                            {{  organization.address }},
+                            {{  organization.postCode }}
+                            {{  organization.identifierCity }}
+                        </span>
+                        <span ng-if="!organization.address && !organization.postCode && !organization.identifierCity">
+                            Non rempli
+                        </span>
                     </p>
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-7 col-full-height box-tile col-top welcome-header">
+        <div class="col-xs-12 col-sm-8 col-full-height box-tile col-top welcome-header">
             <div class="col-xs-12">
                 <h2>Bienvenue {{ currentUser.firstname }} {{ currentUser.lastname }}</h2>
             </div>
@@ -34,13 +50,13 @@
                 <p class="organization-actions">
                     <span ng-show="newProductsLoaded" class="btn action">
                         <a ng-href="#/maker/brand/all/product" ng-click="$root.navigation.maker.displayNewProducts = true;">
-                            {{ newProductsCount }} nouveaux produits
+                            <span class="badge">{{ newProductsCount }}</span> nouveaux produits
                         </a>
                     </span>
                     <a class="btn action" ng-click="addUser()" role="button">
                         <i class="fa fa-plus"></i> Ajouter un nouvel utilisateur
                     </a>
-                    <span alk-button-brand-claim="" label="'Ajouter une marque à votre organisation'" alk-button-class="action"></span>
+                    <span alk-button-brand-claim="" label="'Ajouter une marque à votre organisation'" class="action" alk-button-class="default"></span>
                     <!-- <a class="btn btn-default" ng-href="/#/organization/{{ organizationId }}/admin/users" role="button">
                         <i class="fa fa-user"></i> Voir toutes les permissions
                     </a> -->
@@ -53,57 +69,82 @@
     <br>
 
     <div class="row segments-information" ng-show="productSegments.length">
-        <div class="col-xs-6">
+        <div class="col-xs-8">
         <div class="col-xs-12">
             <div class="row">
                 <div class="col-xs-12 box-tile header">
-                    <h2>
-                        Mes gammes de produits
-                    </h2>
                     <div class="search">
                         <form class="form-inline">
                             <div class="form-group">
                                 <input class="form-control" ng-model="search.$" placeholder="Chercher une gamme">
                                 <span class="pull-right">
                                     <i class="fa fa-2x fa-search"></i>
-                                    <i  class="fa fa-2x fa-plus"
-                                        ng-click="createProductSegment()"
-                                        data-toggle="tooltip"
-                                        data-placement="top"
-                                        ng-attr-title="Créer une nouvelle gamme de produits"
-                                        tooltip=""></i>
+                                    <i class="fa fa-2x fa-info"></i>
                                 </span>
                             </div>
                         </form>
                     </div>
+                    <h2>
+                        Mes gammes de produits
+                    </h2>
+                    <button class="btn btn-fab btn-raised btn-stream"
+                            ng-click="createProductSegment()"
+                            data-toggle="tooltip"
+                            data-placement="top"
+                            ng-attr-title="Créer une nouvelle gamme de produits"
+                            tooltip="">
+                        <i class="fa fa-2x fa-plus"></i>
+                    </button>
                 </div>
             </div>
             <div class="row segments">
                 <div class="row-same-height row-full-height">
                     <div class="col-xs-12 col-full-height col-top">
                         <div class="row">
-                            <div ng-repeat="segment in filteredSegments = (productSegments | filter:search)"
-                                 class="col-xs-12 box-tile segment"
-                                 ng-class="{'active': segment.id === selectedSegment.id }">
-                                <div class="segment-summary" ng-click="selectSegment(segment.id)">
-                                    <h3>{{ segment.name }}</h3>
-                                    <div ng-repeat="query in segment.query track by $index">
-                                        <p>
-                                            {{ query.filter_glns.length || 0}} GLN - {{ query.filter_brand_ids.length || 0 }} {{ query.filter_brand_ids.length > 1 ? 'Marques' : 'Marque' }}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div ng-hide="filteredSegments.length" class="box-tile">
-                                <h3>Aucune gamme trouvée</h3>
-                            </div>
+                            <table class="table box-tile">
+                                <thead class="segments-header">
+                                    <tr>
+                                        <th></th>
+                                        <th>Nom de la gamme</th>
+                                        <th>Nombre de GLNs</th>
+                                        <th>Nombre de marques</th>
+                                        <th>Nombre d'utilisateurs</th>
+                                        <!-- <th>% certifiés</th> -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                   <tr ng-repeat="segment in filteredSegments = (productSegments | filter:search)"
+                                       class="segment"
+                                       ng-class="{'active': segment.id === selectedSegment.id }"
+                                       ng-click="selectSegment(segment.id)">
+                                       <td>
+                                            <i class="fa fa-pencil"
+                                               ng-click="editProductSegment(segment.id)"
+                                               data-toggle="tooltip"
+                                               data-placement="top"
+                                               ng-attr-title="Editer la gamme {{ segment.name }}"
+                                               tooltip=""></i>
+                                       </td>
+                                       <td class="name">{{ segment.name }}</td>
+                                       <td>{{ segment.query.0.filter_glns.length }}</td>
+                                       <td>{{ segment.query.0.filter_brand_ids.length }}</td>
+                                       <td>{{ segment.users.length }}</td>
+                                       <!-- <td>{{ segmnent.stats.certifieds }}</td> -->
+                                    </tr>
+                                    <tr ng-hide="filteredSegments.length" class="box-tile">
+                                        <td colspan="8" class="text-center">
+                                            <h3>Aucune gamme trouvée</h3>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         </div>
-        <div ng-show="selectedSegment" class="col-xs-6">
+        <div ng-show="segmentDetailsLoading || selectedSegment" class="col-xs-4 segment-summary">
             <div ng-show="segmentDetailsLoading" class="col-xs-12 box-tile text-center">
                 <i class="fa fa-spin fa-spinner fa-3x"></i>
             </div>
@@ -113,50 +154,50 @@
                         <div ng-if="selectedSegment.id !== productSegmentRoot.id" class="col-xs-12">
                             <div class="pull-right">
                                 <i class="fa fa-2x fa-user-plus" ng-click="addUserToProductSegment()"></i>
-                                <!-- <i class="fa fa-2x fa-trash"></i> -->
-                                <i class="fa fa-2x fa-edit"
-                                   ng-click="editProductSegment(selectedSegment.id)"
+                                <i alk-confirm-action
+                                   confirm-message="rmComfirmMsg"
+                                   confirm-action="deleteProductSegment"
+                                   item="picture"
                                    data-toggle="tooltip"
                                    data-placement="top"
-                                   ng-attr-title="Editer la gamme {{ selectedSegment.name }}"
-                                   tooltip=""></i>
+                                   ng-attr-title="Supprimer la gamme {{ selectedSegment.name }}"
+                                   class="fa fa-2x fa-trash ng-isolate-scope pull-right"></i>
                             </div>
                         </div>
                         <div class="col-xs-12">
-                            <h2>{{ selectedSegment.name}}</h2>
-                            <p>Édité le {{ selectedSegment.updatedAt }}</p>
+                            <h3>{{ selectedSegment.name}}</h3>
+                            <p>
+                                <span ng-if="selectedSegment.stats.total">{{ selectedSegment.stats.total }} produits -</span>
+                                <span>Modifié le {{ selectedSegment.updatedAt | date:'dd.MM.yyyy' }}</span>
+                            </p>
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-12 box-tile">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <h4>Contenu</h4>
-                            <p>Non Certifiés : {{ selectedSegment.stats.notCertifieds }}</p>
-                            <p>Certifiés : {{ selectedSegment.stats.certifieds }}</p>
-                        </div>
+                <div class="col-xs-6 stats certifieds">
+                    <div class="figure">
+                        {{ selectedSegment.stats.certifiedsPercent }}%
+                    </div>
+                    <div class="text">
+                        {{ selectedSegment.stats.certifieds }} certifiés
                     </div>
                 </div>
-                <div class="col-xs-12 box-tile">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <h4>Informations</h4>
-                            <p>ID: {{ selectedSegment.shortId }}</p>
-                            <p>Créé le {{ selectedSegment.createdAt }}</p>
-                        </div>
+                <div class="col-xs-6 stats not-certifieds">
+                    <div class="figure">
+                        {{ selectedSegment.stats.notCertifiedsPercent }}%
+                    </div>
+                    <div class="text">
+                        {{ selectedSegment.stats.notCertifieds }} non certifiés
                     </div>
                 </div>
-                <div ng-if="selectedSegment.id !== productSegmentRoot.id" class="col-xs-12 box-tile">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <h4>Permisions</h4>
-                            <div class="col-sm-4">
-                                <a class="btn btn-default" ng-href="/#/organization/{{ organizationId }}/admin/users?segment_id={{ selectedSegment.id }}" role="button">
-                                    <i class="fa fa-user"></i> Voir toutes les permissions
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-xs-12">
+                    <h3>Les permissions</h3>
+                    <p>{{ selectedSegment.users.length }} utilisateurs</p>
+                    <a ng-if="selectedSegment.id !== productSegmentRoot.id"
+                       class="permissions"
+                       ng-href="/#/organization/{{ organizationId }}/admin/users?segment_id={{ selectedSegment.id }}"
+                       role="button">
+                       Voir les permissions
+                    </a>
                 </div>
             </div>
         </div>

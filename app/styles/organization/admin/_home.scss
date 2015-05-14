@@ -1,4 +1,88 @@
 #stream {
+
+    .admin {
+        .search {
+            border-bottom: 1px solid $gray-light;
+            padding: $padding-base-vertical 0;
+
+            .form-group {
+                width: 100%;
+            }
+
+            i {
+                text-align: center;
+                + i {
+                    padding-left: 4px;
+                    padding-right: $padding-base-horizontal;
+                }
+            }
+
+            .form-control {
+                background-color: transparent;
+                border: 0;
+                border-radius: 0;
+                box-shadow: none;
+                font-size: 16px;
+            }
+        }
+
+        i {
+            color: $icon-gray;
+
+            &:hover {
+                @include transition(color 0.2s 0 ease);
+                color: $icon-gray-hover;
+                cursor: pointer;
+            }
+
+            &:active {
+                color: $icon-gray-active;
+            }
+
+            + i {
+                padding-left: 4px;
+            }
+        }
+
+        .segment {
+            @include transition(background-color 0.3s ease);
+            color: $text-color;
+            cursor: pointer;
+            text-align: center;
+
+            &:hover {
+                background-color: $alk-green-light-hover;
+            }
+
+            &.active {
+                background-color: $alk-green-light;
+
+                // Overrides a bootrap default
+                td {
+                    background-color: $alk-green-light;
+                }
+            }
+
+            &:active {
+                background-color: $alk-green-light-active;
+            }
+
+            .edit {
+                padding: 0 $padding-base-horizontal;
+            }
+
+            .name {
+                font-weight: bold;
+                text-align: left;
+            }
+
+            .details {
+                color: $gray-light;
+                text-align: left;
+            }
+        }
+    }
+
     .admin-page {
         background-color: $background-color-grey;
         padding-top: 2*$padding-base-horizontal;
@@ -26,12 +110,36 @@
 
                 .action {
                     border: none;
-                    background-color: #f0ebee;
+                    background-color: $alk-purple-light;
+                    border-radius: $border-radius-base;
                     color: $text-color;
+                    cursor: pointer;
                     padding: 2*$padding-base-vertical $padding-base-horizontal;
 
+                    &:hover {
+                        background-color: $alk-purple-light-hover;
+                    }
+
+                    &:active {
+                        background-color: $alk-purple-light-active;
+                        box-shadow: none;
+                    }
+
+                    > .btn {
+                        // Already handled above
+                        padding: 0;
+                    }
+
+                    .badge {
+                        background-color: $alk-red;
+                    }
+
+                    a {
+                        color: $text-color;
+                    }
+
                     + .action {
-                        margin-left: $padding-base-horizontal;
+                        margin-left: $margin-base-horizontal;
                     }
                 }
             }
@@ -43,31 +151,69 @@
         }
 
         .segments-information {
+            position: relative;
+
+            .btn-fab {
+                position: absolute;
+                bottom: -$btn-fab-height/2;
+                left: $btn-fab-width/2;
+            }
+
             .header {
                 height: 140px;
+                overflow: visible;
+                padding-left: 2*$padding-base-horizontal;
+                padding-right: 2*$padding-base-horizontal;
             }
 
             .segments {
                 height: 600px;
                 overflow-y: scroll;
 
-                .segment {
-                    @include transition(background-color 0.3s ease);
+                table {
+                    padding-top: 2*$padding-large-vertical;
 
-                    &:hover, &.active {
-                        background-color: $brand-success;
-                        color: white;
+                    * {
+                        border: none !important;
+                    }
+                }
+
+                .segments-header {
+                    th {
+                        text-align: center;
                     }
                 }
             }
-        }
 
+            .segment-summary {
+                .stats {
+                    background-color: white;
+                    border-bottom: 0;
+                    height: 80px;
+                    padding-top: 15px;
+                    padding-bottom: 15px;
+                    position: relative;
+                    text-align: center;
 
-        .segment-summary {
-            cursor: pointer;
+                    &.certifieds {
+                        color: $alk-green;
+                        border-top: 2px solid $alk-green;
+                    }
 
-            h3, .details {
-                display: inline-block;
+                    &.not-certifieds {
+                        color: $alk-purple;
+                        border-top: 2px solid $alk-purple;
+                    }
+
+                    .figure {
+                        font-size: 24px;
+                    }
+                }
+
+                .permissions {
+                    @extend .btn-stream-inverse;
+                    font-weight: bold;
+                }
             }
         }
     }
