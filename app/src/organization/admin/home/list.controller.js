@@ -1,13 +1,15 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListController', [
-    '$scope', 'permission','$$ORM', '$$sdkAuth', '$routeParams', '$location', 'ngToast', '$modal',
-    function ($scope, permission, $$ORM, $$sdkAuth, $routeParams, $location, ngToast, $modal) {
+    '$scope', 'permission','$$ORM', '$$sdkCrud','$$sdkAuth', '$routeParams', '$location', 'ngToast', '$modal',
+    function ($scope, permission, $$ORM, $$sdkCrud, $$sdkAuth, $routeParams, $location, ngToast, $modal) {
 
     $scope.organization = {};
     $scope.organizationId = Number($routeParams.id);
     $scope.selectedSegment = null;
     $scope.newProductsLoaded = false;
+
+    $scope.rmComfirmMsg = "Etes vous sûr de vouloir supprimer se segment ?"
 
     // --------------------------------------------------------------------------------
     // Event binding
@@ -104,6 +106,12 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
         });
     };
 
+    $scope.deleteProductSegment = function () {
+        $$ORM.repository('ProductSegment').method('Delete')($scope.selectedSegment.id, $scope.organizationId).then(function (response) {
+            loadSegments();
+        });
+    };
+
     // --------------------------------------------------------------------------------
     // Init
     // --------------------------------------------------------------------------------
@@ -124,12 +132,16 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
             var productSegmentRoot = Organization.getProductSegmentRoot($scope.organization);
             $scope.productSegmentRoot = productSegmentRoot;
             $$ORM.repository('ProductSegment').get(productSegmentRoot.id).then(function (segment) {
-                $$ORM.repository('ProductSegment').method('Stats')(productSegmentRoot.id).then(function (stats) {
-                    $scope.newProductsLoaded = true;
-                    if (!stats.length) { return; }
-                    var p = new Product();
-                    $scope.newProductsCount = p.getNewProductsCount(stats);;
-                });
+              var filters = {
+                productsegment_id: productSegmentRoot.id,
+                certified: Product.CERTIFICATION_STATUS_ATTRIBUTED.id
+              };
+              // Getting the product list with new product-style filters, and limit of 0 (need count only)
+              // Done to enforce the consistency of the count and the actual product list
+              $$sdkCrud.ProductList({}, filters, {}, 0, 0, {}).success(function (response) {
+                $scope.newProductsCount = response.totalResults;
+                $scope.newProductsLoaded = true;
+              });
             });
         });
     };

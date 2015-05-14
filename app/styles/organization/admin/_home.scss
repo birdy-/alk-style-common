@@ -1,5 +1,4 @@
 #stream {
-
     .admin {
         .search {
             border-bottom: 1px solid $gray-light;
@@ -96,7 +95,7 @@
         .organization-summary {
             @extend .color-stream-inverse;
 
-            a {
+            a, i {
                 color: white;
             }
         }
