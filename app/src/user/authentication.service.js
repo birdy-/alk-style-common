@@ -92,6 +92,16 @@ angular.module('jDashboardFluxApp').service('permission', [
         return token;
     };
 
+    var getUserInfo = function () {
+        if (!user) { return null; }
+        return {
+            username: user.username,
+            jobTitle: user.jobTitle,
+            company: user.company,
+            organizationId: user.belongsTo[0].id
+        };
+    };
+
     var isAdmin = function (organizationId) {
         var isAdmin = false;
         if (!user) { return isAdmin; }
@@ -113,6 +123,7 @@ angular.module('jDashboardFluxApp').service('permission', [
     return {
         reset: reset,
         getUser: getUser,
+        getUserInfo: getUserInfo,
         login: login,
         logout: logout,
         getAccessToken: getAccessToken,
