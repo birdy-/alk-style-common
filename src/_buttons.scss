@@ -11,3 +11,60 @@
     }
   }
 }
+
+.btn-stream-light {
+    @include transition(background-color 0.3s 0 ease);
+    background-color: $alk-green-light !important;
+    color: white !important;
+    z-index: 10000;
+
+    * {
+        color: white !important;
+    }
+
+    &:hover {
+        background-color: $alk-green-light-hover !important;
+    }
+
+    &:active {
+        background-color: $alk-green-light-active !important;
+    }
+}
+
+.btn-stream {
+    @include transition(background-color 0.3s 0 ease);
+    background-color: $alk-green !important;
+    color: white !important;
+    z-index: 10000;
+
+    * {
+        color: white !important;
+    }
+
+    &:hover {
+        background-color: $alk-green-hover !important;
+    }
+
+    &:active {
+        background-color: $alk-green-active !important;
+    }
+}
+
+.btn-stream-inverse {
+    @include transition(background-color 0.3s 0 ease);
+    background-color: transparent !important;
+    color: $alk-green !important;
+    z-index: 10000;
+
+    * {
+        color: $alk-green !important;
+    }
+
+    &:hover {
+        color: $alk-green-hover !important;
+    }
+
+    &:active {
+        color: $alk-green-active !important;
+    }
+}

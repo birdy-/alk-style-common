@@ -28,5 +28,6 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 @import "placeholder";
 @import "browsehappy";
 
-@import "material-ui/_shadow";
+@import "material-ui/shadow";
+@import "material-ui/fab";
 @import "_overrides-post-import";

@@ -1,0 +1,14 @@
+.btn {
+    &.btn-fab {
+        border-radius: 100%;
+        box-shadow: 0 1px 6px 0 rgba(0,0,0,.12),0 1px 6px 0 rgba(0,0,0,.12);
+        height: $btn-fab-height;
+        width: $btn-fab-width;
+        text-align: center;
+
+        i {
+            line-height: 0.8*$btn-fab-height;
+            vertical-align: middle;
+        }
+    }
+}

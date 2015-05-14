@@ -45,6 +45,23 @@ $alk-yellow-darker: rgba(241, 201, 0, 1);
 
 $background-color-grey: #f6f6f6;
 
+$alk-green-hover: rgba($alk-green, .85);
+$alk-green-active: rgba($alk-green, .65);
+
+$alk-green-light: rgba($alk-green, 0.25);
+$alk-green-light-hover: rgba($alk-green, 0.15);
+$alk-green-light-active: rgba($alk-green, 0.35);
+
+$alk-purple-light: rgba($alk-purple, 0.1);
+$alk-purple-light-hover: rgba($alk-purple, 0.05);
+$alk-purple-light-active: rgba($alk-purple, 0.25);
+
+$icon-gray: $gray;
+$icon-gray-hover: rgba($gray-light, .7);
+$icon-gray-active: rgba($gray-light, .85);
+
+$alk-icon-color: rgba(94, 172, 37, 0.25);
+
 // =================================================================================================
 //                                          BASE COLORS
 // =================================================================================================
