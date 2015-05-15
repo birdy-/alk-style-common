@@ -1,30 +1,42 @@
 <div class="brand">
-    <div class="col-xs-3 logo-container text-center brand-column clickable" ng-click="goToProducts(brand.id, 'all')">
+    <div class="col-xs-3 logo-container text-center brand-column clickable"
+         ng-click="goToProducts(brand.id, 'all')"
+         analytics-on="click" analytics-event="MAK Brands Logo Click">
         <img entity-image entity="brand" class="brand-logo"/>
     </div>
     <div class="col-xs-3 brand-column">
-        <h3 ng-click="goToProducts(brand.id, 'all')" class="name clickable">{{ brand.name }}</h3>
+        <h3 class="name clickable"
+            ng-click="goToProducts(brand.id, 'all')"
+            analytics-on="click" analytics-event="MAK Brands Link BrandName">
+            {{ brand.name }}
+        </h3>
         <div ng-if="brand.stats" class="stats">
-            <div class="clickable not-certified" ng-click="goToProducts(brand.id, false)" ng-class="{'text-danger': notCertified > 0, 'text-success': notCertified === 0 }">
+            <div class="clickable not-certified"
+                 ng-class="{'text-danger': notCertified > 0, 'text-success': notCertified === 0 }"
+                 ng-click="goToProducts(brand.id, false)"
+                 analytics-on="click" analytics-event="MAK Brands Link NotCertified">
                 <strong>Non certifiés : {{ notCertified }}</strong>
             </div>
-            <div class="clickable certified" ng-click="goToProducts(brand.id, true)" ng-class="{'text-danger': certified === 0, 'text-success': certified  > 0 }">
+            <div class="clickable certified"
+                 ng-class="{'text-danger': certified === 0, 'text-success': certified  > 0 }"
+                 ng-click="goToProducts(brand.id, true)"
+                 analytics-on="click" analytics-event="MAK Brands Link Certified">
                 <strong>Certifiés : {{ certified }}</strong>
             </div>
         </div>
     </div>
     <div class="brand-actions brand-column">
         <div class="btn btn-default action">
-            <a class="" href="/#/maker/brand/{{ brand.id }}">
+            <a class="" href="/#/maker/brand/{{ brand.id }}" analytics-on="click" analytics-event="MAK Brands Link Edit">
                 <i class="fa fa-edit"></i> Éditer la marque
             </a>
         </div>
         <div class="btn btn-default action">
-            <a class="" href="/#/maker/brand/{{ brand.id }}/product">
+            <a class="" href="/#/maker/brand/{{ brand.id }}/product" analytics-on="click" analytics-event="MAK Brands Link Show Products">
                 <i class="fa fa-barcode"></i> Voir les produits
             </a>
         </div>
-        <div class="btn btn-default claim-products action" ng-click="display.allProducts = !display.allProducts">
+        <div class="btn btn-default claim-products action" ng-click="display.allProducts = !display.allProducts" analytics-on="click" analytics-event="MAK Brands Link Add Product">
             <i class="fa fa-plus"></i> Ajouter un produit
         </div>
     </div>
