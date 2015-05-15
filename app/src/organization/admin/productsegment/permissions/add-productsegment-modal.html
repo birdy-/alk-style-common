@@ -1,0 +1,21 @@
+<div class="modal-header">
+    <h3>
+        Ajouter des product segments à {{ user.firstname }} {{ user.lastname || 'Utilisateur'}}
+    </h3>
+</div>
+
+<div class="modal-body">
+    <div alk-autocomplete-my
+         alk-autocomplete-type="user"
+         alk-autocomplete-multiple="true"
+         placeholder="Rechercher parmi les products segments de votre organisation"
+         ng-model="newUsers">
+    </div>
+</div>
+
+<div class="modal-footer">
+    <div class="text-right">
+        <button class="btn btn-danger" ng-click="cancel()"><i class="fa fa-ban"></i> Annuler</button>
+        <button class="btn btn-success" ng-click="submit()"><i class="fa fa-check"></i> Valider</button>
+    </div>
+</div>

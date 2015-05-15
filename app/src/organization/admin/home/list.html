@@ -57,7 +57,7 @@
                         <i class="fa fa-plus"></i> Ajouter un nouvel utilisateur
                     </a>
                     <span alk-button-brand-claim="" label="'Ajouter une marque à votre organisation'" class="action" alk-button-class="default"></span>
-                    <!-- <a class="btn btn-default" ng-href="/#/organization/{{ organizationId }}/admin/users" role="button">
+                    <!-- <a class="btn btn-default" ng-href="/#/organization/{{ organizationId }}/admin/permissions/productsegment" role="button">
                         <i class="fa fa-user"></i> Voir toutes les permissions
                     </a> -->
                 </p>
@@ -68,7 +68,7 @@
 
     <br>
 
-    <div class="row segments-information" ng-show="productSegments.length">
+    <div class="row segments-information" ng-show="segments.length">
         <div class="col-xs-8">
         <div class="col-xs-12">
             <div class="row">
@@ -111,11 +111,11 @@
                                         <th>Nombre de GLNs</th>
                                         <th>Nombre de marques</th>
                                         <th>Nombre d'utilisateurs</th>
-                                        <!-- <th>% certifiés</th> -->
+                                        <th>% certifiés</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                   <tr ng-repeat="segment in filteredSegments = (productSegments | filter:search)"
+                                   <tr ng-repeat="segment in filteredSegments = (segments | filter:search)"
                                        class="segment"
                                        ng-class="{'active': segment.id === selectedSegment.id }"
                                        ng-click="selectSegment(segment.id)">
@@ -130,8 +130,8 @@
                                        <td class="name">{{ segment.name }}</td>
                                        <td>{{ segment.query.0.filter_glns.length }}</td>
                                        <td>{{ segment.query.0.filter_brand_ids.length }}</td>
-                                       <td>{{ segment.users.length }}</td>
-                                       <!-- <td>{{ segmnent.stats.certifieds }}</td> -->
+                                       <td>{{ segment.usersCount }}</td>
+                                       <td>{{ segment.statistics.certifiedsPercent }}%</td>
                                     </tr>
                                     <tr ng-hide="filteredSegments.length" class="box-tile">
                                         <td colspan="8" class="text-center">
@@ -169,7 +169,7 @@
                         <div class="col-xs-12">
                             <h3>{{ selectedSegment.name}}</h3>
                             <p>
-                                <span ng-if="selectedSegment.stats.total">{{ selectedSegment.stats.total }} produits -</span>
+                                <span ng-if="selectedSegment.statistics.total">{{ selectedSegment.statistics.total }} produits -</span>
                                 <span>Modifié le {{ selectedSegment.updatedAt | date:'dd.MM.yyyy' }}</span>
                             </p>
                         </div>
@@ -177,18 +177,18 @@
                 </div>
                 <div class="col-xs-6 stats certifieds">
                     <div class="figure">
-                        {{ selectedSegment.stats.certifiedsPercent }}%
+                        {{ selectedSegment.statistics.certifiedsPercent }}%
                     </div>
                     <div class="text">
-                        {{ selectedSegment.stats.certifieds }} certifiés
+                        {{ selectedSegment.statistics.certifieds }} certifiés
                     </div>
                 </div>
                 <div class="col-xs-6 stats not-certifieds">
                     <div class="figure">
-                        {{ selectedSegment.stats.notCertifiedsPercent }}%
+                        {{ selectedSegment.statistics.notCertifiedsPercent }}%
                     </div>
                     <div class="text">
-                        {{ selectedSegment.stats.notCertifieds }} non certifiés
+                        {{ selectedSegment.statistics.notCertifieds }} non certifiés
                     </div>
                 </div>
                 <div class="col-xs-12">
@@ -196,7 +196,7 @@
                     <p>{{ selectedSegment.users.length }} utilisateurs</p>
                     <a ng-if="selectedSegment.id !== productSegmentRoot.id"
                        class="permissions"
-                       ng-href="/#/organization/{{ organizationId }}/admin/users?segment_id={{ selectedSegment.id }}"
+                       ng-href="/#/organization/{{ organizationId }}/admin/permissions/productsegment?segment_id={{ selectedSegment.id }}"
                        role="button">
                        Voir les permissions
                     </a>

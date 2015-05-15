@@ -45,7 +45,7 @@ var abstractRepository = function (Model, $$sdk, $$cacheManager, $q, cache, hydr
             var toReturn = response.data.data.map(function (json){
                 return hydrate(json);
             });
-            //If field available in JSON, adding totalResults as a property to the array. Everything is fine, don't worry.
+            // If field available in JSON, adding totalResults as a property to the array. Everything is fine, don't worry.
             if(typeof response.data.totalResults !== 'undefined') {
               toReturn.totalResults = response.data.totalResults;
             }

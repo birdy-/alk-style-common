@@ -1,12 +1,16 @@
 'use strict';
 
-var ProductSegment = function() {
-    this.fromJson = function(json) {
+var ProductSegment = function () {
+    this.fromJson = function (json) {
         for (var key in json) {
             this[key] = json[key];
         }
+
+        this.formatStats();
+        this.computeUsers();
         return this;
     };
+
     this._type = 'ProductSegment';
 };
 ProductSegment._type = 'ProductSegment';
@@ -30,3 +34,31 @@ ProductSegment.PERMISSION_PRODUCT_UPDATE_SEMANTIC   = 'product.update.semantic';
 ProductSegment.PERMISSION_PRODUCT_UPDATE_NORMALIZED = 'product.update.normalized';
 ProductSegment.PERMISSION_PRODUCT_DELETE            = 'product.delete';
 ProductSegment.PERMISSION_PRODUCT_CERTIFY           = 'product.certify';
+
+/**
+ * Format statistics and compute more detailled ones
+ */
+ProductSegment.prototype.formatStats = function () {
+    if (!this.statistics) { return; }
+    this.statistics.certifieds = +this.statistics.counts[Product.CERTIFICATION_STATUS_CERTIFIED.id];
+    this.statistics.notCertifieds = +this.statistics.counts[Product.CERTIFICATION_STATUS_ACCEPTED.id];
+    this.statistics.total = this.statistics.certifieds + this.statistics.notCertifieds;
+
+    this.statistics.certifiedsPercent = Math.ceil(100*this.statistics.certifieds / this.statistics.total) || 0;
+    this.statistics.notCertifiedsPercent = 100 - this.statistics.certifiedsPercent;
+};
+
+/**
+ * Format users count
+ */
+ProductSegment.prototype.computeUsers = function () {
+    if (!this.usersPermissions) { return; }
+    var users = [];
+    _.map(this.usersPermissions, function (permission) {
+        _.map(permission, function (user) {
+            users.push(user);
+        });
+    });
+
+    this.usersCount = _.uniq(users).length;
+};
