@@ -94,7 +94,8 @@ User.prototype.allowedProductSegments = function(permission) {
     var returns = [];
     for (var i = 0; i < this.managesProductSegment.length; i++) {
         for (var j = 0; j < this.managesProductSegment[i].permissions.length; j++) {
-            if (this.managesProductSegment[i].permissions[j] === permission) {
+            var psPermission = this.managesProductSegment[i].permissions[j];
+            if (psPermission === permission  || psPermission === 'admin') {
                 returns.push(this.managesProductSegment[i].id);
             }
         }
