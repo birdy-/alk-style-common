@@ -80,7 +80,7 @@
                             </p>
                         </div>
 
-                        <div ng-show="selectedUser.productSegments.length && !isLoading" class="body col-xs-12">
+                        <div ng-show="selectedUser.allowedProductSegments('productsegment.show') && !isLoading" class="body col-xs-12">
                             <div class="row" ng-repeat="segmentId in selectedUser.allowedProductSegments('productsegment.show')">
                                 <div class="col-xs-12" ng-if="segments[segmentId] != undefined">
                                     <div segment-permissions-row
