@@ -53,15 +53,27 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
     //     });
     // };
 
+    var getUsersFromSegment = function (segment) {
+        var users = [];
+        var allowedUserIds = [];
+        for (var key in segment.permissions) {
+            Array.prototype.push.apply(allowedUserIds, segment.permissions[key]);
+        }
+        allowedUserIds = _.uniq(allowedUserIds);
+
+        for (var i = 0; i < allowedUserIds.length; i++) {
+            users.push(_.find($scope.users, { id: allowedUserIds[i] }));
+        }
+        console.log(users);
+        return users;
+     };
+
     $scope.selectSegment = function (segmentId) {
         $scope.segmentDetailsLoading = true;
         $$ORM.repository('ProductSegment').get(segmentId, { 'with_permissions':true }).then(function (segment) {
             $scope.selectedSegment = segment;
 
-            for (var i = 0; i < segment.users; i++) {
-              var id = segment.users[i];
-              segment.users[i] = _.find($scope.users, { id: id });
-            }
+            segment.users = getUsersFromSegment(segment);
 
             $$ORM.repository('ProductSegment').method('Stats')(segment.id).then(function (stats) {
                 $scope.segmentDetailsLoading = false;

@@ -1,8 +1,7 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').directive('userPermissionsRow', [
-    '$rootScope', '$location',
-    function ($rootScope, $location) {
+    function () {
         return {
             restrict: 'A',
             scope: {
@@ -18,8 +17,7 @@ angular.module('jDashboardFluxApp').directive('userPermissionsRow', [
 
 
 angular.module('jDashboardFluxApp').directive('segmentPermissionsRow', [
-    '$rootScope', '$location',
-    function ($rootScope, $location) {
+    function () {
         return {
             restrict: 'A',
             scope: {
@@ -76,9 +74,9 @@ angular.module('jDashboardFluxApp').controller('UserPermissionsRowController', [
                 $scope.user.enablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_UPDATE_NORMALIZED);
             }
             else if (permissionType === ProductSegment.PERMISSION_PRODUCT_SHOW) {
-                $scope.user.enablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_UPDATE_SHOW_TEXTUAL);
-                $scope.user.enablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_UPDATE_SHOW_SEMANTIC);
-                $scope.user.enablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_UPDATE_SHOW_NORMALIZED);
+                $scope.user.enablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_SHOW_TEXTUAL);
+                $scope.user.enablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_SHOW_SEMANTIC);
+                $scope.user.enablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_SHOW_NORMALIZED);
             }
             updatePermissions();
         };
@@ -95,9 +93,9 @@ angular.module('jDashboardFluxApp').controller('UserPermissionsRowController', [
                 $scope.user.disablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_UPDATE_NORMALIZED);
             }
             else if (permissionType === ProductSegment.PERMISSION_PRODUCT_SHOW) {
-                $scope.user.disablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_UPDATE_SHOW_TEXTUAL);
-                $scope.user.disablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_UPDATE_SHOW_SEMANTIC);
-                $scope.user.disablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_UPDATE_SHOW_NORMALIZED);
+                $scope.user.disablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_SHOW_TEXTUAL);
+                $scope.user.disablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_SHOW_SEMANTIC);
+                $scope.user.disablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_SHOW_NORMALIZED);
             }
             updatePermissions();
         };
