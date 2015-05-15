@@ -19,17 +19,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
         $scope.segmentDetailsLoading = true;
         $$ORM.repository('ProductSegment').get(segmentId).then(function (segment) {
             $scope.selectedSegment = segment;
-            $$ORM.repository('ProductSegment').method('Stats')(segment.id).then(function (stats) {
-                $scope.segmentDetailsLoading = false;
-
-                if (!stats.length) { return; }
-                $scope.selectedSegment.stats = stats[0];
-                $scope.selectedSegment.stats.certifieds = +stats[0].counts[Product.CERTIFICATION_STATUS_CERTIFIED.id];
-                $scope.selectedSegment.stats.notCertifieds = +stats[0].counts[Product.CERTIFICATION_STATUS_ACCEPTED.id];
-                $scope.selectedSegment.stats.total = $scope.selectedSegment.stats.certifieds + $scope.selectedSegment.stats.notCertifieds;
-                $scope.selectedSegment.stats.certifiedsPercent = Math.ceil(100*$scope.selectedSegment.stats.certifieds / $scope.selectedSegment.stats.total);
-                $scope.selectedSegment.stats.notCertifiedsPercent = 100 - $scope.selectedSegment.stats.certifiedsPercent;
-            });
+            $scope.segmentDetailsLoading = false;
         });
     };
 
@@ -122,9 +112,15 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
 
 
     var loadSegments = function () {
-        $$ORM.repository('ProductSegment').list({organization_id: $scope.organizationId}, {}, {}, 0, 100).then(function (segments) {
-            $scope.productSegments = segments;
-            $scope.selectedSegment = $scope.selectSegment($scope.productSegments[0].id);
+        var query = {
+            organization_id: $scope.organizationId,
+            withPermissions: 1
+        };
+
+        $$ORM.repository('ProductSegment').list(query, {}, {}, 0, 100).then(function (segments) {
+            $scope.segments = segments;
+            console.log(segments);
+            $scope.selectedSegment = $scope.selectSegment($scope.segments[0].id);
 
             var productSegmentRoot = Organization.getProductSegmentRoot($scope.organization);
             $scope.productSegmentRoot = productSegmentRoot;

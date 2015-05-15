@@ -47,6 +47,19 @@ User.prototype.disablePSPermission = function (productSegmentId, permission) {
 };
 
 /**
+ * Get the permission on a product segment
+ * @param {int} productSegmentId - Id of the product segment
+ */
+User.prototype.getPSPermissions = function (productSegmentId) {
+    var productSegment = _.find(this.managesProductSegment, { id: productSegmentId });
+    if (productSegment) {
+        return productSegment.permissions;
+    }
+
+    return [];
+};
+
+/**
  * Import JSON data to feed the current entity
  * @param {object} json - A JSON with user data
  * @return {User}

@@ -96,12 +96,20 @@
             vertical-align: middle;
 
             i {
+                @include transition(color 0.2s 0 ease);
                 color: $gray-light;
+                cursor: pointer;
 
-                &:hover, &.active {
-                    @include transition(color 0.2s 0 ease);
-                    cursor: pointer;
-                    color: $alk-blue;
+                &:hover {
+                    color: $alk-green-hover;
+                }
+
+                &:active {
+                    color: $alk-green-active;
+                }
+
+                &.active {
+                    color: $alk-green;
                 }
 
                 + i {

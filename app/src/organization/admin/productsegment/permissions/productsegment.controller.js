@@ -56,8 +56,8 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
     var getUsersFromSegment = function (segment) {
         var users = [];
         var allowedUserIds = [];
-        for (var key in segment.permissions) {
-            Array.prototype.push.apply(allowedUserIds, segment.permissions[key]);
+        for (var key in segment.usersPermissions) {
+            Array.prototype.push.apply(allowedUserIds, segment.usersPermissions[key]);
         }
         allowedUserIds = _.uniq(allowedUserIds);
 
@@ -74,17 +74,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
             $scope.selectedSegment = segment;
 
             segment.users = getUsersFromSegment(segment);
-
-            $$ORM.repository('ProductSegment').method('Stats')(segment.id).then(function (stats) {
-                $scope.segmentDetailsLoading = false;
-
-                if (!stats.length) { return; }
-                $scope.selectedSegment.stats = stats[0];
-                $scope.selectedSegment.stats.certifieds = stats[0].counts[Product.CERTIFICATION_STATUS_CERTIFIED.id];
-                $scope.selectedSegment.stats.notCertifieds = stats[0].counts[Product.CERTIFICATION_STATUS_ACCEPTED.id];
-                $scope.selectedSegment.stats.archived = stats[0].counts[Product.CERTIFICATION_STATUS_DISCONTINUED.id];
-                $scope.selectedSegment.stats.total = $scope.selectedSegment.stats.certifieds + $scope.selectedSegment.stats.notCertifieds;
-            });
+            $scope.segmentDetailsLoading = false;
         });
     };
 
@@ -106,7 +96,11 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
     // --------------------------------------------------------------------------------
 
     var getProductSegments = function () {
-        return $$sdkCrud.ProductSegmentList({'organization_id':$scope.organizationId}, {}, {}, null, null);
+        var query = {
+            organization_id: $scope.organizationId,
+            withPermissions: 1
+        };
+        return $$ORM.repository('ProductSegment').list(query, {}, {}, null, null);
     };
 
     var getOrganization = function () {
@@ -124,7 +118,6 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
     var initScope = function (currentUser, users, organization, productSegments) {
         users = users.data.data;
         organization = organization.data.data;
-        productSegments = productSegments.data.data;
 
         var userObjects = [];
         for (var i = 0; i < users.length; i++) {

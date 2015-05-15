@@ -45,11 +45,7 @@ angular.module('jDashboardFluxApp').controller('UserPermissionsRowController', [
 
 
         var updatePermissions = function () {
-            var newPermissions = [];
-            for (var k in $scope.permissions) {
-                if ($scope.permissions[k] == true)
-                    newPermissions.push(k);
-            }
+            var newPermissions = $scope.user.getPSPermissions($scope.productsegment.id);
 
             $$sdkAuth.UserManagesProductSegmentUpdate($scope.organization.id,
                                                       $scope.productsegment.id,
