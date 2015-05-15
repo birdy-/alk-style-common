@@ -8,6 +8,10 @@
  */
 angular.module('jDashboardFluxApp')
 
+.config(['$analyticsProvider', function ($analyticsProvider) {
+    $analyticsProvider.virtualPageviews(false);
+}])
+
 .run([
     '$rootScope', '$window', '$location', '$analytics', 'permission', '$log', '$routeParams',
     function init ($rootScope, $window, $location, $analytics, permission, $log, $routeParams) {
@@ -45,7 +49,6 @@ angular.module('jDashboardFluxApp')
                 jobTitle: user.jobTitle
             })
         });
-
 
         return {};
 }]);
