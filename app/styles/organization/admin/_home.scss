@@ -152,10 +152,59 @@
         .segments-information {
             position: relative;
 
-            .btn-fab {
+            .add-productsegment {
                 position: absolute;
                 bottom: -$btn-fab-height/2;
                 left: $btn-fab-width/2;
+
+                .btn-label {
+                    @include transition(left .6s cubic-bezier(.4,0,.2,1));
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    margin-left: $padding-base-horizontal;
+
+                    line-height: $btn-fab-width;
+                    opacity: 0;
+                    vertical-align: middle;
+                }
+
+                i {
+                    padding-left: 0;
+                }
+
+                i.add {
+                    @include transition(all .6s cubic-bezier(.4,0,.2,1));
+                }
+
+                i.edit {
+                    @include transition(all .6s cubic-bezier(.4,0,.2,1));
+                    @include rotate(-90deg);
+                    // @include rotate(0deg);
+                    opacity: 0;
+                    // display: none;
+                }
+
+                &:hover {
+                    background-color: $alk-green !important;
+
+                    i.add {
+                        @include rotate(90deg);
+                        opacity: 0;
+                    }
+
+                    i.edit {
+                        @include rotate(0deg);
+                        opacity: 1;
+                        top: -1.5px; // #hacky css
+                    }
+
+                    .btn-label {
+                        opacity: 1;
+                        left: 100%;
+                        font-weight: bold;
+                    }
+                }
             }
 
             .header {
