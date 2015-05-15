@@ -36,21 +36,21 @@ angular.module('jDashboardFluxApp').controller('ProductSegmentValidatorControlle
     // ------------------------------------------------------------------------
     $scope.refreshSelection = function (all) {
     	if (all && $scope.display.allSelected == true) {
-    		$scope.products.map(function (product) { 
-    			product.selected = true; 
+    		$scope.products.map(function (product) {
+    			product.selected = true;
     		});
     		$scope.display.selection = true;
     		return;
     	}
     	if (all && $scope.display.allSelected == false) {
-    		$scope.products.map(function (product) { 
-    			product.selected = false; 
+    		$scope.products.map(function (product) {
+    			product.selected = false;
     		});
     		$scope.display.selection = false;
     		return;
     	}
   		var k = 0;
-   		for (var i = 0, len = $scope.products.length; i < len; i++) { 
+   		for (var i = 0, len = $scope.products.length; i < len; i++) {
    			if ($scope.products[i].selected === true) {
    				$scope.display.selection = true;
    				return;
@@ -97,7 +97,6 @@ angular.module('jDashboardFluxApp').controller('ProductSegmentValidatorControlle
     };
 
     $scope.validate = function (product) {
-        console.log(product);
         if ($scope.check(product) == false) {
             return;
         }
@@ -149,7 +148,7 @@ angular.module('jDashboardFluxApp').controller('ProductSegmentValidatorControlle
     var loadProductSegment = function () {
     	$$sdkCrud.ProductSegmentShow($scope.productSegmentId).then(function (response) {
     		$scope.productSegment = response.data.data;
-            console.log($scope.productSegment);
+
             $scope.productSegment.glns = [];
             $scope.productSegment.query.map(function (query) {
                 if (typeof(query.filter_glns) !== 'undefined') {

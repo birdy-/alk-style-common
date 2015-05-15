@@ -116,8 +116,6 @@ angular.module('jDashboardFluxApp').controller('RegisterController', [
             return;
         };
 
-        $scope.$watch('company', function () {console.log($scope.company)}, true);
-
         $scope.submit = function () {
             if (!$scope.userForm.$valid) {
                 $window.alert("Le formulaire est invalide, merci de le compléter.");

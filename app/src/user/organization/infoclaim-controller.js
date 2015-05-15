@@ -52,9 +52,7 @@ angular.module('jDashboardFluxApp').controller('InfoClaimModalController', [
         if ($scope.organization.claimGLN && $scope.organization.claimGLN[0].gln != '') {
             $$sdkAuth.UserClaimGlnCreate({'gln': $scope.organization.claimGLN[0].gln, 'organization_id': $scope.organization.id}).then(function (response) {});
         }
-        console.log($scope.organization);
         $$sdkAuth.OrganizationUpdate($scope.organization).then(function (response) {
-            // console.log('Organization updated');
             $scope.cancel();
         });
     };
