@@ -8,6 +8,10 @@
  */
 angular.module('jDashboardFluxApp')
 
+.config(['$analyticsProvider', function ($analyticsProvider) {
+    $analyticsProvider.virtualPageviews(false);
+}])
+
 .run([
     '$rootScope', '$window', '$location', '$analytics', 'permission', '$log',
     function init ($rootScope, $window, $location, $analytics, permission, $log) {
@@ -19,7 +23,7 @@ angular.module('jDashboardFluxApp')
 
         // Page tracking for Mixpanel
         $rootScope.$on('$routeChangeSuccess', function () {
-            $window.mixpanel.track('Page Viewed', {
+            $analytics.eventTrack('Page Viewed', {
                 'page name': formatPageName($location.$$path),
                 'url': $location.$$absUrl
             });
@@ -29,7 +33,7 @@ angular.module('jDashboardFluxApp')
         $rootScope.$on('event:auth-loginConfirmed', function () {
             var user = permission.getUserInfo();
             if (!user) { return; }
-            console.log(user);
+
             $analytics.setUsername(user.username);
             $analytics.setUserPropertiesOnce({
                 'First Login Date': new Date()
