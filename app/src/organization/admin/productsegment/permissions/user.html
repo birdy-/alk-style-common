@@ -1,0 +1,101 @@
+<div ng-include="'/src/maker/home/header.html'"></div>
+<div class="container-fluid admin admin-page admin-user-permissions">
+
+    <div class="row">
+        <div class="col-xs-12">
+            <h1>Les permissions utilisateurs</h1>
+        </div>
+    </div>
+
+    <div class="row permissions-users">
+    <div class="row-same-height row-full-height">
+
+        <!-- User List -->
+        <div class="col-xs-3 col-full-height col-top segments-list box-tile">
+            <div class="row">
+                <div class="col-xs-12 search">
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <input class="form-control" ng-model="search.$" placeholder="Chercher une gamme">
+                            <span class="pull-right">
+                                <i class="fa fa-2x fa-search"></i>
+                                <i  class="fa fa-2x fa-plus"
+                                    ng-click="createUser()"
+                                    data-toggle="tooltip"
+                                    data-placement="top"
+                                    ng-attr-title="Créer un nouvel utilisateur"
+                                    tooltip=""></i>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row segment"
+                 ng-class="{ 'active':selectedUser.id==user.id }"
+                 ng-repeat="user in filteredUsers = (users | filter:search | orderBy:'id')"
+                 ng-click="selectUser(user.id)">
+                <div class="col-xs-12">
+                    {{ user.firstname }} {{ user.lastname || 'Utilisateur' }}
+                </div>
+            </div>
+            <div class="row segment">
+                <div ng-hide="filteredUsers.length" class="col-xs-12">
+                    Aucun utilisateur trouvé
+                </div>
+            </div>
+        </div>
+
+        <!-- User Zoom -->
+        <div class="col-xs-9 col-full-height">
+            <div class="row segment-details">
+                <div class="row-same-height row-full-height">
+
+                    <div class="col-xs-12 header box-tile col-full-height">
+                        <div class="row segment-details">
+                            <div class="row-same-height row-full-height">
+                                <div ng-if="isLoading" class="col-xs-12 header text-center">
+                                    <i class="fa fa-3x fa-spin fa-spinner"></i>
+                                </div>
+
+                        <div ng-if="selectedUser && !isLoading" class="col-xs-12 col-top header">
+                            <div class="pull-right">
+                                <i  class="fa fa-2x fa-user-plus"
+                                    data-toggle="tooltip"
+                                    data-placement="top"
+                                    ng-attr-title="Ajouter un product segment à {{ selectedUser.firstname }} {{ selectedUser.lastname }}"
+                                    tooltip=""
+                                    ng-click="addProductSegment()"></i>
+                                <!-- <i class="fa fa-2x fa-copy"></i> -->
+                                <i class="fa fa-2x fa-edit"
+                                   ng-click="editUser(selectedUser.id)"
+                                    data-toggle="tooltip"
+                                    data-placement="top"
+                                    ng-attr-title="Editer l'utilisateur {{ selectedUser.firstname }} {{ selectedUser.lastname || 'Utilisateur' }}"
+                                    tooltip=""></i>
+                                <!-- <i class="fa fa-2x fa-trash"></i> -->
+                            </div>
+                            <h2>{{ selectedUser.firstname }} {{ selectedUser.lastname || 'Utilisateur' }}</h2>
+                            <p>
+                                {{ selectedUser.productSegments.length || 0 }} segments
+                            </p>
+                        </div>
+
+                        <div ng-show="selectedUser.productSegments.length && !isLoading" class="body col-xs-12">
+                            <div class="row" ng-repeat="segment in selectedUser.productSegments | orderBy:'id'">
+                                <div class="col-xs-12">
+                                    <div segment-permissions-row
+                                         organization="organization"
+                                         user="selectedUser"
+                                         productsegment="segment">
+                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+</div>

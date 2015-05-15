@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentPermissionsController', [
-    '$scope', 'permission','$routeParams', '$location', '$modal', '$$ORM', '$window', '$$sdkAuth', '$$sdkCrud',
-    function ($scope, permission, $routeParams, $location, $modal, $$ORM, $window, $$sdkAuth, $$sdkCrud) {
+    '$scope', '$q', 'permission','$routeParams', '$location', '$modal', '$$ORM', '$window', '$$sdkAuth', '$$sdkCrud',
+    function ($scope, $q, permission, $routeParams, $location, $modal, $$ORM, $window, $$sdkAuth, $$sdkCrud) {
 
     $scope.organizationId = $routeParams.id;
     $scope.currentUser = null;
@@ -53,11 +53,27 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
     //     });
     // };
 
+    var getUsersFromSegment = function (segment) {
+        var users = [];
+        var allowedUserIds = [];
+        for (var key in segment.permissions) {
+            Array.prototype.push.apply(allowedUserIds, segment.permissions[key]);
+        }
+        allowedUserIds = _.uniq(allowedUserIds);
+
+        for (var i = 0; i < allowedUserIds.length; i++) {
+            users.push(_.find($scope.users, { id: allowedUserIds[i] }));
+        }
+
+        return users;
+     };
+
     $scope.selectSegment = function (segmentId) {
         $scope.segmentDetailsLoading = true;
-        $$ORM.repository('ProductSegment').get(segmentId, { 'with_users':true }).then(function (segment) {
+        $$ORM.repository('ProductSegment').get(segmentId, { 'with_permissions':true }).then(function (segment) {
             $scope.selectedSegment = segment;
 
+            segment.users = getUsersFromSegment(segment);
 
             $$ORM.repository('ProductSegment').method('Stats')(segment.id).then(function (stats) {
                 $scope.segmentDetailsLoading = false;
@@ -89,37 +105,64 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
     // Initialization
     // --------------------------------------------------------------------------------
 
-    var loadProductSegments = function() {
-        $$sdkCrud.ProductSegmentList({'organization_id':$scope.organizationId}, {}, {}, null, null).then(function (response) {
-            var productSegmentRoot = Organization.getProductSegmentRoot($scope.organization);
+    var getProductSegments = function () {
+        return $$sdkCrud.ProductSegmentList({'organization_id':$scope.organizationId}, {}, {}, null, null);
+    };
 
-            $scope.segments = _.filter(response.data.data, function (segment) {
-                return segment.id !== productSegmentRoot.id;
-            });
-            var defaultSegmentId = $routeParams.segment_id || $scope.segments[0].id;
+    var getOrganization = function () {
+        return $$sdkAuth.OrganizationShow($scope.organizationId);
+    };
 
-            $scope.selectSegment(defaultSegmentId);
-            $scope.isLoading = false;
-        });
+    var getOrganizationUsers = function () {
+        return $$sdkAuth.OrganizationUsers($scope.organizationId);
     }
 
-    var loadOrganization = function () {
-        $$sdkAuth.OrganizationShow($scope.organizationId).then(function (response) {
-            $scope.organization = response.data.data;
-            $$sdkAuth.OrganizationUsers($scope.organizationId).then(function (response) {
-                $scope.users = response.data.data;
-                loadProductSegments();
-            });
+    var getCurrentUser = function() {
+        return permission.getUser();
+    };
+
+    var initScope = function (currentUser, users, organization, productSegments) {
+        users = users.data.data;
+        organization = organization.data.data;
+        productSegments = productSegments.data.data;
+
+        var userObjects = [];
+        for (var i = 0; i < users.length; i++) {
+            userObjects.push(new User(users[i]));
+        }
+
+        $scope.isLoading = false;
+        $scope.currentUser = currentUser;
+        $scope.users = userObjects;
+        $scope.organization = organization;
+        $scope.productSegments = productSegments;
+
+        var productSegmentRoot = Organization.getProductSegmentRoot(organization);
+        $scope.segments = _.filter(productSegments, function (segment) {
+            return segment.id !== productSegmentRoot.id;
         });
+
+        for (var i = 0; i < $scope.segments.length; i++) {
+            $scope.segments[i].users = getUsersFromSegment($scope.segments[i]);
+        }
+
+        var defaultSegmentId = $routeParams.segment_id || $scope.segments[0].id;
+        $scope.selectSegment(defaultSegmentId);
     };
 
     var init = function () {
+        $scope.isLoading = true;
 
-        permission.getUser().then(function (user) {
-            $scope.currentUser = user;
-            $scope.isLoading = true;
-            loadOrganization();
-        });
+        // Promises
+        var currentUser = getCurrentUser();
+        var users = getOrganizationUsers();
+        var organization = getOrganization();
+        var productSegments = getProductSegments();
+
+        // All promises are resolved
+        $q.all([currentUser, users, organization, productSegments]).then(function (data) {
+          initScope.apply(this, data);
+        });;
     };
 
     init();

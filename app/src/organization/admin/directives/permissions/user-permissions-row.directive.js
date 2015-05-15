@@ -1,8 +1,7 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').directive('userPermissionsRow', [
-    '$rootScope', '$location',
-    function ($rootScope, $location) {
+    function () {
         return {
             restrict: 'A',
             scope: {
@@ -16,6 +15,21 @@ angular.module('jDashboardFluxApp').directive('userPermissionsRow', [
     }
 ]);
 
+
+angular.module('jDashboardFluxApp').directive('segmentPermissionsRow', [
+    function () {
+        return {
+            restrict: 'A',
+            scope: {
+              organization: '=',
+              user: '=',
+              productsegment: '='
+            },
+            templateUrl: '/src/organization/admin/directives/permissions/segment-permissions-row.view.html',
+            controller:  'UserPermissionsRowController'
+        };
+    }
+]);
 
 angular.module('jDashboardFluxApp').controller('UserPermissionsRowController', [
     '$scope', '$$sdkAuth', '$$autocomplete', 'permission', '$route', '$timeout',
@@ -51,34 +65,39 @@ angular.module('jDashboardFluxApp').controller('UserPermissionsRowController', [
 
         var grant = function (permissionType) {
             $scope.permissions[permissionType] = true;
+            $scope.user.enablePSPermission($scope.productsegment.id, permissionType);
+
             // temporary hack
             if (permissionType === ProductSegment.PERMISSION_PRODUCT_UPDATE) {
-                $scope.permissions[ProductSegment.PERMISSION_PRODUCT_UPDATE_TEXTUAL]    = true;
-                $scope.permissions[ProductSegment.PERMISSION_PRODUCT_UPDATE_SEMANTIC]   = true;
-                $scope.permissions[ProductSegment.PERMISSION_PRODUCT_UPDATE_NORMALIZED] = true;
+                $scope.user.enablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_UPDATE_TEXTUAL);
+                $scope.user.enablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_UPDATE_SEMANTIC);
+                $scope.user.enablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_UPDATE_NORMALIZED);
             }
             else if (permissionType === ProductSegment.PERMISSION_PRODUCT_SHOW) {
-                $scope.permissions[ProductSegment.PERMISSION_PRODUCT_SHOW_TEXTUAL]      = true;
-                $scope.permissions[ProductSegment.PERMISSION_PRODUCT_SHOW_SEMANTIC]     = true;
-                $scope.permissions[ProductSegment.PERMISSION_PRODUCT_SHOW_NORMALIZED]   = true;
+                $scope.user.enablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_SHOW_TEXTUAL);
+                $scope.user.enablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_SHOW_SEMANTIC);
+                $scope.user.enablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_SHOW_NORMALIZED);
             }
             updatePermissions();
         };
 
         var forbid = function (permissionType) {
             $scope.permissions[permissionType] = false;
+
+            $scope.user.disablePSPermission($scope.productsegment.id, permissionType);
+
             // temporary hack
             if (permissionType === ProductSegment.PERMISSION_PRODUCT_UPDATE) {
-                $scope.permissions[ProductSegment.PERMISSION_PRODUCT_UPDATE_TEXTUAL]    = false;
-                $scope.permissions[ProductSegment.PERMISSION_PRODUCT_UPDATE_SEMANTIC]   = false;
-                $scope.permissions[ProductSegment.PERMISSION_PRODUCT_UPDATE_NORMALIZED] = false;
+                $scope.user.disablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_UPDATE_TEXTUAL);
+                $scope.user.disablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_UPDATE_SEMANTIC);
+                $scope.user.disablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_UPDATE_NORMALIZED);
             }
             else if (permissionType === ProductSegment.PERMISSION_PRODUCT_SHOW) {
-                $scope.permissions[ProductSegment.PERMISSION_PRODUCT_SHOW_TEXTUAL]      = false;
-                $scope.permissions[ProductSegment.PERMISSION_PRODUCT_SHOW_SEMANTIC]     = false;
-                $scope.permissions[ProductSegment.PERMISSION_PRODUCT_SHOW_NORMALIZED]   = false;
+                $scope.user.disablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_SHOW_TEXTUAL);
+                $scope.user.disablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_SHOW_SEMANTIC);
+                $scope.user.disablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_SHOW_NORMALIZED);
             }
-            updatePermissions();  
+            updatePermissions();
         };
 
         $scope.removeFromSegment = function (permissionType) {
@@ -89,18 +108,16 @@ angular.module('jDashboardFluxApp').controller('UserPermissionsRowController', [
             updatePermissions();
         };
 
-
         $scope.update = function (permissionType) {
-            if ($scope.permissions[permissionType] == false)
+            if ($scope.permissions[permissionType] === false)
                 grant(permissionType);
             else
                 forbid(permissionType);
         };
 
         var init = function() {
-
             $scope.permissions[ProductSegment.PERMISSION_PS_SHOW] = true;
-            
+
             // temporary : show means show.*
             $scope.permissions[ProductSegment.PERMISSION_PRODUCT_SHOW]              = false;
             $scope.permissions[ProductSegment.PERMISSION_PRODUCT_SHOW_TEXTUAL]      = false;
@@ -116,11 +133,26 @@ angular.module('jDashboardFluxApp').controller('UserPermissionsRowController', [
 
             $scope.permissions[ProductSegment.PERMISSION_PRODUCT_CERTIFY] = false;
 
+            var permissions = _.filter($scope.user.managesProductSegment, function (segment) {
+                return segment.id === $scope.productsegment.id;
+            });
+
+            permissions = permissions.length ? permissions[0].permissions : [];
+
             for (var k in $scope.permissions) {
-                if (_.indexOf($scope.user.permission, k) !== -1)
+                if (_.indexOf(permissions, k) !== -1) {
                     $scope.permissions[k] = true;
+                }
             }
         };
+
+        $scope.$watch('productsegment', function () {
+          init();
+        });
+
+        $scope.$watch('user', function () {
+          init();
+        });
 
         init();
     }
