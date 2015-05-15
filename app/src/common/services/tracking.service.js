@@ -15,7 +15,7 @@ angular.module('jDashboardFluxApp')
         var formatPageName = function (path) {
             // Uniformize params for better aggregation
             _.forEach($routeParams, function (value, key) {
-                path = path.replace(value, key);
+                path = path.replace(value, '{' + key + '}');
             });
             return 'Page ' + path.split('/').join(' ');
         };
