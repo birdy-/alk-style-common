@@ -117,6 +117,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminUserPermissions
         for (var i = 0; i < segments.length; i++) {
             $scope.segments[segments[i].id] = segments[i];
         }
+
         if (users.length) {
             var defaultUserId = $routeParams.user_id || users[0].id;
             $scope.selectUser(defaultUserId);

@@ -95,10 +95,10 @@ angular.module('jDashboardFluxApp').controller('UserPermissionsRowController', [
         };
 
         $scope.removeFromSegment = function (permissionType) {
-            $scope.permissions[ProductSegment.PERMISSION_PS_SHOW]               = false;
-            $scope.permissions[ProductSegment.PERMISSION_PRODUCT_UPDATE]        = false;
-            $scope.permissions[ProductSegment.PERMISSION_PRODUCT_SHOW]          = false;
-            $scope.permissions[ProductSegment.PERMISSION_PRODUCT_CERTIFY]       = false;
+            $scope.user.disablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PS_SHOW);
+            $scope.user.disablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_UPDATE);
+            $scope.user.disablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_SHOW);
+            $scope.user.disablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_CERTIFY);
             updatePermissions();
         };
 
@@ -109,9 +109,7 @@ angular.module('jDashboardFluxApp').controller('UserPermissionsRowController', [
                 forbid(permissionType);
         };
 
-        var init = function() {
-            $scope.permissions[ProductSegment.PERMISSION_PS_SHOW] = true;
-
+        var resetPermissions = function () {
             // temporary : show means show.*
             $scope.permissions[ProductSegment.PERMISSION_PRODUCT_SHOW]              = false;
             $scope.permissions[ProductSegment.PERMISSION_PRODUCT_SHOW_TEXTUAL]      = false;
@@ -126,6 +124,12 @@ angular.module('jDashboardFluxApp').controller('UserPermissionsRowController', [
             $scope.permissions[ProductSegment.PERMISSION_PRODUCT_UPDATE_NORMALIZED] = false;
 
             $scope.permissions[ProductSegment.PERMISSION_PRODUCT_CERTIFY] = false;
+        };
+
+        var init = function() {
+            $scope.permissions[ProductSegment.PERMISSION_PS_SHOW] = true;
+
+            resetPermissions();
 
             var permissions = _.filter($scope.user.managesProductSegment, function (segment) {
                 return segment.id === $scope.productsegment.id;

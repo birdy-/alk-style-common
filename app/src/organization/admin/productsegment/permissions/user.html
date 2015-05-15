@@ -76,7 +76,7 @@
                             </div>
                             <h2>{{ selectedUser.firstname }} {{ selectedUser.lastname || 'Utilisateur' }}</h2>
                             <p>
-                                {{ selectedUser.allowedProductSegments('productsegment.show').length || 0 }} segments
+                                {{ selectedUser.managesProductSegment.length || 0 }} segments
                             </p>
                         </div>
 
