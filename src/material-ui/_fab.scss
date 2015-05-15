@@ -6,8 +6,17 @@
         width: $btn-fab-width;
         text-align: center;
 
+        position: relative;
+
         i {
-            line-height: 0.8*$btn-fab-height;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            margin-left: auto;
+            margin-right: auto;
+
+            line-height: $btn-fab-height;
             vertical-align: middle;
         }
     }

@@ -16,7 +16,7 @@
     @include transition(background-color 0.3s 0 ease);
     background-color: $alk-green-light !important;
     color: white !important;
-    z-index: 10000;
+    z-index: 1000;
 
     * {
         color: white !important;
@@ -35,7 +35,7 @@
     @include transition(background-color 0.3s 0 ease);
     background-color: $alk-green !important;
     color: white !important;
-    z-index: 10000;
+    z-index: 1000;
 
     * {
         color: white !important;
@@ -54,7 +54,7 @@
     @include transition(background-color 0.3s 0 ease);
     background-color: transparent !important;
     color: $alk-green !important;
-    z-index: 10000;
+    z-index: 1000;
 
     * {
         color: $alk-green !important;
