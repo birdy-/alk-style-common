@@ -114,9 +114,6 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminUserPermissions
             userObjects.push(new User(users[i]));
         }
 
-        var defaultUserId = $routeParams.user_id || users[0].id;
-        $scope.selectUser(defaultUserId);
-
         $scope.isLoading = false;
         $scope.currentUser = currentUser;
         $scope.users = userObjects;
@@ -127,6 +124,9 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminUserPermissions
         $scope.segments = _.filter(productSegments, function (segment) {
             return segment.id !== productSegmentRoot.id;
         });
+
+        var defaultUserId = $routeParams.user_id || users[0].id;
+        $scope.selectUser(defaultUserId);
     };
 
     var init = function () {

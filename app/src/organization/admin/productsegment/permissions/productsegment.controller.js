@@ -64,7 +64,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
         for (var i = 0; i < allowedUserIds.length; i++) {
             users.push(_.find($scope.users, { id: allowedUserIds[i] }));
         }
-        console.log(users);
+
         return users;
      };
 
@@ -131,9 +131,6 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
             userObjects.push(new User(users[i]));
         }
 
-        var defaultSegmentId = $routeParams.segment_id || productSegments[0].id;
-        $scope.selectSegment(defaultSegmentId);
-
         $scope.isLoading = false;
         $scope.currentUser = currentUser;
         $scope.users = userObjects;
@@ -144,6 +141,13 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
         $scope.segments = _.filter(productSegments, function (segment) {
             return segment.id !== productSegmentRoot.id;
         });
+
+        for (var i = 0; i < $scope.segments.length; i++) {
+            $scope.segments[i].users = getUsersFromSegment($scope.segments[i]);
+        }
+
+        var defaultSegmentId = $routeParams.segment_id || $scope.segments[0].id;
+        $scope.selectSegment(defaultSegmentId);
     };
 
     var init = function () {

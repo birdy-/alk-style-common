@@ -146,6 +146,10 @@ angular.module('jDashboardFluxApp').controller('UserPermissionsRowController', [
             }
         };
 
+        $scope.$watch('productsegment', function () {
+          init();
+        });
+
         $scope.$watch('user', function () {
           init();
         });
