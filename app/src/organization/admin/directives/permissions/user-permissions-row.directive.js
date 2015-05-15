@@ -37,9 +37,7 @@ angular.module('jDashboardFluxApp').controller('UserPermissionsRowController', [
 
         $scope.ProductSegment = ProductSegment;
 
-        $scope.isInactive = false;
         $scope.permissions = {};
-
 
         $scope.rmComfirmMsg = "Etes vous sûr de vouloir supprimer l'accès aux produits de la gamme " + $scope.productsegment.name;
         $scope.rmComfirmMsg += " pour l'utilisateur " + $scope.user.firstname + " " + $scope.user.lastname;
@@ -49,18 +47,14 @@ angular.module('jDashboardFluxApp').controller('UserPermissionsRowController', [
         var updatePermissions = function () {
             var newPermissions = [];
             for (var k in $scope.permissions) {
-                if ($scope.permissions[k] == true) 
+                if ($scope.permissions[k] == true)
                     newPermissions.push(k);
             }
 
             $$sdkAuth.UserManagesProductSegmentUpdate($scope.organization.id,
                                                       $scope.productsegment.id,
                                                       $scope.user.id,
-                                                      newPermissions)
-            .then(function (response) {
-                if ($scope.permissions[ProductSegment.PERMISSION_PS_SHOW] === false)
-                    $scope.isInactive = true;
-            });
+                                                      newPermissions);
         };
 
         var grant = function (permissionType) {
@@ -125,7 +119,7 @@ angular.module('jDashboardFluxApp').controller('UserPermissionsRowController', [
             $scope.permissions[ProductSegment.PERMISSION_PRODUCT_SHOW_NORMALIZED]   = false;
 
 
-            // temporary : update means updated.*    
+            // temporary : update means updated.*
             $scope.permissions[ProductSegment.PERMISSION_PRODUCT_UPDATE]            = false;
             $scope.permissions[ProductSegment.PERMISSION_PRODUCT_UPDATE_TEXTUAL]    = false;
             $scope.permissions[ProductSegment.PERMISSION_PRODUCT_UPDATE_SEMANTIC]   = false;

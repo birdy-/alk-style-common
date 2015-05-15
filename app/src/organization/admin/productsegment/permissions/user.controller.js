@@ -54,19 +54,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminUserPermissions
     // };
 
     $scope.selectUser = function (userId) {
-      var user = _.filter($scope.users, function(user) { return user.id === userId; });
-      if (user.length === 0) {
-        return;
-      }
-
-      user = user[0];
-      user.productSegments = [];
-      for (var i = 0; i < user.managesProductSegment.length; i++) {
-        var segment = _.filter($scope.segments, function (segment) { return segment.id === user.managesProductSegment[i].id; });
-        if (segment.length) {
-          user.productSegments.push(segment[0]);
-        }
-      }
+      var user = _.find($scope.users, { id: userId });
 
       $scope.selectedUser = user;
     };
@@ -118,12 +106,16 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminUserPermissions
         $scope.currentUser = currentUser;
         $scope.users = userObjects;
         $scope.organization = organization;
-        $scope.productSegments = productSegments;
 
         var productSegmentRoot = Organization.getProductSegmentRoot(organization);
-        $scope.segments = _.filter(productSegments, function (segment) {
+        var segments = _.filter(productSegments, function (segment) {
             return segment.id !== productSegmentRoot.id;
         });
+
+        $scope.segments = {};
+        for (var i = 0; i < segments.length; i++) {
+            $scope.segments[segments[i].id] = segments[i];
+        }
 
         var defaultUserId = $routeParams.user_id || users[0].id;
         $scope.selectUser(defaultUserId);
