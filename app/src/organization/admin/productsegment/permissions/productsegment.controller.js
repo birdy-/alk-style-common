@@ -146,8 +146,10 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
             $scope.segments[i].users = getUsersFromSegment($scope.segments[i]);
         }
 
-        var defaultSegmentId = $routeParams.segment_id || $scope.segments[0].id;
-        $scope.selectSegment(defaultSegmentId);
+        if ($scope.segments.length) {
+            var defaultSegmentId = $routeParams.segment_id || $scope.segments[0].id;
+            $scope.selectSegment(defaultSegmentId);
+        }
     };
 
     var init = function () {
