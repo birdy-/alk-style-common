@@ -53,10 +53,6 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
     //     });
     // };
 
-    var fillSegmentWithUsers = function(segment) {
-
-    };
-
     $scope.selectSegment = function (segmentId) {
         $scope.segmentDetailsLoading = true;
         $$ORM.repository('ProductSegment').get(segmentId, { 'with_permissions':true }).then(function (segment) {
