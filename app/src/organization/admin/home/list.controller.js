@@ -24,9 +24,11 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
 
                 if (!stats.length) { return; }
                 $scope.selectedSegment.stats = stats[0];
-                $scope.selectedSegment.stats.certifieds = stats[0].counts[Product.CERTIFICATION_STATUS_CERTIFIED.id];
-                $scope.selectedSegment.stats.notCertifieds = stats[0].counts[Product.CERTIFICATION_STATUS_ACCEPTED.id];
-                $scope.selectedSegment.stats.archived = stats[0].counts[Product.CERTIFICATION_STATUS_DISCONTINUED.id];
+                $scope.selectedSegment.stats.certifieds = +stats[0].counts[Product.CERTIFICATION_STATUS_CERTIFIED.id];
+                $scope.selectedSegment.stats.notCertifieds = +stats[0].counts[Product.CERTIFICATION_STATUS_ACCEPTED.id];
+                $scope.selectedSegment.stats.total = $scope.selectedSegment.stats.certifieds + $scope.selectedSegment.stats.notCertifieds;
+                $scope.selectedSegment.stats.certifiedsPercent = Math.ceil(100*$scope.selectedSegment.stats.certifieds / $scope.selectedSegment.stats.total);
+                $scope.selectedSegment.stats.notCertifiedsPercent = 100 - $scope.selectedSegment.stats.certifiedsPercent;
             });
         });
     };
@@ -105,7 +107,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
         $$ORM.repository('ProductSegment').method('Delete')($scope.selectedSegment.id, $scope.organizationId).then(function (response) {
             loadSegments();
         });
-    };   
+    };
 
     // --------------------------------------------------------------------------------
     // Init
