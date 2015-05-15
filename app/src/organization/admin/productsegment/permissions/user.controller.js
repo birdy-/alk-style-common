@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').controller('OrganizationAdminUserPermissionsController', [
-    '$scope', 'permission','$routeParams', '$location', '$modal', '$$ORM', '$window', '$$sdkAuth', '$$sdkCrud',
-    function ($scope, permission, $routeParams, $location, $modal, $$ORM, $window, $$sdkAuth, $$sdkCrud) {
+    '$scope', '$q', 'permission','$routeParams', '$location', '$modal', '$$ORM', '$window', '$$sdkAuth', '$$sdkCrud',
+    function ($scope, $q, permission, $routeParams, $location, $modal, $$ORM, $window, $$sdkAuth, $$sdkCrud) {
 
     $scope.organizationId = $routeParams.id;
     $scope.currentUser = null;
@@ -67,6 +67,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminUserPermissions
           user.productSegments.push(segment[0]);
         }
       }
+
       $scope.selectedUser = user;
     };
 
@@ -87,41 +88,60 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminUserPermissions
     // Initialization
     // --------------------------------------------------------------------------------
 
-    var loadProductSegments = function() {
-        $$sdkCrud.ProductSegmentList({'organization_id':$scope.organizationId}, {}, {}, null, null).then(function (response) {
-            var productSegmentRoot = Organization.getProductSegmentRoot($scope.organization);
-
-            $scope.segments = _.filter(response.data.data, function (segment) {
-                return segment.id !== productSegmentRoot.id;
-            });
-
-            var defaultUserId = $routeParams.user_id || $scope.users[0].id;
-
-            $scope.selectUser(defaultUserId);
-
-            $scope.isLoading = false;
-        });
+    var getProductSegments = function () {
+        return $$sdkCrud.ProductSegmentList({'organization_id':$scope.organizationId}, {}, {}, null, null);
     };
 
+    var getOrganization = function () {
+        return $$sdkAuth.OrganizationShow($scope.organizationId);
+    };
 
-    var loadOrganization = function () {
-        $$sdkAuth.OrganizationShow($scope.organizationId).then(function (response) {
-            $scope.organization = response.data.data;
-            $$sdkAuth.OrganizationUsers($scope.organizationId).then(function (response) {
-                $scope.users = response.data.data;
+    var getOrganizationUsers = function () {
+        return $$sdkAuth.OrganizationUsers($scope.organizationId);
+    }
 
-                loadProductSegments();
-            });
+    var getCurrentUser = function() {
+        return permission.getUser();
+    };
+
+    var initScope = function (currentUser, users, organization, productSegments) {
+        users = users.data.data;
+        organization = organization.data.data;
+        productSegments = productSegments.data.data;
+
+        var userObjects = [];
+        for (var i = 0; i < users.length; i++) {
+            userObjects.push(new User(users[i]));
+        }
+
+        var defaultUserId = $routeParams.user_id || users[0].id;
+        $scope.selectUser(defaultUserId);
+
+        $scope.isLoading = false;
+        $scope.currentUser = currentUser;
+        $scope.users = userObjects;
+        $scope.organization = organization;
+        $scope.productSegments = productSegments;
+
+        var productSegmentRoot = Organization.getProductSegmentRoot(organization);
+        $scope.segments = _.filter(productSegments, function (segment) {
+            return segment.id !== productSegmentRoot.id;
         });
     };
 
     var init = function () {
+        $scope.isLoading = true;
 
-        permission.getUser().then(function (user) {
-            $scope.currentUser = user;
-            $scope.isLoading = true;
-            loadOrganization();
-        });
+        // Promises
+        var currentUser = getCurrentUser();
+        var users = getOrganizationUsers();
+        var organization = getOrganization();
+        var productSegments = getProductSegments();
+
+        // All promises are resolved
+        $q.all([currentUser, users, organization, productSegments]).then(function (data) {
+          initScope.apply(this, data);
+        });;
     };
 
     init();

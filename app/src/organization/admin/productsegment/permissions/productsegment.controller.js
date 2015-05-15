@@ -53,11 +53,14 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
     //     });
     // };
 
+    var fillSegmentWithUsers = function(segment) {
+
+    };
+
     $scope.selectSegment = function (segmentId) {
         $scope.segmentDetailsLoading = true;
-        $$ORM.repository('ProductSegment').get(segmentId, { 'with_users':true }).then(function (segment) {
+        $$ORM.repository('ProductSegment').get(segmentId, { 'with_permissions':true }).then(function (segment) {
             $scope.selectedSegment = segment;
-
 
             $$ORM.repository('ProductSegment').method('Stats')(segment.id).then(function (stats) {
                 $scope.segmentDetailsLoading = false;
