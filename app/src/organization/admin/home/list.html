@@ -193,7 +193,7 @@
                 </div>
                 <div class="col-xs-12">
                     <h3>Les permissions</h3>
-                    <p>{{ selectedSegment.users.length }} utilisateurs</p>
+                    <p>{{ selectedSegment.usersCount }} utilisateurs</p>
                     <a ng-if="selectedSegment.id !== productSegmentRoot.id"
                        class="permissions"
                        ng-href="/#/organization/{{ organizationId }}/admin/permissions/productsegment?segment_id={{ selectedSegment.id }}"
