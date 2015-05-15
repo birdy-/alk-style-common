@@ -61,14 +61,15 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminUserPermissions
 
     $scope.addProductSegment = function (segment) {
         $modal.open({
-            templateUrl: 'src/organization/admin/productsegment/permissions/add-user-modal.html',
-            controller: 'ProductSegmentAddUserModalController',
+            templateUrl: 'src/organization/admin/productsegment/permissions/add-productsegment-modal.html',
+            controller: 'ProductSegmentAddProductSegmentModalController',
             resolve: {
-                productsegment: function() { return $scope.selectedSegment; },
+                user: function() { return $scope.selectedUser; },
                 organization: function() { return $scope.organization; }
             }
         }).result.then(function () {
-            $scope.selectSegment($scope.selectedSegment.id);
+            init();
+            $scope.selectUser($scope.selectedUser.id);
         });
     }
 
