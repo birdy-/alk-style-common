@@ -8,6 +8,10 @@
  */
 angular.module('jDashboardFluxApp')
 
+.config(['$analyticsProvider', function ($analyticsProvider) {
+    $analyticsProvider.virtualPageviews(false);
+}])
+
 .run([
     '$rootScope', '$window', '$location', '$analytics', 'permission', '$log', '$routeParams',
     function init ($rootScope, $window, $location, $analytics, permission, $log, $routeParams) {
@@ -15,7 +19,7 @@ angular.module('jDashboardFluxApp')
         var formatPageName = function (path) {
             // Uniformize params for better aggregation
             _.forEach($routeParams, function (value, key) {
-                path = path.replace(value, key);
+                path = path.replace(value, '{' + key + '}');
             });
             return 'Page ' + path.split('/').join(' ');
         };
@@ -45,7 +49,6 @@ angular.module('jDashboardFluxApp')
                 jobTitle: user.jobTitle
             })
         });
-
 
         return {};
 }]);
