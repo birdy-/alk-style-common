@@ -1,45 +1,5 @@
 #stream {
 
-    .admin {
-        .search {
-            border-bottom: 1px solid $gray-light;
-            padding: $padding-base-vertical 0;
-
-            .form-group {
-                width: 100%;
-            }
-
-            i {
-                text-align: center;
-                + i {
-                    padding-left: 4px;
-                    padding-right: $padding-base-horizontal;
-                }
-            }
-
-            .form-control {
-                background-color: transparent;
-                border: 0;
-                border-radius: 0;
-                box-shadow: none;
-                font-size: 16px;
-            }
-        }
-
-        i {
-            &:hover {
-                @include transition(color 0.2s 0 ease);
-                color: $alk-blue;
-                cursor: pointer;
-            }
-
-
-            + i {
-                padding-left: 4px;
-            }
-        }
-    }
-
     .admin.admin-user-permissions {
         height: 100%;
 
@@ -52,14 +12,7 @@
         }
 
         .segment {
-            @include transition(background-color 0.3s 0 ease);
-            cursor: pointer;
             padding: $padding-base-vertical*1.7 0;
-
-            &:hover, &.active {
-                color: white;
-                background-color: $alk-green;
-            }
         }
 
         .permissions-users {

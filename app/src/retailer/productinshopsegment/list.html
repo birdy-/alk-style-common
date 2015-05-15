@@ -18,18 +18,21 @@
                     <input type="text" class="form-control" style="width: 100%;"
                            placeholder="Référence"
                            ng-model="request.productInShopSegment.shortId"
-                           ng-change="refresh()"/>
+                           ng-change="refresh()"
+                           analytics-on="click" analytics-event="RET Suppliers Field Ref"/>
                 </div>
                 <div class="col-sm-3">
                     <input type="text" class="form-control" style="width: 100%;"
                            placeholder="Nom du fournisseur"
                            ng-model="request.productInShopSegment.name"
-                           ng-change="refresh()"/>
+                           ng-change="refresh()"
+                           analytics-on="click" analytics-event="RET Suppliers Field Name"/>
                 </div>
                 <div class="col-sm-6"></div>
                 <div class="col-sm-1">
                     <button type="submit" class="btn btn-success" style="width: 100%;"
-                            ng-click="refresh()">
+                            ng-click="refresh()"
+                            analytics-on="click" analytics-event="RET Suppliers Button Search">
                         <i class="fa fa-search"></i>
                     </button>
                 </div>
@@ -50,7 +53,8 @@
                 ng-change="onPageChangeFromPaginator()"
                 rotate="true"
                 first-text="&laquo;"
-                last-text="&raquo;">
+                last-text="&raquo;"
+                analytics-on="click" analytics-event="RET Suppliers Change Page">
             </div>
         </div>
         <div class="col-sm-3 text-right pagination-block">
@@ -78,10 +82,12 @@
                         <td class="text-center">{{ productInShopSegment.shortId }}</td>
                         <td>{{ productInShopSegment.name }}</td>
                         <td class="text-center">
-                            <a class="btn btn-success" ng-href="/#/retailer/productinshop?segment_id={{ productInShopSegment.id }}">
+                            <a class="btn btn-success" ng-href="/#/retailer/productinshop?segment_id={{ productInShopSegment.id }}"
+                               analytics-on="click" analytics-event="RET Suppliers Button View Product">
                                 <i class="fa fa-barcode"></i> Produits
                             </a>
-                            <span class="btn btn-warning" ng-click="edit(productInShopSegment)">
+                            <span class="btn btn-warning" ng-click="edit(productInShopSegment)"
+                                  analytics-on="click" analytics-event="RET Suppliers Button Edit Supplier">
                                 <i class="fa fa-pencil"></i> Editer
                             </span>
                         </td>
@@ -106,7 +112,8 @@
                 ng-change="onPageChangeFromPaginator()"
                 rotate="true"
                 first-text="&laquo;"
-                last-text="&raquo;">
+                last-text="&raquo;"
+                analytics-on="click" analytics-event="RET Suppliers Change Page">
             </div>
         </div>
         <div class="col-sm-3 text-right pagination-block">

@@ -241,10 +241,10 @@
         <label for="typePromotional" class="col-sm-4 control-label">Cette promotion dérive d'un produit :</label>
         <div class="col-sm-8">
             <label class="radio-inline">
-                <input ng-model="product.isDerivable" name="isDerivable" type="radio" ng-value="true" > oui
+                <input ng-model="product.isDerivable" name="isDerivable" type="radio" ng-value="true" analytics-on="click" analytics-event="Product Profile Media Get SpecProduct Profile Packaging Promo Radio Yes"> oui
             </label>
             <label class="radio-inline">
-                <input ng-model="product.isDerivable" name="isDerivable" type="radio" ng-value="false"> non
+                <input ng-model="product.isDerivable" name="isDerivable" type="radio" ng-value="false" analytics-on="click" analytics-event="Product Profile Packaging Promo Radio No"> non
             </label>
         </div>
     </div>

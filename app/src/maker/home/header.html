@@ -1,39 +1,39 @@
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller="MakerHeaderController" >
     <div class="container-fluid">
         <div class="navbar-header col-md-2 text-center">
-            <a class="text-center" href="/#/maker/brand/all/product">
+            <a class="text-center" href="/#/maker/brand/all/product" analytics-on="click" analytics-event="Nav Header Button Logo Brands">
                 <img class="logo" src="/images/logo-inverse.png"/>
             </a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="/#/maker/activity">Activité</a></li>
-                <li><a href="/#/maker/brand">Mes marques</a></li>
-                <li><a href="/#/maker/brand/all/product">Mes produits</a></li>
-                <li><a href="/#/dmp/activation/campaign">Mon marketing</a></li>
+                <li><a href="/#/maker/activity" analytics-on="click" analytics-event="Nav Header Button Activity">Activité</a></li>
+                <li><a href="/#/maker/brand" analytics-on="click" analytics-event="Nav Header Button Brands">Mes marques</a></li>
+                <li><a href="/#/maker/brand/all/product" analytics-on="click" analytics-event="Nav Header Button Products">Mes produits</a></li>
+                <li><a href="/#/dmp/activation/campaign" analytics-on="click" analytics-event="Nav Header Button Marketing">Mon marketing</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                  <a class="dropdown-toggle" role="button" aria-expanded="false">Ressources <span class="caret"></span></a>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="/#/maker/resources/faq">FAQ</a></li>
-                    <li><a href="/#/maker/resources/tutorial">Tutoriel</a></li>
-                    <li><a href="/#/maker/resources/procedures">Procédures</a></li>
-                    <li><a href="http://media.alkemics.com/corporate/stream/contract/cgu.pdf" target="_blank">CGU</a></li>
+                  <a class="dropdown-toggle" role="button" aria-expanded="false" analytics-on="click" analytics-event="Nav Header Button Profile Button">Ressources <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu" analytics-on="click" analytics-event="MAK NAV Ressources Item Click">
+                    <li><a href="/#/maker/resources/faq" analytics-on="click" analytics-event="Nav Header Dropdown Ressources FAQ">FAQ</a></li>
+                    <li><a href="/#/maker/resources/tutorial" analytics-on="click" analytics-event="Nav Header Dropdown Ressources Tutoriel">Tutoriel</a></li>
+                    <li><a href="/#/maker/resources/procedures" analytics-on="click" analytics-event="Nav Header Dropdown Ressources Process">Procédures</a></li>
+                    <li><a href="http://media.alkemics.com/corporate/stream/contract/cgu.pdf" target="_blank" analytics-on="click" analytics-event="Nav Header Dropdown Ressources TC">CGU</a></li>
                   </ul>
                 </li>
                 <li ng-show="isAdmin">
-                    <a ng-href="/#/organization/{{ organization.id }}/admin/home/" class="color-stream-inverse">Admin</a>
+                    <a ng-href="/#/organization/{{ organization.id }}/admin/home/" class="color-stream-inverse" analytics-on="click" analytics-event="Nav Header Button Admin">Admin</a>
                 </li>
                 <li>
-                    <a href="/#/user/me/profile" style="height: 16px; overflow: visible;">
+                    <a href="/#/user/me/profile" style="height: 16px; overflow: visible;" analytics-on="click" analytics-event="Nav Header Button Profile Button">
                         <i class="fa fa-cogs"></i>
                         <span style="margin-right: 5px;"> {{ user.username }} </span>
                         <img ng-src="https://secure.gravatar.com/avatar/{{ user.username | gravatar }}?s=20&amp;d=mm" height="20" width="20"/>
                     </a>
                 </li>
                 <li>
-                    <a ng-click="logout()" href="/#/logout">
+                    <a ng-click="logout()" href="/#/logout" analytics-on="click" analytics-event="MAK Button Logout">
                         <i class="fa fa-power-off"></i>
                     </a>
                 </li>

@@ -15,7 +15,8 @@
              ng-model="product.composition"
              ta-toolbar="[['bold']]"
              alk-focus
-             ng-blur="check()">
+             ng-blur="check()"
+             analytics-on="click" analytics-event="Product Profile INCO Composition">
         </div>
         <div input-block-help field="productForm.composition">
             <strong id="art18">Liste des ingrédients</strong>
@@ -71,7 +72,7 @@
                 <li>est essentiel pour caractériser une denrée alimentaire et la distinguer des produits avec lesquels elle pourrait être confondue en raison de sa dénomination ou de son aspect.</li>
             </ul>
         </div>
-        <div input-block-help field="productForm.composition">
+        <div input-block-help field="productForm.composition" analytics-on="click">
             La liste des ingrédients échangée dans la fiche produit GS1 doit correspondre exactement à la liste présente sur l'emballage du produit.
             <br/>
             Pour les produits commercialisés sur le marché français, la liste des ingrédients est fournie en français. Le code langue associé au texte descriptif est le code fr. Les codes langues utilisés dans le standard GDSN sont les codes ISO 639 format 2 caractères alphabétiques.
@@ -95,7 +96,13 @@
 <div class="form-group">
     <label for="allergens" class="col-sm-2 control-label inco-field">Allergènes</label>
     <div class="col-sm-10">
-        <textarea ng-model="product.allergens" name="allergens" rows="3" class="form-control" placeholder="Allergènes notables du produit." required alk-focus></textarea>
+        <textarea ng-model="product.allergens"
+                  name="allergens"
+                  rows="3"
+                  class="form-control"
+                  placeholder="Allergènes notables du produit."
+                  analytics-on="click" analytics-event="Product Profile INCO Allergens"
+                  required alk-focus></textarea>
         <div input-block-help field="productForm.allergens">
             Textual description of the presence or absence of allergens as governed by local rules and regulations, specified as one string.
             <br/>
@@ -114,7 +121,13 @@
 <div class="form-group">
     <label for="additives" class="col-sm-2 control-label">Additifs et conservateurs</label>
     <div class="col-sm-10">
-        <textarea class="form-control" rows="3" ng-model="product.additives" name="additives" placeholder="Liste des additifs et conservateurs."></textarea>
+        <textarea class="form-control"
+                  rows="3"
+                  ng-model="product.additives"
+                  name="additives"
+                  placeholder="Liste des additifs et conservateurs."
+                  analytics-on="click" analytics-event="Product Profile INCO Additives">
+        </textarea>
         <!--<div ng-model="product.additives" ui-select2="select2productCompositionOptions" style="width: 100%;" rows="3" placeholder="Liste des additifs et conservateurs."></div>-->
     </div>
 </div>
@@ -128,7 +141,13 @@
     <label for="ratioAlcohol" class="col-sm-2 control-label inco-field">Degré d'alcool</label>
     <div class="col-sm-4">
         <div class="input-group">
-            <input type="text" class="form-control" name="ratioAlcohol" ng-model="product.ratioAlcohol" placeholder="ex : 18" alk-focus/>
+            <input type="text"
+                   class="form-control"
+                   name="ratioAlcohol"
+                   ng-model="product.ratioAlcohol"
+                   placeholder="ex : 18"
+                   alk-focus
+                   analytics-on="click" analytics-event="Product Profile INCO Alcohol"/>
             <span class="input-group-addon">°</span>
         </div>
         <div input-block-gdsn ng-show="productForm.ratioAlcohol">
@@ -144,7 +163,13 @@
     <label for="ratioCacao" class="col-sm-2 control-label">Teneur en cacao</label>
     <div class="col-sm-4">
         <div class="input-group">
-            <input type="text" name="ratioCacao" class="form-control" ng-model="product.ratioCacao" placeholder="ex : 72" alk-focus/>
+            <input type="text"
+                   name="ratioCacao"
+                   class="form-control"
+                   ng-model="product.ratioCacao"
+                   placeholder="ex : 72"
+                   alk-focus
+                   analytics-on="click" analytics-event="Product Profile INCO Cacao"/>
             <span class="input-group-addon">%</span>
         </div>
     </div>
@@ -153,13 +178,25 @@
     <label for="ratioFat" class="col-sm-2 control-label">% de matières grasses</label>
     <div class="col-sm-4">
         <div class="input-group">
-            <input type="text" class="form-control" name="ratioFat" ng-model="product.ratioFat" placeholder="ex : 18" alk-focus/>
+            <input type="text"
+                   class="form-control"
+                   name="ratioFat"
+                   ng-model="product.ratioFat"
+                   placeholder="ex : 18"
+                   alk-focus
+                   analytics-on="click" analytics-event="Product Profile INCO Fat"/>
             <span class="input-group-addon">%</span>
         </div>
     </div>
     <label for="levelPH" class="col-sm-2 control-label">pH</label>
     <div class="col-sm-4">
-        <input type="text" class="form-control" name="levelPH" ng-model="product.levelPH" placeholder="ex : 18" alk-focus/>
+        <input type="text"
+               class="form-control"
+               name="levelPH"
+               ng-model="product.levelPH"
+               placeholder="ex : 8"
+               alk-focus
+               analytics-on="click" analytics-event="Product Profile INCO PH"/>
     </div>
 </div>
 
@@ -173,45 +210,45 @@
     </div>
 </div>
 <div class="form-group">
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasOilPalm" label="Présence d'huile de palme"></div>
-    <!--<div ternary ng-model="product" alk-suggest="suggest" name="hasAddedSugar" label="Présence de sucres ajoutés"></div>-->
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasDextrose" label="Présence de dextrose"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasOilPalm'}" name="hasOilPalm" label="Présence d'huile de palme"></div>
+    <!--<div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasAddedSugar'}" name="hasAddedSugar" label="Présence de sucres ajoutés"></div>-->
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasDextrose'}" name="hasDextrose" label="Présence de dextrose"></div>
 </div>
 <div class="form-group">
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasOilCoprah" label="Présence d'huile de coprah"></div>
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasDextrine" label="Présence de dextrine"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasOilCoprah'}" name="hasOilCoprah" label="Présence d'huile de coprah"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasDextrine'}" name="hasDextrine" label="Présence de dextrine"></div>
 </div>
 <div class="form-group">
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasOilCoconut" label="Présence d'huile de coco"></div>
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasGlucose" label="Présence de glucose"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasOilCoconut'}" name="hasOilCoconut" label="Présence d'huile de coco"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasGlucose'}" name="hasGlucose" label="Présence de glucose"></div>
 </div>
 <div class="form-group">
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasOilSunflower" label="Présence d'huile de tournesol"></div>
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasFructose" label="Présence de fructose"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasOilSunflower'}" name="hasOilSunflower" label="Présence d'huile de tournesol"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasFructose'}" name="hasFructose" label="Présence de fructose"></div>
 </div>
 <div class="form-group">
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasOilOlive" label="Présence d'huile d'olive"></div>
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasSugarSyrup" label="Présence de sirop de sucre"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasOilOlive'}" name="hasOilOlive" label="Présence d'huile d'olive"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasSugarSyrup'}" name="hasSugarSyrup" label="Présence de sirop de sucre"></div>
 </div>
 <div class="form-group">
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasOilGrapeSeed" label="Présence d'huile de pépin de raisin"></div>
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasHoney" label="Présence de miel"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasOilGrapeSeed'}" name="hasOilGrapeSeed" label="Présence d'huile de pépin de raisin"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasHoney'}" name="hasHoney" label="Présence de miel"></div>
 </div>
 <div class="form-group">
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasOilCanola" label="Présence d'huile de colza"></div>
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasGluten" label="Présence de gluten"></div>
-</div>
-<div class="form-group">
-    <div class="col-sm-6"></div>
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasStarch" label="Présence d'amidon"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasOilCanola'}" name="hasOilCanola" label="Présence d'huile de colza"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasGluten'}" name="hasGluten" label="Présence de gluten"></div>
 </div>
 <div class="form-group">
     <div class="col-sm-6"></div>
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasAspartame" label="Présence d'aspartame"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasStarch'}" name="hasStarch" label="Présence d'amidon"></div>
 </div>
 <div class="form-group">
     <div class="col-sm-6"></div>
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasStevia" label="Présence de stévia"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasAspartame'}" name="hasAspartame" label="Présence d'aspartame"></div>
+</div>
+<div class="form-group">
+    <div class="col-sm-6"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasStevia'}" name="hasStevia" label="Présence de stévia"></div>
 </div>
 
 <div class="form-group">
@@ -223,40 +260,40 @@
     </div>
 </div>
 <div class="form-group">
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasSaindoux" label="Présence de saindoux"></div>
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasMeat" label="Présence de viande"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasSaindoux'}" name="hasSaindoux" label="Présence de saindoux"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasMeat'}" name="hasMeat" label="Présence de viande"></div>
 </div>
 <div class="form-group">
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasButter" label="Présence de beurre"></div>
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasEgg" label="Présence d'œufs"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasButter'}" name="hasButter" label="Présence de beurre"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasEgg'}" name="hasEgg" label="Présence d'œufs"></div>
 </div>
 <div class="form-group">
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasCream" label="Présence de crème"></div>
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasAlbumine" label="Présence d'albumine"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasCream'}" name="hasCream" label="Présence de crème"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasAlbumine'}" name="hasAlbumine" label="Présence d'albumine"></div>
 </div>
 <div class="form-group">
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasLactose" label="Présence de lactose"></div>
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasLysozyme" label="Présence de lysozyme"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasLactose'}" name="hasLactose" label="Présence de lactose"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasLysozyme'}" name="hasLysozyme" label="Présence de lysozyme"></div>
 </div>
 <div class="form-group">
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasMilk" label="Présence de lait"></div>
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasFish" label="Présence de poisson"></div>
-</div>
-<div class="form-group">
-    <div class="col-sm-6"></div>
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasFishGelatin" label="Présence de gélatine de poisson"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasMilk'}" name="hasMilk" label="Présence de lait"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasFish'}" name="hasFish" label="Présence de poisson"></div>
 </div>
 <div class="form-group">
     <div class="col-sm-6"></div>
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasMollusk" label="Présence de mollusques"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasFishGelatin'}" name="hasFishGelatin" label="Présence de gélatine de poisson"></div>
 </div>
 <div class="form-group">
     <div class="col-sm-6"></div>
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasShellfish" label="Présence de crustacés"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasMollusk'}" name="hasMollusk" label="Présence de mollusques"></div>
 </div>
 <div class="form-group">
     <div class="col-sm-6"></div>
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasPorkGelatin" label="Présence de gélatine de porc"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasShellfish'}" name="hasShellfish" label="Présence de crustacés"></div>
+</div>
+<div class="form-group">
+    <div class="col-sm-6"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasPorkGelatin'}" name="hasPorkGelatin" label="Présence de gélatine de porc"></div>
 </div>
 
 
@@ -270,67 +307,67 @@
 </div>
 
 <div class="form-group">
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasAlcohol" label="Présence d'alcool"></div>
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasGMO" label="Présence d'OGMs"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasAlcohol'}" name="hasAlcohol" label="Présence d'alcool"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasGMO'}" name="hasGMO" label="Présence d'OGMs"></div>
 </div>
 
 <div class="form-group">
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasCafeine" name="hasCafeine" label="Présence de caféine"></div>
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasExtraFibers" label="Présence de fibres ajoutées"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasCafeine'}" name="hasCafeine" name="hasCafeine" label="Présence de caféine"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasExtraFibers'}" name="hasExtraFibers" label="Présence de fibres ajoutées"></div>
 </div>
 <div class="form-group">
     <div class="col-sm-6"></div>
-    <!--<div ternary ng-model="product" alk-suggest="suggest" name="hasTaurine" label="Présence de taurine"></div>-->
-    <div ternary ng-model="product" alk-suggest="suggest" name="isWholeCereals" label="Présence de céréales entières"></div>
+    <!--<div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasTaurine'}" name="hasTaurine" label="Présence de taurine"></div>-->
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'isWholeCereals'}" name="isWholeCereals" label="Présence de céréales entières"></div>
 </div>
 <div class="form-group">
     <div class="col-sm-6"></div>
-    <!--<div ternary ng-model="product" alk-suggest="suggest" name="hasTheine" label="Présence de théine"></div>-->
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasCelery" label="Présence de céleri"></div>
+    <!--<div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasTheine'}" name="hasTheine" label="Présence de théine"></div>-->
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasCelery'}" name="hasCelery" label="Présence de céleri"></div>
 </div>
 <div class="form-group">
     <div class="col-sm-6"></div>
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasLiquorice" label="Présence de réglisse"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasLiquorice'}" name="hasLiquorice" label="Présence de réglisse"></div>
 </div>
 <div class="form-group">
     <div class="col-sm-6"></div>
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasLupinus" label="Présence de lupin"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasLupinus'}" name="hasLupinus" label="Présence de lupin"></div>
 </div>
 <div class="form-group">
     <div class="col-sm-6"></div>
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasMustard" label="Présence de moutarde"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasMustard'}" name="hasMustard" label="Présence de moutarde"></div>
 </div>
 <div class="form-group">
     <div class="col-sm-6"></div>
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasPeanut" label="Présence d'arachide"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasPeanut'}" name="hasPeanut" label="Présence d'arachide"></div>
 </div>
 <div class="form-group">
     <div class="col-sm-6"></div>
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasPhenylalanine" label="Présence de phénylalanine"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasPhenylalanine'}" name="hasPhenylalanine" label="Présence de phénylalanine"></div>
 </div>
 <div class="form-group">
     <div class="col-sm-6"></div>
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasSesame" label="Présence de sésame"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasSesame'}" name="hasSesame" label="Présence de sésame"></div>
 </div>
 <div class="form-group">
     <div class="col-sm-6"></div>
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasSoya" label="Présence de soja"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasSoya'}" name="hasSoya" label="Présence de soja"></div>
 </div>
 <div class="form-group">
     <div class="col-sm-6"></div>
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasNut" label="Présence de noix"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasNut'}" name="hasNut" label="Présence de noix"></div>
 </div>
 <div class="form-group">
     <div class="col-sm-6"></div>
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasParaben" label="Présence de paraben"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasParaben'}" name="hasParaben" label="Présence de paraben"></div>
 </div>
 <div class="form-group">
     <div class="col-sm-6"></div>
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasSoap" label="Présence de savon"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasSoap'}" name="hasSoap" label="Présence de savon"></div>
 </div>
 <div class="form-group">
     <div class="col-sm-6"></div>
-    <div ternary ng-model="product" alk-suggest="suggest" name="hasSulfite" label="Présence de sulfites"></div>
+    <div ternary ng-model="product" alk-suggest="suggest" analytics-on="click" analytics-event="Product Profile INCO SelectElement" analytics-properties="{'field': 'hasSulfite'}" name="hasSulfite" label="Présence de sulfites"></div>
 </div>
 </div>
 </div>
