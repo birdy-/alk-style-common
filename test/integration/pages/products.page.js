@@ -16,7 +16,7 @@ var ProductsPage = function () {
   // ------------------------------------------------------------------------
 
   this.getPaginationBlocks = function () {
-    return element.all(by.css('.pagination-block'));
+    return element.all(by.css('[alk-sdk-pagination]'));
   };
 
   this.getPaginationBlock = function (index) {
