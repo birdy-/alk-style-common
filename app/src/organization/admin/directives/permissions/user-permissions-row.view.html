@@ -9,7 +9,7 @@
                  class="fa fa-2x fa-trash">
             </div>
         </div>
-        <div class="user col-xs-9">
+        <div class="user col-xs-7">
             <div class="identity">
                 <span class="name">
                     {{ user.firstname }} {{ user.lastname || 'Utilisateur' }}
@@ -20,6 +20,11 @@
             </div>
             <div class="mail">
                 <i class="fa fa-envelope"> {{ user.username }}</i>
+            </div>
+        </div>
+        <div class="col-xs-2 text-center">
+            <div class="indication">
+              Droits conférés
             </div>
         </div>
         <div class="permissions col-xs-2">

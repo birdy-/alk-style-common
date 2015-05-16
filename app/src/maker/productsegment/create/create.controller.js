@@ -116,13 +116,15 @@ angular.module('jDashboardFluxApp').controller('ProductSegmentCreateModalControl
             // Retrieve brands
             if ($scope.productSegment.query[0].filter_brand_ids.length > 0) {
                 $$sdkCrud.BrandList({}, { 'id':$scope.productSegment.query[0].filter_brand_ids })
-                .then(function(brandResponse) {
+                .then(function (brandResponse) {
                     $scope.brands = brandResponse.data.data;
                     for (i in $scope.brands) {
                         $scope.brands[i].text = $scope.brands[i].name;
                     }
                     $scope.segmentLoaded = true;
                 });
+            } else {
+                $scope.segmentLoaded = true;
             }
         });
     }
