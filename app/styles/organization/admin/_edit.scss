@@ -7,6 +7,11 @@
             color: $alk-green !important;
         }
 
+        .change-view {
+            color: $alk-green !important;
+            font-size: 16px;
+        }
+
         tr.even {
             background: $background-color-grey;
         }
@@ -91,9 +96,17 @@
 
         }
 
+        .indication {
+            color: $gray-light;
+            font-size: 12px;
+            line-height: 65px - $padding-base-horizontal * 2;
+            vertical-align: middle;
+        }
+
         .permissions {
             line-height: 65px - $padding-base-horizontal * 2;
             vertical-align: middle;
+
 
             i {
                 @include transition(color 0.2s 0 ease);

@@ -4,6 +4,9 @@
     <div class="row">
         <div class="col-xs-12">
             <h1>Les permissions utilisateurs</h1>
+            <a class="change-view" ng-href="/#/organization/{{ organizationId }}/admin/permissions/user?segment_id={{ selectedSegment.id }}">
+                Voir par utilisateur <i class="fa fa-refresh"></i>
+            </a>
         </div>
     </div>
 
@@ -71,7 +74,7 @@
                                     tooltip=""
                                     ng-click="addUser()"></i>
                                 <!-- <i class="fa fa-2x fa-copy"></i> -->
-                                <i class="fa fa-2x fa-edit"
+                                <i class="fa fa-2x fa-pencil"
                                    ng-click="editProductSegment(selectedSegment.id)"
                                     data-toggle="tooltip"
                                     data-placement="top"
