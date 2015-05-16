@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="user-permissions col-xs-12">
+      <div class="row">
+        <div class="trash col-xs-1">
+            <div alk-confirm-action
+                 confirm-message="rmComfirmMsg"
+                 confirm-action="removeFromSegment"
+                 item="picture"
+                 class="fa fa-2x fa-trash"
+                 analytics-on="click" analytics-event="MAK Admin RemoveUserFromSegment">
+            </div>
+        </div>
+        <div class="user col-xs-9">
+          {{ productsegment.name }}
+        </div>
+        <div class="permissions col-xs-2">
+            <i class="fa fa-2x fa-pencil"
+               ng-class="{ 'active' : permissions[ProductSegment.PERMISSION_PRODUCT_UPDATE] == true }"
+               ng-click="update(ProductSegment.PERMISSION_PRODUCT_UPDATE)"
+               data-toggle="tooltip"
+               data-placement="top"
+               ng-attr-title="Modifier les produits"
+               tooltip=""></i>
+            <i class="fa fa-2x fa-eye"
+               ng-class="{ 'active' : permissions[ProductSegment.PERMISSION_PRODUCT_SHOW] == true }"
+               ng-click="update(ProductSegment.PERMISSION_PRODUCT_SHOW)"
+               data-toggle="tooltip"
+               data-placement="top"
+               ng-attr-title="Voir les produits"
+               tooltip=""></i>
+            <i class="fa fa-2x fa-check"
+               ng-class="{ 'active' : permissions[ProductSegment.PERMISSION_PRODUCT_CERTIFY] == true }"
+               ng-click="update(ProductSegment.PERMISSION_PRODUCT_CERTIFY)"
+               data-toggle="tooltip"
+               data-placement="top"
+               ng-attr-title="Certifier les produits"
+               tooltip=""></i>
+        </div>
+      </div>
+    </div>
+</div>

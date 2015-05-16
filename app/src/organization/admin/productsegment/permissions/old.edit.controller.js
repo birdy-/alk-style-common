@@ -9,7 +9,6 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
  	// --------------------------------------------------------------------------------
     $scope.organizationId = $routeParams.id;
  	$scope.currentUser = null;
- 	$scope.isAdmin = false;
    	$scope.productSegmentIds = [];
    	$scope.users = [];
    	$scope.productSegments = [];
@@ -98,41 +97,33 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
     // Initialization
     // --------------------------------------------------------------------------------
     
-    var loadProducSegments = function () {
-    	$scope.organization.ownsProductSegment.map(function (productSegment) {
-    		$scope.productSegmentIds.push(productSegment.id);
-    	});
-    	$$sdkCrud.ProductSegmentList({}, {'filter_id_in': $scope.productSegmentIds.join(',')}, {}, null, null).then(function (response) {
-    		$scope.productSegments = response.data.data;
+    var loadProductSegments = function() {
+        $$sdkCrud.ProductSegmentList({'organization_id':$scope.organizationId}, {}, {}, null, null).then(function (response) {
+            $scope.productSegments = response.data.data;
             $scope.initMatrix();
-    	});
-    };
+        });
+    }
 
     var loadOrganization = function () {
-    	$$sdkAuth.OrganizationShow($scope.organizationId).then(function (response) {
-    		$scope.organization = response.data.data;
-    		$$sdkAuth.OrganizationUsers($scope.organizationId).then(function (response) {
+        $$sdkAuth.OrganizationShow($scope.organizationId).then(function (response) {
+            $scope.organization = response.data.data;
+            $$sdkAuth.OrganizationUsers($scope.organizationId).then(function (response) {
                 $scope.users = response.data.data;
-                loadProducSegments();
+                loadProductSegments();
             });
-    	});
-	}; 
+        });
+    };
 
     var init = function () {
-		permission.getUser().then(function (user) {
-    		$scope.currentUser = user;
-    		user.belongsTo.map(function (org) {
-    			if (org.id === $scope.organizationId) {
-    				org.permissions.map(function (perm) {
-    					if (perm === 'admin')
-    						$scope.isAdmin = true;
-    				});
-    				if ($scope.isAdmin === false)
-    					$scope.goHome();
-    			}
-    		});
-    	});
-    	loadOrganization();
+        permission.getUser().then(function (user) {
+            $scope.currentUser = user;
+            if (permission.isAdmin($scope.organizationId)) {
+                loadOrganization();
+            }
+            else {
+                $scope.goHome();
+            }
+        });
     };
 
     init();

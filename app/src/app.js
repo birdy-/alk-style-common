@@ -44,7 +44,7 @@ app.factory('plupload', [
 
 var env = 'prod';
 if (window.location.hostname.indexOf('localhost') === 0) {
-    env = 'dev';
+    env = 'vagrant';
 } else if (window.location.hostname.indexOf('preprod-') === 0) {
     env = 'preprod';
 }
@@ -377,9 +377,14 @@ app.config(function ($routeProvider) {
         controller: 'OrganizationAdminHomeListController'
     });
 
-    $routeProvider.when('/organization/:id/admin/users', {
-        templateUrl: 'src/organization/admin/productsegment/permissions/edit.html',
+    $routeProvider.when('/organization/:id/admin/permissions/productsegment', {
+        templateUrl: 'src/organization/admin/productsegment/permissions/productsegment.html',
         controller: 'OrganizationAdminProductSegmentPermissionsController'
+    });
+
+    $routeProvider.when('/organization/:id/admin/permissions/user', {
+        templateUrl: 'src/organization/admin/productsegment/permissions/user.html',
+        controller: 'OrganizationAdminUserPermissionsController'
     });
 
     // ------------------------------------------------------------------------------------------

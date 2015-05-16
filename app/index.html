@@ -173,7 +173,7 @@
     <!-- end Google Analytics -->
 
     <!-- start Mixpanel -->
-    <script type="text/javascript">(function(f,b){if(!b.__SV){var a,e,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?MIXPANEL_CUSTOM_LIB_URL:"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);mixpanel.init("9165c553d1e349d300fb1a012f6310ee");</script>
+    <script type="text/javascript">(function(f,b){if(!b.__SV){var a,e,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?MIXPANEL_CUSTOM_LIB_URL:"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);mixpanel.init("9165c553d1e349d300fb1a012f6310ee", {track_pageview: false});</script>
     <!-- end Mixpanel -->
 
     <!-- <script type="text/javascript" charset="utf-8" id="alkemicscom_sdk_shop">
@@ -198,7 +198,7 @@
         //]]>
     </script> -->
 
-    <script type="text/javascript" id="tocio_tck">
+    <!-- <script type="text/javascript" id="tocio_tck">
       //<![CDATA[
         window._taq = _taq = [];
         _taq.push(['_setAppId', 'UA-0000-2']);
@@ -209,7 +209,7 @@
             k.parentNode.insertBefore(l,k);
         })(window, document, 'script', 'cdn.alkemics.com/tck/v2/tck.js');
         //]]>
-    </script>
+    </script> -->
 
     <!-- build:js scripts/plugins.js -->
         <script type="text/javascript" src="bower_components/jquery/jquery.js"></script>
@@ -291,6 +291,7 @@
         <script type="text/javascript" src="src/common/model/commonunit-directive.js"></script>
         <script type="text/javascript" src="src/common/model/concept.model.js"></script>
         <script type="text/javascript" src="src/common/model/gln.model.js"></script>
+        <script type="text/javascript" src="src/common/model/gtin.model.js"></script>
         <script type="text/javascript" src="src/common/model/organization.model.js"></script>
         <script type="text/javascript" src="src/common/model/placement.model.js"></script>
         <script type="text/javascript" src="src/common/model/product-directive.js"></script>
@@ -314,6 +315,7 @@
         <script type="text/javascript" src="src/common/directives/demo-video/demo-video-modal.controller.js"></script>
         <script type="text/javascript" src="src/common/directives/ui/pagination/pagination.controller.js"></script>
         <script type="text/javascript" src="src/common/directives/ui/pagination/pagination-directive.js"></script>
+        <script type="text/javascript" src="src/common/directives/ui/tooltip.directive.js"></script>
 
         <script type="text/javascript" src="src/common/services/tracking.service.js"></script>
 
@@ -425,8 +427,10 @@
         <script type="text/javascript" src="src/maker/productsegment/show/validator/picker.controller.js"></script>
 
         <!-- Admin -->
-        <script type="text/javascript" src="src/organization/admin/productsegment/permissions/edit.controller.js"></script>
-
+        <script type="text/javascript" src="src/organization/admin/productsegment/permissions/productsegment.controller.js"></script>
+        <script type="text/javascript" src="src/organization/admin/productsegment/permissions/user.controller.js"></script>
+        <script type="text/javascript" src="src/organization/admin/productsegment/permissions/add-user.controller.js"></script>
+        <script type="text/javascript" src="src/organization/admin/productsegment/permissions/add-productsegment.controller.js"></script>
 
 
         <script type="text/javascript" src="src/maker/notification/list/list.controller.js"></script>
@@ -453,6 +457,8 @@
         <script type="text/javascript" src="src/common/directives/validation/alk-confirm-action/alk-confirm-action.directive.js"></script>
         <script type="text/javascript" src="src/common/directives/image/image.directive.js"></script>
         <script type="text/javascript" src="src/common/directives/focus.directive.js"></script>
+
+        <script type="text/javascript" src="src/organization/admin/directives/permissions/user-permissions-row.directive.js"></script>
 
         <!-- Authentication -->
     <!-- endbuild -->

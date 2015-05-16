@@ -150,7 +150,6 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
     };
 
     var loadSegments = function () {
-        console.log('segments loading');
         var productSegmentIds = $scope.organization.ownsProductSegment.map(function (productSegment) {
             return productSegment.id;
         });

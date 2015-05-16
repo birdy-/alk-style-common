@@ -71,6 +71,12 @@ var Product = function () {
             || this.typePromotional === Product.TYPEPROMOTIONAL_SPECIALPACKAGING.id
             || this.typePromotional === Product.TYPEPROMOTIONAL_SPECIALPRICE.id;
     };
+
+    this.getNewProductsCount = function (stats) {
+        var count = 0;
+        count += parseInt(stats[0].counts[Product.CERTIFICATION_STATUS_ATTRIBUTED.id], 10) || 0;
+        return count;
+    }
 };
 Product._type = 'Product';
 Product.CERTIFICATION_STATUS_DEFAULT        = new Constant(0, "DEFAULT",       "The Product has not been considered for review yet");
