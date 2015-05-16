@@ -11,6 +11,8 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
     $scope.organization = null;
     $scope.isLoading = false;
 
+    $scope.rmComfirmMsg = "Etes vous sûr de vouloir supprimer se segment ?"
+
 
     // --------------------------------------------------------------------------------
     // Event binding
@@ -27,6 +29,8 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
                 organization_id: function() { return $scope.organizationId; },
                 productsegment_id: function() { return null; }
             }
+        }).result.then(function () {
+            init();
         });
     };
 
@@ -38,6 +42,8 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
                 organization_id: function () { return $scope.organizationId; },
                 productsegment_id: function () { return segmentId; }
             }
+        }).result.then(function () {
+            init();
         });
     };
 
@@ -78,6 +84,12 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
         });
     };
 
+    $scope.deleteProductSegment = function () {
+        $$ORM.repository('ProductSegment').method('Delete')($scope.selectedSegment.id, $scope.organizationId).then(function (response) {
+            init();
+        });
+    };
+
     $scope.addUser = function (segment) {
         $modal.open({
             templateUrl: 'src/organization/admin/productsegment/permissions/add-user-modal.html',
@@ -100,7 +112,8 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
             organization_id: $scope.organizationId,
             withPermissions: 1
         };
-        return $$ORM.repository('ProductSegment').list(query, {}, {}, null, null);
+        var limit = $scope.organization.ownsProductSegment.length;
+        return $$ORM.repository('ProductSegment').list(query, {}, {}, null, limit);
     };
 
     var getOrganization = function () {
@@ -111,13 +124,17 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
         return $$sdkAuth.OrganizationUsers($scope.organizationId);
     }
 
-    var getCurrentUser = function() {
+    var getCurrentUser = function () {
         return permission.getUser();
     };
 
-    var initScope = function (currentUser, users, organization, productSegments) {
-        users = users.data.data;
+    var loadOrganization = function (organization) {
         organization = organization.data.data;
+        $scope.organization = organization;
+    };
+
+    var initScope = function (currentUser, users, productSegments) {
+        users = users.data.data;
 
         var userObjects = [];
         for (var i = 0; i < users.length; i++) {
@@ -127,10 +144,8 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
         $scope.isLoading = false;
         $scope.currentUser = currentUser;
         $scope.users = userObjects;
-        $scope.organization = organization;
-        $scope.productSegments = productSegments;
 
-        var productSegmentRoot = Organization.getProductSegmentRoot(organization);
+        var productSegmentRoot = Organization.getProductSegmentRoot($scope.organization);
         $scope.segments = _.filter(productSegments, function (segment) {
             return segment.id !== productSegmentRoot.id;
         });
@@ -148,16 +163,22 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
     var init = function () {
         $scope.isLoading = true;
 
-        // Promises
-        var currentUser = getCurrentUser();
-        var users = getOrganizationUsers();
         var organization = getOrganization();
-        var productSegments = getProductSegments();
 
-        // All promises are resolved
-        $q.all([currentUser, users, organization, productSegments]).then(function (data) {
-          initScope.apply(this, data);
+        $q.all([organization]).then(function (data) {
+            loadOrganization.apply(this, data);
+
+            // Promises
+            var currentUser = getCurrentUser();
+            var users = getOrganizationUsers();
+            var productSegments = getProductSegments();
+
+            // All promises are resolved
+            $q.all([currentUser, users, productSegments]).then(function (data) {
+              initScope.apply(this, data);
+            });;
         });;
+
     };
 
     init();
