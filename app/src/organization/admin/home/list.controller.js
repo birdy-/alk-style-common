@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListController', [
-    '$scope', 'permission','$$ORM', '$$sdkCrud','$$sdkAuth', '$routeParams', '$location', 'ngToast', '$modal',
-    function ($scope, permission, $$ORM, $$sdkCrud, $$sdkAuth, $routeParams, $location, ngToast, $modal) {
+    '$scope', 'permission','$$ORM', '$$sdkCrud','$$sdkAuth', '$routeParams', '$location', 'ngToast', '$modal', '$analytics',
+    function ($scope, permission, $$ORM, $$sdkCrud, $$sdkAuth, $routeParams, $location, ngToast, $modal, $analytics) {
 
     $scope.organization = {};
     $scope.organizationId = Number($routeParams.id);
@@ -58,6 +58,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
         });
 
         modalInstance.result.then(function () {
+            $analytics.eventTrack('MAK Admin AddProductSegment Success');
             $location.path("organization/" + $scope.organizationId + "/admin/permissions/productsegment?segment_id=" + segment.id);
         })
     }
