@@ -13,20 +13,24 @@ angular.module('jDashboardFluxApp')
 }])
 
 .run([
-    '$rootScope', '$window', '$location', '$analytics', 'permission', '$log',
-    function init ($rootScope, $window, $location, $analytics, permission, $log) {
+    '$rootScope', '$window', '$location', '$analytics', 'permission', '$log', '$routeParams',
+    function init ($rootScope, $window, $location, $analytics, permission, $log, $routeParams) {
 
         var formatPageName = function (path) {
+            // Uniformize params for better aggregation
+            _.forEach($routeParams, function (value, key) {
+                path = path.replace(value, '{' + key + '}');
+            });
             return 'Page ' + path.split('/').join(' ');
         };
 
 
         // Page tracking for Mixpanel
         $rootScope.$on('$routeChangeSuccess', function () {
-            $analytics.eventTrack('Page Viewed', {
-                'page name': formatPageName($location.$$path),
-                'url': $location.$$absUrl
-            });
+            $window.mixpanel.track(
+                formatPageName($location.$$path),
+                _.extend($routeParams, {'url': $location.$$absUrl})
+            );
         });
 
         // User tracking
@@ -41,10 +45,10 @@ angular.module('jDashboardFluxApp')
             $analytics.setSuperProperties({
                 Organization: user.organizationId,
                 company: user.company,
+                type: permission.isRetailer() ? 'Retailer' : 'Maker',
                 jobTitle: user.jobTitle
             })
         });
-
 
         return {};
 }]);

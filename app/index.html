@@ -198,7 +198,7 @@
         //]]>
     </script> -->
 
-    <script type="text/javascript" id="tocio_tck">
+    <!-- <script type="text/javascript" id="tocio_tck">
       //<![CDATA[
         window._taq = _taq = [];
         _taq.push(['_setAppId', 'UA-0000-2']);
@@ -209,7 +209,7 @@
             k.parentNode.insertBefore(l,k);
         })(window, document, 'script', 'cdn.alkemics.com/tck/v2/tck.js');
         //]]>
-    </script>
+    </script> -->
 
     <!-- build:js scripts/plugins.js -->
         <script type="text/javascript" src="bower_components/jquery/jquery.js"></script>
@@ -291,6 +291,7 @@
         <script type="text/javascript" src="src/common/model/commonunit-directive.js"></script>
         <script type="text/javascript" src="src/common/model/concept.model.js"></script>
         <script type="text/javascript" src="src/common/model/gln.model.js"></script>
+        <script type="text/javascript" src="src/common/model/gtin.model.js"></script>
         <script type="text/javascript" src="src/common/model/organization.model.js"></script>
         <script type="text/javascript" src="src/common/model/placement.model.js"></script>
         <script type="text/javascript" src="src/common/model/product-directive.js"></script>
@@ -314,6 +315,7 @@
         <script type="text/javascript" src="src/common/directives/demo-video/demo-video-modal.controller.js"></script>
         <script type="text/javascript" src="src/common/directives/ui/pagination/pagination.controller.js"></script>
         <script type="text/javascript" src="src/common/directives/ui/pagination/pagination-directive.js"></script>
+        <script type="text/javascript" src="src/common/directives/ui/tooltip.directive.js"></script>
 
         <script type="text/javascript" src="src/common/services/tracking.service.js"></script>
 
@@ -425,8 +427,10 @@
         <script type="text/javascript" src="src/maker/productsegment/show/validator/picker.controller.js"></script>
 
         <!-- Admin -->
-        <script type="text/javascript" src="src/organization/admin/productsegment/permissions/edit.controller.js"></script>
-
+        <script type="text/javascript" src="src/organization/admin/productsegment/permissions/productsegment.controller.js"></script>
+        <script type="text/javascript" src="src/organization/admin/productsegment/permissions/user.controller.js"></script>
+        <script type="text/javascript" src="src/organization/admin/productsegment/permissions/add-user.controller.js"></script>
+        <script type="text/javascript" src="src/organization/admin/productsegment/permissions/add-productsegment.controller.js"></script>
 
 
         <script type="text/javascript" src="src/maker/notification/list/list.controller.js"></script>
@@ -453,6 +457,8 @@
         <script type="text/javascript" src="src/common/directives/validation/alk-confirm-action/alk-confirm-action.directive.js"></script>
         <script type="text/javascript" src="src/common/directives/image/image.directive.js"></script>
         <script type="text/javascript" src="src/common/directives/focus.directive.js"></script>
+
+        <script type="text/javascript" src="src/organization/admin/directives/permissions/user-permissions-row.directive.js"></script>
 
         <!-- Authentication -->
     <!-- endbuild -->

@@ -9,10 +9,12 @@ angular.module('jDashboardFluxApp').directive('alkButtonBrandClaim', [
     function ($modal) {
         return {
             restrict: 'AEC',
-            scope: {},
+            scope: {
+                label: '='
+            },
             templateUrl: '/src/maker/brand/certify/claim-directive.html',
             link: function(scope, elem, attrs) {
-                scope.buttonClass = attrs.alkButtonClass || 'btn-default';
+                scope.buttonClass = attrs.alkButtonClass || 'btn-success';
                 scope.claim = function () {
                     var modalInstance = $modal.open({
                         templateUrl: '/src/maker/brand/certify/claim-modal.html',

@@ -83,7 +83,7 @@ module.exports = function (grunt) {
       options: {
         port: 9005,
         // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localstream.alkemics.com'
+        hostname: 'localhost.alkemics.com'
       },
       livereload: {
         options: {
@@ -150,7 +150,7 @@ module.exports = function (grunt) {
 
     open: {
       server: {
-        url: 'http://localstream.alkemics.com:<%= connect.options.port %>'
+        url: 'http://localhost.alkemics.com:<%= connect.options.port %>'
       }
     },
     // Empties folders to start fresh

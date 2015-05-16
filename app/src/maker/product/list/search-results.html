@@ -20,6 +20,12 @@
                     <i class="fa fa-edit"></i> Modifier
                 </div>
             </div>
+            <span ng-show="displayNewProducts" class="btn" ng-class="{'btn-success':!gdsnOnly, 'btn-default':gdsnOnly}" ng-click="toggleGdsnOnly(false)">
+              Tout
+            </span>
+            <span ng-show="displayNewProducts" class="btn" ng-class="{'btn-success':gdsnOnly, 'btn-default':!gdsnOnly}" ng-click="toggleGdsnOnly(true)">
+              GDSN
+            </span>
         </div>
         <div class="col-sm-8 text-right">
 
@@ -51,7 +57,7 @@
 
     <!-- Preview view -->
     <div class="row products" ng-hide="request.busy || display.type !== 'preview'">
-        <div ng-repeat="product in products | unique:'isIdentifiedBy.0.reference' track by product.isIdentifiedBy.0.reference" class="col-sm-2 product" ng-class="{'inactive': product.claimInProgress}">
+        <div ng-repeat="product in products | unique:'isIdentifiedBy.0.reference' track by product.isIdentifiedBy.0.reference" class="col-sm-2 product" ng-class="{'inactive': product.claimInProgress}" ng-hide="isInactive">
             <div class="claim-wrapper text-center">
                 <div class="claim-information" ng-if="product.claimInProgress">
                     <span class="claim-text">Demande en cours</span>
@@ -105,7 +111,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="product in products | unique:'isIdentifiedBy.0.reference' track by product.isIdentifiedBy.0.reference" ng-class="{'inactive': product.claimInProgress}">
+                    <tr ng-repeat="product in products | unique:'isIdentifiedBy.0.reference' track by product.isIdentifiedBy.0.reference" ng-class="{'inactive': product.claimInProgress}" ng-hide="isInactive">
                         <td class="text-center">
                             <input ng-if="!displayNewProducts" type="checkbox" ng-model="product.selected" analytics-on="click" analytics-event="MAK Products Button Select Item">
                         </td>

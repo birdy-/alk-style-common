@@ -18,7 +18,6 @@ angular.module('jDashboardFluxApp').controller('ProductSegmentValidatorPickerCon
     };
 
     $scope.submit = function () {
-        console.log($scope.response);
         $modalInstance.close($scope.response);
     };
 
