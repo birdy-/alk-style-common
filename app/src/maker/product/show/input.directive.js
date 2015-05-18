@@ -114,7 +114,7 @@ angular.module('jDashboardFluxApp').directive('productNutrition', function() {
         }
     };
 });
-angular.module('jDashboardFluxApp').directive('productNutritionCell', function() {
+angular.module('jDashboardFluxApp').directive('productNutritionCell', ['$$ajr', function ($$ajr) {
     return {
         restrict: 'AEC',
         transclude: true,
@@ -130,6 +130,29 @@ angular.module('jDashboardFluxApp').directive('productNutritionCell', function()
                 ProductNutritionalQuantity.MEASUREMENTPRECISION_APPROXIMATELY,
                 ProductNutritionalQuantity.MEASUREMENTPRECISION_LESS_THAN
             ];
+
+            scope.updateDailyValueFromQuantity = function(){
+                var conceptId = scope.pnq.isConceptualizedBy.id;
+                if(conceptId){
+                    var ajr = $$ajr[conceptId];
+                    if(ajr && scope.pnq.quantity != null){
+                      var percent = scope.pnq.quantity * 100 / ajr;
+                      scope.pnq.percentageOfDailyValueIntake =  Math.round(100*percent)/100;
+                    }
+                }
+            };
+
+            scope.updateQuantityFromDailyValue = function(){
+                var conceptId = scope.pnq.isConceptualizedBy.id;
+                if(conceptId){
+                    var ajr = $$ajr[conceptId];
+                    if(ajr && scope.pnq.percentageOfDailyValueIntake != null){
+                      var quantity = scope.pnq.percentageOfDailyValueIntake * ajr / 100;
+                      scope.pnq.quantity =  Math.round(100*quantity)/100;
+                    }
+                }
+            };
+
             scope.show = function() {
                 if (!scope.pnq) {
                     return false;
@@ -142,7 +165,7 @@ angular.module('jDashboardFluxApp').directive('productNutritionCell', function()
             };
         }
     };
-});
+}]);
 angular.module('jDashboardFluxApp').directive('inputRich', function() {
     return {
         restrict: 'AEC',
