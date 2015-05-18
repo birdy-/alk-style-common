@@ -6,10 +6,10 @@
  * authenticate directive for that matter.
  */
 angular.module('jDashboardFluxApp').controller('PasswordResetController', [
-    '$scope', '$http', 'URL_SERVICE_AUTH', '$location', '$window',
-     function ($scope, $http, URL_SERVICE_AUTH, $location, $window) {
+    '$scope', '$http', 'URL_SERVICE_AUTH', '$location', '$window', '$routeParams',
+     function ($scope, $http, URL_SERVICE_AUTH, $location, $window, $routeParams) {
 
-    $scope.login = null;
+    $scope.login = $routeParams.login || null;
 
     $scope.sendResetEmail = function() {
 
