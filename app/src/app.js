@@ -433,6 +433,15 @@ app.config(function($httpProvider) {
     $httpProvider.defaults.headers.common['Cache-Control'] = 'no-cache';
 });
 
+app.config(function ($provide) {
+    $provide.decorator('taOptions', ['$delegate', function(taOptions) {
+			taOptions.toolbar = [
+		      ['bold', 'italics', 'underline', 'ul', 'ol' , 'justifyLeft','justifyCenter','justifyRight','indent','outdent', 'insertImage', 'insertLink', 'insertVideo']
+	    ];
+      return taOptions;
+    }]);
+});
+
 // ------------------------------------------------------------------------------------------
 // App init
 // ------------------------------------------------------------------------------------------
