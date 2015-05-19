@@ -29,10 +29,10 @@ describe('[Dashboard Maker] Products page', function () {
         .toBe(3);
     });
 
-    it('should have some products', function () {
+    it('should have the good number of product products', function () {
         productsPage.getBrand(1).click().then(function () {
             expect(productsPage.getProducts().count())
-            .toBe(8);
+            .toBe(12);
         });
     });
 
@@ -82,14 +82,14 @@ describe('[Dashboard Maker] Products page', function () {
         .toBe(2);
     });
 
-    it('should display a list of products', function () {
+    it('should display the good number of products', function () {
         productsPage.getChangeDisplayToList().click().then(function () {
             expect(browser.getCurrentUrl())
             .toEqual(browser.params.website.url + 'maker/brand/all/product?page=1');
 
             // 4 products mean 8 divs
             expect(productsPage.getProducts().count())
-            .toBe(8);
+            .toBe(12);
 
             expect(productsPage.getSelectAllProducts().isPresent())
             .toBe(true);
