@@ -114,7 +114,7 @@ angular.module('jDashboardFluxApp').directive('productNutrition', function() {
         }
     };
 });
-angular.module('jDashboardFluxApp').directive('productNutritionCell', ['$$ajr', function ($$ajr) {
+angular.module('jDashboardFluxApp').directive('productNutritionCell', ['$$recommendedDailyAllowance', function ($$recommendedDailyAllowance) {
     return {
         restrict: 'AEC',
         transclude: true,
@@ -134,7 +134,7 @@ angular.module('jDashboardFluxApp').directive('productNutritionCell', ['$$ajr', 
             scope.updateDailyValueFromQuantity = function(){
                 var conceptId = scope.pnq.isConceptualizedBy.id;
                 if (conceptId){
-                    var ajr = $$ajr[conceptId];
+                    var ajr = $$recommendedDailyAllowance[conceptId];
                     if(ajr && scope.pnq.quantity != null){
                         var percent = (scope.pnq.quantity / getConversionRate() * 100) / ajr;
                         scope.pnq.percentageOfDailyValueIntake =  Math.round(100*percent)/100;
@@ -145,7 +145,7 @@ angular.module('jDashboardFluxApp').directive('productNutritionCell', ['$$ajr', 
             scope.updateQuantityFromDailyValue = function(){
                 var conceptId = scope.pnq.isConceptualizedBy.id;
                 if (conceptId){
-                    var ajr = $$ajr[conceptId];
+                    var ajr = $$recommendedDailyAllowance[conceptId];
                     if(ajr && scope.pnq.percentageOfDailyValueIntake != null){
                       var quantity = scope.pnq.percentageOfDailyValueIntake * ajr / 100;
                       var rounded = getConversionRate()*Math.round(100*quantity)/100;
@@ -172,7 +172,7 @@ angular.module('jDashboardFluxApp').directive('productNutritionCell', ['$$ajr', 
                 return conversion;
             }
 
-            scope.$watch('pnq.isMeasuredBy', function(oldValue, newValue){
+            scope.$watch('pnq.isMeasuredBy', function(){
                 scope.updateDailyValueFromQuantity();
             });
 

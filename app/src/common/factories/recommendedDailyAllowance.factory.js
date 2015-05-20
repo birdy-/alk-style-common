@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('jDashboardFluxApp').factory('$$ajr',function(){
+angular.module('jDashboardFluxApp').factory('$$recommendedDailyAllowance',function(){
     //Values taken from http://fr.wikipedia.org/wiki/Apports_journaliers_recommandés
     return {
       //Déclaration nutritionnelle
