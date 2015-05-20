@@ -9,6 +9,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
     $scope.organizationForm = {};
     $scope.administrators = [];
     $scope.isAdmin = false;
+    $scope.rmGLNComfirmMsg = "Êtes vous sur de vouloir supprimer ce GLN de votre Organization ?"
     $scope.organizationFormInit = function (form) {
         form.$loading = true;
         form.$saving = false;
@@ -40,6 +41,15 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
         $scope.organization.ownsGLN.splice(glnIndex, 1);
         return;
     };
+
+    $scope.deleteGln = function (gln) {
+        if (confirm('Êtes vous sur de vouloir supprimer ce GLN de votre Organization ?') == false)
+            return
+        $$sdkAuth.OrganizationOwnsGlnDelete(gln.id).then(function (response) {
+        }, function (response) {
+            alert(response.data.message);
+        });
+    }
 
     $scope.updateOrganization = function () {
         if ($scope.organization.claimGLNs) {

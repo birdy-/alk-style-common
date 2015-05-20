@@ -66,11 +66,16 @@
                                 <thead class="color-stream-inverse">
                                     <tr>
                                         <th>GLN</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="gln in organization.ownsGLN track by $index">
                                         <td>{{ gln.gln }}</td>
+                                        <td>
+                                            <i  ng-click="deleteGln(gln)" class="fa fa-2x fa-trash ng-isolate-scope pull-right">
+                                            </i>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -131,7 +136,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="user in users">
+                        <tr ng-repeat="user in users track by $index">
                             <td>
                                 <img ng-src="https://secure.gravatar.com/avatar/{{ user.username | gravatar }}?s=20&d=mm" height="20" width="20"/>
                                 <a ng-href="/#/user/{{ user.id }}/profile">
