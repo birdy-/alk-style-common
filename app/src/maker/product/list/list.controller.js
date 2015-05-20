@@ -325,7 +325,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         refresh();
     };
 
-    $scope.refreshProductSegment = function (productsegment) {
+    $scope.refreshProductSegment = function () {
         $analytics.eventTrack('MAK Products Filters Product Segment');
         refresh();
     };
