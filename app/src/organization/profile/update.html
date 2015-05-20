@@ -73,7 +73,7 @@
                                     <tr ng-repeat="gln in organization.ownsGLN track by $index">
                                         <td>{{ gln.gln }}</td>
                                         <td>
-                                            <i  ng-click="deleteGln(gln)" class="fa fa-2x fa-trash ng-isolate-scope pull-right">
+                                            <i  ng-click="deleteGln(gln, $index)" class="fa fa-2x fa-trash ng-isolate-scope pull-right">
                                             </i>
                                         </td>
                                     </tr>

@@ -1,15 +1,15 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').controller('OrganizationProfileShowController', [
-    '$scope', 'permission','$routeParams', '$modal', '$$ORM', '$window', '$$sdkAuth',
-    function ($scope, permission, $routeParams, $modal, $$ORM, $window, $$sdkAuth) {
+    '$scope', 'permission','$routeParams', '$modal', '$$ORM', '$window', '$$sdkAuth', 'ngToast',
+    function ($scope, permission, $routeParams, $modal, $$ORM, $window, $$sdkAuth, ngToast) {
 
     $scope.organization = {};
     $scope.brands = [];
     $scope.organizationForm = {};
     $scope.administrators = [];
     $scope.isAdmin = false;
-    $scope.rmGLNComfirmMsg = "Êtes vous sur de vouloir supprimer ce GLN de votre Organization ?"
+    $scope.rmGLNComfirmMsg = "Êtes vous sur de vouloir supprimer ce GLN de votre Organisation ?"
     $scope.organizationFormInit = function (form) {
         form.$loading = true;
         form.$saving = false;
@@ -42,12 +42,20 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
         return;
     };
 
-    $scope.deleteGln = function (gln) {
+    $scope.deleteGln = function (gln, glnIndex) {
         if (confirm('Êtes vous sur de vouloir supprimer ce GLN de votre Organization ?') == false)
-            return
+            return;
         $$sdkAuth.OrganizationOwnsGlnDelete(gln.id).then(function (response) {
+            $scope.organization.ownsGLN.splice(glnIndex, 1);
+            ngToast.create({
+                className: 'success',
+                content: 'Le gln ' + gln.gln + ' a bien été supprimé de votre organisation'
+            });
         }, function (response) {
-            alert(response.data.message);
+            ngToast.create({
+                className: 'danger',
+                content: response.data.message
+            });
         });
     }
 
