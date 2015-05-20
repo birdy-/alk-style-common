@@ -7,7 +7,7 @@ angular.module('jDashboardFluxApp').controller('DmpActivationBuyItNowShowControl
     // ------------------------------------------------------------------------
     // Variables
     // ------------------------------------------------------------------------
-    var authorizedShopIds = [2, 4, 7, 13, 14, 38];
+    var authorizedShopIds = [2, 4, 5, 7, 13, 14, 38];
 
     $scope.campaign = null;
     $scope.user = null;
