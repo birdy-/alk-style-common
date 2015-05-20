@@ -223,7 +223,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         if (productsegments.length) {
             defaultFilters.productsegment_id =_.map(productsegments, function (ps) { return ps.id; }).join(',');
         }
-        console.log(productsegments);
 
         $log.log("Product List Controller : listing by <Brand> " + brands);
         filters = angular.extend(defaultFilters, filters);
