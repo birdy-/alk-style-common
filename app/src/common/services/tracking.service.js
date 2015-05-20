@@ -40,7 +40,10 @@ angular.module('jDashboardFluxApp')
 
             $analytics.setUsername(user.username);
             $analytics.setUserPropertiesOnce({
-                'First Login Date': new Date()
+                'First Login Date': new Date(),
+                $email: user.username,
+                $first_name: user.firstname,
+                $last_name: user.lastname
             });
             $analytics.setSuperProperties({
                 Organization: user.organizationId,

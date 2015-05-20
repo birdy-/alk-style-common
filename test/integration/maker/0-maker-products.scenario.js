@@ -32,7 +32,7 @@ describe('[Dashboard Maker] Products page', function () {
     it('should have some products', function () {
         productsPage.getBrand(1).click().then(function () {
             expect(productsPage.getProducts().count())
-            .toBe(8);
+            .toBe(32);
         });
     });
 
@@ -89,7 +89,7 @@ describe('[Dashboard Maker] Products page', function () {
 
             // 4 products mean 8 divs
             expect(productsPage.getProducts().count())
-            .toBe(8);
+            .toBe(32);
 
             expect(productsPage.getSelectAllProducts().isPresent())
             .toBe(true);

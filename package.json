@@ -61,6 +61,7 @@
     "node": ">=0.8.0"
   },
   "scripts": {
+    "postinstall": "rm -rf app/bower_components/alk-style-common && bower install",
     "test": "grunt test",
     "test:unit": "./node_modules/karma/bin/karma start test/karma.conf.js --single-run",
     "test:integration": "./node_modules/.bin/protractor test/protractor.conf.js"
