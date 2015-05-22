@@ -114,7 +114,7 @@ angular.module('jDashboardFluxApp').directive('productNutrition', function() {
         }
     };
 });
-angular.module('jDashboardFluxApp').directive('productNutritionCell', function() {
+angular.module('jDashboardFluxApp').directive('productNutritionCell', ['$$recommendedDailyAllowance', function ($$recommendedDailyAllowance) {
     return {
         restrict: 'AEC',
         transclude: true,
@@ -130,6 +130,52 @@ angular.module('jDashboardFluxApp').directive('productNutritionCell', function()
                 ProductNutritionalQuantity.MEASUREMENTPRECISION_APPROXIMATELY,
                 ProductNutritionalQuantity.MEASUREMENTPRECISION_LESS_THAN
             ];
+
+            scope.updateDailyValueFromQuantity = function(){
+                var conceptId = scope.pnq.isConceptualizedBy.id;
+                if (conceptId){
+                    var ajr = $$recommendedDailyAllowance[conceptId];
+                    if(ajr && scope.pnq.quantity != null){
+                        var percent = (scope.pnq.quantity / getConversionRate() * 100) / ajr;
+                        scope.pnq.percentageOfDailyValueIntake =  Math.round(100*percent)/100;
+                    }
+                }
+            };
+
+            scope.updateQuantityFromDailyValue = function(){
+                var conceptId = scope.pnq.isConceptualizedBy.id;
+                if (conceptId){
+                    var ajr = $$recommendedDailyAllowance[conceptId];
+                    if(ajr && scope.pnq.percentageOfDailyValueIntake != null){
+                      var quantity = scope.pnq.percentageOfDailyValueIntake * ajr / 100;
+                      var rounded = getConversionRate()*Math.round(100*quantity)/100;
+                      // Due to units problems, rounding can be wrong
+                      if(rounded==0){
+                          rounded = getConversionRate()*Math.round(1000*100*quantity)/(100*1000);
+                      }
+                      if(rounded==0){
+                        rounded = getConversionRate()*Math.round(1000*1000*100*quantity)/(100*1000*1000);
+                      }
+                      scope.pnq.quantity = rounded;
+                    }
+                }
+            };
+
+            var getConversionRate = function(){
+                var conversion = 1;
+                if(scope.pnq.isMeasuredBy.id == 101){//mg
+                  conversion = 1000;
+                }
+                else if(scope.pnq.isMeasuredBy.id == 102){//micro g
+                  conversion = 1000000;
+                }
+                return conversion;
+            }
+
+            scope.$watch('pnq.isMeasuredBy', function(){
+                scope.updateDailyValueFromQuantity();
+            });
+
             scope.show = function() {
                 if (!scope.pnq) {
                     return false;
@@ -142,7 +188,7 @@ angular.module('jDashboardFluxApp').directive('productNutritionCell', function()
             };
         }
     };
-});
+}]);
 angular.module('jDashboardFluxApp').directive('inputRich', function() {
     return {
         restrict: 'AEC',
