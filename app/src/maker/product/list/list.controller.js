@@ -22,7 +22,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     $scope.products = $scope.request.products || [];
     $scope.allBrands = [];
     $scope.brands = [];
-    $scope.productsegments = [];
     $scope.segmentIds = [];
     $scope.displayNewProducts = false;
     $scope.gdsnOnly = false;
@@ -176,6 +175,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         $scope.request.product.certified = getCertifiedStatus($scope.request.product.certifieds);
 
         var filters = {
+            productsegment_id: rootProductSegment.id,
             certified: Product.CERTIFICATION_STATUS_ATTRIBUTED.id
         };
         if ($scope.gdsnOnly) {
@@ -205,27 +205,23 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
 
     var findByBrand = function (filters) {
         var filters = filters || {};
-        var defaultFilters = {};
-        defaultFilters.certified = $scope.request.product.certified;
-
         var brands = [];
         for (var i = 0; i < $scope.allBrands.length; i++) {
             if ($scope.allBrands[i].active === true) {
                 brands.push($scope.allBrands[i].id);
             }
         }
-        if (brands.length) {
-            defaultFilters.isbrandedby_id = brands.join(',');
+        if (brands.length === 0) {
+            $log.warn("Product List Controller : no <Brand> set in findByBrand.");
+            return;
         }
-
-        // Product Segment
-        var productsegments = _.filter($scope.productsegments, {active: true});
-        if (productsegments.length) {
-            defaultFilters.productsegment_id =_.map(productsegments, function (ps) { return ps.id; }).join(',');
-        }
+        brands = brands.join(',');
 
         $log.log("Product List Controller : listing by <Brand> " + brands);
-        filters = angular.extend(defaultFilters, filters);
+        var filters = angular.extend({
+            isbrandedby_id: brands,
+            certified: $scope.request.product.certified
+        }, filters);
         return find({}, filters);
     };
 
@@ -265,6 +261,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     };
 
     var find = function (queries, filters) {
+        filters.productsegment_id = $scope.segmentIds.join(',');
         $scope.request.offset = $scope.request.limit * ($scope.display.page - 1);
         $log.log("Product List Controller : listing [" + $scope.request.offset + "-" + ($scope.request.offset + $scope.request.limit) + "]" );
         $scope.request.busy = true;
@@ -322,11 +319,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     $scope.refreshBrand = function (brand) {
         $analytics.eventTrack('MAK Products Filters Brand');
         propagate(brand, brand.active);
-        refresh();
-    };
-
-    $scope.refreshProductSegment = function () {
-        $analytics.eventTrack('MAK Products Filters Product Segment');
         refresh();
     };
 
@@ -491,6 +483,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
                 if (userManageProductSegmentRoot) {
                     $$ORM.repository('ProductSegment').get(productSegmentRoot.id).then(function (segment) {
                       var filters = {
+                        productsegment_id: productSegmentRoot.id,
                         certified: Product.CERTIFICATION_STATUS_ATTRIBUTED.id
                       };
                       // Getting the product list with new product-style filters, and limit of 0 (need count only)
@@ -505,15 +498,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
                       });
                     });
                 }
-
-                // Load product segments
-                var psQuery = {
-                    organization_id: $scope.organizationId,
-                    withPermissions: 0
-                };
-                $$ORM.repository('ProductSegment').list(psQuery, {}, {}, null).then(function (productsegments) {
-                    $scope.productsegments = _.filter(productsegments, function (ps) { return ps.id != productSegmentRoot.id; });
-                });
             });
 
             // Load all available brands
