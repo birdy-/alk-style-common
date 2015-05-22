@@ -173,30 +173,14 @@
     <!-- end Google Analytics -->
 
     <!-- start Mixpanel -->
-    <script type="text/javascript">(function(f,b){if(!b.__SV){var a,e,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?MIXPANEL_CUSTOM_LIB_URL:"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);mixpanel.init("9165c553d1e349d300fb1a012f6310ee", {track_pageview: false});</script>
+    <script type="text/javascript">
+        if (window.location.hostname.indexOf('stream') === 0) {
+            window.alkMixpanelToken = '9165c553d1e349d300fb1a012f6310ee';
+        } else {
+            window.alkMixpanelToken = '3e02bc5cb309d3895ffd7752f42a559a';
+        }
+        (function(f,b){if(!b.__SV){var a,e,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?MIXPANEL_CUSTOM_LIB_URL:"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);mixpanel.init(window.alkMixpanelToken, {track_pageview: false});</script>
     <!-- end Mixpanel -->
-
-    <!-- <script type="text/javascript" charset="utf-8" id="alkemicscom_sdk_shop">
-        //<![CDATA[
-        window.alkAsyncInit = function() {
-            // init the Alkemics Javascript SDK
-            ALK.init({
-                appId: "UA-0000-0",     // Write here your APPLICATION ID (for analytics)
-                clientId: "YOUR40CHARACTERCLIENTID",        // Write here your CLIENT_ID (for accounting)
-                Shop_shortId: 13,       // Write here your Shop ID
-                auto : true             // Parse tags on this page
-            });
-        };
-
-        // Load the SDK's source Asynchronously
-        (function(a,l,k,e,m,i,c,s){
-            m=l.createElement(k),i=l.getElementsByTagName(k)[0];
-            m.defer=1;m.async=1;m.src=(document.location.protocol === 'https:' ? 'https://ssl' : 'http://') + e;
-            i.parentNode.insertBefore(m,i);
-        })(window, document, 'script', 'cdn.alkemics.com/shop/sdk.js');
-
-        //]]>
-    </script> -->
 
     <!-- <script type="text/javascript" id="tocio_tck">
       //<![CDATA[

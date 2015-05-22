@@ -103,6 +103,8 @@ angular.module('jDashboardFluxApp').service('permission', [
     var getUserInfo = function () {
         if (!user) { return null; }
         return {
+            firstname: user.firstname,
+            lastname: user.lastname,
             username: user.username,
             jobTitle: user.jobTitle,
             company: user.company,
