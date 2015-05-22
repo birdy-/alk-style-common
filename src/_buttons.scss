@@ -68,3 +68,23 @@
         color: $alk-green-active !important;
     }
 }
+
+.btn-gray {
+    @include transition(background-color 0.3s 0 ease);
+    background-color: $gray-light !important;
+    border: none;
+    color: white !important;
+    z-index: 1000;
+
+    i {
+        color: white !important;
+    }
+
+    &:hover {
+        background-color: $alk-green !important;
+    }
+
+    &:active {
+        background-color: $alk-green !important;
+    }
+}
