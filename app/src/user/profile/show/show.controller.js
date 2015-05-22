@@ -96,6 +96,10 @@ angular.module('jDashboardFluxApp').controller('UserProfileShowController', [
         });
     };
 
+    $scope.connectAs = function() {
+        permission.connectAs($scope.user.username, $scope.user.password.cv, $scope.user.connect_as);
+    }
+
     // --------------------------------------------------------------------------------
     // Init
     // --------------------------------------------------------------------------------

@@ -9,8 +9,8 @@
  * the rest of the application.
  */
 angular.module('jDashboardFluxApp').service('permission', [
-    "URL_SERVICE_AUTH", "$http", "$rootScope", "authService", "$window", "$log", "$$ORM", "$cookieStore",
-    function init(URL_SERVICE_AUTH, $http, $rootScope, authService, $window, $log, $$ORM, $cookieStore) {
+    "URL_SERVICE_AUTH", "$http", "$rootScope", "authService", "$window", "$log", "$$ORM", "$cookieStore", "$route",
+    function init(URL_SERVICE_AUTH, $http, $rootScope, authService, $window, $log, $$ORM, $cookieStore, $route) {
 
     var userPromise = null;
     var user = null;
@@ -74,6 +74,29 @@ angular.module('jDashboardFluxApp').service('permission', [
         });
     };
 
+
+    /**
+     * Requests Authentication Token from authentication server
+     * on a target user account
+     */
+    var connectAs = function (login, password, connect_as) {
+        return $http.post(URL_SERVICE_AUTH + '/auth/v1/user/login', {
+            username: login,
+            password: password,
+            grant_type: 'password',
+            origin: 'dashboard_stream',
+            connect_as: connect_as
+        }).success(function (response) {
+            authService.loginConfirmed();
+            $window.sessionStorage.token = response.access_token;
+            $cookieStore.put("authtoken", response.access_token);
+            $route.reload();
+        }).error(function () {
+            delete $window.sessionStorage.token;
+        });
+    };
+
+
     /**
      * Logs out the user from authenticated session
      *
@@ -136,6 +159,7 @@ angular.module('jDashboardFluxApp').service('permission', [
         getUser: getUser,
         getUserInfo: getUserInfo,
         login: login,
+        connectAs: connectAs,
         logout: logout,
         getAccessToken: getAccessToken,
         isAdmin: isAdmin,
