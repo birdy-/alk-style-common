@@ -49,18 +49,18 @@
             <div class="col-md-8">
                     <div ng-init="passwordFormInit(passwordForm)">
                         <div class="form-group">
-                            <label for="email">Email</label>
+                            <label>Email</label>
                             <input type="email" class="form-control" id="email" placeholder="Email" ng-model="user.username" disabled>
                         </div>
                         <div class="form-group">
-                            <label for="password_old">Mot de passe</label>
-                            <input type="password" class="form-control" placeholder="password" ng-model="user.password.cv">
+                            <label>Mot de passe</label>
+                            <input type="password" class="form-control" placeholder="password" ng-model="user.password.current_password">
                         </div>
                         <div class="form-group">
-                            <label for="email">Target</label>
+                            <label>Target</label>
                             <input type="email" class="form-control" placeholder="Email" ng-model="user.connect_as">
                         </div>
-                        <span class="btn btn-success" ng-click="connectAs()"><i class="fa fa-check"></i> Connection</span>
+                        <span class="btn btn-success" ng-click="connectAs()"><i class="fa fa-check"></i> Connexion</span>
             </div>
         </section>
         <br/> <br/> <br/> <br/>
