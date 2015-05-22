@@ -100,6 +100,12 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
         });
     };
 
+    $scope.toggleSearchDisplay = function () {
+        // set focus on search
+        $scope.displaySearch = !$scope.displaySearch;
+        return;
+    }
+
     // --------------------------------------------------------------------------------
     // Init
     // --------------------------------------------------------------------------------
@@ -120,7 +126,6 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
 
         $$ORM.repository('ProductSegment').list(query, {}, {}, 0, 100).then(function (segments) {
             $scope.segments = segments;
-            console.log(segments);
             $scope.selectedSegment = $scope.selectSegment($scope.segments[0].id);
 
             var productSegmentRoot = Organization.getProductSegmentRoot($scope.organization);
@@ -155,4 +160,27 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
         });
     };
     init();
-}]);
+}])
+
+.directive('focusMe', function ($timeout) {
+  return {
+    link: function($scope, $element, $attrs) {
+        $scope.$watch($attrs.focusMe, function (value) {
+            if(value === true) {
+                $element[0].focus();
+            }
+        });
+
+        $element.bind('blur', function () {
+            if (!$scope.search) {
+                $scope.search = {};
+            }
+            if (!$scope.filteredSegments.length || !$scope.search.$) {
+                $scope.search.$ = '';
+                $scope[$attrs.focusMe] = false;
+                $scope.$apply();
+            }
+        });
+    }
+  };
+});

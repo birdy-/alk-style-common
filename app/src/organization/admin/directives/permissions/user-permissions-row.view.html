@@ -2,13 +2,13 @@
     <div class="user-permissions col-xs-12">
       <div class="row">
         <div class="trash col-xs-1">
-            <div alk-confirm-action
+            <i alk-confirm-action
                  confirm-message="rmComfirmMsg"
                  confirm-action="removeFromSegment"
                  item="picture"
-                 class="fa fa-2x fa-trash"
+                 class="mdi mdi-delete"
                  analytics-on="click" analytics-event="MAK Admin RemoveUserFromSegment">
-            </div>
+            </i>
         </div>
         <div class="user col-xs-7">
             <div class="identity">
@@ -20,7 +20,7 @@
                </span>
             </div>
             <div class="mail">
-                <i class="fa fa-envelope"> {{ user.username }}</i>
+                <a ng-href="mailto:{{ user.username }}" target="_blank">{{ user.username }}</a>
             </div>
         </div>
         <div class="col-xs-2 text-center">
@@ -29,21 +29,21 @@
             </div>
         </div>
         <div class="permissions col-xs-2">
-            <i class="fa fa-2x fa-pencil"
-               ng-class="{ 'active' : permissions[ProductSegment.PERMISSION_PRODUCT_UPDATE] == true }"
-               ng-click="update(ProductSegment.PERMISSION_PRODUCT_UPDATE)"
-               data-toggle="tooltip"
-               data-placement="top"
-               ng-attr-title="Modifier les produits"
-               tooltip=""></i>
-            <i class="fa fa-2x fa-eye"
+            <i class="mdi mdi-eye"
                ng-class="{ 'active' : permissions[ProductSegment.PERMISSION_PRODUCT_SHOW] == true }"
                ng-click="update(ProductSegment.PERMISSION_PRODUCT_SHOW)"
                data-toggle="tooltip"
                data-placement="top"
                ng-attr-title="Voir les produits"
                tooltip=""></i>
-            <i class="fa fa-2x fa-check"
+            <i class="mdi mdi-pencil"
+               ng-class="{ 'active' : permissions[ProductSegment.PERMISSION_PRODUCT_UPDATE] == true }"
+               ng-click="update(ProductSegment.PERMISSION_PRODUCT_UPDATE)"
+               data-toggle="tooltip"
+               data-placement="top"
+               ng-attr-title="Modifier les produits"
+               tooltip=""></i>
+            <i class="mdi mdi-check"
                ng-class="{ 'active' : permissions[ProductSegment.PERMISSION_PRODUCT_CERTIFY] == true }"
                ng-click="update(ProductSegment.PERMISSION_PRODUCT_CERTIFY)"
                data-toggle="tooltip"
