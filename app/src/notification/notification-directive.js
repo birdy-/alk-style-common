@@ -12,43 +12,76 @@ angular.module('jDashboardFluxApp').directive('alkNotification', [
             'BrandClaimCreated': 'fa-info-circle',
             'BrandClaimErrored': 'fa-exclamation-triangle',
             'BrandClaimRefused': 'fa-times',
-            'PlatformDemoVideo': 'fa-star',
+
             'ProductClaimAccepted': 'fa-check-circle-o',
             'ProductClaimCreated': 'fa-info-circle',
             'ProductClaimErrored': 'fa-exclamation-triangle',
             'ProductClaimRefused': 'fa-times',
             'ProductCertified': 'fa-gavel',
-            'ProductInShopProductCertified': 'fa-gavel',
             'ProductUpdated': 'fa-barcode',
             'ProductPictureUploaded': 'fa-picture-o',
             'ProductCommented': 'fa-comment',
+
+            'PlatformDemoVideo': 'fa-star',
             'PlatformNewFeature': 'fa-info-circle',
             'PlatformBrandWelcome': 'fa-star',
+
+            'Discussion': 'fa-star',
+
+            'ProductInShopProductCertified': 'fa-gavel',
             'ProductFillReminder': 'fa-check-square-o',
             'ProductErrorReported': 'fa-warning',
-            'Discussion': 'fa-star'
+
+            'RetailerProductAvailable': 'fa-check-circle-o',
+            'RetailerProductNotAvailable': 'fa-exclamation-triangle',
+            'RetailerProductPictureAsked': 'fa-info-circle',
+            'RetailerProductUpdatedByMaker': 'fa-check-circle-o',
+            'RetailerProductUpdatedByPhotographer': 'fa-check-circle-o',
+
+            'MakerProductClaimByRetailer': 'fa-info-circle',
+            'MakerProductTechnicalValidation': 'fa-info-circle',
+            'MakerProductArtisticValidation': 'fa-check-circle-o',
+            'MakerProductArtisticClaim': 'fa-info-circle',
+            'MakerProductValidation': 'fa-check-circle-o'
         };
         var color = {
-             'BrandClaimAccepted': 'color-green-inverse',
-             'BrandClaimCreated': 'color-blue-inverse',
-             'BrandClaimErrored': 'color-orange-inverse',
-             'BrandClaimRefused': 'color-error-inverse',
-             'PlatformDemoVideo': 'color-purple-inverse',
-             'ProductClaimAccepted': 'color-green-inverse',
-             'ProductClaimCreated': 'color-blue-inverse',
-             'ProductClaimErrored': 'color-orange-inverse',
-             'ProductClaimRefused': 'color-error-inverse',
-             'ProductCertified': 'color-green-inverse',
-             'ProductInShopProductCertified': 'color-green-inverse',
-             'ProductUpdated': 'color-green-inverse',
-             'ProductPictureUploaded': 'color-yellow-inverse',
-             'ProductCommented': 'color-blue-inverse',
-             'PlatformNewFeature': 'color-purple-inverse',
-             'PlatformBrandWelcome': 'color-purple-inverse',
-             'ProductFillReminder': 'color-yellow-inverse',
-             'ProductErrorReported': 'color-red-inverse',
-             'Discussion': 'color-green-inverse',
+            'BrandClaimAccepted': 'color-green-inverse',
+            'BrandClaimCreated': 'color-blue-inverse',
+            'BrandClaimErrored': 'color-orange-inverse',
+            'BrandClaimRefused': 'color-error-inverse',
+
+            'ProductClaimAccepted': 'color-green-inverse',
+            'ProductClaimCreated': 'color-blue-inverse',
+            'ProductClaimErrored': 'color-orange-inverse',
+            'ProductClaimRefused': 'color-error-inverse',
+            'ProductCertified': 'color-green-inverse',
+            'ProductUpdated': 'color-green-inverse',
+            'ProductPictureUploaded': 'color-yellow-inverse',
+            'ProductCommented': 'color-blue-inverse',
+
+            'PlatformDemoVideo': 'color-purple-inverse',
+            'PlatformNewFeature': 'color-purple-inverse',
+            'PlatformBrandWelcome': 'color-purple-inverse',
+
+            'Discussion': 'color-green-inverse',
+
+            'ProductInShopProductCertified': 'color-green-inverse',
+            'ProductFillReminder': 'color-yellow-inverse',
+            'ProductErrorReported': 'color-red-inverse',
+
+            'RetailerProductAvailable': 'color-green-inverse',
+            'RetailerProductNotAvailable': 'color-yellow-inverse',
+            'RetailerProductPictureAsked': 'color-blue-inverse',
+            'RetailerProductUpdatedByMaker': 'color-green-inverse',
+            'RetailerProductUpdatedByPhotographer': 'color-green-inverse',
+
+            'MakerProductClaimByRetailer': 'color-orange-inverse',
+            'MakerProductTechnicalValidation': 'color-blue-inverse',
+            'MakerProductArtisticValidation': 'color-green-inverse',
+            'MakerProductArtisticClaim': 'color-orange-inverse',
+            'MakerProductValidation': 'color-green-inverse'
         };
+
         return {
             restrict: 'AEC',
             scope: {
@@ -89,7 +122,7 @@ angular.module('jDashboardFluxApp').directive('alkNotification', [
                     });
                 };
             },
-            templateUrl: '/src/retailer/notification/notification-directive.html',
+            templateUrl: '/src/notification/notification-directive.html',
             link: function(scope, elem, attrs) {
                 scope.notification.icon = icon[scope.notification.event.type];
                 scope.notification.color = color[scope.notification.event.type];

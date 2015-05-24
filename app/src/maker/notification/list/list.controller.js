@@ -101,6 +101,109 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerNotificationsContr
                         'type': 'PlatformDemoVideo'
                     }
                 });
+
+
+                // POC Carrefour
+                $scope.notifications.push({
+                    event: {
+                        timestamp: moment().unix(),
+                        type: 'MakerProductClaimByRetailer',
+                        data: {
+                            claimDate: moment().set({'year': 2015, 'month': 5, 'day': 4}).format('DD MMM YYYY'),
+                            claimer: {
+                                name: 'Carrefour',
+                                photographer: {
+                                    name: 'ProductPhoto'
+                                }
+                            },
+                            product: {
+                                reference: '3663215010508',
+                                name: 'Smoothie Orange Bio 1L',
+                                urlPicture: 'https://smedia.alkemics.com/product/387085/picture/packshot/256x256.png'
+                            }
+                        }
+                    }
+                });
+                $scope.notifications.push({
+                    event: {
+                        timestamp: moment().unix(),
+                        type: 'MakerProductTechnicalValidation',
+                        data: {
+                            claimDate: moment().set({'year': 2015, 'month': 5, 'day': 4}).format('DD MMM YYYY'),
+                            claimer: {
+                                name: 'Carrefour',
+                                photographer: {
+                                    name: 'ProductPhoto'
+                                }
+                            },
+                            product: {
+                                reference: '3663215010508',
+                                name: 'Smoothie Orange Bio 1L',
+                                urlPicture: 'https://smedia.alkemics.com/product/387085/picture/packshot/256x256.png'
+                            }
+                        }
+                    }
+                });
+                $scope.notifications.push({
+                    event: {
+                        timestamp: moment().unix(),
+                        type: 'MakerProductArtisticValidation',
+                        data: {
+                            claimDate: moment().set({'year': 2015, 'month': 5, 'day': 4}).format('DD MMM YYYY'),
+                            claimer: {
+                                name: 'Carrefour',
+                                photographer: {
+                                    name: 'ProductPhoto'
+                                }
+                            },
+                            product: {
+                                reference: '3663215010508',
+                                name: 'Smoothie Orange Bio 1L',
+                                urlPicture: 'https://smedia.alkemics.com/product/387085/picture/packshot/256x256.png'
+                            }
+                        }
+                    }
+                });
+                $scope.notifications.push({
+                    event: {
+                        timestamp: moment().unix(),
+                        type: 'MakerProductArtisticClaim',
+                        data: {
+                            claimDate: moment().set({'year': 2015, 'month': 5, 'day': 4}).format('DD MMM YYYY'),
+                            claimer: {
+                                name: 'Carrefour',
+                                photographer: {
+                                    name: 'ProductPhoto'
+                                }
+                            },
+                            product: {
+                                reference: '3663215010508',
+                                name: 'Smoothie Orange Bio 1L',
+                                urlPicture: 'https://smedia.alkemics.com/product/387085/picture/packshot/256x256.png'
+                            }
+                        }
+                    }
+                });
+                $scope.notifications.push({
+                    event: {
+                        timestamp: moment().unix(),
+                        type: 'MakerProductValidation',
+                        data: {
+                            claimDate: moment().set({'year': 2015, 'month': 5, 'day': 4}).format('DD MMM YYYY'),
+                            claimer: {
+                                name: 'Carrefour',
+                                photographer: {
+                                    name: 'ProductPhoto'
+                                }
+                            },
+                            product: {
+                                reference: '3663215010508',
+                                name: 'Smoothie Orange Bio 1L',
+                                urlPicture: 'https://smedia.alkemics.com/product/387085/picture/packshot/256x256.png'
+                            }
+                        }
+                    }
+                });
             });
         });
     });

@@ -1,0 +1,366 @@
+<div class="tl-entry">
+    <!-- The date of the notification -->
+    <div class="tl-time">
+        {{ notification.event.timestamp * 1000 | date:'yyyy-MM-dd' }}
+        <br/>
+        {{ notification.event.timestamp * 1000 | date:'HH:mm' }}
+    </div>
+
+    <!-- The icon -->
+    <div class="tl-icon {{ notification.color }}">
+        <i class="fa {{ notification.icon }}"></i>
+    </div>
+
+    <!-- The box -->
+    <div class="panel tl-body" ng-switch="notification.event.type">
+
+        <div ng-switch-when="ProductInShopProductCertified">
+            <a href="mailto:{{ notification.event.data.user.username }}">
+                {{ notification.event.data.user.firstname }} {{ notification.event.data.user.lastname }}
+            </a>
+            <span ng-switch="notification.event.data.certified">
+                <span ng-switch-when="1">a accepté de remplir la fiche du produit</span>
+                <span ng-switch-when="2">a certifié le produit</span>
+                <span ng-switch-when="3">a publié le produit</span>
+                <span ng-switch-when="6">a archivé un produit</span>
+            </span>
+            {{ notification.event.data.product.nameLegal }}
+            <div class="tl-wide text-center" style="padding:10px; margin-top:15px; margin-bottom:15px;">
+                <img ng-src="{{ notification.event.data.productinshop.url_picture }}" alt="" style="max-height:150px; max-width:100%;">
+            </div>
+        </div>
+
+        <div ng-switch-when="ProductUpdated">
+            <a href="mailto:{{ notification.event.data.user.username }}">
+                {{ notification.event.data.user.firstname }} {{ notification.event.data.user.lastname }}
+            </a>
+            a mis à jour le produit
+            {{ notification.event.data.product.nameLegal }}
+        </div>
+
+        <div ng-switch-when="PlatformNewFeature">
+            {{ notification.event.data.message }}
+        </div>
+
+        <div ng-switch-when="PlatformBrandWelcome">
+            Bravo pour votre inscription sur le portail Alkemics ! Voici les étapes à suivre :
+            <ol>
+                <li>Je crée ma marque via le bouton « Créer une nouvelle marque »</li>
+                <li>Ma demande est étudiée par Alkemics sous les plus brefs délais</li>
+                <li>Je reçois une confirmation de création de ma marque sur cet espace</li>
+                <li>Je me rends sur l’onglet « Activité » ou « Mes marques » et j’ajoute mes produits via le bouton « créer un nouveau produit »</li>
+                <li>Je remplis mes fiches produits, les enregistre et les certifie</li>
+            </ol>
+            <br/>
+            <div class="text-center">
+                <span alk-button-brand-claim alk-button-class="btn-success"></span>
+            </div>
+            <br/>
+            <br/>
+            <div>
+                <span>Pour les fournisseurs utilisant un prestataire de catalogue électronique certifié GDSN, un document récapitulant la procédure est disponible <a href="http://download.alkemics.com/stream/brand/onboarding/Doc_GDSN_Industriels.pdf" target="_blank">ici</a></span>
+                <br/>
+                <div class="text-center">
+                    <a class="btn btn-info" href="http://download.alkemics.com/stream/brand/onboarding/Doc_GDSN_Industriels.pdf" target="_blank">
+                        <i class="fa fa-file-pdf-o"></i> Procédure GDSN
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div ng-switch-when="BrandClaimCreated">
+            Nous avons bien reçu votre demande pour la marque : <strong>{{ notification.event.brandName }}</strong>. Nous étudions votre demande et revenons vers vous dans les plus brefs délais.
+        </div>
+
+        <div ng-switch-when="BrandClaimAccepted">
+            Votre demande pour la marque <strong>{{ notification.event.brandName }}</strong> a été acceptée. Rendez-vous sur <a href="/#/maker/brand">la page de vos marques</a> pour la gérer !
+        </div>
+
+        <div ng-switch-when="BrandClaimRefused">
+            Votre demande pour la marque <strong>{{ notification.event.brandName }}</strong> a été refusée. <a href="mailto:support@alkemics.com">Contactez-notre support</a> pour plus d'informations.
+        </div>
+
+        <div ng-switch-when="BrandClaimErrored">
+            Une erreur est survenue lors de votre demande pour la marque <strong>{{ notification.event.brandName }}</strong>. Veuillez réessayer et <a href="mailto:support@alkemics.com">contactez-notre support</a> si le problème persiste.
+            <br/><br/>
+            <div class="text-center">
+                <span alk-button-brand-claim alk-button-class="btn-success"></span>
+            </div>
+        </div>
+
+        <div ng-switch-when="ProductClaimCreated">
+            Nous avons bien reçu votre demande pour le produit : <strong>{{ notification.event.productName }}</strong>. Nous étudions votre demande et revenons vers vous dans les plus brefs délais.
+        </div>
+
+        <div ng-switch-when="ProductClaimAccepted">
+            Votre demande pour le produit <strong>{{ notification.event.productName }}</strong> a été acceptée. Rendez-vous sur <a ng-href="/#/maker/product/{{ notification.event.productReference }}/data/general">la page du produit</a> pour le gérer !
+        </div>
+
+        <div ng-switch-when="ProductClaimRefused">
+            Votre demande pour le produit <strong>{{ notification.event.productName }}</strong> a été refusée. <a href="mailto:support@alkemics.com">Contactez-notre support</a> pour plus d'informations.
+        </div>
+
+        <div ng-switch-when="ProductClaimErrored">
+            Une erreur est survenue lors de votre demande pour le produit <strong>{{ notification.event.productName }}</strong>. Veuillez réessayer et <a href="mailto:support@alkemics.com">contactez-notre support</a> si le problème persiste.
+        </div>
+
+        <div ng-switch-when="PlatformDemoVideo">
+            <p>Retrouver notre démo de la plate-forme ci-dessous.</p>
+            <div class="tl-wide text-center">
+                <img class="preview-videowrapper" demo-video ng-click="openDemoVideo()" src="../images/home/demo-video-preview.png"/>
+            </div>
+        </div>
+
+        <div ng-switch-when="Discussion" >
+            <h4 class="pull-right">{{ notification.event.data.subject }}</h4>
+            <a href="mailto:{{ notification.event.data.user.username }}">
+                {{ notification.event.data.user.firstname }} {{ notification.event.data.user.lastname }}
+            </a>:
+            <span ng-bind-html="notification.event.data.message">{{ notification.event.data.message }}</span>
+            <div ng-if="notification.event.allow_response === true">
+                <div class="row" ng-if="notification.event.displayAnswer === true">
+                    <div class="col-md-8 col-md-offset-2">
+                        <div class="row">
+                            <i class="fa fa-close pull-right" ng-click="notification.event.displayAnswer = !notification.event.displayAnswer"></i>
+                            <div text-angular ng-model="notification.event.answer"></div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                             <div class="btn btn-success pull-right " ng-click="sendAnswer(notification)">
+                                    Envoyer
+                                <i class="fa fa-check"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" ng-if="notification.event.displayAnswer === false">
+                    <div class="col-md-12">
+                        <div class="btn pull-right color-blue-inverse btn-xs" ng-click="notification.event.displayAnswer = !notification.event.displayAnswer">
+                            Répondre
+                            <i class="fa fa-plus-square"></i>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <!-- POC Carrefour -->
+            <!-- Retailer Notification -->
+            <div ng-switch-when="RetailerProductAvailable">
+                <div>
+                    <p>
+                        Le produit {{ notification.event.data.product.reference }} - {{ notification.event.data.product.name }} du fournisseur {{ notification.event.data.product.manufacturerName }} que vous avez demandé le {{ notification.event.data.claimDate }} est présent dans Product Stream.
+                        Les informations et visuels ont été validés par {{ notification.event.data.product.manufacturerName }} et {{ notification.event.data.product.photographerName }}, et sont maintenant disponibles :
+                    </p>
+                </div>
+                <div class="text-center">
+                    <img ng-src="{{ notification.event.data.product.urlPicture }}" alt="" style="max-height:150px; max-width:100%;">
+                </div>
+                <div class="text-center">
+                    <a ng-href="/#/retailer/productinshop?productReference_reference={{ notification.event.data.product.reference }}"
+                       class="btn btn-primary">
+                        Consulter la fiche produit
+                    </a>
+                </div>
+            </div>
+            <div ng-switch-when="RetailerProductNotAvailable">
+                <div>
+                    <p>
+                        Le produit {{ notification.event.data.product.reference }} - {{ notification.event.data.product.name }} du fournisseur {{ notification.event.data.product.manufacturerName }} que vous avez demandé le {{ notification.event.data.claimDate }} n'est pas présent dans Product Stream.
+                        Les informations et visuels ont été demandées à {{ notification.event.data.product.manufacturerName }}.
+                        Si {{ notification.event.data.product.manufacturerName }} ne dispose pas du visuel à vos spécifications, une Demande de visuel sera automatiquement transmise à {{ notification.event.data.product.photographerName }}.
+                    </p>
+                </div>
+                <div class="text-center">
+                    <div class="btn btn-primary">
+                        Relancer {{ notification.event.data.product.manufacturerName }}
+                    </div>
+                </div>
+            </div>
+            <div ng-switch-when="RetailerProductPictureAsked">
+                <div>
+                    <p>
+                        Suite à votre demande du {{ notification.event.data.claimDate }} d’informations et de visuels concernant le produit {{ notification.event.data.product.reference }} - {{ notification.event.data.product.name }}, le fournisseur {{ notification.event.data.product.manufacturerName }} ne dispose pas des visuels satisfaisant vos spécifications.
+
+                        Une demande de prise de visuels a été faite à {{ notification.event.data.product.photographerName }}, et un échantillon doit lui être envoyé par {{ notification.event.data.product.manufacturerName }}.
+
+                        A partir de la date de réception de l’échantillon, {{ notification.event.data.product.photographerName }} s’est engagé à mettre à disposition les visuels sous 10 jours.
+
+                        Vous recevrez une notification lorsque les visuels seront disponibles dans la plateforme Product Stream.
+                    </p>
+                </div>
+            </div>
+            <div ng-switch-when="RetailerProductUpdatedByMaker">
+                <div>
+                    <p>
+                        Le produit {{ notification.event.data.product.reference }} - {{ notification.event.data.product.name }} du fournisseur {{ notification.event.data.product.manufacturerName }} que vous avez demandé le {{ notification.event.data.claimDate }} est maintenant présent dans Product Stream.
+                        Les informations et visuels ont été mis à jour par {{ notification.event.data.product.manufacturerName }} et validés {{ notification.event.data.product.photographerName }}, et sont maintenant disponibles :
+                    </p>
+                </div>
+                <div class="text-center">
+                    <img ng-src="{{ notification.event.data.product.urlPicture }}" alt="" style="max-height:150px; max-width:100%;">
+                </div>
+                <div class="text-center">
+                    <a ng-href="/#/retailer/productinshop?productReference_reference={{ notification.event.data.product.reference }}"
+                       class="btn btn-primary">
+                        Consulter la fiche produit
+                    </a>
+                </div>
+            </div>
+            <div ng-switch-when="RetailerProductUpdatedByPhotographer">
+                <div>
+                    <p>
+                        Le produit {{ notification.event.data.product.reference }} - {{ notification.event.data.product.name }} du fournisseur {{ notification.event.data.product.manufacturerName }} que vous avez demandé le {{ notification.event.data.claimDate }} est présent dans Product Stream.
+                        Les visuels ont été validés par {{ notification.event.data.product.photographerName }}, et sont maintenant disponibles :
+                    </p>
+                </div>
+                <div class="text-center">
+                    <img ng-src="{{ notification.event.data.product.urlPicture }}" alt="" style="max-height:150px; max-width:100%;">
+                </div>
+                <div class="text-center">
+                    <a ng-href="/#/retailer/productinshop?productReference_reference={{ notification.event.product.reference }}"
+                       class="btn btn-primary">
+                        Consulter la fiche produit
+                    </a>
+                </div>
+            </div>
+
+            <!-- Maker Notification -->
+            <div ng-switch-when="MakerProductClaimByRetailer">
+                <div>
+                    <p>
+                        {{ notification.event.data.claimer.name }} a ajouté l’un de vos produit à son assortiment le {{ notification.event.data.claimDate }} :
+                        <br>
+                        {{ notification.event.data.product.reference }} - {{ notification.event.data.product.name }}
+                    </p>
+                </div>
+                <div ng-if="notification.event.data.product.urlPicture" class="text-center">
+                    <img ng-src="{{ notification.event.data.product.urlPicture }}" alt="" style="max-height:150px; max-width:100%;">
+                </div>
+                <div class="text-center">
+                    <a ng-href="/#/maker/product/{{ notification.event.data.product.reference }}/data/general"
+                       class="btn btn-primary">
+                        Remplir les informations
+                    </a>
+                </div>
+                <div>
+                    <p>
+                        Par ailleurs, {{ notification.event.data.claimer.name }} vous demande d’uploader des visuels avec des caractéristiques techniques et artistiques précises : <a ng-href="/#/maker/product/{{ notification.event.data.product.reference }}/data/media">Consulter les spécifications {{ notification.event.data.claimer.name }}
+                    </p>
+                </div>
+                <div class="text-center">
+                    <a ng-href="/#/maker/product/{{ notification.event.data.product.reference }}/data/media"
+                       class="btn btn-primary">
+                        Je dispose des visuels aux spécifications Carrefour et souhaite les uploader
+                    </a>
+                    <a class="btn btn-danger">
+                        Je ne dispose pas des visuels aux spécifications Carrefour
+                    </a>
+                </div>
+            </div>
+            <div ng-switch-when="MakerProductTechnicalValidation">
+                <div>
+                    <p>
+                        À la demande de {{ notification.event.data.claimer.name }} vous avez uploadé des visuels pour le produit suivant : {{ notification.event.data.product.reference }} - {{ notification.event.data.product.name }}
+                    </p>
+                </div>
+                <div ng-if="notification.event.data.product.urlPicture" class="text-center">
+                    <img ng-src="{{ notification.event.data.product.urlPicture }}" alt="" style="max-height:150px; max-width:100%;">
+                </div>
+                <div class="text-center">
+                    <a ng-href="/#/maker/product/{{ notification.event.data.product.reference }}/data/general"
+                       class="btn btn-primary">
+                        Consulter la fiche produit
+                    </a>
+                </div>
+                <div>
+                    <p>
+                        Ces visuels ont subi une validation technique automatique (taille, résolution...). Avant de mettre à disposition ces visuels, une validation artistique doit être effectuée par {{ notification.event.data.claimer.photographer.name }}.
+                        Une notification vous sera envoyée lorsque la validation aura été réalisée.
+                    </p>
+                </div>
+            </div>
+            <div ng-switch-when="MakerProductArtisticValidation">
+                <div>
+                    <p>
+                        À la demande de {{ notification.event.data.claimer.name }} vous avez uploadé des visuels pour le produit suivant : {{ notification.event.data.product.reference }} - {{ notification.event.data.product.name }}
+                    </p>
+                </div>
+                <div ng-if="notification.event.data.product.urlPicture" class="text-center">
+                    <img ng-src="{{ notification.event.data.product.urlPicture }}" alt="" style="max-height:150px; max-width:100%;">
+                </div>
+                <div class="text-center">
+                    <a ng-href="/#/maker/product/{{ notification.event.data.product.reference }}/data/general"
+                       class="btn btn-primary">
+                        Consulter la fiche produit
+                    </a>
+                </div>
+                <div>
+                    <p>
+                        Ces visuels ont subi une validation technique automatique (taille, résolution...) et une validation artistique a été effectuée par {{ notification.event.data.claimer.photographer.name }}.
+                        Ces visuels sont bien conformes aux spécifications {{ notification.event.data.claimer.name }} et vont être mis à disposition.
+                    </p>
+                </div>
+            </div>
+            <div ng-switch-when="MakerProductArtisticClaim">
+                <div>
+                    <p>
+                        Suite à la demande du {{ notification.event.data.claimDate }} de {{ notification.event.data.claimer.name }} concernant le produit {{ notification.event.data.product.reference }} - {{ notification.event.data.product.name }}, vous ne disposez pas des visuels satisfaisant les spécifications.
+                        <br>
+                        Une demande va être transmise à {{ notification.event.data.claimer.photographer.name }}.
+                    </p>
+                    <p>
+                        Vous pouvez dès à présent envoyer un échantillon à {{ notification.event.data.claimer.photographer.name }} à l'adresse ci-dessous pour qu'il puisse réaliser la prise de visuels :
+                        <br>
+                        {{ notification.event.data.claimer.photographer.address }}
+                    </p>
+                </div>
+                <div>
+                    <p>
+                        Voici le bon de commande, à imprimer et joindre à votre envoi :
+                    </p>
+                    <div class="text-center">
+                        <a ng-href=""
+                           class="btn btn-primary">
+                            Télécharger le bon de commande
+                        </a>
+                    </div>
+                    <p>
+                        Aucune facturation ne vous sera demandée pour cette prestation, et {{ notification.event.data.claimer.name }} conservera les droits sur les visuels pris par {{ notification.event.data.claimer.photographer.name }}.
+                    </p>
+
+                    <div class="text-center">
+                        <a ng-href=""
+                           class="btn btn-primary">
+                            J'ai bien envoyé l'échantillon à {{ notification.event.data.claimer.photographer.name }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-switch-when="MakerProductValidation">
+                <div>
+                    <p>
+                        Suite à la demande du {{ notification.event.data.claimDate }} de {{ notification.event.data.claimer.name }} concernant le produit {{ notification.event.data.product.reference }} - {{ notification.event.data.product.name }}, vous avez transmis un échantillon du produit à {{ notification.event.data.claimer.photographer.name }}.
+                    </p>
+                    <p>
+                        La prise de visuels a été réalisée, et les visuels ont été mis à disposition de
+                        {{ notification.event.data.claimer.name }}
+                    </p>
+                </div>
+                <div ng-if="notification.event.data.product.urlPicture" class="text-center">
+                    <img ng-src="{{ notification.event.data.product.urlPicture }}" alt="" style="max-height:150px; max-width:100%;">
+                </div>
+                <div>
+                    <div class="text-center">
+                        <a ng-href="/#/maker/product/{{ notification.event.data.product.reference }}/data/media"
+                           class="btn btn-primary">
+                            Consulter les visuels
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

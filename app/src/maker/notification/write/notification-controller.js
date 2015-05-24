@@ -30,7 +30,7 @@ angular.module('jDashboardFluxApp').controller('NoticationSenderModalController'
     // ------------------------------------------------------------------------
 
     /**
-     * Reload page to allow timeline refresh on background  
+     * Reload page to allow timeline refresh on background
      */
     var reloadPage = function () {
         $timeout(function () {
