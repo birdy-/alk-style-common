@@ -13,12 +13,12 @@ angular.module('jDashboardFluxApp').controller('UserProfileShowController', [
     // Variables
     // --------------------------------------------------------------------------------
     $scope.user = {};
-    $scope.userFormInit = function(form) {
+    $scope.userFormInit = function (form) {
         form.$loading = true;
         form.$saving = false;
         $scope.userForm = form;
     };
-    $scope.passwordFormInit = function(form) {
+    $scope.passwordFormInit = function (form) {
         form.$loading = true;
         form.$saving = false;
         $scope.passwordForm = form;
@@ -98,7 +98,7 @@ angular.module('jDashboardFluxApp').controller('UserProfileShowController', [
 
     $scope.connectAs = function() {
         permission.connectAs($scope.user.username, $scope.user.password.current_password, $scope.user.connect_as);
-    }
+    };
 
     // --------------------------------------------------------------------------------
     // Init
