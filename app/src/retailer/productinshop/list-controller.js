@@ -287,7 +287,7 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
             $scope.request.productInShopSegment = null;
             $scope.request.stats.productInShopSegment = null;
             $scope.request.productReference = {
-                reference: null
+                reference: $routeParams.productReference_reference || null
             };
             $scope.request.product = {
                 certifed: null
