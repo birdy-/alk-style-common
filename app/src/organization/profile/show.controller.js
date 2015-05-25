@@ -57,7 +57,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
                 content: response.data.message
             });
         });
-    }
+    };
 
     $scope.updateOrganization = function () {
         if ($scope.organization.claimGLNs) {
