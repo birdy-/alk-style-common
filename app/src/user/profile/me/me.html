@@ -47,20 +47,21 @@
                 <h2>Connect As</h2>
             </div>
             <div class="col-md-8">
-                    <div ng-init="passwordFormInit(passwordForm)">
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" class="form-control" id="email" placeholder="Email" ng-model="user.username" disabled>
-                        </div>
-                        <div class="form-group">
-                            <label>Mot de passe</label>
-                            <input type="password" class="form-control" placeholder="password" ng-model="user.password.current_password">
-                        </div>
-                        <div class="form-group">
-                            <label>Target</label>
-                            <input type="email" class="form-control" placeholder="Email" ng-model="user.connect_as">
-                        </div>
-                        <span class="btn btn-success" ng-click="connectAs()"><i class="fa fa-check"></i> Connexion</span>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-control" placeholder="Email" ng-model="user.username" disabled>
+                </div>
+                <div class="form-group">
+                    <label>Mot de passe</label>
+                    <input type="password" class="form-control" placeholder="password" ng-model="user.password.current_password">
+                </div>
+                <div class="form-group">
+                    <label>Target</label>
+                    <input type="email" class="form-control" placeholder="Email" ng-model="user.connect_as">
+                </div>
+                <span class="btn btn-success" ng-click="connectAs()">
+                    <i class="fa fa-check"></i> Connexion
+                </span>
             </div>
         </section>
         <br/> <br/> <br/> <br/>
