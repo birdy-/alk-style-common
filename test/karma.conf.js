@@ -1,7 +1,7 @@
 // Karma configuration
 // http://karma-runner.github.io/0.10/config/configuration-file.html
 
-module.exports = function(config) {
+module.exports = function (config) {
   config.set({
     // base path, that will be used to resolve files and exclude
     basePath: '../',
@@ -56,6 +56,8 @@ module.exports = function(config) {
       //'app/bower_components/select2/select2.js',
       'app/bower_components/textAngular/dist/textAngular-sanitize.min.js',
       'app/bower_components/textAngular/dist/textAngular.min.js',
+      'app/bower_components/moment/moment.js',
+      'app/bower_components/lodash/lodash.min.js',
       'app/bower_components/sdk-dashboard/src/*.js',
       'app/src/app.js',
       'app/src/common/model/common.model.js',

@@ -9,8 +9,8 @@
  * the rest of the application.
  */
 angular.module('jDashboardFluxApp').service('permission', [
-    "URL_SERVICE_AUTH", "$http", "$rootScope", "authService", "$window", "$log", "$$ORM", "$cookieStore", "$route",
-    function init(URL_SERVICE_AUTH, $http, $rootScope, authService, $window, $log, $$ORM, $cookieStore, $route) {
+    "URL_SERVICE_AUTH", "$http", "$rootScope", "authService", "$window", "$log", "$$ORM", "$cookieStore",
+    function init(URL_SERVICE_AUTH, $http, $rootScope, authService, $window, $log, $$ORM, $cookieStore) {
 
     var userPromise = null;
     var user = null;
@@ -90,7 +90,7 @@ angular.module('jDashboardFluxApp').service('permission', [
             authService.loginConfirmed();
             $window.sessionStorage.token = response.access_token;
             $cookieStore.put("authtoken", response.access_token);
-            $route.reload();
+            $window.location.reload();
         }).error(function () {
             delete $window.sessionStorage.token;
         });
