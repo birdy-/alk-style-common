@@ -177,14 +177,14 @@ angular.module('jDashboardFluxApp').directive('productNutritionCell', ['$$recomm
             });
 
             scope.show = function() {
-                if (!scope.pnq) {
-                    return false;
-                }
-                if (scope.pnq.quantity > 0
-                || scope.pnq.percentageOfDailyValueIntake > 0) {
+                var conceptId = scope.pnq.isConceptualizedBy.id;
+                if (conceptId) {
+                  var ajr = $$recommendedDailyAllowance[conceptId];
+                  if(ajr){
                     return true;
+                  }
                 }
-                return false;
+              return false;
             };
         }
     };
