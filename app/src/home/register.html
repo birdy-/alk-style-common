@@ -197,7 +197,10 @@
                             </label>
                         </div>
                         <br/>
-                        <button type="button" ng-click="submit(); waitingForEmail = true" class="btn color-success-inverse">&gt; Je m'inscris</button>
+                        <button type="button" ng-click="submit(); waitingForEmail = true" class="btn color-success-inverse"
+                        analytics-on="click" analytics-event="Registration Button Signup">
+                            &gt; Je m'inscris
+                        </button>
                     </div>
                     <div class="col-sm-4">
                         <div class="alert alert-danger" ng-if="message">
