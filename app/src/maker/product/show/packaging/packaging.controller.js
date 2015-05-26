@@ -1,8 +1,8 @@
 'use_strict';
 
 angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPackagingController', [
-    '$scope', '$$sdkCrud', '$routeParams', '$$autocomplete', '$modal', '$location', 'permission','$window',
-    function ($scope, $$sdkCrud, $routeParams, $$autocomplete, $modal, $location, permission, $window) {
+    '$scope', '$$sdkCrud', '$routeParams', '$$autocomplete', '$modal', '$location', 'permission','$window', '$$sdkMl',
+    function ($scope, $$sdkCrud, $routeParams, $$autocomplete, $modal, $location, permission, $window, $$sdkMl) {
 
     // ------------------------------------------------------------------------
     // Variables
@@ -16,6 +16,15 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPackagi
         initSelection: function (el, fn) {} // https://github.com/angular-ui/ui-select2/issues/186
     });
 
+    $scope.packagingValidator = {
+        validState: 0,
+        factorSIFUSuggest: '',
+        factorFUPASuggest: '',
+        validate: function() {
+            return ($scope.product.factorFUPA * $scope.product.factorSIFU) == $scope.product.quantityNormalized;
+        }
+    }
+
     $scope.typePackagings = [
         Product.TYPEPACKAGING_EACH,
         Product.TYPEPACKAGING_PACK_HOMO,
@@ -25,6 +34,34 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPackagi
         Product.TYPEPACKAGING_PALLET_HOMO,
         Product.TYPEPACKAGING_PALLET_HETERO
     ];
+
+    $scope.checkPackaging = function (field) {
+        var classes = {};
+        if ($scope.packagingValidator.validate() == false) {
+            classes['has-warning'] = true;
+        }
+        else {
+            $scope.packagingValidator.validState = 0;
+            classes['has-success'] = true;
+        }
+        return classes;
+
+    }
+
+    $scope.reparseProductPackaging = function() {
+        if ($scope.product.packaging === undefined && $scope.product.namePublicLong == undefined)
+            return;
+        $$sdkMl.ProductPackagingParse($scope.product.packaging, $scope.product.namePublicLong).success(function(response) {
+            if ((response.data.factorSIFU * response.data.factorFUPA) == $scope.product.quantityNormalized) {
+                $scope.packagingValidator.factorSIFUSuggest = response.data.factorSIFU;
+                $scope.packagingValidator.factorFUPASuggest = response.data.factorFUPA;
+                $scope.packagingValidator.validState = 1;
+            } else {
+                $scope.packagingValidator.validState = 2;
+            }
+        })        
+    }
+
     $scope.typePromotionals = function () {
         if (!$scope.product._type) {
             return [
@@ -152,5 +189,8 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPackagi
             // Init the isSplitable value if we do not have the above at init
             $scope.product.isSplitable = false;
         }
+
+        if ($scope.packagingValidator.validate() == false)
+            $scope.reparseProductPackaging();
     }, true);
 }]);
