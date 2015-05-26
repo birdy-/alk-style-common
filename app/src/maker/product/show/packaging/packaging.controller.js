@@ -1,8 +1,8 @@
 'use_strict';
 
 angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPackagingController', [
-    '$scope', '$$sdkCrud', '$routeParams', '$$autocomplete', '$modal', '$location', 'permission','$window', '$$sdkMl',
-    function ($scope, $$sdkCrud, $routeParams, $$autocomplete, $modal, $location, permission, $window, $$sdkMl) {
+    '$scope', '$$sdkCrud', '$routeParams', '$$autocomplete', '$modal', '$location', 'permission','$window', '$$sdkMl', '$analytics',
+    function ($scope, $$sdkCrud, $routeParams, $$autocomplete, $modal, $location, permission, $window, $$sdkMl, $analytics) {
 
     // ------------------------------------------------------------------------
     // Variables
@@ -16,13 +16,17 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPackagi
         initSelection: function (el, fn) {} // https://github.com/angular-ui/ui-select2/issues/186
     });
 
+    $scope.ML_DEFAULT = new Constant(0, "DEFAULT",       "The Product has not been considered for review yet");
+    $scope.ML_FOUND = new Constant(1, "DEFAULT",       "The Product has not been considered for review yet");
+    $scope.ML_NOT_FOUND = new Constant(2, "DEFAULT",       "The Product has not been considered for review yet");
+
     $scope.packagingValidator = {
-        validStateSIFU: 0,
+        validStateSIFU: $scope.ML_DEFAULT.id,
         factorSIFUSuggest: '',
-        validStateFUPA: 0,
+        validStateFUPA: $scope.ML_DEFAULT.id,
         factorFUPASuggest: '',
-        validate: function() {
-            return ($scope.product.factorFUPA * $scope.product.factorSIFU) == $scope.product.quantityNormalized;
+        validate: function () {
+            return ($scope.product.factorFUPA * $scope.product.factorSIFU) === $scope.product.quantityNormalized;
         }
     }
 
@@ -39,44 +43,54 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPackagi
     $scope.checkPackaging = function (field) {
         var classes = {};
         if ($scope.packagingValidator.validate() == false && field == 'factorFUPA' &&
-            $scope.packagingValidator.validStateFUPA != 0){
+            $scope.packagingValidator.validStateFUPA != $scope.ML_DEFAULT.id){
             classes['has-warning'] = true;
         }
         else if ($scope.packagingValidator.validate() == false && field == 'factorSIFU' &&
-            $scope.packagingValidator.validStateSIFU != 0) {
+            $scope.packagingValidator.validStateSIFU != $scope.ML_DEFAULT.id) {
             classes['has-warning'] = true;
         }
         else {
             if (field == 'factorSIFU')
-                $scope.packagingValidator.validStateSIFU = 0;
+                $scope.packagingValidator.validStateSIFU = $scope.ML_DEFAULT.id;
             if (field == 'factorFUPA')
-                $scope.packagingValidator.validStateFUPA = 0;
+                $scope.packagingValidator.validStateFUPA = $scope.ML_DEFAULT.id;
             classes['has-success'] = true;
         }
         return classes;
     }
 
+    $scope.acceptPackagingSuggestion = function (field) {
+        if (field == 'factorFUPA') {
+            $scope.product.factorFUPA = $scope.packagingValidator.factorFUPASuggest;
+        }
+        else if (field == 'factorSIFU') {
+            $scope.product.factorSIFU = $scope.packagingValidator.factorSIFUSuggest;
+        }
+    }
+
     $scope.reparseProductPackaging = function() {
-        if ($scope.product.packaging === undefined && $scope.product.namePublicLong == undefined)
+        if (typeof $scope.product.packaging === 'undefined' && typeof $scope.product.namePublicLong == 'undefined')
             return;
         $$sdkMl.ProductPackagingParse($scope.product.packaging, $scope.product.namePublicLong).success(function(response) {
-            if ((response.data.factorSIFU * response.data.factorFUPA) == $scope.product.quantityNormalized) {
-                if ($scope.product.factorSIFU != response.data.factorSIFU) {
-                    $scope.packagingValidator.factorSIFUSuggest = response.data.factorSIFU;
-                    $scope.packagingValidator.validStateSIFU = 1;
+            var packaging = response.data;
+            if ((packaging.factorSIFU * packaging.factorFUPA) == $scope.product.quantityNormalized) {
+                if ($scope.product.factorSIFU != packaging.factorSIFU) {
+                    $scope.packagingValidator.factorSIFUSuggest = packaging.factorSIFU;
+                    $scope.packagingValidator.validStateSIFU = $scope.ML_FOUND.id;
                 } else {
-                    $scope.packagingValidator.validStateSIFU = 0;
+                    $scope.packagingValidator.validStateSIFU = $scope.ML_DEFAULT.id;
                 }
-                if ($scope.product.factorFUPA != response.data.factorFUPA) {
-                    $scope.packagingValidator.factorFUPASuggest = response.data.factorFUPA;
-                    $scope.packagingValidator.validStateFUPA = 1;
+                if ($scope.product.factorFUPA != packaging.factorFUPA) {
+                    $scope.packagingValidator.factorFUPASuggest = packaging.factorFUPA;
+                    $scope.packagingValidator.validStateFUPA = $scope.ML_FOUND.id;
                 } else {
-                    $scope.packagingValidator.validStateFUPA = 0;
+                    $scope.packagingValidator.validStateFUPA = $scope.ML_DEFAULT.id;
                 }
-
+                $analytics.eventTrack('Product Profile Packaging ML SuggestionDisplayed');
             } else {
-                $scope.packagingValidator.validStateSIFU = 2;
-                $scope.packagingValidator.validStateFUPA = 2;
+                $scope.packagingValidator.validStateSIFU = $scope.ML_NOT_FOUND.id;
+                $scope.packagingValidator.validStateFUPA = $scope.ML_NOT_FOUND.id;
             }
         })        
     }
