@@ -158,6 +158,42 @@ angular.module('jDashboardFluxApp').controller('DashboardRetailerNotificationLis
                         });
                     });
                     break;
+                case 4:
+                    $$sdkTimeline.SendEvent({
+                        entity_id: moment().unix(),
+                        entity_type: 'EmptyMessage',
+                        user_id: retailerUserId,
+                        event: {
+                            timestamp: moment().unix(),
+                            type: 'EmptyMessage',
+                            data: {}
+                        }
+                    }).then(function (response) {
+                        $$sdkTimeline.SendEvent({
+                            entity_id: moment().unix(),
+                            entity_type: 'EmptyMessage',
+                            user_id: makerUserId,
+                            event: {
+                                timestamp: moment().unix(),
+                                type: 'EmptyMessage',
+                                data: {}
+                            }
+                        }).then(function (response) {
+                            $$sdkTimeline.SendEvent({
+                                entity_id: moment().unix(),
+                                entity_type: 'EmptyMessage',
+                                user_id: photographerUserId,
+                                event: {
+                                    timestamp: moment().unix(),
+                                    type: 'EmptyMessage',
+                                    data: {}
+                                }
+                            }).then(function (response) {
+                                $window.location.reload();
+                            });
+                        });
+                    });
+                    break;
                 default:
                     break;
             }

@@ -145,12 +145,22 @@
             </div>
 
             <!-- POC Carrefour -->
+
+            <div ng-switch-when="EmptyMessage">
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+            </div>
             <!-- Retailer Notification -->
             <div ng-switch-when="RetailerProductAvailable">
                 <div>
                     <p>
                         Le produit {{ notification.event.data.product.reference }} - {{ notification.event.data.product.name }} du fournisseur {{ notification.event.data.product.manufacturerName }} que vous avez demandé le {{ notification.event.data.claimDate }} est présent dans Product Stream.
-                        Les informations et visuels ont été validés par {{ notification.event.data.product.manufacturerName }} et {{ notification.event.data.product.photographerName }}, et sont maintenant disponibles :
+                    </p>
+                    <p>
+                        Les informations et visuels ont été validés par {{ notification.event.data.product.manufacturerName }} et {{ notification.event.data.claimer.photographer.name }}, et sont maintenant disponibles :
                     </p>
                 </div>
                 <div class="text-center">
@@ -167,8 +177,10 @@
                 <div>
                     <p>
                         Le produit {{ notification.event.data.product.reference }} - {{ notification.event.data.product.name }} du fournisseur {{ notification.event.data.product.manufacturerName }} que vous avez demandé le {{ notification.event.data.claimDate }} n'est pas présent dans Product Stream.
+                    </p>
+                    <p>
                         Les informations et visuels ont été demandées à {{ notification.event.data.product.manufacturerName }}.
-                        Si {{ notification.event.data.product.manufacturerName }} ne dispose pas du visuel à vos spécifications, une Demande de visuel sera automatiquement transmise à {{ notification.event.data.product.photographerName }}.
+                        Si {{ notification.event.data.product.manufacturerName }} ne dispose pas du visuel à vos spécifications, une Demande de visuel sera automatiquement transmise à {{ notification.event.data.claimer.photographer.name }}.
                     </p>
                 </div>
                 <div class="text-center">
@@ -181,11 +193,14 @@
                 <div>
                     <p>
                         Suite à votre demande du {{ notification.event.data.claimDate }} d’informations et de visuels concernant le produit {{ notification.event.data.product.reference }} - {{ notification.event.data.product.name }}, le fournisseur {{ notification.event.data.product.manufacturerName }} ne dispose pas des visuels satisfaisant vos spécifications.
-
-                        Une demande de prise de visuels a été faite à {{ notification.event.data.product.photographerName }}, et un échantillon doit lui être envoyé par {{ notification.event.data.product.manufacturerName }}.
-
-                        A partir de la date de réception de l’échantillon, {{ notification.event.data.product.photographerName }} s’est engagé à mettre à disposition les visuels sous 10 jours.
-
+                    </p>
+                    <p>
+                        Une demande de prise de visuels a été faite à {{ notification.event.data.claimer.photographer.name }}, et un échantillon doit lui être envoyé par {{ notification.event.data.product.manufacturerName }}.
+                    </p>
+                    <p>
+                        A partir de la date de réception de l’échantillon, {{ notification.event.data.claimer.photographer.name }} s’est engagé à mettre à disposition les visuels sous 10 jours.
+                    </p>
+                    <p>
                         Vous recevrez une notification lorsque les visuels seront disponibles dans la plateforme Product Stream.
                     </p>
                 </div>
@@ -194,7 +209,7 @@
                 <div>
                     <p>
                         Le produit {{ notification.event.data.product.reference }} - {{ notification.event.data.product.name }} du fournisseur {{ notification.event.data.product.manufacturerName }} que vous avez demandé le {{ notification.event.data.claimDate }} est maintenant présent dans Product Stream.
-                        Les informations et visuels ont été mis à jour par {{ notification.event.data.product.manufacturerName }} et validés {{ notification.event.data.product.photographerName }}, et sont maintenant disponibles :
+                        Les informations et visuels ont été uploadés par {{ notification.event.data.product.manufacturerName }} et validés par {{ notification.event.data.claimer.photographer.name }}, et sont maintenant disponibles :
                     </p>
                 </div>
                 <div class="text-center">
@@ -211,14 +226,14 @@
                 <div>
                     <p>
                         Le produit {{ notification.event.data.product.reference }} - {{ notification.event.data.product.name }} du fournisseur {{ notification.event.data.product.manufacturerName }} que vous avez demandé le {{ notification.event.data.claimDate }} est présent dans Product Stream.
-                        Les visuels ont été validés par {{ notification.event.data.product.photographerName }}, et sont maintenant disponibles :
+                        Les visuels ont été validés par {{ notification.event.data.claimer.photographer.name }}, et sont maintenant disponibles :
                     </p>
                 </div>
                 <div class="text-center">
                     <img ng-src="{{ notification.event.data.product.urlPicture }}" alt="" style="max-height:150px; max-width:100%;">
                 </div>
                 <div class="text-center">
-                    <a ng-href="/#/retailer/productinshop?productReference_reference={{ notification.event.product.reference }}"
+                    <a ng-href="/#/retailer/productinshop?productReference_reference={{ notification.event.data.product.reference }}"
                        class="btn btn-primary">
                         Consulter la fiche produit
                     </a>
@@ -228,14 +243,14 @@
                 <div>
                     <p>
                         Le produit {{ notification.event.data.product.reference }} - {{ notification.event.data.product.name }} du fournisseur {{ notification.event.data.product.manufacturerName }} que vous avez demandé le {{ notification.event.data.claimDate }} est présent dans Product Stream.
-                        Les visuels ont été uploadés et validés par {{ notification.event.data.product.photographerName }}, et sont maintenant disponibles :
+                        Les visuels ont été uploadés et validés par {{ notification.event.data.claimer.photographer.name }}, et sont maintenant disponibles :
                     </p>
                 </div>
                 <div class="text-center">
                     <img ng-src="{{ notification.event.data.product.urlPicture }}" alt="" style="max-height:150px; max-width:100%;">
                 </div>
                 <div class="text-center">
-                    <a ng-href="/#/retailer/productinshop?productReference_reference={{ notification.event.product.reference }}"
+                    <a ng-href="/#/retailer/productinshop?productReference_reference={{ notification.event.data.product.reference }}"
                        class="btn btn-primary">
                         Consulter la fiche produit
                     </a>
@@ -273,16 +288,23 @@
                         <br>
                         {{ notification.event.data.product.reference }} - {{ notification.event.data.product.name }}
                     </p>
+                    <p>
+                        Vous pouvez dès à présent remplir les informations relatives à ce produit :
+                    </p>
                 </div>
+
                 <div class="text-center">
                     <a ng-href="/#/maker/product/{{ notification.event.data.product.reference }}/data/general"
                        class="btn btn-primary">
                         Remplir les informations
                     </a>
                 </div>
+
+                <br>
+
                 <div>
                     <p>
-                        Par ailleurs, {{ notification.event.data.claimer.name }} vous demande d’uploader des visuels avec des caractéristiques techniques et artistiques précises : <a ng-href="/#/maker/product/{{ notification.event.data.product.reference }}/data/media">Consulter les spécifications {{ notification.event.data.claimer.name }}
+                        Par ailleurs, {{ notification.event.data.claimer.name }} vous demande d’uploader des visuels avec des caractéristiques techniques et artistiques précises : <a ng-href="https://s3-eu-west-1.amazonaws.com/demo.alkemics.com/files/carrefour/2015-05-26+%40Carrefour+%23Fake+specs.pdf" target="_blank">Consulter les spécifications {{ notification.event.data.claimer.name }}</a>
                     </p>
                 </div>
                 <div class="text-center">
@@ -310,6 +332,9 @@
                         Consulter la fiche produit
                     </a>
                 </div>
+
+                <br>
+
                 <div>
                     <p>
                         Ces visuels ont subi une validation technique automatique (taille, résolution...). Avant de mettre à disposition ces visuels, une validation artistique doit être effectuée par {{ notification.event.data.claimer.photographer.name }}.
@@ -332,6 +357,9 @@
                         Consulter la fiche produit
                     </a>
                 </div>
+
+                <br>
+
                 <div>
                     <p>
                         Ces visuels ont subi une validation technique automatique (taille, résolution...) et une validation artistique a été effectuée par {{ notification.event.data.claimer.photographer.name }}.
@@ -357,11 +385,15 @@
                         Voici le bon de commande, à imprimer et joindre à votre envoi :
                     </p>
                     <div class="text-center">
-                        <a ng-href=""
+                        <a ng-href="https://s3-eu-west-1.amazonaws.com/demo.alkemics.com/files/carrefour/2015-05-26+%40Carrefour+%23Fake+bon+de+commande.pdf"
+                           target="_blank"
                            class="btn btn-primary">
                             Télécharger le bon de commande
                         </a>
                     </div>
+
+                    <br>
+
                     <p>
                         Aucune facturation ne vous sera demandée pour cette prestation, et {{ notification.event.data.claimer.name }} conservera les droits sur les visuels pris par {{ notification.event.data.claimer.photographer.name }}.
                     </p>
@@ -406,7 +438,8 @@
                         {{ notification.event.data.claimer.name }} a ajouté le produit suivant à son assortiment le {{ notification.event.data.claimDate }} :
                         <br>
                         {{ notification.event.data.product.reference }} - {{ notification.event.data.product.name }}
-
+                    </p>
+                    <p>
                         Le fournisseur de ce produit {{ notification.event.data.product.manufacturerName }} a uploadé une série de visuels et demande votre validation :
                     </p>
                 </div>
@@ -421,6 +454,9 @@
                         </a>
                     </div>
                 </div>
+
+                <br>
+
                 <div class="text-center">
                     <a ng-click="validatePictureArtistic(notification)"
                        class="btn btn-primary">
@@ -438,18 +474,30 @@
                         {{ notification.event.data.claimer.name }} a ajouté le produit suivant à son assortiment le {{ notification.event.data.claimDate }} :
                         <br>
                         {{ notification.event.data.product.reference }} - {{ notification.event.data.product.name }}
-
+                    </p>
+                    <p>
                         Le fournisseur de ce produit {{ notification.event.data.product.manufacturerName }} ne dispose pas de visuels aux spécifications {{ notification.event.data.claimer.name }} et va donc vous transmettre un échantillon pour prise de visuels.
                     </p>
                 </div>
                 <div>
-                    <div class="text-center">
-                        <a ng-href=""
+                    <div class="">
+                        <a ng-href="https://s3-eu-west-1.amazonaws.com/demo.alkemics.com/files/carrefour/2015-05-26+%40Carrefour+%23Fake+bon+de+commande.pdf"
+                           target="_blank"
                            class="">
                             Télécharger le bon de commande
                         </a>
                     </div>
                 </div>
+
+                <br>
+
+                <div>
+                    <a href="https://s3-eu-west-1.amazonaws.com/demo.alkemics.com/files/carrefour/2015-05-26+%40Carrefour+%23Fake+specs.pdf" target="_blank">Rappel des spécifications {{ notification.event.data.claimer.name }}</a>
+                </div>
+
+                <br>
+                <br>
+
                 <div class="text-center">
                     <a ng-click="validateProductReception(notification)"
                        ng-href="/#/maker/product/{{ notification.event.data.product.reference }}/data/media"
