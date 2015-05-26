@@ -77,6 +77,7 @@ angular.module('jDashboardFluxApp').controller('BrandClaimModalController', [
     // ------------------------------------------------------------------------
     permission.getUser().then(function (user) {
         $scope.user = user;
+        $scope.request.selectedBrand = [];
     });
 
 }]);
