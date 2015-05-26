@@ -498,6 +498,13 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
                       });
                     });
                 }
+
+                // Load product segments
+                $$ORM.repository('ProductSegment').list({}, {}, {}, null, null).then(function (productsegments) {
+                    $$ORM.repository('User').method('ManagesProductSegmentWithPermission')('product.show').then(function(permissions) {
+                        $scope.productsegments = _.filter(productsegments, function (ps) { return permissions.productsegmentids.indexOf(ps.id) !== -1; });
+                    });
+                });
             });
 
             // Load all available brands
@@ -549,8 +556,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
                     return;
                 }
             }
-
-            $scope.segmentIds = user.allowedProductSegments("product.show");
 
             setPageFromUrl();
             list();
