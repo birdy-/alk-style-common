@@ -74,6 +74,29 @@ angular.module('jDashboardFluxApp').service('permission', [
         });
     };
 
+
+    /**
+     * Requests Authentication Token from authentication server
+     * on a target user account
+     */
+    var connectAs = function (login, password, connect_as) {
+        return $http.post(URL_SERVICE_AUTH + '/auth/v1/user/login', {
+            username: login,
+            password: password,
+            grant_type: 'password',
+            origin: 'dashboard_stream',
+            connect_as: connect_as
+        }).success(function (response) {
+            authService.loginConfirmed();
+            $window.sessionStorage.token = response.access_token;
+            $cookieStore.put("authtoken", response.access_token);
+            $window.location.reload();
+        }).error(function () {
+            delete $window.sessionStorage.token;
+        });
+    };
+
+
     /**
      * Logs out the user from authenticated session
      *
@@ -136,6 +159,7 @@ angular.module('jDashboardFluxApp').service('permission', [
         getUser: getUser,
         getUserInfo: getUserInfo,
         login: login,
+        connectAs: connectAs,
         logout: logout,
         getAccessToken: getAccessToken,
         isAdmin: isAdmin,

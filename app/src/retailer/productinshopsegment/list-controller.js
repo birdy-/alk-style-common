@@ -25,6 +25,7 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopSegmentList
 
         $scope.currentPage = 1;
         $scope.productInShopSegments = [];
+        $scope.detailsMode = false;
 
         // ------------------------------------------------------------------------
         // Data retrievers
@@ -83,6 +84,11 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopSegmentList
             }
         };
 
+        $scope.toggleDetailsMode = function () {
+            $scope.detailsMode = !$scope.detailsMode;
+            return;
+        };
+
         $scope.onPageChangeFromPaginator = function() {
             list();
         };
@@ -139,6 +145,7 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopSegmentList
             $scope.request.shop.shortId = user.managesShop.map(function (shop) {
                 return shop.id;
             })[0];
+            $scope.isDemo = (+user.id === 857);
             $scope.refresh();
         });
 

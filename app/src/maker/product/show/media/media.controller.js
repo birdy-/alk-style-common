@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaController', [
-    '$scope', '$modal', '$log', '$$sdkMedia', '$window', '$q',
-    function($scope, $modal, $log, $$sdkMedia, $window, $q) {
+    '$scope', '$modal', '$log', '$$sdkMedia', '$window', '$q', 'permission', '$$sdkTimeline',
+    function($scope, $modal, $log, $$sdkMedia, $window, $q, permission, $$sdkTimeline) {
 
         // --------------------------------------------------------------------------------
         // Variables
@@ -85,6 +85,109 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaCo
 
             uploadModal.result.then(function () {
                 fetchPictures($scope.product.id);
+
+                permission.getUser().then(function (user) {
+
+                    var makerUserId = 842;
+                    var retailerUserId = 857;
+                    var photographerUserId = 891;
+
+                    var notification = {
+                        event: {
+                            timestamp: moment().unix(),
+                            type: 'MakerProductClaimByRetailer',
+                            data: {
+                                claimDate: moment().set({'year': 2015, 'month': 4, 'date': 27}).format('DD MMM YYYY'),
+                                claimer: {
+                                    name: 'Carrefour',
+                                    photographer: {
+                                        name: 'ProductPhoto',
+                                        address: '8 rue du Sentier, 75002 Paris'
+                                    }
+                                },
+                                product: {
+                                    reference: '3663215010508',
+                                    name: 'Smoothie Orange Bio 1L',
+                                    manufacturerName: 'Alkemics Brand',
+                                    photographerName: 'ProductPhoto',
+                                    urlPicture: 'https://smedia.alkemics.com/product/387085/picture/packshot/256x256.png'
+                                }
+                            }
+                        }
+                    };
+
+                    if (user.id === makerUserId) {
+                        // Warn the maker
+                        var newEvent = {
+                            entity_type: 'MakerProductTechnicalValidation',
+                            timestamp: moment().unix(),
+                            type: 'MakerProductTechnicalValidation',
+                            data: notification.event.data
+                        };
+
+                        $$sdkTimeline.SendEvent({
+                            entity_id: moment().unix(),
+                            entity_type: 'MakerProductTechnicalValidation',
+                            user_id: makerUserId,
+                            event: newEvent
+                        }).then(function (response) {
+                            console.log(response);
+                        });
+
+                        // Warn the photographer
+                        var newEvent = {
+                            entity_type: 'PhotographerProductValidation',
+                            timestamp: moment().unix(),
+                            type: 'PhotographerProductValidation',
+                            data: notification.event.data
+                        };
+
+                        $$sdkTimeline.SendEvent({
+                            entity_id: moment().unix(),
+                            entity_type: 'PhotographerProductValidation',
+                            user_id: photographerUserId,
+                            event: newEvent
+                        }).then(function (response) {
+                            console.log(response);
+                        });
+                    }
+
+                    if (user.id === photographerUserId) {
+                        // Warn the maker
+                        var newEvent = {
+                            entity_type: 'MakerProductValidation',
+                            timestamp: moment().unix(),
+                            type: 'MakerProductValidation',
+                            data: notification.event.data
+                        };
+
+                        $$sdkTimeline.SendEvent({
+                            entity_id: moment().unix(),
+                            entity_type: 'MakerProductValidation',
+                            user_id: makerUserId,
+                            event: newEvent
+                        }).then(function (response) {
+                            console.log(response);
+                        });
+
+                        // Warn the retailer
+                        var newEvent = {
+                            entity_type: 'RetailerProductUploadedByPhotographer',
+                            timestamp: moment().unix(),
+                            type: 'RetailerProductUploadedByPhotographer',
+                            data: notification.event.data
+                        };
+
+                        $$sdkTimeline.SendEvent({
+                            entity_id: moment().unix(),
+                            entity_type: 'RetailerProductUploadedByPhotographer',
+                            user_id: retailerUserId,
+                            event: newEvent
+                        }).then(function (response) {
+                            console.log(response);
+                        });
+                    }
+                });
             }, function () {
             });
         };
@@ -117,6 +220,12 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaCo
                     return picture;
                 });
             });
+
+            permission.getUser().then(function (user) {
+                $scope.user = user;
+                $scope.isPhotographer = (+user.id === 891);
+                $scope.isDemo = (+user.id === 891 || +user.id === 842);
+            })
         };
         $scope.$watch('product.id', function(productId) {
             if (productId == null) {
