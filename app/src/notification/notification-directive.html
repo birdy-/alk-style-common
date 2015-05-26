@@ -243,7 +243,7 @@
             </div>
 
             <!-- Maker Notification -->
-            <div ng-switch-when="MakerProductClaimByRetailer">
+            <div ng-switch-when="MakerProductClaimByRetailerOk">
                 <div>
                     <p>
                         {{ notification.event.data.claimer.name }} a ajouté l’un de vos produit à son assortiment le {{ notification.event.data.claimDate }} :
@@ -253,6 +253,26 @@
                 </div>
                 <div ng-if="notification.event.data.product.urlPicture" class="text-center">
                     <img ng-src="{{ notification.event.data.product.urlPicture }}" alt="" style="max-height:150px; max-width:100%;">
+                </div>
+                <div class="text-center">
+                    <a ng-href="/#/maker/product/{{ notification.event.data.product.reference }}/data/general"
+                       class="btn btn-primary">
+                        Consulter la fiche produit
+                    </a>
+                </div>
+                <div>
+                    <p>
+                        Les informations que vous avez contribuées à travers Product Stream sont maintenant disponibles pour {{ notification.event.data.claimer.name }}.
+                    </p>
+                </div>
+            </div>
+            <div ng-switch-when="MakerProductClaimByRetailer">
+                <div>
+                    <p>
+                        {{ notification.event.data.claimer.name }} a ajouté l’un de vos produit à son assortiment le {{ notification.event.data.claimDate }} :
+                        <br>
+                        {{ notification.event.data.product.reference }} - {{ notification.event.data.product.name }}
+                    </p>
                 </div>
                 <div class="text-center">
                     <a ng-href="/#/maker/product/{{ notification.event.data.product.reference }}/data/general"
