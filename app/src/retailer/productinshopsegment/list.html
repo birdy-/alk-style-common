@@ -66,7 +66,16 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <table class="table table-bordered">
+            <table ng-show="!detailsMode" class="table table-bordered">
+                <thead ng-if="isDemo">
+                    <tr>
+                        <th class="text-center" colspan="6"></th>
+                        <th class="text-center color-stream-inverse" colspan="4">
+                            Focus sur visuels
+                            <span class="btn btn-default" ng-click="toggleDetailsMode()">Détails</span>
+                        </th>
+                    </tr>
+                </thead>
                 <thead class="color-stream-inverse">
                     <tr>
                         <th class="text-center">Référence</th>
@@ -75,6 +84,10 @@
                         <th class="text-center">Total</th>
                         <th class="text-center">En cours</th>
                         <th class="text-center">Certifiés</th>
+                        <th class="text-center" ng-if="isDemo">Validés</th>
+                        <th class="text-center" ng-if="isDemo">En attente Fournisseur</th>
+                        <th class="text-center" ng-if="isDemo">Echantillon en transit</th>
+                        <th class="text-center" ng-if="isDemo">En attente Photographe</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -94,6 +107,104 @@
                         <td class="text-center">{{ productInShopSegment.statistics.total }}</td>
                         <td class="text-center">{{ productInShopSegment.statistics.inProgress }}</td>
                         <td class="text-center">{{ productInShopSegment.statistics.certified }}</td>
+                        <td class="text-center" ng-if="isDemo">8</td>
+                        <td class="text-center" ng-if="isDemo">
+                            5
+                            <div class="btn btn-warning">Relancer</div>
+                        </td>
+                        <td class="text-center" ng-if="isDemo">2</td>
+                        <td class="text-center" ng-if="isDemo">
+                            1
+                            <div class="btn btn-warning">Relancer</div>
+                        </td>
+                    </tr>
+                <tbody>
+            </table>
+            <div ng-show="detailsMode"
+                 class="btn btn-default"
+                 ng-click="toggleDetailsMode()">
+                <i class="fa fa-arrow-left"></i> Vue normale
+            </div>
+            <table ng-show="detailsMode" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="text-center" colspan="4"></th>
+                        <th class="text-center color-stream-inverse" colspan="3">Visuels validés et disponible</th>
+                        <th class="text-center color-stream-inverse" colspan="2">En attente du fournisseur</th>
+                        <th class="text-center" colspan="1"></th>
+                        <th class="text-center color-stream-inverse" colspan="2">En attente du photographe</th>
+                    </tr>
+                </thead>
+                <thead class="color-stream-inverse">
+                    <tr>
+                        <th class="text-center">Référence</th>
+                        <th>Nom du fournisseur</th>
+                        <th class="text-center">Total code demandés</th>
+                        <th class="text-center">Total code validés</th>
+
+                        <th class="text-center">Déjà sur Product Stream</th>
+                        <th class="text-center">Uploadé par le fournisseur, validé par le photographe</th>
+                        <th class="text-center">Uploadé par le photographe</th>
+
+                        <th class="text-center">En attente de disponibilité visuels</th>
+                        <th class="text-center">En attente d’envoi d'échantillons</th>
+
+                        <th class="text-center">Echantillon(s) en transit</th>
+
+                        <th class="text-center">En attente de validation artistique</th>
+                        <th class="text-center">En attente de prise de vue</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="productInShopSegment in productInShopSegments">
+                        <td class="text-center">{{ productInShopSegment.shortId }}</td>
+                        <td>{{ productInShopSegment.name }}</td>
+                        <td class="text-center">{{ productInShopSegment.statistics.total }}</td>
+                        <td class="text-center text-success">
+                            <div>8</div>
+                            <div>50%</div>
+                        </td>
+
+                        <td class="text-center text-success">
+                            <div>6</div>
+                            <div>43%</div>
+                        </td>
+                        <td class="text-center text-success">
+                            <div>1</div>
+                            <div>7%</div>
+                        </td>
+                        <td class="text-center text-success">
+                            <div>1</div>
+                            <div>7%</div>
+                        </td>
+
+
+                        <td class="text-center text-warning">
+                            <div>3</div>
+                            <div>21%</div>
+                            <div class="btn btn-warning">Relancer</div>
+                        </td>
+                        <td class="text-center text-warning">
+                            <div>2</div>
+                            <div>14%</div>
+                            <div class="btn btn-warning">Relancer</div>
+                        </td>
+
+
+                        <td class="text-center text-warning">
+                            <div>2</div>
+                            <div>14%</div>
+                        </td>
+
+
+                        <td class="text-center text-warning">
+                            -
+                        </td>
+                        <td class="text-center text-warning">
+                            <div>1</div>
+                            <div>14%</div>
+                            <div class="btn btn-warning">Relancer</div>
+                        </td>
                     </tr>
                 <tbody>
             </table>

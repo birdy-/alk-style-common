@@ -204,8 +204,6 @@ angular.module('jDashboardFluxApp').controller('DashboardRetailerNotificationLis
         // ------------------------------------------------------------------------
         permission.getUser().then(function (user) {
             $scope.user = user;
-            console.log(user);
-            console.log(retailerUserId);
             $scope.displayDemo = (+user.id === 10 || +user.id === retailerUserId);
 
             $$sdkTimeline.TimelineGet(user.id).then(function (response) {
