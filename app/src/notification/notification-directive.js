@@ -39,6 +39,7 @@ angular.module('jDashboardFluxApp').directive('alkNotification', [
             'RetailerProductUpdatedByPhotographer': 'fa-check-circle-o',
             'RetailerProductUploadedByPhotographer': 'fa-check-circle-o',
 
+            'MakerProductClaimByRetailerOk': 'fa-check-circle-o',
             'MakerProductClaimByRetailer': 'fa-info-circle',
             'MakerProductTechnicalValidation': 'fa-info-circle',
             'MakerProductArtisticValidation': 'fa-check-circle-o',
@@ -80,6 +81,7 @@ angular.module('jDashboardFluxApp').directive('alkNotification', [
             'RetailerProductUpdatedByPhotographer': 'color-green-inverse',
             'RetailerProductUploadedByPhotographer': 'color-green-inverse',
 
+            'MakerProductClaimByRetailerOk': 'color-green-inverse',
             'MakerProductClaimByRetailer': 'color-orange-inverse',
             'MakerProductTechnicalValidation': 'color-blue-inverse',
             'MakerProductArtisticValidation': 'color-green-inverse',

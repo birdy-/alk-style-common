@@ -62,6 +62,14 @@
                             <i class="fa fa-trash-o"></i>
                         </span>
                     </div>
+                    <div ng-show="isDemo" class="col-sm-12">
+                        <div>
+                            Validation Technique : <i class="fa fa-check text-success"></i>
+                        </div>
+                        <div>
+                            Validation Artistique :  <i ng-if="isPhotographer" class="fa fa-check text-success"></i><i ng-if="!isPhotographer" class="fa fa-times text-danger"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
