@@ -21,11 +21,11 @@
                 <div class="checkbox" ng-show="user.isAdmin()">
                     <label>
                        <input type="checkbox" ng-model="createSegment"/>
-                      <ng-pluralize count="request.selectedBrand.length"
+                      <span ng-pluralize count="request.selectedBrand.length"
                                     when="{'0': 'Définir cette marque comme une nouvelle gamme de produits',
                                           '1': 'Définir cette marque comme une nouvelle gamme de produits',
                                            'other': 'Définir ces marques comme de nouvelles gammes de produits'}">
-                      </ng-pluralize>
+                      </span>
 
                   </label>
                 </div>
