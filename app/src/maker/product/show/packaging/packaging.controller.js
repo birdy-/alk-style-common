@@ -17,8 +17,9 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPackagi
     });
 
     $scope.packagingValidator = {
-        validState: 0,
+        validStateSIFU: 0,
         factorSIFUSuggest: '',
+        validStateFUPA: 0,
         factorFUPASuggest: '',
         validate: function() {
             return ($scope.product.factorFUPA * $scope.product.factorSIFU) == $scope.product.quantityNormalized;
@@ -37,15 +38,22 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPackagi
 
     $scope.checkPackaging = function (field) {
         var classes = {};
-        if ($scope.packagingValidator.validate() == false) {
+        if ($scope.packagingValidator.validate() == false && field == 'factorFUPA' &&
+            $scope.packagingValidator.validStateFUPA != 0){
+            classes['has-warning'] = true;
+        }
+        else if ($scope.packagingValidator.validate() == false && field == 'factorSIFU' &&
+            $scope.packagingValidator.validStateSIFU != 0) {
             classes['has-warning'] = true;
         }
         else {
-            $scope.packagingValidator.validState = 0;
+            if (field == 'factorSIFU')
+                $scope.packagingValidator.validStateSIFU = 0;
+            if (field == 'factorFUPA')
+                $scope.packagingValidator.validStateFUPA = 0;
             classes['has-success'] = true;
         }
         return classes;
-
     }
 
     $scope.reparseProductPackaging = function() {
@@ -53,11 +61,22 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPackagi
             return;
         $$sdkMl.ProductPackagingParse($scope.product.packaging, $scope.product.namePublicLong).success(function(response) {
             if ((response.data.factorSIFU * response.data.factorFUPA) == $scope.product.quantityNormalized) {
-                $scope.packagingValidator.factorSIFUSuggest = response.data.factorSIFU;
-                $scope.packagingValidator.factorFUPASuggest = response.data.factorFUPA;
-                $scope.packagingValidator.validState = 1;
+                if ($scope.product.factorSIFU != response.data.factorSIFU) {
+                    $scope.packagingValidator.factorSIFUSuggest = response.data.factorSIFU;
+                    $scope.packagingValidator.validStateSIFU = 1;
+                } else {
+                    $scope.packagingValidator.validStateSIFU = 0;
+                }
+                if ($scope.product.factorFUPA != response.data.factorFUPA) {
+                    $scope.packagingValidator.factorFUPASuggest = response.data.factorFUPA;
+                    $scope.packagingValidator.validStateFUPA = 1;
+                } else {
+                    $scope.packagingValidator.validStateFUPA = 0;
+                }
+
             } else {
-                $scope.packagingValidator.validState = 2;
+                $scope.packagingValidator.validStateSIFU = 2;
+                $scope.packagingValidator.validStateFUPA = 2;
             }
         })        
     }
