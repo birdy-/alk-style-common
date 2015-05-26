@@ -85,9 +85,9 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaCo
 
             uploadModal.result.then(function () {
                 fetchPictures($scope.product.id);
-                console.log('updated');
+
                 permission.getUser().then(function (user) {
-                    console.log(user);
+
                     var makerUserId = 842;
                     var retailerUserId = 857;
                     var photographerUserId = 891;
@@ -97,16 +97,19 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaCo
                             timestamp: moment().unix(),
                             type: 'MakerProductClaimByRetailer',
                             data: {
-                                claimDate: moment().set({'year': 2015, 'month': 5, 'day': 4}).format('DD MMM YYYY'),
+                                claimDate: moment().set({'year': 2015, 'month': 4, 'date': 27}).format('DD MMM YYYY'),
                                 claimer: {
                                     name: 'Carrefour',
                                     photographer: {
-                                        name: 'ProductPhoto'
+                                        name: 'ProductPhoto',
+                                        address: '8 rue du Sentier, 75002 Paris'
                                     }
                                 },
                                 product: {
                                     reference: '3663215010508',
                                     name: 'Smoothie Orange Bio 1L',
+                                    manufacturerName: 'Alkemics Brand',
+                                    photographerName: 'ProductPhoto',
                                     urlPicture: 'https://smedia.alkemics.com/product/387085/picture/packshot/256x256.png'
                                 }
                             }
@@ -217,6 +220,12 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaCo
                     return picture;
                 });
             });
+
+            permission.getUser().then(function (user) {
+                $scope.user = user;
+                $scope.isPhotographer = (+user.id === 891);
+                $scope.isDemo = (+user.id === 891 || +user.id === 842);
+            })
         };
         $scope.$watch('product.id', function(productId) {
             if (productId == null) {

@@ -106,29 +106,29 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerNotificationsContr
                 // POC Carrefour
                 if (+user.id !== 10 && +user.id !== 842) { return; }
 
-                $scope.notifications.push({
-                    event: {
-                        timestamp: 1432539321,
-                        type: 'MakerProductClaimByRetailer',
-                        data: {
-                            claimDate: moment().set({'year': 2015, 'month': 4, 'date': 27}).format('DD MMM YYYY'),
-                            claimer: {
-                                name: 'Carrefour',
-                                photographer: {
-                                    name: 'ProductPhoto',
-                                    address: '8 rue du Sentier, 75002 Paris'
-                                }
-                            },
-                            product: {
-                                reference: '3663215010508',
-                                name: 'Smoothie Orange Bio 1L',
-                                manufacturerName: 'Alkemics Brand',
-                                photographerName: 'ProductPhoto',
-                                urlPicture: 'https://smedia.alkemics.com/product/387085/picture/packshot/256x256.png'
-                            }
-                        }
-                    }
-                });
+                // $scope.notifications.push({
+                //     event: {
+                //         timestamp: 1432539321,
+                //         type: 'MakerProductClaimByRetailer',
+                //         data: {
+                //             claimDate: moment().set({'year': 2015, 'month': 4, 'date': 27}).format('DD MMM YYYY'),
+                //             claimer: {
+                //                 name: 'Carrefour',
+                //                 photographer: {
+                //                     name: 'ProductPhoto',
+                //                     address: '8 rue du Sentier, 75002 Paris'
+                //                 }
+                //             },
+                //             product: {
+                //                 reference: '3663215010508',
+                //                 name: 'Smoothie Orange Bio 1L',
+                //                 manufacturerName: 'Alkemics Brand',
+                //                 photographerName: 'ProductPhoto',
+                //                 urlPicture: 'https://smedia.alkemics.com/product/387085/picture/packshot/256x256.png'
+                //             }
+                //         }
+                //     }
+                // });
                 // $scope.notifications.push({
                 //     event: {
                 //         timestamp: moment().unix(),
