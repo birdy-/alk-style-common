@@ -169,7 +169,8 @@
                         <th class="text-center">Référence</th>
                         <th class="text-center">EAN</th>
                         <th class="text-center">Statut</th>
-                        <th class="text-center">Image</th>
+                        <th class="text-center">Image Distributeur</th>
+                        <th class="text-center">Image Industriel</th>
                         <th>Nom</th>
                         <th class="text-center">Action</th>
                         <th class="text-center">
@@ -191,7 +192,14 @@
                             </span>
                         </td>
                         <td class="text-center">
-                            <img entity-image entity="productInShop" height="60" width="60">
+                            <a ng-href="{{productInShop.urlPicture}}" target="_blank">
+                                <img entity-image entity="productInShop" height="60" width="60">
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            <a ng-href="{{ 'https://smedia.alkemics.com/product/' + productInShop.isIdentifiedBy[0].identifiesProduct.id + '/picture/packshot/original.png?cb=' + cachebuster}}" target="_blank">
+                                <img ng-src="{{'https://smedia.alkemics.com/product/' + productInShop.isIdentifiedBy[0].identifiesProduct.id + '/picture/packshot/256x256.png?cb=' + cachebuster}}" height="60" width="60">
+                            </a>
                         </td>
                         <td>
                             {{ productInShop.name }}
