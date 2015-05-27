@@ -506,8 +506,8 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
                 }
 
                 // Load product segments
-                $$ORM.repository('ProductSegment').list({}, {}, {}, null, null).then(function (productsegments) {
-                    $$ORM.repository('User').method('ManagesProductSegmentWithPermission')('product.show').then(function(permissions) {
+                $$ORM.repository('User').method('ManagesProductSegmentWithPermission')('product.show').then(function(permissions) {
+                $$ORM.repository('ProductSegment').list({}, { filter_id_in: permissions.productsegmentids }, {}, 0, permissions.productsegmentids.length).then(function (productsegments) {
                         $scope.productsegments = _.filter(productsegments, function (ps) {
                             return permissions.productsegmentids.indexOf(ps.id) !== -1 &&
                                 ps.id !== productSegmentRoot.id;
