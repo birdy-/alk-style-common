@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').controller('OrganizationProfileShowController', [
-    '$scope', 'permission','$routeParams', '$modal', '$$ORM', '$window', '$$sdkAuth', 'ngToast',
-    function ($scope, permission, $routeParams, $modal, $$ORM, $window, $$sdkAuth, ngToast) {
+    '$scope', 'permission','$routeParams', '$modal', '$$ORM', '$window', '$$sdkAuth', '$$sdkGdsn', 'ngToast',
+    function ($scope, permission, $routeParams, $modal, $$ORM, $window, $$sdkAuth, $$sdkGdsn, ngToast) {
 
     $scope.organization = {};
     $scope.brands = [];
@@ -133,13 +133,14 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
     // --------------------------------------------------------------------------------
 
     $scope.organizationId = $routeParams.id;
-    $$ORM.repository('Organization').get($scope.organizationId).then(function (entity) {
+    $$ORM.repository('Organization').get($scope.organizationId, { with_glns: 1 }).then(function (entity) {
         $scope.organization = entity;
         $scope.organizationForm.$loading = false;
         loadUsers();
         loadBrands();
         loadSegments();
         loadGlnClaims();
+        loadGlns();
     });
 
     var loadUsers = function () {
@@ -186,6 +187,21 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
             $scope.organization.pendingclaimGLNs = [];
             $scope.organization.pendingclaimGLNs = entities.data.data;
 
+        });
+    };
+
+    var loadGlns = function () {
+        var filters = {
+            'filter_gln_in': []
+        };
+        for (var i = 0; i < $scope.organization.ownsGLN.length; i++) {
+            filters['filter_gln_in'].push($scope.organization.ownsGLN[i].gln);
+        }
+
+        $$sdkGdsn.GdsnGLNList({}, filters)
+        .then(function (entities) {
+            console.log(entities);
+            $scope.glns = entities.data.data;
         });
     };
 
