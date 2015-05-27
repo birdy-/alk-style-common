@@ -37,8 +37,8 @@ angular.module('jDashboardFluxApp').controller('ProductChaseModalController', [
                     organizations.push(value);
                 }
             }
-            $scope.message.to.username = usernames.join(',');
-            $scope.message.to.organization = organizations.join(',');
+            $scope.message.to.username = _.uniq(usernames).join(',');
+            $scope.message.to.organization = _.uniq(organizations).join(',');
             $$sdkMailer.RetailerProductDataCompletionInvitationPost($scope.message).success(function (response) {
                 $window.alert('Le message a bien été envoyé.');
                 $modalInstance.close();
