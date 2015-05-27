@@ -306,10 +306,11 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
             getSegment(shopId).then(function (segment) {
                 // Make a first refresh based on the INCO products
                  if (!$routeParams.segment_id) {
-                    //$scope.request.productInShopSegment = segment;
                     $scope.request.stats.productInShopSegment = segment;
-                    //$scope.refresh();
                     $scope.refreshStats();
+                    // Do not set INCO filter on Search
+                    //$scope.request.productInShopSegment = segment;
+                    //$scope.refresh();
                 }
             });
             if ($routeParams.segment_id) {
