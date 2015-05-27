@@ -28,6 +28,7 @@ angular.module('jDashboardFluxApp').directive('recipientBar', [
                     var value = scope.value;
                     if (value.length > 0) {
                         if (value.match(emailRegex)) {
+                            value = value.toLowerCase();
                             scope.recipients.push({
                                 name: value,
                                 value: value
