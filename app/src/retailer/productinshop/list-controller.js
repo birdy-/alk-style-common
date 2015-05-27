@@ -30,6 +30,7 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
         $scope.allSelected = null;
 
         $scope.currentPage  = 1;
+        $scope.cachebuster = Math.random() * 10000000000000000;
 
         // ------------------------------------------------------------------------
         // Event handling
@@ -305,9 +306,9 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
             getSegment(shopId).then(function (segment) {
                 // Make a first refresh based on the INCO products
                  if (!$routeParams.segment_id) {
-                    $scope.request.productInShopSegment = segment;
+                    //$scope.request.productInShopSegment = segment;
                     $scope.request.stats.productInShopSegment = segment;
-                    $scope.refresh();
+                    //$scope.refresh();
                     $scope.refreshStats();
                 }
             });
