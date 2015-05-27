@@ -72,7 +72,11 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPackagi
     $scope.reparseProductPackaging = function() {
         if (typeof $scope.product.packaging === 'undefined' && typeof $scope.product.namePublicLong == 'undefined')
             return;
-        $$sdkMl.ProductPackagingParse($scope.product.packaging, $scope.product.namePublicLong).success(function(response) {
+        $$sdkMl.ProductPackagingParse(
+            $scope.product.packaging,
+            $scope.product.namePublicLong,
+            $scope.product.isMeasuredBy.id).success(function(response) {
+            console.log($scope.product);
             var packaging = response.data;
             if ((packaging.factorSIFU * packaging.factorFUPA) == $scope.product.quantityNormalized) {
                 if ($scope.product.factorSIFU != packaging.factorSIFU) {
