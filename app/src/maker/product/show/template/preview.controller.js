@@ -78,9 +78,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreview
 
         modalInstance.result.then(
             function () {
-            $scope.loadCertificationModal();               
         },  function () {
-            $scope.loadCertificationModal();    
         });
     };
 
