@@ -1,8 +1,8 @@
 'use_strict';
 
 angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreviewController', [
-    '$rootScope', '$scope', '$$sdkCrud', '$modal', '$location', 'permission', '$window',
-    function ($rootScope, $scope, $$sdkCrud, $modal, $location, permission, $window) {
+    '$rootScope', '$scope', '$$sdkCrud', '$modal', '$location', 'permission', '$window', '$$sdkAuth',
+    function ($rootScope, $scope, $$sdkCrud, $modal, $location, permission, $window, $$sdkAuth) {
 
     var computeScore = function (product, productForm) {
         var total = 0, ok = 0;
@@ -64,7 +64,27 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreview
         });
     }
 
-    $scope.certify = function () {
+    $scope.loadCGUModal = function (user, organization) {
+        var modalInstance = $modal.open({
+            templateUrl: '/src/user/organization/infoclaim-modal.html',
+            controller: 'InfoClaimModalController',
+            resolve: {
+                user: function () { return user; },
+                organization: function () { return organization; },
+                redirect: function () { return function(){}; }
+            },
+            backdrop: 'static'
+        });
+
+        modalInstance.result.then(
+            function () {
+            $scope.loadCertificationModal();               
+        },  function () {
+            $scope.loadCertificationModal();    
+        });
+    };
+
+    $scope.loadCertificationModal = function () {
         var modalInstance = $modal.open({
             templateUrl: '/src/maker/product/certify/certification.html',
             controller: 'ProductCertificationModalController',
@@ -77,7 +97,27 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreview
 
         modalInstance.result.then(function (selectedItem) {
         }, function () {
+        });        
+    };
+
+    $scope.certify = function () {
+        permission.getUser().then(function (user) {
+            $scope.user = user;
+            if ($scope.user.belongsTo.length === 0)
+                $scope.redirect();
+            $$sdkAuth.OrganizationShow($scope.user.belongsTo[0].id).then(function (response) {
+                $scope.organization = response.data.data;
+                if ($scope.organization.acceptedLastCGU == 0) {
+                    $scope.pendingRedirection = true;
+                    $scope.loadCGUModal($scope.user, $scope.organization);
+                }
+                else {
+                    $scope.loadCertificationModal();
+                }
+            });
+
         });
+        return;
     };
 
     $scope.duplicate = function (product) {

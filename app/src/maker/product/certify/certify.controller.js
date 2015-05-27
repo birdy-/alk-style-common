@@ -25,7 +25,13 @@ angular.module('jDashboardFluxApp')
             ).success(function (response) {
                 product.certified = response.data.certified;
             }).error(function (response) {
-                $window.alert("Erreur pendant la certification du produit : " + response.data.message);
+                if (response.message !== 'undefined'){
+                    $window.alert("Erreur pendant la certification du produit : " + response.message);
+                }
+                else {
+                    $window.alert("Erreur pendant la certification du produit : " + response.data.message);
+                }
+
             });
         }
         $modalInstance.close(products);
