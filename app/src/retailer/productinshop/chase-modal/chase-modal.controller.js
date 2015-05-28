@@ -21,17 +21,16 @@ angular.module('jDashboardFluxApp').controller('ProductChaseModalController', [
 
         ChaseModal.prototype.validForm = function () {
             var usernames = [];
-            var organizations = [];
             for (var i = 0; i < $scope.recipients.length; i++) {
+                var type = $scope.recipients[i].type;
                 var value = $scope.recipients[i].value;
-                if (typeof(value) === 'string') {
+                if (type === 'organization') {
+                    $scope.message.to.organization = true;
+                } else if (typeof(value) === 'string') {
                     usernames.push(value);
-                } else {
-                    organizations.push(value);
                 }
             }
-            $scope.message.to.username = _.uniq(usernames).join(',');
-            $scope.message.to.organization = organizations;
+            $scope.message.to.username = _.uniq(usernames);
             $$sdkMailer.RetailerProductDataCompletionInvitationPost($scope.message).success(function (response) {
                 $window.alert('Le message a bien été envoyé.');
                 $modalInstance.close();
@@ -68,7 +67,7 @@ angular.module('jDashboardFluxApp').controller('ProductChaseModalController', [
                 var brand = product.isBrandedBy;
                 // API returns 'ProductBrand' if the product has no brand
                 if (brand.name !== 'ProductBrand') {
-                    $scope.recipients.push({ type: 'organization', name: brand.name, value: brand.id });
+                    $scope.recipients.push({ type: 'organization', name: brand.name, value: true });
                 }
             });
         };
