@@ -8,7 +8,7 @@
 </div>
 <div class="modal-body">
     <form role="form" name="claimForm">
-        <div class="form-group" ng-if="errors.unknown === false">
+        <div class="form-group" ng-show="errors.unknown === false">
             <div class="form-group">
                 <label for="isBrandedBy">Rechercher une ou plusieurs marques :</label>
                 <div alk-autocomplete
@@ -17,6 +17,17 @@
                      placeholder="Chercher une marque"
                      ng-model="request.selectedBrand"
                      id="_runsOnProduct">
+                </div>
+                <div class="checkbox" ng-show="user.isAdmin()">
+                    <label>
+                       <input type="checkbox" ng-model="createSegment"/>
+                      <span ng-pluralize count="request.selectedBrand.length"
+                                    when="{'0': 'Définir cette marque comme une nouvelle gamme de produits',
+                                          '1': 'Définir cette marque comme une nouvelle gamme de produits',
+                                           'other': 'Définir ces marques comme de nouvelles gammes de produits'}">
+                      </span>
+
+                  </label>
                 </div>
             </div>
         </div>

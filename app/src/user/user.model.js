@@ -103,6 +103,15 @@ User.prototype.allowedProductSegments = function(permission) {
     return returns;
 }
 
+User.prototype.isAdmin = function() {
+    for (var i = 0; i < this.belongsTo.length; i++) {
+        if (this.belongsTo[i].permissions.indexOf('admin') != -1) {
+          return true;
+        }
+    }
+    return false;
+};
+
 User.prototype.allowedWebsites = function(permission) {
     var returns = [];
     for (var i = 0; i < this.managesWebsite.length; i++) {
