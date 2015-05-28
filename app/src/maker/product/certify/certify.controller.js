@@ -5,8 +5,8 @@
  */
 angular.module('jDashboardFluxApp')
 .controller('ProductCertificationModalController', [
-    '$scope', '$modalInstance', '$$sdkCrud', '$window', 'products', 'user',
-    function ($scope, $modalInstance, $$sdkCrud, $window, products, user) {
+    '$scope', '$modalInstance', '$$sdkCrud', '$window', 'products', 'user', 'ngToast',
+    function ($scope, $modalInstance, $$sdkCrud, $window, products, user, ngToast) {
 
     $scope.products = products;
     $scope.user = user;
@@ -25,13 +25,18 @@ angular.module('jDashboardFluxApp')
             ).success(function (response) {
                 product.certified = response.data.certified;
             }).error(function (response) {
-                if (response.message !== 'undefined'){
-                    $window.alert("Erreur pendant la certification du produit : " + response.message);
+                if (response.message !== 'undefined') {
+                    content = "Erreur pendant la certification du produit : " + response.message;
                 }
                 else {
-                    $window.alert("Erreur pendant la certification du produit : " + response.data.message);
+                    content = "Erreur pendant la certification du produit : " + response.data.message;
                 }
-
+                ngToast.create({
+                    className: 'danger',
+                    content: content,
+                    dismissOnTimeout: false,
+                    dismissButton: true
+                });
             });
         }
         $modalInstance.close(products);

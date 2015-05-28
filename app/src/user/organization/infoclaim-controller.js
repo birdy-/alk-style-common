@@ -44,7 +44,7 @@ angular.module('jDashboardFluxApp').controller('InfoClaimModalController', [
     // ------------------------------------------------------------------------
 
     if (organization.acceptedLastCGU == 0) {
-        $$sdkAuth.LoadActiveCGU().then(function (response) {
+        $$sdkAuth.CGUShow().then(function (response) {
             $scope.cgu.version = response.data['version'];
             $scope.cgu.link = response.data['link'];
             $scope.cgu.id = response.data['id'];
