@@ -198,7 +198,7 @@
                         </td>
                         <td class="text-center">
                             <a ng-href="{{ 'https://smedia.alkemics.com/product/' + productInShop.isIdentifiedBy[0].identifiesProduct.id + '/picture/packshot/original.png?cb=' + cachebuster}}" target="_blank">
-                                <img ng-src="{{'https://smedia.alkemics.com/product/' + productInShop.isIdentifiedBy[0].identifiesProduct.id + '/picture/packshot/256x256.png?cb=' + cachebuster}}" height="60" width="60">
+                                <img ng-src="{{'https://smedia.alkemics.com/product/' + productInShop.isIdentifiedBy[0].identifiesProduct.id + '/picture/packshot/256x256.png?cb=' + cachebuster}}" height="60" width="60" fallback-src="/images/missing.png">
                             </a>
                         </td>
                         <td>
