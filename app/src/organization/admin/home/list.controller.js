@@ -104,7 +104,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
         // set focus on search
         $scope.displaySearch = !$scope.displaySearch;
         return;
-    }
+    };
 
     // --------------------------------------------------------------------------------
     // Init

@@ -11,8 +11,33 @@
             background: $background-color-grey;
         }
 
+        .search {
+            padding-right: 15px;
+        }
+
         .segment {
             padding: $padding-base-vertical*1.7 0;
+
+            &.active {
+                background-color: $alk-green-light-active;
+            }
+
+            &.create-segment {
+                background-color: $background-color-grey;
+                border: 1px solid $gray-lighter;
+                color: $alk-green;
+                padding-top: $padding-large-vertical;
+                padding-bottom: $padding-large-vertical;
+                margin-left: -14px;
+                margin-right: -14px;
+                padding-left: 14px;
+                padding-right: 14px;
+                text-align: left;
+
+                .mdi {
+                    color: $alk-green;
+                }
+            }
         }
 
         .permissions-users {

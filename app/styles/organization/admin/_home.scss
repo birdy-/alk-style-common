@@ -13,12 +13,12 @@ $segment-stats-height: 80px;
             .form-inline {
                 display: inline-block;
                 margin-right: $padding-base-horizontal;
-                width: 85%;
+                width: 100%;
 
                 &.active {
                     input {
                         border-bottom: 1px solid $gray-light;
-                        margin-left: 0;
+                        display: inline-block;
                     }
                 }
 
@@ -28,8 +28,8 @@ $segment-stats-height: 80px;
                 }
 
                 input {
-                    @include transition(margin-left 2s 0 ease);
-                    margin-left: 100%;
+                    transition: none;
+                    display: none;
                     text-align: left;
                 }
 
@@ -37,6 +37,10 @@ $segment-stats-height: 80px;
                     float: right;
                     text-align: right;
                 }
+            }
+
+            .pull-right {
+                display: inline-block;
             }
 
             i {
