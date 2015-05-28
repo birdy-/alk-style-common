@@ -200,7 +200,6 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
 
         $$sdkGdsn.GdsnGLNList({}, filters)
         .then(function (entities) {
-            console.log(entities);
             $scope.glns = entities.data.data;
         });
     };
