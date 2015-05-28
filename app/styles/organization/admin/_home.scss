@@ -1,3 +1,10 @@
+$padding-segments-top: 4*$padding-large-vertical;
+
+$segments-height: 400px;
+$segments-list-height: 50px;
+$segments-table-header-height: 50px;
+$segment-stats-height: 80px;
+
 #stream {
     .admin {
         .search {
@@ -95,11 +102,8 @@
             }
 
             &.active {
-                background-color: $alk-green-light;
-
-                // Overrides a bootrap default
                 td {
-                    background-color: $alk-green-light;
+                    background-color: $alk-green-light-active;
                 }
             }
 
@@ -267,22 +271,63 @@
 
             .segments {
                 border-top: 1px solid $background-color-grey;
-                height: 600px;
-                overflow-y: scroll;
+                // height: 600px;
+                // overflow-y: scroll;
 
                 table {
-                    table-layout: fixed;
-                    padding-top: 4*$padding-large-vertical;
+                    // table-layout: fixed;
+                    padding-top: $padding-segments-top;
+                    width: 100%;
+
+                    thead, tbody, tr, td, th {
+                        display: block;
+                    }
+
+                    tr:after {
+                        content: ' ';
+                        display: block;
+                        visibility: hidden;
+                        clear: both;
+                    }
+
+                    thead th {
+                        height: $segments-table-header-height;
+
+                        /*text-align: left;*/
+                    }
+
+                    tbody {
+                        height: $segments-height;
+                        margin-bottom: 0;
+                        overflow-y: auto;
+                    }
+
+                    thead {
+                        /* fallback */
+                    }
+
+
+                    tbody td, thead th {
+                        width: 16.6%;
+                        float: left;
+                    }
 
                     * {
                         border: none !important;
                     }
 
-                    td.name {
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                        white-space: nowrap;
+                    td {
+                        height: $segments-list-height;
+                        line-height: $segments-list-height - 2*$table-cell-padding;
+                        vertical-align: middle;
+
+                        &.name {
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                        }
                     }
+
                 }
 
                 .segments-header {
@@ -300,7 +345,7 @@
                 .stats {
                     background-color: white;
                     border-bottom: 0;
-                    height: 80px;
+                    height: $segment-stats-height;
                     padding-top: 15px;
                     padding-bottom: 15px;
                     position: relative;
@@ -321,10 +366,16 @@
                     }
                 }
 
-                .permissions {
-                    @extend .btn-stream-inverse;
-                    font-weight: bold;
+                .permissions-wrapper {
+                    background-color: #fbfbfb;
+                    height: $padding-segments-top + $segments-list-height + $segments-height + $padding-box-tile - $segment-stats-height;
+
+                    .permissions {
+                        @extend .btn-stream-inverse;
+                        font-weight: bold;
+                    }
                 }
+
             }
         }
     }

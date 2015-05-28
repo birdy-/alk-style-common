@@ -12,6 +12,7 @@ angular.module('jDashboardFluxApp').directive('alkButtonBrandClaim', [
             scope: {
                 label: '='
             },
+            replace:true,
             templateUrl: '/src/maker/brand/certify/claim-directive.html',
             link: function(scope, elem, attrs) {
                 scope.buttonClass = attrs.alkButtonClass || 'btn-success';
