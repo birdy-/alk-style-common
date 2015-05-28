@@ -15,6 +15,7 @@ angular.module('jDashboardFluxApp').controller('BrandClaimModalController', [
     $scope.errors.unknown = false;
     $scope.errors.ok = true;
     $scope.request = {};
+    $scope.createSegment = true;
 
     var claimRequestType = {
         createBrand: '0',
@@ -57,7 +58,8 @@ angular.module('jDashboardFluxApp').controller('BrandClaimModalController', [
             $$sdkAuth.UserClaimProductBrandCreate(
                 $scope.request.selectedBrand[index].name,
                 claimRequestType.manageBrand,
-                $scope.request.selectedBrand[index].id).then(function (response) {
+                $scope.request.selectedBrand[index].id,
+                $scope.createSegment).then(function (response) {
                     $scope.errors.ok = false;
             });
         };
@@ -75,6 +77,7 @@ angular.module('jDashboardFluxApp').controller('BrandClaimModalController', [
     // ------------------------------------------------------------------------
     permission.getUser().then(function (user) {
         $scope.user = user;
+        $scope.request.selectedBrand = [];
     });
 
 }]);

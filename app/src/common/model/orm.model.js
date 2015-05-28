@@ -113,18 +113,18 @@ angular.module('jDashboardFluxApp').service('$$ORM', [
         // Items that need to be lazily loaded in order to avoid calls on the APIs
         var commonUnits = [
             {id:   3, name: 'gramme'},
-            {id: 104, name: 'kilo joule'},
-            {id: 106, name: 'kilo calorie'},
+            {id: 104, name: 'kilojoule'},
+            {id: 106, name: 'kilocalorie'},
             {id:  22, name: 'kg'},
-            {id:   7, name: 'cl'},
-            {id:   9, name: 'l'},
-            {id:   2, name: 'ml'},
+            {id:   7, name: 'cL'},
+            {id:   9, name: 'L'},
+            {id:   2, name: 'mL'},
             {id: 101, name: 'mg'},
             {id: 102, name: 'µg'}
         ];
         var concepts = [
             { id: 19195, name: 'Valeur énergétique (kJ)',  isMeasuredBy: {id: 104, _type: 'CommonUnit' }, type: 'Nutrition', compulsory: true,  legend: "" },
-            { id: 19196, name: 'Valeur énergétique (kCal)',isMeasuredBy: {id: 106, _type: 'CommonUnit' }, type: 'Nutrition', compulsory: true,  legend: "" },
+            { id: 19196, name: 'Valeur énergétique (kcal)',isMeasuredBy: {id: 106, _type: 'CommonUnit' }, type: 'Nutrition', compulsory: true,  legend: "" },
             { id: 19058, name: 'Matières grasses',         isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Nutrition', compulsory: true,  legend: "La quantité totale de lipides (y compris phospholipides), rapportée 100 grammes de produit." },
             { id: 19059, name: 'Acides gras saturés',      isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Nutrition', compulsory: true,  legend: "La quantité totale d'acides gras sans double liaison, rapportée à 100 grammes de produit." },
             { id: 19060, name: 'Acides gras monoinsaturés',isMeasuredBy: {id:   3, _type: 'CommonUnit' }, type: 'Nutrition', compulsory: false, legend: "La quantité totale d'acides gras avec une double liaison cis, rapportée à 100 grammes de produit." },

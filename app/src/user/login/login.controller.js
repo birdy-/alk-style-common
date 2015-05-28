@@ -76,7 +76,8 @@ angular.module('jDashboardFluxApp').controller('LoginController', [
                     if ($scope.organization.identifierLegal === null
                         || $scope.organization.identifierLegal === ''
                         || $scope.organization.ownsGLN[0] == undefined
-                        || $scope.organization.ownsGLN[0].gln === '') {
+                        || $scope.organization.ownsGLN[0].gln === ''
+                        || $scope.organization.acceptedLastCGU == 0) {
                         $scope.pendingRedirection = true;
                         $scope.suggestInfo($scope.user, $scope.organization);
                     }

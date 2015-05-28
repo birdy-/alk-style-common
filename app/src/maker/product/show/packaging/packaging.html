@@ -148,12 +148,12 @@
             <input ng-model="product.factorFUPA" name="factorFUPA" type="text" class="form-control" placeholder="ex : 2" alk-integer ng-min="0">
             <span ng-show="productForm.factorFUPA.$error.integer" class="help-block">Cette quantité doit être un nombre entier.</span>
             <span ng-show="productForm.factorFUPA.$error.min" class="help-block">Cette quantité doit être plus grande que 0.</span>
-            <span ng-show="packagingValidator.validStateFUPA == ML_FOUND.id" class="help-block">Alkemics a détecté une incohérence sur ce champs. Nous vous suggérons la modification suivante : {{ packagingValidator.factorFUPASuggest }}
+            <span ng-show="packagingValidator.validStateFUPA == ML_FOUND.id" class="help-block">Alkemics a détecté une incohérence sur ce champ. Nous vous suggérons la modification suivante : {{ packagingValidator.factorFUPASuggest }}
             <span class="btn-link btn-xs clickable" ng-click="acceptPackagingSuggestion('factorFUPA')" analytics-on="click" analytics-event="Product Profile Packaging ML SuggestionAccepted">
                 Accepter
             </span>
             </span>
-            <span ng-show="packagingValidator.validStateFUPA == ML_NOT_FOUND.id" class="help-block">Alkemics a détecté une incohérence sur ce champs. Nous vous invitons à le modifier.</span>
+            <span ng-show="packagingValidator.validStateFUPA == ML_NOT_FOUND.id" class="help-block">Alkemics a détecté une incohérence sur ce champ. Nous vous invitons à le modifier.</span>
         </div>
     </div>
 
@@ -161,12 +161,12 @@
         <label for="factorSIFU" class="col-sm-4 control-label">Combien mesure un(e) {{ product.unitFridge || 'subdivision' }} ?</label>
         <div class="col-sm-4">
             <input ng-model="product.factorSIFU" name="factorSIFU" type="text" class="form-control" placeholder="ex : 200" alk-float />
-            <span ng-show="packagingValidator.validStateSIFU == ML_FOUND.id" class="help-block">Alkemics a détecté une incohérence sur ce champs. Nous vous suggérons la modification suivante : {{ packagingValidator.factorSIFUSuggest }}
+            <span ng-show="packagingValidator.validStateSIFU == ML_FOUND.id" class="help-block">Alkemics a détecté une incohérence sur ce champ. Nous vous suggérons la modification suivante : {{ packagingValidator.factorSIFUSuggest }}
             <span class="btn-link btn-xs clickable" ng-click="acceptPackagingSuggestion('factorSIFU')" analytics-on="click" analytics-event="Product Profile Packaging ML SuggestionAccepted">
                 Accepter
             </span>
             </span>
-            <span ng-show="packagingValidator.validStateSIFU == ML_NOT_FOUND.id" class="help-block">Alkemics a détecté une incohérence sur ce champs. Nous vous invitons à le modifier.</span>
+            <span ng-show="packagingValidator.validStateSIFU == ML_NOT_FOUND.id" class="help-block">Alkemics a détecté une incohérence sur ce champ. Nous vous invitons à le modifier.</span>
             <span ng-show="productForm.factorSIFU.$error.float" class="help-block">Cette quantité doit être un nombre décimal.</span>
             <span ng-show="productForm.factorSIFU.$error.min" class="help-block">Cette quantité doit être plus grande que 0.</span>
         </div>
