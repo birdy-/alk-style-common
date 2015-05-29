@@ -101,7 +101,13 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
         }).result.then(function () {
             $scope.selectSegment($scope.selectedSegment.id);
         });
-    }
+    };
+
+    $scope.toggleSearchDisplay = function () {
+        // set focus on search
+        $scope.displaySearch = !$scope.displaySearch;
+        return;
+    };
 
     // --------------------------------------------------------------------------------
     // Initialization

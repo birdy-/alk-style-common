@@ -21,22 +21,19 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminUserPermissions
 
     $scope.createUser = function () {
         var modalInstance = $modal.open({
-            templateUrl: 'src/maker/productsegment/create/create-modal.html',
-            controller: 'ProductSegmentCreateModalController',
+            templateUrl: '/src/organization/user/add.html',
+            controller: 'OrganizationUserAddController',
             resolve: {
-                organization_id: function() { return $scope.organizationId; },
-                productsegment_id: function() { return null; }
-            }
-        });
-    };
+                organization: function () {
+                    return $scope.organization;
+                },
+                brands: function () {
+                    return [];
+                },
+                currentUser: function () {
+                    return $scope.currentUser;
+                }
 
-    $scope.editUser = function (segmentId) {
-        var modalInstance = $modal.open({
-            templateUrl: 'src/maker/productsegment/create/create-modal.html',
-            controller: 'ProductSegmentCreateModalController',
-            resolve: {
-                organization_id: function () { return $scope.organizationId; },
-                productsegment_id: function () { return segmentId; }
             }
         });
     };

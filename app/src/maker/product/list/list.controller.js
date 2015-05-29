@@ -22,7 +22,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     $scope.products = $scope.request.products || [];
     $scope.allBrands = [];
     $scope.brands = [];
-    $scope.segmentIds = [];
+    $scope.productsegments = [];
     $scope.displayNewProducts = false;
     $scope.gdsnOnly = false;
     $scope.newProductsLoaded = false;
@@ -205,23 +205,26 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
 
     var findByBrand = function (filters) {
         var filters = filters || {};
+        var defaultFilters = {};
+        defaultFilters.certified = $scope.request.product.certified;
         var brands = [];
         for (var i = 0; i < $scope.allBrands.length; i++) {
             if ($scope.allBrands[i].active === true) {
                 brands.push($scope.allBrands[i].id);
             }
         }
-        if (brands.length === 0) {
-            $log.warn("Product List Controller : no <Brand> set in findByBrand.");
-            return;
+        if (brands.length) {
+            defaultFilters.isbrandedby_id = brands.join(',');
         }
-        brands = brands.join(',');
+
+        // Product Segment
+        var productsegments = _.filter($scope.productsegments, {active: true});
+        if (productsegments.length) {
+            defaultFilters.productsegment_id =_.map(productsegments, function (ps) { return ps.id; }).join(',')
+        }
 
         $log.log("Product List Controller : listing by <Brand> " + brands);
-        var filters = angular.extend({
-            isbrandedby_id: brands,
-            certified: $scope.request.product.certified
-        }, filters);
+        filters = angular.extend(defaultFilters, filters);
         return find({}, filters);
     };
 
@@ -261,7 +264,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     };
 
     var find = function (queries, filters) {
-        filters.productsegment_id = $scope.segmentIds.join(',');
         $scope.request.offset = $scope.request.limit * ($scope.display.page - 1);
         $log.log("Product List Controller : listing [" + $scope.request.offset + "-" + ($scope.request.offset + $scope.request.limit) + "]" );
         $scope.request.busy = true;
@@ -297,6 +299,11 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         });
     };
 
+    $scope.refreshProductSegment = function () {
+        $analytics.eventTrack('MAK Products Filters Product Segment');
+        refresh();
+    };
+
     var refresh = function (displayNewProducts) {
         if (!displayNewProducts) { $scope.displayNewProducts = false; }
         $log.log("Product List Controller : refresh <Products>.");
@@ -318,6 +325,16 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
 
     $scope.refreshBrand = function (brand) {
         $analytics.eventTrack('MAK Products Filters Brand');
+        if($scope.displayNewProducts){
+          //Go back to initial display
+          $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_DEFAULT.id] = false;
+          $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_ATTRIBUTED.id] = false;
+          $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_ACCEPTED.id] = true;
+          $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_CERTIFIED.id] = true;
+          $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_PUBLISHED.id] = true;
+          $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_REVIEWING.id] = false;
+          $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_DISCONTINUED.id] = false;
+        }
         propagate(brand, brand.active);
         refresh();
     };
@@ -483,7 +500,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
                 if (userManageProductSegmentRoot) {
                     $$ORM.repository('ProductSegment').get(productSegmentRoot.id).then(function (segment) {
                       var filters = {
-                        productsegment_id: productSegmentRoot.id,
                         certified: Product.CERTIFICATION_STATUS_ATTRIBUTED.id
                       };
                       // Getting the product list with new product-style filters, and limit of 0 (need count only)
@@ -498,6 +514,16 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
                       });
                     });
                 }
+
+                // Load product segments
+                $$ORM.repository('User').method('ManagesProductSegmentWithPermission')('product.show').then(function(permissions) {
+                $$ORM.repository('ProductSegment').list({}, { filter_id_in: permissions.productsegmentids }, {}, 0, permissions.productsegmentids.length).then(function (productsegments) {
+                        $scope.productsegments = _.filter(productsegments, function (ps) {
+                            return permissions.productsegmentids.indexOf(ps.id) !== -1 &&
+                                ps.id !== productSegmentRoot.id;
+                        });
+                    });
+                });
             });
 
             // Load all available brands
@@ -549,8 +575,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
                     return;
                 }
             }
-
-            $scope.segmentIds = user.allowedProductSegments("product.show");
 
             setPageFromUrl();
             list();

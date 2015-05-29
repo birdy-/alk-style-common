@@ -6,6 +6,7 @@ exports.config = {
     registration: 'integration/registration/*.scenario.js',
     login: 'integration/login/*.scenario.js',
     maker: 'integration/maker/*.scenario.js',
+    organization: 'integration/organization/*.scenario.js',
     retailer: 'integration/retailer/*.scenario.js'
   },
 
@@ -30,6 +31,10 @@ exports.config = {
       url: 'http://localstream.alkemics.com:9005/#/'
     },
     user: {
+      username: 'XXXXXXXXXXX',
+      password: 'XXXXXXXXXXX'
+    },
+    admin: {
       username: 'XXXXXXXXXXX',
       password: 'XXXXXXXXXXX'
     }
