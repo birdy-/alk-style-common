@@ -1,4 +1,4 @@
-<form role="form" class="col-xs-12">
+<form role="form" class="col-xs-12 products-search">
     <h3>Je recherche</h3>
     <div ng-if="isAdmin"
          class="form-group btn btn-block new-products"
@@ -71,7 +71,7 @@
                        name="productsegment"
                        ng-model="productsegment.active"
                        ng-change="refreshProductSegment()"/>
-                {{ productsegment.name }}
+                {{ productsegment.name }} ({{ productsegment.statistics.total }})
             </label></li>
         </div>
     </div>
