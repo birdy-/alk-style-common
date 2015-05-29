@@ -16,8 +16,10 @@ $segment-stats-height: 80px;
                 width: 100%;
 
                 &.active {
+                    border-bottom: 1px solid $gray-light;
+
                     input {
-                        border-bottom: 1px solid $gray-light;
+                        width: 80%;
                         display: inline-block;
                     }
                 }
@@ -176,6 +178,10 @@ $segment-stats-height: 80px;
                     &:active {
                         background-color: $alk-purple-light-active;
                         box-shadow: none;
+                    }
+
+                    &.new-products {
+                        padding-top: 2.4*$padding-base-vertical;
                     }
 
                     > .btn {

@@ -162,12 +162,15 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
     init();
 }])
 
-.directive('focusMe', function ($timeout) {
+.directive('focusMe', ['$timeout', function ($timeout) {
   return {
-    link: function($scope, $element, $attrs) {
+    link: function ($scope, $element, $attrs) {
+        console.log('focusMe');
         $scope.$watch($attrs.focusMe, function (value) {
-            if(value === true) {
-                $element[0].focus();
+            if (value) {
+                $timeout(function () {
+                    $element[0].focus();
+                });
             }
         });
 
@@ -183,4 +186,4 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
         });
     }
   };
-});
+}]);

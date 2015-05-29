@@ -17,6 +17,7 @@
 
         .segment {
             padding: $padding-base-vertical*1.7 0;
+            margin-left: -14px !important;
 
             &.active {
                 background-color: $alk-green-light-active;
@@ -28,10 +29,8 @@
                 color: $alk-green;
                 padding-top: $padding-large-vertical;
                 padding-bottom: $padding-large-vertical;
-                margin-left: -14px;
+
                 margin-right: -14px;
-                padding-left: 14px;
-                padding-right: 14px;
                 text-align: left;
 
                 .mdi {
