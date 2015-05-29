@@ -11,6 +11,28 @@ angular.module('jDashboardFluxApp').controller('PasswordResetController', [
 
     $scope.login = $routeParams.login || null;
 
+    // ------------------------------------------------------------------------
+    // Event binding
+    // ------------------------------------------------------------------------
+    $scope.subscribe = function (message) {
+        var modalInstance = $modal.open({
+            templateUrl: '/src/home/contact.html',
+            controller: 'ContactController',
+            resolve: {
+                user: function () {
+                    return $scope.user;
+                },
+                message: function () {
+                    return message;
+                }
+            }
+        });
+
+        modalInstance.result.then(function () {
+        }, function () {
+        });
+    };
+
     $scope.sendResetEmail = function() {
 
         $http.post(URL_SERVICE_AUTH + '/auth/v1/user/password/forgotten', {

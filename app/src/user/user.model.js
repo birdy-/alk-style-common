@@ -64,14 +64,14 @@ User.prototype.getPSPermissions = function (productSegmentId) {
  * @param {object} json - A JSON with user data
  * @return {User}
  */
-User.prototype.fromJson = function(json) {
+User.prototype.fromJson = function (json) {
     for (var key in json) {
         this[key] = json[key];
     }
     return this;
 };
 
-User.prototype.isAllowed = function(type, id) {
+User.prototype.isAllowed = function (type, id) {
     var considers = [];
     if (type === 'Shop') {
         considers = this.managesShop;
@@ -90,7 +90,7 @@ User.prototype.isAllowed = function(type, id) {
     return false;
 };
 
-User.prototype.allowedProductSegments = function(permission) {
+User.prototype.allowedProductSegments = function (permission) {
     var returns = [];
     for (var i = 0; i < this.managesProductSegment.length; i++) {
         for (var j = 0; j < this.managesProductSegment[i].permissions.length; j++) {
@@ -101,9 +101,9 @@ User.prototype.allowedProductSegments = function(permission) {
         }
     }
     return returns;
-}
+};
 
-User.prototype.isAdmin = function() {
+User.prototype.isAdmin = function () {
     for (var i = 0; i < this.belongsTo.length; i++) {
         if (this.belongsTo[i].permissions.indexOf('admin') != -1) {
           return true;
@@ -112,7 +112,18 @@ User.prototype.isAdmin = function() {
     return false;
 };
 
-User.prototype.allowedWebsites = function(permission) {
+User.prototype.isRetailer = function () {
+    return (this.managesShop.length > 0);
+};
+
+User.prototype.getHomeUrl = function () {
+    if (this.isRetailer()) {
+        return '/retailer/activity';
+    }
+    return '/maker/activity';
+};
+
+User.prototype.allowedWebsites = function (permission) {
     var returns = [];
     for (var i = 0; i < this.managesWebsite.length; i++) {
         for (var j = 0; j < this.managesWebsite[i].permissions.length; j++) {
