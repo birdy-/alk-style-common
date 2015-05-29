@@ -68,6 +68,10 @@ var HomePage = function () {
     return element(by.css('.ptor-signin'));
   };
 
+  this.getLogoutButton = function () {
+    return element(by.css('.ptor-signout'));
+  };
+
   /** Footer **/
   this.getFooter = function () {
     return element.all(by.css('.navbar.navbar-inverse')).last();
