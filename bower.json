@@ -41,8 +41,7 @@
     "lodash": "~3.3.1",
     "ngtoast": "~1.5.0",
     "jszip": "Stuk/jszip#~2.5.0",
-    "jszip-utils": "~0.0.2",
-    "mdi": "~1.0.62-beta"
+    "jszip-utils": "~0.0.2"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.0",
