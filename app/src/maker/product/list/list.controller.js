@@ -405,6 +405,10 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
             return;
         }
 
+        $analytics.eventTrack('MAK Products Button Bulk Certify', {
+            count: selectedProducts.length
+        });
+
         var modalInstance = $modal.open({
             templateUrl: '/src/maker/product/certify/certification.html',
             controller: 'ProductCertificationModalController',
