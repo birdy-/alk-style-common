@@ -65,8 +65,12 @@ angular.module('jDashboardFluxApp').controller('UserPermissionsRowController', [
                 $scope.user.enablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_UPDATE_TEXTUAL);
                 $scope.user.enablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_UPDATE_SEMANTIC);
                 $scope.user.enablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_UPDATE_NORMALIZED);
+
+                // Give show permission by the way
+                permissionType = ProductSegment.PERMISSION_PRODUCT_SHOW;
             }
-            else if (permissionType === ProductSegment.PERMISSION_PRODUCT_SHOW) {
+            if (permissionType === ProductSegment.PERMISSION_PRODUCT_SHOW) {
+                $scope.user.enablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_SHOW);
                 $scope.user.enablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_SHOW_TEXTUAL);
                 $scope.user.enablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_SHOW_SEMANTIC);
                 $scope.user.enablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_SHOW_NORMALIZED);
@@ -90,6 +94,15 @@ angular.module('jDashboardFluxApp').controller('UserPermissionsRowController', [
                 $scope.user.disablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_SHOW_TEXTUAL);
                 $scope.user.disablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_SHOW_SEMANTIC);
                 $scope.user.disablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_SHOW_NORMALIZED);
+
+                // Also remove edit
+                $scope.user.disablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_UPDATE);
+                $scope.user.disablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_UPDATE_TEXTUAL);
+                $scope.user.disablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_UPDATE_SEMANTIC);
+                $scope.user.disablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_UPDATE_NORMALIZED);
+
+                // Also remove certify
+                $scope.user.disablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_CERTIFY);
             }
 
             updatePermissions();
@@ -127,7 +140,7 @@ angular.module('jDashboardFluxApp').controller('UserPermissionsRowController', [
             $scope.permissions[ProductSegment.PERMISSION_PRODUCT_CERTIFY] = false;
         };
 
-        var init = function() {
+        var init = function () {
             $scope.permissions[ProductSegment.PERMISSION_PS_SHOW] = true;
 
             resetPermissions();
