@@ -165,7 +165,6 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminHomeListControl
 .directive('focusMe', ['$timeout', function ($timeout) {
   return {
     link: function ($scope, $element, $attrs) {
-        console.log('focusMe');
         $scope.$watch($attrs.focusMe, function (value) {
             if (value) {
                 $timeout(function () {
