@@ -306,6 +306,16 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
 
     var refresh = function (displayNewProducts) {
         if (!displayNewProducts) { $scope.displayNewProducts = false; }
+        if ($scope.displayNewProducts) {
+            //Go back to initial display
+            $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_DEFAULT.id] = false;
+            $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_ATTRIBUTED.id] = false;
+            $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_ACCEPTED.id] = true;
+            $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_CERTIFIED.id] = true;
+            $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_PUBLISHED.id] = true;
+            $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_REVIEWING.id] = false;
+            $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_DISCONTINUED.id] = false;
+        }
         $log.log("Product List Controller : refresh <Products>.");
         $scope.products = [];
         $scope.request.products = $scope.products;
@@ -325,16 +335,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
 
     $scope.refreshBrand = function (brand) {
         $analytics.eventTrack('MAK Products Filters Brand');
-        if($scope.displayNewProducts){
-          //Go back to initial display
-          $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_DEFAULT.id] = false;
-          $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_ATTRIBUTED.id] = false;
-          $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_ACCEPTED.id] = true;
-          $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_CERTIFIED.id] = true;
-          $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_PUBLISHED.id] = true;
-          $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_REVIEWING.id] = false;
-          $scope.request.product.certifieds[Product.CERTIFICATION_STATUS_DISCONTINUED.id] = false;
-        }
         propagate(brand, brand.active);
         refresh();
     };
