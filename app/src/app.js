@@ -47,8 +47,6 @@ if (window.location.hostname.indexOf('localhost') === 0) {
     env = 'vagrant';
 } else if (window.location.hostname.indexOf('preprod-') === 0) {
     env = 'preprod';
-} else if (window.location.hostname.indexOf('localstream') === 0) {
-    env = 'vagrant';
 }
 
 if (env === 'prod') {
