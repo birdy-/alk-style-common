@@ -112,6 +112,10 @@ User.prototype.isAdmin = function () {
     return false;
 };
 
+User.prototype.isAlkemicsAdmin = function () {
+    return this.id < 100;
+};
+
 User.prototype.isRetailer = function () {
     return (this.managesShop.length > 0);
 };
