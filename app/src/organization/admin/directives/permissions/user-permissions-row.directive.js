@@ -68,6 +68,7 @@ angular.module('jDashboardFluxApp').controller('UserPermissionsRowController', [
 
                 // Give show permission by the way
                 permissionType = ProductSegment.PERMISSION_PRODUCT_SHOW;
+                $scope.permissions[ProductSegment.PERMISSION_PRODUCT_SHOW] = true;
             }
             if (permissionType === ProductSegment.PERMISSION_PRODUCT_SHOW) {
                 $scope.user.enablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_SHOW);
@@ -96,12 +97,14 @@ angular.module('jDashboardFluxApp').controller('UserPermissionsRowController', [
                 $scope.user.disablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_SHOW_NORMALIZED);
 
                 // Also remove edit
+                $scope.permissions[ProductSegment.PERMISSION_PRODUCT_SHOW] = false;
                 $scope.user.disablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_UPDATE);
                 $scope.user.disablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_UPDATE_TEXTUAL);
                 $scope.user.disablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_UPDATE_SEMANTIC);
                 $scope.user.disablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_UPDATE_NORMALIZED);
 
                 // Also remove certify
+                $scope.permissions[ProductSegment.PERMISSION_PRODUCT_CERTIFY] = false;
                 $scope.user.disablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_CERTIFY);
             }
 
