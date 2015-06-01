@@ -206,23 +206,43 @@
                             <!--<a class="pointer-link" ng-click="show(productInShop)">{{ productInShop.name }}</a>-->
                         </td>
                         <td class="text-center">
-                            <a ng-if="!isAttributed(productInShop) && !isDeprecated(productInShop)"
+
+                            <!-- Défaut -->
+                            <a ng-if="isDefault(productInShop)"
                                class="btn btn-warning"
                                ng-click="attribute(productInShop)"
                                analytics-on="click" analytics-event="RET Products Item Button Attribute">
                                 <i class="fa fa-envelope"></i> Attribuer
                             </a>
+
+                            <!-- Attribué -->
+                            <a ng-if="isAttributed(productInShop)"
+                               class="btn btn-danger"
+                               ng-click="chase(productInShop)"
+                               analytics-on="click" analytics-event="RET Products Item Button Relance">
+                                <i class="fa fa-envelope"></i> Relancer
+                            </a>
+
+                            <!-- Accepté -->
+                            <a ng-if="isAccepted(productInShop)"
+                               class="btn btn-primary"
+                               ng-click="chase(productInShop)"
+                               analytics-on="click" analytics-event="RET Products Item Button Relance">
+                                <i class="fa fa-envelope"></i> Relancer
+                            </a>
+
+                            <!-- Certifié -->
                             <a  ng-if="isCertified(productInShop)"
-                                class="btn btn-primary pish-preview"
+                                class="btn btn-success pish-preview"
                                 ng-click="show(productInShop)"
                                 analytics-on="click" analytics-event="RET Products Item Button Preview">
                                 <i class="fa fa-eye"></i> Aperçu
                             </a>
-                            <a ng-if="isAttributed(productInShop)"
+                            <a ng-if="isCertified(productInShop)"
                                class="btn btn-warning"
                                ng-click="chase(productInShop)"
                                analytics-on="click" analytics-event="RET Products Item Button Relance">
-                                <i class="fa fa-envelope"></i> Relancer
+                                <i class="fa fa-envelope"></i> Corriger
                             </a>
                         </td>
                         <td class="text-center">
