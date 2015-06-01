@@ -17,7 +17,7 @@ angular.module('jDashboardFluxApp').directive('roleSticker', [
 
             permission.getUser().then(function (user) {
                 if (user.isAlkemicsAdmin()) {
-                    scope.roleDelete = true;
+                    scope.displayRoleDelete = true;
                 }
             });
             /*

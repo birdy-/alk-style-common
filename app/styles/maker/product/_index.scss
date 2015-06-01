@@ -17,10 +17,6 @@
     .btn {
         border: 1px solid white;
 
-        &.highlight, &:hover {
-            @extend .color-stream;
-        }
-
         &.inactive {
             cursor: default;
         }

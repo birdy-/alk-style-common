@@ -27,7 +27,7 @@ angular.module('jDashboardFluxApp').controller('UserProfileShowController', [
     // --------------------------------------------------------------------------------
     // Event binding
     // --------------------------------------------------------------------------------
-    $scope.updatePassword = function(){
+    $scope.updatePassword = function () {
         $scope.userForm.$saving = true;
         $$sdkAuth.UserChangePassword({
             id: $scope.user.id,
@@ -47,7 +47,7 @@ angular.module('jDashboardFluxApp').controller('UserProfileShowController', [
         });
     };
 
-    $scope.updateUser = function() {
+    $scope.updateUser = function () {
         $scope.userForm.$saving = true;
         $$sdkAuth.UserUpdate($scope.user).then(function(response){
             $scope.userForm.$saving = false;
@@ -55,7 +55,7 @@ angular.module('jDashboardFluxApp').controller('UserProfileShowController', [
         });
     };
 
-    $scope.addBrand = function(brand) {
+    $scope.addBrand = function (brand) {
         // We could do better...
         var modalInstance = $modal.open({
             templateUrl: '/src/user/role/add.html',
@@ -80,7 +80,7 @@ angular.module('jDashboardFluxApp').controller('UserProfileShowController', [
         });
     };
 
-    $scope.deleteBrand = function(brand) {
+    $scope.deleteBrand = function (brand) {
         // Could be improved...
         var organizationId = $scope.user.belongsTo[0].id;
         $$sdkAuth.PluginRemove($scope.user.id, {
@@ -103,7 +103,7 @@ angular.module('jDashboardFluxApp').controller('UserProfileShowController', [
     // --------------------------------------------------------------------------------
     // Init
     // --------------------------------------------------------------------------------
-    var hydrate = function(user) {
+    var hydrate = function (user) {
         if ($scope.userForm) {
             $scope.userForm.$loading = false;
         }
@@ -121,7 +121,7 @@ angular.module('jDashboardFluxApp').controller('UserProfileShowController', [
         $scope.user = user;
         $scope.isRetailer = permission.isRetailer();
     };
-    var refresh = function() {
+    var refresh = function () {
         if ($routeParams.id) {
             $$ORM.repository('User').popCache($routeParams.id);
         } else {
@@ -129,7 +129,7 @@ angular.module('jDashboardFluxApp').controller('UserProfileShowController', [
         }
         init();
     };
-    var init = function() {
+    var init = function () {
         if ($routeParams.id) {
             $$ORM.repository('User').get($routeParams.id).then(hydrate);
         } else {

@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').controller('HomeController', [
-    '$scope', 'permission', '$modal',
-    function ($scope, permission, $modal) {
+    '$scope', 'permission', '$modal', '$location',
+    function ($scope, permission, $modal, $location) {
 
 
     // ------------------------------------------------------------------------

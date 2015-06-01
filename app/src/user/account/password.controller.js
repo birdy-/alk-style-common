@@ -6,8 +6,8 @@
  * authenticate directive for that matter.
  */
 angular.module('jDashboardFluxApp').controller('PasswordResetController', [
-    '$scope', '$http', 'URL_SERVICE_AUTH', '$location', '$window', '$routeParams',
-     function ($scope, $http, URL_SERVICE_AUTH, $location, $window, $routeParams) {
+    '$scope', '$http', 'URL_SERVICE_AUTH', '$location', '$window', '$routeParams', '$modal', 'permission',
+     function ($scope, $http, URL_SERVICE_AUTH, $location, $window, $routeParams, $modal, permission) {
 
     $scope.login = $routeParams.login || null;
 
@@ -20,7 +20,7 @@ angular.module('jDashboardFluxApp').controller('PasswordResetController', [
             controller: 'ContactController',
             resolve: {
                 user: function () {
-                    return $scope.user;
+                    return {};
                 },
                 message: function () {
                     return message;
@@ -77,7 +77,6 @@ angular.module('jDashboardFluxApp').controller('PasswordResetController', [
         .error(function (response) {
             $window.alert('Une erreur est survenue. Merci de réessayer ultérieurement.');
         });
-
     };
 
 }]);
