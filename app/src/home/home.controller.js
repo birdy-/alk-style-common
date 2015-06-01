@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').controller('HomeController', [
-    '$scope', 'permission', '$modal',
-    function ($scope, permission, $modal) {
+    '$scope', 'permission', '$modal', '$location',
+    function ($scope, permission, $modal, $location) {
 
 
     // ------------------------------------------------------------------------
@@ -13,7 +13,7 @@ angular.module('jDashboardFluxApp').controller('HomeController', [
     // ------------------------------------------------------------------------
     // Event binding
     // ------------------------------------------------------------------------
-    $scope.subscribe = function(message){
+    $scope.subscribe = function (message) {
         var modalInstance = $modal.open({
             templateUrl: '/src/home/contact.html',
             controller: 'ContactController',
@@ -21,7 +21,7 @@ angular.module('jDashboardFluxApp').controller('HomeController', [
                 user: function () {
                     return $scope.user;
                 },
-                message: function() {
+                message: function () {
                     return message;
                 }
             }
@@ -36,8 +36,12 @@ angular.module('jDashboardFluxApp').controller('HomeController', [
     // ------------------------------------------------------------------------
     // Init
     // ------------------------------------------------------------------------
-    permission.getUser().then(function(user) {
+    permission.getUser().then(function (user) {
         $scope.user = user;
+        // Redirect user if connected
+        if (user.id) {
+            $location.path(user.getHomeUrl());
+        }
     });
 
 }]);

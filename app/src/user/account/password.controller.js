@@ -6,10 +6,32 @@
  * authenticate directive for that matter.
  */
 angular.module('jDashboardFluxApp').controller('PasswordResetController', [
-    '$scope', '$http', 'URL_SERVICE_AUTH', '$location', '$window', '$routeParams',
-     function ($scope, $http, URL_SERVICE_AUTH, $location, $window, $routeParams) {
+    '$scope', '$http', 'URL_SERVICE_AUTH', '$location', '$window', '$routeParams', '$modal', 'permission',
+     function ($scope, $http, URL_SERVICE_AUTH, $location, $window, $routeParams, $modal, permission) {
 
     $scope.login = $routeParams.login || null;
+
+    // ------------------------------------------------------------------------
+    // Event binding
+    // ------------------------------------------------------------------------
+    $scope.subscribe = function (message) {
+        var modalInstance = $modal.open({
+            templateUrl: '/src/home/contact.html',
+            controller: 'ContactController',
+            resolve: {
+                user: function () {
+                    return {};
+                },
+                message: function () {
+                    return message;
+                }
+            }
+        });
+
+        modalInstance.result.then(function () {
+        }, function () {
+        });
+    };
 
     $scope.sendResetEmail = function() {
 
@@ -55,7 +77,6 @@ angular.module('jDashboardFluxApp').controller('PasswordResetController', [
         .error(function (response) {
             $window.alert('Une erreur est survenue. Merci de réessayer ultérieurement.');
         });
-
     };
 
 }]);

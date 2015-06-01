@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('jDashboardFluxApp').directive('roleSticker', [
-    function () {
+    'permission',
+    function (permission) {
     return {
         restrict: 'AEC',
         scope: {
@@ -13,6 +14,12 @@ angular.module('jDashboardFluxApp').directive('roleSticker', [
         templateUrl: '/src/user/role/role.html',
         link: function(scope, elem, attrs) {
             scope.role = null;
+
+            permission.getUser().then(function (user) {
+                if (user.isAlkemicsAdmin()) {
+                    scope.displayRoleDelete = true;
+                }
+            });
             /*
             scope.$watch(function(){
                 if (!scope.relation
