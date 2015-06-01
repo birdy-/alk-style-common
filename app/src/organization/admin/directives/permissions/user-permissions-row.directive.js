@@ -97,7 +97,7 @@ angular.module('jDashboardFluxApp').controller('UserPermissionsRowController', [
                 $scope.user.disablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_SHOW_NORMALIZED);
 
                 // Also remove edit
-                $scope.permissions[ProductSegment.PERMISSION_PRODUCT_SHOW] = false;
+                $scope.permissions[ProductSegment.PERMISSION_PRODUCT_UPDATE] = false;
                 $scope.user.disablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_UPDATE);
                 $scope.user.disablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_UPDATE_TEXTUAL);
                 $scope.user.disablePSPermission($scope.productsegment.id, ProductSegment.PERMISSION_PRODUCT_UPDATE_SEMANTIC);
