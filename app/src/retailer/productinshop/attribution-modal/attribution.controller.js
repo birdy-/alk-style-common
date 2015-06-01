@@ -4,8 +4,8 @@
  * Modal that allows the user to accept the responsability for a given productInShop.
  */
 angular.module('jDashboardFluxApp').controller('ProductAttributionModalController', [
-    '$scope', '$modalInstance', '$window', 'productInShops', 'user', '$$sdkMailer', '$$sdkCrud',
-    function ($scope, $modalInstance, $window, productInShops, user, $$sdkMailer, $$sdkCrud) {
+    '$scope', '$modalInstance', '$window', 'productInShops', 'user', '$$sdkMailer', '$$ORM',
+    function ($scope, $modalInstance, $window, productInShops, user, $$sdkMailer, $$ORM) {
 
         var AttributionModal = function () {
             $scope.productInShops = productInShops;
@@ -62,8 +62,7 @@ angular.module('jDashboardFluxApp').controller('ProductAttributionModalControlle
 
         AttributionModal.prototype.initProductContact = function () {
             var productInShop = productInShops[0];
-            $$sdkCrud.ProductShow(productInShop.isIdentifiedBy[0].identifiesProduct.id).then(function (result) {
-                var product = result.data.data;
+            $$ORM.repository('Product').get(productInShop.isIdentifiedBy[0].identifiesProduct.id).then(function (product) {
                 var brand = product.isBrandedBy;
                 // API returns 'ProductBrand' if the product has no brand
                 if (brand.name !== 'ProductBrand') {
