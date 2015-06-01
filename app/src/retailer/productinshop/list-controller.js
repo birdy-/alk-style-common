@@ -249,9 +249,9 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
                 case Product.CERTIFICATION_STATUS_REVIEWING.id:
                     return 'label-warning';
                 case Product.CERTIFICATION_STATUS_ATTRIBUTED.id:
-                    return 'label-danger';
-                case Product.CERTIFICATION_STATUS_ACCEPTED.id:
                     return 'label-primary';
+                case Product.CERTIFICATION_STATUS_ACCEPTED.id:
+                    return 'label-danger';
                 case Product.CERTIFICATION_STATUS_CERTIFIED.id:
                     return 'label-success';
                 case Product.CERTIFICATION_STATUS_PUBLISHED.id:
