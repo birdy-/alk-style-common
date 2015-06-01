@@ -1,0 +1,54 @@
+.recipient-bar {
+    @extend .form-control;
+    display: flex;
+    flex-wrap: wrap;
+    height: auto;
+    padding-top: 0.5em 0.5em 0 0.5em;
+    padding-bottom: 0;
+    > .recipient-bar-tag {
+        display: flex;
+        color: #fff;
+        background: $alk-green;
+        padding: 0 5px;
+        margin: 0 18px 0.5em 0;
+        vertical-align: middle;
+        line-height: 26px;
+        height: 26px;
+        border-radius: $border-radius-base;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        position:relative;
+        &:before {
+            margin: 0 0.5em;
+        }
+        > .recipient-bar-tag-delete {
+            cursor: pointer;
+            padding: 0 0 0 0.5em;
+        }
+        &:after {
+          position: absolute;
+          top: 0;
+          left: 100%;
+          content: " ";
+          width: 0;
+          height: 0;
+          border: 13px solid transparent;
+          border-left-color: $alk-green;
+          border-right: 0;
+        }
+    }
+    > .recipient-bar-input {
+      display: flex;
+      vertical-align: middle;
+      min-width: 150px;
+      flex-grow: 1;
+      > input {
+        border: 0 !important;
+        background: transparent !important;
+        outline: 0;
+        width: 100%;
+        height: 26px;
+        margin: 0 0 0.5em 0;
+      }
+    }
+}
