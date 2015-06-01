@@ -35,7 +35,7 @@
     "nghandsontable": "~0.5.0",
     "moment": "~2.8.3",
     "alk-style-common": "git@github.com:alkemics/alk-style-common",
-    "sdk-dashboard": "git@github.com:alkemics/sdk-dashboard#productsegment",
+    "sdk-dashboard": "git@github.com:alkemics/sdk-dashboard",
     "angular-ui-utils": "~0.1.1",
     "angulartics": "~0.17.2",
     "lodash": "~3.3.1",
