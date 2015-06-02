@@ -43,10 +43,12 @@
 
     &:hover {
         background-color: $alk-green-hover !important;
+        color: white !important;
     }
 
     &:active {
         background-color: $alk-green-active !important;
+        color: white !important;
     }
 }
 
@@ -87,4 +89,28 @@
     &:active {
         background-color: $alk-green !important;
     }
+}
+
+.btn-secondary {
+    @include button-variant($brand-secondary, transparent, $brand-secondary);
+
+    &:hover {
+        background-color: $brand-primary-hover;
+    }
+}
+
+.btn-success {
+    @include button-variant($brand-success, transparent, $brand-success);
+}
+
+.btn-danger {
+    @include button-variant($brand-danger, transparent, $brand-danger);
+}
+
+.btn-warning {
+    @include button-variant($brand-warning, transparent, $brand-warning);
+}
+
+.btn-default {
+    @include button-variant($brand-default, transparent, $brand-default);
 }

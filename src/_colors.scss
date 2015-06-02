@@ -5,31 +5,45 @@
 // Grays
 // -------------------------
 
-$gray-darker:            lighten(#000, 13.5%) !default; // #222
-$gray-dark:              lighten(#000, 20%) !default;   // #333
-$gray:                   lighten(#000, 33.5%) !default; // #555
-$gray-light:             lighten(#000, 60%) !default;   // #999
-$gray-lighter:           lighten(#000, 93.5%) !default; // #eee
+// $gray-darker:            lighten(#000, 13.5%) !default; // #222
+// $gray-dark:              lighten(#000, 20%) !default;   // #333
+// $gray:                   lighten(#000, 33.5%) !default; // #555
+// $gray-light:             lighten(#000, 60%) !default;   // #999
+// $gray-lighter:           lighten(#000, 93.5%) !default; // #eee
+
+$gray-darker:            #222222 !default; // #222
+$gray-dark:              #3c3c3b !default;   // #333
+$gray:                   #555555 !default; // #555
+$gray-light:             #b8b8b8 !default;   // #999
+$gray-lighter:           #ececec !default; // #eee
 
 // Brand colors
 // -------------------------
-$brand-primary:         #428bca !default;
-$brand-success:         #5cb85c !default;
-$brand-warning:         #f0ad4e !default;
-$brand-danger:          #d9534f !default;
+$brand-primary:         #3FA2B2 !default;
+$brand-secondary:       #166a83 !default;
+$brand-success:         #48b071 !default;
+$brand-warning:         #e64c42 !default;
+$brand-danger:          $brand-warning !default;
+$brand-default:         $gray-dark !default;
+
+// $brand-primary-80:      lighten($brand-primary, 20%);
+// $brand-primary-60:      lighten($brand-primary, 30%);
+// $brand-primary-40:      lighten($brand-primary, 40%);
+
+$brand-primary-hover:   #3e8e9a;
+
+$brand-primary-80:      rgba($brand-primary, .8);
+$brand-primary-60:      rgba($brand-primary, .6);
+$brand-primary-40:      rgba($brand-primary, .4);
+
 $brand-info:            #5bc0de !default;
 $brand-brillant:        rgb(255, 255, 0);
 $brand-deprecated:      rgb(165, 154, 103);
-$brand-stream:          rgb(147, 122, 178);
-
-$brand-primary:         #428bca !default;
-$brand-success:         #5cb85c !default;
-$brand-warning:         #f0ad4e !default;
-$brand-danger:          #d9534f !default;
-$brand-info:            #5bc0de !default;
+$brand-stream:          $brand-primary;
 
 $alk-red: rgb(227, 37, 34);
-$alk-green: rgb(94, 172, 37);
+$alk-green: $brand-success;
+// $alk-green: rgb(94, 172, 37);
 $alk-darkgreen: rgb(0, 102, 74);
 $alk-blue: rgb(2, 102, 161);
 $alk-yellow: rgb(255, 214, 0);
@@ -43,7 +57,7 @@ $alk-green-lighter: rgba(127, 201, 49, 1);
 $alk-yellow-lighter: rgba(246, 220, 0, 1);
 $alk-yellow-darker: rgba(241, 201, 0, 1);
 
-$background-color-grey: #f1f4f3;
+$background-color-grey: $gray-lighter;
 
 $alk-green-hover: rgba($alk-green, .85);
 $alk-green-active: rgba($alk-green, .65);
@@ -61,6 +75,12 @@ $icon-gray-hover: rgba($gray-light, .7);
 $icon-gray-active: rgba($gray-light, .85);
 
 $alk-icon-color: rgba(94, 172, 37, 0.25);
+
+.btn-primary {
+    &:hover {
+        background-color: $brand-primary-hover;
+    }
+}
 
 // =================================================================================================
 //                                          BASE COLORS
@@ -223,16 +243,16 @@ $alk-icon-color: rgba(94, 172, 37, 0.25);
 }
 
 .color-stream {
-    @extend .color-green;
-    background-color: white;
+    color: $brand-primary !important;
 }
 
 .color-stream-transparent {
-    color: $alk-green;
+    @extend .color-stream;
 }
 
 .color-stream-inverse {
-    @extend .color-green-inverse;
+    background-color: $brand-primary;
+    color: white;
 }
 
 .color-api {

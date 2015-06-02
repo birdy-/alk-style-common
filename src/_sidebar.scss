@@ -13,14 +13,10 @@
         overflow-x: hidden;
         overflow-y: auto;
         /* Scrollable contents if viewport is shorter than content. */
-        background-color: $alk-orange;
         color: white;
+
         a {
             color: inherit;
-        }
-        a:hover {
-            background-color: $alk-orange-darker;
-            color: black;
         }
         border-right: 1px solid #eee;
     }
