@@ -134,14 +134,31 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
             $scope.refresh();
         };
 
+        $scope.isDefault = function (productInShop) {
+            return [
+                Product.CERTIFICATION_STATUS_DEFAULT.id,
+                Product.CERTIFICATION_STATUS_REVIEWING.id
+            ].indexOf(productInShop.instantiates.certified) !== -1;
+        };
+
         $scope.isDeprecated = function (productInShop) {
             return productInShop.instantiates.certified === Product.CERTIFICATION_STATUS_DISCONTINUED.id;
         };
 
         $scope.isAttributed = function (productInShop) {
             return [
-                Product.CERTIFICATION_STATUS_ATTRIBUTED.id,
-                Product.CERTIFICATION_STATUS_ACCEPTED.id,
+                Product.CERTIFICATION_STATUS_ATTRIBUTED.id
+            ].indexOf(productInShop.instantiates.certified) !== -1;
+        };
+
+        $scope.isAccepted = function (productInShop) {
+            return [
+                Product.CERTIFICATION_STATUS_ACCEPTED.id
+            ].indexOf(productInShop.instantiates.certified) !== -1;
+        };
+
+        $scope.isCertified = function (productInShop) {
+            return [
                 Product.CERTIFICATION_STATUS_CERTIFIED.id,
                 Product.CERTIFICATION_STATUS_PUBLISHED.id
             ].indexOf(productInShop.instantiates.certified) !== -1;
@@ -211,7 +228,7 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
                 case Product.CERTIFICATION_STATUS_REVIEWING.id:
                     return 'A contacter';
                 case Product.CERTIFICATION_STATUS_ATTRIBUTED.id:
-                    return 'Remplissage';
+                    return 'En cours d\'acceptation';
                 case Product.CERTIFICATION_STATUS_ACCEPTED.id:
                     return 'Remplissage';
                 case Product.CERTIFICATION_STATUS_CERTIFIED.id:
@@ -228,13 +245,13 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
         $scope.certifiedClass = function (productInShop) {
             switch (productInShop.instantiates.certified) {
                 case Product.CERTIFICATION_STATUS_DEFAULT.id:
-                    return 'label-danger';
-                case Product.CERTIFICATION_STATUS_REVIEWING.id:
-                    return 'label-danger';
-                case Product.CERTIFICATION_STATUS_ATTRIBUTED.id:
                     return 'label-warning';
-                case Product.CERTIFICATION_STATUS_ACCEPTED.id:
+                case Product.CERTIFICATION_STATUS_REVIEWING.id:
+                    return 'label-warning';
+                case Product.CERTIFICATION_STATUS_ATTRIBUTED.id:
                     return 'label-primary';
+                case Product.CERTIFICATION_STATUS_ACCEPTED.id:
+                    return 'label-danger';
                 case Product.CERTIFICATION_STATUS_CERTIFIED.id:
                     return 'label-success';
                 case Product.CERTIFICATION_STATUS_PUBLISHED.id:
@@ -244,10 +261,6 @@ angular.module('jDashboardFluxApp').controller('RetailerProductInShopListControl
                 default:
                     return "";
             }
-        };
-
-        $scope.isCertified = function (productInShop) {
-            return productInShop.instantiates.certified === Product.CERTIFICATION_STATUS_CERTIFIED.id;
         };
 
         // ------------------------------------------------------------------------
