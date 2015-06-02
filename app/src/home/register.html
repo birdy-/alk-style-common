@@ -110,7 +110,7 @@
 
 
             <br/>
-            <form class="form-horizontal" name="companyForm" ng-show="userForm.$valid">
+            <form class="form-horizontal" name="companyForm" ng-show="userForm.$valid && !organizationGuessed">
                 <div ng-init="formInit(companyForm)">
                     <h3>2. Quelques détails sur ma société...</h3><br/>
                     <div class="form-group">
@@ -187,8 +187,9 @@
 
 
             <br/>
-            <form class="form-horizontal" name="emailForm" ng-show="companyForm.$valid">
-                <h3>3. Je finalise mon inscription et vérifie mon email</h3><br/>
+            <form class="form-horizontal" name="emailForm" ng-show="companyForm.$valid || organizationGuessed">
+                <h3 ng-hide="organizationGuessed">3. Je finalise mon inscription et vérifie mon email</h3><br/>
+                <h3 ng-show="organizationGuessed">2. Je finalise mon inscription et vérifie mon email</h3><br/>
                 <div class="form-group">
                     <div class="col-sm-4 col-sm-offset-4">
                         <div class="checkbox">
