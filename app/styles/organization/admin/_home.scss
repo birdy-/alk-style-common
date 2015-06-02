@@ -104,17 +104,17 @@ $segment-stats-height: 80px;
             text-align: center;
 
             &:hover {
-                background-color: $alk-green-light-hover;
+                background-color: $brand-primary-hover;
             }
 
             &.active {
                 td {
-                    background-color: $alk-green-light-active;
+                    background-color: $brand-primary;
                 }
             }
 
             &:active {
-                background-color: $alk-green-light-active;
+                background-color: $brand-primary-40;
             }
 
             .edit {
@@ -164,7 +164,7 @@ $segment-stats-height: 80px;
 
                 .action {
                     border: none;
-                    background-color: $alk-purple-light;
+                    background-color: $brand-secondary;
                     border-radius: $border-radius-base;
                     color: $text-color;
                     cursor: pointer;
@@ -172,11 +172,11 @@ $segment-stats-height: 80px;
                     padding: 2*$padding-base-vertical $padding-base-horizontal;
 
                     &:hover {
-                        background-color: $alk-purple-light-hover;
+                        background-color: $brand-secondary;
                     }
 
                     &:active {
-                        background-color: $alk-purple-light-active;
+                        background-color: $brand-secondary;
                         box-shadow: none;
                     }
 
@@ -247,7 +247,7 @@ $segment-stats-height: 80px;
                 }
 
                 &:hover {
-                    background-color: $alk-green !important;
+                    background-color: $brand-primary !important;
 
                     i.add {
                         @include rotate(90deg);
@@ -362,13 +362,13 @@ $segment-stats-height: 80px;
                     text-align: center;
 
                     &.certifieds {
-                        color: $alk-green;
-                        border-top: 2px solid $alk-green;
+                        color: $brand-success;
+                        border-top: 2px solid $brand-success;
                     }
 
                     &.not-certifieds {
-                        color: $alk-pink;
-                        border-top: 2px solid $alk-pink;
+                        color: $brand-danger;
+                        border-top: 2px solid $brand-danger;
                     }
 
                     .figure {

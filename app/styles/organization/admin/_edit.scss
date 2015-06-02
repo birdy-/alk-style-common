@@ -20,13 +20,13 @@
             margin-left: -14px !important;
 
             &.active {
-                background-color: $alk-green-light-active;
+                background-color: $brand-primary-80;
             }
 
             &.create-segment {
                 background-color: $background-color-grey;
                 border: 1px solid $gray-lighter;
-                color: $alk-green;
+                color: $brand-primary;
                 padding-top: $padding-large-vertical;
                 padding-bottom: $padding-large-vertical;
 
@@ -34,7 +34,7 @@
                 text-align: left;
 
                 .mdi {
-                    color: $alk-green;
+                    color: $brand-primary;
                 }
             }
         }
@@ -137,15 +137,15 @@
                 cursor: pointer;
 
                 &:hover {
-                    color: $alk-green-hover;
+                    color: $brand-primary-60;
                 }
 
                 &:active {
-                    color: $alk-green-active;
+                    color: $brand-primary-40;
                 }
 
                 &.active {
-                    color: $alk-green;
+                    color: $brand-primary;
                 }
 
                 + i {

@@ -24,11 +24,6 @@ html, body, [ng-view] {
     }
 }
 
-// Legacy
-#stream h1 {
-    @extend .color-stream;
-}
-
 .browserhappy-top {
     position: fixed;
     top: 40px;

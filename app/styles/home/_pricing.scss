@@ -21,7 +21,7 @@
 
 .pricing-stack .well .price {
     text-shadow: none;
-    color: $alk-green;
+    color: $brand-primary;
     display: block;
     border: 1px solid #cdcdcd;
     background: #fff;
@@ -55,7 +55,7 @@
 .pricing-stack .well.active {
     -webkit-box-shadow: 1px 2px 5px #cdcdcd;
     box-shadow: 1px 2px 5px #cdcdcd;
-    border-color: $alk-green;
+    border-color: $brand-primary;
     border-width: 1px;
 }
 
@@ -65,10 +65,10 @@
 }
 
 .pricing-stack .well.active .price {
-    background: $alk-green;
+    background: $brand-primary;
     background-repeat: repeat-x;
     color: white;
-    border-color: $alk-green;
+    border-color: $brand-primary;
 }
 
 .pricing-table .pricing-table-features .title-hidden .title {

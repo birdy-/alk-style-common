@@ -17,7 +17,7 @@
     <h2>
         {{ brand.name }}
         <small>Marque commerciale</small>
-        <!-- <button class="btn btn-success pull-right" ng-click="openClaimModal()">Ajouter un produit à la marque</button> -->
+        <!-- <button class="btn btn-primary pull-right" ng-click="openClaimModal()">Ajouter un produit à la marque</button> -->
     </h2>
 
     <br/>
@@ -130,7 +130,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-7">
-                                <div ng-click="selectAsLogo(picture)" class="btn btn-success btn-block">
+                                <div ng-click="selectAsLogo(picture)" class="btn btn-primary btn-block">
                                    <i class="fa fa-picture-o hidden-md"></i> Définir comme logo principal
                                 </div>
                             </div>
@@ -150,7 +150,7 @@
                 <div>
                     <img ng-src="https://smedia.alkemics.com/brand/{{ brand.id }}/picture/logo/original.png?cachebuster={{ cachebuster }}" fallback-src="https://stream.alkemics.com/images/5078aa32.missing.png" style="width: 100%; padding-bottom: 20px;"/>
                 </div>
-                <div class="btn btn-success col-lg-12" ng-click="uploadNewPictures('logo', false)" style="cursor:pointer;">
+                <div class="btn btn-primary col-lg-12" ng-click="uploadNewPictures('logo', false)" style="cursor:pointer;">
                     <i class="fa fa-picture-o" name="logo"></i> Ajouter un logo
                 </div>
             </div>

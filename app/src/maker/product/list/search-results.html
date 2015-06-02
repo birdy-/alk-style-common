@@ -8,21 +8,21 @@
                     <input type="checkbox" ng-model="display.allSelected" analytics-on="click" analytics-event="MAK Products Button Select All"/>
                     Tout sélectionner &nbsp;
                 </label>
-                <div class="btn btn-success certify"
+                <div class="btn btn-primary certify"
                      ng-click="certificate()">
                     <i class="fa fa-certificate"></i> Certifier
                 </div>
-                <div class="btn btn-success edit"
+                <div class="btn btn-primary edit"
                      ng-click="bulkEdit()"
                      analytics-on="click"
                      analytics-event="MAK Products Button Bulk Edit">
                     <i class="fa fa-edit"></i> Modifier
                 </div>
             </div>
-            <span ng-show="displayNewProducts" class="btn" ng-class="{'btn-success':!gdsnOnly, 'btn-default':gdsnOnly}" ng-click="toggleGdsnOnly(false)">
+            <span ng-show="displayNewProducts" class="btn" ng-class="{'btn-primary':!gdsnOnly, 'btn-default':gdsnOnly}" ng-click="toggleGdsnOnly(false)">
               Tout
             </span>
-            <span ng-show="displayNewProducts" class="btn" ng-class="{'btn-success':gdsnOnly, 'btn-default':!gdsnOnly}" ng-click="toggleGdsnOnly(true)">
+            <span ng-show="displayNewProducts" class="btn" ng-class="{'btn-primary':gdsnOnly, 'btn-default':!gdsnOnly}" ng-click="toggleGdsnOnly(true)">
               GDSN
             </span>
         </div>
@@ -44,10 +44,10 @@
             <span class="pagination-text">{{request.totalProducts}} {{request.totalProducts > 1 ? 'produits' : 'produit'}} / {{request.totalPages}} {{ request.totalPages > 1 ? 'pages' : 'page'}}</span>
 
             <div class="btn-group change-display">
-                <label class="btn btn-success" ng-model="display.type" btn-radio="'preview'" analytics-on="click" analytics-event="MAK Products Change View ToPreview">
+                <label class="btn btn-primary" ng-model="display.type" btn-radio="'preview'" analytics-on="click" analytics-event="MAK Products Change View ToPreview">
                     <i class="fa fa-th-large"></i>
                 </label>
-                <label class="btn btn-success" ng-model="display.type" btn-radio="'list'" analytics-on="click" analytics-event="MAK Products Change View ToList">
+                <label class="btn btn-primary" ng-model="display.type" btn-radio="'list'" analytics-on="click" analytics-event="MAK Products Change View ToList">
                     <i class="fa fa-th-list"></i>
                 </label>
             </div>
@@ -56,7 +56,7 @@
 
     <!-- Preview view -->
     <div class="row products" ng-hide="request.busy || display.type !== 'preview'">
-        <div ng-repeat="product in products | unique:'isIdentifiedBy.0.reference' track by product.isIdentifiedBy.0.reference" class="col-sm-2 product" ng-class="{'inactive': product.claimInProgress}" ng-hide="isInactive">
+        <div ng-repeat="product in products | unique:'isIdentifiedBy.0.reference' track by product.isIdentifiedBy.0.reference" class="col-sm-2 product box-tile" ng-class="{'inactive': product.claimInProgress}" ng-hide="isInactive">
             <div class="claim-wrapper text-center">
                 <div class="claim-information" ng-if="product.claimInProgress">
                     <span class="claim-text">Demande en cours</span>

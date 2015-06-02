@@ -19,15 +19,15 @@
 
 <div class="pull-right">
     <div ng-if="!downloadInProgress"
-         class="btn btn-success"
+         class="btn btn-primary"
          ng-click="downloadAllPictures()"
          analytics-on="click" analytics-event="Product Profile Media Download All">
         <i class="fa fa-cloud-download"></i> Tout télécharger
     </div>
-    <div ng-if="downloadInProgress" class="btn btn-success">
+    <div ng-if="downloadInProgress" class="btn btn-primary">
         <i class="fa fa-spinner fa-spin"></i> Téléchargement
     </div>
-    <div class="btn btn-success" ng-click="uploadNewPictures()">
+    <div class="btn btn-primary" ng-click="uploadNewPictures()">
         <i class="fa fa-plus"></i> Ajouter un visuel
     </div>
 </div>
@@ -57,7 +57,7 @@
                         <!-- Valide du {{ picture.fileEffectiveStartDateTime | date:'dd/MM/yyyy' }} au {{ picture.fileEffectiveEndDateTime | date:'dd/MM/yyyy' }} -->
                     </div>
                     <div class="col-sm-12">
-                        <span ng-click="selectAsPackshot(picture)" class="btn btn-success text-center">Définir comme image principale</span>
+                        <span ng-click="selectAsPackshot(picture)" class="btn btn-primary text-center">Définir comme image principale</span>
                         <span alk-confirm-action confirm-action="deletePicture" item="picture" class="btn btn-danger">
                             <i class="fa fa-trash-o"></i>
                         </span>

@@ -6,7 +6,7 @@
         <center>
             <h3 class="col-xs-12" ng-if="verify.cgu">
                 Evolutions des CGU
-            </h3>            
+            </h3>
         </center>
     </div>
 </div>
@@ -25,7 +25,7 @@
                 <a target="__blank" href="{{ cgu.link }}">Conditions générales d'utilisation</a>
                 <br><br>
                 <span class="btn btn-link" ng-click="cancel()"><i class="fa fa-times"></i> Plus tard</span>
-                <span class="btn btn-success pull-right" ng-click="sendCGUAccept()"><i class="fa fa-check "></i> Accepter</span>
+                <span class="btn btn-primary pull-right" ng-click="sendCGUAccept()"><i class="fa fa-check "></i> Accepter</span>
             </div>
             <div ng-if="!cgu.version">
                 <center>
@@ -67,7 +67,7 @@
 </div>
 <div class="modal-footer"  ng-if="!verify.cgu">
     <div class="text-right">
-        <span class="btn btn-success" ng-click="sendInformation()"><i class="fa fa-check"></i> Enregistrer</span>
+        <span class="btn btn-primary" ng-click="sendInformation()"><i class="fa fa-check"></i> Enregistrer</span>
         <span class="btn btn-link" ng-click="cancel()"><i class="fa fa-times"></i> Passer cette étape</span>
     </div>
 </div>

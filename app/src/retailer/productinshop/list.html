@@ -1,11 +1,15 @@
 <div ng-include="'/src/retailer/home/header.html'"></div>
 
 <div class="container product-in-shop">
-    <h1>Produits</h1>
+    <div class="row">
+        <h1>Produits</h1>
+    </div>
+
     <br/>
-    <div class="statistics">
-        <h3>Total</h3>
-        <div ng-if="segment" class="row text-center">
+
+    <div class="statistics box-tile">
+        <h3>Statistiques</h3>
+        <div ng-show="segment" class="row text-center">
             <div class="col-sm-3">
                 <h3>
                     {{ stats.total }}
@@ -38,7 +42,7 @@
                 </h3>
            </div>
         </div>
-        <div>
+        <div class="row">
             <div class="col-sm-4">
             * Calcul effectué sur le segment :
             </div>
@@ -53,12 +57,11 @@
                 </div>
             </div>
             <div class="col-sm-2">
-                <span class="btn btn-success btn-search" ng-click="refreshStats()"><i class="fa fa-search"></i></span>
+                <span class="btn btn-primary btn-search" ng-click="refreshStats()"><i class="fa fa-search"></i></span>
             </div>
         </div>
     </div>
-    <br/>
-    <br/>
+
     <br/>
 
     <div class="details">
@@ -129,7 +132,7 @@
                            analytics-on="click" analytics-event="RET Products List Filter Name"/>
                 </div>
                 <div class="col-sm-1 text-right">
-                    <span class="btn btn-success btn-block btn-search"
+                    <span class="btn btn-primary btn-block btn-search"
                           ng-click="list()"
                           analytics-on="click" analytics-event="RET Products List Button Search"><i class="fa fa-search"></i></span>
                 </div>
@@ -161,6 +164,7 @@
             </span>
         </div>
     </div>
+
     <div class="row">
         <div class="col-sm-12">
             <table class="table table-bordered">
@@ -179,7 +183,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="productInShop in productInShops">
+                    <tr ng-repeat="productInShop in productInShops" class="box-tile">
                         <td class="text-center">{{ productInShop.shortIdOut }}</td>
                         <td class="text-center">
                             <span ng-repeat="pr in productInShop.isIdentifiedBy">
@@ -233,7 +237,7 @@
 
                             <!-- Certifié -->
                             <a  ng-if="isCertified(productInShop)"
-                                class="btn btn-success pish-preview"
+                                class="btn btn-primary pish-preview"
                                 ng-click="show(productInShop)"
                                 analytics-on="click" analytics-event="RET Products Item Button Preview">
                                 <i class="fa fa-eye"></i> Aperçu

@@ -51,20 +51,20 @@
             <br/>
             <br/>
             <button ng-if="product.certified !== 2"
-                    class="btn btn-stream certify col-sm-12"
+                    class="btn btn-primary certify col-sm-12"
                     ng-click="certify()"
                     analytics-on="click" analytics-event="Product Profile Button Certify">
                 <i class="fa fa-certificate"></i> Certifier
             </button>
             <button ng-if="product.certified === 2"
-                    class="btn certify btn-stream col-sm-12"
+                    class="btn certify btn-primary col-sm-12"
                     ng-click="uncertify()"
                     analytics-on="click" analytics-event="Product Profile Button Uncertify">
                 <i class="fa fa-ban"></i> Décertifier
             </button>
             <br/>
             <br/>
-            <button class="btn duplicate btn-stream col-sm-12"
+            <button class="btn duplicate btn-primary col-sm-12"
                     ng-click="duplicate(product)"
                     analytics-on="click" analytics-event="Product Profile Button Duplicate">
                 <i class="fa fa-plus"></i> Dupliquer
@@ -78,7 +78,7 @@
                 <i class="fa fa-archive"></i> Archiver
             </button>
             <button ng-if="product.isDiscontinued()"
-                    class="btn btn-stream archive col-sm-12"
+                    class="btn btn-primary archive col-sm-12"
                     ng-click="discontinue(false)"
                     analytics-on="click" analytics-event="Product Profile Button Unarchive">
                 <i class="fa fa-archive"></i> Ré-activer

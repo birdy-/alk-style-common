@@ -11,7 +11,7 @@
     <i class="fa fa-spinner fa-spin"></i> Chargement en cours
 </div>
 <div class="pull-right">
-    <span class="btn btn-success" ng-click="addPSQ()"><i class="fa fa-plus"></i> Créer une quantité de référence</span>
+    <span class="btn btn-primary" ng-click="addPSQ()"><i class="fa fa-plus"></i> Créer une quantité de référence</span>
 </div>
 <table class="table" ng-if="!nutritionLoading">
     <thead>
@@ -31,7 +31,7 @@
         <tr>
             <th class="col-lg-2 text-right"></th>
             <th ng-repeat="(psqId, psq) in psqs" class="text-center psq-col">
-                <span class="btn btn-success" ng-click="savePSQ(psq)">
+                <span class="btn btn-primary" ng-click="savePSQ(psq)">
                     <i class="fa fa-save"></i>
                     Enregistrer
                 </span>

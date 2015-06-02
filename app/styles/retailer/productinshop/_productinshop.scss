@@ -1,4 +1,4 @@
-.product-in-shop {
+.product-in-shop, .product-in-shop-segment {
     .stats-segment {
         div {
             display: inline;
@@ -22,6 +22,14 @@
     }
 
     table {
+        border: none !important;
         margin-bottom: 0;
+
+        tr,
+        tbody td,
+        thead th,
+        tfoot th {
+            border: none !important;
+        }
     }
 }

@@ -68,12 +68,12 @@
                 input[type="checkbox"] {
                     &:checked {
                         ~ p {
-                            border: 2px solid $alk-green;
-                            background: lighten($alk-green-lighter, 20%);
+                            border: 2px solid $brand-primary;
+                            background: lighten($brand-primary, 20%);
 
                             img {
                                 background: white;
-                                border: 1px solid $alk-green;
+                                border: 1px solid $brand-primary;
                             }
                         }
                     }

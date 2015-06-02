@@ -30,7 +30,7 @@
                 </div>
                 <div class="col-sm-6"></div>
                 <div class="col-sm-1">
-                    <button type="submit" class="btn btn-success" style="width: 100%;"
+                    <button type="submit" class="btn btn-primary" style="width: 100%;"
                             ng-click="refresh()"
                             analytics-on="click" analytics-event="RET Suppliers Button Search">
                         <i class="fa fa-search"></i>
@@ -95,11 +95,11 @@
                         <td class="text-center">{{ productInShopSegment.shortId }}</td>
                         <td>{{ productInShopSegment.name }}</td>
                         <td class="text-center">
-                            <a class="btn btn-success" ng-href="/#/retailer/productinshop?segment_id={{ productInShopSegment.id }}"
+                            <a class="btn btn-primary" ng-href="/#/retailer/productinshop?segment_id={{ productInShopSegment.id }}"
                                analytics-on="click" analytics-event="RET Suppliers Button View Product">
                                 <i class="fa fa-barcode"></i> Produits
                             </a>
-                            <span class="btn btn-warning" ng-click="edit(productInShopSegment)"
+                            <span class="btn btn-secondary" ng-click="edit(productInShopSegment)"
                                   analytics-on="click" analytics-event="RET Suppliers Button Edit Supplier">
                                 <i class="fa fa-pencil"></i> Editer
                             </span>
