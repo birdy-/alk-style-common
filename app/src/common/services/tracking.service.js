@@ -24,7 +24,6 @@ angular.module('jDashboardFluxApp')
             return 'Page ' + path.split('/').join(' ');
         };
 
-
         // Page tracking for Mixpanel
         $rootScope.$on('$routeChangeSuccess', function () {
             $window.mixpanel.track(
