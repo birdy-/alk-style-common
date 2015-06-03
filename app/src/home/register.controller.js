@@ -10,22 +10,29 @@ angular.module('jDashboardFluxApp').controller('RegisterController', [
         $scope.userForm = {};
         $scope.companyForm = {};
         $scope.emailForm = {};
+        $scope.organizationGuessed = false;
         $scope.formInit = function(form) {
             form.$loading = true;
             form.$saving = false;
         };
 
-        $scope.company = {
-            nameLegal: '',
-            identifierLegal: null,
-            identifierCity: null,
-            address: null,
-            postCode: null,
-            city: null,
-            country: null,
-            claimGLNs: [new GLN()],
-            type: 'Organization'
+        $scope.company = {};
+
+        var resetCompany = function () {
+            $scope.company.nameLegal = '';
+            $scope.company.identifierLegal = null;
+            $scope.company.identifierCity = null;
+            $scope.company.address = null;
+            $scope.company.postCode = null;
+            $scope.company.city = null;
+            $scope.company.country = null;
+            $scope.company.claimGLNs = [new GLN()];
+            $scope.company.type = 'Organization';
+            $scope.organizationGuessed = false;
+            $scope.existingCompany = null;
         };
+
+        resetCompany();
 
         $scope.user = {
             firstname: null,
@@ -46,8 +53,37 @@ angular.module('jDashboardFluxApp').controller('RegisterController', [
         // Event binding
         // ------------------------------------------------------------------------
 
+        $scope.$watch('userForm.$valid', function (newValue) {
+            //When userForm is valid, try to guess user organization
+            if(newValue && $scope.company.nameLegal == ''){
+                $$sdkAuth.OrganizationGuess($scope.user.username).success(function (response) {
+                    if (response.data.id) {
+                        $scope.company = response.data;
+                        $scope.existingCompany = $scope.company;
+                        $scope.organizationGuessed = true;
+                    }
+                    else {
+                        resetCompany();
+                    }
+                }).error(function(response){
+
+                });
+            }
+            else{
+                resetCompany();
+            }
+        });
+
         $scope.$watch('existingCompany', function () {
-            if ($scope.existingCompany) {
+            // Field has been cleared, clear company and do not guess
+            if ($scope.existingCompany == null){
+                resetCompany();
+            }
+            // Field has been changed and there was a guess, remove the guess
+            if ($scope.organizationGuessed && $scope.existingCompany !== $scope.company){
+                $scope.organizationGuessed = false;
+            }
+            else if ($scope.existingCompany) {
                 $scope.company = $scope.existingCompany;
             }
         }, true);
