@@ -16,21 +16,21 @@ angular.module('jDashboardFluxApp').controller('RegisterController', [
             form.$saving = false;
         };
 
-        $scope.company = {}
+        $scope.company = {};
 
-        var resetCompany = function(){
-            $scope.company.nameLegal = '',
-            $scope.company.identifierLegal = null,
-            $scope.company.identifierCity = null,
-            $scope.company.address = null,
-            $scope.company.postCode = null,
-            $scope.company.city = null,
-            $scope.company.country = null,
-            $scope.company.claimGLNs = [new GLN()],
-            $scope.company.type = 'Organization'
+        var resetCompany = function () {
+            $scope.company.nameLegal = '';
+            $scope.company.identifierLegal = null;
+            $scope.company.identifierCity = null;
+            $scope.company.address = null;
+            $scope.company.postCode = null;
+            $scope.company.city = null;
+            $scope.company.country = null;
+            $scope.company.claimGLNs = [new GLN()];
+            $scope.company.type = 'Organization';
             $scope.organizationGuessed = false;
             $scope.existingCompany = null;
-        }
+        };
 
         resetCompany();
 
@@ -56,7 +56,7 @@ angular.module('jDashboardFluxApp').controller('RegisterController', [
         $scope.$watch('userForm.$valid', function (newValue) {
             //When userForm is valid, try to guess user organization
             if(newValue && $scope.company.nameLegal == ''){
-                $$sdkAuth.OrganizationGuess($scope.user.username).success(function(response){
+                $$sdkAuth.OrganizationGuess($scope.user.username).success(function (response) {
                     if (response.data.id) {
                         $scope.company = response.data;
                         $scope.existingCompany = $scope.company;
