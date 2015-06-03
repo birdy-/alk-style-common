@@ -287,7 +287,7 @@ angular.module('jDashboardFluxApp').service('$$ORM', [
             { id: 10329, name: "Label Filière Qualité Carrefour",                                         type: 'Label'},
             { id: 10330, name: "Label Gourmet Naturel",                                                   type: 'Label'},
             { id: 10331, name: "Label Bœuf de Charolles",                                                 type: 'Label'},
-            { id: 10332, name: "Label Sans Gluten ADFDIAG",                                               type: 'Label'},
+            { id: 10332, name: "Label Sans Gluten AFDIAG",                                                type: 'Label'},
             { id: 10333, name: "Label Éleveurs de Champagne-Ardennes",                                    type: 'Label'},
             { id: 10334, name: "Label Bovillage",                                                         type: 'Label'},
             { id: 10335, name: "Label Bœuf fermier de l'Aubrac",                                          type: 'Label'},
