@@ -28,9 +28,11 @@ angular.module('jDashboardFluxApp').controller('RegisterController', [
             $scope.company.country = null,
             $scope.company.claimGLNs = [new GLN()],
             $scope.company.type = 'Organization'
+            $scope.organizationGuessed = false;
+            $scope.existingCompany = null;
         }
 
-        resetCompany;
+        resetCompany();
 
         $scope.user = {
             firstname: null,
@@ -57,10 +59,10 @@ angular.module('jDashboardFluxApp').controller('RegisterController', [
                 $$sdkAuth.OrganizationGuess($scope.user.username).success(function(response){
                     if (response.data.id) {
                         $scope.company = response.data;
+                        $scope.existingCompany = $scope.company;
                         $scope.organizationGuessed = true;
                     }
                     else {
-                        $scope.organizationGuessed = false;
                         resetCompany();
                     }
                 }).error(function(response){
@@ -68,13 +70,20 @@ angular.module('jDashboardFluxApp').controller('RegisterController', [
                 });
             }
             else{
-                $scope.organizationGuessed = false;
                 resetCompany();
             }
         });
 
         $scope.$watch('existingCompany', function () {
-            if ($scope.existingCompany) {
+            // Field has been cleared, clear company and do not guess
+            if ($scope.existingCompany == null){
+                resetCompany();
+            }
+            // Field has been changed and there was a guess, remove the guess
+            if ($scope.organizationGuessed && $scope.existingCompany !== $scope.company){
+                $scope.organizationGuessed = false;
+            }
+            else if ($scope.existingCompany) {
                 $scope.company = $scope.existingCompany;
             }
         }, true);
