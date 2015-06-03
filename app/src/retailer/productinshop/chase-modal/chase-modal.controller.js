@@ -31,7 +31,7 @@ angular.module('jDashboardFluxApp').controller('ProductChaseModalController', [
                 }
             }
             $scope.message.to.username = _.uniq(usernames);
-            $$sdkMailer.RetailerProductDataCompletionInvitationPost($scope.message).success(function (response) {
+            $$sdkMailer.RetailerProductDataCompletionInvitationPost($scope.message, 'chase').success(function (response) {
                 $window.alert('Le message a bien été envoyé.');
                 $modalInstance.close();
             }).error(function () {
