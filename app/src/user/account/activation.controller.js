@@ -38,8 +38,6 @@ angular.module('jDashboardFluxApp').controller('AccountActivationController', [
             $scope.token    = $location.search()['token'];
             $scope.username = $location.search()['username'];
 
-            console.log($scope.username, $scope.token);
-
             if ($scope.username === 'undefined' || $scope.token === 'undefined')
                 $scope.goHome()
 
