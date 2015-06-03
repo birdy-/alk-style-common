@@ -45,7 +45,11 @@ angular.module('jDashboardFluxApp').controller('OrganizationProfileShowControlle
     $scope.deleteGln = function (gln, glnIndex) {
         if (confirm('Êtes vous sur de vouloir supprimer ce GLN de votre Organization ?') == false)
             return;
-        $$sdkAuth.OrganizationOwnsGlnDelete(gln.id).then(function (response) {
+        // Get the id of the OOGLN
+        var oogln = _.find($scope.organization.ownsGLN, function (oogln) {
+            return oogln.gln === gln.gln;
+        });
+        $$sdkAuth.OrganizationOwnsGlnDelete(oogln.id).then(function (response) {
             $scope.organization.ownsGLN.splice(glnIndex, 1);
             ngToast.create({
                 className: 'success',
