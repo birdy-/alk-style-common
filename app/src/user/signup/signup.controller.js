@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('jDashboardFluxApp').controller('RegisterController', [
+angular.module('jDashboardFluxApp').controller('SignupController', [
     '$scope', '$$sdkAuth', '$location', '$http', '$window', '$$autocomplete',
     function ($scope, $$sdkAuth, $location, $http, $window, $$autocomplete) {
 
@@ -33,6 +33,7 @@ angular.module('jDashboardFluxApp').controller('RegisterController', [
         };
 
         resetCompany();
+
 
         $scope.user = {
             firstname: null,

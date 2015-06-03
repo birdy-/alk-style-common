@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('jDashboardFluxApp').controller('WelcomeController', [
+angular.module('jDashboardFluxApp').controller('SignupInvitationController', [
     '$scope', '$$sdkAuth', '$location', '$http', '$window', '$routeParams', '$$ORM',
     function ($scope, $$sdkAuth, $location, $http, $window, $routeParams, $$ORM) {
 
@@ -63,7 +63,7 @@ angular.module('jDashboardFluxApp').controller('WelcomeController', [
             if (form[field].$valid) {
                 if (angular.isEmpty(form[field].$viewValue)) {
                     // Empty fields that are not required should not be displayed green
-                } 
+                }
                 else
                     classes['has-success'] = true;
             }
@@ -86,16 +86,16 @@ angular.module('jDashboardFluxApp').controller('WelcomeController', [
                 password: $scope.user.password,
                 token: $scope.token
             };
-            if ($scope.invited_by_id != null) 
+            if ($scope.invited_by_id != null)
                 payload.invited_by_id = $scope.invited_by_id;
-            $$sdkAuth.UserActivate(payload).success(function (){
+            $$sdkAuth.UserSignUpInvitation(payload).success(function (){
                 $scope.ok = true;
             }).error(function (response) {
                 $scope.ok = false;
                 $scope.message = "Impossible d'activer votre compte : " + response.message;
             });
        };
- 
+
 
         // ------------------------------------------------------------------------
         // Navigation
@@ -108,7 +108,7 @@ angular.module('jDashboardFluxApp').controller('WelcomeController', [
         // Init
         // ------------------------------------------------------------------------
         $scope.loadUser = function() {
-            $$sdkAuth.UserWelcome($scope.username, $scope.token).then(function (response) {
+            $$sdkAuth.UserActivationCheck($scope.username, $scope.token).then(function (response) {
                 if (typeof(response.data) === 'undefined' || typeof(response.data.data) === 'undefined')
                     $scope.goHome();
                 $scope.user = response.data.data;
@@ -116,13 +116,14 @@ angular.module('jDashboardFluxApp').controller('WelcomeController', [
         };
 
         $scope.init = function() {
-            if (typeof($routeParams.username) === 'undefined' 
-                || typeof($routeParams.token) === 'undefined')
+
+            $scope.token         = $location.search()['token'];
+            $scope.username      = $location.search()['username'];
+            $scope.invited_by_id = $location.search()['i'];
+
+            if ($scope.username === 'undefined' || $scope.token === 'undefined')
                 $scope.goHome()
-            $scope.token = $routeParams.token;
-            $scope.username = $routeParams.username;
-            if ($routeParams.i)
-                $scope.invited_by_id = $routeParams.i;
+
             $scope.loadUser();
         };
 
