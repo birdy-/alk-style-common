@@ -77,7 +77,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowLabelCo
             title: 'Régimes particuliers',
             labels: [
                 $scope.labels[10064], // label Vegan
-                $scope.labels[10332] // label Sans Gluten ADFDIAG
+                $scope.labels[10332] // label Sans Gluten AFDIAG
             ]
         },
         {
