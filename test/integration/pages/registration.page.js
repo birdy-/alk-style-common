@@ -52,8 +52,8 @@ var RegistrationPage = function() {
     var userFields = [
       { method: 'getFirstNameField', input: 'JF'},
       { method: 'getLastNameField', input: 'Dean'},
-      { method: 'getEmailField', input: 'jf@alkemics.com'},
-      { method: 'getConfirmEmailField', input: 'jf@alkemics.com'},
+      { method: 'getEmailField', input: 'jf@test.com'},
+      { method: 'getConfirmEmailField', input: 'jf@test.com'},
       { method: 'getJobField', input: 'jedi'},
       { method: 'getPhoneField', input: '0600000000'},
       { method: 'getPasswordField', input: 'NoPassw0rdIsG00dEnough'}
