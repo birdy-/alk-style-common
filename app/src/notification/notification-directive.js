@@ -28,6 +28,9 @@ angular.module('jDashboardFluxApp').directive('alkNotification', [
 
             'Discussion': 'fa-star',
 
+            'DataCompletionInvitation': 'fa-gavel',
+            'DataCompletionChase': 'fa-gavel',
+
             'ProductInShopProductCertified': 'fa-gavel',
             'ProductFillReminder': 'fa-check-square-o',
             'ProductErrorReported': 'fa-warning',
@@ -69,6 +72,8 @@ angular.module('jDashboardFluxApp').directive('alkNotification', [
             'PlatformBrandWelcome': 'color-purple-inverse',
 
             'Discussion': 'color-green-inverse',
+            'DataCompletionInvitation': 'color-blue-inverse',
+            'DataCompletionChase': 'color-blue-inverse',
 
             'ProductInShopProductCertified': 'color-green-inverse',
             'ProductFillReminder': 'color-yellow-inverse',
