@@ -60,17 +60,27 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
     // };
 
     var getUsersFromSegment = function (segment) {
-        var users = [];
         var allowedUserIds = [];
-        for (var key in segment.usersPermissions) {
-            Array.prototype.push.apply(allowedUserIds, segment.usersPermissions[key]);
-        }
-        allowedUserIds = _.uniq(allowedUserIds);
 
-        for (var i = 0; i < allowedUserIds.length; i++) {
-            users.push(_.find($scope.users, { id: allowedUserIds[i] }));
-        }
+      _.forEach(segment.usersPermissions, function (value, permission) {
+        _.forEach(value, function (userId) {
+          allowedUserIds.push(userId);
+          var user = _.find($scope.users, {id: userId});
+          var userManagesSegment = _.find(user.managesProductSegment, {id: segment.id});
+          if (!userManagesSegment) {
+            userManagesSegment = {id: segment.id, permissions: []};
+            user.managesProductSegment.push(userManagesSegment);
+          }
+          userManagesSegment.permissions.push(permission);
+        });
+      });
 
+
+      allowedUserIds = _.uniq(allowedUserIds);
+      var users = [];
+      _.forEach(allowedUserIds, function (userId) {
+        users.push(_.find($scope.users, {id: userId}));
+      });
         return users;
      };
 
@@ -102,6 +112,12 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
             $scope.selectSegment($scope.selectedSegment.id);
         });
     };
+
+      $scope.onUserDelete = function (user) {
+        _.remove($scope.selectedSegment.users, function (u) {
+          return u.id === user.id;
+        });
+      };
 
     $scope.toggleSearchDisplay = function () {
         // set focus on search

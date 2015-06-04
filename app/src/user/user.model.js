@@ -39,10 +39,9 @@ User.prototype.enablePSPermission = function (productSegmentId, permission) {
 User.prototype.disablePSPermission = function (productSegmentId, permission) {
     var productSegment = _.find(this.managesProductSegment, { id: productSegmentId });
     if (productSegment) {
-      var index = productSegment.permissions.indexOf(permission);
-      if (index !== -1) {
-        productSegment.permissions.splice(index, 1);
-      }
+      _.remove(productSegment.permissions, function (perm) {
+        return perm == permission;
+      });
     }
 };
 

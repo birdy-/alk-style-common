@@ -1,9 +1,9 @@
 'use_strict';
 
 angular.module('jDashboardFluxApp').controller('ProductSegmentAddUserModalController', [
-    '$scope', '$window', '$q','$modalInstance', 'organization', 'productsegment', '$$sdkAuth', '$$sdkCrud', 
+    '$scope', '$window', '$q','$modalInstance', 'organization', 'productsegment', '$$sdkAuth', '$$sdkCrud',
     function ($scope, $window, $q, $modalInstance, organization, productsegment, $$sdkAuth, $$sdkCrud) {
-    
+
     	$scope.productSegment = productsegment;
     	$scope.newUsers = [];
 
@@ -26,7 +26,11 @@ angular.module('jDashboardFluxApp').controller('ProductSegmentAddUserModalContro
                 promises.push($$sdkAuth.UserManagesProductSegmentUpdate(organization.id,
                                                   $scope.productSegment.id,
                                                   $scope.newUsers[i].id,
-                                                  [ProductSegment.PERMISSION_PS_SHOW]));
+                                                  [ProductSegment.PERMISSION_PS_SHOW,
+                                                   ProductSegment.PERMISSION_PRODUCT_SHOW,
+                                                   ProductSegment.PERMISSION_PRODUCT_SHOW_NORMALIZED,
+                                                   ProductSegment.PERMISSION_PRODUCT_SHOW_SEMANTIC,
+                                                   ProductSegment.PERMISSION_PRODUCT_SHOW_TEXTUAL]));
 
             }
 
