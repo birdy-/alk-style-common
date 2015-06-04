@@ -335,7 +335,8 @@ angular.module('jDashboardFluxApp').service('$$ORM', [
             ProductInShop: abstractRepository(ProductInShop, $$sdkCrud, $$cacheManager, $q, [], null),
             Shop: abstractRepository(Shop, $$sdkCrud, $$cacheManager, $q, [], addTextFrom('name')),
             User: abstractRepository(User, $$sdkAuth, $$cacheManager, $q, [], addTextFrom('username')),
-            Website: abstractRepository(Website, $$sdkCrud, $$cacheManager, $q, [], addTextFrom('name'))
+            Website: abstractRepository(Website, $$sdkCrud, $$cacheManager, $q, [], addTextFrom('name')),
+            Plugin: abstractRepository(Plugin, $$sdkAuth, $$cacheManager, $q, [], addTextFrom('name'))
         };
 
         var repository = function (which) {
