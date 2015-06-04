@@ -1,8 +1,8 @@
 "use strict";
 
 angular.module('jDashboardFluxApp').controller('SignupInvitationController', [
-    '$scope', '$$sdkAuth', '$location', '$http', '$window', '$routeParams', '$$ORM',
-    function ($scope, $$sdkAuth, $location, $http, $window, $routeParams, $$ORM) {
+    '$scope', '$location', '$window', '$$ORM',
+    function ($scope, $location, $window, $$ORM) {
 
         // ------------------------------------------------------------------------
         // Params
@@ -88,9 +88,9 @@ angular.module('jDashboardFluxApp').controller('SignupInvitationController', [
             };
             if ($scope.invited_by_id != null)
                 payload.invited_by_id = $scope.invited_by_id;
-            $$sdkAuth.UserSignUpInvitation(payload).success(function (){
+            $$ORM.repository('User').method('SignUpInvitation')(payload).then(function (){
                 $scope.ok = true;
-            }).error(function (response) {
+            }, function (response) {
                 $scope.ok = false;
                 $scope.message = "Impossible d'activer votre compte : " + response.message;
             });
@@ -108,10 +108,11 @@ angular.module('jDashboardFluxApp').controller('SignupInvitationController', [
         // Init
         // ------------------------------------------------------------------------
         $scope.loadUser = function() {
-            $$sdkAuth.UserActivationCheck($scope.username, $scope.token).then(function (response) {
-                if (typeof(response.data) === 'undefined' || typeof(response.data.data) === 'undefined')
+            $$ORM.repository('User').method('ActivationCheck')($scope.username, $scope.token).then(function (response) {
+                console.log(response);
+                if (typeof(response) === 'undefined')
                     $scope.goHome();
-                $scope.user = response.data.data;
+                $scope.user = response;
             });
         };
 

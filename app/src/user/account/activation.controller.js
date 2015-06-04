@@ -1,8 +1,8 @@
 "use strict";
 
 angular.module('jDashboardFluxApp').controller('AccountActivationController', [
-    '$scope', '$$sdkAuth', '$location', '$http', '$window', '$routeParams', '$$ORM',
-    function ($scope, $$sdkAuth, $location, $http, $window, $routeParams, $$ORM) {
+    '$scope', '$location', '$$ORM',
+    function ($scope, $location, $$ORM) {
 
         // ------------------------------------------------------------------------
         // Params
@@ -13,11 +13,11 @@ angular.module('jDashboardFluxApp').controller('AccountActivationController', [
         $scope.success = false;
 
         $scope.activateUser = function() {
-            $$sdkAuth.UserActivate($scope.username, $scope.token).success(function (response) {
+            $$ORM.repository('User').method('Activate')($scope.username, $scope.token).then(function (response) {
                 $scope.success = true;
-            }).error(function(response) {
+                $scope.loading = false;
+            }, function(response) {
                 $scope.success = false;
-            }).finally(function() {
                 $scope.loading = false;
             });
         };
