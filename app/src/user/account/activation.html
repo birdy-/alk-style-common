@@ -7,7 +7,7 @@
     <br/>
     <div class="row" ng-hide="loading">
         <div class="col-sm-12 text-center">
-            <div class="alert alert-success text-center" ng-show="success">
+            <div class="alert alert-success text-center" ng-show="requestStatus == SUCCESS">
                 <p>
                     Votre compte a été activé.<br/>
                     Vous pouvez vous connecter avec vos identifiants sur <a href="/#/login">notre page de connexion</a>
@@ -20,9 +20,14 @@
                     <iframe allowtransparency="true" frameborder="0" scrolling="no" src="//platform.twitter.com/widgets/follow_button.html?screen_name=alkemics&lang=fr&show_count=false" style="width:150px; height:20px;"></iframe>
                 </p>
             </div>
-            <div class="alert alert-danger text-center" ng-hide="success">
+            <div class="alert alert-danger text-center" ng-show="requestStatus == FAILED">
                 <p>
                     Une erreur est survenue durant l'activation de votre compte, veuillez réessayer ultérieurement.
+                </p>
+            </div>
+            <div class="alert alert-warning text-center" ng-show="requestStatus == ALREADY_ACTIVATED">
+                <p>
+                    Votre compte a déjà été activé
                 </p>
             </div>
         </div>

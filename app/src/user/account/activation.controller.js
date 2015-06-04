@@ -7,18 +7,23 @@ angular.module('jDashboardFluxApp').controller('AccountActivationController', [
         // ------------------------------------------------------------------------
         // Params
         // ------------------------------------------------------------------------
+
+        $scope.SUCCESS = 200;
+        $scope.FAILED = 403;
+        $scope.ALREADY_ACTIVATED = 409;
+
         $scope.token = null;
         $scope.username = null;
         $scope.loading = true;
-        $scope.success = false;
+        $scope.requestStatus = false;
 
         $scope.activateUser = function() {
             $$ORM.repository('User').method('Activate')($scope.username, $scope.token).then(function (response) {
-                $scope.success = true;
                 $scope.loading = false;
+                $scope.requestStatus = $scope.SUCCESS;
             }, function(response) {
-                $scope.success = false;
                 $scope.loading = false;
+                $scope.requestStatus = response.status;
             });
         };
 
