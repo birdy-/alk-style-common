@@ -113,7 +113,7 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminProductSegmentP
         });
     };
 
-      $scope.userDeleted = function (user) {
+      $scope.onUserDelete = function (user) {
         _.remove($scope.selectedSegment.users, function (u) {
           return u.id === user.id;
         });

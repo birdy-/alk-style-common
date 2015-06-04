@@ -8,7 +8,7 @@ angular.module('jDashboardFluxApp').directive('userPermissionsRow', [
               organization: '=',
               user: '=',
               productsegment: '=',
-              userDeleted: '&'
+              onUserDelete: '&'
             },
             templateUrl: '/src/organization/admin/directives/permissions/user-permissions-row.view.html',
             controller:  'UserPermissionsRowController'
@@ -55,7 +55,7 @@ angular.module('jDashboardFluxApp').controller('UserPermissionsRowController', [
                 newPermissions
             );
           if (newPermissions.length == 0) {
-            $scope.userDeleted($scope.user);
+            $scope.onUserDelete($scope.user);
           }
         };
 
