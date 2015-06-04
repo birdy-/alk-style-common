@@ -12,7 +12,7 @@ describe('[Registration page]', function () {
   it('should be accessible from home page', function () {
     homePage.getRegistrationPageButton().click().then(function () {
       expect(browser.getCurrentUrl())
-      .toEqual(browser.params.website.url + 'register');
+      .toEqual(browser.params.website.url + 'signup');
     });
   });
 
