@@ -317,22 +317,29 @@ app.config(function ($routeProvider) {
         isPublic: true
     });
 
-    $routeProvider.when('/register', {
-        templateUrl: 'src/home/register.html',
-        controller: 'RegisterController',
+    $routeProvider.when('/signup', {
+        templateUrl: 'src/user/signup/signup.html',
+        controller: 'SignupController',
         isPublic: true
     });
 
-    $routeProvider.when('/welcome', {
-        templateUrl: 'src/home/welcome.html',
-        controller: 'WelcomeController',
+    $routeProvider.when('/signup/complete', {
+        templateUrl: 'src/user/signup/signup_invitation.html',
+        controller: 'SignupInvitationController',
         isPublic: true
     });
+
 
 
     $routeProvider.when('/faq', {
         templateUrl: 'src/home/faq/faq.html',
         controller: 'FaqController'
+    });
+
+    $routeProvider.when('/account/activate', {
+        templateUrl: 'src/user/account/activation.html',
+        controller: 'AccountActivationController',
+        isPublic: true
     });
 
     $routeProvider.when('/account/send_password_reset', {

@@ -1,0 +1,39 @@
+<div ng-include="'/src/home/header.html'"></div>
+
+<br/>
+
+<div class="container">
+    <h1>Activation de votre compte</h1>
+    <br/>
+    <div class="row" ng-hide="loading">
+        <div class="col-sm-12 text-center">
+            <div class="alert alert-success text-center" ng-show="success">
+                <p>
+                    Votre compte a été activé.<br/>
+                    Vous pouvez vous connecter avec vos identifiants sur <a href="/#/login">notre page de connexion</a>
+                </p>
+                <br/>
+                <p>
+                    Vous pouvez aussi nous suivre sur les réseaux sociaux :
+                    <br/>
+                    <br/>
+                    <iframe allowtransparency="true" frameborder="0" scrolling="no" src="//platform.twitter.com/widgets/follow_button.html?screen_name=alkemics&lang=fr&show_count=false" style="width:150px; height:20px;"></iframe>
+                </p>
+            </div>
+            <div class="alert alert-danger text-center" ng-hide="success">
+                <p>
+                    Une erreur est survenue durant l'activation de votre compte, veuillez réessayer ultérieurement.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-show="loading">
+        <div class="col-sm-12 text-center">
+            <br/>
+            <br/>
+            <br/>
+            <i class="fa fa-spinner fa-spin fa-4x"></i>
+        </div>
+    </div>
+
+</div>

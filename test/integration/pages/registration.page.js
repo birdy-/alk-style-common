@@ -3,7 +3,7 @@
 var RegistrationPage = function() {
   var that = this;
   this.get = function() {
-    browser.get(browser.params.website.url + 'register');
+    browser.get(browser.params.website.url + 'signup');
   };
 
   /** Form **/
