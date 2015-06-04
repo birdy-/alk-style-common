@@ -7,7 +7,8 @@ angular.module('jDashboardFluxApp').directive('userPermissionsRow', [
             scope: {
               organization: '=',
               user: '=',
-              productsegment: '='
+              productsegment: '=',
+              userDeleted: '&'
             },
             templateUrl: '/src/organization/admin/directives/permissions/user-permissions-row.view.html',
             controller:  'UserPermissionsRowController'
@@ -53,6 +54,9 @@ angular.module('jDashboardFluxApp').controller('UserPermissionsRowController', [
                 $scope.user.id,
                 newPermissions
             );
+          if (newPermissions.length == 0) {
+            $scope.userDeleted($scope.user);
+          }
         };
 
         var grant = function (permissionType) {
