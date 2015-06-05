@@ -24,6 +24,8 @@ angular.module('jDashboardFluxApp').controller('UserProfileShowController', [
         $scope.passwordForm = form;
     };
 
+      $scope.connectAsError;
+
     // --------------------------------------------------------------------------------
     // Event binding
     // --------------------------------------------------------------------------------
@@ -97,7 +99,25 @@ angular.module('jDashboardFluxApp').controller('UserProfileShowController', [
     };
 
     $scope.connectAs = function () {
-        permission.connectAs($scope.user.username, $scope.user.password.current_password, $scope.user.connect_as);
+      if (!$scope.user.password) {
+        $scope.connectAsError = 'Please enter your password';
+        return;
+      }
+      if (!$scope.user.connect_as) {
+        $scope.connectAsError = 'Enter user to connect as';
+        return;
+      }
+      permission.connectAs($scope.user.username, $scope.user.password.current_password, $scope.user.connect_as)
+        .success(function (response) {
+          $scope.connectAsError = null;
+        })
+        .error(
+        function (response) {
+          if (response) {
+            $scope.connectAsError = response.error_description;
+          }
+        }
+      );
     };
 
     // --------------------------------------------------------------------------------
