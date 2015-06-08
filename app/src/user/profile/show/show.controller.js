@@ -6,8 +6,8 @@
  * particular Shop.
  */
 angular.module('jDashboardFluxApp').controller('UserProfileShowController', [
-    '$scope', 'permission', '$routeParams', '$$sdkAuth', '$$ORM', '$$cacheManager', '$modal', '$window',
-    function ($scope, permission, $routeParams, $$sdkAuth, $$ORM, $$cacheManager, $modal, $window) {
+    '$scope', 'permission', '$routeParams', '$$sdkAuth', '$$ORM', '$modal', '$window',
+    function ($scope, permission, $routeParams, $$sdkAuth, $$ORM, $modal, $window) {
 
     // --------------------------------------------------------------------------------
     // Variables
