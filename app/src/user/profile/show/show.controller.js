@@ -6,8 +6,8 @@
  * particular Shop.
  */
 angular.module('jDashboardFluxApp').controller('UserProfileShowController', [
-    '$scope', 'permission', '$routeParams', '$$sdkAuth', '$$ORM', '$modal', '$window',
-    function ($scope, permission, $routeParams, $$sdkAuth, $$ORM, $modal, $window) {
+    '$scope', 'permission', '$routeParams', '$$sdkAuth', '$$ORM', '$$cacheManager', '$modal', '$window',
+    function ($scope, permission, $routeParams, $$sdkAuth, $$ORM, $$cacheManager, $modal, $window) {
 
     // --------------------------------------------------------------------------------
     // Variables
@@ -110,6 +110,7 @@ angular.module('jDashboardFluxApp').controller('UserProfileShowController', [
         if ($scope.passwordForm) {
             $scope.passwordForm.$loading = false;
         }
+
         user.belongsTo.forEach(function(entity){
             $$ORM.repository('Organization').get(entity.id);
         });
@@ -121,21 +122,16 @@ angular.module('jDashboardFluxApp').controller('UserProfileShowController', [
         $scope.user = user;
         $scope.isRetailer = permission.isRetailer();
     };
-    var refresh = function () {
-        if ($routeParams.id) {
-            $$ORM.repository('User').popCache($routeParams.id);
-        } else {
-            permission.reset();
-        }
-        init();
-    };
+
     var init = function () {
+        // Reload user
         if ($routeParams.id) {
+            $$ORM.repository('User').popCache($routeParams.id)
             $$ORM.repository('User').get($routeParams.id).then(hydrate);
         } else {
-            permission.getUser().then(hydrate);
+            permission.refreshUser().then(hydrate);
         }
     };
-    refresh();
-}]);
 
+    init();
+}]);
