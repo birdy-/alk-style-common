@@ -13,14 +13,17 @@ angular.module('jDashboardFluxApp').controller('UserProfileShowController', [
     // Variables
     // --------------------------------------------------------------------------------
     $scope.user = {};
+    $scope.userForm = { '$loading': true };
+    $scope.passwordForm = { '$loading': true };
+
     $scope.userFormInit = function (form) {
-        form.$loading = true;
         form.$saving = false;
+        form.$loading = $scope.userForm.$loading
         $scope.userForm = form;
     };
     $scope.passwordFormInit = function (form) {
-        form.$loading = true;
         form.$saving = false;
+        form.$loading = $scope.passwordForm.$loading
         $scope.passwordForm = form;
     };
 
@@ -28,7 +31,7 @@ angular.module('jDashboardFluxApp').controller('UserProfileShowController', [
     // Event binding
     // --------------------------------------------------------------------------------
     $scope.updatePassword = function () {
-        $scope.userForm.$saving = true;
+        $scope.passwordForm.$saving = true;
         $$sdkAuth.UserChangePassword({
             id: $scope.user.id,
             password: $scope.user.password
