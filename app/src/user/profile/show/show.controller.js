@@ -13,14 +13,17 @@ angular.module('jDashboardFluxApp').controller('UserProfileShowController', [
     // Variables
     // --------------------------------------------------------------------------------
     $scope.user = {};
+    $scope.userForm = { '$loading': true };
+    $scope.passwordForm = { '$loading': true };
+
     $scope.userFormInit = function (form) {
-        form.$loading = true;
         form.$saving = false;
+        form.$loading = $scope.userForm.$loading
         $scope.userForm = form;
     };
     $scope.passwordFormInit = function (form) {
-        form.$loading = true;
         form.$saving = false;
+        form.$loading = $scope.passwordForm.$loading
         $scope.passwordForm = form;
     };
 
@@ -30,7 +33,7 @@ angular.module('jDashboardFluxApp').controller('UserProfileShowController', [
     // Event binding
     // --------------------------------------------------------------------------------
     $scope.updatePassword = function () {
-        $scope.userForm.$saving = true;
+        $scope.passwordForm.$saving = true;
         $$sdkAuth.UserChangePassword({
             id: $scope.user.id,
             password: $scope.user.password
@@ -130,6 +133,7 @@ angular.module('jDashboardFluxApp').controller('UserProfileShowController', [
         if ($scope.passwordForm) {
             $scope.passwordForm.$loading = false;
         }
+
         user.belongsTo.forEach(function(entity){
             $$ORM.repository('Organization').get(entity.id);
         });
@@ -141,21 +145,16 @@ angular.module('jDashboardFluxApp').controller('UserProfileShowController', [
         $scope.user = user;
         $scope.isRetailer = permission.isRetailer();
     };
-    var refresh = function () {
-        if ($routeParams.id) {
-            $$ORM.repository('User').popCache($routeParams.id);
-        } else {
-            permission.reset();
-        }
-        init();
-    };
+
     var init = function () {
+        // Reload user
         if ($routeParams.id) {
+            $$ORM.repository('User').popCache($routeParams.id)
             $$ORM.repository('User').get($routeParams.id).then(hydrate);
         } else {
-            permission.getUser().then(hydrate);
+            permission.refreshUser().then(hydrate);
         }
     };
-    refresh();
-}]);
 
+    init();
+}]);

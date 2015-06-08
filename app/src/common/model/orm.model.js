@@ -85,6 +85,9 @@ var abstractRepository = function (Model, $$sdk, $$cacheManager, $q, cache, hydr
             return $$sdk[modelName + methodName].apply(this, arguments).then(hydrateResponse);
         };
     };
+    var popCache = function(id) {
+        $$cacheManager.popCache(modelName, id);
+    }
 
     // Init
     if (cache && cache.length) {
@@ -101,7 +104,8 @@ var abstractRepository = function (Model, $$sdk, $$cacheManager, $q, cache, hydr
         update: update,
         create: create,
         del: del,
-        list: list
+        list: list,
+        popCache: popCache
     };
 };
 
