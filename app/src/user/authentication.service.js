@@ -59,7 +59,7 @@ angular.module('jDashboardFluxApp').service('permission', [
      * Requests Authentication Token from authentication server
      * Post user-provided credentials
      */
-    var login = function (login, password) {
+    var login = function (login, password, rememberMe) {
         return $http.post(URL_SERVICE_AUTH + '/auth/v1/user/login', {
             username: login,
             password: password,
@@ -68,7 +68,9 @@ angular.module('jDashboardFluxApp').service('permission', [
         }).success(function (response) {
             authService.loginConfirmed();
             $window.sessionStorage.token = response.access_token;
-            $cookieStore.put("authtoken", response.access_token);
+            if (rememberMe) {
+                $cookieStore.put("authtoken", response.access_token);
+            }
         }).error(function () {
             delete $window.sessionStorage.token;
         });
