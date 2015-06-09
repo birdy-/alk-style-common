@@ -12,6 +12,7 @@ angular.module('jDashboardFluxApp').controller('LoginController', [
     $scope.login = $window.localStorage ? $window.localStorage.login : null;
     $scope.password = null;// $window.localStorage ? $window.localStorage.password : null;
     $scope.message = null;
+    $scope.rememberMe = false;
     $scope.displayActivationMessage = ($location.search()['activation'] === '1') ? true : false;
     $scope.pendingRedirection = false;
 
@@ -52,7 +53,8 @@ angular.module('jDashboardFluxApp').controller('LoginController', [
     $scope.submit = function () {
         permission.login(
             $scope.login,
-            $scope.password
+            $scope.password,
+            $scope.rememberMe
         ).then(function (response) {
             // Save the login so the user does not need to type it again
             if ($window.localStorage) {
