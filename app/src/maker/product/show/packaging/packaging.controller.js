@@ -16,9 +16,9 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPackagi
         initSelection: function (el, fn) {} // https://github.com/angular-ui/ui-select2/issues/186
     });
 
-    $scope.ML_DEFAULT = new Constant(0, "DEFAULT",       "The Product has not been considered for review yet");
-    $scope.ML_FOUND = new Constant(1, "DEFAULT",       "The Product has not been considered for review yet");
-    $scope.ML_NOT_FOUND = new Constant(2, "DEFAULT",       "The Product has not been considered for review yet");
+    $scope.ML_DEFAULT = new Constant(0, "DEFAULT", "The Product has not been considered for review yet");
+    $scope.ML_FOUND = new Constant(1, "DEFAULT", "The Product has not been considered for review yet");
+    $scope.ML_NOT_FOUND = new Constant(2, "DEFAULT", "The Product has not been considered for review yet");
 
     $scope.packagingValidator = {
         validStateSIFU: $scope.ML_DEFAULT.id,
@@ -43,7 +43,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPackagi
     $scope.checkPackaging = function (field) {
         var classes = {};
         if ($scope.packagingValidator.validate() == false && field == 'factorFUPA' &&
-            $scope.packagingValidator.validStateFUPA != $scope.ML_DEFAULT.id){
+            $scope.packagingValidator.validStateFUPA != $scope.ML_DEFAULT.id) {
             classes['has-warning'] = true;
         }
         else if ($scope.packagingValidator.validate() == false && field == 'factorSIFU' &&
@@ -69,13 +69,13 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPackagi
         }
     }
 
-    $scope.reparseProductPackaging = function() {
+    $scope.reparseProductPackaging = function () {
         if (typeof $scope.product.packaging === 'undefined' && typeof $scope.product.namePublicLong == 'undefined')
             return;
         $$sdkMl.ProductPackagingParse(
             $scope.product.packaging,
             $scope.product.namePublicLong,
-            $scope.product.isMeasuredBy.id).success(function(response) {
+            $scope.product.isMeasuredBy.id).success(function (response) {
             var packaging = response.data;
             if ((packaging.factorSIFU * packaging.factorFUPA) == $scope.product.quantityNormalized) {
                 if ($scope.product.factorSIFU != packaging.factorSIFU) {
@@ -95,7 +95,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPackagi
                 $scope.packagingValidator.validStateSIFU = $scope.ML_NOT_FOUND.id;
                 $scope.packagingValidator.validStateFUPA = $scope.ML_NOT_FOUND.id;
             }
-        })        
+        });
     }
 
     $scope.typePromotionals = function () {
@@ -184,14 +184,14 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPackagi
     $scope.$watch('product', function () {
         // Load the isMadeOf relations
         if ($scope.product.isMadeOf) {
-            $scope.product.isMadeOf.forEach(function(isMadeOf){
+            $scope.product.isMadeOf.forEach(function (isMadeOf) {
                 var product = isMadeOf.item;
                 if (!product
                 || !product.id
                 || product.text) {
                     return;
                 }
-                $$sdkCrud.ProductShow(product.id).success(function(response){
+                $$sdkCrud.ProductShow(product.id).success(function (response) {
                     angular.extend(product, response.data);
                     product.text = product.nameLegal;
                 });
@@ -201,7 +201,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPackagi
         if ($scope.product.isDerivedFrom
         && $scope.product.isDerivedFrom.id) {
             $scope.product.isDerivable = true;
-            $$sdkCrud.ProductShow($scope.product.isDerivedFrom.target.id).success(function(response){
+            $$sdkCrud.ProductShow($scope.product.isDerivedFrom.target.id).success(function (response) {
                 angular.extend($scope.product.isDerivedFrom.target, response.data);
                 $scope.product.isDerivedFrom.target.text = response.data.nameLegal;
             });
@@ -211,7 +211,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPackagi
         if ($scope.product.isBrandedBy) {
             $scope.select2productOptions = $$autocomplete.getOptionAutocompletes('product', {
                 maximumSelectionSize: 1, multiple: false,
-                initSelection: function(el, fn) {}
+                initSelection: function (el, fn) {}
             }, {
                 filter_isbrandedby_id: $scope.product.isBrandedBy.id,
                 filter_certified: '1,2,3'
