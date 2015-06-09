@@ -59,6 +59,7 @@ module.exports = function (config) {
       'app/bower_components/moment/moment.js',
       'app/bower_components/lodash/lodash.min.js',
       'app/bower_components/sdk-dashboard/src/*.js',
+      'app/bower_components/sdk-dashboard/src/**/*.js',
       'app/src/app.js',
       'app/src/common/model/common.model.js',
       'app/src/**/*.html',
