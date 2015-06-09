@@ -68,6 +68,7 @@ angular.module('jDashboardFluxApp').service('permission', [
         }).success(function (response) {
             authService.loginConfirmed();
             $window.sessionStorage.token = response.access_token;
+            $alkCookie.put("session_authtoken", response.access_token, 0);
             if (rememberMe) {
                 $alkCookie.put("authtoken", response.access_token, 30);
             }
@@ -91,6 +92,7 @@ angular.module('jDashboardFluxApp').service('permission', [
         }).success(function (response) {
             authService.loginConfirmed();
             $window.sessionStorage.token = response.access_token;
+            $alkCookie.put("session_authtoken", response.access_token, 0);
             $window.location.reload();
         }).error(function () {
             delete $window.sessionStorage.token;
@@ -105,6 +107,9 @@ angular.module('jDashboardFluxApp').service('permission', [
     var logout = function () {
 
         $log.debug('User clicked Logout');
+
+        $alkCookie.remove("session_authtoken");
+        $log.debug('Logged out, session authentication cookie erased');
 
         $alkCookie.remove("authtoken");
         $log.debug('Logged out, authentication cookie erased');
