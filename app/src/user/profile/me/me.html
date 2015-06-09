@@ -43,26 +43,31 @@
         <br/> <br/> <br/> <br/>
 
         <section class="row" ng-if="user.id < 100">
-            <div class="col-md-4">
-                <h2>Connect As</h2>
+          <div class="col-md-4">
+            <h2>Connect As</h2>
+                </div>
+          <div class="col-md-8">
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" class="form-control" placeholder="Email" ng-model="user.username" disabled>
             </div>
-            <div class="col-md-8">
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" class="form-control" placeholder="Email" ng-model="user.username" disabled>
-                </div>
-                <div class="form-group">
-                    <label>Mot de passe</label>
-                    <input type="password" class="form-control" placeholder="password" ng-model="user.password.current_password">
-                </div>
-                <div class="form-group">
-                    <label>Target</label>
-                    <input type="email" class="form-control" placeholder="Email" ng-model="user.connect_as">
-                </div>
-                <span class="btn btn-success" ng-click="connectAs()">
-                    <i class="fa fa-check"></i> Connexion
-                </span>
+            <div class="form-group">
+              <label>Mot de passe</label>
+              <input ng-keypress="$event.keyCode == 13 && connectAs()" type="password" class="form-control"
+                     placeholder="password" ng-model="user.password.current_password">
             </div>
+            <div class="form-group">
+              <label>Target</label>
+              <input ng-keypress="$event.keyCode == 13 && connectAs()" type="email" class="form-control"
+                     placeholder="Email" ng-model="user.connect_as">
+            </div>
+                    <span class="btn btn-success" ng-click="connectAs()">
+                        <i class="fa fa-check"></i> Connexion
+                    </span>
+
+            <div ng-show="connectAsError">{{connectAsError}}</div>
+                </div>
+
         </section>
         <br/> <br/> <br/> <br/>
 
@@ -274,4 +279,3 @@
         -->
     </div>
 </div>
-

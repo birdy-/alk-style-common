@@ -9,8 +9,8 @@
  * the rest of the application.
  */
 angular.module('jDashboardFluxApp').service('permission', [
-    "URL_SERVICE_AUTH", "$http", "$rootScope", "authService", "$window", "$log", "$$ORM", "$cookieStore",
-    function init(URL_SERVICE_AUTH, $http, $rootScope, authService, $window, $log, $$ORM, $cookieStore) {
+    "URL_SERVICE_AUTH", "$http", "$rootScope", "authService", "$window", "$log", "$$ORM", "$alkCookie",
+    function init(URL_SERVICE_AUTH, $http, $rootScope, authService, $window, $log, $$ORM, $alkCookie) {
 
     var userPromise = null;
     var user = null;
@@ -52,14 +52,14 @@ angular.module('jDashboardFluxApp').service('permission', [
     var refreshUser = function() {
         userPromise = null;
         return getUser();
-    }
+    };
 
 
     /**
      * Requests Authentication Token from authentication server
      * Post user-provided credentials
      */
-    var login = function (login, password) {
+    var login = function (login, password, rememberMe) {
         return $http.post(URL_SERVICE_AUTH + '/auth/v1/user/login', {
             username: login,
             password: password,
@@ -68,7 +68,10 @@ angular.module('jDashboardFluxApp').service('permission', [
         }).success(function (response) {
             authService.loginConfirmed();
             $window.sessionStorage.token = response.access_token;
-            $cookieStore.put("authtoken", response.access_token);
+            $alkCookie.put("session_authtoken", response.access_token, 0);
+            if (rememberMe) {
+                $alkCookie.put("authtoken", response.access_token, 30);
+            }
         }).error(function () {
             delete $window.sessionStorage.token;
         });
@@ -89,7 +92,7 @@ angular.module('jDashboardFluxApp').service('permission', [
         }).success(function (response) {
             authService.loginConfirmed();
             $window.sessionStorage.token = response.access_token;
-            $cookieStore.put("authtoken", response.access_token);
+            $alkCookie.put("session_authtoken", response.access_token, 0);
             $window.location.reload();
         }).error(function () {
             delete $window.sessionStorage.token;
@@ -102,13 +105,19 @@ angular.module('jDashboardFluxApp').service('permission', [
      *
      */
     var logout = function () {
+
         $log.debug('User clicked Logout');
-        reset();
+
+        $alkCookie.remove("session_authtoken");
+        $log.debug('Logged out, session authentication cookie erased');
+
+        $alkCookie.remove("authtoken");
+        $log.debug('Logged out, authentication cookie erased');
+
         delete $window.sessionStorage.token;
         $log.debug('Logged out, authentication token erased');
 
-        $cookieStore.remove("authtoken");
-        $log.debug('Logged out, authentication cookie erased');
+        reset();
 
         // do not want to display login form when user
         // manually logs out.
@@ -117,8 +126,8 @@ angular.module('jDashboardFluxApp').service('permission', [
 
     var getAccessToken = function () {
         var token = $window.sessionStorage.token;
-        if (!token && $cookieStore.get("authtoken")) {
-            token = $cookieStore.get("authtoken");
+        if (!token && $alkCookie.get("authtoken")) {
+            token = $alkCookie.get("authtoken");
         }
         return token;
     };

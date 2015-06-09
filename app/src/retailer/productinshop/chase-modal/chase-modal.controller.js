@@ -21,6 +21,14 @@ angular.module('jDashboardFluxApp').controller('ProductChaseModalController', [
 
         ChaseModal.prototype.validForm = function () {
             var usernames = [];
+            var chaseType = 'chase';
+            _.map(productInShops, function (pish) {
+                if (
+                    pish.instantiates &&
+                    (pish.instantiates.certified === Product.CERTIFICATION_STATUS_CERTIFIED.id || pish.instantiates.certified === Product.CERTIFICATION_STATUS_ACCEPTED.id) ) {
+                    chaseType = 'correction';
+                }
+            });
             for (var i = 0; i < $scope.recipients.length; i++) {
                 var type = $scope.recipients[i].type;
                 var value = $scope.recipients[i].value;
@@ -31,7 +39,7 @@ angular.module('jDashboardFluxApp').controller('ProductChaseModalController', [
                 }
             }
             $scope.message.to.username = _.uniq(usernames);
-            $$sdkMailer.RetailerProductDataCompletionInvitationPost($scope.message, 'chase').success(function (response) {
+            $$sdkMailer.RetailerProductDataCompletionInvitationPost($scope.message, chaseType).success(function (response) {
                 $window.alert('Le message a bien été envoyé.');
                 $modalInstance.close();
             }).error(function () {

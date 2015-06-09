@@ -28,8 +28,9 @@ angular.module('jDashboardFluxApp').directive('alkNotification', [
 
             'Discussion': 'fa-star',
 
-            'DataCompletionInvitation': 'fa-gavel',
-            'DataCompletionChase': 'fa-gavel',
+            'DataCompletionInvitation': 'mdi mdi-file-document',
+            'DataCompletionChase': 'mdi mdi-alarm',
+            'DataCompletionCorrection': 'mdi mdi-alarm',
 
             'ProductInShopProductCertified': 'fa-gavel',
             'ProductFillReminder': 'fa-check-square-o',
@@ -73,7 +74,8 @@ angular.module('jDashboardFluxApp').directive('alkNotification', [
 
             'Discussion': 'color-green-inverse',
             'DataCompletionInvitation': 'color-blue-inverse',
-            'DataCompletionChase': 'color-blue-inverse',
+            'DataCompletionChase': 'color-red-inverse',
+            'DataCompletionCorrection': 'color-red-inverse',
 
             'ProductInShopProductCertified': 'color-green-inverse',
             'ProductFillReminder': 'color-yellow-inverse',

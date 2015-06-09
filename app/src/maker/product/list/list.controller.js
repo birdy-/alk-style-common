@@ -9,8 +9,8 @@
  * @return {[type]}               [description]
  */
 angular.module('jDashboardFluxApp').controller('DashboardMakerProductListController', [
-    '$rootScope', '$scope', '$$sdkCrud', '$$sdkAuth', 'permission', '$routeParams', '$$ORM', '$log', '$location', '$window', 'URL_CDN_MEDIA', '$modal', '$timeout', '$analytics',
-    function ($rootScope, $scope, $$sdkCrud, $$sdkAuth, permission, $routeParams, $$ORM, $log, $location, $window, URL_CDN_MEDIA, $modal, $timeout, $analytics) {
+    '$rootScope', '$scope', '$$sdkCrud', '$$sdkAuth', 'permission', '$routeParams', '$$ORM', '$log', '$location', '$window', 'URL_CDN_MEDIA', '$modal', '$timeout', '$analytics', '$q',
+    function ($rootScope, $scope, $$sdkCrud, $$sdkAuth, permission, $routeParams, $$ORM, $log, $location, $window, URL_CDN_MEDIA, $modal, $timeout, $analytics, $q) {
 
     // ------------------------------------------------------------------------
     // Variables
@@ -397,18 +397,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         return selectedProducts;
     };
 
-    $scope.certificate = function () {
-        var selectedProducts = filterSelectedProducts();
-
-        if (selectedProducts.length === 0) {
-            $window.alert('Veuillez selectionner au moins un produit.');
-            return;
-        }
-
-        $analytics.eventTrack('MAK Products Button Bulk Certify', {
-            count: selectedProducts.length
-        });
-
+    var bulkCertificate = function (selectedProducts) {
         var modalInstance = $modal.open({
             templateUrl: '/src/maker/product/certify/certification.html',
             controller: 'ProductCertificationModalController',
@@ -423,14 +412,57 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         });
     };
 
-    $scope.bulkEdit = function () {
-        var selectedProducts = filterSelectedProducts();
+    var bulkArchive = function (selectedProducts) {
+        var modalInstance = $modal.open({
+            templateUrl: '/src/maker/product/edit/bulk-edit-warning.html',
+            controller: 'ProductBulkEditWarningModalController',
+            resolve: {
+                products: function () { return selectedProducts; },
+                user: function () { return $scope.user; }
+            }
+        });
 
-        if (selectedProducts.length === 0) {
-            $window.alert('Veuillez selectionner au moins un produit.');
-            return;
-        }
+        modalInstance.result.then(function (selectedProducts) {
+            var allPromises = [];
+            for (var i = 0; i < selectedProducts.length; i++) {
+                var productPromise = $q.defer();
+                var product = selectedProducts[i];
 
+                product.certified = Product.CERTIFICATION_STATUS_DISCONTINUED.id;
+                $$sdkCrud.ProductCertify(
+                    product,
+                    product.certified,
+                    "1169"
+                ).success(function (response) {
+                    product.certified = response.data.certified;
+                    productPromise.resolve(response.data.certified);
+                }).error(function (response) {
+                    productPromise.reject(response.message);
+                    if (response.message !== 'undefined') {
+                        content = "Erreur pendant l'archivage du produit : " + response.message;
+                    }
+                    else {
+                        content = "Erreur pendant l'archivage du produit : " + response.data.message;
+                    }
+                    ngToast.create({
+                        className: 'danger',
+                        content: content,
+                        dismissOnTimeout: false,
+                        dismissButton: true
+                    });
+                });
+                allPromises.push(productPromise);
+            }
+
+            $q.all(allPromises)
+            .then(function (results) {
+                $window.location.reload();
+            });
+        }, function () {
+        });
+    };
+
+    var bulkEdit = function (selectedProducts) {
         var modalInstance = $modal.open({
             templateUrl: '/src/maker/product/edit/bulk-edit-warning.html',
             controller: 'ProductBulkEditWarningModalController',
@@ -452,6 +484,34 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         }, function () {
         });
     };
+
+    $scope.bulkAction = function (actionType) {
+        var selectedProducts = filterSelectedProducts();
+
+        if (selectedProducts.length === 0) {
+            $window.alert('Veuillez selectionner au moins un produit.');
+            return;
+        }
+
+        $analytics.eventTrack('MAK Products Button Bulk ' + actionType, {
+            count: selectedProducts.length
+        });
+
+        switch (actionType) {
+            case 'certificate':
+                bulkCertificate(selectedProducts);
+                break;
+            case 'archive':
+                bulkArchive(selectedProducts);
+                break;
+            case 'edit':
+                bulkEdit(selectedProducts);
+                break;
+            default:
+                $log.info('Invalid action type', actionType);
+        }
+    };
+
 
     $scope.$watch('display.allSelected', function () {
         $scope.products.map(function (product) {
