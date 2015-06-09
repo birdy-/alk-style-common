@@ -424,7 +424,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
 
         modalInstance.result.then(function (selectedProducts) {
             var allPromises = [];
-            for (var i=0 in selectedProducts) {
+            for (var i = 0; i < selectedProducts.length; i++) {
                 var productPromise = $q.defer();
                 var product = selectedProducts[i];
 
@@ -439,10 +439,10 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
                 }).error(function (response) {
                     productPromise.reject(response.message);
                     if (response.message !== 'undefined') {
-                        content = "Erreur pendant la certification du produit : " + response.message;
+                        content = "Erreur pendant l'archivage du produit : " + response.message;
                     }
                     else {
-                        content = "Erreur pendant la certification du produit : " + response.data.message;
+                        content = "Erreur pendant l'archivage du produit : " + response.data.message;
                     }
                     ngToast.create({
                         className: 'danger',
@@ -473,20 +473,13 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         });
 
         modalInstance.result.then(function (selectedProducts) {
-            $scope.product.certified = Product.CERTIFICATION_STATUS_DISCONTINUED.id;
-
-            $$sdkCrud.ProductCertify(
-                $scope.product,
-                $scope.product.certified,
-                "1169"
-            ).success(function (response) {
-                $location.path('/maker/brand/' + $scope.product.isBrandedBy.id + '/product');
-            }).error(function (response){
-                var message = '.';
-                if (response && response.message) {
-                    message = ' : ' + response.message;
+            var modalInstance = $modal.open({
+                templateUrl: '/src/maker/product/edit/bulk-edit.html',
+                controller: 'ProductBulkEditModalController',
+                resolve: {
+                    products: function () { return selectedProducts; },
+                    user: function () { return $scope.user; }
                 }
-                $window.alert("Erreur pendant l'archivage du produit : " + message);
             });
         }, function () {
         });
