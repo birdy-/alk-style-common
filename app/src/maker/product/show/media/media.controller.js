@@ -54,7 +54,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowMediaCo
                         });
                     } else {
                         $scope.$apply( function() {
-                            zip.file("picture"+Math.random()+".png", data, {binary:true});
+                            zip.file("picture" + Math.random() + ".png", data, {binary:true});
                             picturePromise.resolve(data);
                         });
                     }

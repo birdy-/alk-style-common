@@ -1,7 +1,7 @@
 <div class="sheet">
     <br>
     <div class="row well pagination-block" ng-hide="products.length == 0 || request.busy">
-        <div class="col-sm-4">
+        <div class="col-sm-5">
             <!-- We will add the multiple acceptation in the future -->
             <div ng-if="!displayNewProducts">
                 <label ng-if="display.type === 'preview'">
@@ -9,11 +9,15 @@
                     Tout sélectionner &nbsp;
                 </label>
                 <div class="btn btn-success certify"
-                     ng-click="certificate()">
+                     ng-click="bulkAction('certificate')">
                     <i class="fa fa-certificate"></i> Certifier
                 </div>
+                <div class="btn btn-success archive"
+                     ng-click="bulkAction('archive')">
+                    <i class="fa fa-archive"></i> Archiver
+                </div>
                 <div class="btn btn-success edit"
-                     ng-click="bulkEdit()"
+                     ng-click="bulkAction('edit')"
                      analytics-on="click"
                      analytics-event="MAK Products Button Bulk Edit">
                     <i class="fa fa-edit"></i> Modifier
@@ -26,7 +30,7 @@
               GDSN
             </span>
         </div>
-        <div class="col-sm-8 text-right">
+        <div class="col-sm-7 text-right">
 
             <div alk-sdk-pagination
                     boundary-links="true"
