@@ -79,6 +79,11 @@ angular.module('jDashboardFluxApp')
         }
         loadProductGLNs();
         $scope.glns = $scope.glns.concat(getGLNs(productSegment));
+
+        // Prefill if only one GLN
+        if ($scope.glns.length === 1) {
+            $scope.product.gln = $scope.glns[0];
+        };
     }
 
     init();
