@@ -5,8 +5,8 @@
  */
 angular.module('jDashboardFluxApp')
 .controller('ProductAcceptationModalController', [
-    '$scope', '$modalInstance', '$$sdkAuth', '$$sdkCrud', '$$sdkGdsn', 'ngToast', 'product', 'user', 'productSegment',
-    function ($scope, $modalInstance, $$sdkAuth, $$sdkCrud, $$sdkGdsn, ngToast, product, user, productSegment) {
+    '$scope', '$modalInstance', '$$sdkAuth', '$$sdkCrud', '$$sdkGdsn', 'ngToast', 'product', 'user', 'productSegment', '$$ORM',
+    function ($scope, $modalInstance, $$sdkAuth, $$sdkCrud, $$sdkGdsn, ngToast, product, user, productSegment, $$ORM) {
 
     $scope.product = product;
     $scope.productSegment = productSegment;
@@ -58,6 +58,7 @@ angular.module('jDashboardFluxApp')
         };
         $$sdkGdsn.GdsnGLNList({}, filters, {}, null, null).then(function (response) {
             var result = response.data.data;
+            if (!result.length) { return; }
             _.map(result, function (gln) {
                 if (_.indexOf($scope.glns, gln.gln) == -1) { $scope.glns.push(gln.gln); }
             });
@@ -66,9 +67,14 @@ angular.module('jDashboardFluxApp')
     };
 
     var init = function () {
-        if (product.isBrandedBy.id === 1){
+        if (!product.isBrandedBy.id || product.isBrandedBy.id === 1) {
             product.isBrandedBy = null;
         } else {
+            if (!product.isBrandedBy.name) {
+                $$ORM.repository('Brand').get(product.isBrandedBy.id).then(function (brand) {
+                    product.isBrandedBy.text = brand.name;
+                })
+            }
             product.isBrandedBy.text = product.isBrandedBy.name;
         }
         loadProductGLNs();
