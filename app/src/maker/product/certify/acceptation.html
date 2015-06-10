@@ -8,7 +8,7 @@
     </h3>
 </div>
 <div class="modal-body">
-    <form>
+    <form ng-if="product">
         <div class="form-group">
             <label>EAN</label>
             <input class="form-control" disabled ng-model="product.isIdentifiedBy.0.reference"/>
