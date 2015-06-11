@@ -24,7 +24,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     $scope.brands = [];
     $scope.productsegments = [];
     $scope.displayNewProducts = false;
-    $scope.gdsnOnly = false;
+    $scope.gdsnOnly = true;
     $scope.newProductsLoaded = false;
     $scope.currentPage  = 1;
     $scope.newProductsCount = 0;
@@ -424,6 +424,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
 
         modalInstance.result.then(function (selectedProducts) {
             var allPromises = [];
+            var content = '';
             for (var i = 0; i < selectedProducts.length; i++) {
                 var productPromise = $q.defer();
                 var product = selectedProducts[i];
