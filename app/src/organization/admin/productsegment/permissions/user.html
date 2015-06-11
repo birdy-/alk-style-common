@@ -80,6 +80,13 @@
                             <h2>{{ selectedUser.firstname }} {{ selectedUser.lastname || 'Utilisateur' }}</h2>
                             <p>
                                 {{ selectedUser.managesProductSegment.length || 0 }} gammes
+                                <span ng-if="selectedUser.isAdmin" class="label label-success">Administrateur</span>
+                                <button ng-if="selectedUser.isAdmin === false" type="button" class="btn btn-link" ng-click="promoteUserAsAdmin()">
+                                    Promouvoir en administrateur
+                                </button>
+                                <button ng-if="selectedUser.isAdmin" type="button" class="btn btn-link" ng-click="revokeUserAdmin()">
+                                    Revoquer les droits administrateur
+                                </button>
                             </p>
                         </div>
 
