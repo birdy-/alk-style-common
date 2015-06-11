@@ -24,7 +24,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     $scope.brands = [];
     $scope.productsegments = [];
     $scope.displayNewProducts = false;
-    $scope.gdsnOnly = false;
+    $scope.gdsnOnly = true;
     $scope.newProductsLoaded = false;
     $scope.currentPage  = 1;
     $scope.newProductsCount = 0;

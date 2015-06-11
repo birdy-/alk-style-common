@@ -123,6 +123,12 @@
 }
 
 form.products-search {
+
+    .highlight {
+        background-color: white;
+        color: $alk-green;
+    }
+
     .productsegment {
         label {
             font-weight: normal;
