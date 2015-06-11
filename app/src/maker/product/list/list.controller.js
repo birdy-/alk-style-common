@@ -424,6 +424,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
 
         modalInstance.result.then(function (selectedProducts) {
             var allPromises = [];
+            var content = '';
             for (var i = 0; i < selectedProducts.length; i++) {
                 var productPromise = $q.defer();
                 var product = selectedProducts[i];
