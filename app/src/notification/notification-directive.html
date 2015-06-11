@@ -149,19 +149,19 @@
             <a href="mailto:{{ notification.event.data.user.username }}">
                 {{ notification.event.data.user.firstname }} {{ notification.event.data.user.lastname }}
             </a> vous invite à remplir les fiches produits ci-dessous:
-            <span ng-bind-html="notification.event.data.message">{{ notification.event.data.message }}</span>
+            <div ng-bind-html="notification.event.data.message">{{ notification.event.data.message }}</div>
         </div>
         <div ng-switch-when="DataCompletionChase" >
             <a href="mailto:{{ notification.event.data.user.username }}">
                 {{ notification.event.data.user.firstname }} {{ notification.event.data.user.lastname }}
             </a> vous invite à remplir les fiches produits ci-dessous:
-            <span ng-bind-html="notification.event.data.message">{{ notification.event.data.message }}</span>
+            <div ng-bind-html="notification.event.data.message">{{ notification.event.data.message }}</div>
         </div>
         <div ng-switch-when="DataCompletionCorrection" >
             <a href="mailto:{{ notification.event.data.user.username }}">
                 {{ notification.event.data.user.firstname }} {{ notification.event.data.user.lastname }}
             </a> vous invite à remplir les fiches produits ci-dessous:
-            <span ng-bind-html="notification.event.data.message">{{ notification.event.data.message }}</span>
+            <div ng-bind-html="notification.event.data.message">{{ notification.event.data.message }}</div>
         </div>
             <!-- POC Carrefour -->
 
