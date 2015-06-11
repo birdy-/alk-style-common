@@ -81,10 +81,19 @@
                             <p>
                                 {{ selectedUser.managesProductSegment.length || 0 }} gammes
                                 <span ng-if="selectedUser.isAdmin" class="label label-success">Administrateur</span>
-                                <button ng-if="selectedUser.isAdmin === false" type="button" class="btn btn-link" ng-click="promoteUserAsAdmin()">
+                                <button alk-confirm-action
+                                        confirm-message="promoteUserAsAdminMessage"
+                                        confirm-action="promoteUserAsAdmin"
+                                        ng-if="selectedUser.isAdmin === false"
+                                        type="button" class="btn btn-link">
                                     Promouvoir en administrateur
                                 </button>
-                                <button ng-if="selectedUser.isAdmin" type="button" class="btn btn-link" ng-click="revokeUserAdmin()">
+                                <button alk-confirm-action
+                                        confirm-message="revokeUserAsAdminMessage"
+                                        confirm-action="revokeUserAdmin"
+                                        ng-if="selectedUser.isAdmin"
+                                        type="button"
+                                        class="btn btn-link">
                                     Revoquer les droits administrateur
                                 </button>
                             </p>
