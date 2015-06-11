@@ -29,7 +29,16 @@
             </div>
         </div>
         <div ng-if="user.isAdmin() === true" class="permissions col-xs-2">
-          <span class="label label-success">Administrateur</span>
+            <table class="admin-permissions">
+              <tr>
+                <td>
+                  <i class="mdi mdi-eye active"></i>
+                  <i class="mdi mdi-pencil active"></i>
+                  <i class="mdi mdi-check active"></i>                  
+                </td>
+              </tr>
+              <tr><td><span class="label label-success">Administrateur</span></td></tr>
+            </table>  
         </div>
         <div ng-if="user.isAdmin() === false" class="permissions col-xs-2">
 
