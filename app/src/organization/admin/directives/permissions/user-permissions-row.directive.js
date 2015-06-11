@@ -170,6 +170,20 @@ angular.module('jDashboardFluxApp').controller('UserPermissionsRowController', [
                     $scope.permissions[k] = true;
                 }
             }
+
+            $scope.user.isAdmin = false;
+            _.each($scope.user.belongsTo, function (ubto) {
+                if (ubto.id != $scope.organization.id) {
+                    return;
+                }
+                _.each(ubto.permissions, function (permission) {
+                    if (permission == 'admin') {
+                        $scope.user.isAdmin = true;
+                    }
+                });
+            });
+
+
         };
 
         $scope.$watch('productsegment', function () {

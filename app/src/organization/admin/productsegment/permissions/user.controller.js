@@ -54,7 +54,33 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminUserPermissions
       var user = _.find($scope.users, { id: userId });
 
       $scope.selectedUser = user;
+      $scope.selectedUser.isAdmin = false;
+      _.each($scope.selectedUser.belongsTo, function (ubto) {
+        if (ubto.id != $scope.organization.id) {
+            return;
+        }
+        _.each(ubto.permissions, function (permission) {
+            if (permission == 'admin') {
+                $scope.selectedUser.isAdmin = true;
+            }
+        });
+
+      });
     };
+
+    $scope.promoteUserAsAdmin = function () {
+        var current_user_id = $scope.selectedUser.id;
+        $$sdkAuth.UserPromoteUserWithRole($scope.selectedUser.id, $scope.organization.id, 'admin').then(function(response) {
+            init();
+        });
+    }
+
+    $scope.revokeUserAdmin = function () {
+        var current_user_id = $scope.selectedUser.id;
+        $$sdkAuth.UserRevokeUserWithRole($scope.selectedUser.id, $scope.organization.id, 'admin').then(function(response) {
+            init();
+        });
+    }
 
     $scope.addProductSegment = function (segment) {
         $modal.open({
@@ -115,9 +141,11 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminUserPermissions
             $scope.segments[segments[i].id] = segments[i];
         }
 
-        if (users.length) {
+        if (users.length && typeof($scope.selectedUser) === 'undefined') {
             var defaultUserId = $routeParams.user_id || users[0].id;
             $scope.selectUser(defaultUserId);
+        } else if (typeof($scope.selectedUser) !== 'undefined') {
+            $scope.selectUser($scope.selectedUser.id);
         }
     };
 
