@@ -18,7 +18,10 @@
               Droits conférés
             </div>
         </div>
-        <div class="permissions col-xs-2">
+        <div ng-if="user.isAdmin === true" class="permissions col-xs-2">
+          <span class="label label-success">Administrateur</span>
+        </div>
+        <div ng-if="user.isAdmin === false" class="permissions col-xs-2">
             <i class="mdi mdi-eye"
                ng-class="{ 'active' : permissions[ProductSegment.PERMISSION_PRODUCT_SHOW] == true }"
                ng-click="update(ProductSegment.PERMISSION_PRODUCT_SHOW)"></i>
