@@ -10,7 +10,8 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminUserPermissions
     $scope.users = [];
     $scope.organization = null;
     $scope.isLoading = false;
-
+    $scope.promoteUserAsAdminMessage = null;
+    $scope.revokeUserAsAdminMessage = null;
 
     // --------------------------------------------------------------------------------
     // Event binding
@@ -52,7 +53,8 @@ angular.module('jDashboardFluxApp').controller('OrganizationAdminUserPermissions
 
     $scope.selectUser = function (userId) {
       var user = _.find($scope.users, { id: userId });
-
+      $scope.promoteUserAsAdminMessage = "Êtes vous sur de vouloir donner les droits d'administrateur à " + user.firstname  + " " + user.lastname + " ?"
+      $scope.revokeUserAsAdminMessage = "Êtes vous sur de vouloir retirer les droits d'administrateur à " + user.firstname  + " " + user.lastname + " ?"
       $scope.selectedUser = user;
       $scope.selectedUser.isAdmin = false;
       _.each($scope.selectedUser.belongsTo, function (ubto) {
