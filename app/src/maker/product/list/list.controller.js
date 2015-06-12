@@ -9,8 +9,8 @@
  * @return {[type]}               [description]
  */
 angular.module('jDashboardFluxApp').controller('DashboardMakerProductListController', [
-    '$rootScope', '$scope', '$$sdkCrud', '$$sdkAuth', 'permission', '$routeParams', '$$ORM', '$log', '$location', '$window', 'URL_CDN_MEDIA', '$modal', '$timeout', '$analytics', '$q',
-    function ($rootScope, $scope, $$sdkCrud, $$sdkAuth, permission, $routeParams, $$ORM, $log, $location, $window, URL_CDN_MEDIA, $modal, $timeout, $analytics, $q) {
+    '$rootScope', '$scope', '$$sdkCrud', '$$sdkAuth', 'permission', '$routeParams', '$$ORM', '$log', '$location', '$window', 'URL_CDN_MEDIA', '$modal', '$timeout', '$analytics', '$q', 'ngToast',
+    function ($rootScope, $scope, $$sdkCrud, $$sdkAuth, permission, $routeParams, $$ORM, $log, $location, $window, URL_CDN_MEDIA, $modal, $timeout, $analytics, $q, ngToast) {
 
     // ------------------------------------------------------------------------
     // Variables
@@ -426,8 +426,9 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
             var allPromises = [];
             var content = '';
             for (var i = 0; i < selectedProducts.length; i++) {
-                var productPromise = $q.defer();
                 var product = selectedProducts[i];
+                var productPromise = $q.defer();
+                allPromises.push(productPromise.promise);
 
                 product.certified = Product.CERTIFICATION_STATUS_DISCONTINUED.id;
                 $$sdkCrud.ProductCertify(
@@ -438,7 +439,6 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
                     product.certified = response.data.certified;
                     productPromise.resolve(response.data.certified);
                 }).error(function (response) {
-                    productPromise.reject(response.message);
                     if (response.message !== 'undefined') {
                         content = "Erreur pendant l'archivage du produit : " + response.message;
                     }
@@ -448,11 +448,11 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
                     ngToast.create({
                         className: 'danger',
                         content: content,
-                        dismissOnTimeout: false,
+                        dismissOnTimeout: true,
                         dismissButton: true
                     });
+                    productPromise.resolve(response.message);
                 });
-                allPromises.push(productPromise);
             }
 
             $q.all(allPromises)
@@ -569,13 +569,22 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
                       };
                       // Getting the product list with new product-style filters, and limit of 0 (need count only)
                       // Done to enforce the consistency of the count and the actual product list
-                      $$sdkCrud.ProductList({}, filters, {}, 0, 0, {}).success(function (response) {
+                      $$sdkCrud.ProductList({}, filters, {}, 0, 0, {})
+                      .then(function (response) {
                         $scope.newProductsCount = response.totalResults;
                         $scope.newProductsLoaded = true;
                         rootProductSegment = segment;
                         if ($rootScope.navigation.maker.displayNewProducts) {
                           $scope.toggleNewProducts();
                         }
+                      }, function (response) {
+                        $scope.newProductsLoaded = true;
+                        ngToast.create({
+                            className: 'danger',
+                            content: 'Erreur lors du chargement des nouvelles références :' + response.data.message,
+                            dismissOnTimeout: true,
+                            dismissButton: true
+                        });
                       });
                     });
                 }
