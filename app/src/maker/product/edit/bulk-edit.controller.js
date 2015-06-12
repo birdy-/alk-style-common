@@ -6,11 +6,10 @@
 angular.module('jDashboardFluxApp')
 
 .controller('ProductBulkEditModalController', [
-    '$scope', '$modalInstance', '$$sdkCrud', '$window', 'products', 'user',
-    function ($scope, $modalInstance, $$sdkCrud, $window, products, user) {
+    '$scope', '$modalInstance', '$$sdkCrud', 'products', 'ngToast',
+    function ($scope, $modalInstance, $$sdkCrud, products, ngToast) {
 
     $scope.products = products;
-    $scope.user = user;
 
     $scope.manufacturerFields = [
         {
@@ -83,6 +82,19 @@ angular.module('jDashboardFluxApp')
         }
     ];
 
+    $scope.compositionFields = [
+        {
+            name: 'composition',
+            label: 'Ingrédients',
+            value: ''
+        },
+        {
+            name: 'allergens',
+            label: 'Allergènes',
+            value: ''
+        }
+    ];
+
     // ------------------------------------------------------------------------
     // Helpers
     // ------------------------------------------------------------------------
@@ -109,7 +121,7 @@ angular.module('jDashboardFluxApp')
     // ------------------------------------------------------------------------
 
     $scope.ok = function () {
-        var fields = $scope.manufacturerFields.concat($scope.consumerSupportFields);
+        var fields = $scope.manufacturerFields.concat($scope.consumerSupportFields).concat($scope.compositionFields);
         for (var i=0 in products) {
             var product = products[i];
 
@@ -129,7 +141,12 @@ angular.module('jDashboardFluxApp')
                 if (response && response.message) {
                     message = ' : ' + response.message;
                 }
-                $window.alert("Erreur pendant la mise à jour du produit" + message);
+                ngToast.create({
+                    className: 'danger',
+                    content: 'Erreur pendant la mise à jour du produit :' + message,
+                    dismissOnTimeout: false,
+                    dismissButton: true
+                });
             });
         }
         $modalInstance.close(products);

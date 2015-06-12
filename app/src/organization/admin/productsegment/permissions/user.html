@@ -85,7 +85,9 @@
                                         confirm-message="promoteUserAsAdminMessage"
                                         confirm-action="promoteUserAsAdmin"
                                         ng-if="!selectedUser.isAdmin"
-                                        type="button" class="btn btn-link">
+                                        type="button" class="btn btn-link"
+                                        analytics-on="click"
+                                        analytics-event="PS Button Admin Promote User">
                                     Promouvoir en administrateur
                                 </button>
                                 <button alk-confirm-action
@@ -93,7 +95,9 @@
                                         confirm-action="revokeUserAdmin"
                                         ng-if="selectedUser.isAdmin"
                                         type="button"
-                                        class="btn btn-link">
+                                        class="btn btn-link"
+                                        analytics-on="click"
+                                        analytics-event="PS Button Admin Revoke User">
                                     Revoquer les droits administrateur
                                 </button>
                             </p>
