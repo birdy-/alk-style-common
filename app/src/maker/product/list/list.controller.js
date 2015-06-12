@@ -457,7 +457,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
 
             $q.all(allPromises)
             .then(function (results) {
-                $window.location.reload();
+                // $window.location.reload();
             });
         }, function () {
         });
