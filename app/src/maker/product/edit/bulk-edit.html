@@ -9,7 +9,7 @@
         <div class="col-xs-12">
             <h3>Exploitant</h3>
         </div>
-        <div class="col-xs-12 from-group" ng-repeat="field in manufacturerFields">
+        <div class="col-xs-12 from-group" ng-repeat="field in manufacturerFields track by $index">
             <label class="control-label">{{ field.label }}</label>
             <input ng-model="field.value" class="form-control" placeholder="Non modifié">
         </div>
@@ -19,7 +19,17 @@
         <div class="col-xs-12">
             <h3>Service consommateur</h3>
         </div>
-        <div class="col-xs-12 from-group" ng-repeat="field in consumerSupportFields">
+        <div class="col-xs-12 from-group" ng-repeat="field in consumerSupportFields track by $index">
+            <label class="control-label">{{ field.label }}</label>
+            <input ng-model="field.value" class="form-control" placeholder="Non modifié">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <h3>Composition</h3>
+        </div>
+        <div class="col-xs-12 from-group" ng-repeat="field in compositionFields track by $index">
             <label class="control-label">{{ field.label }}</label>
             <input ng-model="field.value" class="form-control" placeholder="Non modifié">
         </div>
