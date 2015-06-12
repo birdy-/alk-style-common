@@ -555,38 +555,34 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
 
             $$ORM.repository('Organization').get(organizationId).then(function (organization) {
                 var productSegmentRoot = Organization.getProductSegmentRoot(organization);
-                var userManageProductSegmentRoot = false;
-                for (var i in user.managesProductSegment) {
-                    if (user.managesProductSegment[i].id === productSegmentRoot.id) {
-                        userManageProductSegmentRoot = true;
-                        break;
-                    }
-                }
-                if (userManageProductSegmentRoot) {
+
+                if ($scope.isAdmin) {
                     $$ORM.repository('ProductSegment').get(productSegmentRoot.id).then(function (segment) {
-                      var filters = {
-                        certified: Product.CERTIFICATION_STATUS_ATTRIBUTED.id
-                      };
-                      // Getting the product list with new product-style filters, and limit of 0 (need count only)
-                      // Done to enforce the consistency of the count and the actual product list
-                      $$sdkCrud.ProductList({}, filters, {}, 0, 0, {})
-                      .then(function (response) {
-                        $scope.newProductsCount = response.totalResults;
-                        $scope.newProductsLoaded = true;
-                        rootProductSegment = segment;
-                        if ($rootScope.navigation.maker.displayNewProducts) {
-                          $scope.toggleNewProducts();
-                        }
-                      }, function (response) {
-                        $scope.newProductsLoaded = true;
-                        ngToast.create({
-                            className: 'danger',
-                            content: 'Erreur lors du chargement des nouvelles références :' + response.data.message,
-                            dismissOnTimeout: true,
-                            dismissButton: true
+                        var filters = {
+                            certified: Product.CERTIFICATION_STATUS_ATTRIBUTED.id
+                        };
+                        // Getting the product list with new product-style filters, and limit of 0 (need count only)
+                        // Done to enforce the consistency of the count and the actual product list
+                        $$sdkCrud.ProductList({}, filters, {}, 0, 0, {})
+                        .then(function (response) {
+                            $scope.newProductsCount = response.data.totalResults;
+                            rootProductSegment = segment;
+                            if ($rootScope.navigation.maker.displayNewProducts) {
+                                $scope.toggleNewProducts();
+                            }
+                        }, function (response) {
+                            ngToast.create({
+                                className: 'danger',
+                                content: 'Erreur lors du chargement des nouvelles références :' + response.data.message,
+                                dismissOnTimeout: true,
+                                dismissButton: true
+                            });
+                        }).finally(function () {
+                            $scope.newProductsLoaded = true;
                         });
-                      });
                     });
+                } else {
+                    $scope.newProductsLoaded = true;
                 }
 
                 // Load product segments
