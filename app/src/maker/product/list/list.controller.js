@@ -570,6 +570,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
                             if ($rootScope.navigation.maker.displayNewProducts) {
                                 $scope.toggleNewProducts();
                             }
+                            $scope.newProductsLoaded = true;
                         }, function (response) {
                             ngToast.create({
                                 className: 'danger',
