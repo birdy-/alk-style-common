@@ -10,6 +10,7 @@ angular.module('jDashboardFluxApp').directive('alkModelProductinshopsegmentTypeS
         require: 'ngModel',
         templateUrl: '/src/common/directives/input/select-id.html',
         link: function (scope, elem, attrs) {
+            var ProductInShopSegment = window.ProductInShopSegment;
             scope.placeholder = attrs.placeholder;
             scope.choices = [
                 ProductInShopSegment.TYPE_AISLE,

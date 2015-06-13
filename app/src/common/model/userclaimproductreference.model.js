@@ -31,6 +31,7 @@ var UserClaimProductReference = function () {
         ];
     };
     this.fromJson = function (json) {
+        var moment = window.moment;
         for (var key in json) {
             this[key] = json[key];
         }
@@ -41,7 +42,7 @@ var UserClaimProductReference = function () {
         this.createdAt = moment(json['createdAt']).unix();
         this.updatedAt = moment(json['updatedAt']).unix();
         this.timestamp = this.updatedAt;
-        this.type = this.types()[json['status']].name
+        this.type = this.types()[json['status']].name;
         return this;
     };
 };
