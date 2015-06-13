@@ -122,10 +122,10 @@ angular.module('jDashboardFluxApp')
 
     $scope.ok = function () {
         var fields = $scope.manufacturerFields.concat($scope.consumerSupportFields).concat($scope.compositionFields);
-        for (var i=0 in products) {
+        for (var i = 0 in products) {
             var product = products[i];
 
-            for (var fieldIndex in fields) {
+            for (var fieldIndex = 0 in fields) {
                 var field = fields[fieldIndex];
                 if (field.value) {
                     product[field.name] = field.value;

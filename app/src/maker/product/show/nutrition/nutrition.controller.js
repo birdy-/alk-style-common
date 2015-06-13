@@ -83,7 +83,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowNutriti
     };
     $scope.savePSQ = function (psq) {
         var pnq;
-        for (var conceptId in $scope.pnqs) {
+        for (var conceptId = 0 in $scope.pnqs) {
             pnq = $scope.pnqs[conceptId].pnqs[psq.id];
             if (!pnq) {
                 throw 'Missing ProductNutritionalQuantity for ProductStandardQuantity ' + pnq.id + ' and Concept ' + conceptId;
@@ -119,14 +119,14 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowNutriti
      */
     var detachProductNutritionalQuantityFromProductStandardQuantity = function (psq) {
         var legend;
-        for (var conceptId in $scope.pnqs) {
+        for (var conceptId = 0 in $scope.pnqs) {
             legend = $scope.pnqs[conceptId];
             delete legend.pnqs[psq.id];
         }
     };
     var attachProductNutritionalQuantityToProductStandardQuantity = function (psq) {
         var pnq, legend;
-        for (var conceptId in $scope.pnqs) {
+        for (var conceptId = 0 in $scope.pnqs) {
             legend = $scope.pnqs[conceptId];
             pnq = psq.getContainsById(conceptId);
             if (pnq === null) {
@@ -178,7 +178,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowNutriti
     }, true);
 
     $scope.$on('PRODUCT_SAVING', function () {
-        for (var psqId in $scope.psqs) {
+        for (var psqId = 0 in $scope.psqs) {
             $scope.savePSQ($scope.psqs[psqId]);
         }
     });
