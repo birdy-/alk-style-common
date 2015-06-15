@@ -413,7 +413,7 @@ app.config(function ($routeProvider) {
 // http://ng-learn.org/2013/12/Dealing-with-IE-family/
 // https://www.ng-book.com/p/AngularJS-and-Internet-Explorer/
 app.config(function($httpProvider) {
-    function isIE(version, comparison) {
+    var isIE = function (version, comparison) {
         var cc      = 'IE',
             b       = document.createElement('B'),
             docElem = document.documentElement,

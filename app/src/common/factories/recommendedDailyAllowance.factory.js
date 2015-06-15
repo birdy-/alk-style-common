@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 angular.module('jDashboardFluxApp').factory('$$recommendedDailyAllowance',function(){
     //Values taken from http://fr.wikipedia.org/wiki/Apports_journaliers_recommandés
@@ -82,6 +82,5 @@ angular.module('jDashboardFluxApp').factory('$$recommendedDailyAllowance',functi
       18998:40/1000000,
       //Molybdène
       18999:50/1000000
-    }
+    };
 });
-

@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 var Gtin = function(){
   this._type = 'Gtin';
@@ -42,7 +42,7 @@ Gtin.status = function () {
     Gtin.TYPE_DEDUCTED_THROUGH_PLATFORM,
     Gtin.TYPE_BRANDBANK
   ];
-}
+};
 
 Gtin.getType = function (type) {
     var types = [
