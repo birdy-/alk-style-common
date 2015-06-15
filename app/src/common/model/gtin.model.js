@@ -16,7 +16,8 @@ var Gtin = function(){
       Gtin.TYPE_ADDED_THROUGH_PLATFORM,
       Gtin.TYPE_GEPIR,
       Gtin.TYPE_GDSN,
-      Gtin.TYPE_DEDUCTED_THROUGH_PLATFORM
+      Gtin.TYPE_DEDUCTED_THROUGH_PLATFORM,
+      Gtin.TYPE_BRANDBANK
     ];
     return types[type];
   };
@@ -30,6 +31,7 @@ Gtin.TYPE_ADDED_THROUGH_PLATFORM = new Constant(7,'ADDED_THROUGH_PLATFORM');
 Gtin.TYPE_GEPIR = new Constant(8,'GEPIR');
 Gtin.TYPE_GDSN = new Constant(9,'GDSN');
 Gtin.TYPE_DEDUCTED_THROUGH_PLATFORM = new Constant(10,'DEDUCTED_THROUGH_PLATFORM');
+Gtin.TYPE_BRANDBANK = new Constant(11,'BRANDBANK');
 
 Gtin.status = function () {
   return [
@@ -37,7 +39,8 @@ Gtin.status = function () {
     Gtin.TYPE_ADDED_THROUGH_PLATFORM,
     Gtin.TYPE_GEPIR,
     Gtin.TYPE_GDSN,
-    Gtin.TYPE_DEDUCTED_THROUGH_PLATFORM
+    Gtin.TYPE_DEDUCTED_THROUGH_PLATFORM,
+    Gtin.TYPE_BRANDBANK
   ];
 }
 
@@ -47,7 +50,8 @@ Gtin.getType = function (type) {
       Gtin.TYPE_ADDED_THROUGH_PLATFORM,
       Gtin.TYPE_GEPIR,
       Gtin.TYPE_GDSN,
-      Gtin.TYPE_DEDUCTED_THROUGH_PLATFORM
+      Gtin.TYPE_DEDUCTED_THROUGH_PLATFORM,
+      Gtin.TYPE_BRANDBANK
     ];
   return types[type];
 };
