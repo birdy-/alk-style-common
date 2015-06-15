@@ -1,6 +1,6 @@
 'use strict';
 
-var Brand = function(){
+var Brand = function () {
     this.fromJson = function(json) {
         for (var key in json) {
             this[key] = json[key];

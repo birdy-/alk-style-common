@@ -5,6 +5,8 @@ angular.module('jDashboardFluxApp')
     return {
       restrict: 'A',
       link: function ($scope, $element, $attrs) {
+        var $ = window.$;
+
         $($element).hover(function () {
           // on mouseenter
           $($element).tooltip('show');

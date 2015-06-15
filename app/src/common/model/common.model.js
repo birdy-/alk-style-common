@@ -12,7 +12,7 @@ angular.module('jDashboardFluxApp').service('$$cacheManager', [
         var registerEntity = function (Model) {
             session[Model._type] = {
                 model: Model, lazy: {}, loaded: {}
-            }
+            };
         };
 
         // ------------------------------------------------------------------------
@@ -124,13 +124,13 @@ angular.module('jDashboardFluxApp').service('$$cacheManager', [
     }
 ]);
 
-var Constant = function (id, name, description) {
+window.Constant = function (id, name, description) {
     this.id = id;
     this.name = name;
     this.description = description;
 };
 
-var dateObjectFromUTC = function (s) {
+window.dateObjectFromUTC = function (s) {
     if (!s) {
         return null;
     }

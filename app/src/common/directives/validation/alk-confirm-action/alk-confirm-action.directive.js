@@ -44,8 +44,8 @@ angular.module('jDashboardFluxApp').directive('alkConfirmAction', [
                     }, function () {
                         //Modal dismissed
                     });
-                })
+                });
             }
-        }
+        };
     }
 ]);

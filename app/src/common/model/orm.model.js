@@ -87,7 +87,7 @@ var abstractRepository = function (Model, $$sdk, $$cacheManager, $q, cache, hydr
     };
     var popCache = function(id) {
         $$cacheManager.popCache(modelName, id);
-    }
+    };
 
     // Init
     if (cache && cache.length) {
@@ -324,23 +324,23 @@ angular.module('jDashboardFluxApp').service('$$ORM', [
         };
 
         var repositorys = {
-            Brand: abstractRepository(Brand, $$sdkCrud, $$cacheManager, $q, [], addTextFrom('name')),
-            Campaign: abstractRepository(Campaign, $$sdkCampaign, $$cacheManager, $q, [], null),
-            CommonUnit: abstractRepository(CommonUnit, $$sdkCrud, $$cacheManager, $q, commonUnits, addTextFrom('name')),
-            Concept: abstractRepository(Concept, $$sdkCrud, $$cacheManager, $q, concepts, addTextFrom('name')),
-            GLN: abstractRepository(GLN, $$sdkGdsn, $$cacheManager, $q, [], addTextFrom('name')),
-            Organization: abstractRepository(Organization, $$sdkAuth, $$cacheManager, $q, [], addTextFrom('name')),
-            Placement: abstractRepository(Placement, $$sdkCampaign, $$cacheManager, $q, [], addTextFrom('name')),
-            Product: abstractRepository(Product, $$sdkCrud, $$cacheManager, $q, [], addTextFrom('nameLegal')),
-            ProductNutritionalQuantity: abstractRepository(ProductNutritionalQuantity, $$sdkCrud, $$cacheManager, $q, [], null),
-            ProductStandardQuantity: abstractRepository(ProductStandardQuantity, $$sdkCrud, $$cacheManager, $q, [], null),
-            ProductSegment: abstractRepository(ProductSegment, $$sdkCrud, $$cacheManager, $q, [], null),
-            ProductInShopSegment: abstractRepository(ProductInShopSegment, $$sdkCrud, $$cacheManager, $q, [], addTextFrom('name')),
-            ProductInShop: abstractRepository(ProductInShop, $$sdkCrud, $$cacheManager, $q, [], null),
-            Shop: abstractRepository(Shop, $$sdkCrud, $$cacheManager, $q, [], addTextFrom('name')),
-            User: abstractRepository(User, $$sdkAuth, $$cacheManager, $q, [], addTextFrom('username')),
-            Website: abstractRepository(Website, $$sdkCrud, $$cacheManager, $q, [], addTextFrom('name')),
-            Plugin: abstractRepository(Plugin, $$sdkAuth, $$cacheManager, $q, [], addTextFrom('name'))
+            Brand: abstractRepository(window.Brand, $$sdkCrud, $$cacheManager, $q, [], addTextFrom('name')),
+            Campaign: abstractRepository(window.Campaign, $$sdkCampaign, $$cacheManager, $q, [], null),
+            CommonUnit: abstractRepository(window.CommonUnit, $$sdkCrud, $$cacheManager, $q, commonUnits, addTextFrom('name')),
+            Concept: abstractRepository(window.Concept, $$sdkCrud, $$cacheManager, $q, concepts, addTextFrom('name')),
+            GLN: abstractRepository(window.GLN, $$sdkGdsn, $$cacheManager, $q, [], addTextFrom('name')),
+            Organization: abstractRepository(window.Organization, $$sdkAuth, $$cacheManager, $q, [], addTextFrom('name')),
+            Placement: abstractRepository(window.Placement, $$sdkCampaign, $$cacheManager, $q, [], addTextFrom('name')),
+            Product: abstractRepository(window.Product, $$sdkCrud, $$cacheManager, $q, [], addTextFrom('nameLegal')),
+            ProductNutritionalQuantity: abstractRepository(window.ProductNutritionalQuantity, $$sdkCrud, $$cacheManager, $q, [], null),
+            ProductStandardQuantity: abstractRepository(window.ProductStandardQuantity, $$sdkCrud, $$cacheManager, $q, [], null),
+            ProductSegment: abstractRepository(window.ProductSegment, $$sdkCrud, $$cacheManager, $q, [], null),
+            ProductInShopSegment: abstractRepository(window.ProductInShopSegment, $$sdkCrud, $$cacheManager, $q, [], addTextFrom('name')),
+            ProductInShop: abstractRepository(window.ProductInShop, $$sdkCrud, $$cacheManager, $q, [], null),
+            Shop: abstractRepository(window.Shop, $$sdkCrud, $$cacheManager, $q, [], addTextFrom('name')),
+            User: abstractRepository(window.User, $$sdkAuth, $$cacheManager, $q, [], addTextFrom('username')),
+            Website: abstractRepository(window.Website, $$sdkCrud, $$cacheManager, $q, [], addTextFrom('name')),
+            Plugin: abstractRepository(window.Plugin, $$sdkAuth, $$cacheManager, $q, [], addTextFrom('name'))
         };
 
         var repository = function (which) {

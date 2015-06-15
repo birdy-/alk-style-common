@@ -52,6 +52,7 @@ ProductSegment.prototype.formatStats = function () {
  * Format users count
  */
 ProductSegment.prototype.computeUsers = function () {
+    var _ = window._;
     if (!this.usersPermissions) { return; }
     var users = [];
     _.map(this.usersPermissions, function (permission) {

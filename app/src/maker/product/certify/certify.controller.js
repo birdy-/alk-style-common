@@ -15,7 +15,7 @@ angular.module('jDashboardFluxApp')
         if (!$scope.user.email) {
             return;
         }
-        for (var i=0 in products) {
+        for (var i = 0 in products) {
             var product = products[i];
             product.certified = Product.CERTIFICATION_STATUS_CERTIFIED.id;
             $$sdkCrud.ProductCertify(

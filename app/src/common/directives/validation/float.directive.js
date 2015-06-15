@@ -23,10 +23,10 @@ angular.module('jDashboardFluxApp').directive('alkFloat', function() {
             ctrl.$formatters.unshift(validator);
 
             ctrl.$parsers.unshift(function(viewValue) {
-                if (typeof (viewValue) == 'undefined') return '';
+                if (typeof (viewValue) === 'undefined') { return '' };
                 var transformedInput = ('' + viewValue).replace(/,/g,'.');
 
-                if (transformedInput != viewValue) {
+                if (transformedInput !== viewValue) {
                     ctrl.$setViewValue(transformedInput);
                     ctrl.$render();
                 }
