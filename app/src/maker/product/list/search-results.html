@@ -23,10 +23,28 @@
                     <i class="fa fa-edit"></i> Modifier
                 </div>
             </div>
-            <span ng-show="displayNewProducts" class="btn" ng-class="{'btn-success':gdsnOnly, 'btn-default':!gdsnOnly}" ng-click="toggleGdsnOnly(true)">
+            <span ng-show="displayNewProducts" class="btn"
+                  ng-class="{'btn-success': gtinModel.TYPE_GDSN.id == gtinRelatesToGln, 'btn-default': gtinModel.TYPE_GDSN.id != gtinRelatesToGln}"
+                  ng-click="toggleNewProductsFilter(gtinModel.TYPE_GDSN.id)"
+                  analytics-on="click" analytics-event="MAK Products NewProducts Filter GDSN">
               GDSN
             </span>
-            <span ng-show="displayNewProducts" class="btn" ng-class="{'btn-success':!gdsnOnly, 'btn-default':gdsnOnly}" ng-click="toggleGdsnOnly(false)">
+            <span ng-show="displayNewProducts" class="btn"
+                  ng-class="{'btn-success': gtinModel.TYPE_GEPIR.id == gtinRelatesToGln, 'btn-default': gtinModel.TYPE_GEPIR.id != gtinRelatesToGln}"
+                  ng-click="toggleNewProductsFilter(gtinModel.TYPE_GEPIR.id)"
+                  analytics-on="click" analytics-event="MAK Products NewProducts Filter Retailers">
+              Référencé par les distributeurs
+            </span>
+            <span ng-show="displayNewProducts" class="btn"
+                  ng-class="{'btn-success': gtinModel.TYPE_BRANDBANK.id == gtinRelatesToGln, 'btn-default': gtinModel.TYPE_BRANDBANK.id != gtinRelatesToGln}"
+                  ng-click="toggleNewProductsFilter(gtinModel.TYPE_BRANDBANK.id)"
+                  analytics-on="click" analytics-event="MAK Products NewProducts Filter Third Party">
+              Sources tierces
+            </span>
+            <span ng-show="displayNewProducts" class="btn"
+                  ng-class="{'btn-success': null == gtinRelatesToGln, 'btn-default': null != gtinRelatesToGln}"
+                  ng-click="toggleNewProductsFilter(null)"
+                  analytics-on="click" analytics-event="MAK Products NewProducts Filter All">
               Tout
             </span>
         </div>

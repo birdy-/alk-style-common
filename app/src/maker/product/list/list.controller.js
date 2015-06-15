@@ -17,6 +17,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     // ------------------------------------------------------------------------
     $scope.user = {};
     $scope.productModel = Product;
+    $scope.gtinModel = Gtin;
     $scope.request = $rootScope.navigation.maker.request;
     $scope.display = $rootScope.navigation.maker.display;
     $scope.products = $scope.request.products || [];
@@ -24,7 +25,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     $scope.brands = [];
     $scope.productsegments = [];
     $scope.displayNewProducts = false;
-    $scope.gdsnOnly = true;
+    $scope.gtinRelatesToGln = Gtin.TYPE_GDSN.id;
     $scope.newProductsLoaded = false;
     $scope.currentPage  = 1;
     $scope.newProductsCount = 0;
@@ -150,12 +151,12 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         refresh($scope.displayNewProducts);
     };
 
-    $scope.toggleGdsnOnly = function (only) {
-      if(only != $scope.gdsnOnly){
-        $scope.gdsnOnly = only;
-        refresh(true);
-      }
-    };
+    $scope.toggleNewProductsFilter = function (type){
+        if(type != $scope.gtinRelatesToGln){
+            $scope.gtinRelatesToGln = type;
+            refresh(true);
+        }
+    }
 
     var list = function () {
         if ($scope.displayNewProducts) {
@@ -178,8 +179,8 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
             productsegment_id: rootProductSegment.id,
             certified: Product.CERTIFICATION_STATUS_ATTRIBUTED.id
         };
-        if ($scope.gdsnOnly) {
-            filters.product_origin = Gtin.TYPE_GDSN.id;
+        if ($scope.gtinRelatesToGln) {
+            filters.product_origin = $scope.gtinRelatesToGln;
         }
         return find({}, filters);
     };
