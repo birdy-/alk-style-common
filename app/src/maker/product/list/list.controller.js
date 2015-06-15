@@ -151,9 +151,12 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         refresh($scope.displayNewProducts);
     };
 
-    $scope.toggleNewProductsFilter = function (type){
+    $scope.toggleNewProductsFilter = function (type) {
         if(type != $scope.gtinRelatesToGln){
-            $scope.gtinRelatesToGln = type;
+            $scope.gtinRelatesToGln = type ? type.id : null;
+            $analytics.eventTrack('MAK Products NewProducts Filter ', {
+              filterType: type ? type.name : 'All'
+            });
             refresh(true);
         }
     }
