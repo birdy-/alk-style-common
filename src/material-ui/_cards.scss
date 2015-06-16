@@ -1,0 +1,50 @@
+//
+// Cards
+// http://www.google.com/design/spec/components/cards.html#cards-usage
+//
+.card {
+  @extend .shadow-z-1;
+
+  border-radius: 2px;
+  margin-bottom: 20px; // Same as panel margins
+
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 100;
+    margin: 10px 0;
+  }
+
+  .card-body {
+    padding: 15px;
+  }
+
+  .card-actions {
+    padding: 15px;
+    text-transform: uppercase;
+    .main { font-weight: bold; }
+    a {
+      font-size: 15px;
+      margin: 0 15px 0 0;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+
+  }
+
+  img {
+    max-width:100%;
+    max-height:100%;
+  }
+
+  .card-footer {
+    padding: 15px;
+    border-top: 1px solid;
+    border-color: $lightgrey;
+
+    .icon {
+      font-size: 25px;
+      transition: ease transform 0.5s;
+      &:hover { text-decoration: none; transform: transform3d(0, 0, 0, -1px)}
+    }
+  }
+}

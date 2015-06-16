@@ -2,15 +2,9 @@
 $fa-font-path: "/bower_components/font-awesome/fonts";
 @import "font-awesome/scss/font-awesome";
 
-// Material design icons
-$mdi-font-path: "/bower_components/mdi/fonts";
-
-@import "mdi/scss/materialdesignicons.scss";
-
 // Bootstrap overriding
 @import "colors";
 @import "variables";
-@import "overrides";
 
 // Bootstrap
 @import "bootstrap-sass-official/assets/stylesheets/bootstrap";
@@ -19,21 +13,14 @@ $mdi-font-path: "/bower_components/mdi/fonts";
 
 // File import
 @import "navbar";
-@import "home";
 @import "buttons";
-@import "sidebar";
-@import "footer";
-@import "cgu";
 @import "upload";
 @import "address-bar";
 
 @import "user/login/login";
-@import "portlet";
-@import "tile";
-@import "metric";
-@import "placeholder";
 @import "browsehappy";
 
+@import "material-ui/main";
 @import "material-ui/fab";
 @import "material-ui/inputs";
 @import "material-ui/shadow";

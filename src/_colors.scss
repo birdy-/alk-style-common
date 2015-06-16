@@ -1,34 +1,30 @@
-// =================================================================================================
-//                                         VARIABLES
-// =================================================================================================
+//
+// Variables
+// --------------------------------------------------
 
-// Grays
-// -------------------------
 
-// $gray-darker:            lighten(#000, 13.5%) !default; // #222
-// $gray-dark:              lighten(#000, 20%) !default;   // #333
-// $gray:                   lighten(#000, 33.5%) !default; // #555
-// $gray-light:             lighten(#000, 60%) !default;   // #999
-// $gray-lighter:           lighten(#000, 93.5%) !default; // #eee
+//== Colors
+//
+//## Gray and brand colors for use across Bootstrap.
 
-$gray-darker:            #222222 !default; // #222
-$gray-dark:              #3c3c3b !default;   // #333
-$gray:                   #555555 !default; // #555
-$gray-light:             #b8b8b8 !default;   // #999
-$gray-lighter:           #ececec !default; // #eee
+$gray-base:              #000;
+$gray-darker:            #222222;
+$gray-dark:              #3C3C3B;
+$gray:                   #555555;
+$gray-light:             #B8B8B8;
+$gray-lighter:           #ECECEC;
 
-// Brand colors
-// -------------------------
-$brand-primary:         #3FA2B2 !default;
-$brand-secondary:       #166a83 !default;
-$brand-success:         #48b071 !default;
-$brand-warning:         #e64c42 !default;
-$brand-danger:          $brand-warning !default;
-$brand-default:         $gray-dark !default;
+$brand-primary:         #3FA2B2;
+$brand-success:         #48B071;
+$brand-info:            $gray-darker;
+$brand-default:         $gray-darker;
+$brand-warning:         #e64c42;
+$brand-danger:          #e64c42;
 
-// $brand-primary-80:      lighten($brand-primary, 20%);
-// $brand-primary-60:      lighten($brand-primary, 30%);
-// $brand-primary-40:      lighten($brand-primary, 40%);
+$brand-secondary:       #166a83;
+$brand-inprogress:      #C69C5D;
+$brand-highlight:       #FABF2D;
+$brand-highlight-secondary: #EF7E1D;
 
 $brand-primary-hover:   #3e8e9a;
 
