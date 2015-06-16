@@ -27,11 +27,13 @@ angular.module('jDashboardFluxApp').directive('templateProduct', [
                 /**
                  * Hackihs, to be refactored - Heineken inside
                  */
-                var mediaTabPermission = _.find(brand.permissions, function (permission) {
-                    return permission === 'product.show.media';
-                });
-                if (tabName !== 'media' && mediaTabPermission) {
-                    return false;
+                if (brand && brand.permissions) {
+                    var mediaTabPermission = _.find(brand.permissions, function (permission) {
+                        return permission === 'product.show.media';
+                    });
+                    if (tabName !== 'media' && mediaTabPermission) {
+                        return false;
+                    }
                 }
                 return true;
             };

@@ -361,12 +361,14 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         var brand = _.find($scope.user.managesBrand, function (brand) {
             return brand.id == brandId;
         });
-        var mediaTabPermission = _.find(brand.permissions, function (permission) {
-            return permission === 'product.show.media';
-        });
-        if (mediaTabPermission) {
-            $location.path('/maker/product/' + product.isIdentifiedBy[0].reference + '/data/media');
-            return;
+        if (brand && brand.permissions) {
+            var mediaTabPermission = _.find(brand.permissions, function (permission) {
+                return permission === 'product.show.media';
+            });
+            if (mediaTabPermission) {
+                $location.path('/maker/product/' + product.isIdentifiedBy[0].reference + '/data/media');
+                return;
+            }
         }
         $analytics.eventTrack('MAK Products Click Item');
         $location.path('/maker/product/' + product.isIdentifiedBy[0].reference + '/data/general');
