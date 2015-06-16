@@ -6,7 +6,7 @@ angular.module('jDashboardFluxApp').directive('noPaste', function () {
         link: function (scope, element) {
             element[0].onpaste = function (e) {
                 e.preventDefault();
-            }
+            };
         }
     };
 });

@@ -25,16 +25,16 @@
     <div class="row">
         <nav class="sidemenu navbar navbar-default" role="navigation">
             <ul class="nav navbar-nav">
-                <div alk-register-step="checkUserForm()">
+                <div alk-signup-step="checkUserForm()">
                     1. Je créée mon compte
                 </div>
-                <div alk-register-step="checkCompanyForm()">
+                <div alk-signup-step="checkCompanyForm()">
                     2. J'enregistre ma société
                 </div>
-                <div alk-register-step="checkEmailForm()">
+                <div alk-signup-step="checkEmailForm()">
                     3. Je confirme mon email
                 </div>
-                <div alk-register-step="'todo'">
+                <div alk-signup-step="'todo'">
                     4. Je remplis mon premier produit
                 </div>
                 <img class="preview-videowrapper" demo-video ng-click="openDemoVideo()" src="../images/home/demo-video-preview.png"/>
@@ -119,7 +119,7 @@
                             <input type="text" select ui-select2="select2OrganizationOptions" ng-model="existingCompany" style="width:100%" placeholder="ex : Alkemics"/>
                         </div>
                     </div>
-                    <div class="form-group" ng-class="checkCompanyFormField('companyIdentifierLegal')">
+                    <div class="form-group" ng-class="checkCompanyFormField('companyIdentifierLegal')" ng-show="!organizationGuessed">
                         <label class="col-sm-4 control-label">Son numéro de RCS</label>
                         <div class="col-sm-3">
                             <input type="text" name="companyIdentifierLegal" class="form-control" placeholder="535078190A" required="required"
@@ -131,12 +131,12 @@
                             <input type="text" name="companyIdentifierCity" class="form-control" ng-model="company.identifierCity" placeholder="Pontoise"/>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" ng-show="!organizationGuessed">
                         <div class="col-sm-offset-4 col-sm-8">
                             <span ng-show="companyForm.companyIdentifierLegal.$error.pattern" class="help-block">Ce champ doit contenir au moins 9 caractères. Seuls les nombres et lettres majuscules sont autorisées (pas d'espaces ni de symboles).</span>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group"  ng-show="!organizationGuessed">
                         <label class="col-sm-4 control-label">Ses GLNs</label>
                         <div class="col-sm-8">
                             <div class="input-group" ng-repeat="gln in company.claimGLNs track by $index" ng-class="checkCompanyFormField('companyGLN' + $index)">
@@ -155,13 +155,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group" ng-class="checkCompanyFormField('companyNameLegal')">
+                    <div class="form-group" ng-class="checkCompanyFormField('companyNameLegal')" ng-show="!organizationGuessed">
                         <label class="col-sm-4 control-label">Mon entreprise</label>
                         <div class="col-sm-8">
                             <input type="text" name="companyNameLegal" class="form-control" ng-model="company.nameLegal" placeholder="ex : Rik et Rok" ng-minlength="1" required/>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" ng-show="!organizationGuessed">
                         <div>
                             <label class="col-sm-4 control-label">Son adresse</label>
                             <div class="col-sm-8" ng-class="checkCompanyFormField('companyAddress')">
@@ -169,7 +169,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" ng-show="!organizationGuessed">
                         <div>
                             <div class="col-sm-2 col-sm-offset-4" ng-class="checkCompanyFormField('companyPostcode')">
                                 <input type="text" name="companyPostcode" class="form-control" ng-model="company.postCode" placeholder="ex : 75010" ng-minlength="1" required/>

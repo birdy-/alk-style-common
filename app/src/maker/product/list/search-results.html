@@ -1,7 +1,7 @@
 <div class="sheet">
     <br>
-    <div class="row well pagination-block" ng-hide="products.length == 0 || request.busy">
-        <div class="col-sm-4">
+    <div class="row well pagination-block" ng-hide="request.busy">
+        <div class="col-sm-5">
             <!-- We will add the multiple acceptation in the future -->
             <div ng-if="!displayNewProducts">
                 <label ng-if="display.type === 'preview'">
@@ -9,24 +9,42 @@
                     Tout sélectionner &nbsp;
                 </label>
                 <div class="btn btn-primary certify"
-                     ng-click="certificate()">
+                     ng-click="bulkAction('certificate')">
                     <i class="fa fa-certificate"></i> Certifier
                 </div>
+                <div class="btn btn-primary archive"
+                     ng-click="bulkAction('archive')">
+                    <i class="fa fa-archive"></i> Archiver
+                </div>
                 <div class="btn btn-primary edit"
-                     ng-click="bulkEdit()"
+                     ng-click="bulkAction('edit')"
                      analytics-on="click"
                      analytics-event="MAK Products Button Bulk Edit">
                     <i class="fa fa-edit"></i> Modifier
                 </div>
             </div>
-            <span ng-show="displayNewProducts" class="btn" ng-class="{'btn-primary':!gdsnOnly, 'btn-default':gdsnOnly}" ng-click="toggleGdsnOnly(false)">
-              Tout
-            </span>
-            <span ng-show="displayNewProducts" class="btn" ng-class="{'btn-primary':gdsnOnly, 'btn-default':!gdsnOnly}" ng-click="toggleGdsnOnly(true)">
+            <span ng-show="displayNewProducts" class="btn"
+                  ng-class="{'btn-success': gtinModel.TYPE_GDSN.id == gtinRelatesToGln, 'btn-default': gtinModel.TYPE_GDSN.id != gtinRelatesToGln}"
+                  ng-click="toggleNewProductsFilter(gtinModel.TYPE_GDSN)">
               GDSN
             </span>
+            <span ng-show="displayNewProducts" class="btn"
+                  ng-class="{'btn-success': gtinModel.TYPE_GEPIR.id == gtinRelatesToGln, 'btn-default': gtinModel.TYPE_GEPIR.id != gtinRelatesToGln}"
+                  ng-click="toggleNewProductsFilter(gtinModel.TYPE_GEPIR)">
+              Référencés par les distributeurs
+            </span>
+            <span ng-show="displayNewProducts" class="btn"
+                  ng-class="{'btn-success': gtinModel.TYPE_BRANDBANK.id == gtinRelatesToGln, 'btn-default': gtinModel.TYPE_BRANDBANK.id != gtinRelatesToGln}"
+                  ng-click="toggleNewProductsFilter(gtinModel.TYPE_BRANDBANK)">
+              Sources tierces
+            </span>
+            <span ng-show="displayNewProducts" class="btn"
+                  ng-class="{'btn-success': null == gtinRelatesToGln, 'btn-default': null != gtinRelatesToGln}"
+                  ng-click="toggleNewProductsFilter(null)">
+              Tout
+            </span>
         </div>
-        <div class="col-sm-8 text-right">
+        <div class="col-sm-7 text-right">
 
             <div alk-sdk-pagination
                     boundary-links="true"

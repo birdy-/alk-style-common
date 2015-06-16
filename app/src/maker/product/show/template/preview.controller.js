@@ -95,7 +95,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowPreview
 
         modalInstance.result.then(function (selectedItem) {
         }, function () {
-        });        
+        });
     };
 
     $scope.certify = function () {

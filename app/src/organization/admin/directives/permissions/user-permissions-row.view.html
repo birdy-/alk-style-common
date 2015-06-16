@@ -28,10 +28,21 @@
               Droits conférés
             </div>
         </div>
-        <div class="permissions col-xs-2">
-            <i class="mdi mdi-eye"
-               ng-class="{ 'active' : permissions[ProductSegment.PERMISSION_PRODUCT_SHOW] == true }"
-               ng-click="update(ProductSegment.PERMISSION_PRODUCT_SHOW)"
+        <div ng-if="user.isAdmin() === true" class="permissions col-xs-2">
+            <table class="admin-permissions">
+              <tr>
+                <td>
+                  <i class="mdi mdi-eye active"></i>
+                  <i class="mdi mdi-pencil active"></i>
+                  <i class="mdi mdi-check active"></i>                  
+                </td>
+              </tr>
+              <tr><td><span class="label label-success">Administrateur</span></td></tr>
+            </table>  
+        </div>
+        <div ng-if="user.isAdmin() === false" class="permissions col-xs-2">
+
+            <i class="mdi mdi-eye active"
                data-toggle="tooltip"
                data-placement="top"
                ng-attr-title="Voir les produits"

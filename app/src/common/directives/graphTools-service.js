@@ -1,7 +1,10 @@
 'use strict';
 
-angular.module('jDashboardFluxApp').service('$$graphTools',
+angular.module('jDashboardFluxApp')
+
+.service('$$graphTools',
     function service () {
+        var d3 = window.d3;
 
         var dateFilter = function () {
             return function (d) {

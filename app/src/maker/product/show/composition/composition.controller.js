@@ -23,26 +23,21 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductShowComposi
         });
     };
     $scope.check = function () {
-        checkComposition($scope.product.composition);
+        checkComposition($scope.product.composition + ' ' + $scope.product.allergens);
     };
 
-    var initComposition = $scope.$watch('product.composition', function(newValue, oldValue){
+    var initComposition = $scope.$watch('product.composition', function (newValue, oldValue){
         if (newValue !== undefined) {
             $scope.productForm.$setPristine();
             initComposition();
         }
     });
 
-    var initCompositionBr = $scope.$watch('product.composition', function(newValue, oldValue){
+    var initCompositionBr = $scope.$watch('product.composition', function (newValue, oldValue){
         if (newValue !== undefined && typeof oldValue === 'string') {
             $scope.product.composition = $scope.product.composition.replace(/#/g, '<br/>');
+            $scope.check();
             initCompositionBr();
         }
     });
-    // ------------------------------------------------------------------------
-    // Init
-    // ------------------------------------------------------------------------
-
-
-
 }]);

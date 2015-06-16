@@ -9,14 +9,15 @@
  * @return {[type]}               [description]
  */
 angular.module('jDashboardFluxApp').controller('DashboardMakerProductListController', [
-    '$rootScope', '$scope', '$$sdkCrud', '$$sdkAuth', 'permission', '$routeParams', '$$ORM', '$log', '$location', '$window', 'URL_CDN_MEDIA', '$modal', '$timeout', '$analytics',
-    function ($rootScope, $scope, $$sdkCrud, $$sdkAuth, permission, $routeParams, $$ORM, $log, $location, $window, URL_CDN_MEDIA, $modal, $timeout, $analytics) {
+    '$rootScope', '$scope', '$$sdkCrud', '$$sdkAuth', 'permission', '$routeParams', '$$ORM', '$log', '$location', '$window', 'URL_CDN_MEDIA', '$modal', '$timeout', '$analytics', '$q', 'ngToast',
+    function ($rootScope, $scope, $$sdkCrud, $$sdkAuth, permission, $routeParams, $$ORM, $log, $location, $window, URL_CDN_MEDIA, $modal, $timeout, $analytics, $q, ngToast) {
 
     // ------------------------------------------------------------------------
     // Variables
     // ------------------------------------------------------------------------
     $scope.user = {};
     $scope.productModel = Product;
+    $scope.gtinModel = Gtin;
     $scope.request = $rootScope.navigation.maker.request;
     $scope.display = $rootScope.navigation.maker.display;
     $scope.products = $scope.request.products || [];
@@ -24,7 +25,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
     $scope.brands = [];
     $scope.productsegments = [];
     $scope.displayNewProducts = false;
-    $scope.gdsnOnly = false;
+    $scope.gtinRelatesToGln = Gtin.TYPE_GDSN.id;
     $scope.newProductsLoaded = false;
     $scope.currentPage  = 1;
     $scope.newProductsCount = 0;
@@ -150,12 +151,15 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         refresh($scope.displayNewProducts);
     };
 
-    $scope.toggleGdsnOnly = function (only) {
-      if(only != $scope.gdsnOnly){
-        $scope.gdsnOnly = only;
-        refresh(true);
-      }
-    };
+    $scope.toggleNewProductsFilter = function (type) {
+        if(type != $scope.gtinRelatesToGln){
+            $scope.gtinRelatesToGln = type ? type.id : null;
+            $analytics.eventTrack('MAK Products NewProducts Filter ', {
+              filterType: type ? type.name : 'All'
+            });
+            refresh(true);
+        }
+    }
 
     var list = function () {
         if ($scope.displayNewProducts) {
@@ -178,8 +182,8 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
             productsegment_id: rootProductSegment.id,
             certified: Product.CERTIFICATION_STATUS_ATTRIBUTED.id
         };
-        if ($scope.gdsnOnly) {
-            filters.product_origin = Gtin.TYPE_GDSN.id;
+        if ($scope.gtinRelatesToGln) {
+            filters.product_origin = $scope.gtinRelatesToGln;
         }
         return find({}, filters);
     };
@@ -357,12 +361,14 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         var brand = _.find($scope.user.managesBrand, function (brand) {
             return brand.id == brandId;
         });
-        var mediaTabPermission = _.find(brand.permissions, function (permission) {
-            return permission === 'product.show.media';
-        });
-        if (mediaTabPermission) {
-            $location.path('/maker/product/' + product.isIdentifiedBy[0].reference + '/data/media');
-            return;
+        if (brand && brand.permissions) {
+            var mediaTabPermission = _.find(brand.permissions, function (permission) {
+                return permission === 'product.show.media';
+            });
+            if (mediaTabPermission) {
+                $location.path('/maker/product/' + product.isIdentifiedBy[0].reference + '/data/media');
+                return;
+            }
         }
         $analytics.eventTrack('MAK Products Click Item');
         $location.path('/maker/product/' + product.isIdentifiedBy[0].reference + '/data/general');
@@ -397,18 +403,7 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         return selectedProducts;
     };
 
-    $scope.certificate = function () {
-        var selectedProducts = filterSelectedProducts();
-
-        if (selectedProducts.length === 0) {
-            $window.alert('Veuillez selectionner au moins un produit.');
-            return;
-        }
-
-        $analytics.eventTrack('MAK Products Button Bulk Certify', {
-            count: selectedProducts.length
-        });
-
+    var bulkCertificate = function (selectedProducts) {
         var modalInstance = $modal.open({
             templateUrl: '/src/maker/product/certify/certification.html',
             controller: 'ProductCertificationModalController',
@@ -423,14 +418,58 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         });
     };
 
-    $scope.bulkEdit = function () {
-        var selectedProducts = filterSelectedProducts();
+    var bulkArchive = function (selectedProducts) {
+        var modalInstance = $modal.open({
+            templateUrl: '/src/maker/product/edit/bulk-edit-warning.html',
+            controller: 'ProductBulkEditWarningModalController',
+            resolve: {
+                products: function () { return selectedProducts; },
+                user: function () { return $scope.user; }
+            }
+        });
 
-        if (selectedProducts.length === 0) {
-            $window.alert('Veuillez selectionner au moins un produit.');
-            return;
-        }
+        modalInstance.result.then(function (selectedProducts) {
+            var allPromises = [];
+            var content = '';
+            for (var i = 0; i < selectedProducts.length; i++) {
+                var product = selectedProducts[i];
+                var productPromise = $q.defer();
+                allPromises.push(productPromise.promise);
 
+                product.certified = Product.CERTIFICATION_STATUS_DISCONTINUED.id;
+                $$sdkCrud.ProductCertify(
+                    product,
+                    product.certified,
+                    "1169"
+                ).success(function (response) {
+                    product.certified = response.data.certified;
+                    productPromise.resolve(response.data.certified);
+                }).error(function (response) {
+                    if (response.message !== 'undefined') {
+                        content = "Erreur pendant l'archivage du produit : " + response.message;
+                    }
+                    else {
+                        content = "Erreur pendant l'archivage du produit : " + response.data.message;
+                    }
+                    ngToast.create({
+                        className: 'danger',
+                        content: content,
+                        dismissOnTimeout: true,
+                        dismissButton: true
+                    });
+                    productPromise.resolve(response.message);
+                });
+            }
+
+            $q.all(allPromises)
+            .then(function (results) {
+                // $window.location.reload();
+            });
+        }, function () {
+        });
+    };
+
+    var bulkEdit = function (selectedProducts) {
         var modalInstance = $modal.open({
             templateUrl: '/src/maker/product/edit/bulk-edit-warning.html',
             controller: 'ProductBulkEditWarningModalController',
@@ -452,6 +491,34 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
         }, function () {
         });
     };
+
+    $scope.bulkAction = function (actionType) {
+        var selectedProducts = filterSelectedProducts();
+
+        if (selectedProducts.length === 0) {
+            $window.alert('Veuillez selectionner au moins un produit.');
+            return;
+        }
+
+        $analytics.eventTrack('MAK Products Button Bulk ' + actionType, {
+            count: selectedProducts.length
+        });
+
+        switch (actionType) {
+            case 'certificate':
+                bulkCertificate(selectedProducts);
+                break;
+            case 'archive':
+                bulkArchive(selectedProducts);
+                break;
+            case 'edit':
+                bulkEdit(selectedProducts);
+                break;
+            default:
+                $log.info('Invalid action type', actionType);
+        }
+    };
+
 
     $scope.$watch('display.allSelected', function () {
         $scope.products.map(function (product) {
@@ -494,29 +561,35 @@ angular.module('jDashboardFluxApp').controller('DashboardMakerProductListControl
 
             $$ORM.repository('Organization').get(organizationId).then(function (organization) {
                 var productSegmentRoot = Organization.getProductSegmentRoot(organization);
-                var userManageProductSegmentRoot = false;
-                for (var i in user.managesProductSegment) {
-                    if (user.managesProductSegment[i].id === productSegmentRoot.id) {
-                        userManageProductSegmentRoot = true;
-                        break;
-                    }
-                }
-                if (userManageProductSegmentRoot) {
+
+                if ($scope.isAdmin) {
                     $$ORM.repository('ProductSegment').get(productSegmentRoot.id).then(function (segment) {
-                      var filters = {
-                        certified: Product.CERTIFICATION_STATUS_ATTRIBUTED.id
-                      };
-                      // Getting the product list with new product-style filters, and limit of 0 (need count only)
-                      // Done to enforce the consistency of the count and the actual product list
-                      $$sdkCrud.ProductList({}, filters, {}, 0, 0, {}).success(function (response) {
-                        $scope.newProductsCount = response.totalResults;
-                        $scope.newProductsLoaded = true;
-                        rootProductSegment = segment;
-                        if ($rootScope.navigation.maker.displayNewProducts) {
-                          $scope.toggleNewProducts();
-                        }
-                      });
+                        var filters = {
+                            certified: Product.CERTIFICATION_STATUS_ATTRIBUTED.id
+                        };
+                        // Getting the product list with new product-style filters, and limit of 0 (need count only)
+                        // Done to enforce the consistency of the count and the actual product list
+                        $$sdkCrud.ProductList({}, filters, {}, 0, 0, {})
+                        .then(function (response) {
+                            $scope.newProductsCount = response.data.totalResults;
+                            rootProductSegment = segment;
+                            if ($rootScope.navigation.maker.displayNewProducts) {
+                                $scope.toggleNewProducts();
+                            }
+                            $scope.newProductsLoaded = true;
+                        }, function (response) {
+                            ngToast.create({
+                                className: 'danger',
+                                content: 'Erreur lors du chargement des nouvelles références :' + response.data.message,
+                                dismissOnTimeout: true,
+                                dismissButton: true
+                            });
+                        }).finally(function () {
+                            $scope.newProductsLoaded = true;
+                        });
                     });
+                } else {
+                    $scope.newProductsLoaded = true;
                 }
 
                 // Load product segments

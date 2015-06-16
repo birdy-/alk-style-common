@@ -784,3 +784,53 @@
     left: auto;
     right: -20px;
 }
+
+.product-datacompletion-chase-title {
+    color: #f00;
+}
+
+.product-datacompletion-attribution-title {
+    color: $brand-primary;
+}
+
+.product-datacompletion {
+    display: flex;
+    flex-wrap: wrap;
+    > .product-datacompletion-item {
+        display: inline-block;
+        position: relative;
+        vertical-align: top;
+        height: auto;
+        width: 190px;
+        text-align: center;
+        padding-bottom: 50px;
+        margin-bottom: 25px;
+
+        > .product-datacompletion-reference {
+            color: grey;
+            margin: 0;
+        }
+
+        > .product-datacompletion-button {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            > .btn-default {
+                color: $brand-primary;
+                border-color: $brand-primary;
+                &:hover {
+                  color: #fff;
+                  background: $brand-primary;
+                }
+            }
+        }
+
+        > h4 {
+            font-size: 12px;
+            font-weight: normal;
+        }
+
+    }
+
+}

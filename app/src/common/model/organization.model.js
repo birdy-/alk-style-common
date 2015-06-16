@@ -12,6 +12,7 @@ var Organization = function () {
 Organization._type = 'Organization';
 
 Organization.getProductSegmentRoot = function (organization) {
+    var _ = window._;
     return _.find(organization.ownsProductSegment, function (segment) {
         if (_.indexOf(segment.permissions, 'root') > -1) { return true;}
         return false;

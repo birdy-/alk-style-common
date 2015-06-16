@@ -56,10 +56,10 @@ var Campaign = function () {
         for (var key in json) {
             this[key] = json[key];
         }
-        this.endsAt = dateObjectFromUTC(json['endsAt']);
-        this.startsAt = dateObjectFromUTC(json['startsAt']);
-        this.createdAt = dateObjectFromUTC(json['createdAt']);
-        this.updatedAt = dateObjectFromUTC(json['updatedAt']);
+        this.endsAt = window.dateObjectFromUTC(json['endsAt']);
+        this.startsAt = window.dateObjectFromUTC(json['startsAt']);
+        this.createdAt = window.dateObjectFromUTC(json['createdAt']);
+        this.updatedAt = window.dateObjectFromUTC(json['updatedAt']);
         return this;
     };
 };
