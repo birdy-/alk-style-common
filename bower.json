@@ -56,6 +56,7 @@
     "handsontable": "~0.13.0",
     "angular-cookies": "~1.2.0",
     "moment": "2.9.0",
-    "angular-ui-select2": "afa6589a54cb72815fc70ae10f5320ffa782dfa9"
+    "angular-ui-select2": "afa6589a54cb72815fc70ae10f5320ffa782dfa9",
+    "jquery": "~1.10.2"
   }
 }
