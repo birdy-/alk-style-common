@@ -73,3 +73,34 @@ input[type="checkbox"].form-checkbox {
         }
     }
 }
+
+/** Input styles as item list with icon
+*  Usage:
+* <ul class="form-checkbox-list">
+*   <li><input type="checkbox" class="form-checkbox" id="myinput" /><label for="myinput">My label</label></li>
+*   <li><input type="checkbox" class="form-checkbox" id="myinput2" /><label for="myinput2">My label 2</label></li>
+* </ul>
+*
+*/
+
+ul.form-radio-list {
+    li {
+        > input {
+            display: none;
+        }
+        > label {
+            display: block;
+            font-size: $font-size-large;
+            font-weight: normal;
+            padding: 5px 25px;
+        }
+        > input:checked + label {
+            position: relative;
+            z-index: 1;
+            background: #f3ece1;
+            background: repeating-linear-gradient(to bottom right, #f3ece1, #f3ece1 33%, #e3ddd5 33%, #e3ddd5 66%, #f3ece1 66%, #f3ece1);
+            background-size: 3px 3px;
+            border: #e6d5ba 1px solid;
+        }
+    }
+}
