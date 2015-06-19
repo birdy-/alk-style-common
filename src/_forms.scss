@@ -1,0 +1,10 @@
+// Feedback states
+.has-success {
+  @include form-control-validation($state-success-bg, $state-success-text, $state-success-bg);
+}
+.has-warning {
+  @include form-control-validation($state-warning-bg, $state-warning-text, $state-warning-bg);
+}
+.has-error {
+  @include form-control-validation($state-danger-bg, $state-danger-text, $state-danger-bg);
+}
